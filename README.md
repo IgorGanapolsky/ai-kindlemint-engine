@@ -1,6 +1,9 @@
-## 🔁 Deployment Status
+# 📘 AI Kindlemint Engine
 
 [![Deploy Lambda](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/deploy.yml/badge.svg)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/deploy.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
+[![Python Version](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/)
+[![Slack](https://img.shields.io/badge/slack-channel-blue?logo=slack)](https://hooks.slack.com/services/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)
 
 🚀 Vision
 
