@@ -5,7 +5,7 @@ description = "Add your description here"
 requires-python = ">=3.11"
 dependencies = [
     "boto3>=1.38.35",
-    "flask==3.1.0",
+    "flask==3.1.1",
     "google-auth>=2.40.3",
     "google-generativeai>=0.8.5",
     "gspread>=6.2.1",
