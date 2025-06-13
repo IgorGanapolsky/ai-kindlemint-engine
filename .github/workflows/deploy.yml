@@ -2,12 +2,8 @@ name: Deploy Lambda Function
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - "lambda/**"
-      - "scripts/deploy_lambda.py"
-      - ".github/workflows/deploy.yml"
+    branches: [ main ]  # run on every push to main
+  workflow_dispatch: {}
 
 jobs:
   deploy:
