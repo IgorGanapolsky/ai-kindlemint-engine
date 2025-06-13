@@ -1,0 +1,44 @@
+AI KindleMint Engine - Commercial License Agreement
+
+Copyright (c) 2025 AI KindleMint Engine
+
+COMMERCIAL SOFTWARE LICENSE
+
+This AI KindleMint Engine software is provided under the following terms:
+
+1. GRANT OF LICENSE
+   You are granted a non-exclusive, non-transferable license to use this software
+   for commercial purposes, including but not limited to:
+   - Creating and publishing books for profit
+   - Generating marketing content for business use
+   - Automating content creation workflows
+   - Integrating with external publishing platforms
+
+2. PERMITTED USES
+   - Create unlimited books and content for commercial distribution
+   - Modify and customize the software for your business needs
+   - Use generated content for Amazon KDP and other publishing platforms
+   - Integrate with your existing business workflows and systems
+
+3. RESTRICTIONS
+   - You may not redistribute, resell, or sublicense this software
+   - You may not reverse engineer or attempt to extract source algorithms
+   - You must maintain all copyright notices and attribution
+   - You are responsible for compliance with platform terms (Amazon KDP, etc.)
+
+4. API USAGE
+   - You are responsible for your own API keys and usage costs
+   - This includes OpenAI, Google Gemini, and other external services
+   - No API costs are included with this software license
+
+5. DISCLAIMER OF WARRANTY
+   This software is provided "AS IS" without warranty of any kind.
+   The authors are not liable for any damages arising from its use.
+
+6. SUPPORT
+   Basic documentation and setup instructions are provided.
+   No ongoing technical support is guaranteed.
+
+For questions about this license, contact the software provider.
+
+Last updated: June 2025
