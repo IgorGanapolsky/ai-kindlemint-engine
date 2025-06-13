@@ -329,3 +329,10 @@ layer*.zip
 build/
 output/
 
+# Ignore virtual environment
+venv/
+build/
+lambda_code.zip
+lambda_deploy.zip
+layer.zip
+layers/*.zip
