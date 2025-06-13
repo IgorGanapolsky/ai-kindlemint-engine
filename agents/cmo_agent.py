@@ -25,22 +25,25 @@ class CMOAgent:
         self.logger.log_agent_start("CMO", f"Generating marketing content for '{topic}'")
         
         try:
-            # Generate marketing strategy
-            self.logger.info("📊 Generating marketing strategy...")
-            strategy = self._generate_marketing_strategy(topic)
+            # Generate marketing assets (sales copy & personas)
+            self.logger.info("📊 Generating sales copy & personas...")
+            marketing_assets = self._generate_marketing_strategy(topic)
+            
+            # Convert assets to string summary for downstream prompts
+            strategy_summary = json.dumps(marketing_assets, ensure_ascii=False, indent=2)
             
             # Generate blog posts
             self.logger.info("📝 Generating blog posts...")
-            blog_posts = self._generate_blog_posts(topic, strategy)
+            blog_posts = self._generate_blog_posts(topic, strategy_summary)
             
             # Generate social media content
             self.logger.info("📱 Generating social media content...")
-            social_posts = self._generate_social_media_content(topic, strategy)
+            social_posts = self._generate_social_media_content(topic, strategy_summary)
             
             # Compile marketing content
             content = {
                 'topic': topic,
-                'strategy': strategy,
+                'strategy': marketing_assets,
                 'blog_posts': blog_posts,
                 'social_posts': social_posts,
                 'metadata': {
@@ -76,25 +79,35 @@ class CMOAgent:
                 'duration': time.time() - start_time
             }
     
-    def _generate_marketing_strategy(self, topic: str) -> str:
-        """Generate comprehensive marketing strategy"""
-        prompt = f"""
-        Create a comprehensive marketing strategy for the children's book "{topic}".
-        
-        Include the following sections:
-        1. Target Audience Analysis
-        2. Key Marketing Messages
-        3. Content Marketing Approach
-        4. Social Media Strategy
-        5. Launch Timeline
-        6. Success Metrics
-        7. Budget Considerations
-        8. Partnership Opportunities
-        
-        Make it practical and actionable for a children's book launch.
+    def _generate_marketing_strategy(self, topic: str) -> dict:
+        """Generate compelling sales copy & personas for KDP page.
+
+        The Gemini model is instructed to return **JSON only** with the following
+        structure::
+
+            {
+              "one_liner": "<15-word hook>",
+              "about_book": "Longer description ~150-200 words",
+              "target_personas": ["Persona 1", "Persona 2", "Persona 3"]
+            }
+
+        This aligns with our "Publication Sells for You" module so the returned
+        value can be pasted directly into KDP and reused by downstream agents.
         """
-        
-        return self._make_gemini_request(prompt, "marketing strategy", json_response=False)
+        prompt = f"""
+        You are an elite children's-book CMO.
+        Your job: craft high-impact sales copy for a new book titled "{topic}" that
+        will appear on an Amazon KDP listing.
+
+        Return ONLY valid JSON with the keys below and nothing else (no markdown):
+        1. one_liner – a punchy, emotional hook in ≤15 words.
+        2. about_book – persuasive paragraph (150-200 words) that explains what
+           makes the book special and why it matters.
+        3. target_personas – an array of three brief reader personas (each ≤25 words)
+           describing the ideal customer.
+        """
+
+        return self._make_gemini_request(prompt, "sales_copy", json_response=True)
     
     def _generate_blog_posts(self, topic: str, strategy: str) -> List[str]:
         """Generate blog posts for content marketing"""

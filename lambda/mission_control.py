@@ -30,14 +30,30 @@ import config
 class MissionControl:
     """Main Mission Control coordinator"""
     
+    VALIDATION_PERSONA = (
+        "You are a tech-savvy parent of an 8-year-old who loves science fiction and "
+        "puzzles. You want entertaining yet educational content that will keep your "
+        "child engaged on long car rides. You have purchased Kindle books before, "
+        "but you are selective and read reviews carefully."
+    )
+    
     def __init__(self):
         self.logger = MissionLogger("MissionControl")
         self.cto = CTOAgent()
         self.cmo = CMOAgent()
         self.cfo = CFOAgent()
+        
+        # Cache validation model (Gemini) so we don't re-init each call
+        import google.generativeai as genai
+        genai.configure(api_key=config.GEMINI_API_KEY)
+        self._validation_model = genai.GenerativeModel(config.GEMINI_MODEL)
     
     def execute_full_mission(self, book_topic: str) -> Dict[str, Any]:
-        """Execute complete mission with all agents"""
+        """Execute complete mission with all agents.
+
+        A synthetic market-research check is run first. If the target persona is not
+        interested, we abort to save time and cost.
+        """
         mission_start = time.time()
         self.logger.info("=" * 60)
         self.logger.info("🚀 MISSION CONTROL ACTIVATED")
@@ -53,6 +69,18 @@ class MissionControl:
         }
         
         try:
+            # Market validation phase
+            self.logger.info("\n🧐 MARKET VALIDATION")
+            self.logger.info("-" * 40)
+            validation_passed, validation_reason = self.run_market_validation(book_topic)
+            results['market_validation'] = {
+                'passed': validation_passed,
+                'reason': validation_reason
+            }
+            if not validation_passed:
+                self.logger.warning("❌ Market validation failed – skipping content generation to save tokens")
+                return results
+            
             # Phase 1: CTO - Content Creation
             self.logger.info("\n🎯 PHASE 1: CONTENT CREATION (CTO)")
             self.logger.info("-" * 40)
@@ -195,6 +223,33 @@ class MissionControl:
         
         return count
     
+    def run_market_validation(self, topic: str) -> (bool, str):
+        """Simulate target customer to validate book idea.
+
+        Returns:
+            Tuple[bool, str] – (is_interested, reasoning)
+        """
+        prompt = (
+            f"{self.VALIDATION_PERSONA}\n\nYou have been shown the title '{topic}'. "
+            "Based on your needs and preferences, would you purchase this book? "
+            "Answer YES or NO, then explain in 1-2 sentences why. Return JSON:\n" 
+            "{\n  \"interested\": <true|false>,\n  \"reason\": \"<short explanation>\"\n}"
+        )
+        try:
+            response = self._validation_model.generate_content(prompt)
+            content = response.text.strip()
+            if content.startswith('```'):
+                # remove fenced blocks
+                lines = content.split('\n')
+                lines = [l for l in lines if not l.strip().startswith('```')]
+                content = '\n'.join(lines).strip()
+            import json
+            data = json.loads(content)
+            return bool(data.get('interested')), data.get('reason', '')
+        except Exception as e:
+            self.logger.warning(f"Market validation failed to parse response – assuming pass: {e}")
+            return True, "Validation error – bypassed"
+
     def _print_mission_summary(self, results: Dict[str, Any]):
         """Print detailed mission summary"""
         print("\n" + "🎯 MISSION SUMMARY" + "\n" + "=" * 50)

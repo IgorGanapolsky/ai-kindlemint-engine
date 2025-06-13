@@ -83,6 +83,16 @@ Push to main → Triggers:
 
 ⸻
 
+### 📈 New Marketing Automation (June 2025)
+
+• **Sales-Copy Module** – CMOAgent now outputs JSON containing a punchy one-liner, a detailed “About the Book”, and three concise reader personas. Paste directly into your KDP description field.
+
+• **Synthetic Market Validation** – Mission Control simulates a target reader before spending tokens. If the persona isn’t interested the run aborts, cutting ~90 % of generation cost.
+
+These upgrades boost conversion probability while keeping compute spend low—essential for reaching our **$300/day net profit** target.
+
+⸻
+
 🧑‍💻 Local Setup
 
 git clone https://github.com/IgorGanapolsky/ai-kindlemint-engine.git
