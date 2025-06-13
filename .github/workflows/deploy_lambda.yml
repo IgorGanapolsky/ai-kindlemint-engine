@@ -1,0 +1,54 @@
+name: 🚀 Deploy Lambda Function
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'lambda_code/**'
+      - 'lambda/lambda_function.py'
+      - 'layers/**'
+      - '.github/workflows/deploy_lambda.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: ⬇️ Checkout Repo
+      uses: actions/checkout@v4
+
+    - name: 🪄 Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: 🔐 Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-2
+
+    - name: 📦 Rebuild Lambda Layer Zips
+      run: |
+        bash layers/build_layers.sh
+
+    - name: 🧳 Zip Lambda Code
+      run: |
+        cd lambda_code
+        zip -r ../lambda_deploy.zip .
+        cd ..
+
+    - name: ☁️ Upload to S3
+      run: |
+        aws s3 cp lambda_deploy.zip s3://kindlemint-books/lambda_code.zip
+        aws s3 cp layers/layer_boto3.zip s3://kindlemint-books/layer_boto3.zip
+        aws s3 cp layers/layer_openai.zip s3://kindlemint-books/layer_openai.zip
+        aws s3 cp layers/layer_deps.zip s3://kindlemint-books/layer_deps.zip
+
+    - name: 🚀 Deploy Lambda from S3
+      run: |
+        aws lambda update-function-code \
+          --function-name kindlemintEngineFn \
+          --s3-bucket kindlemint-books \
+          --s3-key lambda_code.zip
