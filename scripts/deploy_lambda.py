@@ -7,7 +7,18 @@ ZIP_FILE_NAME = 'lambda_deploy.zip'
 LAYER_ARN = 'arn:aws:lambda:us-east-1:<your-account-id>:layer:kindlemintLayer:1'  # Replace this below
 S3_KEY = 'lambda_code.zip'
 
-session = boto3.Session(profile_name="kindlemint-keys")
+import os
+import botocore.exceptions
+
+# Prefer named profile for local runs; fall back to explicit credentials in CI
+try:
+    session = boto3.Session(profile_name="kindlemint-keys")
+except botocore.exceptions.ProfileNotFound:
+    session = boto3.Session(
+        aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+        region_name=os.getenv("AWS_REGION", "us-east-1"),
+    )
 s3 = session.client('s3')
 lambda_client = session.client('lambda')
 
