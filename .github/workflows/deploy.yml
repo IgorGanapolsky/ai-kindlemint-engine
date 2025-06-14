@@ -41,17 +41,15 @@ jobs:
       - name: Notify Slack – Success
         if: success()
         run: |
-          curl -X POST -H 'Content-type: application/json' \
-            --data '{"text":"✅ Lambda deployment succeeded on GitHub Actions."}' \
-            $SLACK_WEBHOOK_URL
+          echo '{"text":"✅ Lambda deployment succeeded on GitHub Actions."}' | \
+            curl -X POST -H 'Content-type: application/json' -d @- $SLACK_WEBHOOK_URL -w "HTTP %{http_code}\n"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify Slack – Failure
         if: failure()
         run: |
-          curl -X POST -H 'Content-type: application/json' \
-            --data '{"text":"❌ Lambda deployment FAILED on GitHub Actions. Investigate immediately."}' \
-            $SLACK_WEBHOOK_URL
+          echo '{"text":"❌ Lambda deployment FAILED on GitHub Actions. Investigate immediately."}' | \
+            curl -X POST -H 'Content-type: application/json' -d @- $SLACK_WEBHOOK_URL -w "HTTP %{http_code}\n"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
