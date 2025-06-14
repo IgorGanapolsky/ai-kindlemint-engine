@@ -26,9 +26,9 @@ jobs:
 
       - name: Package Lambda code
         run: |
-          cd lambda_package/lambda
-          zip -r ../../lambda_deploy.zip .
-          ls -lh ../../lambda_deploy.zip
+          cd lambda
+          zip -r ../lambda_deploy.zip .
+          ls -lh ../lambda_deploy.zip
 
       - name: Run deployment script
         env:
