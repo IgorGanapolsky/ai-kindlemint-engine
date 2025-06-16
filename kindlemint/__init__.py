@@ -27,7 +27,7 @@ def setup_logging():
     )
     return logging.getLogger(__name__)
 
-logger = setup_logger()
+logger = setup_logging()
 
 # Import core components
 from .core.book import Book

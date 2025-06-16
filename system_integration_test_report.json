@@ -1,0 +1,48 @@
+{
+  "test_timestamp": "2025-06-16T19:17:30.679884+00:00",
+  "test_duration_seconds": 0.427314,
+  "overall_status": "OPERATIONAL",
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "skipped": 4,
+    "total": 7
+  },
+  "detailed_results": {
+    "memory_system": {
+      "status": "PASS",
+      "connectivity": true,
+      "store_operation": true,
+      "retrieve_operation": true,
+      "niche_analysis": true
+    },
+    "cto_agent": {
+      "status": "SKIP",
+      "reason": "No OpenAI API key"
+    },
+    "market_validation": {
+      "status": "SKIP",
+      "reason": "No OpenAI API key"
+    },
+    "cmo_agent": {
+      "status": "SKIP",
+      "reason": "No OpenAI API key"
+    },
+    "content_generation": {
+      "status": "SKIP",
+      "reason": "No OpenAI API key"
+    },
+    "asset_packaging": {
+      "status": "PASS",
+      "all_files_created": true,
+      "structure_valid": true
+    },
+    "integration_flow": {
+      "status": "PASS",
+      "all_systems_operational": true,
+      "passed_tests": 2,
+      "total_tests": 2
+    }
+  },
+  "system_readiness": true
+}
