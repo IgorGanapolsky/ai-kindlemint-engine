@@ -34,7 +34,11 @@
       "Bash(aws dynamodb describe-table:*)",
       "Bash(git add:*)",
       "Bash(chmod:*)",
-      "Bash(python tests:*)"
+      "Bash(python tests:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)"
     ],
     "deny": []
   }
