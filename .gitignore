@@ -176,3 +176,23 @@ local_settings.py
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# KindleMint specific
+secrets/*.json
+*.kpf
+*.epub
+*.mobi
+*.pdf
+lambda_deploy.zip
+output/
+temp/
+generated_books/
+covers/
+manuscripts/
+assets/generated/
+
+# AWS and deployment
+.aws/
+*.pem
+*.key
+cloudformation-*.json
