@@ -23,15 +23,6 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref S3BucketName
-      NotificationConfiguration:
-        LambdaConfigurations:
-          - Event: s3:ObjectCreated:*
-            Function: !GetAtt KDPReportIngestorFunction.Arn
-            Filter:
-              S3Key:
-                Rules:
-                  - Name: suffix
-                    Value: .csv
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
@@ -74,8 +65,8 @@ Resources:
                   - s3:GetObject
                   - s3:ListBucket
                 Resource:
-                  - !Sub '${KDPReportsBucket}/*'
-                  - !Ref KDPReportsBucket
+                  - !Sub 'arn:aws:s3:::${KDPReportsBucket}/*'
+                  - !Sub 'arn:aws:s3:::${KDPReportsBucket}'
 
   # Lambda Function
   KDPReportIngestorFunction:
@@ -138,7 +129,7 @@ Resources:
   KDPIngestorLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Sub '/aws/lambda/${KDPReportIngestorFunction}'
+      LogGroupName: '/aws/lambda/KDP-Report-Ingestor'
       RetentionInDays: 30
 
 Outputs:
