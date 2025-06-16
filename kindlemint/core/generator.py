@@ -4,7 +4,7 @@ import os
 import json
 import uuid
 from typing import List, Dict, Optional, Union
-import openai
+from openai import OpenAI
 from pathlib import Path
 
 from ..utils.text_processing import clean_text
@@ -42,7 +42,7 @@ class ContentGenerator:
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.enable_memory = enable_memory
-        openai.api_key = self.api_key
+        self.client = OpenAI(api_key=self.api_key)
         
         # Initialize memory system if enabled
         if self.enable_memory:
@@ -76,7 +76,7 @@ class ContentGenerator:
         prompt = self._build_chapter_prompt(title, outline, style, word_count)
         
         try:
-            response = openai.ChatCompletion.create(
+            response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=self.temperature,
