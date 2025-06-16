@@ -2,11 +2,13 @@
 import logging
 import os
 import json
+import uuid
 from typing import List, Dict, Optional, Union
 import openai
 from pathlib import Path
 
 from ..utils.text_processing import clean_text
+from ..memory import KDPMemory
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +21,7 @@ class ContentGenerator:
         model: str = "gpt-4",
         temperature: float = 0.7,
         max_tokens: int = 2000,
+        enable_memory: bool = True,
     ):
         """Initialize the content generator.
         
@@ -27,6 +30,7 @@ class ContentGenerator:
             model: The OpenAI model to use for generation.
             temperature: Controls randomness in generation (0-1).
             max_tokens: Maximum number of tokens to generate per request.
+            enable_memory: Whether to use memory-driven topic selection.
         """
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
         if not self.api_key:
@@ -37,7 +41,17 @@ class ContentGenerator:
         self.model = model
         self.temperature = temperature
         self.max_tokens = max_tokens
+        self.enable_memory = enable_memory
         openai.api_key = self.api_key
+        
+        # Initialize memory system if enabled
+        if self.enable_memory:
+            try:
+                self.memory = KDPMemory()
+                logger.info("Memory-driven publishing enabled")
+            except Exception as e:
+                logger.warning(f"Failed to initialize memory system: {e}")
+                self.enable_memory = False
     
     def generate_chapter(
         self,
@@ -181,6 +195,105 @@ class ContentGenerator:
         )
         
         return prompt
+    
+    def generate_profitable_book_topic(self, fallback_niche: Optional[str] = None) -> Dict[str, str]:
+        """Generate a book topic based on memory-driven analysis of profitable niches.
+        
+        Args:
+            fallback_niche: Niche to use if memory system is unavailable
+            
+        Returns:
+            Dict with 'topic', 'niche', 'book_id', and 'reasoning' keys
+        """
+        book_id = str(uuid.uuid4())
+        
+        if self.enable_memory and hasattr(self, 'memory'):
+            try:
+                # Get top performing niches from memory
+                top_niches = self.memory.get_top_performing_niches(limit=3)
+                
+                if top_niches:
+                    # Use the most profitable niche
+                    target_niche = top_niches[0]['niche']
+                    niche_performance = top_niches[0]['average_roi']
+                    logger.info(f"Targeting profitable niche: {target_niche} (ROI: {niche_performance:.2f})")
+                else:
+                    # No historical data, use fallback or generate new niche
+                    target_niche = fallback_niche or self._generate_trending_niche()
+                    logger.info(f"No historical data, using niche: {target_niche}")
+            except Exception as e:
+                logger.warning(f"Memory system error, using fallback: {e}")
+                target_niche = fallback_niche or "productivity"
+        else:
+            target_niche = fallback_niche or "productivity"
+        
+        # Generate topic within the profitable niche
+        topic_prompt = (
+            f"Generate a compelling book topic in the '{target_niche}' niche that would appeal to "
+            f"a broad audience and have strong sales potential on Amazon KDP. "
+            f"The topic should be:\n"
+            f"1. Specific enough to be actionable\n"
+            f"2. Broad enough to have market appeal\n"
+            f"3. Trending or evergreen in nature\n"
+            f"4. Suitable for a 150-200 page book\n\n"
+            f"Respond with just the book title/topic, nothing else."
+        )
+        
+        try:
+            response = openai.ChatCompletion.create(
+                model=self.model,
+                messages=[{"role": "user", "content": topic_prompt}],
+                temperature=0.8,
+                max_tokens=100
+            )
+            
+            topic = response.choices[0].message.content.strip().strip('"')
+            
+            # Store the new book record in memory
+            if self.enable_memory and hasattr(self, 'memory'):
+                try:
+                    self.memory.store_book_record(
+                        book_id=book_id,
+                        topic=topic,
+                        niche=target_niche,
+                        metadata={'generation_method': 'memory_driven'}
+                    )
+                    logger.info(f"Stored new book record: {book_id}")
+                except Exception as e:
+                    logger.warning(f"Failed to store book record: {e}")
+            
+            return {
+                'book_id': book_id,
+                'topic': topic,
+                'niche': target_niche,
+                'reasoning': f"Selected based on niche performance analysis"
+            }
+            
+        except Exception as e:
+            logger.error(f"Error generating profitable topic: {str(e)}")
+            raise
+    
+    def _generate_trending_niche(self) -> str:
+        """Generate a trending niche when no historical data is available."""
+        niche_prompt = (
+            "List 5 trending and profitable book niches for Amazon KDP publishing in 2025. "
+            "Focus on evergreen topics with broad appeal. "
+            "Respond with just one niche name that has the highest profit potential."
+        )
+        
+        try:
+            response = openai.ChatCompletion.create(
+                model=self.model,
+                messages=[{"role": "user", "content": niche_prompt}],
+                temperature=0.7,
+                max_tokens=50
+            )
+            
+            return response.choices[0].message.content.strip().lower()
+            
+        except Exception as e:
+            logger.warning(f"Failed to generate trending niche: {e}")
+            return "personal development"
     
     def generate_cover_prompt(
         self,
