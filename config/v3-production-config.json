@@ -1,0 +1,258 @@
+{
+  "version": "3.0",
+  "deployment_name": "kindlemint-v3-zero-touch-engine",
+  "description": "Complete autonomous publishing and marketing automation system",
+  
+  "v3_publishing_engine": {
+    "infrastructure": {
+      "aws_region": "us-east-1",
+      "vpc_configuration": {
+        "enable_vpc": true,
+        "enable_nat_gateway": false,
+        "availability_zones": 2
+      },
+      "ecs_configuration": {
+        "cluster_name": "kindlemint-v3-cluster",
+        "task_cpu": 2048,
+        "task_memory": 4096,
+        "enable_health_checks": true
+      },
+      "lambda_configuration": {
+        "runtime": "python3.11",
+        "timeout": 900,
+        "memory_size": 1024,
+        "environment_variables": {
+          "PYTHONPATH": "/app",
+          "PLAYWRIGHT_BROWSERS_PATH": "/ms-playwright"
+        }
+      }
+    },
+    
+    "content_generation": {
+      "openai_settings": {
+        "model": "gpt-4",
+        "temperature": 0.7,
+        "max_tokens": 2000
+      },
+      "book_specifications": {
+        "default_chapter_count": 8,
+        "target_word_count_per_chapter": 1500,
+        "total_target_words": 12000,
+        "manuscript_format": "professional_docx"
+      },
+      "cover_generation": {
+        "service": "dall-e-3",
+        "options_to_generate": 3,
+        "quality": "hd",
+        "style": "natural",
+        "target_dimensions": {
+          "width": 1800,
+          "height": 2700,
+          "dpi": 300
+        }
+      }
+    },
+    
+    "market_validation": {
+      "enable_validation": true,
+      "minimum_score": 60,
+      "ai_personas": [
+        "productivity_professional",
+        "business_entrepreneur", 
+        "self_help_enthusiast",
+        "finance_investor"
+      ],
+      "abort_on_low_score": true
+    },
+    
+    "memory_system": {
+      "dynamodb_table": "KDP_Business_Memory",
+      "enable_learning": true,
+      "roi_calculation": true,
+      "niche_analysis": true,
+      "top_niches_limit": 5
+    }
+  },
+  
+  "autonomous_promotion_pipeline": {
+    "social_media_automation": {
+      "enabled": true,
+      "platforms": {
+        "twitter": {
+          "enabled": true,
+          "character_limit": 280,
+          "hashtag_limit": 10
+        },
+        "facebook": {
+          "enabled": true,
+          "character_limit": 2000,
+          "hashtag_limit": 15
+        },
+        "instagram": {
+          "enabled": true,
+          "character_limit": 2200,
+          "hashtag_limit": 30
+        }
+      },
+      "campaign_settings": {
+        "posts_per_book": 10,
+        "campaign_duration_days": 7,
+        "post_interval_hours": 16.8,
+        "content_variation_types": [
+          "question",
+          "benefit", 
+          "curiosity",
+          "social_proof",
+          "urgency"
+        ]
+      }
+    },
+    
+    "amazon_advertising": {
+      "enabled": true,
+      "auto_campaigns": {
+        "create_on_publication": true,
+        "daily_budget": 10.0,
+        "default_bid": 0.35,
+        "targeting_type": "auto"
+      },
+      "manual_campaigns": {
+        "create_on_publication": true,
+        "daily_budget": 15.0,
+        "starter_keywords_per_genre": {
+          "productivity": [
+            "productivity book",
+            "time management", 
+            "success strategies",
+            "efficiency guide",
+            "personal development"
+          ],
+          "finance": [
+            "money management",
+            "financial planning",
+            "investing guide", 
+            "wealth building",
+            "personal finance"
+          ],
+          "health": [
+            "health guide",
+            "wellness book",
+            "fitness guide",
+            "healthy living",
+            "nutrition book"
+          ]
+        }
+      },
+      "optimization_rules": {
+        "kill_losers": {
+          "max_clicks_no_sales": 15,
+          "action": "pause_keyword"
+        },
+        "control_bleeding": {
+          "high_acos_threshold": 50.0,
+          "bid_decrease_percentage": 20.0
+        },
+        "scale_winners": {
+          "low_acos_threshold": 20.0,
+          "min_sales_for_boost": 2,
+          "bid_increase_percentage": 15.0
+        },
+        "harvest_winners": {
+          "min_orders_to_harvest": 1,
+          "auto_add_to_manual": true
+        }
+      }
+    },
+    
+    "promotional_pricing": {
+      "enabled": true,
+      "pricing_strategy": {
+        "promotional_price": 0.99,
+        "standard_price": 3.99,
+        "promotion_duration_days": 7,
+        "auto_revert": true
+      },
+      "kdp_promotions": {
+        "attempt_countdown_deal": true,
+        "attempt_free_promotion": false,
+        "promotion_duration_days": 5
+      }
+    },
+    
+    "daily_optimization": {
+      "enabled": true,
+      "schedule": "cron(0 9 * * ? *)",
+      "analysis_window_days": 3,
+      "reporting": {
+        "slack_notifications": true,
+        "detailed_reports": true,
+        "performance_metrics": true
+      }
+    }
+  },
+  
+  "monitoring_and_observability": {
+    "cloudwatch": {
+      "enable_logs": true,
+      "log_retention_days": 14,
+      "enable_metrics": true,
+      "create_dashboard": true,
+      "alarms": {
+        "lambda_errors": true,
+        "fargate_failures": true,
+        "high_costs": true
+      }
+    },
+    "slack_notifications": {
+      "enabled": true,
+      "channels": {
+        "alerts": "#kindlemint-alerts",
+        "reports": "#kindlemint-reports"
+      },
+      "notification_types": {
+        "publication_success": true,
+        "promotion_activation": true,
+        "optimization_reports": true,
+        "errors_and_failures": true,
+        "revenue_milestones": true
+      }
+    }
+  },
+  
+  "security_and_compliance": {
+    "secrets_management": {
+      "use_aws_secrets_manager": true,
+      "rotate_credentials": false,
+      "encrypt_at_rest": true
+    },
+    "network_security": {
+      "vpc_isolation": true,
+      "security_groups_restrictive": true,
+      "no_public_ips": true
+    },
+    "access_control": {
+      "iam_least_privilege": true,
+      "no_hardcoded_credentials": true,
+      "audit_logging": true
+    }
+  },
+  
+  "operational_settings": {
+    "deployment": {
+      "environment": "production",
+      "region": "us-east-1",
+      "availability_zones": ["us-east-1a", "us-east-1b"],
+      "backup_enabled": true
+    },
+    "scaling": {
+      "max_concurrent_books": 1,
+      "max_daily_books": 1,
+      "enable_auto_scaling": false
+    },
+    "cost_management": {
+      "daily_budget_limit": 50.0,
+      "enable_cost_alerts": true,
+      "optimize_for_cost": true
+    }
+  }
+}
