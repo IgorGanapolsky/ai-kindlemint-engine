@@ -11,14 +11,28 @@ AWS_REGION="${AWS_REGION:-us-east-1}"
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 ECR_REPOSITORY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${PROJECT_NAME}-kdp-publisher"
 
+# Load environment variables from .env file
+if [ -f "../.env" ]; then
+    echo "📁 Loading credentials from .env file..."
+    export $(grep -v '^#' ../.env | xargs)
+elif [ -f ".env" ]; then
+    echo "📁 Loading credentials from .env file..."
+    export $(grep -v '^#' .env | xargs)
+else
+    echo "⚠️  No .env file found. Checking environment variables..."
+fi
+
 # Check required environment variables
 required_vars=("KDP_EMAIL" "KDP_PASSWORD" "OPENAI_API_KEY" "SLACK_WEBHOOK_URL")
 for var in "${required_vars[@]}"; do
     if [ -z "${!var}" ]; then
         echo "❌ Error: $var environment variable is required"
+        echo "   Create a .env file with your credentials or set environment variables"
         exit 1
     fi
 done
+
+echo "✅ All required credentials loaded successfully"
 
 echo "📋 Configuration:"
 echo "  Project: $PROJECT_NAME"

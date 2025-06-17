@@ -66,7 +66,11 @@
       "Bash(AWS_PROFILE=kindlemint-keys aws logs describe-log-streams --log-group-name \"/aws/lambda/kindlemintEngineFn\" --order-by LastEventTime --descending --max-items 5)",
       "Bash(AWS_PROFILE=kindlemint-keys aws logs get-log-events --log-group-name \"/aws/lambda/kindlemintEngineFn\" --log-stream-name \"2025/06/17/[\\$LATEST]17e4924165954c0e9007a7aa38ae917e\" --start-from-head)",
       "Bash(AWS_PROFILE=kindlemint-keys aws lambda invoke --function-name kindlemintEngineFn --payload '{\"source\": \"ceo_immediate\", \"trigger\": \"start_now\", \"priority\": \"urgent\", \"note\": \"CEO wants first book package generated immediately for manual upload\"}' --cli-binary-format raw-in-base64-out immediate_start.json)",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(touch:*)",
+      "Bash(./deploy-v3.sh:*)",
+      "Bash(aws configure:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }
