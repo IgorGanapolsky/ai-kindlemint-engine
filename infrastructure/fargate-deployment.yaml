@@ -1,0 +1,412 @@
+# V3 Zero-Touch Publishing Engine - AWS Fargate CloudFormation Template
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'V3 Zero-Touch KDP Publishing Engine - Fargate Infrastructure'
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: 'kindlemint-v3'
+    Description: 'Project name for resource naming'
+  
+  ECRRepository:
+    Type: String
+    Description: 'ECR repository URI for the KDP publisher container'
+  
+  KDPEmail:
+    Type: String
+    Description: 'KDP account email'
+    NoEcho: true
+  
+  KDPPassword:
+    Type: String
+    Description: 'KDP account password'
+    NoEcho: true
+  
+  OpenAIAPIKey:
+    Type: String
+    Description: 'OpenAI API key'
+    NoEcho: true
+  
+  SlackWebhookURL:
+    Type: String
+    Description: 'Slack webhook URL for notifications'
+    NoEcho: true
+
+Resources:
+  # VPC and Networking
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: '10.0.0.0/16'
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-vpc'
+
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [0, !GetAZs '']
+      CidrBlock: '10.0.1.0/24'
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-public-subnet-1'
+
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [1, !GetAZs '']
+      CidrBlock: '10.0.2.0/24'
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-public-subnet-2'
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-igw'
+
+  InternetGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref VPC
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-public-routes'
+
+  DefaultPublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: InternetGatewayAttachment
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnet1RouteTableAssociation:
+    Type: AWS::EC2::RouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet1
+
+  PublicSubnet2RouteTableAssociation:
+    Type: AWS::EC2::RouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet2
+
+  # Security Groups
+  FargateSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: 'Security group for Fargate KDP publisher tasks'
+      VpcId: !Ref VPC
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: '0.0.0.0/0'
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-fargate-sg'
+
+  # ECS Cluster
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub '${ProjectName}-cluster'
+      CapacityProviders:
+        - FARGATE
+      DefaultCapacityProviderStrategy:
+        - CapacityProvider: FARGATE
+          Weight: 1
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-cluster'
+
+  # IAM Roles
+  TaskExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+      Policies:
+        - PolicyName: SecretsManagerAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                Resource: !Ref KDPCredentialsSecret
+
+  TaskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: S3Access
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:DeleteObject
+                Resource: 
+                  - !Sub 'arn:aws:s3:::kindlemint-books/*'
+                  - !Sub 'arn:aws:s3:::kindlemint-reports-*/*'
+              - Effect: Allow
+                Action:
+                  - s3:ListBucket
+                Resource:
+                  - 'arn:aws:s3:::kindlemint-books'
+                  - 'arn:aws:s3:::kindlemint-reports-*'
+        - PolicyName: DynamoDBAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:GetItem
+                  - dynamodb:Query
+                  - dynamodb:Scan
+                Resource: !Sub 'arn:aws:dynamodb:*:*:table/KDP_Business_Memory'
+
+  # Secrets Manager
+  KDPCredentialsSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: !Sub '${ProjectName}-kdp-credentials'
+      Description: 'KDP login credentials and API keys'
+      SecretString: !Sub |
+        {
+          "kdp_email": "${KDPEmail}",
+          "kdp_password": "${KDPPassword}",
+          "openai_api_key": "${OpenAIAPIKey}",
+          "slack_webhook_url": "${SlackWebhookURL}"
+        }
+
+  # CloudWatch Log Group
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/ecs/${ProjectName}-kdp-publisher'
+      RetentionInDays: 14
+
+  # ECS Task Definition
+  KDPPublisherTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub '${ProjectName}-kdp-publisher'
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      Cpu: 2048  # 2 vCPU (required for Chrome browser)
+      Memory: 4096  # 4 GB (required for Chrome browser)
+      ExecutionRoleArn: !GetAtt TaskExecutionRole.Arn
+      TaskRoleArn: !GetAtt TaskRole.Arn
+      ContainerDefinitions:
+        - Name: kdp-publisher
+          Image: !Ref ECRRepository
+          Essential: true
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref LogGroup
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: ecs
+          Environment:
+            - Name: AWS_REGION
+              Value: !Ref AWS::Region
+            - Name: PYTHONPATH
+              Value: '/app'
+          Secrets:
+            - Name: KDP_EMAIL
+              ValueFrom: !Sub '${KDPCredentialsSecret}:kdp_email::'
+            - Name: KDP_PASSWORD
+              ValueFrom: !Sub '${KDPCredentialsSecret}:kdp_password::'
+            - Name: OPENAI_API_KEY
+              ValueFrom: !Sub '${KDPCredentialsSecret}:openai_api_key::'
+            - Name: SLACK_WEBHOOK_URL
+              ValueFrom: !Sub '${KDPCredentialsSecret}:slack_webhook_url::'
+          PortMappings:
+            - ContainerPort: 8080
+              Protocol: tcp
+          HealthCheck:
+            Command:
+              - CMD-SHELL
+              - 'curl -f http://localhost:8080/health || exit 1'
+            Interval: 30
+            Timeout: 5
+            Retries: 3
+            StartPeriod: 60
+
+  # Lambda Function for Fargate Task Invocation
+  FargateInvokerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: ECSTaskRunAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ecs:RunTask
+                  - ecs:DescribeTasks
+                  - iam:PassRole
+                Resource: '*'
+
+  FargateInvokerFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub '${ProjectName}-fargate-invoker'
+      Runtime: python3.11
+      Handler: index.lambda_handler
+      Role: !GetAtt FargateInvokerRole.Arn
+      Timeout: 60
+      Environment:
+        Variables:
+          ECS_CLUSTER: !Ref ECSCluster
+          TASK_DEFINITION: !Ref KDPPublisherTaskDefinition
+          SUBNET_1: !Ref PublicSubnet1
+          SUBNET_2: !Ref PublicSubnet2
+          SECURITY_GROUP: !Ref FargateSecurityGroup
+      Code:
+        ZipFile: |
+          import json
+          import boto3
+          import os
+          import logging
+
+          logger = logging.getLogger()
+          logger.setLevel(logging.INFO)
+
+          ecs = boto3.client('ecs')
+
+          def lambda_handler(event, context):
+              try:
+                  # Extract task input from event
+                  task_input = {
+                      'book_id': event['book_id'],
+                      's3_bucket': event['s3_bucket'],
+                      'manuscript_key': event['manuscript_key'],
+                      'cover_key': event['cover_key'],
+                      'metadata': event['metadata']
+                  }
+                  
+                  # Run Fargate task
+                  response = ecs.run_task(
+                      cluster=os.environ['ECS_CLUSTER'],
+                      taskDefinition=os.environ['TASK_DEFINITION'],
+                      launchType='FARGATE',
+                      networkConfiguration={
+                          'awsvpcConfiguration': {
+                              'subnets': [
+                                  os.environ['SUBNET_1'],
+                                  os.environ['SUBNET_2']
+                              ],
+                              'securityGroups': [os.environ['SECURITY_GROUP']],
+                              'assignPublicIp': 'ENABLED'
+                          }
+                      },
+                      overrides={
+                          'containerOverrides': [
+                              {
+                                  'name': 'kdp-publisher',
+                                  'environment': [
+                                      {
+                                          'name': 'TASK_INPUT',
+                                          'value': json.dumps(task_input)
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  )
+                  
+                  task_arn = response['tasks'][0]['taskArn']
+                  
+                  return {
+                      'statusCode': 200,
+                      'body': json.dumps({
+                          'message': 'Fargate task started successfully',
+                          'task_arn': task_arn
+                      })
+                  }
+                  
+              except Exception as e:
+                  logger.error(f"Error starting Fargate task: {str(e)}")
+                  return {
+                      'statusCode': 500,
+                      'body': json.dumps({
+                          'error': str(e)
+                      })
+                  }
+
+Outputs:
+  ClusterName:
+    Description: 'ECS Cluster Name'
+    Value: !Ref ECSCluster
+    Export:
+      Name: !Sub '${ProjectName}-cluster-name'
+
+  TaskDefinitionArn:
+    Description: 'Task Definition ARN'
+    Value: !Ref KDPPublisherTaskDefinition
+    Export:
+      Name: !Sub '${ProjectName}-task-definition-arn'
+
+  FargateInvokerFunctionArn:
+    Description: 'Lambda function ARN for invoking Fargate tasks'
+    Value: !GetAtt FargateInvokerFunction.Arn
+    Export:
+      Name: !Sub '${ProjectName}-fargate-invoker-arn'
+
+  VPCId:
+    Description: 'VPC ID'
+    Value: !Ref VPC
+    Export:
+      Name: !Sub '${ProjectName}-vpc-id'
+
+  SecurityGroupId:
+    Description: 'Security Group ID'
+    Value: !Ref FargateSecurityGroup
+    Export:
+      Name: !Sub '${ProjectName}-security-group-id'

@@ -121,7 +121,7 @@ class ContentGenerator:
         )
         
         try:
-            response = openai.ChatCompletion.create(
+            response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=self.temperature * 0.8,  # Slightly less random for outlines
@@ -240,7 +240,7 @@ class ContentGenerator:
         )
         
         try:
-            response = openai.ChatCompletion.create(
+            response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": topic_prompt}],
                 temperature=0.8,
@@ -282,7 +282,7 @@ class ContentGenerator:
         )
         
         try:
-            response = openai.ChatCompletion.create(
+            response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": niche_prompt}],
                 temperature=0.7,
@@ -327,7 +327,7 @@ class ContentGenerator:
         )
         
         try:
-            response = openai.ChatCompletion.create(
+            response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.7,
@@ -339,4 +339,65 @@ class ContentGenerator:
             
         except Exception as e:
             logger.error(f"Error generating cover prompt: {str(e)}")
+            raise
+    
+    def generate_kdp_description(
+        self,
+        book_title: str,
+        book_content: str,
+        niche: str,
+        target_audience: str = "professionals and entrepreneurs",
+        **kwargs
+    ) -> str:
+        """Generate a compelling 500-word KDP book description for maximum sales conversion.
+        
+        Args:
+            book_title: Title of the book
+            book_content: Brief overview or chapter outline of the book content
+            niche: The book's niche (e.g., productivity, finance, health)
+            target_audience: Primary target audience
+            **kwargs: Additional parameters to pass to the API
+            
+        Returns:
+            A compelling 500-word KDP description with emotional hooks and clear benefits
+        """
+        description_prompt = (
+            f"Write a compelling 500-word Amazon KDP book description for '{book_title}' in the {niche} niche.\n\n"
+            f"Book Content Overview: {book_content[:500]}...\n"
+            f"Target Audience: {target_audience}\n\n"
+            
+            "REQUIREMENTS for the description:\n"
+            "1. Start with an emotional hook question that identifies the reader's pain point\n"
+            "2. Include a bold promise or transformation statement\n"
+            "3. Use bullet points (✅) to highlight 5-7 specific benefits/outcomes\n"
+            "4. Add social proof elements (mention 'thousands of readers' or 'proven system')\n"
+            "5. Include urgency and scarcity language\n"
+            "6. End with a strong call-to-action\n"
+            "7. Use emotional power words: 'transform', 'breakthrough', 'secrets', 'proven', 'ultimate'\n"
+            "8. Make it scannable with short paragraphs and formatting\n"
+            "9. Address objections and include a subtle guarantee or risk-reversal\n"
+            "10. Keep it under 500 words total\n\n"
+            
+            "TONE: Authoritative, benefit-focused, emotionally compelling\n"
+            "FORMAT: Use markdown formatting with **bold** text and bullet points\n"
+            "GOAL: Maximize conversion from browser to buyer\n\n"
+            
+            "Write the complete KDP description now:"
+        )
+        
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[{"role": "user", "content": description_prompt}],
+                temperature=0.8,  # Higher creativity for compelling copy
+                max_tokens=800,   # Increased for longer descriptions
+                **kwargs
+            )
+            
+            description = response.choices[0].message.content.strip()
+            logger.info(f"Generated KDP description ({len(description)} characters)")
+            return description
+            
+        except Exception as e:
+            logger.error(f"Error generating KDP description: {str(e)}")
             raise
