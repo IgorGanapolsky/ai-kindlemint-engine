@@ -1,0 +1,1 @@
+{"statusCode": 500, "body": "{\"status\": \"error\", \"message\": \"V3 Pipeline execution failed: Failed to generate content assets: [Errno 30] Read-only file system: 'logs'\", \"source\": \"ceo_directive\", \"version\": \"3.0\"}"}
