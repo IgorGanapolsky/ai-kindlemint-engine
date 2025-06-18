@@ -154,6 +154,7 @@ jobs:
         aws lambda invoke \
           --function-name "$PROJECT_NAME-orchestrator" \
           --payload '{"topic": "GitHub Actions Test Book", "source": "github_actions"}' \
+          --cli-binary-format raw-in-base64-out \
           test-response.json \
           --region $AWS_REGION
         
