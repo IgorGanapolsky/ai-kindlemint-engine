@@ -104,11 +104,16 @@ Professional book cover for large print crossword puzzle book for seniors.
 - Easy to read on Amazon thumbnail
 """)
         
+        # Generate automated cover using DALL-E
+        cover_file = await generate_automated_cover(book_folder, metadata, logger)
+        
         logger.info("🎉 BOOK GENERATION COMPLETED!")
         logger.info(f"📁 Generated files in: {book_folder}")
         logger.info(f"   📄 {manuscript_file.name}: {manuscript_file.stat().st_size / 1024:.1f} KB")
         logger.info(f"   📋 {metadata_file.name}: {metadata_file.stat().st_size / 1024:.1f} KB") 
         logger.info(f"   🎨 {cover_prompt_file.name}: {cover_prompt_file.stat().st_size / 1024:.1f} KB")
+        if cover_file:
+            logger.info(f"   🖼️ {cover_file.name}: {cover_file.stat().st_size / 1024:.1f} KB")
         
         return True
         
@@ -283,6 +288,90 @@ Visit https://senior-puzzle-studio.carrd.co for bonus puzzles!
             """.strip(),
             'description': f"Easy large print crosswords perfect for seniors! This collection of 25 beginner-friendly puzzles features large, clear text that's easy on the eyes. Ideal for cognitive stimulation and entertainment."
         }
+
+async def generate_automated_cover(book_folder: Path, metadata: dict, logger):
+    """Generate cover using DALL-E API based on book metadata."""
+    try:
+        import requests
+        
+        openai_key = os.getenv('OPENAI_API_KEY')
+        if not openai_key:
+            logger.warning("⚠️ OPENAI_API_KEY not found - skipping automated cover generation")
+            return None
+        
+        # Create enhanced cover prompt
+        dalle_prompt = f"""
+        Create a professional Amazon KDP book cover for "{metadata['title']}" by {metadata['brand']}.
+        
+        Style requirements:
+        - Clean, professional design suitable for seniors
+        - Large, readable typography for book title and subtitle
+        - Crossword puzzle grid pattern in background
+        - Calming blue-green color scheme (#2C5F6B, #4A8A94, #7FB8C3)
+        - Easy to read at thumbnail size on Amazon
+        - Premium quality appearance
+        - Series volume indicator clearly visible
+        
+        Text elements:
+        - Main title: "LARGE PRINT CROSSWORD MASTERS"
+        - Volume: "VOLUME 1" 
+        - Subtitle: "Easy Large Print Crosswords for Seniors"
+        - Author/Brand: "SENIOR PUZZLE STUDIO"
+        
+        Layout:
+        - Title at top in bold, dark text
+        - Crossword grid background pattern
+        - Clean typography hierarchy
+        - Professional book cover proportions (6x9 or 8.5x11)
+        - High contrast for readability
+        """
+        
+        logger.info("🎨 Generating automated cover with DALL-E...")
+        
+        # Call DALL-E API
+        headers = {
+            'Authorization': f'Bearer {openai_key}',
+            'Content-Type': 'application/json'
+        }
+        
+        data = {
+            'model': 'dall-e-3',
+            'prompt': dalle_prompt,
+            'size': '1024x1024',
+            'quality': 'hd',
+            'n': 1
+        }
+        
+        response = requests.post(
+            'https://api.openai.com/v1/images/generations',
+            headers=headers,
+            json=data,
+            timeout=60
+        )
+        
+        if response.status_code == 200:
+            result = response.json()
+            image_url = result['data'][0]['url']
+            
+            # Download the generated image
+            img_response = requests.get(image_url, timeout=30)
+            if img_response.status_code == 200:
+                cover_file = book_folder / "cover_generated.png"
+                with open(cover_file, 'wb') as f:
+                    f.write(img_response.content)
+                
+                logger.info("✅ Automated cover generated successfully")
+                return cover_file
+            else:
+                logger.error(f"❌ Failed to download generated cover: {img_response.status_code}")
+                return None
+        else:
+            logger.warning(f"⚠️ DALL-E API error: {response.status_code} - using manual cover if available")
+            return None
+            
+    except Exception as e:
+        logger.warning(f"⚠️ Automated cover generation failed: {e} - manual cover can still be added")
+        return None
 
 if __name__ == "__main__":
     success = asyncio.run(main())

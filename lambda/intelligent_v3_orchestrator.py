@@ -407,32 +407,87 @@ class IntelligentV3Orchestrator:
             return f"\nThank you for reading {volume['title']}!\nVisit {brand_system['website']['url']} for bonus content."
     
     async def _generate_volume_cover(self, volume: Dict[str, Any], series: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate branded cover for volume."""
+        """Generate branded cover for volume using DALL-E."""
         try:
-            from kindlemint.agents.cover_agent import CoverAgent
+            import requests
             
-            cover_agent = CoverAgent(api_key=self.openai_api_key)
+            if not self.openai_api_key:
+                logger.warning("⚠️ OPENAI_API_KEY not available - using fallback cover")
+                return {'path': '/tmp/fallback_cover.jpg', 'method': 'fallback'}
             
-            # Enhanced cover prompt with series branding
-            cover_result = cover_agent.generate_professional_cover(
-                book_title=volume['title'],
-                subtitle=volume['subtitle'],
-                author=series.get('author_persona', 'Expert Team'),
-                niche=series['micro_niche'],
-                series_branding={
-                    'series_name': series['series_name'],
-                    'brand_colors': series.get('brand_colors', {}),
-                    'volume_number': volume['volume_number']
-                },
-                output_path=f"/tmp/{volume['book_id']}_cover.jpg",
-                num_options=3
+            # Create enhanced DALL-E prompt
+            dalle_prompt = f"""
+            Create a professional Amazon KDP book cover for "{volume['title']}" by {series['series_brand']}.
+            
+            Style requirements:
+            - Clean, professional design suitable for the target audience
+            - Large, readable typography for book title and subtitle  
+            - Background pattern related to {series['micro_niche']}
+            - Brand colors: professional and trustworthy
+            - Easy to read at thumbnail size on Amazon
+            - Premium quality appearance
+            - Volume {volume['volume_number']} clearly visible
+            
+            Text elements:
+            - Main title: "{volume['title']}"
+            - Subtitle: "{volume.get('subtitle', '')}"
+            - Author/Brand: "{series['series_brand']}"
+            - Volume: "VOLUME {volume['volume_number']}"
+            
+            Layout:
+            - Title at top in bold, clear text
+            - Relevant background pattern for {series['micro_niche']}
+            - Clean typography hierarchy
+            - Professional book cover proportions
+            - High contrast for readability
+            """
+            
+            logger.info(f"🎨 Generating automated cover for {volume['title']}...")
+            
+            # Call DALL-E API
+            headers = {
+                'Authorization': f'Bearer {self.openai_api_key}',
+                'Content-Type': 'application/json'
+            }
+            
+            data = {
+                'model': 'dall-e-3',
+                'prompt': dalle_prompt,
+                'size': '1024x1024',
+                'quality': 'hd',
+                'n': 1
+            }
+            
+            response = requests.post(
+                'https://api.openai.com/v1/images/generations',
+                headers=headers,
+                json=data,
+                timeout=60
             )
             
-            return cover_result
+            if response.status_code == 200:
+                result = response.json()
+                image_url = result['data'][0]['url']
+                
+                # Download the generated image
+                img_response = requests.get(image_url, timeout=30)
+                if img_response.status_code == 200:
+                    cover_path = f"/tmp/{volume['book_id']}_cover.png"
+                    with open(cover_path, 'wb') as f:
+                        f.write(img_response.content)
+                    
+                    logger.info("✅ Automated cover generated successfully")
+                    return {'path': cover_path, 'method': 'dalle_automated'}
+                else:
+                    logger.error(f"❌ Failed to download generated cover: {img_response.status_code}")
+                    return {'path': '/tmp/fallback_cover.jpg', 'method': 'fallback'}
+            else:
+                logger.warning(f"⚠️ DALL-E API error: {response.status_code}")
+                return {'path': '/tmp/fallback_cover.jpg', 'method': 'fallback'}
             
         except Exception as e:
             logger.error(f"Volume cover generation failed: {e}")
-            raise
+            return {'path': '/tmp/fallback_cover.jpg', 'method': 'fallback'}
     
     async def _upload_volume_assets(self, volume: Dict[str, Any], content_result: Dict[str, Any], cover_result: Dict[str, Any]) -> Dict[str, str]:
         """Upload volume assets to S3."""
