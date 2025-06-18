@@ -1,0 +1,47 @@
+# Portfolio Management DynamoDB Table
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'KindleMint Portfolio Tracker - Central series management table'
+
+Resources:
+  PortfolioTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: KindleMint_Portfolio_Tracker
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: series_id
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+        - AttributeName: next_action_date
+          AttributeType: S
+      KeySchema:
+        - AttributeName: series_id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: StatusIndex
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+            - AttributeName: next_action_date
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      Tags:
+        - Key: Purpose
+          Value: PortfolioManagement
+        - Key: System
+          Value: KindleMintV3
+
+Outputs:
+  PortfolioTableName:
+    Description: 'Portfolio tracker table name'
+    Value: !Ref PortfolioTable
+    Export:
+      Name: kindlemint-portfolio-table-name
+      
+  PortfolioTableArn:
+    Description: 'Portfolio tracker table ARN'
+    Value: !GetAtt PortfolioTable.Arn
+    Export:
+      Name: kindlemint-portfolio-table-arn

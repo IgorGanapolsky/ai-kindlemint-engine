@@ -82,7 +82,9 @@
       "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stacks --stack-name kindlemint-v3-infrastructure --region us-east-1 --query 'Stacks[0].StackStatus' --output text)",
       "Bash(mv:*)",
       "Bash(AWS_PROFILE=kindlemint-keys aws dynamodb scan --table-name KDP_Business_Memory --region us-east-1 --max-items 5)",
-      "Bash(AWS_PROFILE=kindlemint-keys aws lambda invoke --function-name kindlemint-v3-orchestrator --payload '{\"series\": \"Large Print Crossword Masters\", \"volume\": 1, \"brand\": \"Senior Puzzle Studio\", \"niche\": \"large_print_crosswords_seniors\", \"difficulty\": \"beginner\", \"source\": \"ceo_directive\"}' --cli-binary-format raw-in-base64-out --region us-east-1 crossword_generation_response.json)"
+      "Bash(AWS_PROFILE=kindlemint-keys aws lambda invoke --function-name kindlemint-v3-orchestrator --payload '{\"series\": \"Large Print Crossword Masters\", \"volume\": 1, \"brand\": \"Senior Puzzle Studio\", \"niche\": \"large_print_crosswords_seniors\", \"difficulty\": \"beginner\", \"source\": \"ceo_directive\"}' --cli-binary-format raw-in-base64-out --region us-east-1 crossword_generation_response.json)",
+      "Bash(aws cloudformation deploy:*)",
+      "Bash(aws sts:*)"
     ],
     "deny": []
   }
