@@ -21,7 +21,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 WORKDIR /app
 
 # Copy requirements first for better layer caching
-COPY requirements-docker.txt .
+COPY docker/requirements-docker.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements-docker.txt
