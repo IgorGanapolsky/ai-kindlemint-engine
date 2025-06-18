@@ -85,7 +85,13 @@
       "Bash(AWS_PROFILE=kindlemint-keys aws lambda invoke --function-name kindlemint-v3-orchestrator --payload '{\"series\": \"Large Print Crossword Masters\", \"volume\": 1, \"brand\": \"Senior Puzzle Studio\", \"niche\": \"large_print_crosswords_seniors\", \"difficulty\": \"beginner\", \"source\": \"ceo_directive\"}' --cli-binary-format raw-in-base64-out --region us-east-1 crossword_generation_response.json)",
       "Bash(aws cloudformation deploy:*)",
       "Bash(aws sts:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(aws:*)",
+      "Bash(--function-name kindlemint-v3-orchestrator )",
+      "Bash(--payload '{\"\"series\"\": \"\"Large Print Crossword Masters\"\", \"\"volume\"\": 1, \"\"brand\"\": \"\"Senior Puzzle Studio\"\", \"\"niche\"\": \"\"large_print_crosswords_seniors\"\", \"\"difficulty\"\": \"\"beginner\"\", \"\"source\"\": \"\"ceo_directive\"\"}' )",
+      "Bash(--cli-binary-format raw-in-base64-out )",
+      "Bash(--region us-east-1 )",
+      "Bash(crossword_generation_response.json)"
     ],
     "deny": []
   }
