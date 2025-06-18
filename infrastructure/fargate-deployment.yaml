@@ -1,4 +1,4 @@
-# V3 Zero-Touch Publishing Engine - AWS Fargate CloudFormation Template
+# V3 Zero-Touch Publishing Engine - Simplified AWS Fargate CloudFormation Template
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'V3 Zero-Touch KDP Publishing Engine - Fargate Infrastructure'
 
@@ -33,93 +33,6 @@ Parameters:
     NoEcho: true
 
 Resources:
-  # VPC and Networking
-  VPC:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock: '10.0.0.0/16'
-      EnableDnsHostnames: true
-      EnableDnsSupport: true
-      Tags:
-        - Key: Name
-          Value: !Sub '${ProjectName}-vpc'
-
-  PublicSubnet1:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [0, !GetAZs '']
-      CidrBlock: '10.0.1.0/24'
-      MapPublicIpOnLaunch: true
-      Tags:
-        - Key: Name
-          Value: !Sub '${ProjectName}-public-subnet-1'
-
-  PublicSubnet2:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [1, !GetAZs '']
-      CidrBlock: '10.0.2.0/24'
-      MapPublicIpOnLaunch: true
-      Tags:
-        - Key: Name
-          Value: !Sub '${ProjectName}-public-subnet-2'
-
-  InternetGateway:
-    Type: AWS::EC2::InternetGateway
-    Properties:
-      Tags:
-        - Key: Name
-          Value: !Sub '${ProjectName}-igw'
-
-  InternetGatewayAttachment:
-    Type: AWS::EC2::VPCGatewayAttachment
-    Properties:
-      InternetGatewayId: !Ref InternetGateway
-      VpcId: !Ref VPC
-
-  PublicRouteTable:
-    Type: AWS::EC2::RouteTable
-    Properties:
-      VpcId: !Ref VPC
-      Tags:
-        - Key: Name
-          Value: !Sub '${ProjectName}-public-routes'
-
-  DefaultPublicRoute:
-    Type: AWS::EC2::Route
-    DependsOn: InternetGatewayAttachment
-    Properties:
-      RouteTableId: !Ref PublicRouteTable
-      DestinationCidrBlock: '0.0.0.0/0'
-      GatewayId: !Ref InternetGateway
-
-  PublicSubnet1RouteTableAssociation:
-    Type: AWS::EC2::RouteTableAssociation
-    Properties:
-      RouteTableId: !Ref PublicRouteTable
-      SubnetId: !Ref PublicSubnet1
-
-  PublicSubnet2RouteTableAssociation:
-    Type: AWS::EC2::RouteTableAssociation
-    Properties:
-      RouteTableId: !Ref PublicRouteTable
-      SubnetId: !Ref PublicSubnet2
-
-  # Security Groups
-  FargateSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: 'Security group for Fargate KDP publisher tasks'
-      VpcId: !Ref VPC
-      SecurityGroupEgress:
-        - IpProtocol: -1
-          CidrIp: '0.0.0.0/0'
-      Tags:
-        - Key: Name
-          Value: !Sub '${ProjectName}-fargate-sg'
-
   # ECS Cluster
   ECSCluster:
     Type: AWS::ECS::Cluster
@@ -305,9 +218,6 @@ Resources:
         Variables:
           ECS_CLUSTER: !Ref ECSCluster
           TASK_DEFINITION: !Ref KDPPublisherTaskDefinition
-          SUBNET_1: !Ref PublicSubnet1
-          SUBNET_2: !Ref PublicSubnet2
-          SECURITY_GROUP: !Ref FargateSecurityGroup
       Code:
         ZipFile: |
           import json
@@ -319,16 +229,30 @@ Resources:
           logger.setLevel(logging.INFO)
 
           ecs = boto3.client('ecs')
+          ec2 = boto3.client('ec2')
 
           def lambda_handler(event, context):
               try:
+                  # Get default VPC and subnets
+                  vpc_response = ec2.describe_vpcs(Filters=[{'Name': 'isDefault', 'Values': ['true']}])
+                  if not vpc_response['Vpcs']:
+                      raise Exception("No default VPC found")
+                  
+                  default_vpc_id = vpc_response['Vpcs'][0]['VpcId']
+                  
+                  subnet_response = ec2.describe_subnets(Filters=[{'Name': 'vpc-id', 'Values': [default_vpc_id]}])
+                  if not subnet_response['Subnets']:
+                      raise Exception("No subnets found in default VPC")
+                  
+                  subnet_ids = [subnet['SubnetId'] for subnet in subnet_response['Subnets'][:2]]
+                  
                   # Extract task input from event
                   task_input = {
-                      'book_id': event['book_id'],
-                      's3_bucket': event['s3_bucket'],
-                      'manuscript_key': event['manuscript_key'],
-                      'cover_key': event['cover_key'],
-                      'metadata': event['metadata']
+                      'book_id': event.get('book_id', 'test-book'),
+                      's3_bucket': event.get('s3_bucket', 'kindlemint-books'),
+                      'manuscript_key': event.get('manuscript_key', 'test/manuscript.docx'),
+                      'cover_key': event.get('cover_key', 'test/cover.jpg'),
+                      'metadata': event.get('metadata', {})
                   }
                   
                   # Run Fargate task
@@ -338,11 +262,7 @@ Resources:
                       launchType='FARGATE',
                       networkConfiguration={
                           'awsvpcConfiguration': {
-                              'subnets': [
-                                  os.environ['SUBNET_1'],
-                                  os.environ['SUBNET_2']
-                              ],
-                              'securityGroups': [os.environ['SECURITY_GROUP']],
+                              'subnets': subnet_ids,
                               'assignPublicIp': 'ENABLED'
                           }
                       },
@@ -398,15 +318,3 @@ Outputs:
     Value: !GetAtt FargateInvokerFunction.Arn
     Export:
       Name: !Sub '${ProjectName}-fargate-invoker-arn'
-
-  VPCId:
-    Description: 'VPC ID'
-    Value: !Ref VPC
-    Export:
-      Name: !Sub '${ProjectName}-vpc-id'
-
-  SecurityGroupId:
-    Description: 'Security Group ID'
-    Value: !Ref FargateSecurityGroup
-    Export:
-      Name: !Sub '${ProjectName}-security-group-id'
