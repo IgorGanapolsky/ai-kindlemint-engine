@@ -54,8 +54,8 @@ class APIManager:
             AIProvider.GEMINI: {
                 'api_key': os.getenv('GEMINI_API_KEY'),
                 'models': {
-                    'text': 'gemini-pro',
-                    'cheap_text': 'gemini-pro'
+                    'text': 'gemini-1.5-flash',
+                    'cheap_text': 'gemini-1.5-flash'
                 },
                 'rate_limits': {
                     'requests_per_minute': 60,
@@ -235,7 +235,7 @@ class APIManager:
         import google.generativeai as genai
         
         genai.configure(api_key=self.providers[AIProvider.GEMINI]['api_key'])
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         
         response = model.generate_content(prompt)
         
@@ -348,6 +348,10 @@ class APIManager:
             summary['recommendations'].append("🚨 All providers at limits - consider upgrading plans")
         
         return summary
+    
+    def _get_timestamp(self) -> str:
+        """Get timestamp for file naming."""
+        return datetime.now().strftime('%Y%m%d_%H%M%S')
 
 # Global API manager instance
 _api_manager = None
