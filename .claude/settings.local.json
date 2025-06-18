@@ -92,7 +92,9 @@
       "Bash(--cli-binary-format raw-in-base64-out )",
       "Bash(--region us-east-1 )",
       "Bash(crossword_generation_response.json)",
-      "Bash(playwright install:*)"
+      "Bash(playwright install:*)",
+      "Bash(OPENAI_API_KEY=\"${OPENAI_API_KEY}\" python scripts/professional_cover_generator.py --all)",
+      "Bash(source .env)"
     ],
     "deny": []
   }

@@ -148,7 +148,11 @@ class TypographyEngine:
         
         # Text area background
         bg_config = self.config["text_background"]
-        color = (*self._hex_to_rgb(bg_config["color"]), bg_config["opacity"])
+        try:
+            color = (*self._hex_to_rgb(bg_config["color"]), bg_config["opacity"])
+        except ValueError:
+            # Fallback color if parsing fails
+            color = (255, 255, 255, bg_config["opacity"])
         
         # Calculate text area bounds
         padding = bg_config["padding"]
@@ -248,8 +252,13 @@ class TypographyEngine:
             shadow_pos = (x + shadow_offset[0], y + shadow_offset[1])
             draw.text(shadow_pos, text, font=font, fill=shadow_color)
         
-        # Draw main text
-        draw.text((x, y), text, font=font, fill=color)
+        # Draw main text - ensure color is valid
+        try:
+            text_color = color if isinstance(color, (tuple, str)) else self._hex_to_rgb(color)
+        except (ValueError, TypeError):
+            text_color = "#1a365d"  # Fallback dark blue
+            
+        draw.text((x, y), text, font=font, fill=text_color)
     
     def _load_font(self, font_path, size):
         """Load font with fallback"""
@@ -294,8 +303,18 @@ class TypographyEngine:
     
     def _hex_to_rgb(self, hex_color):
         """Convert hex color to RGB tuple"""
+        if not isinstance(hex_color, str):
+            raise ValueError(f"Color must be string, got {type(hex_color)}")
+            
         hex_color = hex_color.lstrip('#')
-        return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+        
+        if len(hex_color) != 6:
+            raise ValueError(f"Hex color must be 6 characters, got {len(hex_color)}: {hex_color}")
+            
+        try:
+            return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+        except ValueError as e:
+            raise ValueError(f"Invalid hex color '{hex_color}': {e}")
 
 def main():
     """Test typography engine"""
