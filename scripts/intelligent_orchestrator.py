@@ -111,8 +111,8 @@ class IntelligentOrchestrator:
                 if result.returncode == 0:
                     self.logger.info(f"✅ Volume {vol_num} content generated")
                     
-                    # Generate cover if missing
-                    self._ensure_cover_exists(vol_num)
+                    # Generate professional cover using new two-stage pipeline
+                    self._generate_professional_cover(vol_num)
                     
                     return True
                 else:
@@ -123,34 +123,37 @@ class IntelligentOrchestrator:
             self.logger.error(f"❌ Generation exception: {e}")
             return False
     
-    def _ensure_cover_exists(self, vol_num):
-        """Ensure cover exists for the volume"""
+    def _generate_professional_cover(self, vol_num):
+        """Generate professional cover using new two-stage pipeline"""
         try:
-            books_dir = Path("output/generated_books")
-            vol_folders = [f for f in books_dir.iterdir() 
-                          if f.is_dir() and f"vol_{vol_num}_final" in f.name]
+            self.logger.info(f"🎨 Generating professional two-stage cover for Volume {vol_num}")
             
-            if vol_folders:
-                vol_folder = vol_folders[0]
-                cover_files = list(vol_folder.glob('cover_vol_*.png'))
+            # Use new professional cover generator
+            import subprocess
+            result = subprocess.run([
+                'python', 'scripts/professional_cover_generator.py',
+                '--volume', str(vol_num), '--force'
+            ], capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                self.logger.info(f"✅ Professional cover generated for Volume {vol_num}")
+            else:
+                self.logger.warning(f"⚠️ Professional cover generation failed for Volume {vol_num}: {result.stderr}")
                 
-                if not cover_files:
-                    self.logger.info(f"🎨 Generating missing cover for Volume {vol_num}")
-                    
-                    # Generate cover using DALL-E
-                    import subprocess
-                    result = subprocess.run([
-                        'python', 'scripts/generate_dalle_covers.py',
-                        '--volume', str(vol_num)
-                    ], capture_output=True, text=True)
-                    
-                    if result.returncode == 0:
-                        self.logger.info(f"✅ Cover generated for Volume {vol_num}")
-                    else:
-                        self.logger.warning(f"⚠️ Cover generation failed for Volume {vol_num}")
+                # Fallback to old method if new one fails
+                self.logger.info(f"🔄 Attempting fallback cover generation...")
+                fallback_result = subprocess.run([
+                    'python', 'scripts/generate_dalle_covers.py',
+                    '--volume', str(vol_num)
+                ], capture_output=True, text=True)
+                
+                if fallback_result.returncode == 0:
+                    self.logger.info(f"✅ Fallback cover generated for Volume {vol_num}")
+                else:
+                    self.logger.error(f"❌ All cover generation methods failed for Volume {vol_num}")
                         
         except Exception as e:
-            self.logger.warning(f"⚠️ Cover check failed: {e}")
+            self.logger.warning(f"⚠️ Professional cover generation failed: {e}")
 
 def main():
     """Main orchestrator function"""
