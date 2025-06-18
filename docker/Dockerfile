@@ -26,8 +26,8 @@ COPY docker/requirements-docker.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements-docker.txt
 
-# Install Playwright browsers (Chrome)
-RUN playwright install chrome
+# Install Playwright browsers (Chrome) - use --force since Chrome is already installed
+RUN playwright install --force chrome
 RUN playwright install-deps chrome
 
 # Copy application code
