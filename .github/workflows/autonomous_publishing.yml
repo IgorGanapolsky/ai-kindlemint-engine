@@ -1,0 +1,137 @@
+name: Autonomous KDP Publishing System
+
+on:
+  workflow_dispatch:
+    inputs:
+      volumes_to_publish:
+        description: 'Volumes to publish (comma-separated, e.g., "1,2,3")'
+        required: true
+        default: '1'
+        type: string
+      force_republish:
+        description: 'Force republish even if already published'
+        required: false
+        default: false
+        type: boolean
+
+  schedule:
+    # Auto-publish daily at 9 AM UTC
+    - cron: '0 9 * * *'
+
+env:
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  KDP_EMAIL: ${{ secrets.KDP_EMAIL }}
+  KDP_PASSWORD: ${{ secrets.KDP_PASSWORD }}
+  GOOGLE_DRIVE_CREDENTIALS: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
+
+jobs:
+  autonomous-kdp-publishing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    steps:
+      - name: 🚀 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: 📦 Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install playwright openai google-api-python-client google-auth-httplib2 google-auth-oauthlib
+          pip install requests pillow python-dotenv boto3
+          playwright install chromium
+          
+      - name: 🔧 Setup Environment
+        run: |
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> .env
+          echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+          echo "KDP_EMAIL=${{ secrets.KDP_EMAIL }}" >> .env
+          echo "KDP_PASSWORD=${{ secrets.KDP_PASSWORD }}" >> .env
+          
+      - name: 🎨 Verify Covers Exist
+        run: |
+          python -c "
+          from pathlib import Path
+          import sys
+          
+          books_dir = Path('output/generated_books')
+          missing_covers = []
+          
+          for vol in range(1, 6):
+              vol_folders = [f for f in books_dir.iterdir() if f.is_dir() and f'vol_{vol}_final' in f.name]
+              if vol_folders:
+                  cover_files = list(vol_folders[0].glob('cover_vol_*.png'))
+                  if not cover_files:
+                      missing_covers.append(vol)
+          
+          if missing_covers:
+              print(f'❌ Missing covers for volumes: {missing_covers}')
+              sys.exit(1)
+          else:
+              print('✅ All covers present')
+          "
+          
+      - name: ☁️ Upload to Google Drive
+        run: |
+          python scripts/autonomous_google_drive_upload.py
+          
+      - name: 📚 Autonomous KDP Publishing
+        run: |
+          python scripts/autonomous_kdp_publisher.py --volumes "${{ github.event.inputs.volumes_to_publish || '1' }}" --force "${{ github.event.inputs.force_republish || 'false' }}"
+          
+      - name: 📊 Generate Publishing Report
+        run: |
+          python scripts/generate_publishing_report.py
+          
+      - name: 📧 Send Success Notification
+        if: success()
+        run: |
+          python scripts/send_success_notification.py
+          
+      - name: 🚨 Send Failure Notification
+        if: failure()
+        run: |
+          python scripts/send_failure_notification.py
+          
+      - name: 💾 Archive Publishing Logs
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: publishing-logs-${{ github.run_number }}
+          path: |
+            logs/
+            output/publishing_reports/
+          retention-days: 30
+          
+  cleanup-old-artifacts:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: autonomous-kdp-publishing
+    steps:
+      - name: 🧹 Cleanup Old Artifacts
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const artifacts = await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 100
+            });
+            
+            const oldArtifacts = artifacts.data.artifacts
+              .filter(artifact => artifact.name.startsWith('publishing-logs-'))
+              .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+              .slice(10); // Keep only last 10
+            
+            for (const artifact of oldArtifacts) {
+              await github.rest.actions.deleteArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: artifact.id
+              });
+            }
