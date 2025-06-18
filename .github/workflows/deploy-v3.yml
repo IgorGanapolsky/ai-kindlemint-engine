@@ -105,7 +105,13 @@ jobs:
           --query 'Stacks[0].Outputs[?OutputKey==`FargateInvokerFunctionArn`].OutputValue' \
           --output text \
           --region $AWS_REGION)
+        V3_ORCHESTRATOR_ROLE_ARN=$(aws cloudformation describe-stacks \
+          --stack-name "$PROJECT_NAME-infrastructure" \
+          --query 'Stacks[0].Outputs[?OutputKey==`V3OrchestratorRoleArn`].OutputValue' \
+          --output text \
+          --region $AWS_REGION)
         echo "fargate-invoker-arn=$FARGATE_INVOKER_ARN" >> $GITHUB_OUTPUT
+        echo "v3-orchestrator-role-arn=$V3_ORCHESTRATOR_ROLE_ARN" >> $GITHUB_OUTPUT
         
     - name: Deploy V3 orchestrator Lambda
       run: |
@@ -126,7 +132,7 @@ jobs:
         aws lambda create-function \
           --function-name "$PROJECT_NAME-orchestrator" \
           --runtime python3.11 \
-          --role "arn:aws:iam::${{ steps.aws-account.outputs.account-id }}:role/${PROJECT_NAME}-lambda-role" \
+          --role "${{ steps.outputs.outputs.v3-orchestrator-role-arn }}" \
           --handler lambda_function.lambda_handler \
           --zip-file fileb://v3-orchestrator.zip \
           --timeout 900 \
