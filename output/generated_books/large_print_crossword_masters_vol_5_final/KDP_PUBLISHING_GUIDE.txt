@@ -1,0 +1,70 @@
+🚀 AMAZON KDP PUBLISHING INSTRUCTIONS
+Generated: 2025-06-18 13:00
+
+📚 BOOK DETAILS
+--------------
+Title: Large Print Crossword Masters: Volume 5
+Subtitle: Easy Large Print Crosswords for Seniors
+Author: Senior Puzzle Studio
+Price: $7.99
+
+📋 STEP-BY-STEP PUBLISHING
+------------------------
+
+1. LOGIN TO KDP
+   → Go to kdp.amazon.com
+   → Sign in with your Amazon account
+
+2. CREATE NEW PAPERBACK
+   → Click "Create New Title"
+   → Select "Paperback"
+
+3. ENTER BOOK DETAILS
+   → Title: Large Print Crossword Masters: Volume 5
+   → Subtitle: Easy Large Print Crosswords for Seniors
+   → Author: Senior Puzzle Studio
+   → Description: Enjoy hours of engaging fun with "Large Print Crossword Masters: Volume 5"!  This collection features 50 easy large-print crossword puzzles specifically designed for seniors.  Large, clear type and si...
+
+4. KEYWORDS (use all 7 slots):
+   → 1. large print crossword
+   → 2. easy crossword puzzles
+   → 3. senior crossword
+   → 4. crossword for seniors
+   → 5. puzzle book for seniors
+   → 6. brain games for seniors
+   → 7. large print puzzles
+
+5. CATEGORIES
+   → Primary: Games & Puzzles > Crosswords
+   → Secondary: Health & Fitness > Aging
+
+6. UPLOAD FILES
+   → Manuscript: manuscript.txt (convert to PDF)
+   → Cover: Use cover_design_prompt.txt to create cover
+   → Page size: 8.5" x 11" (large print)
+
+7. PRICING
+   → Suggested: $7.99
+   → Royalty: 60%
+   → Markets: All available
+
+8. FINAL STEPS
+   → Preview book carefully
+   → Publish when ready
+   → Wait 24-72 hours for review
+
+💡 SUCCESS TIPS
+--------------
+• Large print books have loyal customers
+• Target senior Facebook groups for marketing
+• Use the marketing content provided
+• Plan Volume 2 for series continuation
+• Focus on customer reviews
+
+🌐 BRAND INTEGRATION
+------------------
+Website: https://senior-puzzle-studio.carrd.co
+Email signup: Bonus crossword puzzles
+Social media: Use marketing content provided
+
+Questions? Check Amazon KDP help center.

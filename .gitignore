@@ -153,14 +153,12 @@ chromedriver.exe
 logs/
 *.log
 
-# Output directories
-output/
-
 # Local development settings
 local_settings.py
 
 # Environment variables
 .env
+credentials.json
 
 # IDE specific files
 .idea/
@@ -177,19 +175,31 @@ local_settings.py
 ehthumbs.db
 Thumbs.db
 
-# KindleMint specific
+# KindleMint specific - Prevent duplicates
 secrets/*.json
 *.kpf
 *.epub
 *.mobi
 *.pdf
 lambda_deploy.zip
-output/
 temp/
-generated_books/
 covers/
 manuscripts/
 assets/generated/
+
+# Duplicate output folders (keep only output/generated_books/)
+output/PUBLISHING_READY/
+output/READY_FOR_GOOGLE_DRIVE/
+output/KDP_READY/
+output_backup_*/
+
+# Test and diagnostic files
+*_test_*.json
+test_*.py
+diagnose_*.py
+response.json
+*_response.json
+system_integration_test_report.json
 
 # AWS and deployment
 .aws/

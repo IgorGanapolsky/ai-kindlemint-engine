@@ -91,7 +91,8 @@
       "Bash(--payload '{\"\"series\"\": \"\"Large Print Crossword Masters\"\", \"\"volume\"\": 1, \"\"brand\"\": \"\"Senior Puzzle Studio\"\", \"\"niche\"\": \"\"large_print_crosswords_seniors\"\", \"\"difficulty\"\": \"\"beginner\"\", \"\"source\"\": \"\"ceo_directive\"\"}' )",
       "Bash(--cli-binary-format raw-in-base64-out )",
       "Bash(--region us-east-1 )",
-      "Bash(crossword_generation_response.json)"
+      "Bash(crossword_generation_response.json)",
+      "Bash(playwright install:*)"
     ],
     "deny": []
   }

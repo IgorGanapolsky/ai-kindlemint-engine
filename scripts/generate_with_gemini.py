@@ -14,11 +14,11 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from kindlemint.utils.logger import get_logger
 
-def generate_book_with_gemini():
+def generate_book_with_gemini(volume_number=1):
     """Generate a complete book using only Gemini AI."""
     logger = get_logger('gemini_generation')
     
-    logger.info("💎 Generating book with Gemini AI (ultra-low cost)...")
+    logger.info(f"💎 Generating Volume {volume_number} with Gemini AI (ultra-low cost)...")
     
     # Load environment variables
     env_file = Path(__file__).parent.parent / ".env"
@@ -30,6 +30,8 @@ def generate_book_with_gemini():
                     os.environ[key] = value
     
     gemini_key = os.getenv('GEMINI_API_KEY')
+    openai_key = os.getenv('OPENAI_API_KEY')
+    
     if not gemini_key:
         logger.error("❌ GEMINI_API_KEY not found")
         return False
@@ -41,17 +43,17 @@ def generate_book_with_gemini():
         model = genai.GenerativeModel('gemini-1.5-flash')
         
         # Step 1: Generate series metadata
-        logger.info("📋 Generating series metadata...")
-        metadata_prompt = """
+        logger.info(f"📋 Generating series metadata for Volume {volume_number}...")
+        metadata_prompt = f"""
         Create metadata for a large print crossword puzzle book for seniors:
         
-        Title: "Large Print Crossword Masters: Volume 1"
+        Title: "Large Print Crossword Masters: Volume {volume_number}"
         Subtitle: "Easy Large Print Crosswords for Seniors"
         Brand: "Senior Puzzle Studio"
         
         Generate a JSON with complete metadata including:
         - title, subtitle, brand, series
-        - volume number (1)
+        - volume number ({volume_number})
         - difficulty (beginner)
         - target_audience (seniors_55_plus)
         - 7 relevant keywords for Amazon KDP
@@ -113,7 +115,7 @@ def generate_book_with_gemini():
         Book: {metadata['title']}
         Subtitle: {metadata['subtitle']}
         Brand: {metadata['brand']}
-        Volume: 1
+        Volume: {volume_number}
         
         Design Requirements:
         - Amazon KDP book cover (6x9 or 8.5x11 inches)
@@ -127,7 +129,7 @@ def generate_book_with_gemini():
         
         Text Layout:
         - Main title: "LARGE PRINT CROSSWORD MASTERS" (top, large font)
-        - Volume: "VOLUME 1" (middle, clear)
+        - Volume: "VOLUME {volume_number}" (middle, clear)
         - Subtitle: "Easy Large Print Crosswords for Seniors" (below title)
         - Brand: "SENIOR PUZZLE STUDIO" (bottom)
         
@@ -161,14 +163,58 @@ def generate_book_with_gemini():
         marketing_content = marketing_response.text
         logger.info(f"✅ Marketing content generated")
         
-        # Step 5: Save complete book package
+        # Step 5: Generate cover image with DALL-E
+        cover_image_path = None
+        if openai_key:
+            logger.info("🎨 Generating cover image with DALL-E...")
+            try:
+                from openai import OpenAI
+                client = OpenAI(api_key=openai_key)
+                
+                cover_prompt = f"""Professional book cover for "Large Print Crossword Masters: Volume {volume_number}" - Easy Large Print Crosswords for Seniors by Senior Puzzle Studio. 
+                Clean, modern design with large readable text. Blue and green color scheme. 
+                Crossword grid pattern background. Professional typography. 
+                Clearly show "VOLUME {volume_number}" prominently. Target audience: seniors 55+.
+                High quality, Amazon KDP ready, 6x9 format."""
+                
+                response = client.images.generate(
+                    model="dall-e-3",
+                    prompt=cover_prompt,
+                    size="1024x1024",
+                    quality="standard",
+                    n=1,
+                )
+                
+                import requests
+                image_url = response.data[0].url
+                image_response = requests.get(image_url)
+                
+                if image_response.status_code == 200:
+                    cover_image_path = f"cover_vol_{volume_number}.png"
+                    logger.info(f"✅ Cover image generated successfully")
+                else:
+                    logger.warning("⚠️ Failed to download cover image")
+                    
+            except Exception as e:
+                logger.warning(f"⚠️ Cover generation failed: {e}")
+                logger.info("📝 Will use cover design prompt instead")
+        
+        # Step 6: Save complete book package
         output_dir = Path(__file__).parent.parent / "output" / "generated_books"
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        book_folder = output_dir / f"gemini_generated_crossword_masters_vol_1_{timestamp}"
+        book_folder = output_dir / f"gemini_generated_crossword_masters_vol_{volume_number}_{timestamp}"
         book_folder.mkdir(parents=True, exist_ok=True)
         
         # Save all files
         files_created = []
+        
+        # Cover image if generated
+        if cover_image_path and image_response.status_code == 200:
+            cover_file = book_folder / f"cover_vol_{volume_number}.png"
+            with open(cover_file, 'wb') as f:
+                f.write(image_response.content)
+            files_created.append(cover_file)
+            logger.info(f"💾 Cover image saved: {cover_file.name}")
         
         # Manuscript
         manuscript_file = book_folder / "manuscript.txt"
@@ -301,7 +347,13 @@ Questions? Check Amazon KDP help center.
     return instructions
 
 if __name__ == "__main__":
-    result = generate_book_with_gemini()
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Generate book with Gemini AI')
+    parser.add_argument('--volume', type=int, default=1, help='Volume number to generate')
+    args = parser.parse_args()
+    
+    result = generate_book_with_gemini(volume_number=args.volume)
     if result:
         print(f"✅ Success! Book generated at: {result}")
     else:
