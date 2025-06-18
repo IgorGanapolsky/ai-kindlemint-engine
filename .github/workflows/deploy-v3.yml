@@ -133,9 +133,8 @@ jobs:
           --memory-size 1024 \
           --environment Variables="{
             FARGATE_INVOKER_ARN=${{ steps.outputs.outputs.fargate-invoker-arn }},
-            OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }},
-            ASSETS_BUCKET=kindlemint-books,
-            AWS_REGION=$AWS_REGION
+            OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY || 'test-key' }},
+            ASSETS_BUCKET=kindlemint-books
           }" \
           --region $AWS_REGION || \
         aws lambda update-function-code \
