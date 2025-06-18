@@ -55,6 +55,10 @@ class BrandBuilder:
         """Initialize brand builder."""
         self.openai_api_key = os.getenv('OPENAI_API_KEY')
         
+        if not self.openai_api_key:
+            logger.error("❌ OPENAI_API_KEY not found in environment variables")
+            raise ValueError("OPENAI_API_KEY is required for Brand Builder functionality")
+        
         # Platform configurations
         self.website_platforms = {
             "carrd": {"limit": "3 sites free", "custom_domain": "premium"},
