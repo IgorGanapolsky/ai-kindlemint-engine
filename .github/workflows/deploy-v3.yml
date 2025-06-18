@@ -90,10 +90,10 @@ jobs:
           --parameter-overrides \
             ProjectName="$PROJECT_NAME" \
             ECRRepository="${{ steps.build-image.outputs.image }}" \
-            KDPEmail="${{ secrets.KDP_EMAIL }}" \
-            KDPPassword="${{ secrets.KDP_PASSWORD }}" \
-            OpenAIAPIKey="${{ secrets.OPENAI_API_KEY }}" \
-            SlackWebhookURL="${{ secrets.SLACK_WEBHOOK_URL }}" \
+            KDPEmail="${{ secrets.KDP_EMAIL || 'test@example.com' }}" \
+            KDPPassword="${{ secrets.KDP_PASSWORD || 'test-password' }}" \
+            OpenAIAPIKey="${{ secrets.OPENAI_API_KEY || 'test-key' }}" \
+            SlackWebhookURL="${{ secrets.SLACK_WEBHOOK_URL || 'https://hooks.slack.com/test' }}" \
           --capabilities CAPABILITY_IAM \
           --region $AWS_REGION
           

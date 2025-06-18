@@ -15,11 +15,13 @@ Parameters:
   KDPEmail:
     Type: String
     Description: 'KDP account email'
+    Default: 'test@example.com'
     NoEcho: true
   
   KDPPassword:
     Type: String
     Description: 'KDP account password'
+    Default: 'test-password'
     NoEcho: true
   
   OpenAIAPIKey:
