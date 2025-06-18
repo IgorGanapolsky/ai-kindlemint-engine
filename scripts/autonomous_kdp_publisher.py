@@ -292,7 +292,22 @@ def main():
     
     # Parse volumes
     try:
-        volumes = [int(v.strip()) for v in args.volumes.split(',')]
+        if args.volumes.lower() == 'auto':
+            # Auto-detect volumes that need publishing
+            from scripts.portfolio_state_checker import PortfolioStateChecker
+            checker = PortfolioStateChecker()
+            
+            volumes = []
+            for vol_num in range(1, 6):
+                state = checker.check_volume_state("Large_Print_Crossword_Masters", vol_num)
+                if state['already_exists'] and state['status'] in ['GENERATED', 'PARTIAL_GENERATED']:
+                    volumes.append(vol_num)
+            
+            if not volumes:
+                print("ℹ️ No volumes ready for publishing")
+                return True
+        else:
+            volumes = [int(v.strip()) for v in args.volumes.split(',')]
     except:
         volumes = [1]  # Default to volume 1
     

@@ -150,50 +150,28 @@ jobs:
           pip install requests pillow python-dotenv
           playwright install chromium
           
-      - name: 📚 Daily Book Publishing
+      - name: 📚 Daily Book Publishing (with State Checking)
         run: |
-          # Determine next volume to publish
-          python -c "
-          from pathlib import Path
-          import json
-          from datetime import datetime
+          echo "🧠 Using Intelligent Orchestrator with state checking..."
           
-          # Check publishing history
-          reports_dir = Path('output/publishing_reports')
-          if reports_dir.exists():
-              report_files = list(reports_dir.glob('publishing_report_*.json'))
-              if report_files:
-                  latest_report = max(report_files, key=lambda x: x.stat().st_mtime)
-                  with open(latest_report, 'r') as f:
-                      data = json.load(f)
-                  last_published = max(data.get('volumes_requested', [0]))
-                  next_volume = min(last_published + 1, 5)
-              else:
-                  next_volume = 1
-          else:
-              next_volume = 1
-              
-          print(f'Publishing volume: {next_volume}')
+          # Use intelligent orchestrator to prevent duplicates
+          python scripts/intelligent_orchestrator.py --series "Large_Print_Crossword_Masters"
           
-          with open('next_volume.txt', 'w') as f:
-              f.write(str(next_volume))
-          "
-          
-          # Read the volume to publish
-          VOLUME=$(cat next_volume.txt)
-          echo "📚 Publishing Volume: $VOLUME"
-          
-          # Generate missing covers if needed
-          python scripts/generate_dalle_covers.py
-          
-          # Upload to Google Drive
-          python scripts/autonomous_google_drive_upload.py
-          
-          # Publish to KDP
-          python scripts/autonomous_kdp_publisher.py --volumes "$VOLUME"
-          
-          # Generate report
-          python scripts/generate_publishing_report.py
+          # Only proceed with publishing if new content was generated
+          if [ $? -eq 0 ]; then
+            echo "✅ Content ready for publishing"
+            
+            # Upload to Google Drive
+            python scripts/autonomous_google_drive_upload.py
+            
+            # Publish to KDP (will auto-detect volumes to publish)
+            python scripts/autonomous_kdp_publisher.py --volumes "auto"
+            
+            # Generate report
+            python scripts/generate_publishing_report.py
+          else
+            echo "ℹ️ No new content generated - skipping publishing steps"
+          fi
 
   marketing-campaigns:
     needs: determine-operations
