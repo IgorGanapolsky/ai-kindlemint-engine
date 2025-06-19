@@ -112,7 +112,8 @@
       "Bash(git lfs:*)",
       "Bash(for vol in {1..5})",
       "Bash(do mkdir -p \"volume_$vol\")",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }
