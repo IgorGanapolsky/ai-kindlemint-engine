@@ -301,9 +301,11 @@ class SlackNotifier:
             ]
         }
         
-        # Add channel override if specified
+        # Add channel override - default to #general
         if self.channel:
             slack_message["channel"] = self.channel
+        else:
+            slack_message["channel"] = "#general"
         
         return slack_message
 

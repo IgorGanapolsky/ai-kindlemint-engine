@@ -94,7 +94,9 @@
       "Bash(crossword_generation_response.json)",
       "Bash(playwright install:*)",
       "Bash(OPENAI_API_KEY=\"${OPENAI_API_KEY}\" python scripts/professional_cover_generator.py --all)",
-      "Bash(source .env)"
+      "Bash(source .env)",
+      "Bash(rg:*)",
+      "Bash(true)"
     ],
     "deny": []
   }
