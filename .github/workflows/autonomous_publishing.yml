@@ -43,7 +43,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install playwright openai google-api-python-client google-auth-httplib2 google-auth-oauthlib
-          pip install requests pillow python-dotenv boto3
+          pip install requests pillow python-dotenv boto3 reportlab
           playwright install chromium
           
       - name: 🔧 Setup Environment
@@ -80,9 +80,13 @@ jobs:
         run: |
           python scripts/autonomous_google_drive_upload.py
           
-      - name: 📚 Autonomous KDP Publishing
+      - name: 🔧 Generate KDP-Ready PDFs
         run: |
-          python scripts/autonomous_kdp_publisher.py --volumes "${{ github.event.inputs.volumes_to_publish || '1' }}" --force "${{ github.event.inputs.force_republish || 'false' }}"
+          python scripts/utilities/generate_kdp_pdfs.py
+          
+      - name: 📚 Autonomous KDP Publishing (Robust)
+        run: |
+          python scripts/publishing/robust_kdp_publisher.py
           
       - name: 📊 Generate Publishing Report
         run: |
