@@ -22,7 +22,7 @@ except botocore.exceptions.ProfileNotFound:
 s3 = session.client('s3')
 lambda_client = session.client('lambda')
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ZIP_PATH = BASE_DIR / ZIP_FILE_NAME
 
 def upload_to_s3():
