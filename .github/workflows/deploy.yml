@@ -43,7 +43,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "us-east-1"
         run: |
-          python scripts/deploy_lambda.py
+          python scripts/utilities/deploy_lambda.py
 
       - name: Notify Slack – Success
         if: success()
