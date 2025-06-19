@@ -103,7 +103,7 @@ jobs:
           python scripts/send_failure_notification.py
           
       - name: 💾 Archive Publishing Logs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: publishing-logs-${{ github.run_number }}
