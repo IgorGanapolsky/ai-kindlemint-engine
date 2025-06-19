@@ -59,26 +59,22 @@ jobs:
           from pathlib import Path
           import sys
           
-          books_dir = Path('output/generated_books')
+          # Check new hierarchical structure
+          brand_dir = Path('output/Senior_Puzzle_Studio/Large_Print_Crossword_Masters')
           missing_covers = []
           
           for vol in range(1, 6):
-              vol_folders = [f for f in books_dir.iterdir() if f.is_dir() and f'vol_{vol}_final' in f.name]
-              if vol_folders:
-                  cover_files = list(vol_folders[0].glob('cover_vol_*.png'))
-                  if not cover_files:
-                      missing_covers.append(vol)
+              vol_dir = brand_dir / f'volume_{vol}'
+              cover_file = vol_dir / 'cover.png'
+              if not cover_file.exists():
+                  missing_covers.append(vol)
           
           if missing_covers:
               print(f'❌ Missing covers for volumes: {missing_covers}')
               sys.exit(1)
           else:
-              print('✅ All covers present')
+              print('✅ All covers present in Git LFS structure')
           "
-          
-      - name: ☁️ Upload to Google Drive
-        run: |
-          python scripts/automation/autonomous_google_drive_upload.py
           
       - name: 🔧 Generate KDP-Ready PDFs
         run: |
