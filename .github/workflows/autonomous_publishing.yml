@@ -43,7 +43,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install playwright openai google-api-python-client google-auth-httplib2 google-auth-oauthlib
-          pip install requests pillow python-dotenv boto3 reportlab
+          pip install requests pillow python-dotenv boto3 reportlab selenium
           playwright install chromium
           
       - name: 🔧 Setup Environment
