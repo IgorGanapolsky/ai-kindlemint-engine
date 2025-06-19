@@ -40,7 +40,8 @@ Price: $7.99
 
 6. UPLOAD FILES
    → Manuscript: manuscript.txt (convert to PDF)
-   → Cover: Use cover_design_prompt.txt to create cover
+   → Cover: Upload your manually created cover OR use KDP Cover Creator
+   → Back Cover: Use content from back_cover_content.txt
    → Page size: 8.5" x 11" (large print)
 
 7. PRICING
