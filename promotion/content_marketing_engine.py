@@ -25,9 +25,9 @@ class ContentMarketingEngine:
     
     def __init__(self):
         """Initialize content marketing engine."""
-        # Mixpost configuration
-        self.mixpost_url = os.getenv('MIXPOST_URL', 'https://your-mixpost-instance.com')
-        self.mixpost_api_key = os.getenv('MIXPOST_API_KEY')
+        # Buffer configuration
+        self.buffer_api_key = os.getenv('BUFFER_API_KEY')
+        self.buffer_access_token = os.getenv('BUFFER_ACCESS_TOKEN')
         
         # Content platform configurations
         self.medium_integration_token = os.getenv('MEDIUM_INTEGRATION_TOKEN')
@@ -39,13 +39,14 @@ class ContentMarketingEngine:
         self.reddit_client_secret = os.getenv('REDDIT_CLIENT_SECRET')
         self.reddit_user_agent = os.getenv('REDDIT_USER_AGENT', 'KindleMint-ContentEngine/1.0')
         
-        if not self.mixpost_api_key:
-            raise ValueError("MIXPOST_API_KEY environment variable required")
+        if not self.buffer_access_token:
+            raise ValueError("BUFFER_ACCESS_TOKEN environment variable required")
         
-        self.headers = {
-            'Authorization': f'Bearer {self.mixpost_api_key}',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+        # Social media profiles for Buffer
+        self.social_profiles = {
+            'twitter': os.getenv('BUFFER_TWITTER_PROFILE_ID'),
+            'facebook': os.getenv('BUFFER_FACEBOOK_PROFILE_ID'),
+            'instagram': os.getenv('BUFFER_INSTAGRAM_PROFILE_ID')
         }
     
     async def execute_content_marketing_campaign(self, book_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -466,50 +467,47 @@ For the complete guide, check out "{book_title}" on Amazon: {amazon_url}
             return []
     
     async def _get_social_accounts(self) -> List[Dict[str, Any]]:
-        """Get connected social media accounts from Mixpost."""
+        """Get configured social media profiles for Buffer."""
         try:
-            response = requests.get(
-                f"{self.mixpost_url}/api/accounts",
-                headers=self.headers,
-                timeout=30
-            )
-            response.raise_for_status()
+            # Return configured Buffer profiles
+            active_accounts = []
             
-            accounts = response.json()
-            
-            # Filter for active accounts
-            active_accounts = [
-                acc for acc in accounts.get('data', []) 
-                if acc.get('status') == 'active'
-            ]
+            for platform, profile_id in self.social_profiles.items():
+                if profile_id:
+                    active_accounts.append({
+                        'id': profile_id,
+                        'name': platform.title(),
+                        'platform': platform,
+                        'status': 'active'
+                    })
             
             return active_accounts
             
         except Exception as e:
-            logger.error(f"Failed to get social accounts: {e}")
-            # Return mock accounts for development
+            logger.error(f"Failed to get Buffer profiles: {e}")
+            # Return Buffer profile accounts for development
             return [
-                {'id': 1, 'name': 'Twitter', 'platform': 'twitter'},
-                {'id': 2, 'name': 'Facebook', 'platform': 'facebook'},
-                {'id': 3, 'name': 'Instagram', 'platform': 'instagram'}
+                {'id': self.social_profiles.get('twitter'), 'name': 'Twitter', 'platform': 'twitter'},
+                {'id': self.social_profiles.get('facebook'), 'name': 'Facebook', 'platform': 'facebook'},
+                {'id': self.social_profiles.get('instagram'), 'name': 'Instagram', 'platform': 'instagram'}
             ]
     
     async def _schedule_rich_post(self, content: str, account: Dict[str, Any], post_time: datetime, content_type: str) -> Dict[str, Any]:
-        """Schedule a rich content post to a specific account."""
+        """Schedule a rich content post to a specific account via Buffer API."""
         try:
-            # Mixpost API payload
+            # Buffer API payload
+            buffer_url = "https://api.bufferapp.com/1/updates/create.json"
+            
             payload = {
-                'accounts': [account['id']],
-                'content': content,
-                'scheduled_at': post_time.strftime('%Y-%m-%d %H:%M:%S'),
-                'status': 'scheduled',
-                'content_type': content_type
+                'profile_ids[]': account['id'],
+                'text': content,
+                'scheduled_at': int(post_time.timestamp()),
+                'access_token': self.buffer_access_token
             }
             
             response = requests.post(
-                f"{self.mixpost_url}/api/posts",
-                headers=self.headers,
-                json=payload,
+                buffer_url,
+                data=payload,
                 timeout=30
             )
             
@@ -525,7 +523,7 @@ For the complete guide, check out "{book_title}" on Amazon: {amazon_url}
                     'status': 'scheduled'
                 }
             else:
-                raise Exception(f"Mixpost API error: {response.status_code}")
+                raise Exception(f"Buffer API error: {response.status_code} - {response.text}")
                 
         except Exception as e:
             logger.error(f"Failed to schedule rich post: {e}")

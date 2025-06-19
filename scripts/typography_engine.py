@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Stage 2: Typography Engine - Add professional text overlay to background art
+Bulletproof text rendering with configuration-driven layout
 """
 
 import os
@@ -20,57 +21,31 @@ class TypographyEngine:
         self.config = self._load_typography_config()
         
     def _load_typography_config(self):
-        """Load typography configuration for consistent branding"""
+        """Load typography configuration from JSON file"""
+        config_path = Path("config/cover_typography.json")
+        if config_path.exists():
+            try:
+                with open(config_path, 'r') as f:
+                    return json.load(f)
+            except Exception as e:
+                self.logger.warning(f"Failed to load config file: {e}, using defaults")
+        
+        # Fallback to hardcoded config
+        return self._get_default_config()
+    
+    def _get_default_config(self):
+        """Default configuration as fallback"""
         return {
-            "canvas_size": (1024, 1024),
-            "fonts": {
-                "title": {
-                    "family": "fonts/Montserrat-Bold.ttf",
-                    "fallback": "arial",
-                    "size": 48,
-                    "color": "#1a365d",  # Dark blue
-                    "position": (512, 200),  # Center X, Y from top
-                    "align": "center",
-                    "max_width": 900,
-                    "line_spacing": 1.2
-                },
-                "subtitle": {
-                    "family": "fonts/Montserrat-Regular.ttf", 
-                    "fallback": "arial",
-                    "size": 28,
-                    "color": "#2d5aa0",  # Medium blue
-                    "position": (512, 320),
-                    "align": "center",
-                    "max_width": 800
-                },
-                "volume": {
-                    "family": "fonts/Montserrat-Bold.ttf",
-                    "fallback": "arial", 
-                    "size": 36,
-                    "color": "#1a365d",
-                    "position": (512, 400),
-                    "align": "center"
-                },
-                "brand": {
-                    "family": "fonts/Montserrat-Regular.ttf",
-                    "fallback": "arial",
-                    "size": 24,
-                    "color": "#4a5568",  # Gray
-                    "position": (512, 950),
-                    "align": "center"
+            "canvas_size": {"width": 1600, "height": 2560, "dpi": 300},
+            "text_elements": {
+                "main_title": {
+                    "text": "CROSSWORD MASTERS",
+                    "font_family": "fonts/Montserrat-Bold.ttf",
+                    "font_size": 140,
+                    "color": "#000080",
+                    "position": {"x": 800, "y": 500},
+                    "alignment": "center"
                 }
-            },
-            "text_shadow": {
-                "enabled": True,
-                "offset": (2, 2),
-                "color": "white",
-                "blur": 0
-            },
-            "text_background": {
-                "enabled": True,
-                "color": "white",
-                "opacity": 180,  # 0-255
-                "padding": 20
             }
         }
     
@@ -87,7 +62,10 @@ class TypographyEngine:
             background = Image.open(background_path)
             
             # Ensure correct size
-            canvas_size = self.config["canvas_size"]
+            canvas_width = self.config["canvas_size"]["width"]
+            canvas_height = self.config["canvas_size"]["height"]
+            canvas_size = (canvas_width, canvas_height)
+            
             if background.size != canvas_size:
                 background = background.resize(canvas_size, Image.Resampling.LANCZOS)
             
@@ -122,18 +100,19 @@ class TypographyEngine:
         cover = background.copy()
         
         # Add semi-transparent background for text readability
-        if self.config["text_background"]["enabled"]:
+        if self.config.get("background", {}).get("text_safe_area", {}).get("enabled", False):
             cover = self._add_text_background(cover, volume_data)
         
         # Create text overlay
         text_overlay = Image.new('RGBA', cover.size, (0, 0, 0, 0))
         draw = ImageDraw.Draw(text_overlay)
         
-        # Add each text element
-        self._draw_title(draw, volume_data.get('title', 'Large Print Crossword Masters'))
-        self._draw_subtitle(draw, volume_data.get('subtitle', 'Easy Large Print Crosswords for Seniors'))
-        self._draw_volume(draw, f"Volume {volume_data.get('volume', 1)}")
-        self._draw_brand(draw, volume_data.get('brand', 'Senior Puzzle Studio'))
+        # Add each text element using config
+        self._draw_configured_text(draw, "main_title", volume_data)
+        self._draw_configured_text(draw, "large_print_banner", volume_data)
+        self._draw_configured_text(draw, "volume_number", volume_data)
+        self._draw_configured_text(draw, "brand_name", volume_data)
+        self._draw_configured_text(draw, "puzzle_count", volume_data)
         
         # Composite text onto cover
         cover = Image.alpha_composite(cover, text_overlay)
@@ -143,92 +122,136 @@ class TypographyEngine:
     def _add_text_background(self, cover, volume_data):
         """Add semi-transparent background for better text readability"""
         
+        if not self.config.get("background", {}).get("text_safe_area", {}).get("enabled", False):
+            return cover
+            
         overlay = Image.new('RGBA', cover.size, (0, 0, 0, 0))
         draw = ImageDraw.Draw(overlay)
         
-        # Text area background
-        bg_config = self.config["text_background"]
+        # Text area background from config
+        bg_config = self.config["background"]["text_safe_area"]
         try:
             color = (*self._hex_to_rgb(bg_config["color"]), bg_config["opacity"])
-        except ValueError:
-            # Fallback color if parsing fails
-            color = (255, 255, 255, bg_config["opacity"])
+        except (ValueError, KeyError):
+            color = (255, 255, 255, 180)
         
-        # Calculate text area bounds
-        padding = bg_config["padding"]
+        # Get area from config
+        area_config = bg_config.get("area", {"x": 100, "y": 400, "width": 1400, "height": 800})
         text_area = (
-            50,      # Left
-            150,     # Top
-            cover.size[0] - 50,  # Right
-            500      # Bottom
+            area_config["x"],
+            area_config["y"],
+            area_config["x"] + area_config["width"],
+            area_config["y"] + area_config["height"]
         )
         
-        draw.rounded_rectangle(text_area, radius=15, fill=color)
+        radius = bg_config.get("radius", 15)
+        draw.rounded_rectangle(text_area, radius=radius, fill=color)
         
         return Image.alpha_composite(cover, overlay)
     
-    def _draw_title(self, draw, title):
-        """Draw main title with proper wrapping and positioning"""
-        font_config = self.config["fonts"]["title"]
-        font = self._load_font(font_config["family"], font_config["size"])
+    def _draw_configured_text(self, draw, element_key, volume_data):
+        """Draw text element based on configuration"""
+        if element_key not in self.config.get("text_elements", {}):
+            return
+            
+        element_config = self.config["text_elements"][element_key]
         
-        # Word wrap if needed
-        wrapped_lines = self._wrap_text(title, font, font_config["max_width"])
+        # Get text content
+        text = element_config["text"]
+        if "{volume}" in text:
+            text = text.format(volume=volume_data.get('volume', 1))
+            
+        # Load font
+        font = self._load_font(element_config["font_family"], element_config["font_size"])
         
-        # Calculate total height for centering
-        line_height = font_config["size"] * font_config["line_spacing"]
-        total_height = len(wrapped_lines) * line_height
-        start_y = font_config["position"][1] - (total_height / 2)
+        # Get position
+        pos_config = element_config["position"]
+        position = (pos_config["x"], pos_config["y"])
         
-        # Draw each line
-        for i, line in enumerate(wrapped_lines):
-            y = start_y + (i * line_height)
-            self._draw_text_with_shadow(
-                draw, line, font, 
-                (font_config["position"][0], y),
-                font_config["color"],
-                font_config["align"]
+        # Draw background if configured
+        if element_config.get("background", {}).get("enabled", False):
+            self._draw_text_background_box(draw, text, font, position, element_config)
+        
+        # Draw text with stroke if configured
+        if element_config.get("stroke", {}).get("enabled", False):
+            self._draw_text_with_stroke(
+                draw, text, font, position, 
+                element_config["color"], 
+                element_config["stroke"],
+                element_config["alignment"]
+            )
+        else:
+            self._draw_text_simple(
+                draw, text, font, position,
+                element_config["color"],
+                element_config["alignment"]
             )
     
-    def _draw_subtitle(self, draw, subtitle):
-        """Draw subtitle"""
-        font_config = self.config["fonts"]["subtitle"]
-        font = self._load_font(font_config["family"], font_config["size"])
+    def _draw_text_background_box(self, draw, text, font, position, element_config):
+        """Draw background box for text element"""
+        bg_config = element_config["background"]
         
-        wrapped_lines = self._wrap_text(subtitle, font, font_config["max_width"])
+        # Get text dimensions
+        bbox = draw.textbbox((0, 0), text, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
         
-        for i, line in enumerate(wrapped_lines):
-            y = font_config["position"][1] + (i * font_config["size"] * 1.2)
-            self._draw_text_with_shadow(
-                draw, line, font,
-                (font_config["position"][0], y),
-                font_config["color"],
-                font_config["align"]
-            )
-    
-    def _draw_volume(self, draw, volume_text):
-        """Draw volume number"""
-        font_config = self.config["fonts"]["volume"]
-        font = self._load_font(font_config["family"], font_config["size"])
+        # Calculate box position
+        padding = bg_config.get("padding", 20)
+        x, y = position
         
-        self._draw_text_with_shadow(
-            draw, volume_text, font,
-            font_config["position"],
-            font_config["color"],
-            font_config["align"]
+        if element_config["alignment"] == "center":
+            box_x = x - (text_width / 2) - padding
+        else:
+            box_x = x - padding
+            
+        box_y = y - padding
+        box_width = text_width + (padding * 2)
+        box_height = text_height + (padding * 2)
+        
+        # Draw background box
+        try:
+            color = (*self._hex_to_rgb(bg_config["color"]), bg_config["opacity"])
+        except (ValueError, KeyError):
+            color = (255, 255, 255, 240)
+            
+        radius = bg_config.get("radius", 10)
+        draw.rounded_rectangle(
+            [box_x, box_y, box_x + box_width, box_y + box_height],
+            radius=radius, fill=color
         )
     
-    def _draw_brand(self, draw, brand_text):
-        """Draw brand name"""
-        font_config = self.config["fonts"]["brand"]
-        font = self._load_font(font_config["family"], font_config["size"])
+    def _draw_text_with_stroke(self, draw, text, font, position, color, stroke_config, align="center"):
+        """Draw text with stroke outline"""
+        x, y = position
         
-        self._draw_text_with_shadow(
-            draw, brand_text, font,
-            font_config["position"],
-            font_config["color"],
-            font_config["align"]
-        )
+        # Adjust position based on alignment
+        if align == "center":
+            bbox = draw.textbbox((0, 0), text, font=font)
+            text_width = bbox[2] - bbox[0]
+            x = x - (text_width / 2)
+        
+        # Draw stroke
+        stroke_width = stroke_config.get("width", 2)
+        stroke_color = stroke_config.get("color", "#FFFFFF")
+        
+        for adj_x in range(-stroke_width, stroke_width + 1):
+            for adj_y in range(-stroke_width, stroke_width + 1):
+                draw.text((x + adj_x, y + adj_y), text, font=font, fill=stroke_color)
+        
+        # Draw main text
+        draw.text((x, y), text, font=font, fill=color)
+    
+    def _draw_text_simple(self, draw, text, font, position, color, align="center"):
+        """Draw simple text without effects"""
+        x, y = position
+        
+        if align == "center":
+            bbox = draw.textbbox((0, 0), text, font=font)
+            text_width = bbox[2] - bbox[0]
+            x = x - (text_width / 2)
+        
+        draw.text((x, y), text, font=font, fill=color)
     
     def _draw_text_with_shadow(self, draw, text, font, position, color, align="center"):
         """Draw text with shadow for better readability"""

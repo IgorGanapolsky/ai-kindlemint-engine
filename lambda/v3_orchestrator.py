@@ -71,19 +71,30 @@ class V3Orchestrator:
             content_assets = self._generate_content_assets(book_id, topic_data)
             logger.info(f"📚 Content generated: {len(content_assets)} assets")
             
-            # Step 4: Cover generation
-            cover_asset = self._generate_cover_asset(book_id, topic_data, content_assets)
-            logger.info(f"🎨 Cover generated: {cover_asset['path']}")
+            # Step 4: Generate Cover Prompt (Human-in-the-Loop Workflow)
+            cover_prompt_result = self._generate_cover_prompt(book_id, topic_data, content_assets)
+            logger.info(f"🎨 Cover prompt generated: {cover_prompt_result['prompt_file']}")
             
-            # Step 5: Upload assets to S3
-            s3_assets = self._upload_assets_to_s3(book_id, content_assets, cover_asset)
-            logger.info(f"☁️ Assets uploaded to S3: {s3_assets}")
+            # Step 5: WORKFLOW PAUSED - Waiting for human cover creation
+            # The workflow will automatically resume when cover.png is detected
+            logger.info("⏸️ WORKFLOW PAUSED - Waiting for cover creation by Creative Director")
             
-            # Step 6: Trigger Fargate KDP publishing
-            publishing_result = self._trigger_fargate_publishing(book_id, s3_assets, topic_data)
-            logger.info(f"🚀 Fargate publishing triggered: {publishing_result['task_arn']}")
+            return {
+                'status': 'paused_for_cover',
+                'book_id': book_id,
+                'topic': topic_data['topic'],
+                'niche': topic_data['niche'],
+                'workflow_stage': 'waiting_for_cover',
+                'prompt_file': cover_prompt_result['prompt_file'],
+                'output_directory': cover_prompt_result['output_dir'],
+                'message': 'Cover prompt generated. Workflow paused for human cover creation.',
+                'resume_instructions': 'Add cover.png to output directory to resume automated publishing'
+            }
             
-            # Step 7: Activate Content Marketing Engine (Zero-Budget Organic Strategy)
+            # NOTE: The following steps will be executed by the resume workflow:
+            # - Upload assets to S3
+            # - Trigger Fargate KDP publishing
+            # - Activate Content Marketing Engine
             marketing_result = self._trigger_content_marketing_engine({
                 'asin': 'B' + book_id[-9:].upper(),  # Generate mock ASIN for immediate marketing
                 'title': topic_data['topic'],
@@ -229,27 +240,93 @@ class V3Orchestrator:
             logger.error(f"Content generation error: {e}")
             raise Exception(f"Failed to generate content assets: {str(e)}")
     
-    def _generate_cover_asset(self, book_id: str, topic_data: Dict[str, Any], content_assets: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate professional book cover using DALL-E 3."""
+    def _generate_cover_prompt(self, book_id: str, topic_data: Dict[str, Any], content_assets: Dict[str, Any]) -> Dict[str, Any]:
+        """Generate detailed cover prompt for human execution."""
         try:
-            from kindlemint.agents.cover_agent import CoverAgent
+            from kindlemint.core.cover_workflow_orchestrator import CoverWorkflowOrchestrator
+            from pathlib import Path
             
-            cover_agent = CoverAgent(api_key=self.openai_api_key)
+            orchestrator = CoverWorkflowOrchestrator()
             
-            # Generate professional cover
-            cover_path = f"/tmp/{book_id}_cover.jpg"
-            cover_result = cover_agent.generate_professional_cover(
-                book_title=topic_data['topic'],
-                subtitle="Transform Your Life with Proven Strategies",
-                author="Igor Ganapolsky",
-                niche=topic_data['niche'],
-                output_path=cover_path,
-                num_options=3
-            )
+            # Prepare book data for prompt generation
+            book_data = {
+                'title': content_assets.get('title', topic_data['topic']),
+                'subtitle': content_assets.get('subtitle', 'Professional Guide'),
+                'topic': topic_data['topic'],
+                'niche': topic_data['niche'],
+                'series': 'Large Print Crossword Masters',
+                'brand': 'Senior Puzzle Studio',
+                'volume': 1  # Extract from topic if needed
+            }
+            
+            output_dir = Path(f"output/{book_id}")
+            
+            # Execute cover workflow (this will pause the workflow)
+            workflow_result = orchestrator.execute_cover_workflow(book_data, output_dir)
             
             return {
-                'path': cover_result['path'],
-                'quality_score': cover_result['quality_score'],
+                'status': workflow_result['status'],
+                'prompt_file': workflow_result.get('prompt_file'),
+                'output_dir': str(output_dir),
+                'stage': workflow_result.get('stage')
+            }
+            
+        except Exception as e:
+            logger.error(f"Cover prompt generation failed: {e}")
+            raise
+    
+    def resume_workflow_after_cover(self, book_id: str, topic_data: Dict[str, Any], content_assets: Dict[str, Any]) -> Dict[str, Any]:
+        """Resume workflow after cover has been created by human."""
+        try:
+            logger.info(f"▶️ Resuming workflow for {book_id} after cover creation")
+            
+            # Step 5: Upload assets to S3 (including the new cover)
+            cover_asset = {
+                'type': 'cover',
+                'path': f"output/{book_id}/cover.png",
+                'filename': 'cover.png'
+            }
+            
+            s3_assets = self._upload_assets_to_s3(book_id, content_assets, cover_asset)
+            logger.info(f"☁️ Assets uploaded to S3: {s3_assets}")
+            
+            # Step 6: Trigger Fargate KDP publishing
+            publishing_result = self._trigger_fargate_publishing(book_id, s3_assets, topic_data)
+            logger.info(f"🚀 Fargate publishing triggered: {publishing_result['task_arn']}")
+            
+            # Step 7: Activate Content Marketing Engine
+            marketing_result = self._trigger_content_marketing_engine({
+                'asin': 'B' + book_id[-9:].upper(),
+                'title': topic_data['topic'],
+                'description': content_assets.get('kdp_description', ''),
+                'topic': topic_data['topic'],
+                'niche': topic_data['niche']
+            })
+            logger.info(f"📈 Content Marketing Engine activated: {marketing_result.get('campaign_id', 'N/A')}")
+            
+            # Step 8: Update memory system
+            self._update_memory_system(book_id, topic_data, {})
+            logger.info("💾 Memory system updated")
+            
+            return {
+                'status': 'success',
+                'book_id': book_id,
+                'topic': topic_data['topic'],
+                'niche': topic_data['niche'],
+                'publishing_task': publishing_result['task_arn'],
+                'marketing_campaign': marketing_result.get('campaign_id')
+            }
+            
+        except Exception as e:
+            logger.error(f"Resume workflow failed: {e}")
+            raise
+    
+    def _generate_cover_asset(self, book_id: str, topic_data: Dict[str, Any], content_assets: Dict[str, Any]) -> Dict[str, Any]:
+        """DEPRECATED: Use _generate_cover_prompt instead."""
+        logger.warning("_generate_cover_asset is deprecated. Use Prompt Co-Pilot workflow instead.")
+        return {
+            'path': f"output/{book_id}/cover_placeholder.png",
+            'quality_score': 0.0,
                 'analysis': cover_result['analysis']
             }
             

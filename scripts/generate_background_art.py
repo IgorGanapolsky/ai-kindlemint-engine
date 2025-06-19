@@ -51,15 +51,15 @@ class BackgroundArtGenerator:
         
         base_prompts = {
             "crossword": [
-                "Clean minimalist background with subtle crossword grid pattern in light gray. Soft blue and white gradient. Professional book cover style. NO TEXT. NO WORDS. NO LETTERS. Pure background design only.",
+                "Clean geometric pattern with crossword grid theme. Calming blue and turquoise gradient background. Modern abstract design. Empty grid squares only - absolutely no letters, numbers, or text of any kind.",
                 
-                "Elegant crossword puzzle theme background. Faint grid lines in gentle curves. Calming blue-green gradient. Clean modern design. NO TEXT ANYWHERE. NO TITLES. NO WORDS. Background art only.",
+                "Abstract crossword-inspired pattern. Soft yellow to green gradient. Geometric grid design with empty squares. Professional book cover background - no text, no letters, no words whatsoever.",
                 
-                "Professional crossword-inspired background. Abstract geometric grid pattern in soft pastels. Clean commercial book cover style. ABSOLUTELY NO TEXT. NO LETTERING. Pure artistic background only.",
+                "Minimalist crossword grid pattern. Blue to white gradient background. Simple geometric squares arranged in grid formation. Pure background art - zero text or lettering allowed.",
                 
-                "Sophisticated puzzle theme background with subtle grid elements. Soft professional gradient in blues and whites. Clean modern design. NO WORDS. NO TEXT. NO TITLES. Background pattern only.",
+                "Modern geometric background with crossword theme. Green and turquoise gradient. Clean grid pattern with empty squares only. Background artwork with no text elements.",
                 
-                "Premium crossword book background. Minimalist grid design with elegant color scheme. Professional publishing quality. ZERO TEXT. NO LETTERS. NO WORDS. Clean background art only."
+                "Professional crossword-inspired background. Calming blue gradient. Abstract grid pattern design. Clean background art - absolutely no text, letters, or words included."
             ]
         }
         
@@ -67,8 +67,8 @@ class BackgroundArtGenerator:
         prompt_index = (volume_number - 1) % len(prompts)
         selected_prompt = prompts[prompt_index]
         
-        # Add explicit NO TEXT reinforcement
-        final_prompt = f"{selected_prompt} IMPORTANT: This is ONLY the background art. Do NOT include any text, titles, words, or letters. This will have text added programmatically later."
+        # Add bulletproof NO TEXT enforcement
+        final_prompt = f"{selected_prompt} CRITICAL: Generate ONLY the background pattern. Do NOT include any text, letters, numbers, words, titles, or readable characters. The image must be completely text-free as text will be added separately using code."
         
         self.logger.info(f"🎨 Art prompt for Volume {volume_number}: {final_prompt[:100]}...")
         return final_prompt
@@ -84,7 +84,7 @@ class BackgroundArtGenerator:
             response = client.images.generate(
                 model="dall-e-3",
                 prompt=prompt,
-                size="1024x1024",
+                size="1024x1792",
                 quality="standard",
                 n=1
             )
