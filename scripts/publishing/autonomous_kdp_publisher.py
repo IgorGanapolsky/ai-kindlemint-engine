@@ -102,6 +102,134 @@ class AutonomousKDPPublisher:
             self.logger.error(f"❌ KDP login failed: {e}")
             return False
     
+    def create_or_verify_kdp_series(self, series_name="Large Print Crossword Masters", brand_name="Senior Puzzle Studio"):
+        """Create or verify that a KDP series exists"""
+        try:
+            self.logger.info(f"📚 Creating/verifying KDP Series: {series_name}")
+            
+            # Navigate to Bookshelf
+            self.page.goto("https://kdp.amazon.com/en_US/bookshelf")
+            self.page.wait_for_load_state('networkidle')
+            
+            # Look for existing series
+            series_exists = False
+            try:
+                # Check if series already exists in bookshelf
+                series_element = self.page.locator(f'text="{series_name}"').first
+                if series_element.is_visible():
+                    self.logger.info(f"✅ Series '{series_name}' already exists")
+                    series_exists = True
+            except:
+                pass
+            
+            if not series_exists:
+                self.logger.info(f"🆕 Creating new series '{series_name}'...")
+                
+                # Look for "Create Series" button or link
+                try:
+                    # Try different possible selectors for Create Series
+                    create_series_selectors = [
+                        'text="Create Series"',
+                        'text="Create a Series"', 
+                        'button:has-text("Create Series")',
+                        'a:has-text("Create Series")',
+                        '[data-testid="create-series"]',
+                        '.create-series-button'
+                    ]
+                    
+                    series_created = False
+                    for selector in create_series_selectors:
+                        try:
+                            create_button = self.page.locator(selector)
+                            if create_button.is_visible():
+                                create_button.click()
+                                self.page.wait_for_load_state('networkidle')
+                                series_created = True
+                                break
+                        except:
+                            continue
+                    
+                    if not series_created:
+                        # Try navigation approach - look for series management
+                        self.page.goto("https://kdp.amazon.com/en_US/series")
+                        self.page.wait_for_load_state('networkidle')
+                        
+                        # Try to find create series on dedicated page
+                        create_button = self.page.locator('text="Create Series"').first
+                        if create_button.is_visible():
+                            create_button.click()
+                            series_created = True
+                    
+                    if series_created:
+                        # Fill in series details
+                        self.page.wait_for_selector('input[name="seriesTitle"], input[placeholder*="series"], input[id*="series"]')
+                        
+                        # Series title
+                        title_selectors = ['input[name="seriesTitle"]', 'input[placeholder*="series"]', 'input[id*="series"]']
+                        for selector in title_selectors:
+                            try:
+                                title_field = self.page.locator(selector)
+                                if title_field.is_visible():
+                                    title_field.fill(series_name)
+                                    break
+                            except:
+                                continue
+                        
+                        # Brand/Publisher name
+                        brand_selectors = ['input[name="brandName"]', 'input[placeholder*="brand"]', 'input[placeholder*="publisher"]']
+                        for selector in brand_selectors:
+                            try:
+                                brand_field = self.page.locator(selector)
+                                if brand_field.is_visible():
+                                    brand_field.fill(brand_name)
+                                    break
+                            except:
+                                continue
+                        
+                        # Series description
+                        description = f"A comprehensive collection of large print crossword puzzles designed specifically for seniors and puzzle enthusiasts who prefer easy-to-read text. Each volume in the {series_name} series contains carefully crafted puzzles with themes, clues, and difficulty levels perfect for relaxing entertainment and mental stimulation."
+                        
+                        desc_selectors = ['textarea[name="description"]', 'textarea[placeholder*="description"]', 'textarea[id*="description"]']
+                        for selector in desc_selectors:
+                            try:
+                                desc_field = self.page.locator(selector)
+                                if desc_field.is_visible():
+                                    desc_field.fill(description)
+                                    break
+                            except:
+                                continue
+                        
+                        # Save series
+                        save_selectors = ['button:has-text("Save")', 'button:has-text("Create")', 'button[type="submit"]']
+                        for selector in save_selectors:
+                            try:
+                                save_button = self.page.locator(selector)
+                                if save_button.is_visible():
+                                    save_button.click()
+                                    break
+                            except:
+                                continue
+                        
+                        # Wait for series creation confirmation
+                        self.page.wait_for_load_state('networkidle')
+                        time.sleep(3)
+                        
+                        self.logger.info(f"✅ Series '{series_name}' created successfully")
+                        return True
+                    else:
+                        self.logger.warning(f"⚠️ Could not find 'Create Series' button - series may need manual creation")
+                        return False
+                        
+                except Exception as e:
+                    self.logger.error(f"❌ Failed to create series: {e}")
+                    return False
+            
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"❌ Failed to create/verify series: {e}")
+            return False
+    
     def publish_volume(self, volume_data):
         """Publish a single volume to KDP"""
         try:
@@ -227,6 +355,12 @@ class AutonomousKDPPublisher:
         try:
             # Login to KDP
             if not self.login_to_kdp():
+                return False
+            
+            # Create or verify series exists first
+            self.logger.info("📚 Ensuring KDP Series exists before publishing...")
+            if not self.create_or_verify_kdp_series():
+                self.logger.error("❌ Failed to create/verify series - aborting publishing")
                 return False
             
             published_count = 0
