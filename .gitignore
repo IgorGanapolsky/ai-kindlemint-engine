@@ -180,6 +180,10 @@ secrets/*.json
 *.kpf
 *.epub
 *.mobi
+# Allow specific files in the new asset management structure
+!output/**/manuscript.pdf
+!output/**/cover.png
+# Block other PDFs outside the asset structure
 *.pdf
 lambda_deploy.zip
 temp/
