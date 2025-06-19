@@ -248,46 +248,29 @@ async def generate_volume_1_content(series, logger):
         
     except Exception as e:
         logger.warning(f"Content generation failed: {e}")
-        # Fallback content
-        return {
-            'content': f"""
-{series['books'][0]['title']}
-{series['books'][0]['subtitle']}
-
-By Senior Puzzle Studio
-
-INTRODUCTION
-
-Welcome to Large Print Crossword Masters! This book contains 25 carefully crafted crossword puzzles designed specifically for seniors who appreciate larger, easier-to-read text.
-
-Benefits of Large Print Crosswords:
-- Reduces eye strain
-- Easier to read and solve
-- Perfect for seniors with vision challenges
-- Promotes cognitive health and mental stimulation
-
-HOW TO SOLVE CROSSWORDS
-
-1. Read the clues carefully
-2. Start with clues you know for certain
-3. Use crossing letters to help solve difficult clues
-4. Don't be afraid to guess and erase
-5. Take breaks when needed
-
-PUZZLE 1 - EASY STARTER
-
-[This would contain actual crossword grids in a real implementation]
-
-ANSWERS
-
-[Answer key would be provided here]
-
-Visit https://senior-puzzle-studio.carrd.co for bonus puzzles!
-
-© 2025 Senior Puzzle Studio | All Rights Reserved
-            """.strip(),
-            'description': f"Easy large print crosswords perfect for seniors! This collection of 25 beginner-friendly puzzles features large, clear text that's easy on the eyes. Ideal for cognitive stimulation and entertainment."
-        }
+        # Generate actual crossword content using the crossword generator
+        try:
+            # Import the crossword generator
+            import sys
+            from pathlib import Path
+            sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+            from kindlemint.core.crossword_generator import generate_complete_crossword_content
+            
+            # Generate complete crossword content with 50 puzzles
+            actual_content = generate_complete_crossword_content(puzzle_count=50)
+            logger.info(f"✅ Generated complete crossword content: {len(actual_content)} characters")
+            
+            return {
+                'content': actual_content,
+                'description': f"Easy large print crosswords perfect for seniors! This collection of 50 beginner-friendly puzzles features large, clear text that's easy on the eyes. Ideal for cognitive stimulation and entertainment."
+            }
+        except Exception as e:
+            logger.error(f"Failed to generate actual crosswords: {e}")
+            # Ultimate fallback
+            return {
+                'content': f"ERROR: Crossword generation failed. Please check the crossword_generator module.",
+                'description': f"Easy large print crosswords perfect for seniors! This collection of 50 beginner-friendly puzzles features large, clear text that's easy on the eyes. Ideal for cognitive stimulation and entertainment."
+            }
 
 async def generate_automated_cover(book_folder: Path, metadata: dict, logger):
     """Generate cover using DALL-E API based on book metadata."""

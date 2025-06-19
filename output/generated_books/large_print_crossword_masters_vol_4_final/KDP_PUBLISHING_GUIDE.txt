@@ -23,7 +23,7 @@ Price: $7.99
    → Title: Large Print Crossword Masters: Volume 4
    → Subtitle: Easy Large Print Crosswords for Seniors
    → Author: Senior Puzzle Studio
-   → Description: Enjoy hours of engaging fun with "Large Print Crossword Masters: Volume 4"! This book is specifically designed for seniors, featuring large, easy-to-read print and simple, enjoyable crossword puzzles....
+   → Description: Enjoy hours of engaging fun with "Large Print Crossword Masters: Volume 4"! This book is specifically designed for seniors, featuring large, easy-to-read print and simple, enjoyable crossword puzzles. Each puzzle is carefully crafted with extra-large fonts to reduce eye strain and provide comfortable solving. With 50 thoughtfully designed crosswords, this collection offers the perfect balance of mental stimulation and relaxation. Ideal for quiet afternoons or social puzzle-solving sessions with friends and family.
 
 4. KEYWORDS (use all 7 slots):
    → 1. large print crossword
@@ -32,7 +32,7 @@ Price: $7.99
    → 4. senior puzzles
    → 5. brain games for seniors
    → 6. cognitive stimulation
-   → 7. adult coloring books
+   → 7. large print puzzles
 
 5. CATEGORIES
    → Primary: Games & Puzzles > Crosswords
