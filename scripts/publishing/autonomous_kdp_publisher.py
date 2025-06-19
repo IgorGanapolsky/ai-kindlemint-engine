@@ -16,6 +16,7 @@ from datetime import datetime
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from kindlemint.utils.logger import get_logger
+from kindlemint.utils.asset_manager import AssetManager, get_volume_data_new_structure
 
 class AutonomousKDPPublisher:
     def __init__(self):
@@ -307,20 +308,28 @@ class AutonomousKDPPublisher:
             return False
     
     def get_volume_data(self, vol_num):
-        """Get volume data from generated files"""
+        """Get volume data using new asset management system"""
         try:
-            # Find volume folder
+            # Try new hierarchical structure first
+            volume_data = get_volume_data_new_structure("Senior Puzzle Studio", "Large Print Crossword Masters", vol_num)
+            
+            if volume_data:
+                self.logger.info(f"✅ Found Volume {vol_num} in new hierarchical structure")
+                return volume_data
+            
+            # Fall back to legacy structure for backwards compatibility
+            self.logger.info(f"🔄 Volume {vol_num} not found in new structure, checking legacy...")
             books_dir = Path("output/generated_books")
             vol_folders = [f for f in books_dir.iterdir() 
                           if f.is_dir() and f"vol_{vol_num}_final" in f.name]
             
             if not vol_folders:
-                self.logger.error(f"❌ Volume {vol_num} folder not found")
+                self.logger.error(f"❌ Volume {vol_num} not found in legacy or new structure")
                 return None
             
             vol_folder = vol_folders[0]
             
-            # Read metadata
+            # Read metadata from legacy structure
             metadata_file = vol_folder / "metadata.json"
             if metadata_file.exists():
                 with open(metadata_file, 'r') as f:
