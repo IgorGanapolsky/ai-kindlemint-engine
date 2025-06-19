@@ -12,7 +12,7 @@ from pathlib import Path
 from datetime import datetime
 
 # Add the project root to the Python path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from kindlemint.utils.logger import get_logger
 
