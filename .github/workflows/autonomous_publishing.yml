@@ -78,7 +78,7 @@ jobs:
           
       - name: ☁️ Upload to Google Drive
         run: |
-          python scripts/autonomous_google_drive_upload.py
+          python scripts/automation/autonomous_google_drive_upload.py
           
       - name: 🔧 Generate KDP-Ready PDFs
         run: |
@@ -90,17 +90,17 @@ jobs:
           
       - name: 📊 Generate Publishing Report
         run: |
-          python scripts/generate_publishing_report.py
+          python scripts/automation/generate_publishing_report.py
           
       - name: 📧 Send Success Notification
         if: success()
         run: |
-          python scripts/send_success_notification.py
+          python scripts/automation/send_success_notification.py
           
       - name: 🚨 Send Failure Notification
         if: failure()
         run: |
-          python scripts/send_failure_notification.py
+          python scripts/automation/send_failure_notification.py
           
       - name: 💾 Archive Publishing Logs
         uses: actions/upload-artifact@v4
