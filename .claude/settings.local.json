@@ -101,7 +101,18 @@
       "Bash(git push:*)",
       "Bash(git pull:*)",
       "Bash(git stash:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(if [ -z \"$KDP_EMAIL\" ])",
+      "Bash(then echo \"❌ KDP_EMAIL not set\")",
+      "Bash(else echo \"✅ KDP_EMAIL configured\")",
+      "Bash(fi)",
+      "Bash(if [ -z \"$KDP_PASSWORD\" ])",
+      "Bash(then echo \"❌ KDP_PASSWORD not set\")",
+      "Bash(else echo \"✅ KDP_PASSWORD configured\")",
+      "Bash(git lfs:*)",
+      "Bash(for vol in {1..5})",
+      "Bash(do mkdir -p \"volume_$vol\")",
+      "Bash(done)"
     ],
     "deny": []
   }

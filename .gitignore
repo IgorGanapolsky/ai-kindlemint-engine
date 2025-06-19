@@ -191,7 +191,8 @@ covers/
 manuscripts/
 assets/generated/
 
-# Duplicate output folders (keep only output/generated_books/)
+# Legacy output folders (migrated to new hierarchical structure)
+output/generated_books/
 output/PUBLISHING_READY/
 output/READY_FOR_GOOGLE_DRIVE/
 output/KDP_READY/
