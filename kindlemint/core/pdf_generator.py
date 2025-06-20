@@ -373,8 +373,8 @@ class CrosswordPDFGenerator:
             logger.error(f"❌ KDP PDF generation failed: {e}")
             return None
 
-def generate_all_volume_pdfs(base_dir: str = "output/generated_books") -> list:
-    """Generate PDFs for all book volumes."""
+def generate_all_volume_pdfs(base_dir: str = "output/Senior_Puzzle_Studio/Large_Print_Crossword_Masters") -> list:
+    """Generate PDFs for all book volumes using new hierarchical structure."""
     try:
         base_path = Path(base_dir)
         if not base_path.exists():
@@ -384,17 +384,17 @@ def generate_all_volume_pdfs(base_dir: str = "output/generated_books") -> list:
         generator = CrosswordPDFGenerator()
         generated_pdfs = []
         
-        # Find all book folders
-        for book_folder in base_path.iterdir():
-            if book_folder.is_dir() and "crossword_masters" in book_folder.name:
-                logger.info(f"📚 Processing: {book_folder.name}")
+        # Find all volume folders in new structure
+        for volume_folder in base_path.iterdir():
+            if volume_folder.is_dir() and volume_folder.name.startswith("volume_"):
+                logger.info(f"📚 Processing: {volume_folder.name}")
                 
-                pdf_path = generator.generate_kdp_ready_pdf(str(book_folder))
+                pdf_path = generator.generate_kdp_ready_pdf(str(volume_folder))
                 if pdf_path:
                     generated_pdfs.append(pdf_path)
                     logger.info(f"✅ Generated: {pdf_path}")
                 else:
-                    logger.error(f"❌ Failed to generate PDF for: {book_folder.name}")
+                    logger.error(f"❌ Failed to generate PDF for: {volume_folder.name}")
         
         logger.info(f"🎉 Generated {len(generated_pdfs)} PDFs total")
         return generated_pdfs
