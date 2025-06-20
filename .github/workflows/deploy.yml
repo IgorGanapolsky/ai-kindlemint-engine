@@ -45,18 +45,12 @@ jobs:
         run: |
           python scripts/utilities/deploy_lambda.py
 
-      - name: Notify Slack – Success
-        if: success()
-        run: |
-          echo '{"text":"✅ Lambda deployment succeeded on GitHub Actions."}' | \
-            curl -X POST -H 'Content-type: application/json' -d @- $SLACK_WEBHOOK_URL -w "HTTP %{http_code}\n"
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-      - name: Notify Slack – Failure
+      - name: 🚨 Notify Critical Lambda Failure
         if: failure()
         run: |
-          echo '{"text":"❌ Lambda deployment FAILED on GitHub Actions. Investigate immediately."}' | \
-            curl -X POST -H 'Content-type: application/json' -d @- $SLACK_WEBHOOK_URL -w "HTTP %{http_code}\n"
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          python scripts/automation/send_lambda_deployment_notification.py \
+            --status="FAILED" \
+            --commit="${{ github.sha }}" \
+            --commit-msg="${{ github.event.head_commit.message || 'Lambda deployment failure' }}" \
+            --triggered-by="${{ github.actor }}" \
+            --branch="${{ github.ref_name }}"
