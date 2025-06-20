@@ -119,7 +119,7 @@ jobs:
             --run-id="${{ github.run_id }}" \
             --run-url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             --commit="${{ github.sha }}" \
-            --commit-msg="${{ github.event.head_commit.message }}" \
+            --commit-msg="${{ github.event.head_commit.message || github.event.commits[0].message || 'Manual workflow dispatch' }}" \
             --triggered-by="${{ github.actor }}" \
             --branch="${{ github.ref_name }}" \
             --volumes="${{ github.event.inputs.volumes_to_publish || '1' }}"
@@ -132,7 +132,7 @@ jobs:
             --run-id="${{ github.run_id }}" \
             --run-url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             --commit="${{ github.sha }}" \
-            --commit-msg="${{ github.event.head_commit.message }}" \
+            --commit-msg="${{ github.event.head_commit.message || github.event.commits[0].message || 'Manual workflow dispatch' }}" \
             --triggered-by="${{ github.actor }}" \
             --branch="${{ github.ref_name }}" \
             --volumes="${{ github.event.inputs.volumes_to_publish || '1' }}" \

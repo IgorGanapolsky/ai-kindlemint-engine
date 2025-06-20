@@ -64,10 +64,14 @@ def send_failure_notification(args):
     # Truncate commit SHA for readability
     short_commit = args.commit[:7] if args.commit else "unknown"
     
-    # Truncate commit message if too long
-    commit_msg = args.commit_msg or "No commit message"
-    if len(commit_msg) > 50:
-        commit_msg = commit_msg[:47] + "..."
+    # Handle commit message with better debugging
+    if args.commit_msg and args.commit_msg.strip():
+        commit_msg = args.commit_msg.strip()
+        if len(commit_msg) > 50:
+            commit_msg = commit_msg[:47] + "..."
+    else:
+        commit_msg = "No commit message provided"
+        print(f"⚠️ DEBUG: args.commit_msg = '{args.commit_msg}'")
     
     # Extract series name from metadata
     series_name = "Unknown Series"
