@@ -46,6 +46,10 @@ jobs:
           
       - name: 📦 Install Dependencies
         run: |
+          # Install system dependencies for virtual display and CAPTCHA handling
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          # Install Python dependencies
           pip install --upgrade pip
           pip install playwright openai google-api-python-client google-auth-httplib2 google-auth-oauthlib
           pip install requests pillow python-dotenv boto3 reportlab selenium webdriver-manager

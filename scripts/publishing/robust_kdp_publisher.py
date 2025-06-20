@@ -59,10 +59,23 @@ class RobustKDPPublisher:
             self.playwright = sync_playwright().start()
             
             # Launch browser with modern settings
-            # Auto-detect CI environment and use headless mode
+            # Use headed mode with virtual display in CI for CAPTCHA handling
             is_ci = os.getenv('CI') == 'true' or os.getenv('GITHUB_ACTIONS') == 'true'
+            
+            if is_ci:
+                # Setup virtual display for CI environment
+                self.logger.info("🖥️ Setting up virtual display for CI CAPTCHA handling...")
+                import subprocess
+                try:
+                    subprocess.run(['Xvfb', ':99', '-screen', '0', '1920x1080x24'], 
+                                 check=False, capture_output=True)
+                    os.environ['DISPLAY'] = ':99'
+                    self.logger.info("✅ Virtual display configured")
+                except Exception as e:
+                    self.logger.warning(f"⚠️ Could not setup virtual display: {e}")
+            
             self.browser = self.playwright.chromium.launch(
-                headless=is_ci,  # Headless in CI, visible locally for monitoring
+                headless=False,  # Always headed for CAPTCHA interaction
                 slow_mo=1000,    # Slower for reliability
                 args=[
                     '--no-sandbox',
@@ -258,7 +271,35 @@ class RobustKDPPublisher:
             except Exception as e:
                 self.logger.warning(f"⚠️ Could not debug page content: {e}")
             
-            # FIRST: Check for verification prompts (most likely)
+            # FIRST: Check for CAPTCHA (most likely based on our discovery)
+            captcha_indicators = [
+                'text="Solve this puzzle to protect your account"',
+                'text="Authentication required"',
+                'text="Choose all the"',
+                'text="Select all images"',
+                'cvf/request'  # URL pattern
+            ]
+            
+            # Check if CAPTCHA is present
+            page_url = self.page.url
+            page_text = ""
+            try:
+                page_text = self.page.evaluate("() => document.body.innerText")
+            except:
+                pass
+                
+            captcha_detected = False
+            for indicator in captcha_indicators:
+                if indicator in page_url or indicator in page_text:
+                    captcha_detected = True
+                    self.logger.info(f"🤖 CAPTCHA detected with indicator: {indicator}")
+                    break
+            
+            if captcha_detected:
+                self.logger.warning("🧩 Amazon CAPTCHA detected - initiating human-in-the-loop solution")
+                return self._handle_captcha()
+            
+            # SECOND: Check for OTP verification prompts
             verification_indicators = [
                 'text="Two-Step Verification"',
                 'text="Enter the code"',
@@ -537,6 +578,127 @@ class RobustKDPPublisher:
                 self.browser.close()
             if self.playwright:
                 self.playwright.stop()
+    
+    def _handle_captcha(self):
+        """Handle Amazon CAPTCHA with human-in-the-loop solution."""
+        try:
+            self.logger.warning("🧩 Amazon CAPTCHA detected - implementing human-in-the-loop solution")
+            
+            # Take screenshot of the CAPTCHA
+            screenshot_path = f"/tmp/amazon_captcha_{int(time.time())}.png"
+            self.page.screenshot(path=screenshot_path, full_page=True)
+            self.logger.info(f"📸 CAPTCHA screenshot saved: {screenshot_path}")
+            
+            # Send Slack notification with screenshot
+            if self.slack_webhook:
+                self._send_captcha_notification(screenshot_path)
+            else:
+                self.logger.warning("⚠️ No Slack webhook configured - cannot send CAPTCHA notification")
+            
+            # Wait for human to solve CAPTCHA and page to change
+            self.logger.info("⏳ Waiting for human to solve CAPTCHA...")
+            self.logger.info("🔄 Monitoring page changes every 10 seconds...")
+            
+            # Monitor for successful navigation away from CAPTCHA
+            success_indicators = [
+                'text="Create New Title"',
+                '[data-testid="create-new-title"]',
+                '.kdp-dashboard',
+                '.bookshelf',
+                'text="Bookshelf"',
+                'text="KDP Select"'
+            ]
+            
+            # Wait up to 10 minutes for human intervention
+            for attempt in range(60):  # 60 attempts = 10 minutes
+                try:
+                    # Check if we've moved away from CAPTCHA page
+                    current_url = self.page.url
+                    
+                    # Check if URL changed away from CAPTCHA
+                    if 'cvf/request' not in current_url:
+                        self.logger.info("🎉 CAPTCHA page URL changed - checking for successful login...")
+                        
+                        # Check for KDP dashboard indicators
+                        for indicator in success_indicators:
+                            try:
+                                if self.page.wait_for_selector(indicator, timeout=5000):
+                                    self.logger.info(f"✅ Successfully reached KDP dashboard! Found: {indicator}")
+                                    return True
+                            except:
+                                continue
+                        
+                        # If URL changed but not to dashboard, continue monitoring
+                        self.logger.info(f"📍 Page changed to: {current_url} - continuing to monitor...")
+                    
+                    # Log progress every minute
+                    if attempt % 6 == 0:  # Every 6th attempt (1 minute)
+                        remaining_minutes = (60 - attempt) // 6
+                        self.logger.info(f"⏰ Still waiting for CAPTCHA solution... ({remaining_minutes} minutes remaining)")
+                    
+                    time.sleep(10)  # Wait 10 seconds between checks
+                    
+                except Exception as e:
+                    self.logger.debug(f"Error during CAPTCHA monitoring: {e}")
+                    time.sleep(10)
+                    continue
+            
+            self.logger.error("⏰ Timeout waiting for CAPTCHA solution (10 minutes)")
+            return False
+            
+        except Exception as e:
+            self.logger.error(f"❌ CAPTCHA handling failed: {e}")
+            return False
+    
+    def _send_captcha_notification(self, screenshot_path):
+        """Send CAPTCHA notification to Slack with screenshot."""
+        try:
+            # Read screenshot file
+            with open(screenshot_path, 'rb') as f:
+                screenshot_data = f.read()
+            
+            # Encode screenshot as base64 for Slack
+            import base64
+            screenshot_b64 = base64.b64encode(screenshot_data).decode('utf-8')
+            
+            slack_message = {
+                "text": "🧩 URGENT: Amazon CAPTCHA Requires Human Intervention",
+                "attachments": [
+                    {
+                        "color": "warning",
+                        "title": "CAPTCHA Detected - Manual Action Required",
+                        "text": "The KDP publishing automation encountered a CAPTCHA challenge.",
+                        "fields": [
+                            {
+                                "title": "Action Required",
+                                "value": "Please solve the CAPTCHA puzzle in the browser window",
+                                "short": False
+                            },
+                            {
+                                "title": "Instructions",
+                                "value": "1. Check the headless browser session\n2. Solve the image puzzle\n3. System will auto-resume when complete",
+                                "short": False
+                            },
+                            {
+                                "title": "Timeout",
+                                "value": "Will wait 10 minutes for completion",
+                                "short": True
+                            }
+                        ],
+                        "footer": "KindleMint Automation System",
+                        "ts": int(time.time())
+                    }
+                ]
+            }
+            
+            response = requests.post(self.slack_webhook, json=slack_message, timeout=10)
+            if response.status_code == 200:
+                self.logger.info("📱 CAPTCHA notification sent to Slack successfully")
+            else:
+                self.logger.error(f"❌ Failed to send CAPTCHA notification: {response.status_code}")
+                
+        except Exception as e:
+            self.logger.error(f"❌ Error sending CAPTCHA notification: {e}")
     
     def _handle_verification(self):
         """Handle Amazon verification code input."""
