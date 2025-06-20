@@ -719,27 +719,30 @@ class RobustKDPPublisher:
             self.logger.debug(f"⏱️ WAIT: Allowing 8 seconds for page transition and form loading")
             time.sleep(8)  # Extra time for page transition
             
-            # Check if we're on the book details page (Amazon streamlined the flow)
-            paperback_indicators = [
-                'text="Paperback Details"',
-                'text="Book Title"',
-                'text="Language"',
-                'input[name="title"]',
-                '.cke_wysiwyg_frame'  # Updated to use CKEditor iframe
+            # Check for unified form fields - Amazon eliminated format selection step
+            unified_form_indicators = [
+                'input[name="data[print_book][title]"]',  # Exact selector from extracted source
+                '#data-print-book-title',               # ID from extracted source
+                'input[name="data[print_book][subtitle]"]', # Subtitle field
+                '#data-print-book-subtitle',            # Subtitle ID
+                'text="Book Title"',                    # Form label
+                'text="Language"',                      # Language selector
+                '.cke_wysiwyg_frame'                    # CKEditor for description
             ]
             
-            for indicator in paperback_indicators:
+            self.logger.info("🔍 UNIFIED INTERFACE: Checking for Amazon's new unified title creation form")
+            for indicator in unified_form_indicators:
                 try:
                     if self.page.wait_for_selector(indicator, timeout=5000):
-                        self.logger.info(f"✅ Paperback creation page detected: {indicator}")
-                        self.logger.info("✅ Amazon auto-selected Paperback - proceeding to book details")
+                        self.logger.info(f"✅ UNIFIED FORM DETECTED: Found '{indicator}' - Amazon eliminated format selection")
+                        self.logger.info("✅ SUCCESS: Proceeding directly to unified book details form")
                         return True
                 except:
                     continue
             
-            # Fallback: Try old method if new flow doesn't work
-            self.logger.info("🔄 Trying fallback Paperback selection...")
-            paperback_selectors = [
+            # Legacy fallback for older interface (if Amazon hasn't updated everywhere)
+            self.logger.info("🔄 LEGACY FALLBACK: Trying legacy Paperback selection for older interface")
+            legacy_paperback_selectors = [
                 'text="Paperback"',
                 'button:has-text("Paperback")',
                 'a:has-text("Paperback")',
@@ -747,11 +750,11 @@ class RobustKDPPublisher:
                 '.paperback-option'
             ]
             
-            if self.smart_wait_and_click(paperback_selectors, description="Paperback option"):
-                self.logger.info("✅ Paperback selected via fallback method")
+            if self.smart_wait_and_click(legacy_paperback_selectors, description="Paperback option (legacy)"):
+                self.logger.info("✅ LEGACY SUCCESS: Paperback selected via legacy interface")
                 return True
             
-            self.logger.error("❌ CREATION ERROR: Could not confirm paperback creation via any method")
+            self.logger.error("❌ INTERFACE ERROR: Could not detect unified form OR legacy Paperback selection")
             self.logger.info(f"📤 FUNCTION EXIT: create_paperback_book() -> False")
             return False
             
