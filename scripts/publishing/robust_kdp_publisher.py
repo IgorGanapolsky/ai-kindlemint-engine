@@ -827,6 +827,25 @@ class RobustKDPPublisher:
             if not self.fill_book_details(book_data):
                 return False
             
+            # CRITICAL: Save the book details to create book entry
+            self.logger.info("💾 Saving book details to create book entry...")
+            save_selectors = [
+                'button:has-text("Save and Continue")',
+                'button:has-text("Continue")', 
+                'button:has-text("Save")',
+                'input[type="submit"]',
+                'button[type="submit"]',
+                '.btn-primary',
+                '.save-button'
+            ]
+            
+            if self.smart_wait_and_click(save_selectors, description="Save and Continue"):
+                self.logger.info("✅ Book details saved - book entry created!")
+                # Wait for page transition
+                time.sleep(5)
+            else:
+                self.logger.warning("⚠️ Could not find Save button - book may not be created")
+            
             self.logger.info("🎉 Volume 1 setup completed!")
             self.logger.info("📋 Manual steps required:")
             self.logger.info("   1. Upload PDF manuscript")
