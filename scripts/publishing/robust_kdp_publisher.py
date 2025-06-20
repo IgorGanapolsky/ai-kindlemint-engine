@@ -719,19 +719,18 @@ class RobustKDPPublisher:
             self.logger.debug(f"⏱️ WAIT: Allowing 8 seconds for page transition and form loading")
             time.sleep(8)  # Extra time for page transition
             
-            # Check for unified form fields - Amazon eliminated format selection step
-            unified_form_indicators = [
-                'input[name="data[print_book][title]"]',  # Exact selector from extracted source
-                '#data-print-book-title',               # ID from extracted source
-                'input[name="data[print_book][subtitle]"]', # Subtitle field
-                '#data-print-book-subtitle',            # Subtitle ID
-                'text="Book Title"',                    # Form label
-                'text="Language"',                      # Language selector
-                '.cke_wysiwyg_frame'                    # CKEditor for description
+            # Check for Amazon's CURRENT unified form - these are the EXACT selectors from live KDP
+            current_kdp_indicators = [
+                'input[name="data[print_book][title]"]',     # CONFIRMED working - from live extraction
+                '#data-print-book-title',                   # CONFIRMED working - from live extraction  
+                'input[name="data[print_book][primary_author][first_name]"]', # Author field confirmed
+                '#data-print-book-primary-author-first-name', # Author ID confirmed
+                'input[type="text"][maxlength="255"]',       # Title field characteristics
+                'input.a-input-text.a-form-normal.jele-character-counter-input' # Exact class combo
             ]
             
-            self.logger.info("🔍 UNIFIED INTERFACE: Checking for Amazon's new unified title creation form")
-            for indicator in unified_form_indicators:
+            self.logger.info("🔍 UNIFIED INTERFACE: Checking for Amazon's current unified title creation form")
+            for indicator in current_kdp_indicators:
                 try:
                     if self.page.wait_for_selector(indicator, timeout=5000):
                         self.logger.info(f"✅ UNIFIED FORM DETECTED: Found '{indicator}' - Amazon eliminated format selection")
