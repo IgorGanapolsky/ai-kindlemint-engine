@@ -1,101 +1,126 @@
 #!/usr/bin/env python3
 """
-Send failure notification if autonomous publishing fails
+Context-Aware Failure Notification System
+Sends rich, actionable failure alerts to Slack with debugging details
 """
-
+import sys
 import os
-import json
+import argparse
 import requests
-from pathlib import Path
+import json
 from datetime import datetime
+from pathlib import Path
 
-def send_failure_notification():
-    """Send failure notification to Slack"""
+def send_failure_notification(args):
+    """Send detailed failure notification to Slack."""
+    
+    # Get Slack webhook from environment
     webhook_url = os.getenv('SLACK_WEBHOOK_URL')
     if not webhook_url:
-        print("⚠️ Slack webhook not configured")
-        return
+        print("❌ No SLACK_WEBHOOK_URL environment variable found")
+        return False
     
-    # Get error details if available
-    error_details = "Check GitHub Actions logs for details"
+    # Truncate commit SHA for readability
+    short_commit = args.commit[:7] if args.commit else "unknown"
     
-    # Check for specific error files
-    error_files = [
-        "output/publishing_report.json",
-        "output/drive_upload_summary.json",
-        "logs/kindlemint.log"
-    ]
+    # Truncate commit message if too long
+    commit_msg = args.commit_msg or "No commit message"
+    if len(commit_msg) > 50:
+        commit_msg = commit_msg[:47] + "..."
     
-    latest_errors = []
-    for error_file in error_files:
-        if Path(error_file).exists():
-            try:
-                with open(error_file, 'r') as f:
-                    if error_file.endswith('.json'):
-                        data = json.load(f)
-                        if 'failed_volumes' in data and data['failed_volumes']:
-                            latest_errors.append(f"Failed volumes: {data['failed_volumes']}")
-                        if 'status' in data and data['status'] != 'completed':
-                            latest_errors.append(f"Status: {data['status']}")
-            except:
-                pass
-    
-    if latest_errors:
-        error_details = "\\n".join(latest_errors)
-    
-    # Create Slack message
-    message = {
-        "text": "❌ KindleMint Autonomous Publishing Failed!",
+    # Build rich Slack message
+    slack_message = {
+        "text": f"❌ FAILURE: {args.workflow}",
         "blocks": [
             {
                 "type": "header",
                 "text": {
                     "type": "plain_text",
-                    "text": "🚨 Autonomous Publishing Failed"
+                    "text": f"❌ FAILURE: {args.workflow}"
                 }
             },
             {
                 "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": f"*Series:* Large Print Crossword Masters\\n*Time:* {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}\\n*Error Details:*\\n{error_details}"
-                }
-            },
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "*🔧 Troubleshooting Steps:*\\n• Check GitHub Actions logs\\n• Verify API credentials\\n• Check KDP login status\\n• Retry publishing process"
-                }
-            },
-            {
-                "type": "context",
-                "elements": [
+                "fields": [
                     {
                         "type": "mrkdwn",
-                        "text": "🤖 KindleMint AI Publishing System - Failure Alert"
+                        "text": f"*Commit:* `{short_commit}` - {commit_msg}"
+                    },
+                    {
+                        "type": "mrkdwn", 
+                        "text": f"*Triggered by:* {args.triggered_by}"
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": f"*Branch:* {args.branch}"
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": f"*Volumes:* {args.volumes}"
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": f"*Failed Step:* {args.failed_step}"
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": f"*Time:* {datetime.now().strftime('%I:%M %p UTC')}"
                     }
                 ]
+            },
+            {
+                "type": "actions",
+                "elements": [
+                    {
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "🔍 View Logs"
+                        },
+                        "url": args.run_url,
+                        "style": "danger"
+                    }
+                ]
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*Debug Info:* Run ID `{args.run_id}` | <{args.run_url}|Direct Link to Failure>"
+                }
             }
         ]
     }
     
     try:
-        response = requests.post(webhook_url, json=message)
-        if response.status_code == 200:
-            print("✅ Failure notification sent successfully")
-        else:
-            print(f"⚠️ Failure notification failed: {response.status_code}")
+        response = requests.post(webhook_url, json=slack_message, timeout=10)
+        response.raise_for_status()
+        print(f"✅ Failure notification sent to Slack successfully")
+        return True
+        
     except Exception as e:
-        print(f"❌ Failure notification error: {e}")
+        print(f"❌ Failed to send Slack notification: {e}")
+        return False
 
 def main():
-    """Send failure notifications"""
-    print("🚨 Sending failure notifications...")
+    parser = argparse.ArgumentParser(description='Send context-aware failure notification')
+    parser.add_argument('--workflow', required=True, help='Workflow name')
+    parser.add_argument('--run-id', required=True, help='GitHub run ID')
+    parser.add_argument('--run-url', required=True, help='Direct URL to GitHub run')
+    parser.add_argument('--commit', required=True, help='Commit SHA')
+    parser.add_argument('--commit-msg', help='Commit message')
+    parser.add_argument('--triggered-by', required=True, help='User who triggered the workflow')
+    parser.add_argument('--branch', required=True, help='Git branch')
+    parser.add_argument('--volumes', help='Volumes being published')
+    parser.add_argument('--failed-step', help='Failed step status')
     
-    send_failure_notification()
+    args = parser.parse_args()
     
-    print("✅ Failure notifications sent")
+    print(f"🚨 Sending failure notification for: {args.workflow}")
+    success = send_failure_notification(args)
+    
+    if not success:
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
