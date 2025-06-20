@@ -496,7 +496,29 @@ class RobustKDPPublisher:
             if not self.smart_wait_and_click(create_selectors, description="Create New Title"):
                 return False
             
-            # Select Paperback
+            # Wait for page to load - Amazon automatically selects Paperback now
+            time.sleep(5)
+            
+            # Check if we're on the book details page (Amazon streamlined the flow)
+            paperback_indicators = [
+                'text="Paperback Details"',
+                'text="Book Title"',
+                'text="Language"',
+                'input[name="title"]',
+                'textarea[name="description"]'
+            ]
+            
+            for indicator in paperback_indicators:
+                try:
+                    if self.page.wait_for_selector(indicator, timeout=5000):
+                        self.logger.info(f"✅ Paperback creation page detected: {indicator}")
+                        self.logger.info("✅ Amazon auto-selected Paperback - proceeding to book details")
+                        return True
+                except:
+                    continue
+            
+            # Fallback: Try old method if new flow doesn't work
+            self.logger.info("🔄 Trying fallback Paperback selection...")
             paperback_selectors = [
                 'text="Paperback"',
                 'button:has-text("Paperback")',
@@ -505,11 +527,12 @@ class RobustKDPPublisher:
                 '.paperback-option'
             ]
             
-            if not self.smart_wait_and_click(paperback_selectors, description="Paperback option"):
-                return False
+            if self.smart_wait_and_click(paperback_selectors, description="Paperback option"):
+                self.logger.info("✅ Paperback selected via fallback method")
+                return True
             
-            self.logger.info("✅ Paperback book creation initiated")
-            return True
+            self.logger.error("❌ Could not confirm paperback creation")
+            return False
             
         except Exception as e:
             self.logger.error(f"❌ Book creation failed: {e}")
