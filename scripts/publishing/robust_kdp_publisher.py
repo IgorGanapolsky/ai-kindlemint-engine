@@ -145,7 +145,7 @@ class RobustKDPPublisher:
             return False
     
     def smart_wait_and_click(self, selectors, timeout=30000, description="element"):
-        """Smart waiting with multiple selector fallbacks."""
+        """Smart waiting and clicking with robust element readiness checks."""
         if isinstance(selectors, str):
             selectors = [selectors]
         
@@ -155,24 +155,48 @@ class RobustKDPPublisher:
             try:
                 self.logger.info(f"   Trying selector {i+1}: {selector[:50]}...")
                 
-                # Wait for element and check visibility
+                # Step 1: Wait for element to exist in DOM
                 self.page.wait_for_selector(selector, timeout=timeout//len(selectors))
+                self.logger.info(f"   ✓ Element exists in DOM")
                 
-                # Use page.click() method directly
-                self.page.click(selector)
-                self.logger.info(f"✅ Found and clicked {description} with selector {i+1}")
-                time.sleep(2)  # Wait for action to complete
+                # Step 2: Get locator and wait for it to be visible
+                locator = self.page.locator(selector)
+                locator.wait_for(state='visible', timeout=10000)
+                self.logger.info(f"   ✓ Element is visible")
+                
+                # Step 3: Wait for element to be enabled/clickable
+                try:
+                    locator.wait_for(state='enabled', timeout=5000)
+                    self.logger.info(f"   ✓ Element is enabled")
+                except:
+                    self.logger.info(f"   ⚠ Element enablement check skipped")
+                
+                # Step 4: Ensure element is stable (wait for animations)
+                time.sleep(1)
+                
+                # Step 5: Try clicking with more robust method
+                try:
+                    # Try using locator.click() which is more reliable
+                    locator.click()
+                    self.logger.info(f"   ✓ Used locator.click() method")
+                except:
+                    # Fallback to page.click()
+                    self.page.click(selector)
+                    self.logger.info(f"   ✓ Used page.click() fallback")
+                
+                self.logger.info(f"✅ Successfully clicked {description}")
+                time.sleep(3)  # Wait for action to complete and page to respond
                 return True
                 
             except Exception as e:
-                self.logger.warning(f"   Selector {i+1} failed: {str(e)[:100]}")
+                self.logger.warning(f"   ❌ Selector {i+1} failed: {str(e)[:150]}")
                 continue
         
-        self.logger.error(f"❌ Could not find {description} with any selector")
+        self.logger.error(f"❌ Could not find or click {description} with any selector")
         return False
     
     def smart_fill(self, selectors, value, description="field"):
-        """Smart form filling with multiple selector fallbacks."""
+        """Smart form filling with robust waiting for element readiness."""
         if isinstance(selectors, str):
             selectors = [selectors]
         
@@ -180,28 +204,110 @@ class RobustKDPPublisher:
         
         for i, selector in enumerate(selectors):
             try:
-                # Wait for element to be visible
-                self.page.wait_for_selector(selector, timeout=10000)
+                self.logger.info(f"   Attempting selector {i+1}: {selector}")
                 
-                # Clear and fill using page methods
-                self.page.fill(selector, "")  # Clear field
-                time.sleep(0.5)  # Brief pause
-                self.page.fill(selector, value)  # Fill with value
+                # Step 1: Wait for element to exist in DOM
+                self.page.wait_for_selector(selector, timeout=15000)
+                self.logger.info(f"   ✓ Element exists in DOM")
                 
-                # Verify the value was entered
-                filled_value = self.page.input_value(selector)
+                # Step 2: Get locator and wait for it to be visible
+                locator = self.page.locator(selector)
+                locator.wait_for(state='visible', timeout=10000)
+                self.logger.info(f"   ✓ Element is visible")
+                
+                # Step 3: Wait for element to be editable (for input fields)
+                try:
+                    locator.wait_for(state='editable', timeout=5000)
+                    self.logger.info(f"   ✓ Element is editable")
+                except:
+                    # Not all elements are editable (like divs), continue anyway
+                    self.logger.info(f"   ⚠ Element not editable (may be normal)")
+                
+                # Step 4: Ensure element is stable (wait for animations/loading)
+                time.sleep(1)
+                
+                # Step 5: Clear and fill using more robust method
+                try:
+                    # Try using locator.fill() which is more reliable
+                    locator.fill("")  # Clear field
+                    time.sleep(0.5)
+                    locator.fill(value)  # Fill with value
+                    self.logger.info(f"   ✓ Used locator.fill() method")
+                except:
+                    # Fallback to page.fill()
+                    self.page.fill(selector, "")
+                    time.sleep(0.5)
+                    self.page.fill(selector, value)
+                    self.logger.info(f"   ✓ Used page.fill() fallback")
+                
+                # Step 6: Wait for value to be set and verify
+                time.sleep(1)  # Allow value to settle
+                try:
+                    filled_value = locator.input_value()
+                except:
+                    filled_value = self.page.input_value(selector)
+                
                 if filled_value == value:
-                    self.logger.info(f"✅ Filled {description}")
+                    self.logger.info(f"✅ Successfully filled {description} with: '{value}'")
                     return True
                 else:
-                    self.logger.warning(f"   Value verification failed for {description}")
+                    self.logger.warning(f"   ⚠ Value verification failed. Expected: '{value}', Got: '{filled_value}'")
+                    # Continue to try next selector
                     
             except Exception as e:
-                self.logger.warning(f"   Fill attempt {i+1} failed: {str(e)[:100]}")
+                self.logger.warning(f"   ❌ Selector {i+1} failed: {str(e)[:150]}")
                 continue
         
-        self.logger.error(f"❌ Could not fill {description}")
+        self.logger.error(f"❌ Could not fill {description} with any selector")
         return False
+    
+    def wait_for_kdp_page_ready(self, page_indicators, description="KDP page"):
+        """Wait for KDP page to be fully loaded and ready for interaction."""
+        try:
+            self.logger.info(f"⏳ Waiting for {description} to be fully ready...")
+            
+            # Wait for page loading indicators to disappear
+            loading_selectors = [
+                '.loading',
+                '.spinner',
+                '[data-loading="true"]',
+                '.kdp-loading'
+            ]
+            
+            for selector in loading_selectors:
+                try:
+                    # Wait for loading indicators to disappear
+                    self.page.wait_for_selector(selector, state='hidden', timeout=5000)
+                    self.logger.info(f"   ✓ Loading indicator {selector} disappeared")
+                except:
+                    # Loading indicator may not exist, which is fine
+                    pass
+            
+            # Wait for key page indicators to be present and visible
+            for indicator in page_indicators:
+                try:
+                    locator = self.page.locator(indicator)
+                    locator.wait_for(state='visible', timeout=15000)
+                    self.logger.info(f"   ✓ Page indicator found: {indicator}")
+                    break
+                except:
+                    continue
+            else:
+                self.logger.warning(f"   ⚠ No page indicators found, proceeding anyway")
+            
+            # Wait for DOM to be stable (no more changes)
+            time.sleep(3)
+            
+            # Additional wait for KDP-specific loading
+            self.page.wait_for_load_state('domcontentloaded', timeout=10000)
+            self.page.wait_for_load_state('networkidle', timeout=15000)
+            
+            self.logger.info(f"✅ {description} is ready for interaction")
+            return True
+            
+        except Exception as e:
+            self.logger.warning(f"⚠ Page readiness check failed: {e}")
+            return True  # Continue anyway to avoid blocking
     
     def adaptive_login(self):
         """Adaptive login handling for modern KDP interface."""
@@ -496,8 +602,9 @@ class RobustKDPPublisher:
             if not self.smart_wait_and_click(create_selectors, description="Create New Title"):
                 return False
             
-            # Wait for page to load - Amazon automatically selects Paperback now
-            time.sleep(5)
+            # Wait for page transition - Amazon automatically selects Paperback now
+            self.logger.info("⏳ Waiting for page transition after clicking Create...")
+            time.sleep(8)  # Extra time for page transition
             
             # Check if we're on the book details page (Amazon streamlined the flow)
             paperback_indicators = [
@@ -539,9 +646,24 @@ class RobustKDPPublisher:
             return False
     
     def fill_book_details(self, book_data):
-        """Fill book details with enhanced field detection."""
+        """Fill book details with enhanced field detection and robust waiting."""
         try:
             self.logger.info("📝 Filling book details...")
+            
+            # FIRST: Wait for the book details page to be fully ready
+            page_indicators = [
+                'text="Paperback Details"',
+                'text="Book Title"',
+                'input[name="title"]',
+                'input[placeholder*="title"]'
+            ]
+            
+            if not self.wait_for_kdp_page_ready(page_indicators, "Book Details form"):
+                self.logger.warning("⚠ Page readiness check failed, proceeding anyway")
+            
+            # Additional specific wait for form elements to be interactive
+            self.logger.info("⏳ Waiting for form fields to be ready...")
+            time.sleep(5)  # Give extra time for Amazon's dynamic form loading
             
             # Title field
             title_selectors = [
