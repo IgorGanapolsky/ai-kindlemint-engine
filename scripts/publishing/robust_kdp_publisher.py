@@ -241,10 +241,32 @@ class RobustKDPPublisher:
             if not self.smart_wait_and_click(signin_submit_selectors, description="sign-in submit"):
                 return False
             
-            # Wait for dashboard or handle 2FA
-            self.logger.info("⏳ Waiting for login completion...")
+            # Wait briefly for page response
+            time.sleep(3)
+            self.logger.info("⏳ Checking login response...")
             
-            # Check for successful login indicators
+            # FIRST: Check for verification prompts (most likely)
+            verification_indicators = [
+                'text="Two-Step Verification"',
+                'text="Enter the code"',
+                'text="verification code"',
+                'input[name="otpCode"]',
+                'input[name="code"]',
+                'input[type="tel"]',
+                'text="We sent a verification code"',
+                'text="Enter verification code"'
+            ]
+            
+            # Check if verification is needed
+            for indicator in verification_indicators:
+                try:
+                    if self.page.wait_for_selector(indicator, timeout=5000):
+                        self.logger.info("🔐 Amazon verification detected!")
+                        return self._handle_verification()
+                except:
+                    continue
+            
+            # SECOND: Check for successful login
             success_indicators = [
                 'text="Create New Title"',
                 '[data-testid="create-new-title"]',
@@ -256,13 +278,13 @@ class RobustKDPPublisher:
             
             for indicator in success_indicators:
                 try:
-                    self.page.wait_for_selector(indicator, timeout=15000)
+                    self.page.wait_for_selector(indicator, timeout=10000)
                     self.logger.info("✅ Successfully logged into KDP!")
                     return True
                 except:
                     continue
             
-            # Check for 2FA
+            # Check for other 2FA
             twofa_indicators = [
                 'text="Two-Step Verification"',
                 'text="Enter the code"',
@@ -498,6 +520,81 @@ class RobustKDPPublisher:
                 self.browser.close()
             if self.playwright:
                 self.playwright.stop()
+    
+    def _handle_verification(self):
+        """Handle Amazon verification code input."""
+        try:
+            self.logger.warning("🔐 Amazon verification detected - processing codes...")
+            
+            # Try multiple verification codes (your SMS codes)
+            codes_to_try = []
+            
+            # Check environment variable first
+            env_code = os.getenv('AMAZON_VERIFICATION_CODE')
+            if env_code:
+                codes_to_try.append(env_code)
+            
+            # Add known codes from your SMS messages (newest first)
+            known_codes = ["435296", "859333", "474965", "289650"]
+            codes_to_try.extend(known_codes)
+            
+            # Remove duplicates while preserving order
+            codes_to_try = list(dict.fromkeys(codes_to_try))
+            
+            self.logger.info(f"🔄 Will try {len(codes_to_try)} verification codes...")
+            
+            for i, code in enumerate(codes_to_try):
+                self.logger.info(f"🔑 Attempt {i+1}/{len(codes_to_try)}: Using code {code}")
+                
+                # Find verification code input field
+                code_selectors = [
+                    'input[name="otpCode"]',
+                    'input[name="code"]',
+                    'input[type="tel"]',
+                    'input[autocomplete="one-time-code"]',
+                    '[data-testid="verification-code"]'
+                ]
+                
+                if self.smart_fill(code_selectors, code, "verification code"):
+                    # Submit the code
+                    submit_selectors = [
+                        'input[type="submit"]',
+                        'button[type="submit"]',
+                        'button:has-text("Verify")',
+                        'button:has-text("Continue")',
+                        '.a-button-primary'
+                    ]
+                    
+                    if self.smart_wait_and_click(submit_selectors, description="verify code submit"):
+                        # Wait for success
+                        success_indicators = [
+                            'text="Create New Title"',
+                            '[data-testid="create-new-title"]',
+                            '.kdp-dashboard',
+                            '.bookshelf',
+                            'text="Bookshelf"',
+                            'text="KDP Select"'
+                        ]
+                        
+                        for success_indicator in success_indicators:
+                            try:
+                                self.page.wait_for_selector(success_indicator, timeout=10000)
+                                self.logger.info(f"✅ Amazon verification completed with code: {code}!")
+                                return True
+                            except:
+                                continue
+                        
+                        # If this code failed, try the next one
+                        self.logger.warning(f"⚠️ Code {code} failed, trying next...")
+                        time.sleep(2)
+                        continue
+            
+            self.logger.error("❌ All verification codes failed")
+            return False
+            
+        except Exception as e:
+            self.logger.error(f"❌ Verification handling failed: {e}")
+            return False
     
     def _request_otp_via_slack(self):
         """Human-in-the-Loop: Request OTP verification code via Slack."""
