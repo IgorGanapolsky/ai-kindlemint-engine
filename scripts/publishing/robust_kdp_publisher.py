@@ -582,8 +582,8 @@ class RobustKDPPublisher:
             if not self.adaptive_login():
                 return False
             
-            # Load Volume 1 data
-            vol_1_folder = Path("output/generated_books/large_print_crossword_masters_vol_1_final")
+            # Load Volume 1 data from new hierarchical structure
+            vol_1_folder = Path("output/Senior_Puzzle_Studio/Large_Print_Crossword_Masters/volume_1")
             
             with open(vol_1_folder / "metadata.json", 'r') as f:
                 metadata = json.load(f)
@@ -602,8 +602,8 @@ class RobustKDPPublisher:
                 'author': "Senior Puzzle Studio",
                 'description': description,
                 'price': 7.99,
-                'pdf_path': str(vol_1_folder / "large_print_crossword_masters_vol_1_final_KDP_READY.pdf"),
-                'cover_path': str(vol_1_folder / "cover_vol_1.png")
+                'pdf_path': str(vol_1_folder / "volume_1_KDP_READY.pdf"),
+                'cover_path': str(vol_1_folder / "cover.png")
             }
             
             # Create book
