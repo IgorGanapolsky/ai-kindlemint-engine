@@ -258,10 +258,41 @@ class AutonomousKDPPublisher:
             if author_field.is_visible():
                 author_field.fill(volume_data['author'])
             
-            # Description
-            description_field = self.page.locator('textarea[name="description"]')
-            if description_field.is_visible():
-                description_field.fill(volume_data['description'])
+            # Description - Amazon KDP uses CKEditor with iframe
+            try:
+                # Wait for CKEditor to load
+                self.page.wait_for_selector('.cke_wysiwyg_frame', timeout=15000)
+                print("Found CKEditor iframe for description")
+                
+                # Get the iframe and fill the description
+                iframe = self.page.frame_locator('.cke_wysiwyg_frame')
+                iframe.locator('body').fill(volume_data['description'])
+                print("✓ Description filled successfully using CKEditor iframe")
+                
+            except Exception as e:
+                # Fallback to alternative selectors
+                print(f"CKEditor approach failed, trying fallback selectors: {e}")
+                fallback_selectors = [
+                    '.editor[data-path*="description"]',
+                    '#cke_editor1',
+                    'input[name="data[print_book][description]"]',
+                    'textarea[name="description"]'
+                ]
+                
+                filled = False
+                for selector in fallback_selectors:
+                    try:
+                        field = self.page.locator(selector)
+                        if field.is_visible():
+                            field.fill(volume_data['description'])
+                            print(f"✓ Description filled using fallback selector: {selector}")
+                            filled = True
+                            break
+                    except:
+                        continue
+                
+                if not filled:
+                    print("❌ All description selectors failed")
             
             # Keywords
             keywords = volume_data.get('keywords', [])

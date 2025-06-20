@@ -320,9 +320,43 @@ class KDPPublisherAgent:
             author_selector = 'input[name="author"], #author, [data-testid="author-input"]'
             self.page.fill(author_selector, book_assets.author_name)
             
-            # Description
-            description_selector = 'textarea[name="description"], #description, [data-testid="description-textarea"]'
-            self.page.fill(description_selector, book_assets.description)
+            # Description - Amazon KDP uses CKEditor with iframe
+            try:
+                # Wait for CKEditor to load
+                self.page.wait_for_selector('.cke_wysiwyg_frame', timeout=15000)
+                logger.info("Found CKEditor iframe for description")
+                
+                # Get the iframe and fill the description
+                iframe = self.page.frame_locator('.cke_wysiwyg_frame')
+                iframe.locator('body').fill(book_assets.description)
+                logger.info("✓ Description filled successfully using CKEditor iframe")
+                
+            except Exception as e:
+                # Fallback to alternative selectors for description
+                logger.warning(f"CKEditor approach failed: {e}")
+                fallback_selectors = [
+                    '.editor[data-path*="description"]',
+                    '#cke_editor1',
+                    'input[name="data[print_book][description]"]',
+                    'textarea[name="description"]',
+                    '#description',
+                    '[data-testid="description-textarea"]'
+                ]
+                
+                filled = False
+                for selector in fallback_selectors:
+                    try:
+                        if self.page.locator(selector).is_visible():
+                            self.page.fill(selector, book_assets.description)
+                            logger.info(f"✓ Description filled using fallback selector: {selector}")
+                            filled = True
+                            break
+                    except:
+                        continue
+                
+                if not filled:
+                    warnings.append("Could not fill description field - all selectors failed")
+                    logger.warning("❌ All description selectors failed")
             
             # Keywords
             if book_assets.keywords:

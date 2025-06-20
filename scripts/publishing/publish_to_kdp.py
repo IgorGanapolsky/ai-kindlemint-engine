@@ -66,7 +66,40 @@ async def publish_to_kdp_real(kpf_file_path, kdp_email=None, kdp_password=None):
             
             print("📄 Filling book details...")
             await page.fill('input[name="title"]', book_content['title'])
-            await page.fill('textarea[name="description"]', book_content['summary'])
+            
+            # Description - Amazon KDP uses CKEditor with iframe
+            try:
+                # Wait for CKEditor to load
+                await page.wait_for_selector('.cke_wysiwyg_frame', timeout=15000)
+                print("Found CKEditor iframe for description")
+                
+                # Get the iframe and fill the description
+                iframe = page.frame_locator('.cke_wysiwyg_frame')
+                await iframe.locator('body').fill(book_content['summary'])
+                print("✓ Description filled successfully using CKEditor iframe")
+                
+            except Exception as e:
+                # Fallback to alternative selectors
+                print(f"CKEditor approach failed, trying fallback: {e}")
+                fallback_selectors = [
+                    '.editor[data-path*="description"]',
+                    '#cke_editor1',
+                    'input[name="data[print_book][description]"]',
+                    'textarea[name="description"]'
+                ]
+                
+                filled = False
+                for selector in fallback_selectors:
+                    try:
+                        await page.fill(selector, book_content['summary'])
+                        print(f"✓ Description filled using fallback selector: {selector}")
+                        filled = True
+                        break
+                    except:
+                        continue
+                
+                if not filled:
+                    print("❌ All description selectors failed")
             
             print("📤 Uploading manuscript...")
             file_input = await page.query_selector('input[type="file"]')

@@ -628,7 +628,7 @@ class RobustKDPPublisher:
                 'text="Book Title"',
                 'text="Language"',
                 'input[name="title"]',
-                'textarea[name="description"]'
+                '.cke_wysiwyg_frame'  # Updated to use CKEditor iframe
             ]
             
             for indicator in paperback_indicators:
@@ -725,19 +725,35 @@ class RobustKDPPublisher:
             if last_name and not self.smart_fill(author_last_selectors, last_name, "author last name"):
                 self.logger.warning("⚠️ Could not fill author last name, but continuing...")
             
-            # Description field - EXACT Amazon KDP selectors with comprehensive coverage
-            description_selectors = [
-                'textarea[name="data[print_book][description]"]',
-                '#data-print-book-description', 
-                'textarea[id*="data-print-book-description"]',
-                'textarea[placeholder*="description"]',
-                'textarea[aria-label*="description"]',
-                '.a-form-field textarea',
-                'textarea:visible'
-            ]
-            
-            if not self.smart_fill(description_selectors, book_data['description'], "description"):
-                return False
+            # Description field - Amazon KDP uses CKEditor with iframe
+            try:
+                # Wait for CKEditor to load
+                self.page.wait_for_selector('.cke_wysiwyg_frame', timeout=15000)
+                self.logger.info("✅ Found CKEditor iframe for description")
+                
+                # Get the iframe and fill the description
+                iframe = self.page.frame_locator('.cke_wysiwyg_frame')
+                iframe.locator('body').fill(book_data['description'])
+                self.logger.info("✅ Description filled successfully using CKEditor iframe")
+                
+            except Exception as e:
+                # Fallback to alternative selectors for description
+                self.logger.warning(f"CKEditor approach failed: {e}")
+                description_selectors = [
+                    '.editor[data-path*="description"]',
+                    '#cke_editor1',
+                    'input[name="data[print_book][description]"]',
+                    'textarea[name="data[print_book][description]"]',
+                    '#data-print-book-description', 
+                    'textarea[id*="data-print-book-description"]',
+                    'textarea[placeholder*="description"]',
+                    'textarea[aria-label*="description"]',
+                    '.a-form-field textarea',
+                    'textarea:visible'
+                ]
+                
+                if not self.smart_fill(description_selectors, book_data['description'], "description"):
+                    return False
             
             # Keywords - EXACT Amazon KDP selectors (7 keyword fields)
             keywords = book_data.get('keywords', [])
