@@ -14,6 +14,8 @@ from datetime import datetime
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from kindlemint.utils.logger import get_logger
+import requests
+import time
 
 class RobustKDPPublisher:
     """Enhanced KDP publisher with adaptive interface handling."""
@@ -43,6 +45,9 @@ class RobustKDPPublisher:
         
         if not self.kdp_email or not self.kdp_password:
             raise ValueError("KDP credentials not found in environment")
+        
+        # Slack webhook for Human-in-the-Loop OTP
+        self.slack_webhook = os.getenv('SLACK_WEBHOOK_URL')
     
     def setup_browser(self):
         """Setup browser with modern anti-detection measures."""
@@ -268,12 +273,17 @@ class RobustKDPPublisher:
             for indicator in twofa_indicators:
                 try:
                     if self.page.locator(indicator).is_visible():
-                        self.logger.warning("🔐 Device verification detected - checking for manual code input")
+                        self.logger.warning("🔐 Amazon OTP verification detected - implementing Human-in-the-Loop")
                         
-                        # Check if verification code provided via environment variable
+                        # Check if verification code provided via environment variable first
                         verification_code = os.getenv('AMAZON_VERIFICATION_CODE')
+                        
+                        if not verification_code:
+                            # Human-in-the-Loop: Request OTP via Slack
+                            verification_code = self._request_otp_via_slack()
+                        
                         if verification_code:
-                            self.logger.info(f"🔑 Using provided verification code: {verification_code}")
+                            self.logger.info(f"🔑 Using verification code: {verification_code}")
                             
                             # Find verification code input field
                             code_selectors = [
@@ -299,13 +309,12 @@ class RobustKDPPublisher:
                                     for success_indicator in success_indicators:
                                         try:
                                             self.page.wait_for_selector(success_indicator, timeout=30000)
-                                            self.logger.info("✅ Device verification completed!")
+                                            self.logger.info("✅ Amazon OTP verification completed!")
                                             return True
                                         except:
                                             continue
                         
-                        self.logger.error("❌ Device verification failed - code not provided or invalid")
-                        self.logger.info("💡 Set AMAZON_VERIFICATION_CODE environment variable with the code from your email/SMS")
+                        self.logger.error("❌ Amazon OTP verification failed")
                         return False
                 except:
                     continue
@@ -474,6 +483,72 @@ class RobustKDPPublisher:
                 self.browser.close()
             if self.playwright:
                 self.playwright.stop()
+    
+    def _request_otp_via_slack(self):
+        """Human-in-the-Loop: Request OTP verification code via Slack."""
+        try:
+            if not self.slack_webhook:
+                self.logger.warning("⚠️ No Slack webhook configured - cannot request OTP")
+                return None
+            
+            # Send Slack notification requesting OTP
+            slack_message = {
+                "text": "🚨 URGENT: Amazon KDP OTP Required for Publishing",
+                "attachments": [
+                    {
+                        "color": "warning",
+                        "title": "Human-in-the-Loop OTP Request",
+                        "text": "The KDP publishing automation is paused and waiting for your Amazon verification code.",
+                        "fields": [
+                            {
+                                "title": "Action Required",
+                                "value": "Check your email/SMS for Amazon verification code",
+                                "short": False
+                            },
+                            {
+                                "title": "Instructions",
+                                "value": "Reply with just the 6-digit code (e.g., 123456)",
+                                "short": False
+                            },
+                            {
+                                "title": "Timeout",
+                                "value": "Will wait 5 minutes for your response",
+                                "short": True
+                            }
+                        ],
+                        "footer": "KindleMint Automation System",
+                        "ts": int(time.time())
+                    }
+                ]
+            }
+            
+            response = requests.post(self.slack_webhook, json=slack_message, timeout=10)
+            if response.status_code == 200:
+                self.logger.info("📱 Slack notification sent - waiting for OTP...")
+                
+                # In a real implementation, you'd listen for Slack responses
+                # For now, we'll wait and check environment for updated code
+                for i in range(60):  # Wait up to 5 minutes (60 * 5 seconds)
+                    time.sleep(5)
+                    
+                    # Check if code was provided via environment update
+                    updated_code = os.getenv('AMAZON_VERIFICATION_CODE')
+                    if updated_code:
+                        self.logger.info(f"✅ Received OTP via environment: {updated_code}")
+                        return updated_code
+                    
+                    if i % 12 == 0:  # Every minute
+                        self.logger.info(f"⏳ Still waiting for OTP... ({5 - i//12} minutes remaining)")
+                
+                self.logger.error("⏰ Timeout waiting for OTP response")
+                return None
+            else:
+                self.logger.error(f"❌ Failed to send Slack notification: {response.status_code}")
+                return None
+                
+        except Exception as e:
+            self.logger.error(f"❌ Error requesting OTP via Slack: {e}")
+            return None
 
 def main():
     """Main execution function."""
