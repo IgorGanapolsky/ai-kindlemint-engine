@@ -10,6 +10,7 @@ import json
 import argparse
 from pathlib import Path
 from datetime import datetime
+from security import safe_command
 
 # Add the project root to the Python path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -106,7 +107,7 @@ class IntelligentOrchestrator:
                     '--volume', str(vol_num)
                 ]
                 
-                result = subprocess.run(cmd, capture_output=True, text=True)
+                result = safe_command.run(subprocess.run, cmd, capture_output=True, text=True)
                 
                 if result.returncode == 0:
                     self.logger.info(f"✅ Volume {vol_num} content generated")
