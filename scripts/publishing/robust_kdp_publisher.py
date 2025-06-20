@@ -245,6 +245,19 @@ class RobustKDPPublisher:
             time.sleep(3)
             self.logger.info("⏳ Checking login response...")
             
+            # DEBUG: Log page content to see what Amazon is showing
+            try:
+                page_title = self.page.title()
+                page_url = self.page.url
+                self.logger.info(f"🔍 Current page: {page_title} | URL: {page_url}")
+                
+                # Get page text content to debug
+                page_text = self.page.evaluate("() => document.body.innerText")
+                self.logger.info(f"📄 Page contains: {page_text[:500]}...")  # First 500 chars
+                
+            except Exception as e:
+                self.logger.warning(f"⚠️ Could not debug page content: {e}")
+            
             # FIRST: Check for verification prompts (most likely)
             verification_indicators = [
                 'text="Two-Step Verification"',
@@ -254,16 +267,20 @@ class RobustKDPPublisher:
                 'input[name="code"]',
                 'input[type="tel"]',
                 'text="We sent a verification code"',
-                'text="Enter verification code"'
+                'text="Enter verification code"',
+                'text="Enter your OTP"',
+                'text="Please enter the verification code"'
             ]
             
             # Check if verification is needed
-            for indicator in verification_indicators:
+            for i, indicator in enumerate(verification_indicators):
                 try:
-                    if self.page.wait_for_selector(indicator, timeout=5000):
-                        self.logger.info("🔐 Amazon verification detected!")
+                    self.logger.info(f"🔍 Checking verification indicator {i+1}: {indicator}")
+                    if self.page.wait_for_selector(indicator, timeout=3000):
+                        self.logger.info(f"🔐 Amazon verification detected with: {indicator}")
                         return self._handle_verification()
-                except:
+                except Exception as e:
+                    self.logger.debug(f"   ❌ Indicator {i+1} failed: {str(e)[:100]}")
                     continue
             
             # SECOND: Check for successful login
