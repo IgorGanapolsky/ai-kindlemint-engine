@@ -179,10 +179,23 @@ class RobustKDPPublisher:
                     # Try using locator.click() which is more reliable
                     locator.click()
                     self.logger.info(f"   ✓ Used locator.click() method")
-                except:
-                    # Fallback to page.click()
-                    self.page.click(selector)
-                    self.logger.info(f"   ✓ Used page.click() fallback")
+                except Exception as click_error:
+                    # Check if it's a strict mode violation (multiple elements)
+                    if "strict mode violation" in str(click_error):
+                        self.logger.info(f"   ⚠ Multiple elements found, trying first one...")
+                        try:
+                            # Try clicking the first element specifically
+                            locator.first.click()
+                            self.logger.info(f"   ✓ Used locator.first.click() method")
+                        except:
+                            # Final fallback to page.click with nth=0
+                            selector_first = f"{selector} >> nth=0"
+                            self.page.click(selector_first)
+                            self.logger.info(f"   ✓ Used page.click() with nth=0 fallback")
+                    else:
+                        # Regular fallback to page.click()
+                        self.page.click(selector)
+                        self.logger.info(f"   ✓ Used page.click() fallback")
                 
                 self.logger.info(f"✅ Successfully clicked {description}")
                 time.sleep(3)  # Wait for action to complete and page to respond
@@ -590,13 +603,16 @@ class RobustKDPPublisher:
         try:
             self.logger.info("📚 Creating new paperback book...")
             
-            # Find and click Create New Title
+            # Find and click Create New Title with more specific selectors
             create_selectors = [
                 'text="Create New Title"',
                 '[data-testid="create-new-title"]',
-                'button:has-text("Create")',
+                'button:has-text("Create New Title")',
+                'button >> text="Create New Title"',
+                'a >> text="Create New Title"',
                 '.create-new-title',
-                'a[href*="create"]'
+                'button:has-text("Create") >> nth=0',  # First Create button only
+                'a[href*="create"] >> nth=0'  # First create link only
             ]
             
             if not self.smart_wait_and_click(create_selectors, description="Create New Title"):
