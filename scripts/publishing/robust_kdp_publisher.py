@@ -54,8 +54,10 @@ class RobustKDPPublisher:
             self.playwright = sync_playwright().start()
             
             # Launch browser with modern settings
+            # Auto-detect CI environment and use headless mode
+            is_ci = os.getenv('CI') == 'true' or os.getenv('GITHUB_ACTIONS') == 'true'
             self.browser = self.playwright.chromium.launch(
-                headless=False,  # Visible for monitoring
+                headless=is_ci,  # Headless in CI, visible locally for monitoring
                 slow_mo=1000,    # Slower for reliability
                 args=[
                     '--no-sandbox',
