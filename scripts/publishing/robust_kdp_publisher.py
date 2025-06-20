@@ -268,20 +268,44 @@ class RobustKDPPublisher:
             for indicator in twofa_indicators:
                 try:
                     if self.page.locator(indicator).is_visible():
-                        self.logger.warning("🔐 2FA detected - manual intervention required")
-                        self.logger.info("📱 Please enter your 2FA code in the browser")
-                        self.logger.info("⏳ Waiting for 2FA completion...")
+                        self.logger.warning("🔐 Device verification detected - checking for manual code input")
                         
-                        # Wait for 2FA completion
-                        for success_indicator in success_indicators:
-                            try:
-                                self.page.wait_for_selector(success_indicator, timeout=120000)  # 2 minute timeout
-                                self.logger.info("✅ 2FA completed, login successful!")
-                                return True
-                            except:
-                                continue
+                        # Check if verification code provided via environment variable
+                        verification_code = os.getenv('AMAZON_VERIFICATION_CODE')
+                        if verification_code:
+                            self.logger.info(f"🔑 Using provided verification code: {verification_code}")
+                            
+                            # Find verification code input field
+                            code_selectors = [
+                                'input[name="otpCode"]',
+                                'input[name="code"]',
+                                'input[type="tel"]',
+                                'input[autocomplete="one-time-code"]',
+                                '[data-testid="verification-code"]'
+                            ]
+                            
+                            if self.smart_fill(code_selectors, verification_code, "verification code"):
+                                # Submit the code
+                                submit_selectors = [
+                                    'input[type="submit"]',
+                                    'button[type="submit"]',
+                                    'button:has-text("Verify")',
+                                    'button:has-text("Continue")',
+                                    '.a-button-primary'
+                                ]
+                                
+                                if self.smart_wait_and_click(submit_selectors, description="verify code submit"):
+                                    # Wait for success
+                                    for success_indicator in success_indicators:
+                                        try:
+                                            self.page.wait_for_selector(success_indicator, timeout=30000)
+                                            self.logger.info("✅ Device verification completed!")
+                                            return True
+                                        except:
+                                            continue
                         
-                        self.logger.error("❌ 2FA timeout")
+                        self.logger.error("❌ Device verification failed - code not provided or invalid")
+                        self.logger.info("💡 Set AMAZON_VERIFICATION_CODE environment variable with the code from your email/SMS")
                         return False
                 except:
                     continue

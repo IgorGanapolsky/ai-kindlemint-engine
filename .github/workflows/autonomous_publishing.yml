@@ -13,6 +13,11 @@ on:
         required: false
         default: false
         type: boolean
+      amazon_verification_code:
+        description: 'Amazon verification code (if prompted via email/SMS)'
+        required: false
+        default: ''
+        type: string
 
   schedule:
     # Auto-publish daily at 9 AM UTC
@@ -52,6 +57,9 @@ jobs:
           echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
           echo "KDP_EMAIL=${{ secrets.KDP_EMAIL }}" >> .env
           echo "KDP_PASSWORD=${{ secrets.KDP_PASSWORD }}" >> .env
+          if [ -n "${{ github.event.inputs.amazon_verification_code }}" ]; then
+            echo "AMAZON_VERIFICATION_CODE=${{ github.event.inputs.amazon_verification_code }}" >> .env
+          fi
           
       - name: 🎨 Verify Covers Exist
         run: |
