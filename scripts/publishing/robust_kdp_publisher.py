@@ -835,8 +835,10 @@ class RobustKDPPublisher:
             self.logger.info("   4. Configure pricing")
             self.logger.info("   5. Review and publish")
             
-            # Keep browser open for manual completion
-            input("\n📋 Press Enter when you've completed the manual steps...")
+            # Keep browser open for manual completion (skip in CI)
+            is_ci = os.getenv('CI') == 'true' or os.getenv('GITHUB_ACTIONS') == 'true'
+            if not is_ci:
+                input("\n📋 Press Enter when you've completed the manual steps...")
             
             return True
             
