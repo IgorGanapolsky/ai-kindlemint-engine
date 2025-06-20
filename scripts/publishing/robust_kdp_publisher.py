@@ -719,22 +719,22 @@ class RobustKDPPublisher:
             self.logger.debug(f"⏱️ WAIT: Allowing 15 seconds for unified form loading")
             time.sleep(15)  # Extended wait for unified form to fully load
             
-            # Check for Amazon's CURRENT unified form - these are the EXACT selectors from live KDP
-            current_kdp_indicators = [
-                'input[name="data[print_book][title]"]',     # CONFIRMED working - from live extraction
-                '#data-print-book-title',                   # CONFIRMED working - from live extraction  
-                'input[name="data[print_book][primary_author][first_name]"]', # Author field confirmed
-                '#data-print-book-primary-author-first-name', # Author ID confirmed
-                'input[type="text"][maxlength="255"]',       # Title field characteristics
-                'input.a-input-text.a-form-normal.jele-character-counter-input' # Exact class combo
+            # Check for Amazon's ACTUAL Paperback Details page - from screenshot analysis
+            paperback_details_indicators = [
+                'text="Paperback Details"',                # Page header from screenshot
+                'text="Book Title"',                       # Form section from screenshot  
+                'text="Language"',                         # Language dropdown from screenshot
+                'input[name="data[print_book][title]"]',   # Title field confirmed in source
+                'select',                                  # Language dropdown selector
+                'text="Subtitle"'                          # Subtitle section from screenshot
             ]
             
-            self.logger.info("🔍 UNIFIED INTERFACE: Checking for Amazon's current unified title creation form")
-            for indicator in current_kdp_indicators:
+            self.logger.info("🔍 PAPERBACK DETAILS: Checking for Amazon's Paperback Details page")
+            for indicator in paperback_details_indicators:
                 try:
                     if self.page.wait_for_selector(indicator, timeout=5000):
-                        self.logger.info(f"✅ UNIFIED FORM DETECTED: Found '{indicator}' - Amazon eliminated format selection")
-                        self.logger.info("✅ SUCCESS: Proceeding directly to unified book details form")
+                        self.logger.info(f"✅ PAPERBACK DETAILS DETECTED: Found '{indicator}' - on correct page")
+                        self.logger.info("✅ SUCCESS: Amazon auto-navigated to Paperback Details form")
                         return True
                 except:
                     continue
