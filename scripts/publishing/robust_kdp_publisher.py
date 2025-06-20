@@ -1113,9 +1113,25 @@ class RobustKDPPublisher:
             if not self.fill_book_details(book_data):
                 return False
             
-            # CRITICAL: Save the book details to create book entry
+            # CRITICAL: Save the book details to create book entry using resilient approach
             self.logger.info("💾 Saving book details to create book entry...")
-            save_selectors = [
+            
+            save_text_patterns = [
+                "Save and Continue",
+                "Save & Continue", 
+                "Continue",
+                "Save",
+                "Submit"
+            ]
+            
+            save_role_patterns = [
+                ("button", "Save and Continue"),
+                ("button", "Continue"),
+                ("button", "Save"),
+                ("button", "Submit")
+            ]
+            
+            save_css_selectors = [
                 'button:has-text("Save and Continue")',
                 'button:has-text("Continue")', 
                 'button:has-text("Save")',
@@ -1125,7 +1141,7 @@ class RobustKDPPublisher:
                 '.save-button'
             ]
             
-            if self.smart_wait_and_click(save_selectors, description="Save and Continue"):
+            if self.resilient_find_and_click("Save and Continue button", save_text_patterns, save_role_patterns, save_css_selectors):
                 self.logger.info("✅ Book details saved - book entry created!")
                 # Wait for page transition
                 time.sleep(5)
