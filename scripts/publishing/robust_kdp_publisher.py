@@ -725,11 +725,15 @@ class RobustKDPPublisher:
             if last_name and not self.smart_fill(author_last_selectors, last_name, "author last name"):
                 self.logger.warning("⚠️ Could not fill author last name, but continuing...")
             
-            # Description field - EXACT Amazon KDP selector
+            # Description field - EXACT Amazon KDP selectors with comprehensive coverage
             description_selectors = [
-                'input[name="data[print_book][description]"]',
                 'textarea[name="data[print_book][description]"]',
-                '#data-print-book-description'
+                '#data-print-book-description', 
+                'textarea[id*="data-print-book-description"]',
+                'textarea[placeholder*="description"]',
+                'textarea[aria-label*="description"]',
+                '.a-form-field textarea',
+                'textarea:visible'
             ]
             
             if not self.smart_fill(description_selectors, book_data['description'], "description"):

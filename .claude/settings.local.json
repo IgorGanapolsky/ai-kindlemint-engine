@@ -114,7 +114,8 @@
       "Bash(do mkdir -p \"volume_$vol\")",
       "Bash(done)",
       "Bash(git checkout:*)",
-      "Bash(gh run cancel:*)"
+      "Bash(gh run cancel:*)",
+      "Bash(git rm:*)"
     ],
     "deny": []
   }
