@@ -211,3 +211,11 @@ system_integration_test_report.json
 *.pem
 *.key
 cloudformation-*.json
+
+# Security - sensitive debugging files
+kdp_session_cookies.json
+kdp_form_elements.json
+kdp_*_source.html
+debug_kdp_*.html
+debug_kdp_*.png
+*_session_cookies.json
