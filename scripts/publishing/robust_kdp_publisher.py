@@ -681,49 +681,80 @@ class RobustKDPPublisher:
             self.logger.info("⏳ Waiting for form fields to be ready...")
             time.sleep(5)  # Give extra time for Amazon's dynamic form loading
             
-            # Title field
+            # Title field - EXACT Amazon KDP selectors
             title_selectors = [
-                'input[name="title"]',
-                '#title',
-                '[data-testid="title"]',
-                'input[placeholder*="title"]',
-                'input[aria-label*="title"]'
+                'input[name="data[print_book][title]"]',
+                '#data-print-book-title',
+                'input[name="data[print_book][title]"]'
             ]
             
             if not self.smart_fill(title_selectors, book_data['title'], "book title"):
                 return False
             
-            # Subtitle field
+            # Subtitle field - EXACT Amazon KDP selectors
             subtitle_selectors = [
-                'input[name="subtitle"]',
-                '#subtitle',
-                '[data-testid="subtitle"]',
-                'input[placeholder*="subtitle"]'
+                'input[name="data[print_book][subtitle]"]',
+                '#data-print-book-subtitle'
             ]
             
             self.smart_fill(subtitle_selectors, book_data.get('subtitle', ''), "subtitle")
             
-            # Author field
-            author_selectors = [
-                'input[name="author"]',
-                '#author',
-                '[data-testid="author"]',
-                'input[placeholder*="author"]'
+            # Author field - EXACT Amazon KDP selectors (first and last name)
+            # Amazon KDP uses separate first name and last name fields
+            author_name = book_data['author']
+            name_parts = author_name.split(' ', 1)
+            first_name = name_parts[0] if name_parts else author_name
+            last_name = name_parts[1] if len(name_parts) > 1 else ""
+            
+            # Author first name
+            author_first_selectors = [
+                'input[name="data[print_book][primary_author][first_name]"]',
+                '#data-print-book-primary-author-first-name'
             ]
             
-            if not self.smart_fill(author_selectors, book_data['author'], "author name"):
+            if not self.smart_fill(author_first_selectors, first_name, "author first name"):
                 return False
             
-            # Description field
+            # Author last name
+            author_last_selectors = [
+                'input[name="data[print_book][primary_author][last_name]"]',
+                '#data-print-book-primary-author-last-name'
+            ]
+            
+            if last_name and not self.smart_fill(author_last_selectors, last_name, "author last name"):
+                self.logger.warning("⚠️ Could not fill author last name, but continuing...")
+            
+            # Description field - EXACT Amazon KDP selector
             description_selectors = [
-                'textarea[name="description"]',
-                '#description',
-                '[data-testid="description"]',
-                'textarea[placeholder*="description"]'
+                'input[name="data[print_book][description]"]',
+                'textarea[name="data[print_book][description]"]',
+                '#data-print-book-description'
             ]
             
             if not self.smart_fill(description_selectors, book_data['description'], "description"):
                 return False
+            
+            # Keywords - EXACT Amazon KDP selectors (7 keyword fields)
+            keywords = book_data.get('keywords', [])
+            if not keywords:
+                # Default keywords for crossword books
+                keywords = [
+                    "large print crosswords",
+                    "crossword puzzles",
+                    "seniors puzzles",
+                    "easy crosswords",
+                    "puzzle books",
+                    "brain games",
+                    "word puzzles"
+                ]
+            
+            for i in range(min(7, len(keywords))):  # Amazon allows up to 7 keywords
+                keyword_selectors = [
+                    f'input[name="data[print_book][keywords][{i}]"]',
+                    f'#data-print-book-keywords-{i}'
+                ]
+                
+                self.smart_fill(keyword_selectors, keywords[i], f"keyword {i+1}")
             
             self.logger.info("✅ Book details filled successfully")
             return True

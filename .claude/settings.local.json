@@ -113,7 +113,8 @@
       "Bash(for vol in {1..5})",
       "Bash(do mkdir -p \"volume_$vol\")",
       "Bash(done)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(gh run cancel:*)"
     ],
     "deny": []
   }
