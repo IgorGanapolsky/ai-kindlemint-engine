@@ -8,8 +8,49 @@ import os
 import argparse
 import requests
 import json
+import glob
+import re
 from datetime import datetime
 from pathlib import Path
+
+def get_error_context():
+    """Extract meaningful error context from recent logs."""
+    try:
+        # Look for recent error patterns in common log locations
+        log_patterns = [
+            "logs/*.log",
+            "*.log", 
+            "publishing_*.log"
+        ]
+        
+        error_indicators = [
+            r"❌.*ERROR.*: (.+)",
+            r"INTERFACE ERROR: (.+)",
+            r"CREATION ERROR: (.+)", 
+            r"Could not find or click (.+)",
+            r"Process completed with exit code (\d+)",
+            r"Exception: (.+)"
+        ]
+        
+        latest_error = "Unknown error"
+        
+        for pattern in log_patterns:
+            for log_file in glob.glob(pattern):
+                try:
+                    with open(log_file, 'r') as f:
+                        content = f.read()
+                        for error_pattern in error_indicators:
+                            matches = re.findall(error_pattern, content)
+                            if matches:
+                                latest_error = matches[-1][:100] + "..." if len(matches[-1]) > 100 else matches[-1]
+                                return latest_error
+                except:
+                    continue
+        
+        return latest_error
+        
+    except Exception as e:
+        return f"Error context extraction failed: {str(e)[:50]}"
 
 def send_failure_notification(args):
     """Send detailed failure notification to Slack."""
@@ -110,8 +151,8 @@ def send_failure_notification(args):
             {
                 "type": "section",
                 "text": {
-                    "type": "mrkdwn",
-                    "text": f"*Debug Info:* Run ID `{args.run_id}` | <{args.run_url}|Direct Link to Failure>"
+                    "type": "mrkdwn", 
+                    "text": f"*Error Context:* {get_error_context()}\n*Debug Info:* Run ID `{args.run_id}` | <{args.run_url}|Direct Link to Failure>"
                 }
             }
         ]
