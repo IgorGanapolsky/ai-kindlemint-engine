@@ -28,6 +28,27 @@ def send_failure_notification(args):
     if len(commit_msg) > 50:
         commit_msg = commit_msg[:47] + "..."
     
+    # Extract series name from metadata
+    series_name = "Unknown Series"
+    try:
+        # Look for metadata in hierarchical structure
+        output_dir = Path("output")
+        for brand_dir in output_dir.iterdir():
+            if brand_dir.is_dir():
+                for series_dir in brand_dir.iterdir():
+                    if series_dir.is_dir():
+                        for volume_dir in series_dir.glob("volume_*"):
+                            metadata_file = volume_dir / "metadata.json"
+                            if metadata_file.exists():
+                                with open(metadata_file, 'r') as f:
+                                    metadata = json.load(f)
+                                    series_name = f"{metadata.get('brand', 'Unknown Brand')} - {metadata.get('series', 'Unknown Series')}"
+                                    break
+                        break
+                break
+    except:
+        pass
+    
     # Build rich Slack message
     slack_message = {
         "text": f"❌ FAILURE: {args.workflow}",
@@ -42,6 +63,10 @@ def send_failure_notification(args):
             {
                 "type": "section",
                 "fields": [
+                    {
+                        "type": "mrkdwn",
+                        "text": f"*Series:* {series_name}"
+                    },
                     {
                         "type": "mrkdwn",
                         "text": f"*Commit:* `{short_commit}` - {commit_msg}"
