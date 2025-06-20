@@ -20,19 +20,24 @@ def lambda_handler(event: Dict[str, Any], context) -> Dict[str, Any]:
     Multi-Series Orchestrator Lambda handler.
     Runs hourly to manage portfolio of series.
     """
+    logger.info(f"📋 LAMBDA ENTRY: multi_series_orchestrator started")
+    
     try:
-        logger.info("🏭 MULTI-SERIES ORCHESTRATOR ACTIVATED")
-        logger.info(f"Event received: {json.dumps(event, indent=2)}")
+        logger.info("🏭 ACTIVATION: MULTI-SERIES ORCHESTRATOR ACTIVATED")
+        logger.debug(f"📊 EVENT DATA: {json.dumps(event, indent=2)}")
         
         # Import dependencies
+        logger.debug(f"📦 IMPORT: Loading portfolio management dependencies")
         from kindlemint.portfolio.portfolio_manager import PortfolioManager, SeriesStatus
         
         # Initialize portfolio manager
+        logger.debug(f"🔗 INITIALIZATION: Creating PortfolioManager instance")
         portfolio = PortfolioManager()
         
         # Get all series requiring action
+        logger.info(f"🔍 SCANNING: Checking portfolio for series requiring action")
         pending_actions = portfolio.get_pending_actions()
-        logger.info(f"📋 Found {len(pending_actions)} series requiring action")
+        logger.info(f"📋 SCAN RESULT: Found {len(pending_actions)} series requiring action")
         
         if not pending_actions:
             logger.info("✅ No series require action at this time")

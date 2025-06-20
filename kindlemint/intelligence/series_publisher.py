@@ -45,11 +45,17 @@ class SeriesPublisher:
     
     def __init__(self):
         """Initialize series publisher."""
+        logger.info(f"📋 CLASS INIT: SeriesPublisher starting initialization")
+        
         self.openai_api_key = os.getenv('OPENAI_API_KEY')
+        logger.debug(f"🔑 API KEY: OpenAI API key {'SET' if self.openai_api_key else 'MISSING'}")
         
         # Series strategy configurations
         self.optimal_series_length = 5  # 5 books per series for maximum impact
         self.volume_spacing_days = 14  # Release new volume every 2 weeks
+        
+        logger.debug(f"📊 STRATEGY: Series length={self.optimal_series_length}, spacing={self.volume_spacing_days} days")
+        logger.info(f"✅ CLASS INIT COMPLETE: SeriesPublisher ready for series creation")
         
         # Content type specifications
         self.series_content_types = {
@@ -70,26 +76,42 @@ class SeriesPublisher:
         Returns:
             Complete BookSeries with all volumes planned
         """
+        logger.info(f"📋 FUNCTION ENTRY: create_book_series()")
+        
         try:
             micro_niche = niche_opportunity['micro_niche']
             category = niche_opportunity.get('category', 'General')
+            profit_potential = niche_opportunity.get('profit_potential_daily', 'Unknown')
+            confidence = niche_opportunity.get('confidence_score', 'Unknown')
             
             logger.info(f"📚 SERIES PUBLISHER ACTIVATED for: {micro_niche}")
+            logger.debug(f"📊 NICHE DATA: category={category}, profit_potential=${profit_potential}/day, confidence={confidence}%")
             
             # Step 1: Generate series branding
+            logger.info(f"🎨 STEP 1: Generating series branding")
             series_branding = await self._create_series_branding(micro_niche, category)
+            logger.debug(f"✅ BRANDING: Created brand '{series_branding.get('brand_name', 'Unknown')}'")
             
             # Step 2: Plan series structure
+            logger.info(f"📋 STEP 2: Planning series structure")
             series_structure = await self._plan_series_structure(micro_niche, category)
+            planned_volumes = len(series_structure.get('volume_progression', []))
+            logger.debug(f"✅ STRUCTURE: Planned {planned_volumes} volumes")
             
             # Step 3: Create individual book plans
+            logger.info(f"📚 STEP 3: Creating individual book plans")
             series_books = await self._create_series_books(micro_niche, series_structure)
+            logger.debug(f"✅ BOOKS: Created {len(series_books)} book plans")
             
             # Step 4: Generate cross-promotion strategy
+            logger.info(f"🔗 STEP 4: Generating cross-promotion strategy")
             cross_promotion = await self._create_cross_promotion_strategy(series_books)
+            logger.debug(f"✅ PROMOTION: Created promotion strategy for {len(cross_promotion)} books")
             
             # Step 5: Plan brand website and email capture
+            logger.info(f"🌐 STEP 5: Planning brand website and email capture")
             brand_strategy = await self._create_brand_strategy(micro_niche, series_branding)
+            logger.debug(f"✅ WEBSITE: Planned website at {brand_strategy.get('website_url', 'Unknown')}")
             
             # Assemble complete series
             book_series = BookSeries(
@@ -105,23 +127,37 @@ class SeriesPublisher:
                 series_description=series_structure['series_description']
             )
             
-            logger.info(f"✅ Series created: {book_series.series_name} ({book_series.total_volumes} volumes)")
-            logger.info(f"   Brand: {book_series.series_brand}")
-            logger.info(f"   Website: {book_series.website_url}")
+            logger.info(f"✅ SUCCESS: Series created - {book_series.series_name} ({book_series.total_volumes} volumes)")
+            logger.info(f"🏷️ BRAND: {book_series.series_brand}")
+            logger.info(f"🌐 WEBSITE: {book_series.website_url}")
+            logger.info(f"📧 EMAIL OFFER: {book_series.email_capture_offer}")
+            logger.debug(f"📊 SERIES METRICS: {book_series.total_volumes} books planned for '{book_series.micro_niche}'")
             
+            logger.info(f"📤 FUNCTION EXIT: create_book_series() -> BookSeries")
             return book_series
             
         except Exception as e:
-            logger.error(f"❌ Series creation failed: {str(e)}")
+            logger.error(f"❌ ERROR: Series creation failed: {str(e)}")
+            logger.error(f"❌ ERROR DETAILS: Failed to create series for niche '{micro_niche}'")
+            logger.info(f"📤 FUNCTION EXIT: create_book_series() -> Exception")
             raise
     
     async def _create_series_branding(self, micro_niche: str, category: str) -> Dict[str, Any]:
         """Create cohesive branding for the book series."""
+        logger.debug(f"📋 FUNCTION ENTRY: _create_series_branding(niche='{micro_niche}', category='{category}')")
+        
         try:
+            logger.debug(f"📦 IMPORT: Loading OpenAI client")
             from openai import OpenAI
             
+            if not self.openai_api_key:
+                logger.warning(f"⚠️ API KEY MISSING: No OpenAI API key available, using fallback branding")
+                return self._fallback_branding(micro_niche)
+            
+            logger.debug(f"🤖 AI INIT: Creating OpenAI client")
             openai_client = OpenAI(api_key=self.openai_api_key)
             
+            logger.debug(f"📝 AI PROMPT: Generating branding prompt for '{micro_niche}' in '{category}'")
             prompt = f"""
             Create compelling branding for a book series in this micro-niche: {micro_niche}
             Category: {category}
@@ -160,6 +196,7 @@ class SeriesPublisher:
             }}
             """
             
+            logger.info(f"🤖 EXTERNAL CALL: Requesting AI branding generation from OpenAI GPT-4")
             response = openai_client.chat.completions.create(
                 model="gpt-4",
                 messages=[{"role": "user", "content": prompt}],
@@ -168,25 +205,41 @@ class SeriesPublisher:
             )
             
             content = response.choices[0].message.content
+            logger.debug(f"🤖 AI RESPONSE: Received {len(content)} chars from OpenAI")
             
             # Parse JSON response
+            logger.debug(f"🔍 JSON PARSING: Extracting branding data from AI response")
             if '```json' in content:
                 content = content.split('```json')[1].split('```')[0].strip()
+                logger.debug(f"🧩 JSON CLEAN: Extracted JSON from markdown code block")
             
-            branding = json.loads(content)
-            return branding
+            try:
+                branding = json.loads(content)
+                logger.info(f"✅ SUCCESS: AI branding generated successfully")
+                logger.debug(f"🏷️ BRAND NAME: {branding.get('brand_name', 'Unknown')}")
+                logger.debug(f"📤 FUNCTION EXIT: _create_series_branding() -> AI generated")
+                return branding
+            except json.JSONDecodeError as e:
+                logger.warning(f"⚠️ JSON ERROR: Failed to parse AI response as JSON: {e}")
+                logger.warning(f"🔄 FALLBACK: Using fallback branding generation")
+                return self._fallback_branding(micro_niche)
             
         except Exception as e:
-            logger.warning(f"AI branding generation failed: {e}")
+            logger.warning(f"⚠️ AI ERROR: AI branding generation failed: {e}")
+            logger.warning(f"🔄 FALLBACK: Using fallback branding generation")
+            logger.debug(f"📤 FUNCTION EXIT: _create_series_branding() -> fallback")
             return self._fallback_branding(micro_niche)
     
     def _fallback_branding(self, micro_niche: str) -> Dict[str, Any]:
         """Fallback branding if AI generation fails."""
+        logger.debug(f"📋 FUNCTION ENTRY: _fallback_branding(niche='{micro_niche}')")
+        
         # Extract key theme from micro-niche
         words = micro_niche.split()
-        key_theme = words[0].title()
+        key_theme = words[0].title() if words else 'Creative'
+        logger.debug(f"🔍 THEME EXTRACTION: Using '{key_theme}' as primary theme from '{micro_niche}'")
         
-        return {
+        branding = {
             "series_name": f"{key_theme} Masters Series",
             "brand_name": f"{key_theme} Studio",
             "author_persona": {
@@ -202,11 +255,22 @@ class SeriesPublisher:
             "brand_personality": "Professional, educational, engaging",
             "tagline": f"Quality {key_theme} Content for Everyone"
         }
+        
+        logger.info(f"✅ FALLBACK: Generated fallback branding '{branding['brand_name']}' for '{micro_niche}'")
+        logger.debug(f"📤 FUNCTION EXIT: _fallback_branding() -> fallback branding")
+        return branding
     
     async def _plan_series_structure(self, micro_niche: str, category: str) -> Dict[str, Any]:
         """Plan the overall structure and progression of the series."""
+        logger.debug(f"📋 FUNCTION ENTRY: _plan_series_structure(niche='{micro_niche}', category='{category}')")
+        
         try:
+            logger.debug(f"📦 IMPORT: Loading OpenAI client for series planning")
             from openai import OpenAI
+            
+            if not self.openai_api_key:
+                logger.warning(f"⚠️ API KEY MISSING: No OpenAI API key available, using fallback structure")
+                return self._fallback_series_structure(micro_niche)
             
             openai_client = OpenAI(api_key=self.openai_api_key)
             
@@ -251,6 +315,7 @@ class SeriesPublisher:
             }}
             """
             
+            logger.info(f"🤖 EXTERNAL CALL: Requesting AI series structure from OpenAI GPT-4")
             response = openai_client.chat.completions.create(
                 model="gpt-4",
                 messages=[{"role": "user", "content": prompt}],
@@ -259,16 +324,29 @@ class SeriesPublisher:
             )
             
             content = response.choices[0].message.content
+            logger.debug(f"🤖 AI RESPONSE: Received {len(content)} chars for series structure")
             
             # Parse JSON response
+            logger.debug(f"🔍 JSON PARSING: Extracting series structure from AI response")
             if '```json' in content:
                 content = content.split('```json')[1].split('```')[0].strip()
+                logger.debug(f"🧩 JSON CLEAN: Extracted JSON from markdown code block")
             
-            structure = json.loads(content)
-            return structure
+            try:
+                structure = json.loads(content)
+                volumes = len(structure.get('volume_progression', []))
+                logger.info(f"✅ SUCCESS: AI series structure generated with {volumes} volumes")
+                logger.debug(f"📤 FUNCTION EXIT: _plan_series_structure() -> AI generated")
+                return structure
+            except json.JSONDecodeError as e:
+                logger.warning(f"⚠️ JSON ERROR: Failed to parse AI series structure: {e}")
+                logger.warning(f"🔄 FALLBACK: Using fallback series structure")
+                return self._fallback_series_structure(micro_niche)
             
         except Exception as e:
-            logger.warning(f"AI series planning failed: {e}")
+            logger.warning(f"⚠️ AI ERROR: AI series planning failed: {e}")
+            logger.warning(f"🔄 FALLBACK: Using fallback series structure")
+            logger.debug(f"📤 FUNCTION EXIT: _plan_series_structure() -> fallback")
             return self._fallback_series_structure(micro_niche)
     
     def _fallback_series_structure(self, micro_niche: str) -> Dict[str, Any]:

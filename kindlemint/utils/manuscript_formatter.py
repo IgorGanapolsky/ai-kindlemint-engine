@@ -16,7 +16,9 @@ class ManuscriptFormatter:
     
     def __init__(self):
         """Initialize the manuscript formatter."""
+        logger.info(f"📋 CLASS INIT: ManuscriptFormatter starting initialization")
         self.document = None
+        logger.info(f"✅ CLASS INIT COMPLETE: ManuscriptFormatter ready for document creation")
     
     def create_professional_manuscript(
         self,
@@ -42,49 +44,80 @@ class ManuscriptFormatter:
         Returns:
             Path to the created .docx file
         """
+        logger.info(f"📋 FUNCTION ENTRY: create_professional_manuscript(title='{book_title}', chapters={len(chapters)})")
+        
         try:
             # Create new document
+            logger.debug(f"📄 DOCUMENT CREATION: Creating new Word document")
             self.document = Document()
+            logger.debug(f"✅ DOCUMENT: New Word document created successfully")
             
             # Set up document margins and formatting
+            logger.debug(f"🎨 FORMATTING: Setting up professional document formatting")
             self._setup_document_formatting()
             
             # Add title page
+            logger.info(f"📝 CONTENT: Adding title page for '{book_title}' by {author}")
             self._add_title_page(book_title, subtitle, author)
             
             # Add table of contents if requested
             if include_toc:
+                logger.info(f"📋 TOC: Adding table of contents with {len(chapters)} chapters")
                 self._add_table_of_contents(chapters)
+            else:
+                logger.debug(f"⏭️ TOC: Skipping table of contents (include_toc=False)")
             
             # Add chapters
-            for chapter in chapters:
+            logger.info(f"📚 CHAPTERS: Adding {len(chapters)} chapters to manuscript")
+            for i, chapter in enumerate(chapters, 1):
+                logger.debug(f"📝 CHAPTER {i}: Adding '{chapter.get('title', 'Untitled')}' ({len(chapter.get('content', ''))} chars)")
                 self._add_chapter(chapter['title'], chapter['content'])
             
             # Ensure output directory exists
             output_path = os.path.abspath(output_path)
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            output_dir = os.path.dirname(output_path)
+            logger.debug(f"📁 DIRECTORY: Ensuring output directory exists: {output_dir}")
+            os.makedirs(output_dir, exist_ok=True)
             
             # Save document
+            logger.info(f"💾 FILE OPERATION: Saving manuscript to {output_path}")
             self.document.save(output_path)
-            logger.info(f"Professional manuscript saved to: {output_path}")
             
+            # Verify file was created
+            if os.path.exists(output_path):
+                file_size = os.path.getsize(output_path)
+                logger.info(f"✅ SUCCESS: Professional manuscript saved to {output_path} ({file_size} bytes)")
+            else:
+                logger.error(f"❌ FILE ERROR: Manuscript file was not created at {output_path}")
+                raise FileNotFoundError(f"Failed to create manuscript file at {output_path}")
+            
+            logger.info(f"📤 FUNCTION EXIT: create_professional_manuscript() -> '{output_path}'")
             return output_path
             
         except Exception as e:
-            logger.error(f"Error creating manuscript: {str(e)}")
+            logger.error(f"❌ ERROR: Error creating manuscript: {str(e)}")
+            logger.error(f"❌ ERROR DETAILS: Failed during manuscript creation for '{book_title}'")
+            logger.info(f"📤 FUNCTION EXIT: create_professional_manuscript() -> Exception")
             raise
     
     def _setup_document_formatting(self):
         """Set up professional document formatting standards."""
+        logger.debug(f"📋 FUNCTION ENTRY: _setup_document_formatting()")
+        
         # Set document margins (1 inch on all sides)
+        logger.debug(f"📏 MARGINS: Setting 1-inch margins on all sides")
         sections = self.document.sections
+        margin_count = 0
         for section in sections:
             section.top_margin = Inches(1)
             section.bottom_margin = Inches(1)
             section.left_margin = Inches(1)
             section.right_margin = Inches(1)
+            margin_count += 1
+        logger.debug(f"✅ MARGINS: Applied margins to {margin_count} document sections")
         
         # Define custom styles
+        logger.debug(f"🎨 STYLES: Setting up custom paragraph and text styles")
         styles = self.document.styles
         
         # Chapter title style
@@ -319,21 +352,39 @@ class ManuscriptFormatter:
         Returns:
             Path to the created .docx file
         """
+        logger.info(f"📋 FUNCTION ENTRY: format_existing_manuscript(input='{input_path}', title='{book_title}')")
+        
         try:
             # Read the existing manuscript
-            with open(input_path, 'r', encoding='utf-8') as f:
-                content = f.read()
+            logger.info(f"📁 FILE OPERATION: Reading existing manuscript from {input_path}")
+            if not os.path.exists(input_path):
+                logger.error(f"❌ FILE ERROR: Input manuscript not found at {input_path}")
+                raise FileNotFoundError(f"Input manuscript not found: {input_path}")
+            
+            try:
+                with open(input_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                logger.debug(f"📄 FILE CONTENT: Read {len(content)} characters from input manuscript")
+            except Exception as e:
+                logger.error(f"❌ FILE ERROR: Failed to read input manuscript: {e}")
+                raise
             
             # Parse chapters from the content
+            logger.debug(f"🔍 PARSING: Extracting chapters from manuscript content")
             chapters = self._parse_chapters_from_text(content)
+            logger.info(f"📚 PARSING RESULT: Found {len(chapters)} chapters in manuscript")
             
             # Extract subtitle if present
             subtitle = ""
             if len(chapters) > 0 and 'subtitle' in chapters[0]:
                 subtitle = chapters[0]['subtitle']
+                logger.debug(f"📝 SUBTITLE: Extracted subtitle '{subtitle}' from first chapter")
+            else:
+                logger.debug(f"📝 SUBTITLE: No subtitle found in manuscript")
             
             # Create the formatted manuscript
-            return self.create_professional_manuscript(
+            logger.info(f"🔄 CONVERSION: Converting to professional manuscript format")
+            result_path = self.create_professional_manuscript(
                 book_title=book_title,
                 subtitle=subtitle,
                 author=author,
@@ -341,35 +392,58 @@ class ManuscriptFormatter:
                 output_path=output_path
             )
             
+            logger.info(f"✅ SUCCESS: Existing manuscript formatted successfully")
+            logger.info(f"📤 FUNCTION EXIT: format_existing_manuscript() -> '{result_path}'")
+            return result_path
+            
         except Exception as e:
-            logger.error(f"Error formatting existing manuscript: {str(e)}")
+            logger.error(f"❌ ERROR: Error formatting existing manuscript: {str(e)}")
+            logger.error(f"❌ ERROR DETAILS: Failed to format manuscript from '{input_path}' to '{output_path}'")
+            logger.info(f"📤 FUNCTION EXIT: format_existing_manuscript() -> Exception")
             raise
     
     def _parse_chapters_from_text(self, content: str) -> List[Dict[str, str]]:
         """Parse chapters from raw text content."""
+        logger.debug(f"📋 FUNCTION ENTRY: _parse_chapters_from_text({len(content)} chars)")
+        
         chapters = []
         lines = content.split('\n')
         current_chapter = None
         current_content = []
         
-        for line in lines:
+        logger.debug(f"📄 TEXT ANALYSIS: Processing {len(lines)} lines for chapter detection")
+        
+        chapter_patterns = ['## Chapter', '# Chapter', 'Chapter']
+        chapters_found = 0
+        lines_processed = 0
+        
+        for line_num, line in enumerate(lines, 1):
             line = line.strip()
+            lines_processed += 1
             
             # Check if this is a chapter heading
-            if (line.startswith('## Chapter') or 
-                line.startswith('# Chapter') or
-                (line.startswith('Chapter') and ':' in line)):
-                
+            is_chapter_heading = False
+            for pattern in chapter_patterns:
+                if line.startswith(pattern) and (pattern != 'Chapter' or ':' in line):
+                    is_chapter_heading = True
+                    logger.debug(f"📋 CHAPTER DETECTED: Line {line_num} matches pattern '{pattern}': '{line[:50]}...'")
+                    break
+            
+            if is_chapter_heading:
                 # Save previous chapter if exists
                 if current_chapter:
+                    chapter_content = '\n\n'.join(current_content)
                     chapters.append({
                         'title': current_chapter,
-                        'content': '\n\n'.join(current_content)
+                        'content': chapter_content
                     })
+                    logger.debug(f"📚 CHAPTER SAVED: '{current_chapter}' with {len(chapter_content)} chars")
+                    chapters_found += 1
                 
                 # Start new chapter
                 current_chapter = line.replace('#', '').strip()
                 current_content = []
+                logger.debug(f"🆕 NEW CHAPTER: Started '{current_chapter}'")
                 
             elif current_chapter and line:
                 # Add content to current chapter
@@ -377,9 +451,14 @@ class ManuscriptFormatter:
         
         # Save last chapter
         if current_chapter:
+            chapter_content = '\n\n'.join(current_content)
             chapters.append({
                 'title': current_chapter,
-                'content': '\n\n'.join(current_content)
+                'content': chapter_content
             })
+            logger.debug(f"📚 FINAL CHAPTER: Saved '{current_chapter}' with {len(chapter_content)} chars")
+            chapters_found += 1
         
+        logger.info(f"✅ PARSING COMPLETE: Found {chapters_found} chapters from {lines_processed} lines")
+        logger.debug(f"📤 FUNCTION EXIT: _parse_chapters_from_text() -> {len(chapters)} chapters")
         return chapters

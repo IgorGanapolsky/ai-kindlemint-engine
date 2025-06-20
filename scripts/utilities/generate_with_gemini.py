@@ -17,33 +17,48 @@ from kindlemint.utils.logger import get_logger
 def generate_book_with_gemini(volume_number=1):
     """Generate a complete book using only Gemini AI."""
     logger = get_logger('gemini_generation')
+    logger.info(f"📋 FUNCTION ENTRY: generate_book_with_gemini(volume={volume_number})")
     
-    logger.info(f"💎 Generating Volume {volume_number} with Gemini AI (ultra-low cost)...")
+    logger.info(f"💎 GENERATION START: Generating Volume {volume_number} with Gemini AI (ultra-low cost)")
     
     # Load environment variables
     env_file = Path(__file__).parent.parent / ".env"
+    logger.debug(f"📁 ENV FILE: Checking environment file at {env_file}")
+    
     if env_file.exists():
+        logger.debug(f"📁 FILE OPERATION: Reading environment variables from {env_file}")
         with open(env_file, 'r') as f:
+            loaded_vars = 0
             for line in f:
                 if line.strip() and not line.startswith('#') and '=' in line:
                     key, value = line.strip().split('=', 1)
                     os.environ[key] = value
+                    loaded_vars += 1
+            logger.debug(f"🔑 CREDENTIALS: Loaded {loaded_vars} environment variables")
+    else:
+        logger.warning(f"⚠️ NO ENV FILE: Environment file not found, using existing environment")
     
     gemini_key = os.getenv('GEMINI_API_KEY')
     openai_key = os.getenv('OPENAI_API_KEY')
     
+    logger.debug(f"🔑 API KEYS: GEMINI={'SET' if gemini_key else 'MISSING'}, OPENAI={'SET' if openai_key else 'MISSING'}")
+    
     if not gemini_key:
-        logger.error("❌ GEMINI_API_KEY not found")
+        logger.error("❌ CREDENTIAL ERROR: GEMINI_API_KEY not found in environment")
+        logger.info(f"📤 FUNCTION EXIT: generate_book_with_gemini() -> False (missing API key)")
         return False
     
     try:
+        logger.debug(f"📦 IMPORT: Loading Google Generative AI library")
         import google.generativeai as genai
         
+        logger.debug(f"🤖 AI INIT: Configuring Gemini with API key")
         genai.configure(api_key=gemini_key)
         model = genai.GenerativeModel('gemini-1.5-flash')
+        logger.info(f"✅ AI READY: Gemini model 'gemini-1.5-flash' initialized successfully")
         
         # Step 1: Generate series metadata
-        logger.info(f"📋 Generating series metadata for Volume {volume_number}...")
+        logger.info(f"📋 STEP 1: Generating series metadata for Volume {volume_number}")
         metadata_prompt = f"""
         Create metadata for a large print crossword puzzle book for seniors:
         
