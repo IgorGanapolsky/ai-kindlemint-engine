@@ -714,10 +714,10 @@ class RobustKDPPublisher:
                 self.logger.info(f"📤 FUNCTION EXIT: create_paperback_book() -> False")
                 return False
             
-            # Wait for page transition - Amazon automatically selects Paperback now
-            self.logger.info("⏳ PAGE TRANSITION: Waiting for Amazon KDP to load book creation form")
-            self.logger.debug(f"⏱️ WAIT: Allowing 8 seconds for page transition and form loading")
-            time.sleep(8)  # Extra time for page transition
+            # Wait for Amazon's unified form to fully load
+            self.logger.info("⏳ PAGE TRANSITION: Waiting for Amazon KDP unified form to load")
+            self.logger.debug(f"⏱️ WAIT: Allowing 15 seconds for unified form loading")
+            time.sleep(15)  # Extended wait for unified form to fully load
             
             # Check for Amazon's CURRENT unified form - these are the EXACT selectors from live KDP
             current_kdp_indicators = [

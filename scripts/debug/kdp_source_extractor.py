@@ -110,15 +110,24 @@ class KDPSourceExtractor:
             if clicked_create:
                 # Save book creation form source
                 form_html = self.page.content()
-                form_file = Path("kdp_book_form_source.html")
+                form_file = Path("kdp_book_form_source_AFTER_CREATE.html")
                 with open(form_file, 'w', encoding='utf-8') as f:
                     f.write(form_html)
-                self.logger.info(f"💾 Saved book form source: {form_file}")
+                self.logger.info(f"💾 Saved ACTUAL book form source: {form_file}")
                 
-                # Extract all input and textarea elements
+                # Extract current page URL for debugging
+                current_url = self.page.url
+                self.logger.info(f"🌐 Current URL after Create click: {current_url}")
+                
+                # Take screenshot for visual debugging
+                screenshot_file = Path("kdp_after_create_screenshot.png")
+                self.page.screenshot(path=str(screenshot_file))
+                self.logger.info(f"📸 Screenshot saved: {screenshot_file}")
+                
+                # Extract all input and textarea elements from ACTUAL page
                 self._extract_form_elements()
                 
-                return [dashboard_file, form_file]
+                return [dashboard_file, form_file, screenshot_file]
             else:
                 self.logger.warning("⚠️ Could not navigate to book creation form")
                 return [dashboard_file]
