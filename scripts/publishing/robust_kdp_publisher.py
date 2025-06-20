@@ -681,20 +681,21 @@ class RobustKDPPublisher:
             self.logger.info("⏳ Waiting for form fields to be ready...")
             time.sleep(5)  # Give extra time for Amazon's dynamic form loading
             
-            # Title field - EXACT Amazon KDP selectors
+            # Title field - EXACT Amazon KDP selectors from manual inspection
             title_selectors = [
-                'input[name="data[print_book][title]"]',
                 '#data-print-book-title',
-                'input[name="data[print_book][title]"]'
+                'input[name="data[print_book][title]"]',
+                'input[id*="data-print-book-title"]'
             ]
             
             if not self.smart_fill(title_selectors, book_data['title'], "book title"):
                 return False
             
-            # Subtitle field - EXACT Amazon KDP selectors
+            # Subtitle field - EXACT Amazon KDP selectors from manual inspection  
             subtitle_selectors = [
+                '#data-print-book-subtitle',
                 'input[name="data[print_book][subtitle]"]',
-                '#data-print-book-subtitle'
+                'input[id*="data-print-book-subtitle"]'
             ]
             
             self.smart_fill(subtitle_selectors, book_data.get('subtitle', ''), "subtitle")
