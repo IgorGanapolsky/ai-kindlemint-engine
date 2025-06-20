@@ -195,6 +195,144 @@ class RobustKDPPublisher:
             self.logger.error(f"❌ Failed to load session cookies: {e}")
             return False
     
+    def resilient_find_and_click(self, element_name, text_patterns, role_patterns, css_selectors, timeout=30000):
+        """
+        Resilient element finding with multi-method fallback system.
+        Industry-standard approach for self-healing automation.
+        """
+        self.logger.info(f"🔍 RESILIENT SEARCH: Looking for {element_name}...")
+        
+        # Method 1: By Visible Text (Most Resilient)
+        self.logger.info(f"   🔍 Method 1: Searching by visible text...")
+        for i, text_pattern in enumerate(text_patterns):
+            try:
+                self.logger.info(f"      Trying text pattern {i+1}: '{text_pattern}'")
+                element = self.page.get_by_text(text_pattern, exact=True)
+                if element.is_visible():
+                    element.click()
+                    self.logger.info(f"   ✅ SUCCESS via text pattern: '{text_pattern}'")
+                    time.sleep(3)  # Wait for action to complete
+                    return True
+            except Exception as e:
+                self.logger.debug(f"      ❌ Text pattern {i+1} failed: {str(e)[:50]}")
+                continue
+        
+        # Method 2: By Accessibility Role (Semantic)
+        self.logger.info(f"   🔍 Method 2: Searching by accessibility role...")
+        for i, (role, name) in enumerate(role_patterns):
+            try:
+                self.logger.info(f"      Trying role {i+1}: {role} with name '{name}'")
+                element = self.page.get_by_role(role, name=name)
+                if element.is_visible():
+                    element.click()
+                    self.logger.info(f"   ✅ SUCCESS via role: {role} '{name}'")
+                    time.sleep(3)  # Wait for action to complete
+                    return True
+            except Exception as e:
+                self.logger.debug(f"      ❌ Role pattern {i+1} failed: {str(e)[:50]}")
+                continue
+        
+        # Method 3: By CSS Selectors (Last Resort)
+        self.logger.info(f"   🔍 Method 3: Fallback to CSS selectors...")
+        for i, selector in enumerate(css_selectors):
+            try:
+                self.logger.info(f"      Trying CSS selector {i+1}: {selector[:50]}...")
+                self.page.wait_for_selector(selector, timeout=timeout//len(css_selectors))
+                locator = self.page.locator(selector)
+                locator.wait_for(state='visible', timeout=5000)
+                
+                # Handle strict mode violations
+                try:
+                    locator.click()
+                    self.logger.info(f"   ✅ SUCCESS via CSS selector: {selector[:50]}")
+                    time.sleep(3)  # Wait for action to complete
+                    return True
+                except Exception as click_error:
+                    if "strict mode violation" in str(click_error):
+                        locator.first.click()
+                        self.logger.info(f"   ✅ SUCCESS via CSS selector (first): {selector[:50]}")
+                        time.sleep(3)  # Wait for action to complete
+                        return True
+                    else:
+                        raise click_error
+                        
+            except Exception as e:
+                self.logger.debug(f"      ❌ CSS selector {i+1} failed: {str(e)[:50]}")
+                continue
+        
+        self.logger.error(f"❌ TOTAL FAILURE: Could not find {element_name} with ANY method")
+        return False
+
+    def resilient_fill_field(self, field_name, value, text_patterns, role_patterns, css_selectors, timeout=30000):
+        """
+        Resilient field filling with multi-method fallback system.
+        Industry-standard approach for self-healing form automation.
+        """
+        self.logger.info(f"📝 RESILIENT FILL: Looking for {field_name} field...")
+        
+        # Method 1: By Visible Text/Label (Most Resilient)
+        self.logger.info(f"   📝 Method 1: Searching by associated label/text...")
+        for i, text_pattern in enumerate(text_patterns):
+            try:
+                self.logger.info(f"      Trying label pattern {i+1}: '{text_pattern}'")
+                # Try to find the associated input by label
+                element = self.page.get_by_label(text_pattern)
+                if element.is_visible() and element.is_editable():
+                    element.fill(value)
+                    self.logger.info(f"   ✅ SUCCESS via label: '{text_pattern}'")
+                    time.sleep(1)  # Brief wait for input processing
+                    return True
+            except Exception as e:
+                self.logger.debug(f"      ❌ Label pattern {i+1} failed: {str(e)[:50]}")
+                continue
+        
+        # Method 2: By Accessibility Role (Semantic)
+        self.logger.info(f"   📝 Method 2: Searching by accessibility role...")
+        for i, role in enumerate(role_patterns):
+            try:
+                self.logger.info(f"      Trying role {i+1}: {role}")
+                # Find input by role and optional name
+                element = self.page.get_by_role(role)
+                if element.is_visible() and element.is_editable():
+                    element.fill(value)
+                    self.logger.info(f"   ✅ SUCCESS via role: {role}")
+                    time.sleep(1)  # Brief wait for input processing
+                    return True
+            except Exception as e:
+                self.logger.debug(f"      ❌ Role pattern {i+1} failed: {str(e)[:50]}")
+                continue
+        
+        # Method 3: By CSS Selectors (Last Resort)
+        self.logger.info(f"   📝 Method 3: Fallback to CSS selectors...")
+        for i, selector in enumerate(css_selectors):
+            try:
+                self.logger.info(f"      Trying CSS selector {i+1}: {selector[:50]}...")
+                self.page.wait_for_selector(selector, timeout=timeout//len(css_selectors))
+                locator = self.page.locator(selector)
+                locator.wait_for(state='visible', timeout=5000)
+                
+                # Handle strict mode violations
+                try:
+                    locator.fill(value)
+                    self.logger.info(f"   ✅ SUCCESS via CSS selector: {selector[:50]}")
+                    time.sleep(1)  # Brief wait for input processing
+                    return True
+                except Exception as fill_error:
+                    if "strict mode violation" in str(fill_error):
+                        locator.first.fill(value)
+                        self.logger.info(f"   ✅ SUCCESS via CSS selector (first): {selector[:50]}")
+                        time.sleep(1)  # Brief wait for input processing
+                        return True
+                    else:
+                        raise fill_error
+                        
+            except Exception as e:
+                self.logger.debug(f"      ❌ CSS selector {i+1} failed: {str(e)[:50]}")
+                continue
+        
+        self.logger.error(f"❌ TOTAL FAILURE: Could not fill {field_name} field with ANY method")
+        return False
+
     def smart_wait_and_click(self, selectors, timeout=30000, description="element"):
         """Smart waiting and clicking with robust element readiness checks."""
         if isinstance(selectors, str):
@@ -696,22 +834,34 @@ class RobustKDPPublisher:
             self.logger.info("📚 BOOK CREATION: Starting new paperback book creation process")
             self.logger.debug(f"📊 BOOK DATA: {len(str(book_data))} chars of book metadata provided")
             
-            # Find and click Create New Title with more specific selectors
-            create_selectors = [
-                'text="Create New Title"',
+            # Use resilient approach to find and click Create New Title button
+            text_patterns = [
+                "Create New Title",
+                "Create new title", 
+                "Create Title",
+                "Create"
+            ]
+            
+            role_patterns = [
+                ("button", "Create New Title"),
+                ("button", "Create Title"),
+                ("link", "Create New Title"),
+                ("button", "Create")
+            ]
+            
+            css_selectors = [
                 '[data-testid="create-new-title"]',
                 'button:has-text("Create New Title")',
                 'button >> text="Create New Title"',
                 'a >> text="Create New Title"',
                 '.create-new-title',
-                'button:has-text("Create") >> nth=0',  # First Create button only
-                'a[href*="create"] >> nth=0'  # First create link only
+                'button:has-text("Create") >> nth=0',
+                'a[href*="create"] >> nth=0'
             ]
-            self.logger.debug(f"🔍 ELEMENT STRATEGY: Will try {len(create_selectors)} 'Create New Title' selectors")
             
-            if not self.smart_wait_and_click(create_selectors, description="Create New Title"):
-                self.logger.error(f"❌ CREATION FAILED: Could not find or click 'Create New Title' button")
-                self.logger.info(f"📤 FUNCTION EXIT: create_paperback_book() -> False")
+            if not self.resilient_find_and_click("Create New Title button", text_patterns, role_patterns, css_selectors):
+                self.logger.error(f"❌ CREATION FAILED: Could not find or click 'Create New Title' button using resilient approach")
+                self.logger.info(f"📤 FUNCTION EXIT: create_paperbook_book() -> False")
                 return False
             
             # Wait for Amazon's unified form to fully load
@@ -787,14 +937,15 @@ class RobustKDPPublisher:
             self.logger.info("⏳ Waiting for form fields to be ready...")
             time.sleep(5)  # Give extra time for Amazon's dynamic form loading
             
-            # Title field - EXACT Amazon KDP selectors from manual inspection
-            title_selectors = [
-                '#data-print-book-title',
-                'input[name="data[print_book][title]"]',
-                'input[id*="data-print-book-title"]'
-            ]
-            
-            if not self.smart_fill(title_selectors, book_data['title'], "book title"):
+            # Title field - Use resilient approach for filling
+            if not self.resilient_fill_field("Book Title", book_data['title'], 
+                                            text_patterns=["Book Title"],
+                                            role_patterns=["textbox", "input"],
+                                            css_selectors=[
+                                                '#data-print-book-title',
+                                                'input[name="data[print_book][title]"]',
+                                                'input[id*="data-print-book-title"]'
+                                            ]):
                 return False
             
             # Subtitle field - EXACT Amazon KDP selectors from manual inspection  
