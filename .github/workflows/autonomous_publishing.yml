@@ -28,6 +28,7 @@ env:
   GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
   KDP_EMAIL: ${{ secrets.KDP_EMAIL }}
   KDP_PASSWORD: ${{ secrets.KDP_PASSWORD }}
+  KDP_SESSION_COOKIES: ${{ secrets.KDP_SESSION_COOKIES }}
   GOOGLE_DRIVE_CREDENTIALS: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
 
 jobs:

@@ -58,24 +58,11 @@ class RobustKDPPublisher:
             
             self.playwright = sync_playwright().start()
             
-            # Launch browser with modern settings
-            # Use headed mode with virtual display in CI for CAPTCHA handling
+            # Launch browser with session cookie authentication
             is_ci = os.getenv('CI') == 'true' or os.getenv('GITHUB_ACTIONS') == 'true'
             
-            if is_ci:
-                # Setup virtual display for CI environment
-                self.logger.info("🖥️ Setting up virtual display for CI CAPTCHA handling...")
-                import subprocess
-                try:
-                    subprocess.run(['Xvfb', ':99', '-screen', '0', '1920x1080x24'], 
-                                 check=False, capture_output=True)
-                    os.environ['DISPLAY'] = ':99'
-                    self.logger.info("✅ Virtual display configured")
-                except Exception as e:
-                    self.logger.warning(f"⚠️ Could not setup virtual display: {e}")
-            
             self.browser = self.playwright.chromium.launch(
-                headless=False,  # Always headed for CAPTCHA interaction
+                headless=is_ci,  # Headless in CI, visible locally
                 slow_mo=1000,    # Slower for reliability
                 args=[
                     '--no-sandbox',
@@ -95,16 +82,66 @@ class RobustKDPPublisher:
                 timezone_id='America/New_York'
             )
             
+            # Load session cookies for authentication
+            self._load_session_cookies()
+            
             # Create page with extended timeouts
             self.page = self.context.new_page()
             self.page.set_default_timeout(60000)  # 60 seconds
             self.page.set_default_navigation_timeout(60000)
             
-            self.logger.info("✅ Browser setup complete")
+            self.logger.info("✅ Browser setup complete with session authentication")
             return True
             
         except Exception as e:
             self.logger.error(f"❌ Browser setup failed: {e}")
+            return False
+    
+    def _load_session_cookies(self):
+        """Load session cookies from GitHub secrets or local file."""
+        try:
+            self.logger.info("🍪 Loading session cookies for authentication...")
+            
+            # Try to get cookies from environment variable (GitHub Secret)
+            cookies_json = os.getenv('KDP_SESSION_COOKIES')
+            
+            if not cookies_json:
+                # Try local file for development
+                cookie_file = Path("kdp_session_cookies.json")
+                if cookie_file.exists():
+                    with open(cookie_file, 'r') as f:
+                        cookies_json = f.read()
+                        self.logger.info("📁 Loaded cookies from local file")
+                else:
+                    self.logger.warning("⚠️ No session cookies found - will attempt direct authentication")
+                    return False
+            else:
+                self.logger.info("🔐 Loaded cookies from GitHub Secret")
+            
+            # Parse cookie data
+            cookie_data = json.loads(cookies_json)
+            cookies = cookie_data.get('cookies', [])
+            
+            # Check if cookies are still valid
+            from datetime import datetime
+            expiry_str = cookie_data.get('expiry')
+            if expiry_str:
+                try:
+                    expiry = datetime.fromisoformat(expiry_str.replace('Z', '+00:00'))
+                    if datetime.now() > expiry:
+                        self.logger.warning("⚠️ Session cookies have expired - manual re-authentication needed")
+                        return False
+                except:
+                    pass  # Continue if date parsing fails
+            
+            # Add cookies to browser context
+            self.context.add_cookies(cookies)
+            self.logger.info(f"✅ Loaded {len(cookies)} session cookies")
+            
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"❌ Failed to load session cookies: {e}")
             return False
     
     def smart_wait_and_click(self, selectors, timeout=30000, description="element"):
@@ -187,6 +224,27 @@ class RobustKDPPublisher:
                 except Exception as e:
                     self.logger.warning(f"URL {url} failed: {e}")
                     continue
+            
+            # FIRST: Check if already authenticated via session cookies
+            self.logger.info("🍪 Checking existing session authentication...")
+            success_indicators = [
+                'text="Create New Title"',
+                '[data-testid="create-new-title"]',
+                '.kdp-dashboard',
+                '.bookshelf',
+                'text="Bookshelf"',
+                'text="KDP Select"'
+            ]
+            
+            for indicator in success_indicators:
+                try:
+                    if self.page.wait_for_selector(indicator, timeout=5000):
+                        self.logger.info("✅ Already authenticated via session cookies!")
+                        return True
+                except:
+                    continue
+            
+            self.logger.info("🔐 Session cookies not authenticated - proceeding with manual login...")
             
             # Look for sign-in elements with modern selectors
             signin_selectors = [
