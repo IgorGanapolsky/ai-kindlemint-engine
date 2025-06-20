@@ -12,6 +12,7 @@ import subprocess
 import argparse
 from pathlib import Path
 from datetime import datetime
+from security import safe_command
 
 # Add the project root to the Python path
 project_root = Path(__file__).parent.parent
@@ -94,7 +95,7 @@ class SeriesLauncher:
             
             self.logger.info(f"🔥 Triggering workflow: {' '.join(cmd)}")
             
-            result = subprocess.run(cmd, capture_output=True, text=True, cwd=Path(__file__).parent.parent)
+            result = safe_command.run(subprocess.run, cmd, capture_output=True, text=True, cwd=Path(__file__).parent.parent)
             
             if result.returncode == 0:
                 self.logger.info("✅ Step B completed successfully - Workflow triggered!")

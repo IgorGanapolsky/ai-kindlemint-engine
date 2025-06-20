@@ -10,6 +10,7 @@ import json
 import subprocess
 from pathlib import Path
 from datetime import datetime
+from security import safe_command
 
 # Add the project root to the Python path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -36,7 +37,7 @@ def generate_series_volumes(series_name: str, num_volumes: int = 5):
                 "--series", series_name
             ]
             
-            result = subprocess.run(cmd, capture_output=True, text=True, cwd=Path(__file__).parent.parent)
+            result = safe_command.run(subprocess.run, cmd, capture_output=True, text=True, cwd=Path(__file__).parent.parent)
             
             if result.returncode == 0:
                 logger.info(f"✅ Volume {volume_num} generated successfully")

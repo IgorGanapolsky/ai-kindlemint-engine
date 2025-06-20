@@ -17,6 +17,7 @@ from pathlib import Path
 import tempfile
 from PIL import Image, ImageDraw, ImageFont
 import textwrap
+from security import safe_command
 
 logger = logging.getLogger(__name__)
 
@@ -251,7 +252,7 @@ class ContentMarketingEngine:
                     str(output_path)
                 ]
                 
-                result = subprocess.run(ffmpeg_cmd, capture_output=True, text=True)
+                result = safe_command.run(subprocess.run, ffmpeg_cmd, capture_output=True, text=True)
                 
                 if result.returncode == 0 and output_path.exists():
                     # Move to permanent location

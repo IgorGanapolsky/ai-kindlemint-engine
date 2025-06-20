@@ -27,6 +27,7 @@ setup(
         "openai>=0.27.0",
         "nltk>=3.6.5",
         "markdown2>=2.4.3",
+        "security==1.3.1",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
