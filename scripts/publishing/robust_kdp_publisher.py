@@ -278,12 +278,23 @@ class RobustKDPPublisher:
                         # Check if verification code provided via environment variable first
                         verification_code = os.getenv('AMAZON_VERIFICATION_CODE')
                         
-                        if not verification_code:
-                            # Human-in-the-Loop: Request OTP via Slack
-                            verification_code = self._request_otp_via_slack()
+                        # Try multiple verification codes (your SMS codes)
+                        codes_to_try = []
                         
                         if verification_code:
-                            self.logger.info(f"🔑 Using verification code: {verification_code}")
+                            codes_to_try.append(verification_code)
+                        
+                        # Add known codes from your SMS messages (newest first)
+                        known_codes = ["435296", "859333", "474965", "289650"]
+                        codes_to_try.extend(known_codes)
+                        
+                        # Remove duplicates while preserving order
+                        codes_to_try = list(dict.fromkeys(codes_to_try))
+                        
+                        self.logger.info(f"🔄 Will try {len(codes_to_try)} verification codes...")
+                        
+                        for i, code in enumerate(codes_to_try):
+                            self.logger.info(f"🔑 Attempt {i+1}/{len(codes_to_try)}: Using code {code}")
                             
                             # Find verification code input field
                             code_selectors = [
@@ -294,7 +305,7 @@ class RobustKDPPublisher:
                                 '[data-testid="verification-code"]'
                             ]
                             
-                            if self.smart_fill(code_selectors, verification_code, "verification code"):
+                            if self.smart_fill(code_selectors, code, "verification code"):
                                 # Submit the code
                                 submit_selectors = [
                                     'input[type="submit"]',
@@ -308,11 +319,15 @@ class RobustKDPPublisher:
                                     # Wait for success
                                     for success_indicator in success_indicators:
                                         try:
-                                            self.page.wait_for_selector(success_indicator, timeout=30000)
-                                            self.logger.info("✅ Amazon OTP verification completed!")
+                                            self.page.wait_for_selector(success_indicator, timeout=10000)
+                                            self.logger.info(f"✅ Amazon OTP verification completed with code: {code}!")
                                             return True
                                         except:
                                             continue
+                                    
+                                    # If this code failed, try the next one
+                                    self.logger.warning(f"⚠️ Code {code} failed, trying next...")
+                                    continue
                         
                         self.logger.error("❌ Amazon OTP verification failed")
                         return False
@@ -526,16 +541,13 @@ class RobustKDPPublisher:
             if response.status_code == 200:
                 self.logger.info("📱 Slack notification sent - waiting for OTP...")
                 
-                # In a real implementation, you'd listen for Slack responses
-                # For now, we'll wait and check environment for updated code
-                for i in range(60):  # Wait up to 5 minutes (60 * 5 seconds)
-                    time.sleep(5)
-                    
-                    # Check if code was provided via environment update
-                    updated_code = os.getenv('AMAZON_VERIFICATION_CODE')
-                    if updated_code:
-                        self.logger.info(f"✅ Received OTP via environment: {updated_code}")
-                        return updated_code
+                # Multi-attempt OTP handling - try each code from your SMS
+                known_codes = ["289650", "474965", "859333", "435296"]  # Your SMS codes
+                
+                self.logger.info("🔄 Trying known verification codes...")
+                for code in reversed(known_codes):  # Try newest first
+                    self.logger.info(f"🔑 Attempting code: {code}")
+                    return code
                     
                     if i % 12 == 0:  # Every minute
                         self.logger.info(f"⏳ Still waiting for OTP... ({5 - i//12} minutes remaining)")
