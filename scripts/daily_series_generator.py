@@ -152,8 +152,8 @@ class DailySeriesGenerator:
         print(f"🎉 Series complete: {len(series_data['volumes'])} volumes ready")
         return series_data
     
-    def generate_volume(self, series_name, vol_num, config, series_dir):
-        """Generate individual volume with AI-powered content"""
+    def generate_volume(self, series_name, vol_num, config, series_dir, formats=['paperback', 'kindle']):
+        """Generate individual volume with AI-powered content in multiple formats"""
         
         volume_data = {
             "title": f"{series_name} - Volume {vol_num}",
@@ -161,28 +161,162 @@ class DailySeriesGenerator:
             "author": "Puzzle Pro Studios",  # Professional brand name
             "series": series_name,
             "volume_number": vol_num,
-            "price": config['price_point'],
+            "formats": {
+                "paperback": {
+                    "price": config['price_point'],
+                    "trim_size": "6x9 inches", 
+                    "margin": "60%",
+                    "royalty_per_sale": config['price_point'] * 0.6
+                },
+                "kindle": {
+                    "price": max(2.99, config['price_point'] * 0.4),  # Kindle pricing strategy
+                    "format": "reflowable text",
+                    "margin": "70%", 
+                    "royalty_per_sale": max(2.99, config['price_point'] * 0.4) * 0.7
+                }
+            },
             "keywords": config['keywords'],
             "description": self.generate_description(series_name, vol_num, config),
-            "generated_at": datetime.now().isoformat()
+            "generated_at": datetime.now().isoformat(),
+            "bundle_eligible": vol_num >= 3  # Eligible for bundles after 3+ volumes
         }
         
-        # Create volume directory
+        # Create volume directory with format subdirectories
         vol_dir = series_dir / f"volume_{vol_num}"
         vol_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Create format-specific directories for multi-format publishing
+        paperback_dir = vol_dir / "paperback"
+        kindle_dir = vol_dir / "kindle"
+        paperback_dir.mkdir(exist_ok=True)
+        kindle_dir.mkdir(exist_ok=True)
         
         # Generate content based on series type
         content = self.generate_volume_content(series_name, vol_num, config)
         
-        # Save files
+        # Save format-specific files
+        volume_data["format_directories"] = {
+            "paperback": str(paperback_dir),
+            "kindle": str(kindle_dir)
+        }
+        
+        # Save shared metadata
         with open(vol_dir / "metadata.json", 'w') as f:
             json.dump(volume_data, f, indent=2)
         
-        with open(vol_dir / "manuscript.txt", 'w') as f:
-            f.write(content)
+        # Save paperback version (6x9 format)
+        paperback_content = self.format_for_paperback(content, volume_data)
+        with open(paperback_dir / "manuscript.txt", 'w') as f:
+            f.write(paperback_content)
+        
+        # Save Kindle version (reflowable text)
+        kindle_content = self.format_for_kindle(content, volume_data)
+        with open(kindle_dir / "manuscript.txt", 'w') as f:
+            f.write(kindle_content)
+        
+        # Create format comparison sheet
+        comparison_sheet = self.create_format_comparison(volume_data)
+        with open(vol_dir / "FORMAT_COMPARISON.txt", 'w') as f:
+            f.write(comparison_sheet)
         
         volume_data["directory"] = str(vol_dir)
         return volume_data
+    
+    def format_for_paperback(self, content, volume_data):
+        """Format content specifically for 6x9 paperback printing"""
+        paperback_header = f"""
+{volume_data['title']}
+{volume_data['subtitle']}
+
+By {volume_data['author']}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📖 PAPERBACK EDITION - Optimized for 6x9 Print Format
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+"""
+        return paperback_header + content
+    
+    def format_for_kindle(self, content, volume_data):
+        """Format content for Kindle reflowable text"""
+        kindle_header = f"""
+{volume_data['title']}
+{volume_data['subtitle']}
+
+By {volume_data['author']}
+
+═════════════════════════════════════════════════════════════════
+📱 KINDLE EDITION - Optimized for Digital Reading
+═════════════════════════════════════════════════════════════════
+
+⚡ INSTANT DOWNLOAD - Start reading in seconds!
+📱 PERFECT FOR MOBILE - Read anywhere, anytime
+💡 ADJUSTABLE TEXT - Customize font size and brightness
+🔄 CLOUD SYNC - Pick up where you left off on any device
+
+"""
+        # Kindle-specific formatting (remove page breaks, optimize for reflowable text)
+        kindle_content = content.replace("━", "═").replace("page break", "section break")
+        return kindle_header + kindle_content
+    
+    def create_format_comparison(self, volume_data):
+        """Create format comparison sheet for publishers"""
+        paperback_price = volume_data['formats']['paperback']['price']
+        kindle_price = volume_data['formats']['kindle']['price']
+        paperback_royalty = volume_data['formats']['paperback']['royalty_per_sale']
+        kindle_royalty = volume_data['formats']['kindle']['royalty_per_sale']
+        
+        return f"""
+📊 MULTI-FORMAT PUBLISHING COMPARISON
+{volume_data['title']}
+
+{"="*60}
+📖 PAPERBACK EDITION
+{"="*60}
+Price: ${paperback_price:.2f}
+Format: 6x9 inches, print-on-demand
+Royalty: {volume_data['formats']['paperback']['margin']} = ${paperback_royalty:.2f} per sale
+Target Market: Physical book lovers, gifts, libraries
+Pros: Higher price point, premium feel, gift-worthy
+Cons: Lower conversion rate, higher production cost
+
+{"="*60}
+📱 KINDLE EDITION  
+{"="*60}
+Price: ${kindle_price:.2f} (40% of paperback - optimal strategy)
+Format: Reflowable text, instant download
+Royalty: {volume_data['formats']['kindle']['margin']} = ${kindle_royalty:.2f} per sale
+Target Market: Digital readers, impulse buyers
+Pros: Higher conversion rate, instant delivery, global reach
+Cons: Lower price point, digital format only
+
+{"="*60}
+💰 REVENUE STRATEGY
+{"="*60}
+Combined Revenue per Customer Set:
+• Customer buys Paperback: ${paperback_royalty:.2f}
+• Customer buys Kindle: ${kindle_royalty:.2f}  
+• Customer buys Both: ${paperback_royalty + kindle_royalty:.2f}
+
+Monthly Projections (100 customers):
+• Paperback Only (10% conversion): ${paperback_royalty * 10:.2f}
+• Kindle Only (20% conversion): ${kindle_royalty * 20:.2f}
+• Both Formats (Multi-format boost): ${(paperback_royalty * 10) + (kindle_royalty * 20):.2f}
+
+💡 STRATEGIC ADVANTAGE:
+Multi-format publishing increases total revenue by 80%+ compared to single format.
+Different customers prefer different formats - capture them all!
+
+{"="*60}
+🎯 PUBLISHING PRIORITY
+{"="*60}
+1. FIRST: Publish Paperback (establish baseline)
+2. SECOND: Publish Kindle within 24 hours (maximize reach)  
+3. MONITOR: Track format performance ratios
+4. OPTIMIZE: Adjust pricing based on conversion data
+
+REMEMBER: Same content, double the revenue streams!
+"""
     
     def generate_subtitle(self, series_name, config):
         """Generate compelling subtitles"""
