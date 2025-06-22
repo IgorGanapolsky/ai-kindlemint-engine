@@ -32,6 +32,8 @@ env:
   KDP_PASSWORD: ${{ secrets.KDP_PASSWORD }}
   GOOGLE_DRIVE_CREDENTIALS: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+  ENVIRONMENT: production
 
 jobs:
   determine-operations:

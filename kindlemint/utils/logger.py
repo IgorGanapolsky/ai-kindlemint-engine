@@ -1,12 +1,21 @@
 """
 Centralized logging configuration with automatic rotation for KindleMint Engine.
 Handles log rotation when files reach 10MB or after 7 days, with compressed backups.
+Integrated with Sentry for professional error tracking and AI-powered diagnostics.
 """
 import logging
 import logging.handlers
 from pathlib import Path
 import os
 from datetime import datetime
+
+# Sentry integration
+try:
+    from .sentry_config import init_sentry, capture_business_event, SentryPerformanceTracker
+    SENTRY_AVAILABLE = True
+except ImportError:
+    SENTRY_AVAILABLE = False
+    print("⚠️ Sentry integration not available - install sentry-sdk")
 
 class KindleMintLogger:
     """Centralized logger with rotation capabilities."""
@@ -30,6 +39,12 @@ class KindleMintLogger:
         
         # Main log file path
         self.main_log_file = self.log_dir / "kindlemint.log"
+        
+        # Initialize Sentry if available
+        self.sentry_enabled = False
+        if SENTRY_AVAILABLE:
+            self.sentry_enabled = init_sentry("kindlemint-logger", 
+                                            custom_tags={"component": "logging"})
         
         # Set up main logger
         self._setup_main_logger()

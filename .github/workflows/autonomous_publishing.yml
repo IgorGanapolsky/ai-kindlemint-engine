@@ -32,6 +32,8 @@ env:
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   GOOGLE_DRIVE_CREDENTIALS: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
   NOVA_ACT_API_KEY: ${{ secrets.NOVA_ACT_API_KEY }}
+  SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+  ENVIRONMENT: production
 
 jobs:
   autonomous-kdp-publishing:
