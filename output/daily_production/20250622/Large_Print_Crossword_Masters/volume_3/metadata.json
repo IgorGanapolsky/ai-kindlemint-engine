@@ -1,10 +1,46 @@
 {
   "title": "Large Print Crossword Masters - Volume 3",
-  "subtitle": "Hours of Entertainment Await",
+  "subtitle": "Challenge Your Mind Daily",
   "author": "Puzzle Pro Studios",
   "series": "Large Print Crossword Masters",
   "volume_number": 3,
-  "price": 7.99,
+  "formats": {
+    "kindle": {
+      "price": 3.196,
+      "format": "reflowable text",
+      "margin": "70%",
+      "royalty_per_sale": 2.2372,
+      "target_market": "impulse buyers, digital readers",
+      "launch_priority": 1
+    },
+    "paperback": {
+      "price": 9.99,
+      "trim_size": "6x9 inches",
+      "margin": "60%",
+      "royalty_per_sale": 5.994,
+      "target_market": "physical book lovers, gifts",
+      "launch_priority": 2
+    },
+    "hardcover": {
+      "price": 19.99,
+      "trim_size": "6x9 inches hardbound",
+      "margin": "45%",
+      "royalty_per_sale": 8.9955,
+      "target_market": "premium buyers, collectors, gifts",
+      "launch_priority": 3,
+      "qualification": "Launch after 25+ reviews, 4.3+ rating"
+    },
+    "audiobook": {
+      "price": 15.98,
+      "format": "AI-generated narration",
+      "margin": "25%",
+      "royalty_per_sale": 3.995,
+      "target_market": "commuters, multitaskers, premium audience",
+      "launch_priority": 4,
+      "production_cost": 50,
+      "qualification": "Launch after 50+ paperback sales/month"
+    }
+  },
   "keywords": [
     "large print crosswords",
     "crossword puzzles",
@@ -15,5 +51,12 @@
     "word puzzles"
   ],
   "description": "Volume 3 of the Large Print Crossword Masters series delivers exactly what seniors, puzzle enthusiasts are looking for.\n\nThis carefully crafted collection features:\n\u2022 High-quality content designed for seniors, puzzle enthusiasts\n\u2022 Clear, professional formatting for easy use\n\u2022 Appropriate challenge level for maximum enjoyment\n\u2022 Hours of engaging entertainment\n\u2022 Perfect for gifts or personal enjoyment\n\nWhether you're a longtime fan or new to the series, Volume 3 provides the quality experience you expect from Large Print Crossword Masters.\n\nJoin thousands of satisfied customers who have discovered the joy of this popular series!\n\nLook for all 5 volumes in the complete Large Print Crossword Masters collection.",
-  "generated_at": "2025-06-22T14:10:35.361752"
+  "generated_at": "2025-06-22T14:47:03.695770",
+  "bundle_eligible": true,
+  "format_directories": {
+    "kindle": "output/daily_production/20250622/Large_Print_Crossword_Masters/volume_3/kindle",
+    "paperback": "output/daily_production/20250622/Large_Print_Crossword_Masters/volume_3/paperback",
+    "hardcover": "output/daily_production/20250622/Large_Print_Crossword_Masters/volume_3/hardcover",
+    "audiobook": "output/daily_production/20250622/Large_Print_Crossword_Masters/volume_3/audiobook"
+  }
 }

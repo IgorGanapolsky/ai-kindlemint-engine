@@ -121,7 +121,8 @@
       "WebFetch(domain:nova.amazon.com)",
       "WebFetch(domain:github.com)",
       "Bash(./infrastructure/apply-ecr-lifecycle-policy.sh:*)",
-      "Bash(git clean:*)"
+      "Bash(git clean:*)",
+      "Bash(gh api:*)"
     ],
     "deny": []
   }

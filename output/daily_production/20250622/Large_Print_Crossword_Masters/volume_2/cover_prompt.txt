@@ -4,7 +4,10 @@ VOLUME 2 COVER PROMPT
 TITLE: Large Print Crossword Masters - Volume 2
 SUBTITLE: Challenge Your Mind Daily
 AUTHOR: Puzzle Pro Studios
-PRICE: $7.99
+PAPERBACK PRICE: $9.99
+KINDLE PRICE: $3.196
+HARDCOVER PRICE: $19.99
+AUDIOBOOK PRICE: $15.98
 
 VOLUME-SPECIFIC ELEMENTS:
 • Prominently display "Volume 2"

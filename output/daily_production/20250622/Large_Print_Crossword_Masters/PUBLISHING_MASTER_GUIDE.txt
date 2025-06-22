@@ -22,17 +22,44 @@ STEP-BY-STEP KDP PUBLISHING PROCESS:
    ✓ Manuscript file (manuscript.txt)
    ✓ Cover image (create using cover_prompt.txt)
    ✓ Metadata (from metadata.json)
+   ✓ Series description (see KDP SERIES SETUP below)
 
 2. LOGIN TO KDP
    • Go to kdp.amazon.com
    • Sign in with your Amazon account
    • Navigate to your Bookshelf
 
-3. CREATE NEW TITLE
+🚨 CRITICAL: SETUP SERIES FIRST (Do this BEFORE creating individual books)
+3. CREATE SERIES (ESSENTIAL FOR $300/DAY STRATEGY)
+   • Click "Create a Series"
+   • Series Name: Large Print Crossword Masters
+   • Series Description: (COPY-PASTE READY BELOW)
+   
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ KDP SERIES DESCRIPTION (COPY-PASTE THIS EXACTLY):                          │
+│                                                                             │
+│ Discover the complete Large Print Crossword Masters series - your ultimate collection of engaging crossword puzzle books designed specifically for seniors, puzzle enthusiasts.
+
+This comprehensive 5-volume series offers:
+• Progressive difficulty from beginner to advanced
+• Extra-large fonts for comfortable solving
+• 50+ unique puzzles per volume
+• Hours of brain-stimulating entertainment
+• Perfect for individuals or group activities
+
+Whether you're new to crosswords or a seasoned solver, each volume builds upon the previous, creating the perfect progression for skill development and sustained enjoyment.
+
+Start with Volume 1 and discover why thousands of readers have made Large Print Crossword Masters their go-to crossword puzzle series!
+
+Perfect for gifts, personal enjoyment, or sharing with friends and family.
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+4. CREATE NEW TITLE
    • Click "Create New Title"
    • Select "Paperback"
 
-4. BOOK DETAILS SECTION
+5. BOOK DETAILS SECTION
    Title: [Copy from metadata.json]
    Subtitle: [Copy from metadata.json]
    Series: Large Print Crossword Masters
@@ -47,7 +74,7 @@ STEP-BY-STEP KDP PUBLISHING PROCESS:
    • Books > Crafts, Hobbies & Home > Puzzles & Games
    • Books > Humor & Entertainment > Puzzles & Games
 
-5. CONTENT SECTION
+6. CONTENT SECTION
    • Upload manuscript.txt as interior content
    • Upload your cover image
    • Select appropriate paper type (white or cream)
