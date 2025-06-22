@@ -123,7 +123,7 @@ class RobustKDPPublisher:
                 
                 # Step 5: Enter password
                 self.logger.info(f"🔒 STEP 5: Entering password")
-                nova.act(f"Find the password input field and enter the password")
+                nova.act(f"Find the password input field and enter '{self.kdp_password}'")
                 
                 # Step 6: Sign in
                 self.logger.info(f"🔑 STEP 6: Completing sign in")
@@ -186,8 +186,74 @@ class RobustKDPPublisher:
                 self.logger.error(f"❌ Failed to verify login: {e}")
                 return False
                 
+        except ImportError:
+            self.logger.warning(f"⚠️ Nova Act not available, falling back to Playwright")
+            return self._fallback_playwright_login()
         except Exception as e:
             self.logger.error(f"❌ ERROR: KDP login failed: {e}")
+            return False
+    
+    def _fallback_playwright_login(self):
+        """Fallback login using Playwright when Nova Act is not available."""
+        try:
+            from playwright.sync_api import sync_playwright
+            
+            self.logger.info(f"🔧 Initializing Playwright fallback...")
+            
+            # Initialize Playwright
+            self.playwright = sync_playwright().start()
+            self.browser = self.playwright.chromium.launch(
+                headless=True,
+                args=['--no-sandbox', '--disable-dev-shm-usage']
+            )
+            
+            self.context = self.browser.new_context(
+                viewport={'width': 1600, 'height': 900},
+                user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+            )
+            
+            self.page = self.context.new_page()
+            
+            # Navigate to KDP and login
+            self.page.goto('https://kdp.amazon.com')
+            
+            # Check if already logged in
+            try:
+                self.page.wait_for_selector('[data-testid="create-new-title"]', timeout=5000)
+                self.logger.info(f"✅ Already logged in")
+                return True
+            except:
+                pass
+            
+            # Click sign in
+            sign_in_button = self.page.wait_for_selector('a[href*="signin"]', timeout=10000)
+            sign_in_button.click()
+            
+            # Enter email
+            email_input = self.page.wait_for_selector('input[type="email"], input[name="email"], #ap_email', timeout=10000)
+            email_input.fill(self.kdp_email)
+            
+            # Continue
+            continue_button = self.page.wait_for_selector('input[type="submit"], button[type="submit"], #continue', timeout=10000)
+            continue_button.click()
+            time.sleep(2)
+            
+            # Enter password
+            password_input = self.page.wait_for_selector('input[type="password"], input[name="password"], #ap_password', timeout=10000)
+            password_input.fill(self.kdp_password)
+            
+            # Sign in
+            signin_button = self.page.wait_for_selector('input[type="submit"], button[type="submit"], #signInSubmit', timeout=10000)
+            signin_button.click()
+            
+            # Wait for dashboard
+            self.page.wait_for_selector('[data-testid="create-new-title"], .bookshelf-container', timeout=30000)
+            
+            self.logger.info(f"✅ Playwright fallback login successful")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"❌ Playwright fallback login failed: {e}")
             return False
     
     def send_slack_notification(self, title, message, color="good", fields=None):
