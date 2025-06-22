@@ -43,8 +43,17 @@ class WorkingKDPPublisher:
         
         async with async_playwright() as p:
             browser = await p.chromium.launch(
-                headless=os.getenv('CI') == 'true',
-                args=['--no-sandbox', '--disable-dev-shm-usage'] if os.getenv('CI') == 'true' else []
+                headless=True,  # Always headless
+                args=[
+                    '--no-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-gpu',
+                    '--disable-web-security',
+                    '--disable-features=VizDisplayCompositor',
+                    '--disable-extensions',
+                    '--no-first-run',
+                    '--disable-default-apps'
+                ] if os.getenv('CI') == 'true' else ['--no-sandbox', '--disable-dev-shm-usage']
             )
             page = await browser.new_page()
             
@@ -80,8 +89,14 @@ class WorkingKDPPublisher:
         
         async with async_playwright() as p:
             browser = await p.chromium.launch(
-                headless=os.getenv('CI') == 'true',
-                args=['--no-sandbox', '--disable-dev-shm-usage'] if os.getenv('CI') == 'true' else []
+                headless=True,  # Always headless for CI
+                args=[
+                    '--no-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-gpu',
+                    '--disable-web-security',
+                    '--disable-features=VizDisplayCompositor'
+                ]
             )
             page = await browser.new_page()
             
@@ -295,8 +310,14 @@ class WorkingKDPPublisher:
         
         async with async_playwright() as p:
             browser = await p.chromium.launch(
-                headless=os.getenv('CI') == 'true',
-                args=['--no-sandbox', '--disable-dev-shm-usage'] if os.getenv('CI') == 'true' else []
+                headless=True,  # Always headless for CI
+                args=[
+                    '--no-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-gpu',
+                    '--disable-web-security',
+                    '--disable-features=VizDisplayCompositor'
+                ]
             )
             page = await browser.new_page()
             
