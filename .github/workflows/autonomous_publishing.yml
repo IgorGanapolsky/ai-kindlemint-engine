@@ -31,6 +31,7 @@ env:
   KDP_SESSION_COOKIES: ${{ secrets.KDP_SESSION_COOKIES }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   GOOGLE_DRIVE_CREDENTIALS: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
+  NOVA_ACT_API_KEY: ${{ secrets.NOVA_ACT_API_KEY }}
 
 jobs:
   autonomous-kdp-publishing:
@@ -72,6 +73,7 @@ jobs:
           echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
           echo "KDP_EMAIL=${{ secrets.KDP_EMAIL }}" >> .env
           echo "KDP_PASSWORD=${{ secrets.KDP_PASSWORD }}" >> .env
+          echo "NOVA_ACT_API_KEY=${{ secrets.NOVA_ACT_API_KEY }}" >> .env
           if [ -n "${{ github.event.inputs.amazon_verification_code }}" ]; then
             echo "AMAZON_VERIFICATION_CODE=${{ github.event.inputs.amazon_verification_code }}" >> .env
           fi
