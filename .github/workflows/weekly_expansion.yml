@@ -50,7 +50,7 @@ jobs:
           from datetime import datetime, timedelta
           import requests
           
-          expansion_type = '${{ github.event.inputs.expansion_type || \"auto\" }}'
+          expansion_type = '${{ github.event.inputs.expansion_type || ''auto'' }}'
           current_day = datetime.now().strftime('%A')
           
           print(f'🎯 Starting Weekly Expansion: {expansion_type}')
