@@ -1,4 +1,4 @@
-name: Book Production Factory
+name: Daily Book Production Factory
 
 on:
   schedule:
