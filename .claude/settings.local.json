@@ -115,7 +115,13 @@
       "Bash(done)",
       "Bash(git checkout:*)",
       "Bash(gh run cancel:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(jq:*)",
+      "Bash(playwright codegen:*)",
+      "WebFetch(domain:nova.amazon.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(./infrastructure/apply-ecr-lifecycle-policy.sh:*)",
+      "Bash(git clean:*)"
     ],
     "deny": []
   }

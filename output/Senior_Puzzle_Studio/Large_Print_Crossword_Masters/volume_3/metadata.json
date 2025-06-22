@@ -1,29 +1,20 @@
 {
-  "title": "Large Print Crossword Masters: Volume 3",
-  "subtitle": "Easy Large Print Crosswords for Seniors",
-  "brand": "Senior Puzzle Studio",
+  "title": "Large Print Crossword Masters - Volume 3",
+  "subtitle": "Easy and Fun Puzzles for Everyone",
+  "author": "Senior Puzzle Studio",
   "series": "Large Print Crossword Masters",
   "volume_number": 3,
-  "difficulty": "beginner",
-  "target_audience": "seniors_55_plus",
+  "description": "Volume 3 of the Large Print Crossword Masters series features 50 unique crossword puzzles with large, easy-to-read fonts. Perfect for seniors and puzzle enthusiasts.",
   "keywords": [
-    "large print crossword",
-    "easy crossword puzzles",
-    "senior crossword",
-    "crossword for seniors",
-    "puzzle book for seniors",
-    "large print puzzle book",
-    "brain games for seniors"
+    "large print crosswords",
+    "crossword puzzles",
+    "seniors puzzles",
+    "easy crosswords",
+    "puzzle books",
+    "brain games",
+    "word puzzles"
   ],
-  "description": "Enjoy hours of engaging entertainment with \"Large Print Crossword Masters: Volume 3.\" This book features 100 easy large print crossword puzzles designed specifically for seniors.  With their extra-large font and simple clues, these puzzles are perfect for maintaining cognitive sharpness and providing relaxing fun.  Each puzzle offers a satisfying challenge without being frustrating, making it ideal for those looking for a gentle mental workout.  Perfect for seniors 55+, these puzzles are a great way to stimulate the mind and enjoy a bit of quiet time.  Grab your pen and get ready for hours of enjoyable puzzling!",
   "price": 7.99,
-  "categories": [
-    "Games & Activities",
-    "Crosswords & Puzzles",
-    "Large Print Books",
-    "Senior Activities"
-  ],
-  "generated_at": "2025-06-18T12:59:11.247248",
-  "generation_method": "gemini_ai",
-  "api_cost": "ultra_low_cost"
+  "generated_at": "2025-06-22T13:35:06.229285",
+  "status": "ready_for_manual_publish"
 }

@@ -1,31 +1,20 @@
 {
-  "title": "Large Print Crossword Masters: Volume 2",
-  "subtitle": "Easy Large Print Crosswords for Seniors",
-  "brand": "Senior Puzzle Studio",
+  "title": "Large Print Crossword Masters - Volume 2",
+  "subtitle": "Easy and Fun Puzzles for Everyone",
+  "author": "Senior Puzzle Studio",
   "series": "Large Print Crossword Masters",
   "volume_number": 2,
-  "difficulty": "Beginner",
-  "target_audience": "Seniors 55+",
+  "description": "Volume 2 of the Large Print Crossword Masters series features 50 unique crossword puzzles with large, easy-to-read fonts. Perfect for seniors and puzzle enthusiasts.",
   "keywords": [
-    "Large Print Crossword",
-    "Easy Crossword Puzzles",
-    "Crossword Puzzles for Seniors",
-    "Senior Activities",
-    "Brain Games for Seniors",
-    "Large Print Books",
-    "Cognitive Stimulation"
+    "large print crosswords",
+    "crossword puzzles",
+    "seniors puzzles",
+    "easy crosswords",
+    "puzzle books",
+    "brain games",
+    "word puzzles"
   ],
-  "description": "Enjoy hours of engaging and stimulating fun with \"Large Print Crossword Masters: Volume 2\"! This book is specifically designed for seniors aged 55+ who appreciate large, easy-to-read crosswords.  Each puzzle offers a gentle challenge perfect for maintaining cognitive sharpness and providing delightful entertainment. With clear, large print and simple clues, these crosswords are accessible and enjoyable for all levels of experience.  Perfect for relaxing afternoons, stimulating conversations, or simply enjoying some quiet time, this book is a wonderful gift for seniors and puzzle enthusiasts alike.  Start your puzzle journey today and unlock the satisfaction of completing these delightful crosswords!",
   "price": 7.99,
-  "categories": [
-    "Games & Puzzles",
-    "Crossword Puzzles",
-    "Large Print Books",
-    "Senior Activities",
-    "Brain Games",
-    "Adult Coloring Books & Puzzles"
-  ],
-  "generated_at": "2025-06-18T12:58:42.667364",
-  "generation_method": "gemini_ai",
-  "api_cost": "ultra_low_cost"
+  "generated_at": "2025-06-22T13:35:06.228587",
+  "status": "ready_for_manual_publish"
 }
