@@ -162,17 +162,40 @@ class DailySeriesGenerator:
             "series": series_name,
             "volume_number": vol_num,
             "formats": {
-                "paperback": {
-                    "price": config['price_point'],
-                    "trim_size": "6x9 inches", 
-                    "margin": "60%",
-                    "royalty_per_sale": config['price_point'] * 0.6
-                },
                 "kindle": {
-                    "price": max(2.99, config['price_point'] * 0.4),  # Kindle pricing strategy
+                    "price": max(2.99, min(9.99, config['price_point'] * 0.4)),  # $2.99-$7.99 range
                     "format": "reflowable text",
                     "margin": "70%", 
-                    "royalty_per_sale": max(2.99, config['price_point'] * 0.4) * 0.7
+                    "royalty_per_sale": max(2.99, min(9.99, config['price_point'] * 0.4)) * 0.7,
+                    "target_market": "impulse buyers, digital readers",
+                    "launch_priority": 1
+                },
+                "paperback": {
+                    "price": max(9.99, min(14.99, config['price_point'])),  # $9.99-$14.99 range
+                    "trim_size": "6x9 inches", 
+                    "margin": "60%",
+                    "royalty_per_sale": max(9.99, min(14.99, config['price_point'])) * 0.6,
+                    "target_market": "physical book lovers, gifts",
+                    "launch_priority": 2
+                },
+                "hardcover": {
+                    "price": max(19.99, min(29.99, config['price_point'] * 2.5)),  # $19.99-$29.99 range
+                    "trim_size": "6x9 inches hardbound",
+                    "margin": "45%",
+                    "royalty_per_sale": max(19.99, min(29.99, config['price_point'] * 2.5)) * 0.45,
+                    "target_market": "premium buyers, collectors, gifts",
+                    "launch_priority": 3,
+                    "qualification": "Launch after 25+ reviews, 4.3+ rating"
+                },
+                "audiobook": {
+                    "price": max(14.95, min(24.95, config['price_point'] * 2.0)),  # $14.95-$24.95 range
+                    "format": "AI-generated narration",
+                    "margin": "25%",
+                    "royalty_per_sale": max(14.95, min(24.95, config['price_point'] * 2.0)) * 0.25,
+                    "target_market": "commuters, multitaskers, premium audience",
+                    "launch_priority": 4,
+                    "production_cost": 50,  # AI narration cost estimate
+                    "qualification": "Launch after 50+ paperback sales/month"
                 }
             },
             "keywords": config['keywords'],
@@ -185,39 +208,62 @@ class DailySeriesGenerator:
         vol_dir = series_dir / f"volume_{vol_num}"
         vol_dir.mkdir(parents=True, exist_ok=True)
         
-        # Create format-specific directories for multi-format publishing
-        paperback_dir = vol_dir / "paperback"
+        # Create QUADRUPLE THREAT format directories
         kindle_dir = vol_dir / "kindle"
-        paperback_dir.mkdir(exist_ok=True)
+        paperback_dir = vol_dir / "paperback"
+        hardcover_dir = vol_dir / "hardcover"
+        audiobook_dir = vol_dir / "audiobook"
+        
         kindle_dir.mkdir(exist_ok=True)
+        paperback_dir.mkdir(exist_ok=True)
+        hardcover_dir.mkdir(exist_ok=True)
+        audiobook_dir.mkdir(exist_ok=True)
         
         # Generate content based on series type
         content = self.generate_volume_content(series_name, vol_num, config)
         
-        # Save format-specific files
+        # Save QUADRUPLE THREAT format-specific files
         volume_data["format_directories"] = {
+            "kindle": str(kindle_dir),
             "paperback": str(paperback_dir),
-            "kindle": str(kindle_dir)
+            "hardcover": str(hardcover_dir),
+            "audiobook": str(audiobook_dir)
         }
         
         # Save shared metadata
         with open(vol_dir / "metadata.json", 'w') as f:
             json.dump(volume_data, f, indent=2)
         
-        # Save paperback version (6x9 format)
+        # Generate ALL FOUR FORMATS
+        print(f"📱 Generating Kindle edition...")
+        kindle_content = self.format_for_kindle(content, volume_data)
+        with open(kindle_dir / "manuscript.html", 'w') as f:
+            f.write(kindle_content)
+        
+        print(f"📖 Generating Paperback edition...")
         paperback_content = self.format_for_paperback(content, volume_data)
         with open(paperback_dir / "manuscript.txt", 'w') as f:
             f.write(paperback_content)
         
-        # Save Kindle version (reflowable text)
-        kindle_content = self.format_for_kindle(content, volume_data)
-        with open(kindle_dir / "manuscript.txt", 'w') as f:
-            f.write(kindle_content)
+        print(f"👑 Generating Hardcover edition...")
+        hardcover_content = self.format_for_hardcover(content, volume_data)
+        with open(hardcover_dir / "manuscript.txt", 'w') as f:
+            f.write(hardcover_content)
         
-        # Create format comparison sheet
-        comparison_sheet = self.create_format_comparison(volume_data)
-        with open(vol_dir / "FORMAT_COMPARISON.txt", 'w') as f:
+        print(f"🎧 Generating Audiobook edition...")
+        audiobook_content = self.format_for_audiobook(content, volume_data)
+        with open(audiobook_dir / "manuscript_ai_optimized.txt", 'w') as f:
+            f.write(audiobook_content)
+        
+        # Create QUADRUPLE THREAT comparison sheet
+        comparison_sheet = self.create_quadruple_format_comparison(volume_data)
+        with open(vol_dir / "QUADRUPLE_THREAT_ANALYSIS.txt", 'w') as f:
             f.write(comparison_sheet)
+            
+        # Create ISBN/ASIN tracking sheet
+        tracking_sheet = self.create_isbn_tracking_sheet(volume_data)
+        with open(vol_dir / "ISBN_ASIN_TRACKER.txt", 'w') as f:
+            f.write(tracking_sheet)
         
         volume_data["directory"] = str(vol_dir)
         return volume_data
@@ -238,84 +284,383 @@ By {volume_data['author']}
         return paperback_header + content
     
     def format_for_kindle(self, content, volume_data):
-        """Format content for Kindle reflowable text"""
-        kindle_header = f"""
+        """Format content for Kindle reflowable HTML"""
+        kindle_html = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{volume_data['title']}</title>
+    <style>
+        body {{ font-family: serif; line-height: 1.6; margin: 20px; }}
+        h1 {{ text-align: center; font-size: 1.8em; margin-bottom: 10px; }}
+        h2 {{ text-align: center; font-size: 1.4em; color: #666; margin-bottom: 20px; }}
+        .kindle-benefits {{ background: #f0f0f0; padding: 15px; margin: 20px 0; border-radius: 5px; }}
+        .toc {{ page-break-after: always; }}
+        .chapter {{ page-break-before: always; }}
+    </style>
+</head>
+<body>
+    <h1>{volume_data['title']}</h1>
+    <h2>{volume_data['subtitle']}</h2>
+    <p style="text-align: center;"><strong>By {volume_data['author']}</strong></p>
+    
+    <div class="kindle-benefits">
+        <h3>📱 KINDLE EDITION BENEFITS:</h3>
+        <ul>
+            <li>⚡ <strong>Instant Download</strong> - Start reading in seconds!</li>
+            <li>📱 <strong>Perfect for Mobile</strong> - Read anywhere, anytime</li>
+            <li>💡 <strong>Adjustable Text</strong> - Customize font size and brightness</li>
+            <li>🔄 <strong>Cloud Sync</strong> - Pick up where you left off on any device</li>
+            <li>🔍 <strong>Search Function</strong> - Find any puzzle instantly</li>
+            <li>💰 <strong>Best Value</strong> - ${volume_data['formats']['kindle']['price']:.2f} vs ${volume_data['formats']['paperback']['price']:.2f} paperback</li>
+        </ul>
+    </div>
+    
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <p><a href="#intro">Introduction</a></p>
+        <p><a href="#puzzles">Puzzles</a></p>
+        <p><a href="#solutions">Solutions</a></p>
+    </div>
+    
+    <div class="chapter" id="intro">
+        <h2>Introduction</h2>
+    </div>
+    
+    <div class="chapter" id="puzzles">
+        {content.replace("━", "═").replace("page break", "</div><div class='chapter'>")}
+    </div>
+    
+    <div class="chapter" id="solutions">
+        <h2>Solutions</h2>
+        <p>Solutions can be found at the end of this edition.</p>
+    </div>
+</body>
+</html>"""
+        return kindle_html
+    
+    def format_for_hardcover(self, content, volume_data):
+        """Format content for premium hardcover edition"""
+        hardcover_header = f"""
 {volume_data['title']}
 {volume_data['subtitle']}
 
 By {volume_data['author']}
 
-═════════════════════════════════════════════════════════════════
-📱 KINDLE EDITION - Optimized for Digital Reading
-═════════════════════════════════════════════════════════════════
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+👑 PREMIUM HARDCOVER EDITION - Collector Quality
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
-⚡ INSTANT DOWNLOAD - Start reading in seconds!
-📱 PERFECT FOR MOBILE - Read anywhere, anytime
-💡 ADJUSTABLE TEXT - Customize font size and brightness
-🔄 CLOUD SYNC - Pick up where you left off on any device
+✨ PREMIUM FEATURES:
+• Durable hardbound construction for years of enjoyment
+• Premium paper quality with cream-colored pages
+• Perfect for gifting to puzzle enthusiasts
+• Library-quality binding that lies flat when open
+• Coffee table worthy presentation
+• Dust jacket ready design
+
+🎁 THE PERFECT GIFT:
+This hardcover edition makes an exceptional gift for:
+• Seniors who appreciate quality books
+• Puzzle enthusiasts and collectors
+• Students and educators
+• Anyone who values premium materials
+• Libraries and institutions
+
+💎 COLLECTOR'S EDITION VALUE:
+Limited premium printing • Heirloom quality • Investment piece
 
 """
-        # Kindle-specific formatting (remove page breaks, optimize for reflowable text)
-        kindle_content = content.replace("━", "═").replace("page break", "section break")
-        return kindle_header + kindle_content
+        return hardcover_header + content + "\n\n👑 Premium Hardcover Edition © 2025 Puzzle Pro Studios"
     
-    def create_format_comparison(self, volume_data):
-        """Create format comparison sheet for publishers"""
-        paperback_price = volume_data['formats']['paperback']['price']
-        kindle_price = volume_data['formats']['kindle']['price']
-        paperback_royalty = volume_data['formats']['paperback']['royalty_per_sale']
-        kindle_royalty = volume_data['formats']['kindle']['royalty_per_sale']
+    def format_for_audiobook(self, content, volume_data):
+        """Format content optimized for AI narration"""
+        audiobook_script = f"""
+AUDIOBOOK NARRATION SCRIPT
+{volume_data['title']} - {volume_data['subtitle']}
+Optimized for AI Voice Generation
+
+NARRATOR INSTRUCTIONS:
+- Speak clearly and at moderate pace
+- Pause 2 seconds between puzzles  
+- Spell out letter combinations clearly
+- Use encouraging, friendly tone
+- Emphasize puzzle numbers
+
+===== INTRO SECTION =====
+
+[FRIENDLY TONE]
+Welcome to {volume_data['title']}, {volume_data['subtitle']}. 
+
+I'm your puzzle guide, and I'm excited to take you through this collection of brain-boosting challenges.
+
+[PAUSE 2 SECONDS]
+
+🎧 AUDIOBOOK ADVANTAGES:
+Listen while commuting, exercising, or relaxing
+Perfect for visual breaks - just listen and think
+Great for group puzzle sessions
+Learn techniques through spoken explanations
+
+[PAUSE 3 SECONDS]
+
+Let's begin your puzzle journey!
+
+===== CONTENT SECTION =====
+
+{self.convert_to_audio_script(content)}
+
+===== OUTRO SECTION =====
+
+[ENTHUSIASTIC TONE]
+Congratulations! You've completed {volume_data['title']}!
+
+Thank you for choosing our audiobook edition. Your brain is now sharper, and you've built valuable problem-solving skills.
+
+[PAUSE 2 SECONDS]
+
+Don't forget to check out our other puzzle audiobooks in this series.
+
+Keep puzzling, and remember - every challenge makes you stronger!
+
+[FADE OUT]
+
+===== TECHNICAL NOTES =====
+Total estimated runtime: 45-60 minutes
+Recommended AI voice: Professional, friendly, clear
+Speed: Normal pace (not rushed)
+Background music: Optional soft instrumental
+"""
+        return audiobook_script
+    
+    def convert_to_audio_script(self, content):
+        """Convert written content to audio narration script"""
+        # Convert visual elements to spoken descriptions
+        audio_content = content.replace("━━━", "[PAUSE] New section. [PAUSE]")
+        audio_content = audio_content.replace("PUZZLE", "[CLEAR VOICE] Puzzle")
+        audio_content = audio_content.replace("CLUE:", "[SLOWER] Clue:")
+        audio_content = audio_content.replace("ACROSS", "[EMPHASIS] Across clues:")
+        audio_content = audio_content.replace("DOWN", "[EMPHASIS] Down clues:")
+        
+        # Add pronunciation guides for common puzzle terms
+        audio_content = audio_content.replace("ANAGRAM", "Anagram [spelled A-N-A-G-R-A-M]")
+        
+        return audio_content
+    
+    def create_quadruple_format_comparison(self, volume_data):
+        """Create QUADRUPLE THREAT format analysis"""
+        kindle_data = volume_data['formats']['kindle']
+        paperback_data = volume_data['formats']['paperback']
+        hardcover_data = volume_data['formats']['hardcover']
+        audiobook_data = volume_data['formats']['audiobook']
+        
+        total_revenue_per_customer = (kindle_data['royalty_per_sale'] + 
+                                      paperback_data['royalty_per_sale'] + 
+                                      hardcover_data['royalty_per_sale'] + 
+                                      audiobook_data['royalty_per_sale'])
         
         return f"""
-📊 MULTI-FORMAT PUBLISHING COMPARISON
+🚀 QUADRUPLE THREAT STRATEGY ANALYSIS
+{volume_data['title']}
+
+{"="*80}
+📱 KINDLE EDITION (Launch Priority: {kindle_data['launch_priority']})
+{"="*80}
+Price: ${kindle_data['price']:.2f}
+Format: {kindle_data['format']}
+Royalty: {kindle_data['margin']} = ${kindle_data['royalty_per_sale']:.2f} per sale
+Target: {kindle_data['target_market']}
+Conversion Rate: 15% (impulse buy advantage)
+
+{"="*80}
+📖 PAPERBACK EDITION (Launch Priority: {paperback_data['launch_priority']})
+{"="*80}
+Price: ${paperback_data['price']:.2f}
+Format: {paperback_data['trim_size']}
+Royalty: {paperback_data['margin']} = ${paperback_data['royalty_per_sale']:.2f} per sale
+Target: {paperback_data['target_market']}
+Conversion Rate: 10% (proven baseline)
+
+{"="*80}
+👑 HARDCOVER EDITION (Launch Priority: {hardcover_data['launch_priority']})
+{"="*80}
+Price: ${hardcover_data['price']:.2f}
+Format: {hardcover_data['trim_size']}
+Royalty: {hardcover_data['margin']} = ${hardcover_data['royalty_per_sale']:.2f} per sale
+Target: {hardcover_data['target_market']}
+Conversion Rate: 5% (premium positioning)
+Qualification: {hardcover_data['qualification']}
+
+{"="*80}
+🎧 AUDIOBOOK EDITION (Launch Priority: {audiobook_data['launch_priority']})
+{"="*80}
+Price: ${audiobook_data['price']:.2f}
+Format: {audiobook_data['format']}
+Royalty: {audiobook_data['margin']} = ${audiobook_data['royalty_per_sale']:.2f} per sale
+Target: {audiobook_data['target_market']}
+Conversion Rate: 5% (premium niche)
+Production Cost: ${audiobook_data['production_cost']} (one-time AI generation)
+Qualification: {audiobook_data['qualification']}
+
+{"="*80}
+💰 QUADRUPLE THREAT REVENUE ANALYSIS
+{"="*80}
+
+SINGLE CUSTOMER MAXIMUM VALUE:
+• Kindle: ${kindle_data['royalty_per_sale']:.2f}
+• Paperback: ${paperback_data['royalty_per_sale']:.2f}
+• Hardcover: ${hardcover_data['royalty_per_sale']:.2f}
+• Audiobook: ${audiobook_data['royalty_per_sale']:.2f}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TOTAL PER CUSTOMER SET: ${total_revenue_per_customer:.2f}
+
+MONTHLY PROJECTIONS (100 customers reach):
+• Kindle (15% conversion): ${kindle_data['royalty_per_sale'] * 15:.2f}
+• Paperback (10% conversion): ${paperback_data['royalty_per_sale'] * 10:.2f}
+• Hardcover (5% conversion): ${hardcover_data['royalty_per_sale'] * 5:.2f}
+• Audiobook (5% conversion): ${audiobook_data['royalty_per_sale'] * 5:.2f}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MONTHLY TOTAL: ${(kindle_data['royalty_per_sale'] * 15 + paperback_data['royalty_per_sale'] * 10 + hardcover_data['royalty_per_sale'] * 5 + audiobook_data['royalty_per_sale'] * 5):.2f}
+
+🚀 THE MULTIPLICATION EFFECT:
+With 100 books × 4 formats = 400 Amazon listings!
+
+Search Results Domination:
+• "crossword books" → You appear 4 times per book
+• "large print books" → Total category domination  
+• "gift books for seniors" → Hardcover wins premium
+• "audiobooks puzzles" → First-mover advantage
+
+Algorithm Benefits:
+• More formats = "serious publisher" signal
+• Cross-format sales = higher ranking boost
+• Multiple price points = wider audience capture
+• Format bundling = higher cart values
+
+{"="*80}
+🎯 STRATEGIC LAUNCH SEQUENCE
+{"="*80}
+
+OPTION A - SAME DAY QUAD LAUNCH (Maximum Impact):
+Day 1: Launch all 4 formats simultaneously
+Pro: Maximum search presence immediately
+Con: Requires all formats ready upfront
+
+OPTION B - SMART ROLLOUT (Proven Strategy):
+Day 1: Kindle + Paperback (fast & easy)
+Day 2: Add Audiobook (AI voice generation)
+Day 3: Add Hardcover (premium positioning)
+
+🏆 COMPETITIVE ADVANTAGE:
+Most publishers only do 1-2 formats. You do ALL 4.
+You capture EVERY customer type in EVERY price range.
+
+REMEMBER: Same content, 4× the revenue streams!
+"""
+    
+    def create_isbn_tracking_sheet(self, volume_data):
+        """Create ISBN/ASIN tracking sheet for all formats"""
+        return f"""
+📋 ISBN/ASIN TRACKING SHEET
 {volume_data['title']}
 
 {"="*60}
-📖 PAPERBACK EDITION
+🔢 IDENTIFIER MANAGEMENT
 {"="*60}
-Price: ${paperback_price:.2f}
-Format: 6x9 inches, print-on-demand
-Royalty: {volume_data['formats']['paperback']['margin']} = ${paperback_royalty:.2f} per sale
-Target Market: Physical book lovers, gifts, libraries
-Pros: Higher price point, premium feel, gift-worthy
-Cons: Lower conversion rate, higher production cost
+
+📱 KINDLE EDITION:
+ASIN: [TO BE ASSIGNED BY AMAZON]
+Format: Digital
+Price: ${volume_data['formats']['kindle']['price']:.2f}
+Launch Date: [YYYY-MM-DD]
+Status: [ ] Not Published [ ] Live [ ] Under Review
+
+📖 PAPERBACK EDITION:  
+ISBN-13: [PURCHASE FROM AMAZON OR BOWKER]
+ASIN: [TO BE ASSIGNED BY AMAZON]
+Format: Print-on-Demand
+Price: ${volume_data['formats']['paperback']['price']:.2f}
+Launch Date: [YYYY-MM-DD]
+Status: [ ] Not Published [ ] Live [ ] Under Review
+
+👑 HARDCOVER EDITION:
+ISBN-13: [SEPARATE ISBN REQUIRED]
+ASIN: [TO BE ASSIGNED BY AMAZON]  
+Format: Hardcover Print-on-Demand
+Price: ${volume_data['formats']['hardcover']['price']:.2f}
+Launch Date: [YYYY-MM-DD]
+Status: [ ] Not Published [ ] Live [ ] Under Review
+
+🎧 AUDIOBOOK EDITION:
+ASIN: [TO BE ASSIGNED BY AMAZON/AUDIBLE]
+Format: Digital Audio
+Price: ${volume_data['formats']['audiobook']['price']:.2f}
+Narrator: AI Generated Voice
+Runtime: [TO BE CALCULATED]
+Launch Date: [YYYY-MM-DD]
+Status: [ ] Not Published [ ] Live [ ] Under Review
 
 {"="*60}
-📱 KINDLE EDITION  
+📊 PERFORMANCE TRACKING
 {"="*60}
-Price: ${kindle_price:.2f} (40% of paperback - optimal strategy)
-Format: Reflowable text, instant download
-Royalty: {volume_data['formats']['kindle']['margin']} = ${kindle_royalty:.2f} per sale
-Target Market: Digital readers, impulse buyers
-Pros: Higher conversion rate, instant delivery, global reach
-Cons: Lower price point, digital format only
+
+KINDLE METRICS:
+Sales Today: [__] | This Week: [__] | This Month: [__]
+Revenue: $[____] | BSR: [____] | Reviews: [__]
+
+PAPERBACK METRICS:
+Sales Today: [__] | This Week: [__] | This Month: [__]
+Revenue: $[____] | BSR: [____] | Reviews: [__]
+
+HARDCOVER METRICS:
+Sales Today: [__] | This Week: [__] | This Month: [__]
+Revenue: $[____] | BSR: [____] | Reviews: [__]
+
+AUDIOBOOK METRICS:
+Sales Today: [__] | This Week: [__] | This Month: [__]
+Revenue: $[____] | BSR: [____] | Reviews: [__]
+
+TOTAL VOLUME PERFORMANCE:
+Combined Sales: [__] | Combined Revenue: $[____]
+Best Performing Format: [_______]
+Cross-Format Purchase Rate: [__%]
 
 {"="*60}
-💰 REVENUE STRATEGY
+🎯 OPTIMIZATION NOTES
 {"="*60}
-Combined Revenue per Customer Set:
-• Customer buys Paperback: ${paperback_royalty:.2f}
-• Customer buys Kindle: ${kindle_royalty:.2f}  
-• Customer buys Both: ${paperback_royalty + kindle_royalty:.2f}
 
-Monthly Projections (100 customers):
-• Paperback Only (10% conversion): ${paperback_royalty * 10:.2f}
-• Kindle Only (20% conversion): ${kindle_royalty * 20:.2f}
-• Both Formats (Multi-format boost): ${(paperback_royalty * 10) + (kindle_royalty * 20):.2f}
+Format Performance Insights:
+□ Kindle converting better than expected
+□ Paperback steady baseline performer  
+□ Hardcover attracting premium buyers
+□ Audiobook finding niche audience
+□ Cross-sales happening between formats
 
-💡 STRATEGIC ADVANTAGE:
-Multi-format publishing increases total revenue by 80%+ compared to single format.
-Different customers prefer different formats - capture them all!
+Pricing Optimization Opportunities:
+□ Test Kindle price increase to ${volume_data['formats']['kindle']['price'] * 1.2:.2f}
+□ Test Paperback promotion to ${volume_data['formats']['paperback']['price'] * 0.9:.2f}
+□ Evaluate Hardcover premium positioning
+□ Monitor Audiobook competitive pricing
+
+Marketing Focus Areas:
+□ Promote best-performing format
+□ Cross-promote in book descriptions
+□ Target format-specific audiences
+□ Bundle promotions across formats
 
 {"="*60}
-🎯 PUBLISHING PRIORITY
+📞 QUICK REFERENCE
 {"="*60}
-1. FIRST: Publish Paperback (establish baseline)
-2. SECOND: Publish Kindle within 24 hours (maximize reach)  
-3. MONITOR: Track format performance ratios
-4. OPTIMIZE: Adjust pricing based on conversion data
 
-REMEMBER: Same content, double the revenue streams!
+Book Title: {volume_data['title']}
+Series: {volume_data['series']} 
+Volume: {volume_data['volume_number']}
+Author: {volume_data['author']}
+Generated: {volume_data['generated_at'][:10]}
+
+Total Potential Revenue: ${(volume_data['formats']['kindle']['royalty_per_sale'] + volume_data['formats']['paperback']['royalty_per_sale'] + volume_data['formats']['hardcover']['royalty_per_sale'] + volume_data['formats']['audiobook']['royalty_per_sale']):.2f} per customer set
+
+🚀 READY FOR QUADRUPLE THREAT DOMINATION!
 """
     
     def generate_subtitle(self, series_name, config):
@@ -754,7 +1099,10 @@ VOLUME {vol_num} COVER PROMPT
 TITLE: {volume['title']}
 SUBTITLE: {volume['subtitle']}
 AUTHOR: {volume['author']}
-PRICE: ${volume['price']}
+PAPERBACK PRICE: ${volume['formats']['paperback']['price']}
+KINDLE PRICE: ${volume['formats']['kindle']['price']}
+HARDCOVER PRICE: ${volume['formats']['hardcover']['price']}
+AUDIOBOOK PRICE: ${volume['formats']['audiobook']['price']}
 
 VOLUME-SPECIFIC ELEMENTS:
 • Prominently display "Volume {vol_num}"
@@ -933,7 +1281,7 @@ QUICK REFERENCE:
 Title: {volume['title']}
 Subtitle: {volume['subtitle']}
 Author: {volume['author']}
-Price: ${volume['price']}
+Paperback Price: ${volume['formats']['paperback']['price']}
 Series: {volume['series']}
 Volume: {volume['volume_number']}
 
@@ -963,8 +1311,8 @@ Paper: White or Cream
 
 PRICING:
 Print Cost: ~$2.50 (estimated)
-List Price: ${volume['price']}
-Royalty: ~${volume['price'] * 0.6:.2f} per sale
+Paperback List Price: ${volume['formats']['paperback']['price']}
+Paperback Royalty: ~${volume['formats']['paperback']['royalty_per_sale']:.2f} per sale
 
 ESTIMATED TIMELINE:
 • Publishing: 5-10 minutes
