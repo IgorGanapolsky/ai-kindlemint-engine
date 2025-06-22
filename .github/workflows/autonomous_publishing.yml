@@ -68,24 +68,19 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
           
-      - name: 📦 Install Chrome and Dependencies
+      - name: 📦 Install Browser Dependencies
         run: |
-          # Install minimal Chrome dependencies (skip problematic audio)
+          # Install only essential browser dependencies for Nova Act
           sudo apt-get update
           sudo apt-get install -y \
             libnss3 \
             libxss1 \
             fonts-liberation \
-            libappindicator3-1 \
             libgbm-dev \
             libgtk-3-0 \
-            xvfb \
-            wget \
-            unzip
+            xvfb
           
-          # Install Playwright browsers with system deps (this handles Chrome properly)
-          python -m playwright install chromium
-          python -m playwright install-deps chromium
+          # Nova Act SDK handles browser management - no need for manual Playwright install
           
       - name: 🔧 Setup Environment
         run: |
@@ -130,11 +125,11 @@ jobs:
           # Start Xvfb for headless browser testing
           Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           
-      - name: 📚 Autonomous KDP Publishing (Working)
+      - name: 📚 Autonomous KDP Publishing (Nova Act)
         timeout-minutes: 15
         run: |
-          # Use our proven working publisher with timeout
-          timeout 900 sh -c 'DISPLAY=:99 python scripts/working_kdp_publisher.py' || echo "⚠️ Publisher timed out but continuing"
+          # Use Nova Act SDK publisher (no Playwright needed)
+          timeout 900 sh -c 'DISPLAY=:99 python scripts/publishing/robust_kdp_publisher.py' || echo "⚠️ Publisher timed out but continuing"
           
       - name: 📊 Generate Publishing Report
         run: |
