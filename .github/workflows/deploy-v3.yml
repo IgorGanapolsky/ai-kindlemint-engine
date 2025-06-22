@@ -192,28 +192,12 @@ jobs:
             ]
           }'
           
-    - name: Send failure notification
+    - name: Send intelligent failure notification
       if: failure()
       run: |
-        curl -X POST "${{ secrets.SLACK_WEBHOOK_URL }}" \
-          -H 'Content-type: application/json' \
-          --data '{
-            "text": "❌ V3 Deployment Failed",
-            "attachments": [
-              {
-                "color": "danger",
-                "fields": [
-                  {
-                    "title": "Status",
-                    "value": "Failed",
-                    "short": true
-                  },
-                  {
-                    "title": "Run",
-                    "value": "${{ github.run_id }}",
-                    "short": true
-                  }
-                ]
-              }
-            ]
-          }'
+        python scripts/automation/send_failure_notification.py \
+          --context "V3 Zero-Touch Publishing Engine Deployment" \
+          --workflow "deploy-v3" \
+          --run-id "${{ github.run_id }}" \
+          --business-impact "HIGH - Core publishing automation system offline" \
+          --recommended-action "Check CloudFormation stack status and Lambda function deployment logs"
