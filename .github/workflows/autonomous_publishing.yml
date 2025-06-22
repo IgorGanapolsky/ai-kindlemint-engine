@@ -34,6 +34,9 @@ env:
   NOVA_ACT_API_KEY: ${{ secrets.NOVA_ACT_API_KEY }}
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   ENVIRONMENT: production
+  CI: true
+  DISPLAY: ":99"
+  PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
 
 jobs:
   autonomous-kdp-publishing:
@@ -59,15 +62,35 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-python-
           
-      - name: 📦 Install Dependencies
+      - name: 📦 Install Chrome and Dependencies
         run: |
-          # Install system dependencies for virtual display and CAPTCHA handling
+          # Install Chrome dependencies
           sudo apt-get update
-          sudo apt-get install -y xvfb
-          # Install Python dependencies from requirements.txt
+          sudo apt-get install -y \
+            libnss3 \
+            libxss1 \
+            libasound2 \
+            fonts-liberation \
+            libappindicator3-1 \
+            libgbm-dev \
+            libgtk-3-0 \
+            xvfb \
+            wget \
+            unzip
+          
+          # Install Google Chrome
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          
+          # Install Python dependencies
           pip install --upgrade pip
           pip install -r requirements.txt
-          playwright install chromium
+          
+          # Install Playwright browsers with deps
+          python -m playwright install chromium
+          python -m playwright install-deps
           
       - name: 🔧 Setup Environment
         run: |
@@ -107,9 +130,15 @@ jobs:
         run: |
           python scripts/utilities/generate_kdp_pdfs.py
           
+      - name: 🖥️ Start Virtual Display
+        run: |
+          # Start Xvfb for headless browser testing
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          
       - name: 📚 Autonomous KDP Publishing (Robust)
         run: |
-          python scripts/publishing/robust_kdp_publisher.py
+          # Run with proper environment variables
+          DISPLAY=:99 python scripts/publishing/robust_kdp_publisher.py
           
       - name: 📊 Generate Publishing Report
         run: |

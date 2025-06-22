@@ -99,7 +99,14 @@ class RobustKDPPublisher:
         try:
             from nova_act import NovaAct
             
-            with NovaAct(starting_page="https://kdp.amazon.com") as nova:
+            # Configure Nova Act for GitHub Actions environment
+            nova_config = {
+                "starting_page": "https://kdp.amazon.com",
+                "headless": True,
+                "chrome_channel": "chrome-headless-shell" if os.getenv('CI') else "chrome"
+            }
+            
+            with NovaAct(**nova_config) as nova:
                 # Step 1: Check if already logged in
                 self.logger.info(f"🔍 STEP 1: Checking authentication status")
                 try:
@@ -204,7 +211,19 @@ class RobustKDPPublisher:
             self.playwright = sync_playwright().start()
             self.browser = self.playwright.chromium.launch(
                 headless=True,
-                args=['--no-sandbox', '--disable-dev-shm-usage']
+                args=[
+                    '--no-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-gpu',
+                    '--disable-web-security',
+                    '--disable-features=VizDisplayCompositor',
+                    '--disable-extensions',
+                    '--no-first-run',
+                    '--disable-default-apps',
+                    '--disable-background-timer-throttling',
+                    '--disable-renderer-backgrounding',
+                    '--disable-backgrounding-occluded-windows'
+                ]
             )
             
             self.context = self.browser.new_context(
