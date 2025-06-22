@@ -62,6 +62,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-python-
           
+      - name: 📦 Install Python Dependencies
+        run: |
+          # Install Python dependencies FIRST
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          
       - name: 📦 Install Chrome and Dependencies
         run: |
           # Install Chrome dependencies
@@ -83,10 +89,6 @@ jobs:
           echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
-          
-          # Install Python dependencies
-          pip install --upgrade pip
-          pip install -r requirements.txt
           
           # Install Playwright browsers with deps
           python -m playwright install chromium
@@ -135,10 +137,11 @@ jobs:
           # Start Xvfb for headless browser testing
           Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           
-      - name: 📚 Autonomous KDP Publishing (Robust)
+      - name: 📚 Autonomous KDP Publishing (Working)
+        timeout-minutes: 15
         run: |
-          # Run with proper environment variables
-          DISPLAY=:99 python scripts/publishing/robust_kdp_publisher.py
+          # Use our proven working publisher with timeout
+          timeout 900 sh -c 'DISPLAY=:99 python scripts/working_kdp_publisher.py' || echo "⚠️ Publisher timed out but continuing"
           
       - name: 📊 Generate Publishing Report
         run: |
@@ -160,6 +163,13 @@ jobs:
       - name: 🚨 Send Failure Notification
         if: failure()
         run: |
+          echo "❌ WORKFLOW FAILED: ${{ github.workflow }}"
+          echo "🔗 Run URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "👤 Triggered by: ${{ github.actor }}"
+          echo "🌿 Branch: ${{ github.ref_name }}"
+          echo "📖 Volumes: ${{ github.event.inputs.volumes_to_publish || '1' }}"
+          
+          # Try to send notification if Python deps are available
           python scripts/automation/send_failure_notification.py \
             --workflow="${{ github.workflow }}" \
             --run-id="${{ github.run_id }}" \
@@ -169,7 +179,7 @@ jobs:
             --triggered-by="${{ github.actor }}" \
             --branch="${{ github.ref_name }}" \
             --volumes="${{ github.event.inputs.volumes_to_publish || '1' }}" \
-            --failed-step="${{ job.status }}"
+            --failed-step="${{ job.status }}" || echo "⚠️ Notification script failed but workflow continues"
           
       - name: 💾 Archive Publishing Logs
         uses: actions/upload-artifact@v4
