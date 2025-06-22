@@ -6,9 +6,14 @@ Generates multiple profitable series daily with complete publishing packages
 import os
 import json
 import openai
+import sys
 from pathlib import Path
 from datetime import datetime, timedelta
 import random
+
+# Add project root to Python path for module imports
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
 
 # Load environment variables
 def load_env():
@@ -89,10 +94,54 @@ class DailySeriesGenerator:
         print(f"🏭 DAILY PRODUCTION: {date_str}")
         print("🔥 Generating profitable series for immediate publishing...")
         
-        # Select random series for today's production
-        category = random.choice(list(self.series_templates.keys()))
-        series_name = random.choice(list(self.series_templates[category].keys()))
-        series_config = self.series_templates[category][series_name]
+        # 🎯 INTELLIGENT MARKET RESEARCH - Find today's most profitable niche
+        print("🔍 Conducting intelligent market research...")
+        try:
+            from kindlemint.intelligence.market_scout import KDPMarketScout
+            
+            scout = KDPMarketScout()
+            print("📊 Analyzing current market opportunities...")
+            
+            # Get top 3 profitable niches for today
+            opportunities = scout.discover_profitable_niches(limit=3)
+            
+            if opportunities:
+                best_opportunity = opportunities[0]  # Take the most profitable
+                series_name = best_opportunity.micro_niche
+                category = best_opportunity.broad_category
+                
+                # Create dynamic series config based on market research
+                series_config = {
+                    "audience": f"{best_opportunity.micro_niche.lower()} enthusiasts",
+                    "price_point": 7.99,  # Optimal KDP price point
+                    "volume_count": 5,
+                    "keywords": best_opportunity.keywords,
+                    "demand_score": best_opportunity.demand_score,
+                    "competition_score": best_opportunity.competition_score,
+                    "profit_potential": best_opportunity.profit_potential
+                }
+                
+                print(f"🎯 MARKET INTELLIGENCE RESULT:")
+                print(f"   Niche: {best_opportunity.micro_niche}")
+                print(f"   Demand Score: {best_opportunity.demand_score}/100")
+                print(f"   Competition Score: {best_opportunity.competition_score}/100") 
+                print(f"   Daily Revenue Potential: ${best_opportunity.profit_potential:.2f}")
+                print(f"   Confidence: {best_opportunity.confidence_score:.1f}%")
+                
+            else:
+                print("⚠️  Market research unavailable, falling back to proven niches")
+                # Fallback to hardcoded templates if market research fails
+                category = random.choice(list(self.series_templates.keys()))
+                series_name = random.choice(list(self.series_templates[category].keys()))
+                series_config = self.series_templates[category][series_name]
+                
+        except Exception as e:
+            print(f"⚠️  Market research error: {e}")
+            print("📚 Using proven profitable templates as fallback")
+            # Fallback to hardcoded templates
+            category = random.choice(list(self.series_templates.keys()))
+            series_name = random.choice(list(self.series_templates[category].keys()))
+            series_config = self.series_templates[category][series_name]
         
         print(f"📚 Today's Series: {series_name}")
         print(f"🎯 Category: {category}")

@@ -20,9 +20,16 @@
 
 ## 📚 What Gets Generated Daily
 
-- **Puzzle Books**: Crosswords, Sudoku, Word Search
-- **Activity Books**: Adult Coloring, Kids Activities  
-- **Journals**: Gratitude, Goal Setting, Travel
+**🎯 INTELLIGENT MARKET RESEARCH:**
+- Daily analysis of Amazon KDP marketplace
+- Identifies profitable micro-niches with high demand & low competition  
+- BSR analysis (targets books with BSR < 100,000)
+- Competition analysis (targets < 100 reviews = opportunity)
+- AI-powered niche discovery using real market data
+
+**🔥 DYNAMIC SERIES GENERATION:**
+- **Today's Most Profitable Niche** (determined by market research)
+- **Backup Categories**: Puzzle Books, Activity Books, Journals (if research unavailable)
 
 Each series includes:
 - ✅ Complete manuscripts with professional content
