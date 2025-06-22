@@ -545,7 +545,7 @@ def main():
     print("=" * 80)
     
     try:
-        publisher = ActKDPPublisher()
+        publisher = RobustKDPPublisher()
         success = publisher.publish_volume_1_act()
         
         if success:
