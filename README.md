@@ -37,9 +37,10 @@ books/active_production/Series_Name/volume_X/
 ## 🚧 **PLANNED FEATURES (Not Yet Implemented)**
 
 ### **Market Research Automation**
-- **Status**: GitHub Actions workflows created but using simulated data
-- **Reality**: No real API connections to Amazon, Google Trends, Reddit, etc.
-- **Next**: Implement actual API integrations when ready
+- **Status**: ❌ GitHub Actions workflows failing, only local scripts work
+- **Reality**: API connections work locally but break in CI environment
+- **Issue**: Package dependency conflicts in GitHub Actions
+- **Next**: Fix workflow dependencies or simplify automation approach
 
 ### **AWS Infrastructure**
 - **Status**: Workflow files exist for Lambda deployment
@@ -135,12 +136,14 @@ pip install reportlab pillow pathlib
 - Organized file structure
 - One published, revenue-generating book
 
-### **What Needs Work**
-- Market research is manual, not automated
-- No AWS infrastructure deployed
-- No revenue tracking automation
-- Limited to crossword books currently
-- Covers require manual DALL-E generation
+### **What's Actually Broken**
+- ❌ ALL GitHub Actions workflows failing (package dependency issues)
+- ❌ No AWS infrastructure deployed (despite documentation claiming it exists)
+- ❌ Market research only works locally, not automated
+- ❌ No revenue tracking automation implemented
+- ❌ Over-engineered workflows that don't work in CI environment
+- ⚠️ Limited to crossword books currently
+- ⚠️ Covers require manual DALL-E generation
 
 ### **Next 30 Days Priority**
 1. **Launch Kindle Edition** - Upload enhanced EPUB
