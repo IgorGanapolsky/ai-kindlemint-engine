@@ -14,14 +14,15 @@ Launch First Series: ✅ COMPLETED
 Action: Volume 1 of "Large Print Crossword Masters" has been successfully generated and PUBLISHED on Amazon KDP as paperback.
 Status: ✅ LIVE on Amazon + Kindle eBook version ready
 Paperback: PUBLISHED and available for purchase
-Kindle eBook: Generated and ready for KDP upload (staging/kindle_ebook/)
+Kindle eBook: Generated and ready for KDP upload
 Features: 105 pages PDF + HTML Kindle version, themed puzzles, professional layout
+Location: books/active_production/Large_Print_Crossword_Masters/volume_1/
 
 Phase 2: Multi-Format Publishing Strategy ✅ IN PROGRESS
 Action: Implement QUADRUPLE THREAT strategy with Kindle eBook as immediate next step
 Kindle Benefits: Algorithm boost, international reach, Kindle Unlimited eligibility, revenue diversification
 Status: Kindle HTML version generated, optimized for mobile/tablet reading
-Location: staging/kindle_ebook/crossword_masters_v1_kindle/
+Location: books/active_production/Large_Print_Crossword_Masters/volume_1/
 Next: Upload Kindle version to maximize discoverability and revenue
 
 (Phase 3 remains the same as previously outlined)
@@ -31,17 +32,18 @@ Next: Upload Kindle version to maximize discoverability and revenue
 
 ## Directory Structure
 ```
-/active_production/          # Current series development
-  /Large_Print_Crossword_Masters/
-    /volume_1/              # AI-generated comprehensive content
-    /volume_2/              # Next in pipeline
-    /series_metadata.json   # Series tracking
+/books/                     # Clean parent directory for all book content
+  /active_production/       # Current series development
+    /Large_Print_Crossword_Masters/
+      /volume_1/            # AI-generated comprehensive content
+      /volume_2/            # Next in pipeline
+      /series_metadata.json # Series tracking
+      
+  /staging/                 # Ready for KDP publishing
     
-/staging/                   # Ready for KDP publishing
-  
-/published_archive/         # Git LFS archived (post-publishing)
-  /2025_Q1/
-    /Large_Print_Crossword_Masters_v1_PUBLISHED/
+  /published_archive/       # Git LFS archived (post-publishing)
+    /2025_Q1/
+      /Large_Print_Crossword_Masters_v1_PUBLISHED/
     
 /templates/                 # Reusable assets
   /covers/                  # Cover templates and designs
@@ -56,9 +58,9 @@ Next: Upload Kindle version to maximize discoverability and revenue
 ```
 
 ## Workflow Process
-1. **Development**: Work in `/active_production/`
-2. **Publishing**: Move to `/staging/` when ready for KDP
-3. **Archive**: Move to `/published_archive/` after publishing (Git LFS)
+1. **Development**: Work in `/books/active_production/`
+2. **Publishing**: Move to `/books/staging/` when ready for KDP
+3. **Archive**: Move to `/books/published_archive/` after publishing (Git LFS)
 4. **Analytics**: Track performance in `/business_intelligence/`
 
 ## Git LFS Integration
@@ -83,24 +85,24 @@ Next: Upload Kindle version to maximize discoverability and revenue
 ### 1. Generate New Content
 ```bash
 python scripts/daily_series_generator.py
-# Now outputs to: active_production/[SeriesName]/
+# Now outputs to: books/active_production/[SeriesName]/
 ```
 
 ### 2. Quality Review
 ```bash
-# Review in active_production/
-cd active_production/[SeriesName]/volume_X/
+# Review in books/active_production/
+cd books/active_production/[SeriesName]/volume_X/
 # Check manuscript.txt quality and completeness
 ```
 
 ### 3. Move to Staging
 ```bash
 # When ready for publishing:
-mv active_production/[SeriesName]/volume_X/ staging/
+mv books/active_production/[SeriesName]/volume_X/ books/staging/
 ```
 
 ### 4. Publish to Amazon KDP
-- Upload manuscript from staging/
+- Upload manuscript from books/staging/
 - Create cover using templates/covers/
 - Set metadata using templates/metadata/
 - Publish and get ASIN
@@ -108,8 +110,8 @@ mv active_production/[SeriesName]/volume_X/ staging/
 ### 5. Archive Published Content
 ```bash
 # After successful publishing:
-mv staging/[SeriesName]_v1_PUBLISHED/ published_archive/2025_Q1/
-git add published_archive/
+mv books/staging/[SeriesName]_v1_PUBLISHED/ books/published_archive/2025_Q1/
+git add books/published_archive/
 git commit -m "Archive published book to LFS"
 ```
 

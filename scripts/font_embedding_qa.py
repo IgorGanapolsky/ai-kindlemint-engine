@@ -100,7 +100,7 @@ def check_font_embedding(pdf_path):
 def main():
     """Run font embedding QA check"""
     
-    pdf_path = "active_production/Large_Print_Crossword_Masters/volume_1/crossword_book_volume_1_embedded.pdf"
+    pdf_path = "books/active_production/Large_Print_Crossword_Masters/volume_1/crossword_book_volume_1_FINAL.pdf"
     
     if not Path(pdf_path).exists():
         print(f"❌ PDF not found: {pdf_path}")
