@@ -1,0 +1,275 @@
+{
+  "series_name": "Travel Adventure Log",
+  "generation_date": "20250622",
+  "config": {
+    "audience": "travelers, wanderlust enthusiasts",
+    "price_point": 12.99,
+    "volume_count": 4,
+    "keywords": [
+      "travel journal",
+      "adventure log",
+      "travel planner",
+      "vacation diary",
+      "trip organizer",
+      "travel notebook",
+      "wanderlust"
+    ]
+  },
+  "volumes": [
+    {
+      "title": "Travel Adventure Log - Volume 1",
+      "subtitle": "Your Personal Growth Companion",
+      "author": "Puzzle Pro Studios",
+      "series": "Travel Adventure Log",
+      "volume_number": 1,
+      "formats": {
+        "kindle": {
+          "price": 5.196000000000001,
+          "format": "reflowable text",
+          "margin": "70%",
+          "royalty_per_sale": 3.6372,
+          "target_market": "impulse buyers, digital readers",
+          "launch_priority": 1
+        },
+        "paperback": {
+          "price": 12.99,
+          "trim_size": "6x9 inches",
+          "margin": "60%",
+          "royalty_per_sale": 7.794,
+          "target_market": "physical book lovers, gifts",
+          "launch_priority": 2
+        },
+        "hardcover": {
+          "price": 29.99,
+          "trim_size": "6x9 inches hardbound",
+          "margin": "45%",
+          "royalty_per_sale": 13.4955,
+          "target_market": "premium buyers, collectors, gifts",
+          "launch_priority": 3,
+          "qualification": "Launch after 25+ reviews, 4.3+ rating"
+        },
+        "audiobook": {
+          "price": 24.95,
+          "format": "AI-generated narration",
+          "margin": "25%",
+          "royalty_per_sale": 6.2375,
+          "target_market": "commuters, multitaskers, premium audience",
+          "launch_priority": 4,
+          "production_cost": 50,
+          "qualification": "Launch after 50+ paperback sales/month"
+        }
+      },
+      "keywords": [
+        "travel journal",
+        "adventure log",
+        "travel planner",
+        "vacation diary",
+        "trip organizer",
+        "travel notebook",
+        "wanderlust"
+      ],
+      "description": "Volume 1 of the Travel Adventure Log series delivers exactly what travelers, wanderlust enthusiasts are looking for.\n\nThis carefully crafted collection features:\n\u2022 High-quality content designed for travelers, wanderlust enthusiasts\n\u2022 Clear, professional formatting for easy use\n\u2022 Appropriate challenge level for maximum enjoyment\n\u2022 Hours of engaging entertainment\n\u2022 Perfect for gifts or personal enjoyment\n\nWhether you're a longtime fan or new to the series, Volume 1 provides the quality experience you expect from Travel Adventure Log.\n\nJoin thousands of satisfied customers who have discovered the joy of this popular series!\n\nLook for all 4 volumes in the complete Travel Adventure Log collection.",
+      "generated_at": "2025-06-22T15:22:59.363211",
+      "bundle_eligible": false,
+      "format_directories": {
+        "kindle": "output/daily_production/20250622/Travel_Adventure_Log/volume_1/kindle",
+        "paperback": "output/daily_production/20250622/Travel_Adventure_Log/volume_1/paperback",
+        "hardcover": "output/daily_production/20250622/Travel_Adventure_Log/volume_1/hardcover",
+        "audiobook": "output/daily_production/20250622/Travel_Adventure_Log/volume_1/audiobook"
+      },
+      "directory": "output/daily_production/20250622/Travel_Adventure_Log/volume_1"
+    },
+    {
+      "title": "Travel Adventure Log - Volume 2",
+      "subtitle": "Transform Your Daily Routine",
+      "author": "Puzzle Pro Studios",
+      "series": "Travel Adventure Log",
+      "volume_number": 2,
+      "formats": {
+        "kindle": {
+          "price": 5.196000000000001,
+          "format": "reflowable text",
+          "margin": "70%",
+          "royalty_per_sale": 3.6372,
+          "target_market": "impulse buyers, digital readers",
+          "launch_priority": 1
+        },
+        "paperback": {
+          "price": 12.99,
+          "trim_size": "6x9 inches",
+          "margin": "60%",
+          "royalty_per_sale": 7.794,
+          "target_market": "physical book lovers, gifts",
+          "launch_priority": 2
+        },
+        "hardcover": {
+          "price": 29.99,
+          "trim_size": "6x9 inches hardbound",
+          "margin": "45%",
+          "royalty_per_sale": 13.4955,
+          "target_market": "premium buyers, collectors, gifts",
+          "launch_priority": 3,
+          "qualification": "Launch after 25+ reviews, 4.3+ rating"
+        },
+        "audiobook": {
+          "price": 24.95,
+          "format": "AI-generated narration",
+          "margin": "25%",
+          "royalty_per_sale": 6.2375,
+          "target_market": "commuters, multitaskers, premium audience",
+          "launch_priority": 4,
+          "production_cost": 50,
+          "qualification": "Launch after 50+ paperback sales/month"
+        }
+      },
+      "keywords": [
+        "travel journal",
+        "adventure log",
+        "travel planner",
+        "vacation diary",
+        "trip organizer",
+        "travel notebook",
+        "wanderlust"
+      ],
+      "description": "Volume 2 of the Travel Adventure Log series delivers exactly what travelers, wanderlust enthusiasts are looking for.\n\nThis carefully crafted collection features:\n\u2022 High-quality content designed for travelers, wanderlust enthusiasts\n\u2022 Clear, professional formatting for easy use\n\u2022 Appropriate challenge level for maximum enjoyment\n\u2022 Hours of engaging entertainment\n\u2022 Perfect for gifts or personal enjoyment\n\nWhether you're a longtime fan or new to the series, Volume 2 provides the quality experience you expect from Travel Adventure Log.\n\nJoin thousands of satisfied customers who have discovered the joy of this popular series!\n\nLook for all 4 volumes in the complete Travel Adventure Log collection.",
+      "generated_at": "2025-06-22T15:22:59.364307",
+      "bundle_eligible": false,
+      "format_directories": {
+        "kindle": "output/daily_production/20250622/Travel_Adventure_Log/volume_2/kindle",
+        "paperback": "output/daily_production/20250622/Travel_Adventure_Log/volume_2/paperback",
+        "hardcover": "output/daily_production/20250622/Travel_Adventure_Log/volume_2/hardcover",
+        "audiobook": "output/daily_production/20250622/Travel_Adventure_Log/volume_2/audiobook"
+      },
+      "directory": "output/daily_production/20250622/Travel_Adventure_Log/volume_2"
+    },
+    {
+      "title": "Travel Adventure Log - Volume 3",
+      "subtitle": "Daily Practices for Success",
+      "author": "Puzzle Pro Studios",
+      "series": "Travel Adventure Log",
+      "volume_number": 3,
+      "formats": {
+        "kindle": {
+          "price": 5.196000000000001,
+          "format": "reflowable text",
+          "margin": "70%",
+          "royalty_per_sale": 3.6372,
+          "target_market": "impulse buyers, digital readers",
+          "launch_priority": 1
+        },
+        "paperback": {
+          "price": 12.99,
+          "trim_size": "6x9 inches",
+          "margin": "60%",
+          "royalty_per_sale": 7.794,
+          "target_market": "physical book lovers, gifts",
+          "launch_priority": 2
+        },
+        "hardcover": {
+          "price": 29.99,
+          "trim_size": "6x9 inches hardbound",
+          "margin": "45%",
+          "royalty_per_sale": 13.4955,
+          "target_market": "premium buyers, collectors, gifts",
+          "launch_priority": 3,
+          "qualification": "Launch after 25+ reviews, 4.3+ rating"
+        },
+        "audiobook": {
+          "price": 24.95,
+          "format": "AI-generated narration",
+          "margin": "25%",
+          "royalty_per_sale": 6.2375,
+          "target_market": "commuters, multitaskers, premium audience",
+          "launch_priority": 4,
+          "production_cost": 50,
+          "qualification": "Launch after 50+ paperback sales/month"
+        }
+      },
+      "keywords": [
+        "travel journal",
+        "adventure log",
+        "travel planner",
+        "vacation diary",
+        "trip organizer",
+        "travel notebook",
+        "wanderlust"
+      ],
+      "description": "Volume 3 of the Travel Adventure Log series delivers exactly what travelers, wanderlust enthusiasts are looking for.\n\nThis carefully crafted collection features:\n\u2022 High-quality content designed for travelers, wanderlust enthusiasts\n\u2022 Clear, professional formatting for easy use\n\u2022 Appropriate challenge level for maximum enjoyment\n\u2022 Hours of engaging entertainment\n\u2022 Perfect for gifts or personal enjoyment\n\nWhether you're a longtime fan or new to the series, Volume 3 provides the quality experience you expect from Travel Adventure Log.\n\nJoin thousands of satisfied customers who have discovered the joy of this popular series!\n\nLook for all 4 volumes in the complete Travel Adventure Log collection.",
+      "generated_at": "2025-06-22T15:22:59.365163",
+      "bundle_eligible": true,
+      "format_directories": {
+        "kindle": "output/daily_production/20250622/Travel_Adventure_Log/volume_3/kindle",
+        "paperback": "output/daily_production/20250622/Travel_Adventure_Log/volume_3/paperback",
+        "hardcover": "output/daily_production/20250622/Travel_Adventure_Log/volume_3/hardcover",
+        "audiobook": "output/daily_production/20250622/Travel_Adventure_Log/volume_3/audiobook"
+      },
+      "directory": "output/daily_production/20250622/Travel_Adventure_Log/volume_3"
+    },
+    {
+      "title": "Travel Adventure Log - Volume 4",
+      "subtitle": "Transform Your Daily Routine",
+      "author": "Puzzle Pro Studios",
+      "series": "Travel Adventure Log",
+      "volume_number": 4,
+      "formats": {
+        "kindle": {
+          "price": 5.196000000000001,
+          "format": "reflowable text",
+          "margin": "70%",
+          "royalty_per_sale": 3.6372,
+          "target_market": "impulse buyers, digital readers",
+          "launch_priority": 1
+        },
+        "paperback": {
+          "price": 12.99,
+          "trim_size": "6x9 inches",
+          "margin": "60%",
+          "royalty_per_sale": 7.794,
+          "target_market": "physical book lovers, gifts",
+          "launch_priority": 2
+        },
+        "hardcover": {
+          "price": 29.99,
+          "trim_size": "6x9 inches hardbound",
+          "margin": "45%",
+          "royalty_per_sale": 13.4955,
+          "target_market": "premium buyers, collectors, gifts",
+          "launch_priority": 3,
+          "qualification": "Launch after 25+ reviews, 4.3+ rating"
+        },
+        "audiobook": {
+          "price": 24.95,
+          "format": "AI-generated narration",
+          "margin": "25%",
+          "royalty_per_sale": 6.2375,
+          "target_market": "commuters, multitaskers, premium audience",
+          "launch_priority": 4,
+          "production_cost": 50,
+          "qualification": "Launch after 50+ paperback sales/month"
+        }
+      },
+      "keywords": [
+        "travel journal",
+        "adventure log",
+        "travel planner",
+        "vacation diary",
+        "trip organizer",
+        "travel notebook",
+        "wanderlust"
+      ],
+      "description": "Volume 4 of the Travel Adventure Log series delivers exactly what travelers, wanderlust enthusiasts are looking for.\n\nThis carefully crafted collection features:\n\u2022 High-quality content designed for travelers, wanderlust enthusiasts\n\u2022 Clear, professional formatting for easy use\n\u2022 Appropriate challenge level for maximum enjoyment\n\u2022 Hours of engaging entertainment\n\u2022 Perfect for gifts or personal enjoyment\n\nWhether you're a longtime fan or new to the series, Volume 4 provides the quality experience you expect from Travel Adventure Log.\n\nJoin thousands of satisfied customers who have discovered the joy of this popular series!\n\nLook for all 4 volumes in the complete Travel Adventure Log collection.",
+      "generated_at": "2025-06-22T15:22:59.366202",
+      "bundle_eligible": true,
+      "format_directories": {
+        "kindle": "output/daily_production/20250622/Travel_Adventure_Log/volume_4/kindle",
+        "paperback": "output/daily_production/20250622/Travel_Adventure_Log/volume_4/paperback",
+        "hardcover": "output/daily_production/20250622/Travel_Adventure_Log/volume_4/hardcover",
+        "audiobook": "output/daily_production/20250622/Travel_Adventure_Log/volume_4/audiobook"
+      },
+      "directory": "output/daily_production/20250622/Travel_Adventure_Log/volume_4"
+    }
+  ],
+  "total_potential_revenue": 5196.0,
+  "series_directory": "output/daily_production/20250622/Travel_Adventure_Log",
+  "kdp_series_description": "Discover the complete Travel Adventure Log series - your ultimate collection of engaging activity books designed specifically for travelers, wanderlust enthusiasts.\n\nThis comprehensive 4-volume series offers:\n\u2022 Engaging activities for all skill levels\n\u2022 Progressive challenges that build skills\n\u2022 High-quality content and clear instructions\n\u2022 Hours of educational entertainment\n\u2022 Perfect for learning and fun\n\nWhether you're a beginner or looking for new challenges, each volume builds upon the previous, creating the perfect progression for skill development and sustained enjoyment.\n\nStart with Volume 1 and discover why thousands of readers have made Travel Adventure Log their go-to activity series!\n\nPerfect for gifts, personal enjoyment, or sharing with friends and family."
+}

@@ -1,0 +1,37 @@
+
+VOLUME 3 COVER PROMPT
+
+TITLE: Travel Adventure Log - Volume 3
+SUBTITLE: Daily Practices for Success
+AUTHOR: Puzzle Pro Studios
+PAPERBACK PRICE: $12.99
+KINDLE PRICE: $5.196000000000001
+HARDCOVER PRICE: $29.99
+AUDIOBOOK PRICE: $24.95
+
+VOLUME-SPECIFIC ELEMENTS:
+• Prominently display "Volume 3"
+• Maintain series consistency
+• Use colors that differentiate from other volumes
+• Include volume-specific imagery if applicable
+
+DALL-E PROMPT:
+"Professional book cover design for 'Travel Adventure Log - Volume 3' by Puzzle Pro Studios. Clean, modern design with bold title text readable in thumbnail. Appealing to travelers, wanderlust enthusiasts. Category-appropriate imagery. High contrast, professional typography. 6x9 paperback format."
+
+MIDJOURNEY PROMPT:
+Professional paperback book cover, title "Travel Adventure Log - Volume 3", subtitle "Daily Practices for Success", author "Puzzle Pro Studios", clean modern design, bold readable typography, appealing to travelers, wanderlust enthusiasts, high contrast, category imagery, 6:9 aspect ratio --v 6
+
+CANVA TEMPLATE SUGGESTIONS:
+• Search "Book Cover" templates
+• Filter by "Professional" style
+• Choose layout with strong title hierarchy
+• Customize colors for volume 3
+• Use readable fonts (Arial, Helvetica, or similar)
+
+DIY DESIGN TIPS:
+1. Start with high contrast background
+2. Large, bold title text (minimum 24pt)
+3. Smaller subtitle (16-18pt)
+4. Author name at bottom (14-16pt)
+5. Test readability at thumbnail size
+6. Keep design clean and uncluttered

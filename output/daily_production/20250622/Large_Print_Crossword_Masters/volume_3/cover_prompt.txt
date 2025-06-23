@@ -2,7 +2,7 @@
 VOLUME 3 COVER PROMPT
 
 TITLE: Large Print Crossword Masters - Volume 3
-SUBTITLE: Challenge Your Mind Daily
+SUBTITLE: Hours of Entertainment Await
 AUTHOR: Puzzle Pro Studios
 PAPERBACK PRICE: $9.99
 KINDLE PRICE: $3.196
@@ -19,7 +19,7 @@ DALL-E PROMPT:
 "Professional book cover design for 'Large Print Crossword Masters - Volume 3' by Puzzle Pro Studios. Clean, modern design with bold title text readable in thumbnail. Appealing to seniors, puzzle enthusiasts. Category-appropriate imagery. High contrast, professional typography. 6x9 paperback format."
 
 MIDJOURNEY PROMPT:
-Professional paperback book cover, title "Large Print Crossword Masters - Volume 3", subtitle "Challenge Your Mind Daily", author "Puzzle Pro Studios", clean modern design, bold readable typography, appealing to seniors, puzzle enthusiasts, high contrast, category imagery, 6:9 aspect ratio --v 6
+Professional paperback book cover, title "Large Print Crossword Masters - Volume 3", subtitle "Hours of Entertainment Await", author "Puzzle Pro Studios", clean modern design, bold readable typography, appealing to seniors, puzzle enthusiasts, high contrast, category imagery, 6:9 aspect ratio --v 6
 
 CANVA TEMPLATE SUGGESTIONS:
 • Search "Book Cover" templates

@@ -1,0 +1,62 @@
+{
+  "title": "Travel Adventure Log - Volume 2",
+  "subtitle": "Transform Your Daily Routine",
+  "author": "Puzzle Pro Studios",
+  "series": "Travel Adventure Log",
+  "volume_number": 2,
+  "formats": {
+    "kindle": {
+      "price": 5.196000000000001,
+      "format": "reflowable text",
+      "margin": "70%",
+      "royalty_per_sale": 3.6372,
+      "target_market": "impulse buyers, digital readers",
+      "launch_priority": 1
+    },
+    "paperback": {
+      "price": 12.99,
+      "trim_size": "6x9 inches",
+      "margin": "60%",
+      "royalty_per_sale": 7.794,
+      "target_market": "physical book lovers, gifts",
+      "launch_priority": 2
+    },
+    "hardcover": {
+      "price": 29.99,
+      "trim_size": "6x9 inches hardbound",
+      "margin": "45%",
+      "royalty_per_sale": 13.4955,
+      "target_market": "premium buyers, collectors, gifts",
+      "launch_priority": 3,
+      "qualification": "Launch after 25+ reviews, 4.3+ rating"
+    },
+    "audiobook": {
+      "price": 24.95,
+      "format": "AI-generated narration",
+      "margin": "25%",
+      "royalty_per_sale": 6.2375,
+      "target_market": "commuters, multitaskers, premium audience",
+      "launch_priority": 4,
+      "production_cost": 50,
+      "qualification": "Launch after 50+ paperback sales/month"
+    }
+  },
+  "keywords": [
+    "travel journal",
+    "adventure log",
+    "travel planner",
+    "vacation diary",
+    "trip organizer",
+    "travel notebook",
+    "wanderlust"
+  ],
+  "description": "Volume 2 of the Travel Adventure Log series delivers exactly what travelers, wanderlust enthusiasts are looking for.\n\nThis carefully crafted collection features:\n\u2022 High-quality content designed for travelers, wanderlust enthusiasts\n\u2022 Clear, professional formatting for easy use\n\u2022 Appropriate challenge level for maximum enjoyment\n\u2022 Hours of engaging entertainment\n\u2022 Perfect for gifts or personal enjoyment\n\nWhether you're a longtime fan or new to the series, Volume 2 provides the quality experience you expect from Travel Adventure Log.\n\nJoin thousands of satisfied customers who have discovered the joy of this popular series!\n\nLook for all 4 volumes in the complete Travel Adventure Log collection.",
+  "generated_at": "2025-06-22T15:22:59.364307",
+  "bundle_eligible": false,
+  "format_directories": {
+    "kindle": "output/daily_production/20250622/Travel_Adventure_Log/volume_2/kindle",
+    "paperback": "output/daily_production/20250622/Travel_Adventure_Log/volume_2/paperback",
+    "hardcover": "output/daily_production/20250622/Travel_Adventure_Log/volume_2/hardcover",
+    "audiobook": "output/daily_production/20250622/Travel_Adventure_Log/volume_2/audiobook"
+  }
+}
