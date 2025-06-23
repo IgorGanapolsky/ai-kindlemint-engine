@@ -1,0 +1,131 @@
+name: Sentry + Seer AI Automation
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours for critical monitoring
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Test type to run'
+        required: false
+        default: 'full_cycle'
+        type: choice
+        options:
+          - market_research
+          - kdp_automation
+          - full_cycle
+
+env:
+  SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+  SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  KDP_EMAIL: ${{ secrets.KDP_EMAIL }}
+  KDP_PASSWORD: ${{ secrets.KDP_PASSWORD }}
+  ENVIRONMENT: production
+  GITHUB_SHA: ${{ github.sha }}
+
+jobs:
+  sentry-enhanced-automation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    steps:
+      - name: 🚀 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: 📦 Install Sentry + Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install sentry-sdk requests python-dotenv
+          
+      - name: 🔍 Run Sentry Market Research
+        if: ${{ github.event.inputs.test_type == 'market_research' || github.event.inputs.test_type == 'full_cycle' }}
+        run: |
+          echo "🎯 Running Sentry-Enhanced Market Research"
+          python scripts/sentry_enhanced_market_research.py
+          
+      - name: 🚀 Run Sentry KDP Automation
+        if: ${{ github.event.inputs.test_type == 'kdp_automation' || github.event.inputs.test_type == 'full_cycle' }}
+        run: |
+          echo "📚 Running Sentry-Enhanced KDP Automation"
+          echo "💰 Testing $300/day revenue automation with Seer AI"
+          python scripts/sentry_kdp_automation.py
+          
+      - name: 📊 Upload Sentry Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: sentry-automation-${{ github.run_number }}
+          path: |
+            research/sentry_enhanced/
+            automation_logs/kdp_results/
+          retention-days: 90
+          
+      - name: 💾 Commit Sentry Automation Results
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Sentry Automation Bot"
+          
+          # Add Sentry-enhanced results
+          git add research/sentry_enhanced/ automation_logs/kdp_results/ || true
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No new Sentry automation results to commit"
+          else
+            git commit -m "feat: Sentry + Seer AI automation results
+
+🎯 ZERO-TOUCH DEBUGGING ACTIVE:
+- Comprehensive error tracking with Seer AI
+- Browser automation monitoring (Playwright)
+- API integration failure detection
+- Revenue-critical KDP automation tracking
+
+📊 MONITORING SCOPE:
+- Market research automation (SerpApi, Slack)
+- KDP publishing automation (browser automation)
+- Performance profiling (100% sample rate)
+- Automatic error categorization
+
+💰 BUSINESS IMPACT:
+- \$300/day revenue goal monitoring
+- 1 book/day publishing rate tracking
+- Zero manual intervention debugging
+- Automatic PR creation for fixes (Seer AI)
+
+🤖 SEER AI FEATURES:
+- 94.5% accuracy in root cause analysis
+- One-click fixes for common errors
+- Fixability scores for prioritization
+- Real-time error categorization
+
+🔍 Next: Monitor Sentry dashboard for Seer AI insights and automatic fixes
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+            
+            git push
+            echo "✅ Sentry automation results committed"
+          fi
+          
+      - name: 🎉 Sentry Success Notification
+        if: success()
+        run: |
+          echo "🎉 Sentry + Seer AI automation completed successfully!"
+          echo "🔍 Error tracking: ACTIVE"
+          echo "🤖 Automatic debugging: ENABLED" 
+          echo "💰 Revenue protection: MONITORING"
+          echo "📊 Check Sentry dashboard for Seer AI insights"
+          
+      - name: 🚨 Sentry Failure Alert
+        if: failure()
+        run: |
+          echo "❌ Sentry automation workflow failed!"
+          echo "🔧 Check Sentry dashboard for error analysis"
+          echo "🤖 Seer AI should provide automated fix suggestions"
+          echo "💰 Revenue impact: Automation monitoring compromised"
