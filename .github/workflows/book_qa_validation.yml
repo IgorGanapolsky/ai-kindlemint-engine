@@ -1,0 +1,51 @@
+name: Book QA Validation
+
+on:
+  push:
+    paths:
+      - 'active_production/**/*.pdf'
+      - 'scripts/**/*.py'
+  pull_request:
+    paths:
+      - 'active_production/**/*.pdf'
+      - 'scripts/**/*.py'
+
+jobs:
+  quality-assurance:
+    runs-on: ubuntu-latest
+    name: 📚 Book Quality Validation
+    
+    steps:
+    - name: 🔄 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: 📦 Install Dependencies
+      run: |
+        pip install PyMuPDF reportlab pathlib
+        
+    - name: 🔍 Run Font Embedding QA
+      run: |
+        python scripts/font_embedding_qa.py
+        
+    - name: 📊 Validate PDF Quality
+      run: |
+        python scripts/enhanced_qa_checker.py
+        
+    - name: ✅ QA Summary
+      run: |
+        echo "🎯 QA Validation Complete"
+        echo "📋 All books meet quality standards"
+        echo "✅ Ready for Amazon KDP publishing"
+        
+    - name: 🚨 Fail on QA Issues
+      if: failure()
+      run: |
+        echo "❌ QA VALIDATION FAILED"
+        echo "📚 Books do not meet quality standards"
+        echo "🔧 Fix issues before proceeding"
+        exit 1
