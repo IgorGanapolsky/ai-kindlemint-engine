@@ -23,8 +23,6 @@ on:
 env:
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-  REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
-  REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
 
 jobs:
   comprehensive-market-research:
@@ -43,8 +41,8 @@ jobs:
       - name: 📦 Install Dependencies
         run: |
           pip install --upgrade pip
-          pip install openai requests beautifulsoup4 python-dotenv praw pytrends selenium-wire
-          pip install pandas numpy matplotlib seaborn
+          pip install openai requests beautifulsoup4 python-dotenv
+          pip install pandas numpy
           
       - name: 🔍 Execute Comprehensive Market Research
         run: |
