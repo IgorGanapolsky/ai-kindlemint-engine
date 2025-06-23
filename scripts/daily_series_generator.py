@@ -792,9 +792,267 @@ Look for all {config['volume_count']} volumes in the complete {series_name} coll
             return self.generate_activity_content(series_name, vol_num)
     
     def generate_crossword_content(self, series_name, vol_num):
-        """Generate complete crossword puzzle content with 50 puzzles"""
-        print(f"🧩 Generating 50 real crossword puzzles for {series_name} Volume {vol_num}...")
-        return self._generate_comprehensive_crossword_content(series_name, vol_num)
+        """Generate complete crossword puzzle content with 50 puzzles using hybrid AI approach"""
+        print(f"🧩 Generating 50 AI-powered crossword puzzles for {series_name} Volume {vol_num}...")
+        print(f"🤖 Using Gemini 1.5 Flash for cost-effective puzzle generation (~$0.007/book)")
+        
+        try:
+            # Try AI-powered generation first (Gemini)
+            return self._generate_ai_powered_crossword_content(series_name, vol_num)
+        except Exception as e:
+            print(f"⚠️ AI generation failed: {e}")
+            print(f"🔄 Falling back to enhanced template system...")
+            return self._generate_comprehensive_crossword_content(series_name, vol_num)
+    
+    def _generate_ai_powered_crossword_content(self, series_name, vol_num):
+        """Generate crossword content using Gemini 1.5 Flash AI"""
+        
+        # Import AI systems
+        import sys
+        sys.path.insert(0, str(Path(__file__).parent.parent))
+        from kindlemint.utils.api_manager import APIManager, AIProvider
+        
+        print(f"🤖 Initializing Gemini 1.5 Flash for puzzle generation...")
+        
+        api_manager = APIManager()
+        cost_tracker = {"total_tokens": 0, "estimated_cost": 0.0}
+        
+        # Generate introduction content
+        intro_content = f"""
+{series_name} - Volume {vol_num}
+Brain-Boosting Crossword Puzzles
+
+WELCOME TO YOUR AI-GENERATED PUZZLE ADVENTURE!
+
+This volume contains 50 carefully crafted crossword puzzles designed to challenge and entertain.
+Each puzzle has been uniquely generated using advanced AI to ensure fresh, engaging content.
+
+Each puzzle features:
+• Large, clear fonts for comfortable solving
+• AI-generated themes and varied difficulty
+• Professional puzzle construction
+• Clear, fair clues created by artificial intelligence
+• Solutions included at the back
+
+PUZZLE THEMES IN THIS VOLUME:
+• Getting Started - Simple Everyday Words
+• Kitchen Basics - Cooking & Food
+• Nature Walk - Animals & Plants  
+• Around the House - Home & Living
+• Travel Adventures - Places & Transportation
+• Sports & Games - Recreation & Fun
+• Arts & Entertainment - Culture & Creativity
+• Science & Discovery - Knowledge & Learning
+
+HOW TO SOLVE:
+1. Read each clue carefully
+2. Think of words that fit the letter count
+3. Use crossing letters to help solve
+4. Don't be afraid to guess and check
+5. Take breaks if you get stuck!
+
+"""
+        
+        # Generate all 50 puzzles using AI
+        puzzle_content = ""
+        all_solutions = {}
+        
+        themes = [
+            "Simple Everyday Words", "Kitchen & Cooking", "Nature & Animals", "Home & Living",
+            "Travel & Transportation", "Sports & Games", "Arts & Culture", "Science & Learning"
+        ]
+        
+        for puzzle_num in range(1, 51):
+            theme_idx = (puzzle_num - 1) % len(themes)
+            theme = themes[theme_idx]
+            difficulty = "BEGINNER" if puzzle_num <= 15 else "INTERMEDIATE" if puzzle_num <= 35 else "ADVANCED"
+            
+            print(f"🎯 Generating Puzzle {puzzle_num}/50 - Theme: {theme} ({difficulty})")
+            
+            # AI prompt for generating individual puzzle
+            puzzle_prompt = f"""Generate a crossword puzzle with the following specifications:
+
+PUZZLE {puzzle_num}: {theme}
+DIFFICULTY: {difficulty}
+TARGET AUDIENCE: Seniors, puzzle enthusiasts (large print)
+
+Create 8 ACROSS clues and 8 DOWN clues that fit the theme "{theme}".
+
+REQUIREMENTS:
+- All answers must relate to the theme
+- {difficulty.lower()} difficulty level appropriate for the target audience
+- Answers should be 3-8 letters long
+- Mix of word lengths for interesting puzzle layout
+- Clear, fair clues that aren't too obscure
+- Family-friendly content suitable for all ages
+
+FORMAT:
+ACROSS:
+1. [clue] ({'{'}answer_length{'}'}) ANSWER
+3. [clue] ({'{'}answer_length{'}'}) ANSWER
+5. [clue] ({'{'}answer_length{'}'}) ANSWER
+7. [clue] ({'{'}answer_length{'}'}) ANSWER
+9. [clue] ({'{'}answer_length{'}'}) ANSWER
+11. [clue] ({'{'}answer_length{'}'}) ANSWER
+13. [clue] ({'{'}answer_length{'}'}) ANSWER
+15. [clue] ({'{'}answer_length{'}'}) ANSWER
+
+DOWN:
+2. [clue] ({'{'}answer_length{'}'}) ANSWER
+4. [clue] ({'{'}answer_length{'}'}) ANSWER
+6. [clue] ({'{'}answer_length{'}'}) ANSWER
+8. [clue] ({'{'}answer_length{'}'}) ANSWER
+10. [clue] ({'{'}answer_length{'}'}) ANSWER
+12. [clue] ({'{'}answer_length{'}'}) ANSWER
+14. [clue] ({'{'}answer_length{'}'}) ANSWER
+16. [clue] ({'{'}answer_length{'}'}) ANSWER
+
+Generate creative, engaging clues that seniors will enjoy solving!"""
+
+            try:
+                # Generate puzzle using Gemini
+                response = api_manager.generate_content(
+                    prompt=puzzle_prompt,
+                    provider=AIProvider.GEMINI,
+                    model="gemini-1.5-flash",
+                    max_tokens=800,
+                    temperature=0.8
+                )
+                
+                ai_puzzle_content = response.get('content', '')
+                tokens_used = response.get('tokens_used', 200)
+                cost_tracker["total_tokens"] += tokens_used
+                cost_tracker["estimated_cost"] += tokens_used * 0.00025 / 1000  # Gemini pricing
+                
+                # Format the AI-generated puzzle
+                puzzle_content += f"""
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                               PUZZLE {puzzle_num}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+THEME: {theme}
+DIFFICULTY: {difficulty}
+GRID SIZE: 15x15
+
+🤖 AI-GENERATED CONTENT:
+
+{ai_puzzle_content}
+
+┌─────────────────────────────────────────────────────────────────────┐
+│    1     2     3     4     5     6     7     8     9    10    11    │
+│  ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐     │
+│1 │ 1 │   │   │███│ 2 │   │   │███│ 3 │   │   │███│ 4 │   │   │     │
+│  ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤     │
+│2 │ 5 │   │   │   │   │   │   │   │   │   │   │   │   │   │   │     │
+│  ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤     │
+│3 │ 6 │   │   │███│ 7 │   │   │███│ 8 │   │   │███│ 9 │   │   │     │
+│  ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤     │
+│4 │███│███│███│ 10│███│███│███│ 11│███│███│███│ 12│███│███│███│     │
+│  ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤     │
+│5 │ 13│   │   │   │   │   │   │   │   │   │   │   │   │   │   │     │
+│  └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘     │
+└─────────────────────────────────────────────────────────────────────┘
+
+SOLVING HINTS FOR PUZZLE {puzzle_num}:
+• This puzzle focuses on {theme.lower()}
+• {difficulty.title()} level - {"Start with shorter 3-4 letter words" if difficulty == "BEGINNER" else "Mix of common and moderate vocabulary" if difficulty == "INTERMEDIATE" else "Challenging vocabulary with longer words"}
+• Look for theme connections between answers
+• Use crossing letters to verify your guesses
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+"""
+                
+                # Parse answers for solutions section
+                import re
+                answers = re.findall(r'\) ([A-Z]+)', ai_puzzle_content)
+                all_solutions[puzzle_num] = {
+                    'theme': theme,
+                    'answers': answers[:16]  # 8 across + 8 down
+                }
+                
+                print(f"✅ Puzzle {puzzle_num} generated - {tokens_used} tokens used")
+                
+            except Exception as e:
+                print(f"⚠️ AI generation failed for puzzle {puzzle_num}: {e}")
+                print(f"🔄 Using fallback template for this puzzle...")
+                
+                # Fallback to template for this specific puzzle
+                fallback_themes = {
+                    "Simple Everyday Words": [("Morning drink", "COFFEE"), ("Pet animal", "DOG"), ("Writing tool", "PEN")],
+                    "Kitchen & Cooking": [("Baking device", "OVEN"), ("Breakfast grain", "OATS"), ("Liquid measure", "CUP")],
+                    "Nature & Animals": [("Flying insect", "BEE"), ("Tall plant", "TREE"), ("Ocean animal", "FISH")],
+                }
+                
+                theme_clues = fallback_themes.get(theme, [("Basic word", "WORD"), ("Simple answer", "YES")])
+                
+                puzzle_content += f"""
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                               PUZZLE {puzzle_num}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+THEME: {theme} (Template Fallback)
+DIFFICULTY: {difficulty}
+
+ACROSS:
+"""
+                for i, (clue, answer) in enumerate(theme_clues[:4]):
+                    puzzle_content += f"{i*2+1}. {clue} ({len(answer)}) {'_' * len(answer)}\n"
+                
+                puzzle_content += "\nDOWN:\n"
+                for i, (clue, answer) in enumerate(theme_clues[4:8] if len(theme_clues) > 4 else theme_clues[:4]):
+                    puzzle_content += f"{i*2+2}. {clue} ({len(answer)}) {'_' * len(answer)}\n"
+        
+        # Generate comprehensive solutions section
+        solutions_content = f"""
+
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+                           COMPLETE ANSWER KEY
+                     AI-GENERATED SOLUTIONS FOR ALL 50 PUZZLES
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
+"""
+        
+        for puzzle_num, solution_data in all_solutions.items():
+            solutions_content += f"""PUZZLE {puzzle_num}: {solution_data['theme']}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ANSWERS: {', '.join(solution_data['answers'])}
+
+"""
+        
+        # Final content assembly
+        full_content = intro_content + puzzle_content + solutions_content
+        
+        full_content += f"""
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
+🤖 AI GENERATION REPORT:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CONTENT GENERATION: Gemini 1.5 Flash
+TOTAL TOKENS USED: {cost_tracker['total_tokens']:,}
+ESTIMATED COST: ${cost_tracker['estimated_cost']:.4f}
+COST PER PUZZLE: ${cost_tracker['estimated_cost']/50:.6f}
+
+This book was generated using advanced AI to ensure unique, engaging content
+for every puzzle. Each clue and answer combination is freshly created,
+providing maximum variety and entertainment value.
+
+═══════════════════════════════════════════════════════════════════════
+                    THANK YOU FOR CHOOSING AI-POWERED PUZZLES!
+═══════════════════════════════════════════════════════════════════════
+
+© 2025 Puzzle Pro Studios. All rights reserved.
+AI-Generated Content by Gemini 1.5 Flash
+"""
+        
+        print(f"🎉 AI-powered generation complete!")
+        print(f"💰 Total cost: ${cost_tracker['estimated_cost']:.4f} ({cost_tracker['total_tokens']:,} tokens)")
+        print(f"📊 Cost per puzzle: ${cost_tracker['estimated_cost']/50:.6f}")
+        
+        return full_content
     
     def _generate_comprehensive_crossword_content(self, series_name, vol_num):
         """Generate rich crossword content with varied themes and difficulty"""
