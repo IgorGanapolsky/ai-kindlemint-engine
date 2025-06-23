@@ -28,9 +28,9 @@ jobs:
       run: |
         pip install PyMuPDF reportlab pathlib
         
-    - name: 🔍 Run Font Embedding QA
+    - name: 🔍 Run Enhanced QA Checker
       run: |
-        python scripts/font_embedding_qa.py
+        python scripts/enhanced_qa_checker.py
         
     - name: 📊 Validate PDF Quality
       run: |
