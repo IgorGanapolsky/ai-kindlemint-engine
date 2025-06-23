@@ -1,0 +1,296 @@
+{
+  "timestamp": "2025-06-23T15:42:48.207247",
+  "research_focus": "all_platforms",
+  "data_sources": [
+    "Amazon KDP (SerpApi)",
+    "Reddit API (PRAW)"
+  ],
+  "amazon_bestsellers": [
+    {
+      "rank": 1,
+      "title": "Remember That?! Crossword Puzzle Book For Adults & Seniors: Keep Your Mind Tack-Sharp and Relive Nostalgic Memories from the 1950s-1990s (Gifts for Women & Men)",
+      "price": "$17.77",
+      "rating": 4.6,
+      "reviews_count": 0,
+      "link": "https://www.amazon.com/Remember-Crossword-Puzzle-Adults-Seniors/dp/B0DJWKNBNG/ref=sr_1_1?dib=eyJ2IjoiMSJ9.6JG5vPL1nMJq4jH1UcjHsNiAEdOZBN9WPQgt8el5GUOXvKZ17FzfMV36jx3Bj6Q6aZxeKYF7vPnvXJZJhiyq9RXa5jXjLmYnwf9ziNSWGSJ7lAQCKkc5QvqJjhUs5zhLmcdAXwE6Fq7gXLSX8obQ0Y4CCnVvUmxKiaYwFpifL8ly5ltqvjLlX6uI--aQNmmgAN49LrVKgCtY4CxxwxD7ukBnn3yDmCEkFxjlYVbKSceHzi1VZr5abNQQLUws2JehioHl39wz8rwplQLsyvSgrp65JUyJU56XaWIJvrZtnfo.Nv6WhZfESwAdwC0_7DxMpAk8ay_KNzoV4x1BBIs9bzE&dib_tag=se&keywords=crossword+puzzle+books&qid=1750707578&sr=8-1"
+    },
+    {
+      "rank": 2,
+      "title": "The New York Times Strictly Medium Crossword Puzzles Volume 1: 200 Medium Puzzles",
+      "price": "$9.69",
+      "rating": 4.2,
+      "reviews_count": 0,
+      "link": "https://www.amazon.com/Times-Strictly-Medium-Crossword-Puzzles/dp/1250781752/ref=sr_1_2?dib=eyJ2IjoiMSJ9.6JG5vPL1nMJq4jH1UcjHsNiAEdOZBN9WPQgt8el5GUOXvKZ17FzfMV36jx3Bj6Q6aZxeKYF7vPnvXJZJhiyq9RXa5jXjLmYnwf9ziNSWGSJ7lAQCKkc5QvqJjhUs5zhLmcdAXwE6Fq7gXLSX8obQ0Y4CCnVvUmxKiaYwFpifL8ly5ltqvjLlX6uI--aQNmmgAN49LrVKgCtY4CxxwxD7ukBnn3yDmCEkFxjlYVbKSceHzi1VZr5abNQQLUws2JehioHl39wz8rwplQLsyvSgrp65JUyJU56XaWIJvrZtnfo.Nv6WhZfESwAdwC0_7DxMpAk8ay_KNzoV4x1BBIs9bzE&dib_tag=se&keywords=crossword+puzzle+books&qid=1750707578&sr=8-2"
+    },
+    {
+      "rank": 3,
+      "title": "Medium-Difficulty Crossword Puzzle Book for Adults and Seniors with 100 Games: Fuel Your Mind with Fun Challenges for Focus and Relaxation (The Perfect Gift for Puzzle Lover) (Gifts for Men & Women)",
+      "price": "$10.99",
+      "rating": 4.1,
+      "reviews_count": 0,
+      "link": "https://www.amazon.com/Medium-Difficulty-Crossword-Puzzle-Adults-Seniors/dp/B0F193626T/ref=sr_1_3?dib=eyJ2IjoiMSJ9.6JG5vPL1nMJq4jH1UcjHsNiAEdOZBN9WPQgt8el5GUOXvKZ17FzfMV36jx3Bj6Q6aZxeKYF7vPnvXJZJhiyq9RXa5jXjLmYnwf9ziNSWGSJ7lAQCKkc5QvqJjhUs5zhLmcdAXwE6Fq7gXLSX8obQ0Y4CCnVvUmxKiaYwFpifL8ly5ltqvjLlX6uI--aQNmmgAN49LrVKgCtY4CxxwxD7ukBnn3yDmCEkFxjlYVbKSceHzi1VZr5abNQQLUws2JehioHl39wz8rwplQLsyvSgrp65JUyJU56XaWIJvrZtnfo.Nv6WhZfESwAdwC0_7DxMpAk8ay_KNzoV4x1BBIs9bzE&dib_tag=se&keywords=crossword+puzzle+books&qid=1750707578&sr=8-3"
+    },
+    {
+      "rank": 4,
+      "title": "Easy Crossword Puzzle Book for Adults and Seniors: 90 Puzzles \u2013 Focus-Friendly Challenges Designed for Mental Calm and Visual Comfort (With Full Solutions)",
+      "price": "$3.83",
+      "rating": 4.0,
+      "reviews_count": 0,
+      "link": "https://www.amazon.com/Easy-Crossword-Puzzle-Adults-Seniors/dp/B0F91FTLY8/ref=sr_1_4?dib=eyJ2IjoiMSJ9.6JG5vPL1nMJq4jH1UcjHsNiAEdOZBN9WPQgt8el5GUOXvKZ17FzfMV36jx3Bj6Q6aZxeKYF7vPnvXJZJhiyq9RXa5jXjLmYnwf9ziNSWGSJ7lAQCKkc5QvqJjhUs5zhLmcdAXwE6Fq7gXLSX8obQ0Y4CCnVvUmxKiaYwFpifL8ly5ltqvjLlX6uI--aQNmmgAN49LrVKgCtY4CxxwxD7ukBnn3yDmCEkFxjlYVbKSceHzi1VZr5abNQQLUws2JehioHl39wz8rwplQLsyvSgrp65JUyJU56XaWIJvrZtnfo.Nv6WhZfESwAdwC0_7DxMpAk8ay_KNzoV4x1BBIs9bzE&dib_tag=se&keywords=crossword+puzzle+books&qid=1750707578&sr=8-4"
+    },
+    {
+      "rank": 5,
+      "title": "The New York Times Mega Book of Sunday Crosswords: 500 Puzzles",
+      "price": "$15.41",
+      "rating": 4.6,
+      "reviews_count": 0,
+      "link": "https://www.amazon.com/York-Times-Mega-Sunday-Crosswords/dp/1250847443/ref=sr_1_5?dib=eyJ2IjoiMSJ9.6JG5vPL1nMJq4jH1UcjHsNiAEdOZBN9WPQgt8el5GUOXvKZ17FzfMV36jx3Bj6Q6aZxeKYF7vPnvXJZJhiyq9RXa5jXjLmYnwf9ziNSWGSJ7lAQCKkc5QvqJjhUs5zhLmcdAXwE6Fq7gXLSX8obQ0Y4CCnVvUmxKiaYwFpifL8ly5ltqvjLlX6uI--aQNmmgAN49LrVKgCtY4CxxwxD7ukBnn3yDmCEkFxjlYVbKSceHzi1VZr5abNQQLUws2JehioHl39wz8rwplQLsyvSgrp65JUyJU56XaWIJvrZtnfo.Nv6WhZfESwAdwC0_7DxMpAk8ay_KNzoV4x1BBIs9bzE&dib_tag=se&keywords=crossword+puzzle+books&qid=1750707578&sr=8-5"
+    },
+    {
+      "rank": 6,
+      "title": "KAPPA Super Saver LARGE PRINT Crosswords Puzzle Pack-Set of 6 Full Size Books",
+      "price": "$15.99",
+      "rating": 4.6,
+      "reviews_count": 0,
+      "link": "https://www.amazon.com/KAPPA-Super-Crosswords-Puzzle-Pack-Set/dp/1559930217/ref=sr_1_6?dib=eyJ2IjoiMSJ9.6JG5vPL1nMJq4jH1UcjHsNiAEdOZBN9WPQgt8el5GUOXvKZ17FzfMV36jx3Bj6Q6aZxeKYF7vPnvXJZJhiyq9RXa5jXjLmYnwf9ziNSWGSJ7lAQCKkc5QvqJjhUs5zhLmcdAXwE6Fq7gXLSX8obQ0Y4CCnVvUmxKiaYwFpifL8ly5ltqvjLlX6uI--aQNmmgAN49LrVKgCtY4CxxwxD7ukBnn3yDmCEkFxjlYVbKSceHzi1VZr5abNQQLUws2JehioHl39wz8rwplQLsyvSgrp65JUyJU56XaWIJvrZtnfo.Nv6WhZfESwAdwC0_7DxMpAk8ay_KNzoV4x1BBIs9bzE&dib_tag=se&keywords=crossword+puzzle+books&qid=1750707578&sr=8-6"
+    },
+    {
+      "rank": 7,
+      "title": "Easy - Medium Crossword Puzzle Books For Adults and Seniors - 100 Big Font, Eye-Friendly Puzzles: Entertaining Brain Workouts with Verified and Non-Repetitive Clues for Cross word Lovers",
+      "price": "$7.99",
+      "rating": 5.0,
+      "reviews_count": 0,
+      "link": "https://www.amazon.com/Easy-Crossword-Eye-Friendly-Entertaining-Non-Repetitive/dp/B0FCV97XQK/ref=sr_1_7?dib=eyJ2IjoiMSJ9.6JG5vPL1nMJq4jH1UcjHsNiAEdOZBN9WPQgt8el5GUOXvKZ17FzfMV36jx3Bj6Q6aZxeKYF7vPnvXJZJhiyq9RXa5jXjLmYnwf9ziNSWGSJ7lAQCKkc5QvqJjhUs5zhLmcdAXwE6Fq7gXLSX8obQ0Y4CCnVvUmxKiaYwFpifL8ly5ltqvjLlX6uI--aQNmmgAN49LrVKgCtY4CxxwxD7ukBnn3yDmCEkFxjlYVbKSceHzi1VZr5abNQQLUws2JehioHl39wz8rwplQLsyvSgrp65JUyJU56XaWIJvrZtnfo.Nv6WhZfESwAdwC0_7DxMpAk8ay_KNzoV4x1BBIs9bzE&dib_tag=se&keywords=crossword+puzzle+books&qid=1750707578&sr=8-7"
+    },
+    {
+      "rank": 8,
+      "title": "The New York Times A Puzzle a Day: 365 Crossword Puzzles for a Year of Fun",
+      "price": "$11.99",
+      "rating": 4.6,
+      "reviews_count": 0,
+      "link": "https://www.amazon.com/New-York-Times-Puzzle-Day/dp/1250623537/ref=sr_1_8?dib=eyJ2IjoiMSJ9.6JG5vPL1nMJq4jH1UcjHsNiAEdOZBN9WPQgt8el5GUOXvKZ17FzfMV36jx3Bj6Q6aZxeKYF7vPnvXJZJhiyq9RXa5jXjLmYnwf9ziNSWGSJ7lAQCKkc5QvqJjhUs5zhLmcdAXwE6Fq7gXLSX8obQ0Y4CCnVvUmxKiaYwFpifL8ly5ltqvjLlX6uI--aQNmmgAN49LrVKgCtY4CxxwxD7ukBnn3yDmCEkFxjlYVbKSceHzi1VZr5abNQQLUws2JehioHl39wz8rwplQLsyvSgrp65JUyJU56XaWIJvrZtnfo.Nv6WhZfESwAdwC0_7DxMpAk8ay_KNzoV4x1BBIs9bzE&dib_tag=se&keywords=crossword+puzzle+books&qid=1750707578&sr=8-8"
+    },
+    {
+      "rank": 9,
+      "title": "Medium Crossword Puzzle Books For Adults and Seniors - 100 Big Font, Eye-Friendly Puzzles: Entertaining Brain Workouts with Verified and Non-Repetitive Clues for Cross word Lovers",
+      "price": "$9.99",
+      "rating": 5.0,
+      "reviews_count": 0,
+      "link": "https://www.amazon.com/Medium-Crossword-Puzzle-Adults-Seniors/dp/B0F9WK2ZTD/ref=sr_1_9?dib=eyJ2IjoiMSJ9.6JG5vPL1nMJq4jH1UcjHsNiAEdOZBN9WPQgt8el5GUOXvKZ17FzfMV36jx3Bj6Q6aZxeKYF7vPnvXJZJhiyq9RXa5jXjLmYnwf9ziNSWGSJ7lAQCKkc5QvqJjhUs5zhLmcdAXwE6Fq7gXLSX8obQ0Y4CCnVvUmxKiaYwFpifL8ly5ltqvjLlX6uI--aQNmmgAN49LrVKgCtY4CxxwxD7ukBnn3yDmCEkFxjlYVbKSceHzi1VZr5abNQQLUws2JehioHl39wz8rwplQLsyvSgrp65JUyJU56XaWIJvrZtnfo.Nv6WhZfESwAdwC0_7DxMpAk8ay_KNzoV4x1BBIs9bzE&dib_tag=se&keywords=crossword+puzzle+books&qid=1750707578&sr=8-9"
+    },
+    {
+      "rank": 10,
+      "title": "Large Print Easy Crossword Puzzle Book For Adults & Seniors: 90 Puzzles With Solutions For Relaxation and Brain Exercise",
+      "price": "$7.99",
+      "rating": 4.5,
+      "reviews_count": 0,
+      "link": "https://www.amazon.com/Large-Crossword-Puzzle-Adults-Seniors/dp/B0D4R5B7TN/ref=sr_1_10?dib=eyJ2IjoiMSJ9.6JG5vPL1nMJq4jH1UcjHsNiAEdOZBN9WPQgt8el5GUOXvKZ17FzfMV36jx3Bj6Q6aZxeKYF7vPnvXJZJhiyq9RXa5jXjLmYnwf9ziNSWGSJ7lAQCKkc5QvqJjhUs5zhLmcdAXwE6Fq7gXLSX8obQ0Y4CCnVvUmxKiaYwFpifL8ly5ltqvjLlX6uI--aQNmmgAN49LrVKgCtY4CxxwxD7ukBnn3yDmCEkFxjlYVbKSceHzi1VZr5abNQQLUws2JehioHl39wz8rwplQLsyvSgrp65JUyJU56XaWIJvrZtnfo.Nv6WhZfESwAdwC0_7DxMpAk8ay_KNzoV4x1BBIs9bzE&dib_tag=se&keywords=crossword+puzzle+books&qid=1750707578&sr=8-10"
+    }
+  ],
+  "reddit_insights": [
+    {
+      "subreddit": "r/crossword",
+      "subscribers": 48787,
+      "hot_posts": [
+        {
+          "title": "NYT Monday 06/23/2025 Discussion",
+          "score": 12,
+          "num_comments": 35,
+          "created_utc": 1750629617.0
+        },
+        {
+          "title": "/r/crossword General Discussion Thread - Week of June 22, 2025",
+          "score": 1,
+          "num_comments": 1,
+          "created_utc": 1750590018.0
+        },
+        {
+          "title": "NYT Saturday 03/31/2018 is insanely hard but insanely rewarding. If you're looking looking for a challenge, then try it. (Don't give up! Try listening to Rocky music or something.)",
+          "score": 12,
+          "num_comments": 11,
+          "created_utc": 1750690688.0
+        },
+        {
+          "title": "Gift for boyfriend",
+          "score": 3,
+          "num_comments": 2,
+          "created_utc": 1750703499.0
+        },
+        {
+          "title": "A fun St Louis-themed puzzle from Sid Sivakumar",
+          "score": 3,
+          "num_comments": 0,
+          "created_utc": 1750697691.0
+        }
+      ],
+      "activity_level": "low"
+    },
+    {
+      "subreddit": "r/AdultColoring",
+      "subscribers": 32779,
+      "hot_posts": [
+        {
+          "title": "COMUNITY CHALLENGE (Long Post Ahead)",
+          "score": 47,
+          "num_comments": 155,
+          "created_utc": 1748769146.0
+        },
+        {
+          "title": "Limited Popsicle Color Palette",
+          "score": 57,
+          "num_comments": 10,
+          "created_utc": 1750690581.0
+        },
+        {
+          "title": "Lighting is so hard \ud83d\ude2d my second attempt",
+          "score": 36,
+          "num_comments": 4,
+          "created_utc": 1750699161.0
+        },
+        {
+          "title": "Lately I've been feeling like having breaks from the whole Amazon paper-alcohol marker-bold and easy combo and I'm having so much fun with pencils!",
+          "score": 5,
+          "num_comments": 0,
+          "created_utc": 1750705343.0
+        },
+        {
+          "title": "Axolotls make me happy!",
+          "score": 88,
+          "num_comments": 8,
+          "created_utc": 1750644061.0
+        }
+      ],
+      "activity_level": "low"
+    },
+    {
+      "subreddit": "r/sudoku",
+      "subscribers": 38412,
+      "hot_posts": [
+        {
+          "title": "Before You Ask, \"Why Can't This Cell Be...?\u201d or \"Why is this number wrong?\u201d",
+          "score": 84,
+          "num_comments": 0,
+          "created_utc": 1746168066.0
+        },
+        {
+          "title": "Sudoku Puzzle Challenges Thread",
+          "score": 1,
+          "num_comments": 22,
+          "created_utc": 1750563044.0
+        },
+        {
+          "title": "I finished my first fiendish sudoku puzzle!",
+          "score": 6,
+          "num_comments": 1,
+          "created_utc": 1750693875.0
+        },
+        {
+          "title": "how is this a naked single?",
+          "score": 3,
+          "num_comments": 3,
+          "created_utc": 1750698912.0
+        },
+        {
+          "title": "I did it!",
+          "score": 8,
+          "num_comments": 0,
+          "created_utc": 1750678663.0
+        }
+      ],
+      "activity_level": "low"
+    },
+    {
+      "subreddit": "r/seniors",
+      "subscribers": 2403,
+      "hot_posts": [
+        {
+          "title": "Rolling At 67",
+          "score": 40,
+          "num_comments": 12,
+          "created_utc": 1676599068.0
+        },
+        {
+          "title": "When Nature Calls At Night: Prostate Enlargement and You",
+          "score": 21,
+          "num_comments": 28,
+          "created_utc": 1587483632.0
+        },
+        {
+          "title": "So many questions about retirement community contracts....",
+          "score": 5,
+          "num_comments": 3,
+          "created_utc": 1587479155.0
+        },
+        {
+          "title": "Natural Plants (Like Pot) and Prostate Enlargement",
+          "score": 13,
+          "num_comments": 8,
+          "created_utc": 1587407675.0
+        },
+        {
+          "title": "Seated Stretching Routine",
+          "score": 40,
+          "num_comments": 12,
+          "created_utc": 1587251887.0
+        }
+      ],
+      "activity_level": "low"
+    },
+    {
+      "subreddit": "r/puzzles",
+      "subscribers": 425234,
+      "hot_posts": [
+        {
+          "title": "Promote your project in this thread",
+          "score": 5,
+          "num_comments": 21,
+          "created_utc": 1750636868.0
+        },
+        {
+          "title": "Downing Street geometry puzzle: Calculate the area of the red triangle (Source: Financial Times)",
+          "score": 67,
+          "num_comments": 28,
+          "created_utc": 1750682343.0
+        },
+        {
+          "title": "Zebra Puzzle #563 6/20/25",
+          "score": 2,
+          "num_comments": 3,
+          "created_utc": 1750688912.0
+        },
+        {
+          "title": "Help with this queen puzzle.",
+          "score": 7,
+          "num_comments": 20,
+          "created_utc": 1750663619.0
+        },
+        {
+          "title": "Sam's clues 12/6/20 archive puzzle",
+          "score": 0,
+          "num_comments": 5,
+          "created_utc": 1750700841.0
+        }
+      ],
+      "activity_level": "high"
+    }
+  ],
+  "competitor_analysis": [],
+  "trending_keywords": [],
+  "market_opportunities": [
+    {
+      "type": "Amazon Price Analysis",
+      "description": "Crossword books averaging $11.16",
+      "evidence": "Analysis of 10 real products",
+      "revenue_potential": "$117-390/month",
+      "competition_level": "Medium"
+    },
+    {
+      "type": "Active Community Market",
+      "description": "r/puzzles has 425,234 engaged users",
+      "evidence": "Active community discussions and high engagement",
+      "revenue_potential": "$150-400/month",
+      "competition_level": "Low-Medium"
+    }
+  ],
+  "revenue_estimates": {}
+}
