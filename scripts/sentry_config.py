@@ -3,6 +3,7 @@ Sentry + Seer AI Configuration for KindleMint Engine
 """
 
 import os
+import sys
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.integrations.asyncio import AsyncioIntegration
@@ -37,18 +38,9 @@ def init_sentry(script_name: str = "kindlemint-script"):
         # Integrations for complex debugging
         integrations=[
             LoggingIntegration(level=None, event_level=None),
-            AsyncioIntegration(transaction_style="task"),
+            AsyncioIntegration(),
             ThreadingIntegration(propagate_hub=True),
         ],
-        
-        # Custom tags for KindleMint context
-        initial_scope={
-            "tags": {
-                "component": script_name,
-                "system": "kindlemint-engine",
-                "automation_type": "kdp-publishing"
-            }
-        },
         
         # Seer AI optimization
         _experiments={
@@ -56,18 +48,24 @@ def init_sentry(script_name: str = "kindlemint-script"):
         }
     )
     
-    # Set user context for better debugging
-    sentry_sdk.set_user({
-        "id": "kindlemint-automation",
-        "system": script_name
-    })
-    
-    # Set custom context for KDP automation
-    sentry_sdk.set_context("kdp_automation", {
-        "script": script_name,
-        "python_version": os.sys.version,
-        "environment": os.getenv('ENVIRONMENT', 'local')
-    })
+    # Set user context and tags after initialization
+    with sentry_sdk.configure_scope() as scope:
+        scope.set_user({
+            "id": "kindlemint-automation",
+            "system": script_name
+        })
+        
+        # Set custom tags for KindleMint context
+        scope.set_tag("component", script_name)
+        scope.set_tag("system", "kindlemint-engine")
+        scope.set_tag("automation_type", "kdp-publishing")
+        
+        # Set custom context for KDP automation
+        scope.set_context("kdp_automation", {
+            "script": script_name,
+            "python_version": sys.version,
+            "environment": os.getenv('ENVIRONMENT', 'local')
+        })
     
     print(f"✅ Sentry + Seer AI initialized for {script_name}")
     return True
