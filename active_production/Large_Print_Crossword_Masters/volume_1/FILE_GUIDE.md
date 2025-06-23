@@ -9,10 +9,10 @@
 - **Size**: 271KB, 105 pages
 
 ### 📱 **Kindle eBook**  
-- **Location**: `../../../staging/kindle_ebook/crossword_masters_v1_kindle/`
 - **File**: `crossword_masters_kindle.html`
 - **Status**: ✅ Ready for Kindle Direct Publishing
 - **Use**: Upload to Amazon KDP (Kindle eBook)
+- **Metadata**: `kindle_metadata.json`
 
 ## 📋 **Supporting Files**
 
