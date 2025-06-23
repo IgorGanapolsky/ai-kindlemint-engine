@@ -240,7 +240,7 @@ Provide a quality score (1-10) and specific improvements if needed.
     def create_crossword_page(self, c, puzzle_data, puzzle_num):
         """Create professional crossword puzzle page"""
         
-        # Title and header
+        # Title and header - standardized formatting
         c.setFont("Helvetica-Bold", 18)
         title_y = self.page_height - self.margin - 30
         c.drawCentredString(self.page_width/2, title_y, f"PUZZLE #{puzzle_num}")
@@ -266,6 +266,11 @@ Provide a quality score (1-10) and specific improvements if needed.
             c.drawString(self.margin, tip_y, "SOLVING TIP:")
             c.setFont("Helvetica", 9)
             c.drawString(self.margin + 10, tip_y - 15, f"• {puzzle_data['solving_tip']}")
+        
+        # Add page number (starting from page 4, accounting for title, copyright, intro)
+        page_num = puzzle_num + 3
+        c.setFont("Helvetica", 10)
+        c.drawCentredString(self.page_width/2, self.margin/2, str(page_num))
     
     def draw_professional_grid(self, c, y_start):
         """Draw professional 15x15 crossword grid"""
@@ -381,6 +386,12 @@ Provide a quality score (1-10) and specific improvements if needed.
         # Answer lists
         answers_y = grid_y - (self.grid_size * 12) - 40
         self.draw_answer_lists(c, puzzle_data, answers_y)
+        
+        # Add page number (solutions start after puzzles + intro pages)
+        solutions_start_page = self.puzzles_per_book + 4  # title, copyright, intro, puzzles
+        page_num = solutions_start_page + puzzle_num
+        c.setFont("Helvetica", 10)
+        c.drawCentredString(self.page_width/2, self.margin/2, str(page_num))
     
     def draw_solution_grid(self, c, y_start):
         """Draw filled solution grid"""
@@ -468,6 +479,80 @@ Provide a quality score (1-10) and specific improvements if needed.
         footer_y = self.margin + 60
         c.drawCentredString(self.page_width/2, footer_y, "Crossword Masters Publishing")
         c.drawCentredString(self.page_width/2, footer_y - 20, "Premium Quality Puzzle Books")
+        
+        # Add page number
+        c.setFont("Helvetica", 10)
+        c.drawCentredString(self.page_width/2, self.margin/2, "1")
+    
+    def create_copyright_page(self, c):
+        """Create copyright page"""
+        
+        c.setFont("Helvetica-Bold", 16)
+        title_y = self.page_height - 2*inch
+        c.drawCentredString(self.page_width/2, title_y, "Large Print Crossword Masters – Volume 1")
+        
+        c.setFont("Helvetica", 14)
+        c.drawCentredString(self.page_width/2, title_y - 40, "Easy, Relaxing Crossword Puzzles for Seniors")
+        
+        c.setFont("Helvetica-Bold", 12)
+        c.drawCentredString(self.page_width/2, title_y - 100, "Copyright © 2025 Crossword Masters Publishing")
+        
+        c.setFont("Helvetica-Bold", 12)
+        c.drawCentredString(self.page_width/2, title_y - 130, "All Rights Reserved.")
+        
+        # Add page number
+        c.setFont("Helvetica", 10)
+        c.drawCentredString(self.page_width/2, self.margin/2, "2")
+    
+    def create_intro_page(self, c):
+        """Create introduction page"""
+        
+        c.setFont("Helvetica-Bold", 18)
+        title_y = self.page_height - 2*inch
+        c.drawCentredString(self.page_width/2, title_y, "Welcome to Your Puzzle Adventure!")
+        
+        c.setFont("Helvetica", 12)
+        intro_text = [
+            "Welcome to Volume 1 of Large Print Crossword Masters. These 50 unique,",
+            "themed puzzles were designed to challenge and entertain while remaining",
+            "accessible to all readers. Each puzzle is printed in large type for easy reading.",
+            "",
+            "How to Use This Book:",
+            "• Start with any puzzle that interests you",
+            "• Read each clue carefully and fill in answers using a pencil", 
+            "• Use crossing letters to help solve difficult words",
+            "• Check your answers in the solutions section starting on page 54",
+            "",
+            "Difficulty Levels:",
+            "• Puzzles 1-20: EASY (Perfect for beginners)",
+            "• Puzzles 21-40: MEDIUM (Building your skills)",
+            "• Puzzles 41-50: HARD (For experienced solvers)",
+            "",
+            "Take your time, relax, and enjoy the satisfaction of completing each puzzle!",
+            "",
+            "Happy Puzzling!"
+        ]
+        
+        y_pos = title_y - 60
+        for line in intro_text:
+            if line == "":
+                y_pos -= 10
+            elif line.startswith("•"):
+                c.setFont("Helvetica", 11)
+                c.drawString(self.margin + 20, y_pos, line)
+                y_pos -= 18
+            elif line.endswith(":"):
+                c.setFont("Helvetica-Bold", 12)
+                c.drawString(self.margin, y_pos, line)
+                y_pos -= 20
+            else:
+                c.setFont("Helvetica", 11)
+                c.drawString(self.margin, y_pos, line)
+                y_pos -= 18
+        
+        # Add page number
+        c.setFont("Helvetica", 10)
+        c.drawCentredString(self.page_width/2, self.margin/2, "3")
     
     def create_solutions_title_page(self, c):
         """Create solutions section title"""
@@ -481,6 +566,11 @@ Provide a quality score (1-10) and specific improvements if needed.
         
         c.setFont("Helvetica", 12)
         c.drawCentredString(self.page_width/2, title_y - 80, "Solutions are provided in the same order as the puzzles")
+        
+        # Add page number
+        solutions_start_page = self.puzzles_per_book + 4
+        c.setFont("Helvetica", 10)
+        c.drawCentredString(self.page_width/2, self.margin/2, str(solutions_start_page))
     
     def generate_complete_crossword_book(self, series_name="Large Print Crossword Masters", volume_num=1):
         """Generate complete professional crossword book with 50+ puzzles"""
@@ -502,6 +592,14 @@ Provide a quality score (1-10) and specific improvements if needed.
         
         # Title page
         self.create_title_page(c, series_name, volume_num)
+        
+        # Copyright page
+        c.showPage()
+        self.create_copyright_page(c)
+        
+        # Introduction page
+        c.showPage()
+        self.create_intro_page(c)
         
         # Generate themes and puzzles
         themes = self.generate_themes_with_claude()
