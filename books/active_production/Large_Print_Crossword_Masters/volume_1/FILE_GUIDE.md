@@ -1,33 +1,30 @@
 # 📁 File Organization Guide
 
-## ✅ **FINAL DELIVERABLES** (Ready for Amazon KDP)
+## 📂 **Format-Specific Organization**
 
-### 📚 **Paperback Book**
-- **File**: `crossword_book_volume_1_FINAL.pdf`
-- **Status**: ✅ 100% KDP ready with embedded fonts
-- **Use**: Upload to Amazon KDP Print (Paperback)
-- **Size**: 271KB, 105 pages
+### 📚 **paperback/**
+- `crossword_book_volume_1_FINAL.pdf` - Final paperback (271KB, 105 pages)
+- `amazon_kdp_metadata.json` - KDP paperback metadata
+- `kdp_import.xlsx` - KDP import spreadsheet with 3 categories
+- `kdp_publishing_checklist.md` - Pre-launch checklist
 
-### 📱 **Kindle eBook**  
-- **File**: `crossword_masters_kindle.html`
-- **Status**: ✅ Ready for Kindle Direct Publishing
-- **Use**: Upload to Amazon KDP (Kindle eBook)
-- **Metadata**: `kindle_metadata.json`
+### 📱 **kindle/**
+- `CrosswordMasters_V1_Enhanced.epub` - ✅ **High-converting edition**
+- `kindle_metadata.json` - Kindle-specific metadata
+- `kindle_publishing_checklist.md` - Kindle upload steps
+- `kindle_validation_report.txt` - Quality validation
 
-## 📋 **Supporting Files**
+### 🎨 **covers/**
+- `cover_v1b.jpg` - High-converting cover (2560×1600)
+- `cover_thumb_128x200.jpg` - Thumbnail proof
 
-### **Metadata & Publishing**
-- `amazon_kdp_metadata.json` - Book title, description, keywords
-- `kdp_publishing_checklist.md` - Step-by-step upload guide
-- `README.md` - Book specifications and details
+### 📖 **hardcover/**
+- ⏳ Pending implementation
 
-## 🚫 **Files Removed**
-- ~~`crossword_book_volume_1.pdf`~~ (Replaced by FINAL version)
-
-## 🎯 **Next Steps**
-1. **Paperback**: Use `crossword_book_volume_1_FINAL.pdf` 
-2. **Kindle**: Use files in `staging/kindle_ebook/crossword_masters_v1_kindle/`
-3. **Upload both** to maximize revenue and algorithm boost
+## 🎯 **Ready for Upload**
+✅ **Paperback**: `paperback/crossword_book_volume_1_FINAL.pdf`  
+✅ **Kindle**: `kindle/CrosswordMasters_V1_Enhanced.epub`  
+⏳ **Hardcover**: Coming soon
 
 ---
-*Clean, organized, and ready for immediate publishing!*
+*Clean format-specific organization for scalable publishing!*

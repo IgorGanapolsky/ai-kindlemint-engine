@@ -15,3 +15,6 @@
 - GitHub Actions workflows: `.github/workflows/`
 - Lambda functions: `lambda/`
 - Core application: `kindlemint/`
+
+### Cover Design Policy
+**NEVER generate covers automatically.** Always provide DALL-E prompts for Igor to use instead of creating cover images programmatically. Store all DALL-E prompts in checklist.md files for easy reference and reuse.
