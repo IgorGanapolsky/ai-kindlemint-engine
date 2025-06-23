@@ -123,7 +123,8 @@
       "Bash(./infrastructure/apply-ecr-lifecycle-policy.sh:*)",
       "Bash(git clean:*)",
       "Bash(gh api:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(brew install:*)"
     ],
     "deny": []
   }
