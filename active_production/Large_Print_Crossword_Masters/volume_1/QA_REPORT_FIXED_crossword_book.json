@@ -1,0 +1,61 @@
+{
+  "file_path": "active_production/Large_Print_Crossword_Masters/volume_1/FIXED_crossword_book.pdf",
+  "timestamp": "2025-06-23T10:46:00.049383",
+  "file_checks": {
+    "file_exists": true,
+    "file_size_bytes": 28808,
+    "file_size_kb": 28.1328125,
+    "file_size_mb": 0.02747344970703125,
+    "size_valid": true,
+    "extension_correct": true
+  },
+  "content_checks": {
+    "page_count": 22,
+    "has_metadata": true,
+    "metadata": {
+      "title": "untitled",
+      "author": "anonymous",
+      "creator": "ReportLab PDF Library - www.reportlab.com"
+    },
+    "not_encrypted": true,
+    "text_extractable": true,
+    "total_characters": 5026,
+    "total_words": 1025,
+    "no_placeholders": true,
+    "duplicate_content_ratio": 0.7800407331975561,
+    "family_friendly": true
+  },
+  "layout_checks": {
+    "page_sizes": [
+      [
+        612.0,
+        792.0
+      ]
+    ],
+    "consistent_page_size": true,
+    "page_size_inches": [
+      8.5,
+      11.0
+    ],
+    "kdp_compliant_size": true
+  },
+  "formatting_checks": {},
+  "amazon_kdp_checks": {
+    "size_under_kdp_limit": true,
+    "pdf_version": "%PDF-1.4",
+    "kdp_compatible_version": true,
+    "fonts_embedded": true,
+    "print_quality_ready": true
+  },
+  "overall_score": 80,
+  "issues_found": [
+    {
+      "type": "CRITICAL",
+      "code": "HIGH_DUPLICATION",
+      "description": "Content is 78.0% duplicate"
+    }
+  ],
+  "warnings": [],
+  "recommendations": [],
+  "publish_ready": false
+}
