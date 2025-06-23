@@ -18,7 +18,7 @@ on:
           - competitor_analysis
 
 env:
-  SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+  SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
   REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
   REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
   REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
@@ -85,8 +85,7 @@ jobs:
                       search_params = {
                           'engine': 'amazon',
                           'amazon_domain': 'amazon.com',
-                          'q': 'crossword puzzle books',
-                          'department': 'stripbooks',
+                          'k': 'crossword puzzle books',
                           'api_key': serpapi_key
                       }
                       

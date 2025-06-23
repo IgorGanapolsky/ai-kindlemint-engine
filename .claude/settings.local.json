@@ -125,7 +125,8 @@
       "Bash(gh api:*)",
       "Bash(tree:*)",
       "Bash(brew install:*)",
-      "Bash(open:*)"
+      "Bash(open:*)",
+      "Bash(printenv)"
     ],
     "deny": []
   }
