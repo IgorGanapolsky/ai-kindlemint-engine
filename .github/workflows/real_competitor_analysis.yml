@@ -48,7 +48,10 @@ jobs:
           import json
           import requests
           from datetime import datetime, timedelta
-          from serpapi import GoogleSearch
+          try:
+              from serpapi.google_search import GoogleSearch
+          except ImportError:
+              from serpapi import GoogleSearch
           import pandas as pd
           from bs4 import BeautifulSoup
           import time

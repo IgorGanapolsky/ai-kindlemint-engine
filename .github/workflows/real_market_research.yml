@@ -52,7 +52,10 @@ jobs:
           import requests
           import praw
           from datetime import datetime, timedelta
-          from serpapi import GoogleSearch
+          try:
+              from serpapi.google_search import GoogleSearch
+          except ImportError:
+              from serpapi import GoogleSearch
           import pandas as pd
           from collections import Counter
           import time
@@ -108,6 +111,7 @@ jobs:
                       print(f'✅ Found {len(research_results[\"amazon_bestsellers\"])} real bestsellers')
                   else:
                       print('⚠️ No SerpApi key - skipping Amazon analysis')
+                      print(f'Debug: SERPAPI_API_KEY exists: {bool(os.getenv(\"SERPAPI_API_KEY\"))}')"
                       
               except Exception as e:
                   print(f'⚠️ Amazon analysis error: {e}')
