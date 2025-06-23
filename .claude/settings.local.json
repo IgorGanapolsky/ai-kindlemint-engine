@@ -122,7 +122,8 @@
       "WebFetch(domain:github.com)",
       "Bash(./infrastructure/apply-ecr-lifecycle-policy.sh:*)",
       "Bash(git clean:*)",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "Bash(tree:*)"
     ],
     "deny": []
   }

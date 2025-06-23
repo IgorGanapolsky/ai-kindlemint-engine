@@ -31,7 +31,7 @@ class DailySeriesGenerator:
     def __init__(self):
         load_env()
         openai.api_key = os.getenv('OPENAI_API_KEY')
-        self.output_dir = Path("output/daily_production")
+        self.output_dir = Path("active_production")
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
         # Profitable series templates based on market research
@@ -89,7 +89,7 @@ class DailySeriesGenerator:
     def generate_daily_series_batch(self, date_str=None):
         """Generate complete series batch for daily production"""
         if not date_str:
-            date_str = datetime.now().strftime('%Y%m%d')
+            # Strategic organization: series-based instead of date-based
         
         print(f"🏭 DAILY PRODUCTION: {date_str}")
         print("🔥 Generating profitable series for immediate publishing...")
