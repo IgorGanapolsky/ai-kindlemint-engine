@@ -54,12 +54,12 @@ jobs:
           date
           echo ""
           echo "Generated Series:"
-          find output/daily_production -name "*.json" -path "*/series_manifest.json" | while read file; do
+          find books/active_production -name "*.json" -path "*/series_manifest.json" | while read file; do
             echo "📖 $(basename $(dirname $file))"
           done
           echo ""
           echo "Total Files Generated:"
-          find output/daily_production -type f | wc -l
+          find books/active_production -type f | wc -l
           
       - name: 💾 Commit Production Results
         if: ${{ github.event.inputs.commit_results != 'false' }}
@@ -68,7 +68,7 @@ jobs:
           git config --local user.name "Daily Production Bot"
           
           # Add generated content
-          git add output/daily_production/
+          git add books/active_production/
           
           # Check if there are changes to commit
           if git diff --staged --quiet; then
@@ -76,7 +76,7 @@ jobs:
           else
             # Create commit with today's production summary
             TODAY=$(date +%Y%m%d)
-            SERIES_COUNT=$(find output/daily_production/$TODAY -maxdepth 1 -type d | wc -l)
+            SERIES_COUNT=$(find books/active_production -maxdepth 2 -type d -name "*volume*" | wc -l)
             
             git commit -m "feat: daily production $TODAY - $SERIES_COUNT series generated - Ready for publishing"
             
@@ -88,7 +88,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: daily-production-${{ github.run_number }}
-          path: output/daily_production/
+          path: books/active_production/
           retention-days: 30
           
       - name: 🔔 Notify Success
