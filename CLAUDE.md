@@ -25,42 +25,23 @@
 ### Accuracy Policy
 **ABSOLUTE REQUIREMENT**: Only provide 100% factual, verified information. NEVER claim something exists or was completed unless actually verified. NEVER make excuses for incorrect information. Always verify file existence, tool outputs, and system state before making any claims.
 
-## Cost Optimization Strategy
+## Claude Max Subscription Status
 
-### Claude Code Usage Guidelines
-**CRITICAL**: Minimize Claude Code credits through strategic usage patterns.
+**CURRENT PLAN**: Claude Max ($20/month) - Includes unlimited Claude Code usage!
 
-#### 1. Batch Development Sessions
-- **Plan tasks completely** before opening Claude Code
-- **Group similar work**: All AWS tasks, Python work, etc. in single sessions
-- **Write comprehensive requirements** upfront to minimize iterations
-- **Target 2-3 hour focused sessions** instead of sporadic usage
+### Usage Guidelines
+Since Claude Code is included in your Claude Max subscription:
+- **No credit limits** - Use Claude Code freely without worrying about costs
+- **No need to batch sessions** - Work whenever inspiration strikes
+- **Full feature access** - All Claude Code capabilities available
+- **Unlimited iterations** - Refine and perfect your code without cost concerns
 
-#### 2. Use Claude Chat for Planning (FREE)
-Before using Claude Code:
-- **Architecture decisions** - Discuss in Chat first
-- **Code reviews** - Paste snippets in Chat for feedback  
-- **Debugging strategies** - Plan approach before implementing
-- **Documentation** - Write READMs and docs in Chat first
-
-#### 3. Prompt Caching Strategy
-- **Reuse similar prompts** for substantial savings
-- **Template common requests** for consistent caching
-- **Batch identical operations** across multiple files
-
-#### 4. Pre-built Templates & Reusable Components
-Maintain these in `/templates/` for instant reuse:
-- Error handlers and retry logic
-- AWS deployment scripts  
-- Common file structures
-- Workflow templates
-
-#### 5. Cost Tracking Implementation
-Track usage patterns to optimize spending:
-- Session duration vs. output
-- Cost per line of code changed
-- Most expensive operation types
-- ROI by task category
+### Development Best Practices
+Now that cost isn't a factor, focus on:
+- **Code quality** over session efficiency
+- **Thorough testing** and experimentation
+- **Comprehensive implementations** without rushing
+- **Learning and exploration** of new approaches
 
 ## Hardcover Production Workflow
 
