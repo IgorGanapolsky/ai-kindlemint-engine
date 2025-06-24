@@ -1,30 +1,24 @@
-# Kindle Publishing Checklist - Volume 3
+# Kindle Publishing Checklist
+## Large Print Crossword Masters - Volume 3
 
-## Pre-Publishing
-- [ ] EPUB file validated with Kindle Previewer
-- [ ] Cover image 1600x2560 pixels minimum
-- [ ] Metadata complete and accurate
-- [ ] Price set at $9.99
-- [ ] Categories selected (max 2 for Kindle)
-- [ ] Keywords optimized for search
+### 📊 **EPUB Specifications**
+- **Format**: EPUB 3.0
+- **File Size**: 0.06 MB
+- **Enhanced Features**: Navigation, high-res grids, marketing back-matter
 
-## File Requirements
-- [ ] EPUB format (EPUB3 preferred)
-- [ ] Internal TOC functioning
-- [ ] Images optimized for e-ink displays
-- [ ] No fixed layouts (reflowable text)
-- [ ] Font embedding removed
+### 📋 **Publishing Steps**
+1. [ ] Log into KDP Dashboard
+2. [ ] Create new Kindle eBook
+3. [ ] Enter book details from metadata.json
+4. [ ] Upload EPUB file
+5. [ ] Set pricing and royalty options
+6. [ ] Submit for review
 
-## Testing
-- [ ] Tested on Kindle Paperwhite
-- [ ] Tested on Kindle app (iOS/Android)
-- [ ] Tested on Kindle Fire
-- [ ] Page navigation works correctly
-- [ ] Puzzles display clearly
+### 💰 **Pricing Strategy**
+- **Recommended Price**: $3.99
+- **Royalty Option**: 70%
 
-## Post-Publishing
-- [ ] ASIN recorded
-- [ ] Link to paperback edition
-- [ ] Link to hardcover edition
-- [ ] Enrolled in KDP Select (optional)
-- [ ] Marketing copy updated
+### 📈 **Marketing Notes**
+- Include "Large Print" in keywords
+- Set primary category to Games & Puzzles
+- Enable Kindle Unlimited if possible

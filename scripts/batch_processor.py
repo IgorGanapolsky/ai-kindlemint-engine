@@ -18,6 +18,28 @@ from typing import Dict, List, Optional, Tuple, Union, Any
 import importlib.util
 import shutil
 
+# --- Sentry integration ------------------------------------------------------
+from pathlib import Path as _PathForSentry
+
+# Ensure we can import `sentry_config` that lives in the *scripts* folder even
+# when this file is executed from repository root.
+_SCRIPTS_DIR = (_PathForSentry(__file__).parent / "scripts").resolve()
+if _SCRIPTS_DIR.exists() and str(_SCRIPTS_DIR) not in sys.path:
+    sys.path.append(str(_SCRIPTS_DIR))
+
+try:
+    from sentry_config import init_sentry, add_breadcrumb, capture_kdp_error
+except Exception:  # pragma: no cover – fallback stubs if Sentry not available
+
+    def init_sentry(*_, **__):
+        return False
+
+    def add_breadcrumb(*_, **__):
+        pass
+
+    def capture_kdp_error(*_, **__):
+        pass
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -65,6 +87,11 @@ class BatchProcessor:
             "complete": "🎉",
             "failed": "❌"
         }
+
+        # Initialise Sentry (no-op if DSN not provided)
+        self.sentry_enabled = init_sentry("batch_processor")
+        if self.sentry_enabled:
+            add_breadcrumb("BatchProcessor initialised", category="initialisation")
     
     def _load_config(self) -> Dict:
         """Load batch configuration from JSON file"""
@@ -116,6 +143,12 @@ class BatchProcessor:
         
         logger.info(f"Starting batch processing of {total_books} books")
         logger.info(f"Batch ID: {self.batch_id}")
+        if self.sentry_enabled:
+            add_breadcrumb(
+                f"Starting batch of {total_books} books",
+                category="batch",
+                data={"batch_id": self.batch_id, "total": total_books},
+            )
         
         # Process each book
         for i, book_config in enumerate(self.config["books"]):
@@ -295,6 +328,16 @@ class BatchProcessor:
             book_result["steps_failed"].append(step_name)
             error_msg = f"Step {step_name} failed: {str(e)}"
             logger.error(error_msg)
+# -------- Sentry capture on step failure -------------------
+            if self.sentry_enabled:
+                capture_kdp_error(
+                    e,
+                    {
+                        "book_id": book_result["id"],
+                        "step": step_name,
+                        "display": display_name,
+                    },
+                )
             logger.error(traceback.format_exc())
             raise RuntimeError(error_msg)
     

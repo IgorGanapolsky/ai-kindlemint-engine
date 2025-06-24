@@ -1,0 +1,24 @@
+{
+  "batch_id": "20250624_162417",
+  "start_time": "2025-06-24T16:24:17.856580",
+  "end_time": null,
+  "books_processed": 1,
+  "books_succeeded": 0,
+  "books_failed": 1,
+  "total_time_seconds": 0,
+  "book_results": {
+    "test_book_001": {
+      "id": "test_book_001",
+      "title": "Test Crossword Book",
+      "start_time": "2025-06-24T16:24:17.856735",
+      "end_time": "2025-06-24T16:24:17.989749",
+      "steps_completed": [],
+      "steps_failed": [
+        "generate_puzzles"
+      ],
+      "artifacts": {},
+      "status": "failed",
+      "error": "Step generate_puzzles failed: Puzzle generation failed: usage: crossword_engine_v2.py [-h] --output OUTPUT [--count COUNT]\n                              [--difficulty {easy,medium,hard,mixed}]\n                              [--grid-size GRID_SIZE]\n                              [--word-count WORD_COUNT]\n                              [--max-word-length MAX_WORD_LENGTH]\ncrossword_engine_v2.py: error: unrecognized arguments: --grid_size 15 --word_count 20 --max_word_length 10\n"
+    }
+  }
+}

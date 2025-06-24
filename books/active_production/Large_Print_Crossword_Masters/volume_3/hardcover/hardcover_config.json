@@ -1,0 +1,31 @@
+{
+  "title": "Large Print Crossword Masters - Volume 3",
+  "subtitle": "50 Advanced Crossword Puzzles for Seniors",
+  "author": "Crossword Masters Publishing",
+  "publisher": "Crossword Masters Publishing",
+  "description": "The third volume in our popular Large Print Crossword Masters series, featuring 50 advanced puzzles designed to challenge experienced solvers. With the same large print format for comfortable reading, these puzzles offer a more stimulating mental workout.",
+  "keywords": [
+    "large print",
+    "crossword puzzles",
+    "seniors",
+    "advanced puzzles",
+    "brain games",
+    "cognitive exercise"
+  ],
+  "categories": [
+    "Games & Puzzles",
+    "Activity Books",
+    "Crosswords"
+  ],
+  "language": "en",
+  "pages": 110,
+  "hardcover_price_min": 16.99,
+  "hardcover_price_max": 21.99,
+  "target_audience": "Seniors, Experienced puzzle enthusiasts",
+  "printing_cost_estimate": 5.5,
+  "royalty_min": 4.5,
+  "royalty_max": 7.5,
+  "cover_source": "default_cover.jpg",
+  "output_dir": "books/active_production/Large_Print_Crossword_Masters/volume_3/hardcover",
+  "back_cover_description": "Large Print Crossword Masters\nVolume 3\n\n50 Advanced Crossword Puzzles\nDesigned for experienced solvers\nThe perfect challenge after completing Volumes 1 & 2"
+}

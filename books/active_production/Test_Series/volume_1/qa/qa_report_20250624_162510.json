@@ -1,0 +1,253 @@
+{
+  "file_path": "books/active_production/Test_Series/volume_1/paperback/Test_Crossword_Book_interior_FINAL.pdf",
+  "timestamp": "2025-06-24T16:25:03.705776",
+  "file_checks": {
+    "file_exists": true,
+    "file_size_bytes": 326743,
+    "size_valid": true
+  },
+  "content_checks": {
+    "page_count": 20,
+    "not_encrypted": true,
+    "total_characters": 3999,
+    "total_words": 726,
+    "duplicate_content_ratio": 0.5270935960591133
+  },
+  "layout_checks": {},
+  "visual_checks": {
+    "page_1_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_1_black_ratio": 0.008901824618736384,
+    "page_1_white_ratio": 0.9876419422988051,
+    "page_2_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_2_black_ratio": 0.005597230474681455,
+    "page_2_white_ratio": 0.982640952003697,
+    "page_3_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_3_black_ratio": 0.005189249521357364,
+    "page_3_white_ratio": 0.9895962278008846,
+    "page_4_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_4_black_ratio": 0.013686187858981977,
+    "page_4_white_ratio": 0.9684658059351687,
+    "page_5_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_5_black_ratio": 0.04077746418432693,
+    "page_5_white_ratio": 0.9351165866178122,
+    "page_6_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_6_black_ratio": 0.005136640093747937,
+    "page_6_white_ratio": 0.9887286880240311,
+    "page_7_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_7_black_ratio": 0.04077385373341256,
+    "page_7_white_ratio": 0.9352130372350961,
+    "page_8_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_8_black_ratio": 0.0051742919389978215,
+    "page_8_white_ratio": 0.9886740154816135,
+    "page_9_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_9_black_ratio": 0.040710412953060014,
+    "page_9_white_ratio": 0.9353022669505513,
+    "page_10_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_10_black_ratio": 0.0051742919389978215,
+    "page_10_white_ratio": 0.9886482265465109,
+    "page_11_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_11_black_ratio": 0.04067224532910808,
+    "page_11_white_ratio": 0.9354384325278933,
+    "page_12_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_12_black_ratio": 0.005170165709381396,
+    "page_12_white_ratio": 0.9886714365881033,
+    "page_13_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_13_black_ratio": 0.04058662606456724,
+    "page_13_white_ratio": 0.9355751138839374,
+    "page_14_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_14_black_ratio": 0.005177386611210141,
+    "page_14_white_ratio": 0.9886487423252129,
+    "page_15_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_15_black_ratio": 0.002848129992737836,
+    "page_15_white_ratio": 0.9952919720076583,
+    "page_16_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_16_black_ratio": 0.00874709100812042,
+    "page_16_white_ratio": 0.9816578777975837,
+    "page_17_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_17_black_ratio": 0.0087759746154354,
+    "page_17_white_ratio": 0.9816305415263749,
+    "page_18_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_18_black_ratio": 0.008777521951541559,
+    "page_18_white_ratio": 0.9815975316894434,
+    "page_19_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_19_black_ratio": 0.00877287994322308,
+    "page_19_white_ratio": 0.9816186786162276,
+    "page_20_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_20_black_ratio": 0.008785258632072357,
+    "page_20_white_ratio": 0.9815825741070839,
+    "no_edge_text_issues": true
+  },
+  "amazon_kdp_checks": {
+    "size_under_kdp_limit": true
+  },
+  "overall_score": 0,
+  "issues_found": [],
+  "warnings": [
+    {
+      "type": "WARNING",
+      "code": "MODERATE_DUPLICATION",
+      "description": "Content is 52.7% duplicate"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 1: 98.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 2: 98.3% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 3: 99.0% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 4: 96.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 5: 93.5% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 6: 98.9% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 7: 93.5% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 8: 98.9% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 9: 93.5% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 10: 98.9% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 11: 93.5% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 12: 98.9% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 13: 93.6% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 14: 98.9% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 15: 99.5% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 16: 98.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 17: 98.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 18: 98.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 19: 98.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 20: 98.2% white - may lack content"
+    }
+  ],
+  "publish_ready": false
+}

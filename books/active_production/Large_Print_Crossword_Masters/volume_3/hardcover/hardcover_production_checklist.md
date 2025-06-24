@@ -1,5 +1,5 @@
 # Hardcover Production Checklist
-## Large Print Crossword Masters - 50 Challenging Crossword Puzzles - From Medium to Hard - Volume 3
+## Large Print Crossword Masters - Volume 3 - 50 Advanced Crossword Puzzles for Seniors
 
 ### 📊 **Hardcover Specifications**
 - **Format**: Case-Laminate Hardcover (KDP's only hardcover option)
@@ -26,7 +26,7 @@
 ### 🎨 **Cover Design Elements**
 
 #### **Source Assets**
-- **Front Cover**: `books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/cover.png`
+- **Front Cover**: `default_cover.jpg`
 - **Template**: `6x9_110pages_template.png`
 
 #### **Design Requirements**
@@ -40,9 +40,9 @@
    - Publisher: "Crossword Masters Publishing" at bottom
 
 ### 💰 **Pricing Strategy**
-- **Printing Cost**: ~$6.75 (estimated)
-- **Target Price**: $22.99 - $27.99
-- **Royalty**: ~$5.50 - $10.50 per book
+- **Printing Cost**: ~$5.50 (estimated)
+- **Target Price**: $16.99 - $21.99
+- **Royalty**: ~$4.50 - $7.50 per book
 - **Revenue Multiplier**: 2-3x paperback profit margin
 
 ### 📋 **Quality Control Checklist**
@@ -54,7 +54,7 @@
 
 ### 📈 **Metadata Updates**
 - [ ] New ISBN (KDP assigns automatically)
-- [ ] Price: $22.99 - $27.99 range
+- [ ] Price: $16.99 - $21.99 range
 - [ ] Description: Enhanced with hardcover benefits
 - [ ] Categories: Same as paperback
 - [ ] Keywords: Include "hardcover", "premium", "gift"

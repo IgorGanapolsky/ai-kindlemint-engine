@@ -1,0 +1,38 @@
+{
+  "batch_name": "Test Batch - Single Puzzle",
+  "description": "Minimal test to verify batch processor functionality",
+  "delay_between_books": 0,
+  "books": [
+    {
+      "id": "test_book_001",
+      "title": "Test Crossword Book",
+      "subtitle": "5 Test Puzzles",
+      "series_name": "Test_Series",
+      "volume": 1,
+      "puzzle_type": "crossword",
+      "puzzle_count": 5,
+      "difficulty": "easy",
+      "pages": 20,
+      "author": "Test Author",
+      "publisher": "Test Publisher",
+      "description": "A test book with 5 easy crossword puzzles",
+      "keywords": ["test", "crossword"],
+      "categories": ["Test Category"],
+      "language": "en",
+      "target_audience": "Testers",
+      "create_epub": false,
+      "create_hardcover": false,
+      "kindle_price": 0.99,
+      "puzzle_params": {
+        "grid_size": 15,
+        "word_count": 20,
+        "max_word_length": 10
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "font_size": 14,
+        "include_solutions": true
+      }
+    }
+  ]
+}
