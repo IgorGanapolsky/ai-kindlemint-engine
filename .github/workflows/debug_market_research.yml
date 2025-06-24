@@ -1,0 +1,58 @@
+name: Debug Market Research
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🔄 Checkout
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: 📦 Install minimal dependencies
+      run: |
+        pip install requests pandas
+        
+    - name: 🔍 Check if script exists
+      run: |
+        echo "Checking for market research script..."
+        ls -la scripts/
+        if [ -f "scripts/market_research_csv_output.py" ]; then
+          echo "✅ Script found!"
+        else
+          echo "❌ Script not found!"
+          exit 1
+        fi
+        
+    - name: 🧪 Test script import
+      run: |
+        python -c "
+import sys
+sys.path.append('scripts')
+try:
+    import market_research_csv_output
+    print('✅ Script imported successfully')
+except Exception as e:
+    print(f'❌ Import failed: {e}')
+    exit(1)
+"
+        
+    - name: 📊 Run minimal test
+      run: |
+        mkdir -p research/test
+        python scripts/market_research_csv_output.py || echo "Script failed but continuing..."
+        
+    - name: 📁 Check output
+      run: |
+        echo "Checking research directory..."
+        ls -la research/ || echo "No research directory"
+        find research -type f -name "*.csv" || echo "No CSV files found"
