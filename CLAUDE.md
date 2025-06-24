@@ -41,6 +41,9 @@
 - Remove all failed/test directories before pushing
 - Keep directory structure consistent across volumes
 - Never leave "_failed" or "_test" directories in the repository
+- Delete directories that are not needed on every push
+- Remove any logs, temporary files, or abandoned experiments
+- Keep only production-ready code and essential documentation
 
 ## Claude Max Subscription Status
 
