@@ -2,6 +2,7 @@
 """
 ENHANCED QA Checker - Visual Layout Validation
 CRITICAL: Detects cut-off text, overlapping elements, visual issues
+Updated: 2025-06-23 - Streamlined for revenue-focused book validation
 """
 
 import os
