@@ -17,6 +17,14 @@ from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Union, Any
 import importlib.util
 import shutil
+# --------------------------------------------------------------------------- #
+# Load environment variables early so Sentry / Slack see them
+# --------------------------------------------------------------------------- #
+from dotenv import load_dotenv
+
+# Load .env file from repository root (one directory above this script)
+# `override=False` keeps already-set env vars (e.g. GitHub Actions secrets).
+load_dotenv(dotenv_path=(_PathForSentry(__file__).parent.parent / ".env"), override=False)
 
 # --- Sentry integration ------------------------------------------------------
 from pathlib import Path as _PathForSentry
@@ -646,6 +654,13 @@ class BatchProcessor:
             output_dir = Path(f"books/active_production/{series_name}/volume_{volume}/hardcover")
             output_dir.mkdir(parents=True, exist_ok=True)
             
+            # Copy the interior PDF to hardcover directory (per File Organization Policy)
+            interior_pdf_path = book_result["artifacts"].get("interior_pdf")
+            if interior_pdf_path and Path(interior_pdf_path).exists():
+                hardcover_interior_pdf = output_dir / Path(interior_pdf_path).name
+                shutil.copy2(interior_pdf_path, hardcover_interior_pdf)
+                logger.info(f"Copied interior PDF to hardcover directory: {hardcover_interior_pdf}")
+            
             # Create hardcover config file
             hardcover_config = {
                 "title": book_config.get("title", f"{series_name} Volume {volume}"),
@@ -693,7 +708,8 @@ class BatchProcessor:
                 "hardcover_dir": str(output_dir),
                 "hardcover_config": str(hardcover_config_file),
                 "hardcover_checklist": str(output_dir / "hardcover_production_checklist.md"),
-                "hardcover_metadata": str(output_dir / "amazon_kdp_metadata.json")
+                "hardcover_metadata": str(output_dir / "amazon_kdp_metadata.json"),
+                "hardcover_interior_pdf": str(hardcover_interior_pdf) if 'hardcover_interior_pdf' in locals() else None
             }
             
         except Exception as e:

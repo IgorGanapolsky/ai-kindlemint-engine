@@ -25,6 +25,13 @@
 ### Accuracy Policy
 **ABSOLUTE REQUIREMENT**: Only provide 100% factual, verified information. NEVER claim something exists or was completed unless actually verified. NEVER make excuses for incorrect information. Always verify file existence, tool outputs, and system state before making any claims.
 
+### File Organization Policy
+**CRITICAL**: Always put ALL necessary files in each directory. NEVER assume the user will copy files between directories. Each format directory (paperback, hardcover, kindle) must contain ALL files needed for that format, including:
+- Interior PDF (manuscript) - Copy to each directory that needs it
+- Cover files - Specific to each format
+- Metadata files - Specific to each format
+- Publishing checklists - Specific to each format
+
 ### Publishing & Cover Instructions Policy
 **CRITICAL**: You are NOT allowed to make mistakes in cover instructions and publishing checklists. Everything MUST pass QA pipeline before claiming it's ready. Always:
 - Verify dimensions match between cover and interior

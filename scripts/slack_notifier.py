@@ -12,6 +12,15 @@ from datetime import datetime
 from typing import Dict, List, Optional, Union, Any
 from pathlib import Path
 
+# --------------------------------------------------------------------------- #
+# Load environment variables from a .env file (if present)
+# --------------------------------------------------------------------------- #
+from dotenv import load_dotenv
+
+# Assume the repository root contains `.env`
+ROOT_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(dotenv_path=ROOT_DIR / ".env", override=False)
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("SlackNotifier")
