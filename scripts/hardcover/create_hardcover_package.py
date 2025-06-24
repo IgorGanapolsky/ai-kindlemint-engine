@@ -24,8 +24,15 @@ class HardcoverProducer:
         self.spine_width = (self.config['pages'] * 0.0025) + 0.06
         
         # KDP template dimensions at 300 DPI
-        self.template_width = int(13.996 * 300)  # 4199 pixels
-        self.template_height = int(10.417 * 300)  # 3125 pixels
+        # For 6x9 book: width = bleed + back + spine + front + bleed + wrap
+        # KDP expects exactly 12.82 inches width and 9.50 inches height
+        # Width: 0.125 + 6 + spine + 6 + 0.125 + wrap = 12.82
+        # Therefore: wrap = 12.82 - 12.25 - spine
+        wrap_coverage = 12.82 - 12.25 - self.spine_width
+        self.template_width_inches = 12.82  # KDP exact requirement
+        self.template_height_inches = 9.50  # KDP exact requirement
+        self.template_width = int(self.template_width_inches * 300)
+        self.template_height = int(self.template_height_inches * 300)
         
     def create_directory_structure(self):
         """Create hardcover production directories"""
@@ -308,9 +315,9 @@ class HardcoverProducer:
             if img.mode != 'CMYK':
                 img = img.convert('CMYK')
             
-            # Create PDF
-            width_points = 13.996 * 72
-            height_points = 10.417 * 72
+            # Create PDF with correct dimensions
+            width_points = self.template_width_inches * 72
+            height_points = self.template_height_inches * 72
             
             c = pdf_canvas.Canvas(str(output_file), pagesize=(width_points, height_points))
             c.setTitle(f"{self.config['title']} - Hardcover")
