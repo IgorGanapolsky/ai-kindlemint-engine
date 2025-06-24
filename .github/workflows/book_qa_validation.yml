@@ -3,11 +3,11 @@ name: Book QA Validation
 on:
   push:
     paths:
-      - 'active_production/**/*.pdf'
+      - 'books/active_production/**/*.pdf'
       - 'scripts/**/*.py'
   pull_request:
     paths:
-      - 'active_production/**/*.pdf'
+      - 'books/active_production/**/*.pdf'
       - 'scripts/**/*.py'
 
 jobs:
