@@ -9,6 +9,7 @@ on:
     paths:
       - 'books/active_production/**/*.pdf'
       - 'scripts/**/*.py'
+  workflow_dispatch:
 
 jobs:
   quality-assurance:
