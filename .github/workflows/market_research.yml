@@ -21,6 +21,10 @@ jobs:
     name: 📊 Automated Market Research
     
     steps:
+    - name: 📅 Get Current Date
+      id: date
+      run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+        
     - name: 🔄 Checkout Repository
       uses: actions/checkout@v4
       with:
@@ -222,12 +226,3 @@ jobs:
         echo "🎯 Market Research Complete"
         echo "📊 Data saved to: research/$(date +%Y-%m-%d)/"
         echo "📈 Check PR for detailed insights"
-
-  # Get current date for various steps
-  get-date:
-    runs-on: ubuntu-latest
-    outputs:
-      date: ${{ steps.date.outputs.date }}
-    steps:
-      - id: date
-        run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
