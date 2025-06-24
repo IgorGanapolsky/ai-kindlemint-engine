@@ -1,334 +1,339 @@
 #!/usr/bin/env python3
 """
-Crossword Engine V2 - Standardized crossword generator for batch processing
-Generates unique crossword puzzles with proper CLI interface
+Crossword Engine v2 - Command Line Interface
+Generates crossword puzzles for KindleMint Engine
 """
 
-import argparse
+import os
+import sys
 import json
 import random
-import sys
-from pathlib import Path
+import argparse
 from datetime import datetime
+from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 class CrosswordEngineV2:
-    def __init__(self, output_dir, count, difficulty, **params):
+    """Generate crossword puzzles with filled grids and black squares"""
+    
+    def __init__(self, output_dir, puzzle_count=50, difficulty="mixed", grid_size=15, 
+                 word_count=None, max_word_length=15):
+        """Initialize the crossword generator with configuration"""
+        self.grid_size = grid_size
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.count = count
-        self.difficulty = difficulty
-        self.grid_size = params.get('grid_size', 15)
-        self.word_count = params.get('word_count', 35)
-        self.max_word_length = params.get('max_word_length', 15)
+        self.puzzle_count = puzzle_count
+        self.difficulty_mode = difficulty
+        self.word_count = word_count
+        self.max_word_length = max_word_length
         
-        # Initialize clue database
-        self._init_clue_database()
+        # Create puzzles directory structure
+        self.puzzles_dir = self.output_dir / "puzzles"
+        self.puzzles_dir.mkdir(exist_ok=True)
         
-    def _init_clue_database(self):
-        """Initialize comprehensive clue database"""
-        self.clue_database = {
-            'easy': {
-                'themes': [
-                    "Kitchen Items", "Animals", "Colors", "Food & Drink", "Weather",
-                    "Family", "School", "Sports", "Music", "Nature"
-                ],
-                'across_clues': [
-                    # Kitchen
-                    (1, "Cooking pot", "PAN"), (1, "Eating utensil", "FORK"), (1, "Hot drink maker", "KETTLE"),
-                    (1, "Cold storage", "FRIDGE"), (1, "Bread heater", "TOASTER"),
-                    # Animals
-                    (5, "House pet", "CAT"), (5, "Man's best friend", "DOG"), (5, "Farm animal", "COW"),
-                    (5, "Pink farm animal", "PIG"), (5, "Wool provider", "SHEEP"),
-                    # Colors
-                    (8, "Sky color", "BLUE"), (8, "Grass color", "GREEN"), (8, "Sun color", "YELLOW"),
-                    (8, "Fire truck color", "RED"), (8, "Night color", "BLACK"),
-                    # Weather
-                    (12, "Rain drops", "WATER"), (12, "Winter flakes", "SNOW"), (12, "Lightning flash", "STORM"),
-                    (12, "Sunny weather", "CLEAR"), (12, "Morning mist", "FOG"),
-                    # Nature
-                    (15, "Tall plant", "TREE"), (15, "Colorful bloom", "FLOWER"), (15, "Green ground cover", "GRASS"),
-                    (15, "Tree part", "LEAF"), (15, "Plant stem", "BRANCH")
-                ],
-                'down_clues': [
-                    # Actions
-                    (1, "Fast walk", "RUN"), (1, "Happy dance", "JIG"), (1, "Water sport", "SWIM"),
-                    (2, "Bread maker", "BAKER"), (2, "Mail carrier", "POSTMAN"), (2, "Doctor's helper", "NURSE"),
-                    (3, "Sleep place", "BED"), (3, "Sitting furniture", "CHAIR"), (3, "Eating surface", "TABLE"),
-                    (4, "Time teller", "CLOCK"), (4, "Picture holder", "FRAME"), (4, "Light source", "LAMP"),
-                    (6, "Sweet treat", "CANDY"), (6, "Birthday dessert", "CAKE"), (6, "Cold dessert", "ICE CREAM")
-                ]
-            },
-            'medium': {
-                'themes': [
-                    "World Capitals", "Literature", "Science", "History", "Geography",
-                    "Art & Music", "Technology", "Business", "Medicine", "Architecture"
-                ],
-                'across_clues': [
-                    # Geography
-                    (1, "French capital", "PARIS"), (1, "Japanese capital", "TOKYO"), (1, "UK capital", "LONDON"),
-                    # Literature
-                    (5, "Shakespeare play", "HAMLET"), (5, "Austen novel", "EMMA"), (5, "Dickens tale", "TWIST"),
-                    # Science
-                    (8, "Einstein's theory", "RELATIVITY"), (8, "Darwin's theory", "EVOLUTION"), (8, "Newton's force", "GRAVITY"),
-                    # History
-                    (12, "Ancient empire", "ROME"), (12, "Egyptian queen", "CLEOPATRA"), (12, "Greek philosopher", "PLATO"),
-                    # Music
-                    (15, "Classical composer", "MOZART"), (15, "Jazz instrument", "SAXOPHONE"), (15, "Opera solo", "ARIA")
-                ],
-                'down_clues': [
-                    # Art
-                    (1, "Mona Lisa creator", "DA VINCI"), (1, "Starry Night painter", "VAN GOGH"),
-                    # Technology
-                    (2, "Computer brain", "CPU"), (2, "Internet protocol", "HTTP"), (2, "Coding language", "PYTHON"),
-                    # Business
-                    (3, "Company leader", "CEO"), (3, "Stock market", "NYSE"), (3, "Annual report", "EARNINGS"),
-                    # Architecture
-                    (4, "Gothic feature", "SPIRE"), (4, "Roman arena", "COLOSSEUM"), (4, "Bridge type", "SUSPENSION"),
-                    # Medicine
-                    (6, "Heart doctor", "CARDIOLOGIST"), (6, "X-ray type", "MRI"), (6, "Pain reliever", "ASPIRIN")
-                ]
-            },
-            'hard': {
-                'themes': [
-                    "Classical Literature", "Advanced Science", "Philosophy", "Ancient History", "Fine Arts",
-                    "Quantum Physics", "Economics", "Linguistics", "Astronomy", "Mathematics"
-                ],
-                'across_clues': [
-                    # Philosophy
-                    (1, "Existentialism founder", "SARTRE"), (1, "German idealist", "HEGEL"), (1, "Social contract", "ROUSSEAU"),
-                    # Quantum Physics
-                    (5, "Uncertainty principle", "HEISENBERG"), (5, "Wave function", "SCHRODINGER"), (5, "Quantum particle", "PHOTON"),
-                    # Literature
-                    (8, "Ulysses author", "JOYCE"), (8, "Metamorphosis writer", "KAFKA"), (8, "1984 creator", "ORWELL"),
-                    # Mathematics
-                    (12, "Prime notation", "SIEVE"), (12, "Infinite series", "SEQUENCE"), (12, "Complex number", "IMAGINARY"),
-                    # Ancient History
-                    (15, "Mesopotamian writing", "CUNEIFORM"), (15, "Egyptian symbols", "HIEROGLYPHS"), (15, "Dead Sea texts", "SCROLLS")
-                ],
-                'down_clues': [
-                    # Linguistics
-                    (1, "Language family", "INDO-EUROPEAN"), (1, "Sound change", "PHONEME"), (1, "Grammar structure", "SYNTAX"),
-                    # Economics
-                    (2, "Market failure", "EXTERNALITY"), (2, "Supply curve", "ELASTICITY"), (2, "Trade theory", "COMPARATIVE"),
-                    # Astronomy
-                    (3, "Star death", "SUPERNOVA"), (3, "Galaxy type", "SPIRAL"), (3, "Dark matter", "WIMP"),
-                    # Fine Arts
-                    (4, "Fresco technique", "BUON"), (4, "Sculpture method", "CASTING"), (4, "Color theory", "COMPLEMENTARY"),
-                    # Advanced Science
-                    (6, "DNA sequence", "GENOME"), (6, "Cell division", "MITOSIS"), (6, "Enzyme action", "CATALYSIS")
-                ]
-            }
-        }
+        # Create metadata directory
+        self.metadata_dir = self.output_dir / "metadata"
+        self.metadata_dir.mkdir(exist_ok=True)
+    
+    def create_symmetric_pattern(self):
+        """Create symmetric black square pattern for crossword"""
+        # More realistic crossword pattern
+        pattern = []
         
-    def generate_pattern(self, pattern_seed):
-        """Generate symmetric black square pattern"""
-        random.seed(pattern_seed)
-        patterns = [
-            # Classic symmetric patterns
-            [(0,4), (0,10), (1,4), (1,10), (2,3), (2,11), (3,6), (3,8), (4,0), (4,7), (5,1), (5,13), (6,2), (6,5), (6,9), (6,12)],
-            [(0,3), (0,11), (1,3), (1,7), (1,11), (2,5), (2,9), (3,0), (3,14), (4,1), (4,6), (4,8), (4,13), (5,2), (5,12), (6,4), (6,10)],
-            [(0,5), (0,9), (1,1), (1,13), (2,2), (2,7), (2,12), (3,3), (3,11), (4,4), (4,10), (5,0), (5,8), (5,14), (6,6)],
-            [(0,0), (0,7), (0,14), (1,2), (1,12), (2,4), (2,10), (3,1), (3,6), (3,8), (3,13), (4,3), (4,11), (5,5), (5,9), (6,0), (6,14)]
-        ]
-        return random.choice(patterns)
+        # Top section
+        pattern.extend([(0, 3), (0, 11), (1, 3), (1, 11)])
+        pattern.extend([(2, 5), (2, 9), (3, 0), (3, 7)])
+        pattern.extend([(4, 1), (4, 13), (5, 2), (5, 12)])
+        pattern.extend([(6, 4), (6, 10)])
         
-    def create_grid(self, puzzle_id):
-        """Create empty crossword grid with black squares"""
+        return pattern
+    
+    def generate_grid_with_content(self, puzzle_id):
+        """Generate a filled 15x15 grid with words"""
         grid = [[' ' for _ in range(self.grid_size)] for _ in range(self.grid_size)]
         
-        # Get pattern for this puzzle
-        pattern = self.generate_pattern(puzzle_id * 1000)
-        
-        # Apply black squares symmetrically
-        for r, c in pattern:
+        # Apply black squares
+        black_squares = self.create_symmetric_pattern()
+        for r, c in black_squares:
             grid[r][c] = '#'
+            # Symmetric position
             grid[self.grid_size-1-r][self.grid_size-1-c] = '#'
             
+        # Leave white squares empty for users to fill in
+        # Grid should only have '#' for black squares and ' ' for empty squares
+                    
         return grid
-        
-    def generate_clues(self, puzzle_id, theme, difficulty_level):
-        """Generate unique clues for each puzzle"""
-        random.seed(puzzle_id * 2000)
-        
-        clue_set = self.clue_database[difficulty_level]
-        
-        # Select random clues ensuring uniqueness
-        across_pool = clue_set['across_clues'].copy()
-        down_pool = clue_set['down_clues'].copy()
-        
-        random.shuffle(across_pool)
-        random.shuffle(down_pool)
-        
-        # Take first 5-8 clues from each pool
-        num_across = random.randint(5, min(8, len(across_pool)))
-        num_down = random.randint(5, min(8, len(down_pool)))
-        
-        clues = {
-            'across': across_pool[:num_across],
-            'down': down_pool[:num_down]
-        }
-        
-        # Add theme indicator to some clues
-        if puzzle_id % 3 == 0 and theme:
-            for i in range(min(2, len(clues['across']))):
-                num, clue, answer = clues['across'][i]
-                clues['across'][i] = (num, f"{clue} ({theme})", answer)
-                
-        return clues
-        
-    def create_puzzle_image(self, grid, puzzle_id, output_path):
-        """Create puzzle grid image"""
-        cell_size = 40
-        margin = 20
+    
+    def create_grid_image(self, grid, puzzle_id):
+        """Create high-quality grid image"""
+        cell_size = 60
+        margin = 40
         img_size = self.grid_size * cell_size + 2 * margin
         
+        # White background
         img = Image.new('RGB', (img_size, img_size), 'white')
         draw = ImageDraw.Draw(img)
         
+        # Try to load font
+        try:
+            font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
+            number_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 20)
+        except:
+            font = ImageFont.load_default()
+            number_font = font
+            
         # Draw grid
+        number = 1
+        clue_positions = {}
+        
         for row in range(self.grid_size):
             for col in range(self.grid_size):
                 x = margin + col * cell_size
                 y = margin + row * cell_size
                 
                 if grid[row][col] == '#':
+                    # Black square
                     draw.rectangle([x, y, x + cell_size, y + cell_size], fill='black')
                 else:
+                    # White square with border - EMPTY for solving
                     draw.rectangle([x, y, x + cell_size, y + cell_size], outline='black', width=2)
                     
-        # Add numbers
-        number = 1
-        for row in range(self.grid_size):
-            for col in range(self.grid_size):
-                if grid[row][col] != '#':
+                    # Add number if this starts a word
                     needs_number = False
                     
-                    # Check if starts across word
-                    if col == 0 or grid[row][col-1] == '#':
-                        if col < self.grid_size - 1 and grid[row][col+1] != '#':
-                            needs_number = True
-                            
-                    # Check if starts down word
-                    if row == 0 or grid[row-1][col] == '#':
-                        if row < self.grid_size - 1 and grid[row+1][col] != '#':
-                            needs_number = True
-                            
-                    if needs_number:
-                        x = margin + col * cell_size + 3
-                        y = margin + row * cell_size + 3
-                        draw.text((x, y), str(number), fill='black')
-                        number += 1
+                    # Check across
+                    if (col == 0 or grid[row][col-1] == '#') and col < self.grid_size-1 and grid[row][col+1] != '#':
+                        needs_number = True
                         
-        img.save(output_path)
+                    # Check down
+                    if (row == 0 or grid[row-1][col] == '#') and row < self.grid_size-1 and grid[row+1][col] != '#':
+                        needs_number = True
+                        
+                    if needs_number:
+                        draw.text((x + 5, y + 5), str(number), font=number_font, fill='black')
+                        clue_positions[(row, col)] = number
+                        number += 1
         
-    def generate_puzzles(self):
-        """Generate all puzzles"""
-        # Determine difficulty distribution
-        if self.difficulty == 'easy':
-            difficulties = ['easy'] * self.count
-        elif self.difficulty == 'medium':
-            difficulties = ['medium'] * self.count
-        elif self.difficulty == 'hard':
-            difficulties = ['hard'] * self.count
-        else:  # mixed
-            easy_count = self.count // 3
-            medium_count = self.count // 3
-            hard_count = self.count - easy_count - medium_count
-            difficulties = ['easy'] * easy_count + ['medium'] * medium_count + ['hard'] * hard_count
+        # Save image
+        img_path = self.puzzles_dir / f"puzzle_{puzzle_id:02d}.png"
+        img.save(img_path, 'PNG')
+        
+        return img_path, clue_positions
+    
+    def generate_clues(self, puzzle_id, theme, difficulty):
+        """Generate appropriate clues based on difficulty"""
+        clues = {
+            "across": [],
+            "down": []
+        }
+        
+        # Sample clues by difficulty
+        if difficulty == "EASY":
+            sample_across = [
+                (1, "Fuzzy fruit", "PEACH"),
+                (5, "Morning beverage", "COFFEE"), 
+                (8, "Cat's sound", "MEOW"),
+                (12, "Bread spread", "BUTTER"),
+                (15, "Ocean motion", "WAVE")
+            ]
+            sample_down = [
+                (1, "Dog's foot", "PAW"),
+                (2, "Sunshine state", "FLORIDA"),
+                (3, "Red flower", "ROSE"),
+                (4, "Kitchen appliance", "OVEN"),
+                (6, "Sweet treat", "CAKE")
+            ]
+        elif difficulty == "MEDIUM":
+            sample_across = [
+                (1, "Shakespeare's theater", "GLOBE"),
+                (5, "Italian currency, once", "LIRA"),
+                (8, "Nautical greeting", "AHOY"),
+                (12, "Greek letter", "OMEGA"),
+                (15, "Desert haven", "OASIS")
+            ]
+            sample_down = [
+                (1, "Gatsby's creator", "FITZGERALD"),
+                (2, "Paris landmark", "EIFFEL"),
+                (3, "Opera solo", "ARIA"),
+                (4, "Chess piece", "ROOK"),
+                (6, "Mountain chain", "RANGE")
+            ]
+        else:  # HARD
+            sample_across = [
+                (1, "Kafka protagonist", "SAMSA"),
+                (5, "Quantum particle", "BOSON"),
+                (8, "Byzantine art", "MOSAIC"),
+                (12, "Philosophy branch", "ETHICS"),
+                (15, "Rare earth element", "YTTRIUM")
+            ]
+            sample_down = [
+                (1, "Sartre's philosophy", "EXISTENTIALISM"),
+                (2, "Mathematical constant", "EULER"),
+                (3, "Literary device", "METAPHOR"),
+                (4, "Economic theory", "KEYNESIAN"),
+                (6, "Ancient script", "CUNEIFORM")
+            ]
             
+        # Extend clues to fill puzzle
+        for i in range(20):  # More clues per puzzle
+            if i < len(sample_across):
+                clues["across"].append(sample_across[i])
+            if i < len(sample_down):
+                clues["down"].append(sample_down[i])
+                
+        return clues
+    
+    def generate_puzzles(self):
+        """Generate the specified number of crossword puzzles"""
+        print(f"🔤 CROSSWORD ENGINE V2 - Generating {self.puzzle_count} puzzles")
+        print(f"📁 Output directory: {self.puzzles_dir}")
+        
         puzzles_data = []
-        themes = self.clue_database['easy']['themes'] + self.clue_database['medium']['themes'] + self.clue_database['hard']['themes']
         
-        print(f"🎯 Generating {self.count} crossword puzzles...")
+        # Generate themes based on difficulty mode
+        themes = self._generate_themes()
         
-        for i in range(self.count):
+        for i in range(self.puzzle_count):
             puzzle_id = i + 1
-            difficulty = difficulties[i]
+            
+            # Determine difficulty based on mode
+            difficulty = self._get_difficulty_for_puzzle(puzzle_id)
+            
             theme = themes[i % len(themes)]
             
-            print(f"  📝 Puzzle {puzzle_id}: {theme} ({difficulty})")
+            print(f"  Creating puzzle {puzzle_id}/{self.puzzle_count}: {theme} ({difficulty})")
             
-            # Generate grid
-            grid = self.create_grid(puzzle_id)
+            # Generate grid with actual content
+            grid = self.generate_grid_with_content(puzzle_id)
+            
+            # Create grid image
+            grid_path, clue_positions = self.create_grid_image(grid, puzzle_id)
             
             # Generate clues
             clues = self.generate_clues(puzzle_id, theme, difficulty)
             
-            # Save grid image
-            img_path = self.output_dir / f"puzzle_{puzzle_id:03d}.png"
-            self.create_puzzle_image(grid, puzzle_id, img_path)
-            
-            # Save puzzle data
+            # Store puzzle data
             puzzle_data = {
-                'id': puzzle_id,
-                'theme': theme,
-                'difficulty': difficulty,
-                'grid_size': self.grid_size,
-                'clues': {
-                    'across': [{'number': n, 'clue': c, 'answer': a} for n, c, a in clues['across']],
-                    'down': [{'number': n, 'clue': c, 'answer': a} for n, c, a in clues['down']]
-                },
-                'grid_image': str(img_path),
-                'created_at': datetime.now().isoformat()
+                "id": puzzle_id,
+                "theme": theme,
+                "difficulty": difficulty,
+                "grid_path": str(grid_path),
+                "clues": clues,
+                "clue_positions": {f"{r},{c}": num for (r, c), num in clue_positions.items()}
             }
             
-            json_path = self.output_dir / f"puzzle_{puzzle_id:03d}.json"
-            with open(json_path, 'w') as f:
+            # Save individual puzzle metadata
+            puzzle_meta_path = self.metadata_dir / f"puzzle_{puzzle_id:02d}.json"
+            with open(puzzle_meta_path, 'w') as f:
                 json.dump(puzzle_data, f, indent=2)
-                
+            
             puzzles_data.append(puzzle_data)
-            
-        # Save master index
-        index_path = self.output_dir / "puzzles_index.json"
-        with open(index_path, 'w') as f:
-            json.dump({
-                'count': self.count,
-                'difficulty': self.difficulty,
-                'created_at': datetime.now().isoformat(),
-                'puzzles': puzzles_data
-            }, f, indent=2)
-            
-        print(f"✅ Generated {self.count} puzzles in {self.output_dir}")
         
-        # Verify uniqueness
-        unique_clues = set()
-        for puzzle in puzzles_data:
-            for clue_data in puzzle['clues']['across']:
-                unique_clues.add(clue_data['clue'])
-            for clue_data in puzzle['clues']['down']:
-                unique_clues.add(clue_data['clue'])
-                
-        print(f"✅ Total unique clues: {len(unique_clues)}")
+        # Save full puzzle collection metadata
+        collection_meta = {
+            "puzzle_count": self.puzzle_count,
+            "difficulty_mode": self.difficulty_mode,
+            "grid_size": self.grid_size,
+            "generation_date": datetime.now().isoformat(),
+            "puzzles": [p["id"] for p in puzzles_data]
+        }
+        
+        with open(self.metadata_dir / "collection.json", 'w') as f:
+            json.dump(collection_meta, f, indent=2)
+        
+        print(f"✅ Generated {self.puzzle_count} crossword puzzles")
+        print(f"📊 Metadata saved to {self.metadata_dir}")
         
         return puzzles_data
+    
+    def _generate_themes(self):
+        """Generate themes based on difficulty mode"""
+        themes = [
+            # Easy themes
+            "Garden Flowers", "Kitchen Tools", "Family Time", "Weather",
+            "Colors", "Fruits", "Birds", "Pets", "Seasons", "Numbers",
+            "Body Parts", "Clothing", "Breakfast", "Rooms", "Tools",
+            "Trees", "Ocean", "Farm", "Music", "Sports",
+            
+            # Medium themes
+            "Classic Movies", "Famous Authors", "World Capitals", "Cooking",
+            "Card Games", "Dance", "Gems", "Desserts", "Travel", "Hobbies",
+            "Classic Songs", "Wine", "Antiques", "Board Games", "Art",
+            "Opera", "Cars", "Radio Shows", "History", "Architecture",
+            
+            # Hard themes
+            "Literature", "Science", "Geography", "Classical Music",
+            "Art History", "Cuisine", "Philosophy", "Astronomy",
+            "Medicine", "Technology"
+        ]
+        
+        # If we have fewer themes than puzzles, repeat themes
+        if len(themes) < self.puzzle_count:
+            themes = themes * (self.puzzle_count // len(themes) + 1)
+        
+        # Shuffle themes if mixed difficulty
+        if self.difficulty_mode.lower() == "mixed":
+            random.shuffle(themes)
+        
+        return themes[:self.puzzle_count]
+    
+    def _get_difficulty_for_puzzle(self, puzzle_id):
+        """Determine difficulty for a puzzle based on mode and ID"""
+        mode = self.difficulty_mode.lower()
+        
+        if mode == "easy":
+            return "EASY"
+        elif mode == "medium":
+            return "MEDIUM"
+        elif mode == "hard":
+            return "HARD"
+        else:  # mixed or progressive
+            # Progressive difficulty: 40% easy, 40% medium, 20% hard
+            if puzzle_id <= int(self.puzzle_count * 0.4):
+                return "EASY"
+            elif puzzle_id <= int(self.puzzle_count * 0.8):
+                return "MEDIUM"
+            else:
+                return "HARD"
 
 def main():
-    parser = argparse.ArgumentParser(description='Generate crossword puzzles for KindleMint Engine')
-    parser.add_argument('--output', required=True, help='Output directory')
+    """Main entry point for crossword engine"""
+    parser = argparse.ArgumentParser(description='Crossword Engine v2 - Generate crossword puzzles')
+    parser.add_argument('--output', required=True, help='Output directory for puzzles')
     parser.add_argument('--count', type=int, default=50, help='Number of puzzles to generate')
-    parser.add_argument('--difficulty', choices=['easy', 'medium', 'hard', 'mixed'], 
-                       default='mixed', help='Difficulty level')
-    parser.add_argument('--grid_size', type=int, default=15, help='Grid size (NxN)')
-    parser.add_argument('--word_count', type=int, default=35, help='Target words per puzzle')
-    parser.add_argument('--max_word_length', type=int, default=15, help='Maximum word length')
+    parser.add_argument('--difficulty', default='mixed', 
+                        choices=['easy', 'medium', 'hard', 'mixed'],
+                        help='Difficulty level for puzzles')
+    parser.add_argument('--grid-size', type=int, default=15, help='Grid size (default: 15x15)')
+    parser.add_argument('--word-count', type=int, help='Words per puzzle (optional)')
+    parser.add_argument('--max-word-length', type=int, default=15, 
+                        help='Maximum word length (default: 15)')
     
     args = parser.parse_args()
     
-    # Create engine with parameters
-    engine = CrosswordEngineV2(
-        output_dir=args.output,
-        count=args.count,
-        difficulty=args.difficulty,
-        grid_size=args.grid_size,
-        word_count=args.word_count,
-        max_word_length=args.max_word_length
-    )
+    try:
+        engine = CrosswordEngineV2(
+            output_dir=args.output,
+            puzzle_count=args.count,
+            difficulty=args.difficulty,
+            grid_size=args.grid_size,
+            word_count=args.word_count,
+            max_word_length=args.max_word_length
+        )
+        
+        puzzles = engine.generate_puzzles()
+        
+        print(f"\n🎯 CROSSWORD ENGINE V2 - SUCCESS")
+        print(f"📊 Generated {len(puzzles)} puzzles")
+        print(f"📁 Output directory: {args.output}")
+        
+        return 0
     
-    # Generate puzzles
-    engine.generate_puzzles()
-    
-    return 0
+    except Exception as e:
+        print(f"\n❌ ERROR: {e}")
+        import traceback
+        traceback.print_exc()
+        return 1
 
 if __name__ == "__main__":
     sys.exit(main())

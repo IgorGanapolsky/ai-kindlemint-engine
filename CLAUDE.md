@@ -48,6 +48,17 @@
 - Use descriptive names for any temporary or test files
 - Remove all failed/test directories before pushing
 - Keep directory structure consistent across volumes
+- Delete ALL temporary files, logs, and abandoned experiments
+- Keep only production-ready code and essential documentation
+
+### No Unnecessary Files Policy
+**CRITICAL**: No unnecessary and extraneous files in the repo after you push. This includes:
+- Individual puzzle source files after PDF generation (they're embedded in the PDF)
+- Temporary generation artifacts
+- Old planning documents that are no longer relevant
+- Debug logs and test outputs
+- Any intermediate files used during processing
+- Keep ONLY the final deliverables needed for KDP upload
 - Never leave "_failed" or "_test" directories in the repository
 - Delete directories that are not needed on every push
 - Remove any logs, temporary files, or abandoned experiments
