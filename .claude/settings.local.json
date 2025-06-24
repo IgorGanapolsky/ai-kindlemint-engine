@@ -134,7 +134,8 @@
       "Bash(gs:*)",
       "Bash(gh run watch:*)",
       "Bash(git ls-tree:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(gh run download:*)"
     ],
     "deny": []
   }

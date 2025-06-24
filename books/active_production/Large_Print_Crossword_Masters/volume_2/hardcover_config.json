@@ -7,7 +7,7 @@
   "pages": 110,
   "spine_width_inches": 0.335,
   "trim_size": "8.5x11",
-  "cover_source": "../cover.png",
+  "cover_source": "../paperback/cover.png",
   "output_dir": "hardcover",
   "pricing": {
     "list_price": "$22.99",
