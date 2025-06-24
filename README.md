@@ -20,6 +20,14 @@ The AI KindleMint Engine generates professional-quality books for Amazon KDP pub
 - **File organization** - Format-specific directory structure
 - **Manual QA integration** - Kindle Previewer testing
 
+### **📊 Market Research Automation**
+- **Daily scheduled workflow** - Runs at 2 AM UTC automatically
+- **SerpAPI integration** - Fetches Amazon competitor data
+- **CSV output with schema** - date, keyword, amazon_rank, avg_price, est_sales
+- **Automatic PR creation** - Daily insights with top 5 opportunities
+- **Error handling** - Retry logic, rate limiting, fallback to mock data
+- **Sentry monitoring** - Optional error tracking and debugging
+
 ### **📁 File Organization**
 ```
 books/active_production/Series_Name/volume_X/
@@ -35,12 +43,6 @@ books/active_production/Series_Name/volume_X/
 - **Enhanced Kindle EPUB**: Clickable TOC, high-resolution grids, marketing back-matter
 
 ## 🚧 **PLANNED FEATURES (Not Yet Implemented)**
-
-### **Market Research Automation**
-- **Status**: ✅ Sentry + Seer AI enhanced automation working
-- **Reality**: Zero-touch debugging with 94.5% accuracy error analysis
-- **Working**: SerpApi + Slack + comprehensive error tracking
-- **Seer AI**: Automatic PR creation for fixes, one-click error resolution
 
 ### **AWS Infrastructure**
 - **Status**: Workflow files exist for Lambda deployment
@@ -82,6 +84,19 @@ python scripts/enhanced_qa_checker.py
 3. Upload Kindle EPUB to Amazon KDP
 4. Set pricing and categories
 5. Launch with marketing
+
+### **4. Market Research Automation**
+```bash
+# Manual trigger (for testing)
+gh workflow run market_research.yml
+
+# View results
+ls research/YYYY-MM-DD/
+```
+- **Automatic**: Runs daily at 2 AM UTC
+- **Output**: CSV with keyword analysis + JSON summary
+- **PR Created**: Review top 5 opportunities daily
+- **Setup Required**: See `docs/GITHUB_SECRETS_SETUP.md`
 
 ## 📊 **Actual Success Metrics**
 
