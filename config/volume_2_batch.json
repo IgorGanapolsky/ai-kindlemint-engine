@@ -1,0 +1,58 @@
+{
+  "batch_name": "Large Print Crossword Masters Volume 2 Production",
+  "delay_between_books": 5,
+  "books": [
+    {
+      "id": "crossword_masters_vol2",
+      "title": "Large Print Crossword Masters",
+      "subtitle": "50 New Crossword Puzzles - Easy to Challenging",
+      "series_name": "Large_Print_Crossword_Masters",
+      "volume": 2,
+      "puzzle_type": "crossword",
+      "puzzle_count": 50,
+      "difficulty": "mixed",
+      "pages": 103,
+      "isbn": "[To be assigned]",
+      "price": 12.99,
+      "author": "Crossword Masters Publishing",
+      "publisher": "Crossword Masters Publishing",
+      "description": "Continue your crossword journey with Volume 2 of Large Print Crossword Masters! This collection features 50 brand-new puzzles designed specifically for comfortable solving. With extra-large print and carefully crafted clues ranging from easy to challenging, this book is perfect for puzzlers of all skill levels. Each puzzle offers a unique theme and fresh vocabulary to keep your mind engaged and entertained.",
+      "keywords": [
+        "large print crossword puzzles volume 2",
+        "crossword puzzle books for seniors", 
+        "easy to challenging crosswords",
+        "brain games large print",
+        "crossword masters series"
+      ],
+      "categories": [
+        "Books > Humor & Entertainment > Puzzles & Games > Crossword Puzzles",
+        "Books > Health, Fitness & Dieting > Aging",
+        "Books > Self-Help > Memory Improvement"
+      ],
+      "cover_path": "books/active_production/Large_Print_Crossword_Masters/volume_2/paperback/cover.png",
+      "create_epub": false,
+      "create_hardcover": true,
+      "hardcover_config": {
+        "trim_size": "6x9",
+        "spine_width_inches": 0.318,
+        "list_price": "$22.99",
+        "printing_cost": "$6.50",
+        "expected_royalty": "$6.99"
+      },
+      "puzzle_params": {
+        "grid_size": 15,
+        "font_size": "large",
+        "include_solutions": true,
+        "puzzles_per_page": 1
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "margins": "1inch",
+        "font": "Helvetica",
+        "title_page": true,
+        "toc": true,
+        "answer_key": true
+      }
+    }
+  ]
+}

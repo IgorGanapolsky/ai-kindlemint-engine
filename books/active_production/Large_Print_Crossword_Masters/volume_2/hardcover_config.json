@@ -3,16 +3,35 @@
   "subtitle": "50 New Crossword Puzzles - Easy to Challenging - Volume 2",
   "author": "Crossword Masters Publishing",
   "publisher": "Crossword Masters Publishing",
-  "isbn": "[To be assigned]",
-  "pages": 110,
-  "spine_width_inches": 0.335,
-  "trim_size": "8.5x11",
-  "cover_source": "../paperback/cover.png",
-  "output_dir": "hardcover",
-  "pricing": {
-    "list_price": "$22.99",
-    "printing_cost": "$6.75",
-    "expected_royalty": "$6.48"
-  },
-  "kdp_template": "templates/hardcover/kdp_case_laminate/6x9_110pages_template.png"
+  
+  "description": "Continue your crossword journey with Volume 2 of Large Print Crossword Masters, featuring 50 brand-new puzzles in a premium hardcover edition!\n\nBuilding on the success of Volume 1, this collection takes you deeper into the world of crosswords with fresh themes, clever clues, and satisfying solutions. Progress from easy warm-ups to moderate challenges that keep your mind sharp.\n\nEvery puzzle is crafted with care, using familiar vocabulary and clear, logical clues that make solving a pleasure, not a chore.",
+  
+  "back_cover_description": "Continue your crossword journey with Volume 2 of Large Print\nCrossword Masters, featuring 50 brand-new puzzles in a\npremium hardcover edition!\n\nThis thoughtfully designed collection offers:\n\n• 50 all-new crossword puzzles\n• Progressive difficulty levels\n• Extra-large print for easy reading\n• Fresh themes and clever clues\n• Complete answer key\n• Durable hardcover binding\n\nPerfect for:\n• Daily brain exercise\n• Relaxing evenings\n• Travel entertainment\n• Thoughtful gifts\n\nJoin thousands of satisfied puzzlers who've made\nLarge Print Crossword Masters their go-to series!",
+  
+  "keywords": [
+    "large print crossword puzzle book volume 2",
+    "crossword puzzles for seniors",
+    "brain games for adults",
+    "crossword puzzle books hardcover",
+    "large print puzzle books"
+  ],
+  
+  "categories": [
+    "Books > Humor & Entertainment > Puzzles & Games > Crossword Puzzles",
+    "Books > Health, Fitness & Dieting > Aging",
+    "Books > Self-Help > Memory Improvement"
+  ],
+  
+  "language": "English",
+  "pages": 103,
+  "target_audience": "Adults 50+, Puzzle enthusiasts",
+  
+  "cover_source": "books/active_production/Large_Print_Crossword_Masters/volume_2/paperback/cover.png",
+  "output_dir": "books/active_production/Large_Print_Crossword_Masters/volume_2/hardcover",
+  
+  "hardcover_price_min": 19.99,
+  "hardcover_price_max": 24.99,
+  "printing_cost_estimate": 6.50,
+  "royalty_min": 3.50,
+  "royalty_max": 8.50
 }

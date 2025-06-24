@@ -183,3 +183,10 @@ git push
 4. Commit and push results
 
 **Estimated time per volume:** 10-15 minutes for complete hardcover package generation.
+
+### Paperback and Hardcover Policy
+**CRITICAL**: When creating paperback materials, ALWAYS generate the adequate hardcover materials immediately after. This includes:
+- Creating hardcover_config.json with proper description
+- Running the hardcover package creation script
+- Ensuring hardcover has all the same files as Volume 1 hardcover
+- Testing the output before claiming completion

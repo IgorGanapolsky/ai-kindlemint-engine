@@ -1,63 +1,66 @@
-# Hardcover Production Checklist - Volume 2
+# Hardcover Production Checklist
+## Large Print Crossword Masters - 50 New Crossword Puzzles - Easy to Challenging - Volume 2
 
-## 📋 Pre-Production Requirements
-- [ ] Source cover image ready (1600×2560 PNG/JPG)
-- [ ] Interior PDF finalized (110 pages)
-- [ ] Spine width calculated: 0.335 inches
-- [ ] KDP template for 6×9, 110 pages ready
+### 📊 **Hardcover Specifications**
+- **Format**: Case-Laminate Hardcover (KDP's only hardcover option)
+- **Trim Size**: 6 × 9 inches
+- **Page Count**: 103 pages
+- **Paper**: White (best for puzzle grids)
+- **Ink**: Black & White (cost efficient)
+- **Spine Width**: 0.3175 inches `(103 × 0.0025) + 0.06`
 
-## 🎨 Cover Wrap Creation
-1. [ ] Run hardcover production script:
-   ```bash
-   python scripts/hardcover/create_hardcover_package.py books/active_production/Large_Print_Crossword_Masters/volume_2_proper/hardcover_config.json
-   ```
+### 📁 **Required Files**
 
-2. [ ] Verify generated files:
-   - [ ] hardcover_cover_wrap.pdf (PDF/X-1a format)
-   - [ ] hardcover_cover_wrap_final.png 
-   - [ ] hardcover_cover_wrap_preview.png (with template overlay)
-   - [ ] amazon_kdp_metadata.json
-   - [ ] cover_wrap_design_brief.md
+#### ✅ **Interior PDF**
+- [ ] Convert from original format to 6×9 format
+- [ ] Maintain font embedding
+- [ ] Single-page PDF, no crop marks
+- [ ] File: `hardcover_interior.pdf`
 
-## ✅ Quality Checks
-- [ ] Cover wrap dimensions: 13.996" × 10.417" (exact)
-- [ ] Spine text margins: 0.125" from edges
-- [ ] Barcode area: 2" × 1.2" on back cover
-- [ ] Color mode: CMYK
-- [ ] PDF format: PDF/X-1a
-- [ ] File size: Under 650 MB
+#### ✅ **Cover Wrap PDF**  
+- [ ] Use KDP template for 6×9, 103 pages, white paper, B/W
+- [ ] Create wrap design with front/spine/back
+- [ ] Export as PDF/X-1a with CMYK and outlined fonts
+- [ ] File: `hardcover_cover_wrap.pdf`
 
-## 📤 KDP Upload Process
-1. [ ] Log into KDP Dashboard
-2. [ ] Select "Create Hardcover"
-3. [ ] Book details:
-   - Title: Large Print Crossword Masters
-   - Subtitle: 50 New Crossword Puzzles - Easy to Challenging - Volume 2
-   - Author: Crossword Masters Publishing
-   - Series: Large Print Crossword Masters (Book 2)
-   
-4. [ ] Content upload:
-   - Interior: Use paperback PDF
-   - Cover: hardcover_cover_wrap.pdf
-   
-5. [ ] Categories (3 maximum):
-   - Books > Humor & Entertainment > Puzzles & Games > Crossword Puzzles
-   - Books > Health, Fitness & Dieting > Aging  
-   - Books > Self-Help > Memory Improvement
+### 🎨 **Cover Design Elements**
 
-6. [ ] Pricing:
-   - List price: $22.99
-   - Markets: All available territories
+#### **Source Assets**
+- **Front Cover**: `books/active_production/Large_Print_Crossword_Masters/volume_2/paperback/cover.png`
+- **Template**: `6x9_103pages_template.png`
 
-## 🚀 Post-Upload
-- [ ] Order proof copy
-- [ ] Review physical book quality
-- [ ] Check spine alignment
-- [ ] Verify cover print quality
-- [ ] Approve for publication
+#### **Design Requirements**
+1. **Canvas**: Exact template dimensions (3846 × 2850 pixels)
+2. **Template Layer**: 30% opacity for alignment 
+3. **Front Cover**: Right side, scale to fit, maintain aspect ratio
+4. **Background**: Extend gradient/pattern to spine & back
+5. **Back Cover**: Book description + barcode placeholder (2×1.2 in)
+6. **Spine**: 
+   - Title (stacked) centered, 0.125 in from edges
+   - Publisher: "Crossword Masters Publishing" at bottom
 
-## 💰 Revenue Projections
-- Printing cost: ~$6.75
-- List price: $22.99
-- Expected royalty: ~$6.48 per book (28%)
-- Target: Premium gift market
+### 💰 **Pricing Strategy**
+- **Printing Cost**: ~$6.50 (estimated)
+- **Target Price**: $19.99 - $24.99
+- **Royalty**: ~$3.50 - $8.50 per book
+- **Revenue Multiplier**: 2-3x paperback profit margin
+
+### 📋 **Quality Control Checklist**
+- [ ] Interior PDF: Page-per-page, selectable text, fonts embedded
+- [ ] Cover wrap: All bleed areas covered, spine text >0.0625" from folds
+- [ ] File size: <650 MB total
+- [ ] Color mode: CMYK only (no RGB)
+- [ ] Thumbnail test: Text crisp at 25% view
+
+### 📈 **Metadata Updates**
+- [ ] New ISBN (KDP assigns automatically)
+- [ ] Price: $19.99 - $24.99 range
+- [ ] Description: Enhanced with hardcover benefits
+- [ ] Categories: Same as paperback
+- [ ] Keywords: Include "hardcover", "premium", "gift"
+
+### 🎯 **Revenue Impact**
+- **Hardcover Premium**: 150-200% price increase over paperback
+- **Target Market**: Gift buyers, collectors, premium segment
+- **Profit Margin**: Higher per-unit profit despite higher printing cost
+- **Market Position**: Premium offering in category
