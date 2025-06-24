@@ -133,7 +133,8 @@
       "WebFetch(domain:docs.anthropic.com)",
       "Bash(gs:*)",
       "Bash(gh run watch:*)",
-      "Bash(git ls-tree:*)"
+      "Bash(git ls-tree:*)",
+      "Bash(git restore:*)"
     ],
     "deny": []
   }

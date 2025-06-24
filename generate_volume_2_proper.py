@@ -55,13 +55,8 @@ class ProperCrosswordGenerator:
             # Symmetric position
             grid[self.grid_size-1-r][self.grid_size-1-c] = '#'
             
-        # Fill remaining squares with letters (simplified - real crosswords need word placement)
-        for r in range(self.grid_size):
-            for c in range(self.grid_size):
-                if grid[r][c] == ' ':
-                    # Use common letters for more realistic appearance
-                    common_letters = 'EARIOTNSLCUDPMHGBFYWKVXZJQ'
-                    grid[r][c] = random.choice(common_letters[:10])
+        # Leave white squares empty for users to fill in
+        # Grid should only have '#' for black squares and ' ' for empty squares
                     
         return grid
         
@@ -96,13 +91,8 @@ class ProperCrosswordGenerator:
                     # Black square
                     draw.rectangle([x, y, x + cell_size, y + cell_size], fill='black')
                 else:
-                    # White square with border
+                    # White square with border - EMPTY for solving
                     draw.rectangle([x, y, x + cell_size, y + cell_size], outline='black', width=2)
-                    
-                    # Add letter
-                    letter_x = x + cell_size // 2
-                    letter_y = y + cell_size // 2
-                    draw.text((letter_x, letter_y), grid[row][col], font=font, fill='black', anchor='mm')
                     
                     # Add number if this starts a word
                     needs_number = False
@@ -428,6 +418,14 @@ class ProperCrosswordGenerator:
         
         # Create metadata files
         self.create_metadata_files()
+        
+        # Clean up PNG files - they're embedded in the PDF now
+        print("\n🧹 Cleaning up temporary PNG files...")
+        for i in range(1, 51):
+            png_path = self.paperback_dir / f"puzzle_{i:02d}.png"
+            if png_path.exists():
+                png_path.unlink()
+        print("✅ PNG files removed (they're embedded in the PDF)")
         
         # Create cover placeholder
         with open(self.output_dir / "cover.png", 'wb') as f:
