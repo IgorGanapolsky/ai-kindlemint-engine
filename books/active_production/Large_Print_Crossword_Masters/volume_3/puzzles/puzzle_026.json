@@ -1,0 +1,74 @@
+{
+  "id": 26,
+  "theme": "Quantum Physics",
+  "difficulty": "medium",
+  "grid_size": 15,
+  "clues": {
+    "across": [
+      {
+        "number": 1,
+        "clue": "French capital",
+        "answer": "PARIS"
+      },
+      {
+        "number": 15,
+        "clue": "Jazz instrument",
+        "answer": "SAXOPHONE"
+      },
+      {
+        "number": 15,
+        "clue": "Opera solo",
+        "answer": "ARIA"
+      },
+      {
+        "number": 12,
+        "clue": "Ancient empire",
+        "answer": "ROME"
+      },
+      {
+        "number": 8,
+        "clue": "Einstein's theory",
+        "answer": "RELATIVITY"
+      }
+    ],
+    "down": [
+      {
+        "number": 3,
+        "clue": "Annual report",
+        "answer": "EARNINGS"
+      },
+      {
+        "number": 1,
+        "clue": "Starry Night painter",
+        "answer": "VAN GOGH"
+      },
+      {
+        "number": 4,
+        "clue": "Bridge type",
+        "answer": "SUSPENSION"
+      },
+      {
+        "number": 2,
+        "clue": "Internet protocol",
+        "answer": "HTTP"
+      },
+      {
+        "number": 6,
+        "clue": "Pain reliever",
+        "answer": "ASPIRIN"
+      },
+      {
+        "number": 6,
+        "clue": "X-ray type",
+        "answer": "MRI"
+      },
+      {
+        "number": 4,
+        "clue": "Roman arena",
+        "answer": "COLOSSEUM"
+      }
+    ]
+  },
+  "grid_image": "books/active_production/Large_Print_Crossword_Masters/volume_3/puzzles/puzzle_026.png",
+  "created_at": "2025-06-24T15:49:31.532358"
+}

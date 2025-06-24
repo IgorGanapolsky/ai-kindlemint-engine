@@ -136,7 +136,10 @@
       "Bash(git ls-tree:*)",
       "Bash(git restore:*)",
       "Bash(gh run download:*)",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Bash(--book-config books/active_production/Large_Print_Crossword_Masters/volume_3/book_config.json )",
+      "Bash(--puzzle-dir books/active_production/Large_Print_Crossword_Masters/volume_3/puzzles )",
+      "Bash(--output-dir books/active_production/Large_Print_Crossword_Masters/volume_3/paperback)"
     ],
     "deny": []
   }

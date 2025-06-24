@@ -1,0 +1,69 @@
+{
+  "id": 42,
+  "theme": "Literature",
+  "difficulty": "hard",
+  "grid_size": 15,
+  "clues": {
+    "across": [
+      {
+        "number": 5,
+        "clue": "Wave function (Literature)",
+        "answer": "SCHRODINGER"
+      },
+      {
+        "number": 8,
+        "clue": "Metamorphosis writer (Literature)",
+        "answer": "KAFKA"
+      },
+      {
+        "number": 15,
+        "clue": "Dead Sea texts",
+        "answer": "SCROLLS"
+      },
+      {
+        "number": 1,
+        "clue": "German idealist",
+        "answer": "HEGEL"
+      },
+      {
+        "number": 1,
+        "clue": "Social contract",
+        "answer": "ROUSSEAU"
+      }
+    ],
+    "down": [
+      {
+        "number": 6,
+        "clue": "Cell division",
+        "answer": "MITOSIS"
+      },
+      {
+        "number": 1,
+        "clue": "Sound change",
+        "answer": "PHONEME"
+      },
+      {
+        "number": 1,
+        "clue": "Language family",
+        "answer": "INDO-EUROPEAN"
+      },
+      {
+        "number": 6,
+        "clue": "DNA sequence",
+        "answer": "GENOME"
+      },
+      {
+        "number": 2,
+        "clue": "Market failure",
+        "answer": "EXTERNALITY"
+      },
+      {
+        "number": 4,
+        "clue": "Fresco technique",
+        "answer": "BUON"
+      }
+    ]
+  },
+  "grid_image": "books/active_production/Large_Print_Crossword_Masters/volume_3/puzzles/puzzle_042.png",
+  "created_at": "2025-06-24T15:49:31.646562"
+}

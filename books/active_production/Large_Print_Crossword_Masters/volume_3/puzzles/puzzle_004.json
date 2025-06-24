@@ -1,0 +1,79 @@
+{
+  "id": 4,
+  "theme": "Food & Drink",
+  "difficulty": "easy",
+  "grid_size": 15,
+  "clues": {
+    "across": [
+      {
+        "number": 5,
+        "clue": "Pink farm animal",
+        "answer": "PIG"
+      },
+      {
+        "number": 8,
+        "clue": "Night color",
+        "answer": "BLACK"
+      },
+      {
+        "number": 5,
+        "clue": "House pet",
+        "answer": "CAT"
+      },
+      {
+        "number": 5,
+        "clue": "Farm animal",
+        "answer": "COW"
+      },
+      {
+        "number": 12,
+        "clue": "Winter flakes",
+        "answer": "SNOW"
+      },
+      {
+        "number": 5,
+        "clue": "Man's best friend",
+        "answer": "DOG"
+      },
+      {
+        "number": 1,
+        "clue": "Bread heater",
+        "answer": "TOASTER"
+      },
+      {
+        "number": 8,
+        "clue": "Sun color",
+        "answer": "YELLOW"
+      }
+    ],
+    "down": [
+      {
+        "number": 2,
+        "clue": "Mail carrier",
+        "answer": "POSTMAN"
+      },
+      {
+        "number": 4,
+        "clue": "Light source",
+        "answer": "LAMP"
+      },
+      {
+        "number": 4,
+        "clue": "Time teller",
+        "answer": "CLOCK"
+      },
+      {
+        "number": 3,
+        "clue": "Sleep place",
+        "answer": "BED"
+      },
+      {
+        "number": 1,
+        "clue": "Happy dance",
+        "answer": "JIG"
+      }
+    ]
+  },
+  "grid_image": "books/active_production/Large_Print_Crossword_Masters/volume_3/puzzles/puzzle_004.png",
+  "created_at": "2025-06-24T15:49:31.384424"
+}

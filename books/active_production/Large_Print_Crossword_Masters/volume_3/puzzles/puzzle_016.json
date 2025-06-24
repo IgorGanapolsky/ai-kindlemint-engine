@@ -1,0 +1,74 @@
+{
+  "id": 16,
+  "theme": "Art & Music",
+  "difficulty": "easy",
+  "grid_size": 15,
+  "clues": {
+    "across": [
+      {
+        "number": 1,
+        "clue": "Bread heater",
+        "answer": "TOASTER"
+      },
+      {
+        "number": 5,
+        "clue": "House pet",
+        "answer": "CAT"
+      },
+      {
+        "number": 15,
+        "clue": "Plant stem",
+        "answer": "BRANCH"
+      },
+      {
+        "number": 8,
+        "clue": "Sky color",
+        "answer": "BLUE"
+      },
+      {
+        "number": 5,
+        "clue": "Wool provider",
+        "answer": "SHEEP"
+      },
+      {
+        "number": 15,
+        "clue": "Tree part",
+        "answer": "LEAF"
+      }
+    ],
+    "down": [
+      {
+        "number": 3,
+        "clue": "Sitting furniture",
+        "answer": "CHAIR"
+      },
+      {
+        "number": 2,
+        "clue": "Mail carrier",
+        "answer": "POSTMAN"
+      },
+      {
+        "number": 3,
+        "clue": "Eating surface",
+        "answer": "TABLE"
+      },
+      {
+        "number": 6,
+        "clue": "Sweet treat",
+        "answer": "CANDY"
+      },
+      {
+        "number": 2,
+        "clue": "Bread maker",
+        "answer": "BAKER"
+      },
+      {
+        "number": 6,
+        "clue": "Cold dessert",
+        "answer": "ICE CREAM"
+      }
+    ]
+  },
+  "grid_image": "books/active_production/Large_Print_Crossword_Masters/volume_3/puzzles/puzzle_016.png",
+  "created_at": "2025-06-24T15:49:31.464594"
+}

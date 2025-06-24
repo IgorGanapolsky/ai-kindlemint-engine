@@ -1,0 +1,79 @@
+{
+  "id": 6,
+  "theme": "Family",
+  "difficulty": "easy",
+  "grid_size": 15,
+  "clues": {
+    "across": [
+      {
+        "number": 15,
+        "clue": "Plant stem (Family)",
+        "answer": "BRANCH"
+      },
+      {
+        "number": 12,
+        "clue": "Morning mist (Family)",
+        "answer": "FOG"
+      },
+      {
+        "number": 12,
+        "clue": "Sunny weather",
+        "answer": "CLEAR"
+      },
+      {
+        "number": 5,
+        "clue": "House pet",
+        "answer": "CAT"
+      },
+      {
+        "number": 15,
+        "clue": "Green ground cover",
+        "answer": "GRASS"
+      },
+      {
+        "number": 1,
+        "clue": "Cooking pot",
+        "answer": "PAN"
+      },
+      {
+        "number": 8,
+        "clue": "Sky color",
+        "answer": "BLUE"
+      }
+    ],
+    "down": [
+      {
+        "number": 4,
+        "clue": "Picture holder",
+        "answer": "FRAME"
+      },
+      {
+        "number": 3,
+        "clue": "Eating surface",
+        "answer": "TABLE"
+      },
+      {
+        "number": 1,
+        "clue": "Happy dance",
+        "answer": "JIG"
+      },
+      {
+        "number": 6,
+        "clue": "Cold dessert",
+        "answer": "ICE CREAM"
+      },
+      {
+        "number": 6,
+        "clue": "Sweet treat",
+        "answer": "CANDY"
+      },
+      {
+        "number": 3,
+        "clue": "Sleep place",
+        "answer": "BED"
+      }
+    ]
+  },
+  "grid_image": "books/active_production/Large_Print_Crossword_Masters/volume_3/puzzles/puzzle_006.png",
+  "created_at": "2025-06-24T15:49:31.398112"
+}

@@ -1,0 +1,74 @@
+{
+  "id": 3,
+  "theme": "Colors",
+  "difficulty": "easy",
+  "grid_size": 15,
+  "clues": {
+    "across": [
+      {
+        "number": 1,
+        "clue": "Cold storage (Colors)",
+        "answer": "FRIDGE"
+      },
+      {
+        "number": 15,
+        "clue": "Tall plant (Colors)",
+        "answer": "TREE"
+      },
+      {
+        "number": 12,
+        "clue": "Sunny weather",
+        "answer": "CLEAR"
+      },
+      {
+        "number": 5,
+        "clue": "Farm animal",
+        "answer": "COW"
+      },
+      {
+        "number": 1,
+        "clue": "Hot drink maker",
+        "answer": "KETTLE"
+      }
+    ],
+    "down": [
+      {
+        "number": 4,
+        "clue": "Picture holder",
+        "answer": "FRAME"
+      },
+      {
+        "number": 2,
+        "clue": "Bread maker",
+        "answer": "BAKER"
+      },
+      {
+        "number": 1,
+        "clue": "Water sport",
+        "answer": "SWIM"
+      },
+      {
+        "number": 3,
+        "clue": "Sitting furniture",
+        "answer": "CHAIR"
+      },
+      {
+        "number": 1,
+        "clue": "Fast walk",
+        "answer": "RUN"
+      },
+      {
+        "number": 6,
+        "clue": "Birthday dessert",
+        "answer": "CAKE"
+      },
+      {
+        "number": 4,
+        "clue": "Light source",
+        "answer": "LAMP"
+      }
+    ]
+  },
+  "grid_image": "books/active_production/Large_Print_Crossword_Masters/volume_3/puzzles/puzzle_003.png",
+  "created_at": "2025-06-24T15:49:31.377364"
+}

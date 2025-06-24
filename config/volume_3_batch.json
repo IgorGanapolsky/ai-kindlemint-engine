@@ -1,0 +1,48 @@
+{
+  "batch_name": "Large Print Crossword Masters Volume 3 Production",
+  "description": "Volume 3 - Challenging puzzles for experienced solvers",
+  "delay_between_books": 5,
+  "books": [
+    {
+      "id": "crossword_masters_v3",
+      "title": "Large Print Crossword Masters",
+      "subtitle": "50 Challenging Crossword Puzzles - From Medium to Hard",
+      "series_name": "Large_Print_Crossword_Masters",
+      "volume": 3,
+      "puzzle_type": "crossword",
+      "puzzle_count": 50,
+      "difficulty": "mixed",
+      "pages": 110,
+      "author": "Crossword Masters Publishing",
+      "publisher": "Crossword Masters Publishing",
+      "description": "Take your puzzle-solving skills to the next level with Volume 3 of Large Print Crossword Masters! This collection features 50 carefully crafted crosswords that progress from medium to challenging difficulty. Perfect for experienced puzzlers who want more engaging wordplay while still enjoying the comfort of large print format. Each puzzle introduces sophisticated vocabulary, clever themes, and satisfying 'aha!' moments.",
+      "keywords": ["large print crossword puzzles volume 3", "challenging crossword puzzles", "crossword books for adults", "brain games challenging", "advanced crossword puzzles"],
+      "categories": ["Books > Humor & Entertainment > Puzzles & Games > Crossword Puzzles", "Books > Health, Fitness & Dieting > Aging", "Books > Self-Help > Memory Improvement"],
+      "language": "en",
+      "target_audience": "Adults 50+, Experienced puzzle solvers",
+      "create_epub": true,
+      "create_hardcover": true,
+      "kindle_price": 9.99,
+      "paperback_price": 12.99,
+      "hardcover_price_min": 19.99,
+      "hardcover_price_max": 24.99,
+      "printing_cost_estimate": 6.50,
+      "royalty_min": 3.50,
+      "royalty_max": 8.50,
+      "puzzle_params": {
+        "grid_size": 15,
+        "word_count": 40,
+        "max_word_length": 15
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "font_size": 12,
+        "include_solutions": true,
+        "title_page": true,
+        "toc": true,
+        "answer_key": true
+      },
+      "back_cover_description": "Ready for a real challenge?\n\nVolume 3 of Large Print Crossword Masters delivers 50 engaging puzzles that will test your vocabulary, wordplay skills, and problem-solving abilities.\n\nFeaturing:\n• Medium to challenging difficulty levels\n• Sophisticated themes and clever clues\n• Extra-large print for comfortable solving\n• Complete answer key included\n\nPerfect for experienced puzzlers who refuse to let small print slow them down!"
+    }
+  ]
+}

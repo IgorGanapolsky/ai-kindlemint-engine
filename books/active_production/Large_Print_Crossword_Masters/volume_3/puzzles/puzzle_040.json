@@ -1,0 +1,79 @@
+{
+  "id": 40,
+  "theme": "Nature",
+  "difficulty": "hard",
+  "grid_size": 15,
+  "clues": {
+    "across": [
+      {
+        "number": 15,
+        "clue": "Dead Sea texts",
+        "answer": "SCROLLS"
+      },
+      {
+        "number": 5,
+        "clue": "Quantum particle",
+        "answer": "PHOTON"
+      },
+      {
+        "number": 5,
+        "clue": "Wave function",
+        "answer": "SCHRODINGER"
+      },
+      {
+        "number": 8,
+        "clue": "Ulysses author",
+        "answer": "JOYCE"
+      },
+      {
+        "number": 15,
+        "clue": "Mesopotamian writing",
+        "answer": "CUNEIFORM"
+      },
+      {
+        "number": 1,
+        "clue": "Social contract",
+        "answer": "ROUSSEAU"
+      },
+      {
+        "number": 1,
+        "clue": "Existentialism founder",
+        "answer": "SARTRE"
+      },
+      {
+        "number": 12,
+        "clue": "Prime notation",
+        "answer": "SIEVE"
+      }
+    ],
+    "down": [
+      {
+        "number": 4,
+        "clue": "Fresco technique",
+        "answer": "BUON"
+      },
+      {
+        "number": 2,
+        "clue": "Trade theory",
+        "answer": "COMPARATIVE"
+      },
+      {
+        "number": 2,
+        "clue": "Supply curve",
+        "answer": "ELASTICITY"
+      },
+      {
+        "number": 4,
+        "clue": "Color theory",
+        "answer": "COMPLEMENTARY"
+      },
+      {
+        "number": 3,
+        "clue": "Galaxy type",
+        "answer": "SPIRAL"
+      }
+    ]
+  },
+  "grid_image": "books/active_production/Large_Print_Crossword_Masters/volume_3/puzzles/puzzle_040.png",
+  "created_at": "2025-06-24T15:49:31.632960"
+}

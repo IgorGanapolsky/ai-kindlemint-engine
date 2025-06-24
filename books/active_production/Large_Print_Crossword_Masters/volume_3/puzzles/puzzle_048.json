@@ -1,0 +1,64 @@
+{
+  "id": 48,
+  "theme": "Business",
+  "difficulty": "hard",
+  "grid_size": 15,
+  "clues": {
+    "across": [
+      {
+        "number": 8,
+        "clue": "1984 creator (Business)",
+        "answer": "ORWELL"
+      },
+      {
+        "number": 8,
+        "clue": "Metamorphosis writer (Business)",
+        "answer": "KAFKA"
+      },
+      {
+        "number": 15,
+        "clue": "Mesopotamian writing",
+        "answer": "CUNEIFORM"
+      },
+      {
+        "number": 1,
+        "clue": "German idealist",
+        "answer": "HEGEL"
+      },
+      {
+        "number": 12,
+        "clue": "Infinite series",
+        "answer": "SEQUENCE"
+      }
+    ],
+    "down": [
+      {
+        "number": 1,
+        "clue": "Language family",
+        "answer": "INDO-EUROPEAN"
+      },
+      {
+        "number": 2,
+        "clue": "Trade theory",
+        "answer": "COMPARATIVE"
+      },
+      {
+        "number": 4,
+        "clue": "Fresco technique",
+        "answer": "BUON"
+      },
+      {
+        "number": 2,
+        "clue": "Market failure",
+        "answer": "EXTERNALITY"
+      },
+      {
+        "number": 3,
+        "clue": "Galaxy type",
+        "answer": "SPIRAL"
+      }
+    ]
+  },
+  "grid_image": "books/active_production/Large_Print_Crossword_Masters/volume_3/puzzles/puzzle_048.png",
+  "created_at": "2025-06-24T15:49:31.687787"
+}

@@ -1,0 +1,89 @@
+{
+  "id": 9,
+  "theme": "Music",
+  "difficulty": "easy",
+  "grid_size": 15,
+  "clues": {
+    "across": [
+      {
+        "number": 8,
+        "clue": "Sun color (Music)",
+        "answer": "YELLOW"
+      },
+      {
+        "number": 12,
+        "clue": "Winter flakes (Music)",
+        "answer": "SNOW"
+      },
+      {
+        "number": 5,
+        "clue": "Wool provider",
+        "answer": "SHEEP"
+      },
+      {
+        "number": 5,
+        "clue": "Pink farm animal",
+        "answer": "PIG"
+      },
+      {
+        "number": 8,
+        "clue": "Sky color",
+        "answer": "BLUE"
+      },
+      {
+        "number": 1,
+        "clue": "Bread heater",
+        "answer": "TOASTER"
+      },
+      {
+        "number": 15,
+        "clue": "Tall plant",
+        "answer": "TREE"
+      }
+    ],
+    "down": [
+      {
+        "number": 2,
+        "clue": "Doctor's helper",
+        "answer": "NURSE"
+      },
+      {
+        "number": 1,
+        "clue": "Happy dance",
+        "answer": "JIG"
+      },
+      {
+        "number": 2,
+        "clue": "Mail carrier",
+        "answer": "POSTMAN"
+      },
+      {
+        "number": 3,
+        "clue": "Eating surface",
+        "answer": "TABLE"
+      },
+      {
+        "number": 1,
+        "clue": "Fast walk",
+        "answer": "RUN"
+      },
+      {
+        "number": 1,
+        "clue": "Water sport",
+        "answer": "SWIM"
+      },
+      {
+        "number": 6,
+        "clue": "Sweet treat",
+        "answer": "CANDY"
+      },
+      {
+        "number": 2,
+        "clue": "Bread maker",
+        "answer": "BAKER"
+      }
+    ]
+  },
+  "grid_image": "books/active_production/Large_Print_Crossword_Masters/volume_3/puzzles/puzzle_009.png",
+  "created_at": "2025-06-24T15:49:31.417753"
+}
