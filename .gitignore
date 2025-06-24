@@ -152,6 +152,10 @@ chromedriver.exe
 # Logs
 logs/
 *.log
+batch_processor.log
+
+# Batch processing reports (runtime artifacts)
+batch_reports/
 
 # Local development settings
 local_settings.py
