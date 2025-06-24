@@ -12,6 +12,7 @@ Create a book cover for "Large Print Crossword Masters Volume 2" with:
 - Author: "Crossword Masters Publishing"
 
 ## Cover Specifications
-- Size: 1600 x 2560 pixels (6" x 9.6" at 267 DPI)
+- Size: 2550 x 3300 pixels (8.5" x 11" at 300 DPI)
 - Format: RGB color
 - File type: PNG or JPG
+- Note: This is for an 8.5" x 11" large print book (matching the interior dimensions)
