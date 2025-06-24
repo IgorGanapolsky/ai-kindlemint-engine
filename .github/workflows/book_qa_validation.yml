@@ -26,7 +26,7 @@ jobs:
         
     - name: 📦 Install Dependencies
       run: |
-        pip install PyMuPDF reportlab pathlib
+        pip install PyMuPDF reportlab pathlib PyPDF2 Pillow
         
     - name: 🔍 Run Enhanced QA Checker
       run: |
