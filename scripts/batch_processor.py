@@ -40,6 +40,30 @@ except Exception:  # pragma: no cover – fallback stubs if Sentry not available
     def capture_kdp_error(*_, **__):
         pass
 
+# --- Slack integration -------------------------------------------------------
+try:
+    from slack_notifier import SlackNotifier
+    SLACK_AVAILABLE = True
+except Exception:  # pragma: no cover – fallback if Slack notifier not available
+    SLACK_AVAILABLE = False
+    
+    class SlackNotifier:
+        """Stub SlackNotifier when module not available"""
+        def __init__(self, *args, **kwargs):
+            self.enabled = False
+        
+        def send_message(self, *args, **kwargs):
+            return False
+        
+        def send_batch_complete(self, *args, **kwargs):
+            return False
+        
+        def send_error(self, *args, **kwargs):
+            return False
+        
+        def send_book_complete(self, *args, **kwargs):
+            return False
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -92,6 +116,27 @@ class BatchProcessor:
         self.sentry_enabled = init_sentry("batch_processor")
         if self.sentry_enabled:
             add_breadcrumb("BatchProcessor initialised", category="initialisation")
+        
+        # Initialize Slack notifier
+        self.slack_notifier = SlackNotifier()
+        self.slack_enabled = self.slack_notifier.enabled
+        
+        # Check if individual book notifications are enabled
+        self.notify_on_book_complete = os.getenv('SLACK_NOTIFY_PER_BOOK', 'false').lower() == 'true'
+        
+        if self.slack_enabled:
+            logger.info("Slack notifications enabled for batch processing")
+            if self.notify_on_book_complete:
+                logger.info("Individual book completion notifications enabled")
+            if self.sentry_enabled:
+                add_breadcrumb(
+                    "Slack notifier initialized", 
+                    category="notification",
+                    data={
+                        "enabled": self.slack_enabled,
+                        "per_book": self.notify_on_book_complete
+                    }
+                )
     
     def _load_config(self) -> Dict:
         """Load batch configuration from JSON file"""
@@ -290,6 +335,41 @@ class BatchProcessor:
             
             book_result["status"] = "failed"
             book_result["error"] = error_msg
+            
+            # Send Slack notification for critical error
+            if self.slack_enabled:
+                try:
+                    logger.info(f"Sending error notification to Slack for book {book_id}")
+                    if self.sentry_enabled:
+                        add_breadcrumb(
+                            "Sending book error to Slack",
+                            category="notification",
+                            data={"book_id": book_id, "error": error_msg[:100]}
+                        )
+                    
+                    context = {
+                        "book_id": book_id,
+                        "book_title": book_title,
+                        "batch_id": self.batch_id,
+                        "steps_completed": len(book_result.get("steps_completed", [])),
+                        "last_step": book_result.get("steps_completed", ["none"])[-1] if book_result.get("steps_completed") else "none"
+                    }
+                    
+                    notification_sent = self.slack_notifier.send_error(
+                        message=f"Book processing failed: {book_title}",
+                        error=e,
+                        context=context
+                    )
+                    
+                    if notification_sent:
+                        logger.info("Error notification sent to Slack successfully")
+                    else:
+                        logger.warning("Failed to send error notification to Slack")
+                        
+                except Exception as slack_error:
+                    logger.error(f"Error sending Slack notification: {slack_error}")
+                    if self.sentry_enabled:
+                        capture_kdp_error(slack_error, {"operation": "slack_error_notification"})
         
         # Finalize book result
         book_result["end_time"] = datetime.now().isoformat()
@@ -298,6 +378,31 @@ class BatchProcessor:
         book_report_path = self.report_dir / f"book_{book_id}.json"
         with open(book_report_path, 'w') as f:
             json.dump(book_result, f, indent=2)
+        
+        # Send individual book completion notification if enabled
+        if self.slack_enabled and self.notify_on_book_complete:
+            try:
+                logger.info(f"Sending book completion notification to Slack for {book_id}")
+                if self.sentry_enabled:
+                    add_breadcrumb(
+                        "Sending book completion to Slack",
+                        category="notification",
+                        data={
+                            "book_id": book_id, 
+                            "status": book_result["status"]
+                        }
+                    )
+                
+                notification_sent = self.slack_notifier.send_book_complete(book_result)
+                if notification_sent:
+                    logger.info("Book completion notification sent to Slack successfully")
+                else:
+                    logger.warning("Failed to send book completion notification to Slack")
+                    
+            except Exception as slack_error:
+                logger.error(f"Error sending Slack notification: {slack_error}")
+                if self.sentry_enabled:
+                    capture_kdp_error(slack_error, {"operation": "slack_book_notification"})
         
         return book_result
     
@@ -742,6 +847,31 @@ Batch ID: {self.batch_id}
         print(f"📄 Report: {report_file}")
         print("=" * 80)
         
+        # Send Slack notification for batch completion
+        if self.slack_enabled:
+            try:
+                logger.info("Sending batch completion notification to Slack")
+                if self.sentry_enabled:
+                    add_breadcrumb(
+                        "Sending batch completion to Slack",
+                        category="notification",
+                        data={
+                            "batch_id": self.batch_id,
+                            "success_rate": success_rate
+                        }
+                    )
+                
+                notification_sent = self.slack_notifier.send_batch_complete(self.results)
+                if notification_sent:
+                    logger.info("Batch completion notification sent to Slack successfully")
+                else:
+                    logger.warning("Failed to send batch completion notification to Slack")
+                    
+            except Exception as e:
+                logger.error(f"Error sending Slack notification: {e}")
+                if self.sentry_enabled:
+                    capture_kdp_error(e, {"operation": "slack_batch_notification"})
+        
         return str(report_file)
 
 def main():
@@ -774,6 +904,22 @@ def main():
         logger.error(f"Batch processing failed: {e}")
         logger.error(traceback.format_exc())
         print(f"\n❌ ERROR: {e}")
+        
+        # Try to send Slack notification for fatal error
+        try:
+            notifier = SlackNotifier()
+            if notifier.enabled:
+                notifier.send_error(
+                    message="Fatal error in batch processing",
+                    error=e,
+                    context={
+                        "config_file": args.config,
+                        "resume_file": args.resume or "none"
+                    }
+                )
+        except:
+            pass  # Don't let notification failure prevent proper exit
+        
         return 1
 
 if __name__ == "__main__":
