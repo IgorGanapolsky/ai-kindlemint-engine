@@ -34,6 +34,14 @@
 - ALWAYS verify the actual output matches requirements
 - Test with sample data before running on production content
 
+### Repository Cleanliness Policy
+**CRITICAL**: No bogus failed files should remain in the repo when you push commits. Always:
+- Clean up failed attempts before committing
+- Use descriptive names for any temporary or test files
+- Remove all failed/test directories before pushing
+- Keep directory structure consistent across volumes
+- Never leave "_failed" or "_test" directories in the repository
+
 ## Claude Max Subscription Status
 
 **CURRENT PLAN**: Claude Max ($20/month) - Includes unlimited Claude Code usage!
