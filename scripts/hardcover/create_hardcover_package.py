@@ -343,13 +343,18 @@ class HardcoverProducer:
         # Create directory structure
         output_dir = self.create_directory_structure()
         
-        # Copy cover source to hardcover directory
-        cover_dest = output_dir / f"cover_source_{Path(self.config['cover_source']).name}"
-        if Path(self.config['cover_source']).exists():
-            import shutil
-            shutil.copy2(self.config['cover_source'], cover_dest)
+        # Copy cover source to hardcover directory (if not already there)
+        cover_source_path = Path(self.config['cover_source'])
+        if not cover_source_path.is_absolute():
+            # Make relative to output directory
+            cover_source_path = output_dir.parent / cover_source_path
             
-        # Generate all components
+        cover_dest = output_dir / f"cover_source_{cover_source_path.name}"
+        if cover_source_path.exists() and not cover_dest.exists():
+            import shutil
+            shutil.copy2(cover_source_path, cover_dest)
+            
+        # Generate all components (PRODUCTION FILES ONLY)
         self.generate_metadata(output_dir)
         self.create_production_checklist(output_dir)
         self.create_cover_wrap(output_dir)
@@ -357,6 +362,7 @@ class HardcoverProducer:
         
         print(f"✅ Hardcover package complete: {output_dir}")
         print(f"💰 Pricing: ${self.config['hardcover_price_min']:.2f} - ${self.config['hardcover_price_max']:.2f}")
+        print(f"📁 Production files only - scripts remain in scripts/hardcover/")
         
         return output_dir
 

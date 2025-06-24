@@ -69,10 +69,15 @@ python scripts/hardcover/create_hardcover_package.py books/active_production/SER
 books/active_production/SERIES/VOLUME/hardcover/
 ├── amazon_kdp_metadata.json          # KDP upload metadata
 ├── hardcover_production_checklist.md # Complete production guide
-├── hardcover_cover_wrap.pdf          # KDP-ready PDF/X-1a
+├── cover_wrap_design_brief.md         # Design specifications
+├── hardcover_cover_wrap.pdf          # KDP-ready PDF/X-1a (UPLOAD THIS)
 ├── hardcover_cover_wrap_final.png    # Final artwork
 ├── hardcover_cover_wrap_preview.png  # With template overlay
-└── cover_source_[original_name].jpg  # Source cover copy
+└── cover_source_1600x2560.jpg       # Source cover copy
+
+# Scripts and templates are stored separately:
+scripts/hardcover/                     # Production scripts
+templates/hardcover/                   # KDP templates and configs
 ```
 
 #### 5. KDP Requirements Verification
