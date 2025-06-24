@@ -19,6 +19,9 @@
 ### Cover Design Policy
 **NEVER generate covers automatically.** Always provide DALL-E prompts for Igor to use instead of creating cover images programmatically. Store all DALL-E prompts in checklist.md files for easy reference and reuse.
 
+### KDP Categories Policy
+**CRITICAL**: Amazon KDP allows exactly **3 categories** per book. Always use 3 categories to maximize discoverability. Use actual KDP category names from the interface, never hallucinate category paths.
+
 ## Hardcover Production Workflow
 
 ### Complete Hardcover Creation Process
