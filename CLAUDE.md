@@ -25,6 +25,15 @@
 ### Accuracy Policy
 **ABSOLUTE REQUIREMENT**: Only provide 100% factual, verified information. NEVER claim something exists or was completed unless actually verified. NEVER make excuses for incorrect information. Always verify file existence, tool outputs, and system state before making any claims.
 
+### Testing Policy
+**CRITICAL**: Any script you create or use MUST be properly tested before claiming it works. This means:
+- Run the script and verify output
+- Open generated files to confirm content is correct
+- Check that images, text, and formatting appear as expected
+- NEVER assume a script works just because it runs without errors
+- ALWAYS verify the actual output matches requirements
+- Test with sample data before running on production content
+
 ## Claude Max Subscription Status
 
 **CURRENT PLAN**: Claude Max ($20/month) - Includes unlimited Claude Code usage!
