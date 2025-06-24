@@ -1,0 +1,1206 @@
+{
+  "file_path": "books/active_production/Large_Print_Crossword_Masters/volume_2_proper/paperback/crossword_book_volume_2_FINAL.pdf",
+  "timestamp": "2025-06-24T12:32:40.088497",
+  "file_checks": {
+    "file_exists": true,
+    "file_size_bytes": 5699002,
+    "size_valid": true
+  },
+  "content_checks": {
+    "page_count": 105,
+    "not_encrypted": true,
+    "total_characters": 14202,
+    "total_words": 2350,
+    "duplicate_content_ratio": 0.7109826589595376
+  },
+  "layout_checks": {},
+  "visual_checks": {
+    "page_1_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_1_black_ratio": 0.033768547402125836,
+    "page_1_white_ratio": 0.957805691721133,
+    "page_2_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_2_black_ratio": 0.0022023750577672145,
+    "page_2_white_ratio": 0.993515114379085,
+    "page_3_edge_issues": [
+      {
+        "page": 3,
+        "text": "Puzzle 29: Travel",
+        "position": [
+          72.0,
+          772.9749755859375,
+          156.9749755859375,
+          788.0889892578125
+        ],
+        "issue": "Near page edge - may be cut off"
+      }
+    ],
+    "page_3_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_3_black_ratio": 0.00989057239057239,
+    "page_3_white_ratio": 0.9758367993662111,
+    "page_4_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_4_black_ratio": 0.0029636644219977553,
+    "page_4_white_ratio": 0.9912111309170133,
+    "page_5_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_5_black_ratio": 0.04566395160757906,
+    "page_5_white_ratio": 0.917561542714729,
+    "page_6_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_6_black_ratio": 0.003230322010959266,
+    "page_6_white_ratio": 0.9917836452762924,
+    "page_7_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_7_black_ratio": 0.04547775549613785,
+    "page_7_white_ratio": 0.9177910642371426,
+    "page_8_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_8_black_ratio": 0.00326952119231531,
+    "page_8_white_ratio": 0.9917330989634912,
+    "page_9_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_9_black_ratio": 0.045446808774014656,
+    "page_9_white_ratio": 0.9179865443652209,
+    "page_10_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_10_black_ratio": 0.003262300290486565,
+    "page_10_white_ratio": 0.9917274253977685,
+    "page_11_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_11_black_ratio": 0.04538594688717238,
+    "page_11_white_ratio": 0.9179432189542484,
+    "page_12_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_12_black_ratio": 0.0032576582821680863,
+    "page_12_white_ratio": 0.9917454776523404,
+    "page_13_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_13_black_ratio": 0.04561185795867168,
+    "page_13_white_ratio": 0.9170318379877204,
+    "page_14_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_14_black_ratio": 0.003266426520102991,
+    "page_14_white_ratio": 0.9917238149468541,
+    "page_15_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_15_black_ratio": 0.045446808774014656,
+    "page_15_white_ratio": 0.9173413052089523,
+    "page_16_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_16_black_ratio": 0.0032772578728461083,
+    "page_16_white_ratio": 0.9917114362580048,
+    "page_17_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_17_black_ratio": 0.0455422278338945,
+    "page_17_white_ratio": 0.9178220109592659,
+    "page_18_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_18_black_ratio": 0.0032437322572126492,
+    "page_18_white_ratio": 0.9917614667921041,
+    "page_19_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_19_black_ratio": 0.045421019838911995,
+    "page_19_white_ratio": 0.9178689468211527,
+    "page_20_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_20_black_ratio": 0.0032782894302502146,
+    "page_20_white_ratio": 0.9917073100283884,
+    "page_21_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_21_black_ratio": 0.045627847098435335,
+    "page_21_white_ratio": 0.9175971314451706,
+    "page_22_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_22_black_ratio": 0.0032762263154420017,
+    "page_22_white_ratio": 0.9917129835941111,
+    "page_23_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_23_black_ratio": 0.04557730078563412,
+    "page_23_white_ratio": 0.9177884853436324,
+    "page_24_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_24_black_ratio": 0.0033045941440549283,
+    "page_24_white_ratio": 0.9916536690433749,
+    "page_25_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_25_black_ratio": 0.04555924853106225,
+    "page_25_white_ratio": 0.9175342064435201,
+    "page_26_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_26_black_ratio": 0.0032586898395721925,
+    "page_26_white_ratio": 0.9917196887172377,
+    "page_27_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_27_black_ratio": 0.04546640836469268,
+    "page_27_white_ratio": 0.9181655195748333,
+    "page_28_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_28_black_ratio": 0.0032978890209282366,
+    "page_28_white_ratio": 0.9916691424044365,
+    "page_29_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_29_black_ratio": 0.04551282844787747,
+    "page_29_white_ratio": 0.9181619091239189,
+    "page_30_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_30_black_ratio": 0.0032906681190994916,
+    "page_30_white_ratio": 0.9916634688387139,
+    "page_31_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_31_black_ratio": 0.04556182742457252,
+    "page_31_white_ratio": 0.9178055060408001,
+    "page_32_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_32_black_ratio": 0.003286026110781013,
+    "page_32_white_ratio": 0.9916815210932858,
+    "page_33_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_33_black_ratio": 0.04542927229814485,
+    "page_33_white_ratio": 0.9179143353469333,
+    "page_34_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_34_black_ratio": 0.0032947943487159174,
+    "page_34_white_ratio": 0.9916598583877996,
+    "page_35_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_35_black_ratio": 0.04554068049778834,
+    "page_35_white_ratio": 0.9174795339011025,
+    "page_36_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_36_black_ratio": 0.003305625701459035,
+    "page_36_white_ratio": 0.9916474796989503,
+    "page_37_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_37_black_ratio": 0.04548858684888097,
+    "page_37_white_ratio": 0.9179220720274642,
+    "page_38_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_38_black_ratio": 0.003272100085825576,
+    "page_38_white_ratio": 0.9916975102330494,
+    "page_39_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_39_black_ratio": 0.04551282844787747,
+    "page_39_white_ratio": 0.9177327812438106,
+    "page_40_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_40_black_ratio": 0.003306657258863141,
+    "page_40_white_ratio": 0.9916433534693339,
+    "page_41_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_41_black_ratio": 0.04554635406351092,
+    "page_41_white_ratio": 0.9176203414867631,
+    "page_42_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_42_black_ratio": 0.0033045941440549283,
+    "page_42_white_ratio": 0.9916490270350564,
+    "page_43_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_43_black_ratio": 0.04558039545784644,
+    "page_43_white_ratio": 0.9178096322704166,
+    "page_44_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_44_black_ratio": 0.0033437933254109723,
+    "page_44_white_ratio": 0.9916031227305737,
+    "page_45_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_45_black_ratio": 0.04611474219317357,
+    "page_45_white_ratio": 0.9160539215686274,
+    "page_46_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_46_black_ratio": 0.0035160634118967453,
+    "page_46_white_ratio": 0.9908263600052816,
+    "page_47_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_47_black_ratio": 0.04586510530137981,
+    "page_47_white_ratio": 0.9170715529477784,
+    "page_48_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_48_black_ratio": 0.0035552625932527893,
+    "page_48_white_ratio": 0.9907758136924804,
+    "page_49_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_49_black_ratio": 0.0456876774278735,
+    "page_49_white_ratio": 0.9171865715983363,
+    "page_50_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_50_black_ratio": 0.0035480416914240444,
+    "page_50_white_ratio": 0.9907701401267578,
+    "page_51_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_51_black_ratio": 0.04571037169076385,
+    "page_51_white_ratio": 0.9177188552188552,
+    "page_52_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_52_black_ratio": 0.0035433996831055656,
+    "page_52_white_ratio": 0.9907881923813296,
+    "page_53_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_53_black_ratio": 0.04585788439955107,
+    "page_53_white_ratio": 0.9171906978279527,
+    "page_54_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_54_black_ratio": 0.00355216792104047,
+    "page_54_white_ratio": 0.9907665296758434,
+    "page_55_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_55_black_ratio": 0.04567168828810986,
+    "page_55_white_ratio": 0.917455292302106,
+    "page_56_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_56_black_ratio": 0.0035629992737835877,
+    "page_56_white_ratio": 0.9907541509869942,
+    "page_57_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_57_black_ratio": 0.0455577011949561,
+    "page_57_white_ratio": 0.9178390316564337,
+    "page_58_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_58_black_ratio": 0.0035294736581501286,
+    "page_58_white_ratio": 0.9908041815210933,
+    "page_59_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_59_black_ratio": 0.045752149765630155,
+    "page_59_white_ratio": 0.917212876312141,
+    "page_60_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_60_black_ratio": 0.003564030831187694,
+    "page_60_white_ratio": 0.9907500247573777,
+    "page_61_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_61_black_ratio": 0.04572068726480491,
+    "page_61_white_ratio": 0.9174511660724896,
+    "page_62_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_62_black_ratio": 0.003561967716379481,
+    "page_62_white_ratio": 0.9907556983231003,
+    "page_63_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_63_black_ratio": 0.045754728659140424,
+    "page_63_white_ratio": 0.9174315664818116,
+    "page_64_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_64_black_ratio": 0.003554746814550736,
+    "page_64_white_ratio": 0.9907546667656961,
+    "page_65_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_65_black_ratio": 0.045670140952003696,
+    "page_65_white_ratio": 0.9176162152571467,
+    "page_66_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_66_black_ratio": 0.0035088425100680003,
+    "page_66_white_ratio": 0.990820686439559,
+    "page_67_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_67_black_ratio": 0.04573306595365419,
+    "page_67_white_ratio": 0.9173779254967981,
+    "page_68_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_68_black_ratio": 0.0035480416914240444,
+    "page_68_white_ratio": 0.9907701401267578,
+    "page_69_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_69_black_ratio": 0.04562114197530864,
+    "page_69_white_ratio": 0.9178983462071697,
+    "page_70_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_70_black_ratio": 0.0035408207895952994,
+    "page_70_white_ratio": 0.9907644665610352,
+    "page_71_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_71_black_ratio": 0.04586046329306133,
+    "page_71_white_ratio": 0.9170555638080148,
+    "page_72_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_72_black_ratio": 0.0035361787812768206,
+    "page_72_white_ratio": 0.9907825188156071,
+    "page_73_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_73_black_ratio": 0.04553603848946986,
+    "page_73_white_ratio": 0.9176904873902423,
+    "page_74_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_74_black_ratio": 0.003544947019211725,
+    "page_74_white_ratio": 0.9907608561101208,
+    "page_75_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_75_black_ratio": 0.04550406020994256,
+    "page_75_white_ratio": 0.9178916410840431,
+    "page_76_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_76_black_ratio": 0.0035557783719548427,
+    "page_76_white_ratio": 0.9907484774212716,
+    "page_77_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_77_black_ratio": 0.045602058163332675,
+    "page_77_white_ratio": 0.9176595406681191,
+    "page_78_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_78_black_ratio": 0.0035222527563213836,
+    "page_78_white_ratio": 0.9907985079553707,
+    "page_79_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_79_black_ratio": 0.045839832144979206,
+    "page_79_white_ratio": 0.9173975250874761,
+    "page_80_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_80_black_ratio": 0.003556809929358949,
+    "page_80_white_ratio": 0.9907443511916552,
+    "page_81_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_81_black_ratio": 0.04568716164917145,
+    "page_81_white_ratio": 0.9173696730375652,
+    "page_82_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_82_black_ratio": 0.003554746814550736,
+    "page_82_white_ratio": 0.9907500247573777,
+    "page_83_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_83_black_ratio": 0.045612373737373736,
+    "page_83_white_ratio": 0.9175878474285337,
+    "page_84_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_84_black_ratio": 0.0035501048062322573,
+    "page_84_white_ratio": 0.9907727190202681,
+    "page_85_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_85_black_ratio": 0.04555151185053146,
+    "page_85_white_ratio": 0.9176038365682974,
+    "page_86_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_86_black_ratio": 0.0037187644418036573,
+    "page_86_white_ratio": 0.9902285724896019,
+    "page_87_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_87_black_ratio": 0.045526238694130854,
+    "page_87_white_ratio": 0.9178302634184987,
+    "page_88_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_88_black_ratio": 0.003757963623159702,
+    "page_88_white_ratio": 0.9901780261768007,
+    "page_89_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_89_black_ratio": 0.045610826401267575,
+    "page_89_white_ratio": 0.9177632121872318,
+    "page_90_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_90_black_ratio": 0.003750742721330957,
+    "page_90_white_ratio": 0.990172352611078,
+    "page_91_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_91_black_ratio": 0.045741834191589094,
+    "page_91_white_ratio": 0.9171891504918466,
+    "page_92_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_92_black_ratio": 0.0037461007130124777,
+    "page_92_white_ratio": 0.9901904048656499,
+    "page_93_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_93_black_ratio": 0.04582848501353403,
+    "page_93_white_ratio": 0.9170725845051826,
+    "page_94_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_94_black_ratio": 0.0037548689509473822,
+    "page_94_white_ratio": 0.9901687421601637,
+    "page_95_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_95_black_ratio": 0.04554480672740477,
+    "page_95_white_ratio": 0.9174661236548491,
+    "page_96_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_96_black_ratio": 0.0037657003036904997,
+    "page_96_white_ratio": 0.9901563634713144,
+    "page_97_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_97_black_ratio": 0.04560257394203473,
+    "page_97_white_ratio": 0.9179942810457516,
+    "page_98_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_98_black_ratio": 0.003732174688057041,
+    "page_98_white_ratio": 0.9902063940054137,
+    "page_99_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_99_black_ratio": 0.04569592988710636,
+    "page_99_white_ratio": 0.9175342064435201,
+    "page_100_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_100_black_ratio": 0.0037667318610946064,
+    "page_100_white_ratio": 0.990152237241698,
+    "page_101_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_101_black_ratio": 0.045491681521093286,
+    "page_101_white_ratio": 0.9177626964085297,
+    "page_102_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_102_black_ratio": 0.0037646687462863935,
+    "page_102_white_ratio": 0.9901579108074207,
+    "page_103_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_103_black_ratio": 0.045618563081798374,
+    "page_103_white_ratio": 0.9176564459959068,
+    "page_104_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_104_black_ratio": 0.003773436984221298,
+    "page_104_white_ratio": 0.9901408901102529,
+    "page_105_rendered_size": [
+      1224,
+      1584
+    ],
+    "page_105_black_ratio": 0.002660386545190467,
+    "page_105_white_ratio": 0.995444642503466
+  },
+  "amazon_kdp_checks": {
+    "size_under_kdp_limit": true
+  },
+  "overall_score": 0,
+  "issues_found": [
+    {
+      "type": "CRITICAL",
+      "code": "HIGH_DUPLICATION",
+      "description": "Content is 71.1% duplicate"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "TEXT_NEAR_EDGE",
+      "description": "Page 3: Text 'Puzzle 29: Travel' may be cut off"
+    }
+  ],
+  "warnings": [
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 1: 95.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 2: 99.4% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 3: 97.6% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 4: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 5: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 6: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 7: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 8: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 9: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 10: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 11: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 12: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 13: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 14: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 15: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 16: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 17: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 18: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 19: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 20: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 21: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 22: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 23: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 24: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 25: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 26: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 27: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 28: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 29: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 30: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 31: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 32: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 33: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 34: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 35: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 36: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 37: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 38: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 39: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 40: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 41: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 42: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 43: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 44: 99.2% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 45: 91.6% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 46: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 47: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 48: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 49: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 50: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 51: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 52: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 53: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 54: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 55: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 56: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 57: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 58: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 59: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 60: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 61: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 62: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 63: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 64: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 65: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 66: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 67: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 68: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 69: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 70: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 71: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 72: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 73: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 74: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 75: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 76: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 77: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 78: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 79: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 80: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 81: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 82: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 83: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 84: 99.1% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 85: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 86: 99.0% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 87: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 88: 99.0% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 89: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 90: 99.0% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 91: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 92: 99.0% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 93: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 94: 99.0% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 95: 91.7% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 96: 99.0% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 97: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 98: 99.0% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 99: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 100: 99.0% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 101: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 102: 99.0% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 103: 91.8% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 104: 99.0% white - may lack content"
+    },
+    {
+      "type": "WARNING",
+      "code": "MOSTLY_WHITE",
+      "description": "Page 105: 99.5% white - may lack content"
+    }
+  ],
+  "publish_ready": false
+}

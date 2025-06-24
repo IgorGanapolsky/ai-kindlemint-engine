@@ -1,0 +1,18 @@
+{
+  "title": "Large Print Crossword Masters",
+  "subtitle": "50 New Crossword Puzzles - Easy to Challenging - Volume 2",
+  "author": "Crossword Masters Publishing",
+  "publisher": "Crossword Masters Publishing",
+  "isbn": "[To be assigned]",
+  "pages": 110,
+  "spine_width_inches": 0.335,
+  "trim_size": "6x9",
+  "cover_source": "../cover.png",
+  "output_dir": "hardcover",
+  "pricing": {
+    "list_price": "$22.99",
+    "printing_cost": "$6.75",
+    "expected_royalty": "$6.48"
+  },
+  "kdp_template": "templates/hardcover/kdp_case_laminate/6x9_110pages_template.png"
+}
