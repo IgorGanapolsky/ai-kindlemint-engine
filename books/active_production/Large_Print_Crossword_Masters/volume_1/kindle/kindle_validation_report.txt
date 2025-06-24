@@ -1,6 +1,0 @@
-Kindle EPUB Validation Report
-Generated: CrosswordMasters_V1.epub
-Status: PASSED
-KENP Pages: 71
-Errors: 0
-Warnings: 0
