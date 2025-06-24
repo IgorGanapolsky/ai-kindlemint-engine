@@ -129,7 +129,8 @@
       "Bash(printenv)",
       "Bash(SIMULATE_BROWSER_FAILURE=true python -c \"\nimport sys\nimport os\nsys.path.append('scripts')\nfrom dotenv import load_dotenv\nload_dotenv()\n\nprint('🔥 Testing Browser Automation FAILURE for Seer AI analysis...')\nexec(open('scripts/sentry_kdp_automation.py').read())\n\")",
       "Bash(SIMULATE_AUTH_FAILURE=true python -c \"\nimport sys\nimport os\nsys.path.append('scripts')\nfrom dotenv import load_dotenv\nload_dotenv()\n\nprint('🔥 Testing KDP AUTHENTICATION FAILURE for Seer AI...')\nexec(open('scripts/sentry_kdp_automation.py').read())\n\")",
-      "Bash(SIMULATE_UPLOAD_FAILURE=true python -c \"\nimport sys\nimport os\nsys.path.append('scripts')\nfrom dotenv import load_dotenv\nload_dotenv()\n\nprint('🔥 Testing FILE UPLOAD FAILURE for Seer AI...')\nexec(open('scripts/sentry_kdp_automation.py').read())\n\")"
+      "Bash(SIMULATE_UPLOAD_FAILURE=true python -c \"\nimport sys\nimport os\nsys.path.append('scripts')\nfrom dotenv import load_dotenv\nload_dotenv()\n\nprint('🔥 Testing FILE UPLOAD FAILURE for Seer AI...')\nexec(open('scripts/sentry_kdp_automation.py').read())\n\")",
+      "WebFetch(domain:docs.anthropic.com)"
     ],
     "deny": []
   }
