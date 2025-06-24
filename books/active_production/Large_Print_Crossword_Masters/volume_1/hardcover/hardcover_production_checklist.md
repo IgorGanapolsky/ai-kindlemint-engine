@@ -1,13 +1,13 @@
 # Hardcover Production Checklist
-## Large Print Crossword Masters - Volume 1
+## Large Print Crossword Masters - 50 Easy, Relaxing Crossword Puzzles for Seniors - Volume 1
 
 ### 📊 **Hardcover Specifications**
 - **Format**: Case-Laminate Hardcover (KDP's only hardcover option)
 - **Trim Size**: 6 × 9 inches
-- **Page Count**: 104 pages
+- **Page Count**: 103 pages
 - **Paper**: White (best for puzzle grids)
 - **Ink**: Black & White (cost efficient)
-- **Spine Width**: 0.3200 inches `(104 × 0.0025) + 0.06`
+- **Spine Width**: 0.3175 inches `(103 × 0.0025) + 0.06`
 
 ### 📁 **Required Files**
 
@@ -18,7 +18,7 @@
 - [ ] File: `hardcover_interior.pdf`
 
 #### ✅ **Cover Wrap PDF**  
-- [ ] Use KDP template for 6×9, 104 pages, white paper, B/W
+- [ ] Use KDP template for 6×9, 103 pages, white paper, B/W
 - [ ] Create wrap design with front/spine/back
 - [ ] Export as PDF/X-1a with CMYK and outlined fonts
 - [ ] File: `hardcover_cover_wrap.pdf`
@@ -26,11 +26,11 @@
 ### 🎨 **Cover Design Elements**
 
 #### **Source Assets**
-- **Front Cover**: `books/active_production/large_print_crossword_masters/volume_1/kindle/cover.jpg`
-- **Template**: `6x9_104pages_template.png`
+- **Front Cover**: `books/active_production/Large_Print_Crossword_Masters/volume_1/hardcover/cover_source_1600x2560.jpg`
+- **Template**: `6x9_103pages_template.png`
 
 #### **Design Requirements**
-1. **Canvas**: Exact template dimensions (4198 × 3125 pixels)
+1. **Canvas**: Exact template dimensions (3846 × 2850 pixels)
 2. **Template Layer**: 30% opacity for alignment 
 3. **Front Cover**: Right side, scale to fit, maintain aspect ratio
 4. **Background**: Extend gradient/pattern to spine & back
