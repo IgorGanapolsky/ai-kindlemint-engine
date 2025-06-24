@@ -1,0 +1,38 @@
+{
+  "title": "Large Print Crossword Masters",
+  "subtitle": "50 Easy, Relaxing Crossword Puzzles for Seniors - Volume 1",
+  "author": "Crossword Masters Publishing",
+  "publisher": "Crossword Masters Publishing",
+  
+  "description": "Rediscover the joy of crossword puzzles with Large Print Crossword Masters – Volume 1, specially designed for seniors and anyone who loves clear, readable puzzles!\\n\\nTired of squinting at tiny puzzle grids? This thoughtfully crafted collection features 50 brand-new crossword puzzles in crisp, large print format that's easy on your eyes and gentle on your mind.\\n\\nEvery puzzle uses everyday vocabulary you know and love – no obscure words or confusing references. Just pure, satisfying wordplay that challenges without frustrating.",
+  
+  "back_cover_description": "Rediscover the joy of crossword puzzles with Large Print\\nCrossword Masters – Volume 1, specially designed for seniors\\nand anyone who loves clear, readable puzzles!\\n\\nThis thoughtfully crafted collection features 50 brand-new\\ncrossword puzzles in crisp, large print format that's easy\\non your eyes and gentle on your mind.\\n\\n• 50 completely unique crossword puzzles\\n• Extra-large print for comfortable reading\\n• Everyday vocabulary that's familiar\\n• Complete answer key included\\n• Premium hardcover edition\\n\\nPerfect for morning coffee, evening relaxation, or as a\\nthoughtful gift for puzzle-loving friends and family.\\n\\nTransform your puzzle time into quality time with this\\npremium hardcover collection.",
+  
+  "keywords": [
+    "large print crossword puzzles",
+    "senior crossword book",
+    "easy crossword puzzles",
+    "crossword puzzles for adults",
+    "brain games for seniors",
+    "puzzle book large print",
+    "crossword puzzle book"
+  ],
+  
+  "categories": [
+    "Games & Puzzles > Crosswords",
+    "Health, Fitness & Dieting > Aging > Brain Health"
+  ],
+  
+  "language": "English",
+  "pages": 103,
+  "target_audience": "Adults 50+, Seniors, Puzzle enthusiasts",
+  
+  "cover_source": "hardcover/cover_source_1600x2560.jpg",
+  "output_dir": "books/active_production/Large_Print_Crossword_Masters/volume_1/hardcover",
+  
+  "hardcover_price_min": 19.99,
+  "hardcover_price_max": 24.99,
+  "printing_cost_estimate": 6.50,
+  "royalty_min": 3.50,
+  "royalty_max": 8.50
+}
