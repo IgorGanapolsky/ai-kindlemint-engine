@@ -25,6 +25,14 @@
 ### Accuracy Policy
 **ABSOLUTE REQUIREMENT**: Only provide 100% factual, verified information. NEVER claim something exists or was completed unless actually verified. NEVER make excuses for incorrect information. Always verify file existence, tool outputs, and system state before making any claims.
 
+### Publishing & Cover Instructions Policy
+**CRITICAL**: You are NOT allowed to make mistakes in cover instructions and publishing checklists. Everything MUST pass QA pipeline before claiming it's ready. Always:
+- Verify dimensions match between cover and interior
+- Run QA checks on all generated content
+- Test all instructions before providing them
+- Double-check all measurements, specifications, and requirements
+- NEVER provide publishing instructions without verification
+
 ### Testing Policy
 **CRITICAL**: Any script you create or use MUST be properly tested before claiming it works. This means:
 - Run the script and verify output
