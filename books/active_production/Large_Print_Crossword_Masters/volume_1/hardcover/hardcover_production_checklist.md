@@ -12,16 +12,16 @@
 ### 📁 **Required Files**
 
 #### ✅ **Interior PDF**
-- [ ] Convert paperback from 8.5×11 to 6×9 format
-- [ ] Maintain font embedding
-- [ ] Single-page PDF, no crop marks
-- [ ] File: `hardcover_interior.pdf`
+- [x] Convert paperback from 8.5×11 to 6×9 format (COMPLETED)
+- [x] Maintain font embedding (COMPLETED)
+- [x] Single-page PDF, no crop marks (COMPLETED)
+- [x] File: `hardcover_interior.pdf` (576.9 MB, 104 pages)
 
 #### ✅ **Cover Wrap PDF**  
-- [ ] Download KDP template for 6×9, 103 pages, white paper, B/W
-- [ ] Create wrap design with front/spine/back
-- [ ] Export as PDF/X-1a with CMYK and outlined fonts
-- [ ] File: `hardcover_cover_wrap.pdf`
+- [x] Download KDP template for 6×9, 103 pages, white paper, B/W (COMPLETED)
+- [x] Create wrap design with front/spine/back (COMPLETED)
+- [x] Export as PDF/X-1a with CMYK and outlined fonts (COMPLETED)
+- [x] File: `hardcover_cover_wrap.pdf` (11.9 MB, KDP-ready)
 
 ### 🎨 **Cover Design Elements**
 
