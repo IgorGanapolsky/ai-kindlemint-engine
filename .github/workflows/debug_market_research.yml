@@ -35,16 +35,16 @@ jobs:
         
     - name: 🧪 Test script import
       run: |
-        python -c "
-import sys
-sys.path.append('scripts')
-try:
-    import market_research_csv_output
-    print('✅ Script imported successfully')
-except Exception as e:
-    print(f'❌ Import failed: {e}')
-    exit(1)
-"
+        python << 'EOF'
+        import sys
+        sys.path.append('scripts')
+        try:
+            import market_research_csv_output
+            print('✅ Script imported successfully')
+        except Exception as e:
+            print(f'❌ Import failed: {e}')
+            exit(1)
+        EOF
         
     - name: 📊 Run minimal test
       run: |
