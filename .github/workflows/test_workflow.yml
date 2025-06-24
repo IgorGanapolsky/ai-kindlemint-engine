@@ -1,0 +1,46 @@
+name: Test Market Research Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🔄 Checkout
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: 📦 Install Dependencies
+      run: |
+        pip install requests pandas python-dotenv
+        
+    - name: 🧪 Test Market Research Script
+      run: |
+        # Test if the script runs without API keys
+        echo "Testing market research script..."
+        
+        # Create minimal test
+        python -c "
+import sys
+sys.path.append('scripts')
+from market_research_csv_output import MarketResearchEngine
+
+print('✅ Script imports successfully')
+
+# Test with mock data
+engine = MarketResearchEngine()
+print('✅ Engine initialized')
+
+# Generate mock data for one keyword
+data = engine._generate_mock_data('test keyword')
+print(f'✅ Mock data generated: {len(data)} items')
+"
+        
+    - name: ✅ Success
+      run: echo "🎯 Test completed successfully!"

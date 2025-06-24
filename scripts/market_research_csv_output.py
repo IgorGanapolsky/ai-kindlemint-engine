@@ -15,6 +15,10 @@ from dataclasses import dataclass, asdict
 
 # Import Sentry if available
 try:
+    # Try to import from the scripts directory
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent))
     from sentry_config import init_sentry, add_breadcrumb, capture_kdp_error
     SENTRY_AVAILABLE = True
 except ImportError:

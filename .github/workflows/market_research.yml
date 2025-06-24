@@ -42,8 +42,14 @@ jobs:
         
     - name: 🔑 Configure API Keys
       run: |
-        echo "SERPAPI_API_KEY=${{ secrets.SERPAPI_API_KEY }}" >> .env
-        echo "SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> .env
+        # Create .env file even if secrets are not set
+        touch .env
+        if [ -n "${{ secrets.SERPAPI_API_KEY }}" ]; then
+          echo "SERPAPI_API_KEY=${{ secrets.SERPAPI_API_KEY }}" >> .env
+        fi
+        if [ -n "${{ secrets.SENTRY_DSN }}" ]; then
+          echo "SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> .env
+        fi
         echo "PYTRENDS_ENABLED=true" >> .env
         
     - name: 🔍 Run Market Research
