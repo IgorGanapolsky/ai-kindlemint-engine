@@ -178,29 +178,47 @@ class SlackNotifier:
         kdp_ready_count       = batch_results.get("kdp_ready_count", 0)
         roi_percentage        = batch_results.get("roi_percentage")
         cost_per_book         = batch_results.get("cost_per_book")
+        total_cost            = batch_results.get("total_cost")
 
-        # Determine color based on success rate
-        if success_rate == 100:
+        # Determine color based on success rate and QA score
+        if success_rate == 100 and (avg_qa_score is None or avg_qa_score >= 85):
             color = "#2ecc71"  # Green
             emoji = "✅"
-        elif success_rate >= 80:
+            status_text = "EXCELLENT"
+        elif success_rate >= 80 and (avg_qa_score is None or avg_qa_score >= 70):
             color = "#f39c12"  # Orange
             emoji = "⚠️"
+            status_text = "NEEDS REVIEW"
         else:
             color = "#e74c3c"  # Red
             emoji = "❌"
+            status_text = "CRITICAL ISSUES"
         
-        # Create rich message with blocks
+        # Create rich message with blocks - EXECUTIVE DASHBOARD HEADER
         blocks = [
             {
                 "type": "header",
                 "text": {
                     "type": "plain_text",
-                    "text": f"{emoji} Batch Processing Complete: {batch_id}"
+                    "text": f"📊 EXECUTIVE DASHBOARD: BATCH {batch_id}"
                 }
             },
             {
                 "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*Status: {status_text}* {emoji}"
+                }
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*📚 PRODUCTION SUMMARY*"
+                },
                 "fields": [
                     {"type": "mrkdwn", "text": f"*Books Processed:*\n{books_processed}"},
                     {"type": "mrkdwn", "text": f"*Success Rate:*\n{success_rate:.1f}%"},
@@ -212,69 +230,69 @@ class SlackNotifier:
             }
         ]
 
-        # Insert efficiency metrics
-        efficiency_fields: List[Dict[str, str]] = []
-
-        efficiency_fields.append({"type": "mrkdwn", "text": f"*Avg Time/Book:*\n{avg_time_per_book}"})
-
-        if avg_qa_score is not None:
-            efficiency_fields.append({"type": "mrkdwn", "text": f"*Avg QA Score:*\n{avg_qa_score}/100"})
-        if avg_profit_per_book is not None:
-            efficiency_fields.append({"type": "mrkdwn", "text": f"*Avg Profit/Book:*\n${avg_profit_per_book:.2f}"})
-        if total_profit is not None:
-            efficiency_fields.append({"type": "mrkdwn", "text": f"*Total Profit:*\n${total_profit:.2f}"})
-        if previous_success_rate is not None:
-            delta = success_rate - previous_success_rate
-            sign  = "▲" if delta >= 0 else "▼"
-            efficiency_fields.append(
-                {"type": "mrkdwn",
-                 "text": f"*Δ Success Rate:*\n{sign}{abs(delta):.1f}% vs last run"}
-            )
-        if roi_percentage is not None:
-            efficiency_fields.append({"type": "mrkdwn", "text": f"*ROI:*\n{roi_percentage:.1f}%"})
-        if cost_per_book is not None:
-            efficiency_fields.append({"type": "mrkdwn", "text": f"*Cost/Book:*\n${cost_per_book:.2f}"})
-
-        if efficiency_fields:
-            blocks.append(
-                {
-                    "type": "section",
-                    "fields": efficiency_fields
-                }
-            )
+        # FINANCIAL METRICS SECTION
+        financial_fields: List[Dict[str, str]] = []
         
-        # ------------------------------------------------------------------ #
-        # Quality Assurance & Insights Section
-        # ------------------------------------------------------------------ #
-        qa_insights_fields: List[Dict[str, str]] = []
-        qa_status_emoji = "❓"
-        qa_status_text = "Unknown"
-
-        if avg_qa_score is not None:
-            if avg_qa_score >= 85:
-                qa_status_emoji = "✅"
-                qa_status_text = "Excellent"
-            elif avg_qa_score >= 70:
-                qa_status_emoji = "⚠️"
-                qa_status_text = "Good, but needs review"
-            else:
-                qa_status_emoji = "❌"
-                qa_status_text = "Critical issues found"
+        if total_profit is not None:
+            profit_emoji = "💰" if total_profit > 0 else "📉"
+            financial_fields.append({"type": "mrkdwn", "text": f"*Total Profit:*\n{profit_emoji} ${total_profit:.2f}"})
+        
+        if avg_profit_per_book is not None:
+            financial_fields.append({"type": "mrkdwn", "text": f"*Avg Profit/Book:*\n${avg_profit_per_book:.2f}"})
+        
+        if cost_per_book is not None:
+            financial_fields.append({"type": "mrkdwn", "text": f"*Cost/Book:*\n${cost_per_book:.2f}"})
             
-            qa_insights_fields.append({"type": "mrkdwn", "text": f"*Overall QA Score:*\n{avg_qa_score}/100 {qa_status_emoji}"})
-            qa_insights_fields.append({"type": "mrkdwn", "text": f"*KDP Ready Books:*\n{kdp_ready_count}/{books_processed}"})
-        else:
-            qa_insights_fields.append({"type": "mrkdwn", "text": "*Overall QA Score:*\nN/A"})
-            qa_insights_fields.append({"type": "mrkdwn", "text": "*KDP Ready Books:*\nN/A"})
+        if total_cost is not None:
+            financial_fields.append({"type": "mrkdwn", "text": f"*Total Cost:*\n${total_cost:.2f}"})
+            
+        if roi_percentage is not None:
+            roi_emoji = "🚀" if roi_percentage > 100 else ("✅" if roi_percentage > 0 else "❌")
+            financial_fields.append({"type": "mrkdwn", "text": f"*ROI:*\n{roi_emoji} {roi_percentage:.1f}%"})
 
-        # ------------------------------------------------------------------ #
-        # Pull critical QA issues from each book.  QA data may live either:
-        #   1. Directly as a dict in  book_result["artifacts"]["qa_report"]
-        #   2. As a file path   in  book_result["artifacts"]["qa_report"]
-        #   3. (legacy) at      book_result["qa_report"]
-        # ------------------------------------------------------------------ #
-        critical_issues_list: List[str] = []
+        if financial_fields:
+            blocks.append({
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*💰 FINANCIAL IMPACT*"
+                },
+                "fields": financial_fields
+            })
 
+        # QUALITY ASSURANCE SECTION - Enhanced with multi-model validation results
+        qa_fields: List[Dict[str, str]] = []
+        
+        if avg_qa_score is not None:
+            qa_emoji = "✅" if avg_qa_score >= 85 else ("⚠️" if avg_qa_score >= 70 else "❌")
+            qa_fields.append({"type": "mrkdwn", "text": f"*Avg QA Score:*\n{qa_emoji} {avg_qa_score}/100"})
+            qa_fields.append({"type": "mrkdwn", "text": f"*KDP Ready:*\n{kdp_ready_count}/{books_processed} books"})
+            
+            # Calculate quality improvement if previous data available
+            if previous_success_rate is not None:
+                delta = success_rate - previous_success_rate
+                delta_emoji = "🔼" if delta > 0 else ("🔽" if delta < 0 else "➡️")
+                qa_fields.append({"type": "mrkdwn", "text": f"*Quality Trend:*\n{delta_emoji} {abs(delta):.1f}% vs last run"})
+        
+        if production_efficiency is not None:
+            efficiency_emoji = "⚡" if production_efficiency < 300 else ("⏱️" if production_efficiency < 600 else "🐢")
+            qa_fields.append({"type": "mrkdwn", "text": f"*Production Speed:*\n{efficiency_emoji} {production_efficiency:.1f}s/book"})
+
+        if qa_fields:
+            blocks.append({
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*🔍 QUALITY METRICS*"
+                },
+                "fields": qa_fields
+            })
+
+        # MULTI-MODEL VALIDATION INSIGHTS
+        # Extract model-specific validation results from book QA reports
+        model_validation_results: Dict[str, List[str]] = {}
+        model_consensus_scores: List[int] = []
+        
         def _load_qa_data(raw: Any) -> Optional[Dict]:
             """Return QA dict if possible else None."""
             if isinstance(raw, dict):
@@ -301,110 +319,227 @@ class SlackNotifier:
             if not qa_data:
                 continue
 
-            for issue in qa_data.get("issues_found", []):
-                desc = issue.get("description", "")
-                # Highlight only business-relevant issues
-                if any(keyword in desc.lower() for keyword in
-                       ("duplicate", "cut off", "white", "whitespace")):
-                    critical_issues_list.append(f"• {title}: {desc}")
+            # Extract multi-model validation results
+            llm_validation = qa_data.get("checks", {}).get("llm_content_validation", {})
+            
+            # Get consensus score
+            consensus_score = llm_validation.get("consensus_score")
+            if consensus_score is not None:
+                model_consensus_scores.append(consensus_score)
+            
+            # Get model-specific results
+            for model, results in llm_validation.get("validation_results", {}).items():
+                if model not in model_validation_results:
+                    model_validation_results[model] = []
+                
+                # Get issues from this model
+                for issue in results.get("issues", []):
+                    model_validation_results[model].append(f"• {title}: {issue}")
+                
+                # Get warnings from this model (limited to 3 per model)
+                for warning in results.get("warnings", [])[:3]:
+                    model_validation_results[model].append(f"• {title}: {warning}")
 
-        if critical_issues_list:
+        # Add multi-model validation section if we have data
+        if model_validation_results:
             blocks.append({
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*🚨 Critical QA Issues Found:*\n" + "\n".join(critical_issues_list[:5])
+                    "text": "*🤖 MULTI-MODEL VALIDATION INSIGHTS*"
                 }
             })
-            if len(critical_issues_list) > 5:
-                blocks.append({
-                    "type": "context",
-                    "elements": [{"type": "mrkdwn", "text": f"_...and {len(critical_issues_list) - 5} more issues_"}]
-                })
-        
-        if qa_insights_fields:
-            blocks.append({
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "🎯 *Quality Assurance & Insights*"
-                },
-                "fields": qa_insights_fields
-            })
-
-        # ------------------------------------------------------------------ #
-        # Actionable Insights & Production Status
-        # ------------------------------------------------------------------ #
-        action_items: List[str] = []
-        production_status_fields: List[Dict[str, str]] = []
-
-        if avg_qa_score is not None and avg_qa_score < 85:
-            action_items.append("🚨 *Priority 1:* Review critical QA issues and fix content/layout problems.")
-        if books_failed > 0:
-            action_items.append("🔧 *Priority 2:* Investigate failed books and address root causes.")
-        if production_efficiency is not None:
-            if production_efficiency > 300:  # more than 5 minutes per book
-                action_items.append("⚡ *Priority 3:* Optimize production efficiency (currently {:.1f}s/book).".format(production_efficiency))
-            production_status_fields.append({"type": "mrkdwn", "text": f"*Production Efficiency:*\n{production_efficiency:.1f}s/book"})
-        
-        # Weekly production goals
-        if books_processed > 0 and avg_profit_per_book is not None:
-            weekly_target_books = 5  # Default weekly target
-            weekly_profit_projection = weekly_target_books * avg_profit_per_book
-            production_status_fields.append({"type": "mrkdwn", "text": f"*Weekly Goal:*\n{weekly_target_books} books (${weekly_profit_projection:.2f})"})
             
-            # On track or not?
-            if books_succeeded == books_processed:
-                production_status_fields.append({"type": "mrkdwn", "text": f"*Status:*\nOn track ✅"})
-            else:
-                production_status_fields.append({"type": "mrkdwn", "text": f"*Status:*\nNeeds attention ⚠️"})
-
-        if action_items:
-            blocks.append({
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "💡 *Actionable Insights:*\n" + "\n".join(action_items)
-                }
-            })
-
-        if production_status_fields:
-            blocks.append({
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn", 
-                    "text": "📈 *Production Status & Goals*"
-                },
-                "fields": production_status_fields
-            })
-
-        # Add book details section if there are failed books
-        if books_failed > 0:
-            failed_books = []
-            for book_id, book_result in batch_results.get("book_results", {}).items():
-                if book_result.get("status") != "complete":
-                    error_msg = book_result.get("error", "Unknown error")
-                    failed_books.append(f"• *{book_result.get('title', book_id)}*: {error_msg[:50]}...")
-            
-            if failed_books:
+            # Add average consensus score if available
+            if model_consensus_scores:
+                avg_consensus = sum(model_consensus_scores) / len(model_consensus_scores)
+                consensus_emoji = "✅" if avg_consensus >= 85 else ("⚠️" if avg_consensus >= 70 else "❌")
                 blocks.append({
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "*Failed Books:*\n" + "\n".join(failed_books[:5])
+                        "text": f"*Multi-Model Consensus Score:* {consensus_emoji} {avg_consensus:.1f}/100"
+                    }
+                })
+            
+            # Add model-specific findings
+            for model, issues in model_validation_results.items():
+                if issues:
+                    model_name = model.upper()
+                    blocks.append({
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": f"*{model_name} Findings:*\n" + "\n".join(issues[:5])
+                        }
+                    })
+                    
+                    if len(issues) > 5:
+                        blocks.append({
+                            "type": "context",
+                            "elements": [{"type": "mrkdwn", "text": f"_...and {len(issues) - 5} more issues from {model_name}_"}]
+                        })
+
+        # CRITICAL ISSUES SECTION - Enhanced with categorization
+        content_issues: List[str] = []
+        layout_issues: List[str] = []
+        duplicate_issues: List[str] = []
+        
+        for book_id, book_result in batch_results.get("book_results", {}).items():
+            title = book_result.get("title", book_id)
+
+            # Get QA data
+            qa_raw = book_result.get("artifacts", {}).get("qa_report")
+            if qa_raw is None:
+                qa_raw = book_result.get("qa_report")
+
+            qa_data = _load_qa_data(qa_raw)
+            if not qa_data:
+                continue
+
+            # Categorize issues
+            for issue in qa_data.get("issues_found", []):
+                desc = issue.get("description", "")
+                issue_entry = f"• {title}: {desc}"
+                
+                if "duplicate" in desc.lower():
+                    duplicate_issues.append(issue_entry)
+                elif any(keyword in desc.lower() for keyword in ["cut off", "cutoff", "margin"]):
+                    layout_issues.append(issue_entry)
+                elif any(keyword in desc.lower() for keyword in ["content", "text", "missing"]):
+                    content_issues.append(issue_entry)
+
+        # Add critical issues sections if we have data
+        if duplicate_issues or layout_issues or content_issues:
+            blocks.append({
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*🚨 CRITICAL ISSUES REQUIRING ACTION*"
+                }
+            })
+            
+            if duplicate_issues:
+                blocks.append({
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "*Duplicate Content Issues:*\n" + "\n".join(duplicate_issues[:3])
                     }
                 })
                 
-                # Add note if there are more than 5 failed books
-                if len(failed_books) > 5:
-                    blocks.append({
-                        "type": "context",
-                        "elements": [{
-                            "type": "mrkdwn",
-                            "text": f"_...and {len(failed_books) - 5} more failed books_"
-                        }]
-                    })
+            if layout_issues:
+                blocks.append({
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "*Layout & Formatting Issues:*\n" + "\n".join(layout_issues[:3])
+                    }
+                })
+                
+            if content_issues:
+                blocks.append({
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "*Content Quality Issues:*\n" + "\n".join(content_issues[:3])
+                    }
+                })
+                
+            # Total issue count
+            total_issues = len(duplicate_issues) + len(layout_issues) + len(content_issues)
+            displayed_issues = min(len(duplicate_issues), 3) + min(len(layout_issues), 3) + min(len(content_issues), 3)
+            
+            if total_issues > displayed_issues:
+                blocks.append({
+                    "type": "context",
+                    "elements": [{
+                        "type": "mrkdwn",
+                        "text": f"_...and {total_issues - displayed_issues} more issues not shown_"
+                    }]
+                })
+
+        # ACTIONABLE RECOMMENDATIONS SECTION
+        recommendations: List[str] = []
         
+        # Generate recommendations based on issues found
+        if duplicate_issues:
+            recommendations.append("🔄 *Fix duplicate content:* Update crossword_engine_v2.py to ensure unique clues for each puzzle")
+            
+        if layout_issues:
+            recommendations.append("📏 *Address layout issues:* Adjust margins in book_layout_bot.py to prevent text cutoff")
+            
+        if content_issues:
+            recommendations.append("📝 *Improve content quality:* Review and enhance content generation templates")
+            
+        if avg_qa_score is not None and avg_qa_score < 70:
+            recommendations.append("🔍 *Enhance QA process:* Implement pre-publishing validation step with Claude Artifacts")
+            
+        if books_failed > 0:
+            recommendations.append("🛠️ *Debug failed books:* Check error logs and fix root causes")
+            
+        if production_efficiency is not None and production_efficiency > 300:
+            recommendations.append("⚡ *Optimize performance:* Parallelize book generation to reduce processing time")
+            
+        # Add business recommendations
+        if avg_profit_per_book is not None:
+            if avg_profit_per_book < 3:
+                recommendations.append("💰 *Increase profit margins:* Adjust pricing strategy or reduce production costs")
+            else:
+                recommendations.append("📈 *Scale production:* Current profit margins support scaling to 5+ books/week")
+
+        # Add recommendations section if we have data
+        if recommendations:
+            blocks.append({
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*💡 ACTIONABLE RECOMMENDATIONS*\n" + "\n".join(recommendations)
+                }
+            })
+
+        # BUSINESS IMPACT SUMMARY
+        if total_profit is not None or avg_qa_score is not None:
+            impact_text = "*📊 BUSINESS IMPACT SUMMARY*\n"
+            
+            # Financial impact
+            if total_profit is not None:
+                if total_profit > 0:
+                    impact_text += f"• *Profitable batch* generating ${total_profit:.2f} in estimated revenue\n"
+                else:
+                    impact_text += f"• *Unprofitable batch* with ${abs(total_profit):.2f} estimated loss\n"
+            
+            # Quality impact
+            if avg_qa_score is not None:
+                if avg_qa_score >= 85:
+                    impact_text += "• *Publication-ready quality* with minimal review needed\n"
+                elif avg_qa_score >= 70:
+                    impact_text += "• *Good quality* but requires review before publishing\n"
+                else:
+                    impact_text += "• *Quality issues detected* requiring significant improvements\n"
+            
+            # Production efficiency
+            if production_efficiency is not None:
+                weekly_capacity = int((7 * 24 * 60 * 60) / production_efficiency)
+                impact_text += f"• Current capacity: *{weekly_capacity} books/week* at this efficiency\n"
+            
+            # KDP readiness
+            if kdp_ready_count is not None:
+                if kdp_ready_count == books_processed:
+                    impact_text += "• *All books ready for KDP* - proceed to publishing\n"
+                elif kdp_ready_count > 0:
+                    impact_text += f"• *{kdp_ready_count}/{books_processed} books ready for KDP* - partial publishing possible\n"
+                else:
+                    impact_text += "• *No books ready for KDP* - fix critical issues first\n"
+            
+            blocks.append({
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": impact_text
+                }
+            })
+
         # Add report link
         report_dir = Path(f"batch_reports/{batch_id}")
         if report_dir.exists():
@@ -412,22 +547,22 @@ class SlackNotifier:
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": f"*Detailed Report:*\n`{report_dir}/batch_summary.md`"
+                    "text": f"*📁 DETAILED REPORTS*\n• Batch Summary: `{report_dir}/batch_summary.md`\n• Full JSON Data: `{report_dir}/batch_report.json`"
                 }
             })
         
-        # Add timestamp
+        # Add timestamp and footer
         blocks.append({
             "type": "context",
             "elements": [{
                 "type": "mrkdwn",
-                "text": f"📅 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+                "text": f"📅 Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | KindleMint Engine v2.0"
             }]
         })
         
         # Send the notification
         return self.send_message(
-            text=f"Batch Processing Complete: {books_succeeded}/{books_processed} books successful ({success_rate:.1f}%)",
+            text=f"📊 Executive Dashboard: Batch {batch_id} - {books_succeeded}/{books_processed} books successful ({success_rate:.1f}%)",
             blocks=blocks,
             color=color
         )

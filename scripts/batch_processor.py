@@ -73,6 +73,24 @@ except Exception:  # pragma: no cover – fallback if Slack notifier not availab
         def send_book_complete(self, *args, **kwargs):
             return False
 
+# --- Enhanced QA Validator availability ------------------------------------- #
+# Import once at module level so all methods/classes can use it.
+try:
+    # `_SCRIPTS_DIR` is already on `sys.path` (added above)
+    from enhanced_qa_validator import EnhancedQAValidator  # noqa: F401
+    ENHANCED_QA_AVAILABLE = True
+except Exception:  # pragma: no cover – fallback stub if validator missing
+    ENHANCED_QA_AVAILABLE = False
+
+    class EnhancedQAValidator:  # type: ignore
+        """Stub QA validator so downstream references don't break when missing."""
+
+        def __init__(self, *_, **__):
+            raise ImportError(
+                "EnhancedQAValidator not available. "
+                "Ensure scripts/enhanced_qa_validator.py exists and is importable."
+            )
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -357,65 +375,47 @@ class BatchProcessor:
             # Do NOT clamp to zero – negative profit highlights unprofitable books
             profit_estimate = round(price_estimate - cost_estimate, 2)
 
+            # store business metrics
             book_result["cost_estimate"] = round(cost_estimate, 2)
             book_result["price_estimate"] = round(price_estimate, 2)
-            book_result["profit_estimate"] = round(profit_estimate, 2)
+            book_result["profit_estimate"] = profit_estimate
 
-            # ------------------------------------------------------------------
-            # Quality metrics: bubble up QA score & KDP readiness to top-level
-            # ------------------------------------------------------------------
+            # Bubble QA info if it exists
             if "qa_score" in book_result["artifacts"]:
                 book_result["qa_score"] = book_result["artifacts"]["qa_score"]
-
             if "publish_ready" in book_result["artifacts"]:
                 book_result["publish_ready"] = book_result["artifacts"]["publish_ready"]
-            # ------------------------------------------------------------------
-        except Exception as e:
-            # Record the failure
-            error_msg = str(e)
-            logger.error(f"Error processing book {book_id}: {error_msg}")
+
+        # ------------------------------------------------------------------ #
+        # Handle any unexpected exception during the book workflow
+        # ------------------------------------------------------------------ #
+        except Exception as e:  # noqa: F841  (caught for logging)
+            logger.error(f"Unhandled error processing book {book_id}: {e}")
             logger.error(traceback.format_exc())
-            
+
             book_result["status"] = "failed"
-            book_result["error"] = error_msg
-            # Ensure business keys exist to avoid KeyError in aggregation
-            book_result.setdefault("cost_estimate", 0.0)
-            book_result.setdefault("price_estimate", 0.0)
-            book_result.setdefault("profit_estimate", 0.0)
-            # Send Slack notification for critical error
+            book_result["error"] = str(e)
+
+            # Slack / Sentry notification for failure
             if self.slack_enabled:
                 try:
-                    logger.info(f"Sending error notification to Slack for book {book_id}")
-                    if self.sentry_enabled:
-                        add_breadcrumb(
-                            "Sending book error to Slack",
-                            category="notification",
-                            data={"book_id": book_id, "error": error_msg[:100]}
-                        )
-                    
                     context = {
                         "book_id": book_id,
                         "book_title": book_title,
                         "batch_id": self.batch_id,
                         "steps_completed": len(book_result.get("steps_completed", [])),
-                        "last_step": book_result.get("steps_completed", ["none"])[-1] if book_result.get("steps_completed") else "none"
+                        "last_step": book_result.get("steps_completed", ["none"])[-1]
+                        if book_result.get("steps_completed") else "none"
                     }
-                    
-                    notification_sent = self.slack_notifier.send_error(
+                    self.slack_notifier.send_error(
                         message=f"Book processing failed: {book_title}",
                         error=e,
                         context=context
                     )
-                    
-                    if notification_sent:
-                        logger.info("Error notification sent to Slack successfully")
-                    else:
-                        logger.warning("Failed to send error notification to Slack")
-                        
-                except Exception as slack_error:
-                    logger.error(f"Error sending Slack notification: {slack_error}")
-                    if self.sentry_enabled:
-                        capture_kdp_error(slack_error, {"operation": "slack_error_notification"})
+                except Exception as slack_err:  # noqa: F841
+                    logger.warning(f"Failed to send Slack error notification: {slack_err}")
+            if self.sentry_enabled:
+                capture_kdp_error(e, {"book_id": book_id, "stage": "process_book"})
         
         # Finalize book result
         book_result["end_time"] = datetime.now().isoformat()
@@ -768,26 +768,17 @@ class BatchProcessor:
     def _step_run_qa(self, book_config: Dict, book_result: Dict) -> Dict:
         """Run QA checks on the generated files"""
         try:
-            # Import the new QA validation pipeline
-            qa_module_path = "scripts/qa_validation_pipeline.py"
-            qa_module = self._import_module_from_path(qa_module_path, "qa_validation_pipeline")
-            
-            if not qa_module:
-                raise ImportError(f"Could not import QA validation pipeline from {qa_module_path}")
-            
-            # Import the artifacts interface
-            artifacts_module_path = "scripts/qa_artifacts_interface.py"
-            artifacts_module = self._import_module_from_path(artifacts_module_path, "qa_artifacts_interface")
+            if not ENHANCED_QA_AVAILABLE:
+                raise ImportError("EnhancedQAValidator not available. Ensure scripts/enhanced_qa_validator.py exists.")
             
             # Get the interior PDF path
             interior_pdf = book_result["artifacts"].get("interior_pdf")
             if not interior_pdf:
                 raise ValueError("Interior PDF not found in artifacts")
             
-            # Run QA validation
-            pipeline = qa_module.QAValidationPipeline()
-            book_type = book_config.get("puzzle_type", "crossword")
-            qa_result = pipeline.validate_pdf(Path(interior_pdf), book_type=book_type)
+            # Run QA checks
+            checker = EnhancedQAValidator()
+            qa_results = checker.run_enhanced_qa(interior_pdf)
             
             # Save QA results
             series_name = book_config.get("series_name", "Default_Series")
@@ -795,74 +786,42 @@ class BatchProcessor:
             output_dir = Path(f"books/active_production/{series_name}/volume_{volume}/qa")
             output_dir.mkdir(parents=True, exist_ok=True)
             
-            # Convert QAResult dataclass to dict for JSON serialization
-            qa_results_dict = qa_module.asdict(qa_result)
-            
             qa_report_file = output_dir / f"qa_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
             with open(qa_report_file, 'w') as f:
-                json.dump(qa_results_dict, f, indent=2)
-            
-            # Generate Claude Artifacts interface if available
-            qa_artifact_file = None
-            if artifacts_module:
-                interface = artifacts_module.QAArtifactsInterface()
-                html = interface.generate_qa_artifact(qa_results_dict, Path(interior_pdf))
-                qa_artifact_file = output_dir / f"qa_artifact_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
-                interface.save_artifact(html, qa_artifact_file)
-                
-                # Also generate markdown summary
-                markdown_summary = interface.generate_markdown_summary(qa_results_dict)
-                summary_file = output_dir / "qa_summary.md"
-                with open(summary_file, 'w') as f:
-                    f.write(markdown_summary)
+                json.dump(qa_results, f, indent=2)
             
             # Create validation report
             validation_report = f"""# Quality Assurance Report
 ## {book_config.get("title", f"{series_name} Volume {volume}")}
 
 ### 📊 **QA Results**
-- **Overall Score**: {qa_result.overall_score}/100
-- **Status**: {'✅ PASSED' if qa_result.passed else '❌ FAILED'}
-- **Validation Model**: {qa_result.validation_model}
-- **Timestamp**: {qa_result.timestamp}
+- **Overall Score**: {qa_results['overall_score']}/100
+- **Critical Issues**: {len(qa_results['issues_found'])}
+- **Warnings**: {len(qa_results['warnings'])}
+- **Publish Ready**: {'Yes' if qa_results['publish_ready'] else 'No'}
 
-### 📋 **Criteria Breakdown**
+### ❌ **Critical Issues**
+{chr(10).join([f"- {issue['description']}" for issue in qa_results['issues_found']])}
+
+### ⚠️ **Warnings**
+{chr(10).join([f"- {warning['description']}" for warning in qa_results['warnings']])}
+
+### 📋 **Next Steps**
+{'✅ Book is ready for publishing!' if qa_results['publish_ready'] else '❌ Fix critical issues before publishing'}
 """
             
-            for criterion, details in qa_result.criteria.items():
-                status = "✅" if details.get("passed", False) else "❌"
-                validation_report += f"- {status} **{criterion}**: {details['score']} (threshold: {details['threshold']})\n"
-            
-            if qa_result.issues_found:
-                validation_report += f"\n### ⚠️ **Issues Found** ({len(qa_result.issues_found)})\n"
-                for issue in qa_result.issues_found[:10]:
-                    validation_report += f"- {issue.get('type', 'Unknown')}: {issue.get('message', str(issue))}\n"
-            
-            if qa_result.recommendations:
-                validation_report += f"\n### 💡 **Recommendations**\n"
-                for rec in qa_result.recommendations:
-                    validation_report += f"- {rec}\n"
-            
-            validation_report += f"\n### 📋 **Next Steps**\n"
-            validation_report += '✅ Book is ready for publishing!' if qa_result.passed else '❌ Fix issues before publishing (minimum score: 85/100)'
-            
-            validation_report_file = output_dir / "qa_validation_report.md"
+            validation_report_file = output_dir / "qa_validation_report.txt"
             with open(validation_report_file, 'w') as f:
                 f.write(validation_report)
             
             # Return artifacts
-            artifacts = {
+            return {
                 "qa_dir": str(output_dir),
                 "qa_report": str(qa_report_file),
                 "validation_report": str(validation_report_file),
-                "publish_ready": qa_result.passed,
-                "qa_score": qa_result.overall_score
+                "publish_ready": qa_results['publish_ready'],
+                "qa_score": qa_results['overall_score']
             }
-            
-            if qa_artifact_file:
-                artifacts["qa_artifact"] = str(qa_artifact_file)
-            
-            return artifacts
             
         except Exception as e:
             logger.error(f"QA check failed: {e}")
