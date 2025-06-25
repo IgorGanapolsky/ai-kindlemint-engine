@@ -1066,20 +1066,36 @@ class Volume3CrosswordGenerator:
                 c.setFont("Helvetica", 9)
                 y_pos = clues_start_y - 0.2*inch
                 
-                for i, clue in enumerate(pattern["clues_across"][:6]):
-                    if y_pos > BOTTOM_MARGIN + 0.3*inch:
-                        c.drawString(GUTTER, y_pos, clue)
-                        y_pos -= 0.18*inch
+                # Match clues to actual grid numbers
+                across_clue_idx = 0
+                for row in range(mini_grid_size):
+                    for col in range(mini_grid_size):
+                        if (row, col) in numbers:
+                            # Check if this starts an across word
+                            if col == 0 or (row, col-1) in pattern["black"]:
+                                if col < mini_grid_size - 1 and (row, col+1) not in pattern["black"]:
+                                    if across_clue_idx < len(pattern["clues_across"]) and y_pos > BOTTOM_MARGIN + 0.3*inch:
+                                        c.drawString(GUTTER, y_pos, f"{numbers[(row,col)]}. {pattern['clues_across'][across_clue_idx]}")
+                                        y_pos -= 0.18*inch
+                                        across_clue_idx += 1
                 
                 c.setFont("Helvetica-Bold", 10)
                 c.drawString(PAGE_WIDTH/2 + 0.1*inch, clues_start_y, "DOWN")
                 c.setFont("Helvetica", 9)
                 y_pos = clues_start_y - 0.2*inch
                 
-                for i, clue in enumerate(pattern["clues_down"][:6]):
-                    if y_pos > BOTTOM_MARGIN + 0.3*inch:
-                        c.drawString(PAGE_WIDTH/2 + 0.1*inch, y_pos, clue)
-                        y_pos -= 0.18*inch
+                # Match down clues to actual grid numbers
+                down_clue_idx = 0
+                for row in range(mini_grid_size):
+                    for col in range(mini_grid_size):
+                        if (row, col) in numbers:
+                            # Check if this starts a down word
+                            if row == 0 or (row-1, col) in pattern["black"]:
+                                if row < mini_grid_size - 1 and (row+1, col) not in pattern["black"]:
+                                    if down_clue_idx < len(pattern["clues_down"]) and y_pos > BOTTOM_MARGIN + 0.3*inch:
+                                        c.drawString(PAGE_WIDTH/2 + 0.1*inch, y_pos, f"{numbers[(row,col)]}. {pattern['clues_down'][down_clue_idx]}")
+                                        y_pos -= 0.18*inch
+                                        down_clue_idx += 1
                 
                 c.showPage()
             
