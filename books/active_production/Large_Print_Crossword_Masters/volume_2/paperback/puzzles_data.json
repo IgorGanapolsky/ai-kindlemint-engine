@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "theme": "Kitchen Tools",
+    "difficulty": "easy",
+    "clue_count": 49
+  },
+  {
+    "id": 2,
+    "theme": "Ocean Life",
+    "difficulty": "easy",
+    "clue_count": 56
+  },
+  {
+    "id": 3,
+    "theme": "Classic Movies",
+    "difficulty": "easy",
+    "clue_count": 45
+  },
+  {
+    "id": 4,
+    "theme": "World Capitals",
+    "difficulty": "easy",
+    "clue_count": 54
+  },
+  {
+    "id": 5,
+    "theme": "Famous Authors",
+    "difficulty": "easy",
+    "clue_count": 53
+  },
+  {
+    "id": 6,
+    "theme": "Musical Instruments",
+    "difficulty": "easy",
+    "clue_count": 54
+  },
+  {
+    "id": 7,
+    "theme": "Garden Flowers",
+    "difficulty": "easy",
+    "clue_count": 55
+  },
+  {
+    "id": 8,
+    "theme": "Space Exploration",
+    "difficulty": "easy",
+    "clue_count": 54
+  },
+  {
+    "id": 9,
+    "theme": "Ancient History",
+    "difficulty": "easy",
+    "clue_count": 47
+  },
+  {
+    "id": 10,
+    "theme": "Modern Art",
+    "difficulty": "easy",
+    "clue_count": 51
+  },
+  {
+    "id": 11,
+    "theme": "Weather Patterns",
+    "difficulty": "easy",
+    "clue_count": 48
+  },
+  {
+    "id": 12,
+    "theme": "Sports Equipment",
+    "difficulty": "easy",
+    "clue_count": 45
+  },
+  {
+    "id": 13,
+    "theme": "Holiday Traditions",
+    "difficulty": "easy",
+    "clue_count": 46
+  },
+  {
+    "id": 14,
+    "theme": "Science Terms",
+    "difficulty": "easy",
+    "clue_count": 40
+  },
+  {
+    "id": 15,
+    "theme": "Food & Cooking",
+    "difficulty": "easy",
+    "clue_count": 43
+  },
+  {
+    "id": 16,
+    "theme": "Transportation",
+    "difficulty": "easy",
+    "clue_count": 41
+  },
+  {
+    "id": 17,
+    "theme": "Animals",
+    "difficulty": "easy",
+    "clue_count": 46
+  },
+  {
+    "id": 18,
+    "theme": "Geography",
+    "difficulty": "medium",
+    "clue_count": 47
+  },
+  {
+    "id": 19,
+    "theme": "Literature",
+    "difficulty": "medium",
+    "clue_count": 46
+  },
+  {
+    "id": 20,
+    "theme": "Mathematics",
+    "difficulty": "medium",
+    "clue_count": 54
+  },
+  {
+    "id": 21,
+    "theme": "Colors & Shapes",
+    "difficulty": "medium",
+    "clue_count": 54
+  },
+  {
+    "id": 22,
+    "theme": "Household Items",
+    "difficulty": "medium",
+    "clue_count": 41
+  },
+  {
+    "id": 23,
+    "theme": "Nature",
+    "difficulty": "medium",
+    "clue_count": 49
+  },
+  {
+    "id": 24,
+    "theme": "Technology",
+    "difficulty": "medium",
+    "clue_count": 46
+  },
+  {
+    "id": 25,
+    "theme": "Fashion",
+    "difficulty": "medium",
+    "clue_count": 53
+  },
+  {
+    "id": 26,
+    "theme": "Architecture",
+    "difficulty": "medium",
+    "clue_count": 54
+  },
+  {
+    "id": 27,
+    "theme": "Mythology",
+    "difficulty": "medium",
+    "clue_count": 54
+  },
+  {
+    "id": 28,
+    "theme": "Chemistry",
+    "difficulty": "medium",
+    "clue_count": 45
+  },
+  {
+    "id": 29,
+    "theme": "Astronomy",
+    "difficulty": "medium",
+    "clue_count": 51
+  },
+  {
+    "id": 30,
+    "theme": "Medicine",
+    "difficulty": "medium",
+    "clue_count": 49
+  },
+  {
+    "id": 31,
+    "theme": "Music Theory",
+    "difficulty": "medium",
+    "clue_count": 51
+  },
+  {
+    "id": 32,
+    "theme": "Philosophy",
+    "difficulty": "medium",
+    "clue_count": 47
+  },
+  {
+    "id": 33,
+    "theme": "Economics",
+    "difficulty": "medium",
+    "clue_count": 45
+  },
+  {
+    "id": 34,
+    "theme": "Languages",
+    "difficulty": "hard",
+    "clue_count": 55
+  },
+  {
+    "id": 35,
+    "theme": "Archaeology",
+    "difficulty": "hard",
+    "clue_count": 38
+  },
+  {
+    "id": 36,
+    "theme": "Biology",
+    "difficulty": "hard",
+    "clue_count": 54
+  },
+  {
+    "id": 37,
+    "theme": "Physics",
+    "difficulty": "hard",
+    "clue_count": 50
+  },
+  {
+    "id": 38,
+    "theme": "Psychology",
+    "difficulty": "hard",
+    "clue_count": 44
+  },
+  {
+    "id": 39,
+    "theme": "Sociology",
+    "difficulty": "hard",
+    "clue_count": 50
+  },
+  {
+    "id": 40,
+    "theme": "Anthropology",
+    "difficulty": "hard",
+    "clue_count": 44
+  },
+  {
+    "id": 41,
+    "theme": "Geology",
+    "difficulty": "hard",
+    "clue_count": 54
+  },
+  {
+    "id": 42,
+    "theme": "Meteorology",
+    "difficulty": "hard",
+    "clue_count": 53
+  },
+  {
+    "id": 43,
+    "theme": "Ecology",
+    "difficulty": "hard",
+    "clue_count": 41
+  },
+  {
+    "id": 44,
+    "theme": "Zoology",
+    "difficulty": "hard",
+    "clue_count": 46
+  },
+  {
+    "id": 45,
+    "theme": "Botany",
+    "difficulty": "hard",
+    "clue_count": 47
+  },
+  {
+    "id": 46,
+    "theme": "Etymology",
+    "difficulty": "hard",
+    "clue_count": 39
+  },
+  {
+    "id": 47,
+    "theme": "Cryptography",
+    "difficulty": "hard",
+    "clue_count": 48
+  },
+  {
+    "id": 48,
+    "theme": "Quantum Physics",
+    "difficulty": "hard",
+    "clue_count": 51
+  },
+  {
+    "id": 49,
+    "theme": "Renaissance Art",
+    "difficulty": "hard",
+    "clue_count": 48
+  },
+  {
+    "id": 50,
+    "theme": "World Religions",
+    "difficulty": "hard",
+    "clue_count": 50
+  }
+]

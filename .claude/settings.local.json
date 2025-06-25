@@ -142,7 +142,11 @@
       "Bash(--output-dir books/active_production/Large_Print_Crossword_Masters/volume_3/paperback)",
       "Bash(__NEW_LINE__ mv crossword_book_volume_2_FINAL.pdf crossword_book_volume_2_FINAL_OLD_8.5x11.pdf)",
       "Bash(__NEW_LINE__ mv crossword_book_volume_2_interior.pdf crossword_book_volume_2_FINAL.pdf)",
-      "Bash(__NEW_LINE__ ls -la *.pdf)"
+      "Bash(__NEW_LINE__ ls -la *.pdf)",
+      "Bash(__NEW_LINE__ mv crossword_book_volume_2_FINAL.pdf crossword_book_volume_2_FINAL_BAD_QUALITY.pdf)",
+      "Bash(__NEW_LINE__ mv crossword_volume_2_PROFESSIONAL_FINAL.pdf crossword_book_volume_2_FINAL.pdf)",
+      "Bash(__NEW_LINE__ cp crossword_book_volume_2_FINAL.pdf ../hardcover/)",
+      "Bash(__NEW_LINE__ ls -la books/active_production/Large_Print_Crossword_Masters/volume_2/hardcover/*.pdf)"
     ],
     "deny": []
   }
