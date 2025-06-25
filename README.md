@@ -14,6 +14,8 @@
 
 ### 📚 Book Generation (WORKING)
 - Generate crossword puzzles (50 puzzles in ~2 minutes)
+ - Generate Sudoku puzzles (configurable difficulty, e.g. easy/medium/hard)
+ - Generate Word Search puzzles (random grids with custom word lists)
 - Create PDF interiors with proper formatting
 - Generate EPUB files for Kindle
 - Create hardcover cover wraps
@@ -23,6 +25,9 @@
 python scripts/crossword_engine_v2.py
 python scripts/book_layout_bot.py
 python scripts/cover_wrap_master.py
+# Optional puzzle generators:
+python scripts/sudoku_generator.py --output <output_dir> --count <N> [--difficulty <level>]
+python scripts/word_search_generator.py --output <output_dir> --count <N> [--grid-size <size>] [--words-file <file>]
 ```
 
 ### 🔍 Market Research (WORKING)

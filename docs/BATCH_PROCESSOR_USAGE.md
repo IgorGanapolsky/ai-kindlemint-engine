@@ -123,7 +123,7 @@ batch_reports/
 
 | Symptom | Likely Cause | Fix |
 |---------|--------------|-----|
-| `FileNotFoundError` for generator script | Sudoku/WordSearch script not implemented yet | Implement or set `create_epub:false` |
+| `FileNotFoundError` for generator script | Missing or unsupported puzzle generator script (e.g., Sudoku, Word Search) | Implement or add the appropriate `scripts/*.py` or choose a supported `puzzle_type` |
 | `Step create_pdf failed` | Fonts or images missing | Check paths, rerun with `--verbose` |
 | `publish_ready:false` in QA | Layout problems | Open `qa_validation_report.txt` for details |
 | Batch never ends | External script awaiting user input | Add `--non-interactive` flags or mock resources |
