@@ -768,21 +768,26 @@ class BatchProcessor:
     def _step_run_qa(self, book_config: Dict, book_result: Dict) -> Dict:
         """Run QA checks on the generated files"""
         try:
-            # Import the QA checker module
-            qa_module_path = "scripts/enhanced_qa_checker.py"
-            qa_module = self._import_module_from_path(qa_module_path, "enhanced_qa_checker")
+            # Import the new QA validation pipeline
+            qa_module_path = "scripts/qa_validation_pipeline.py"
+            qa_module = self._import_module_from_path(qa_module_path, "qa_validation_pipeline")
             
             if not qa_module:
-                raise ImportError(f"Could not import QA checker from {qa_module_path}")
+                raise ImportError(f"Could not import QA validation pipeline from {qa_module_path}")
+            
+            # Import the artifacts interface
+            artifacts_module_path = "scripts/qa_artifacts_interface.py"
+            artifacts_module = self._import_module_from_path(artifacts_module_path, "qa_artifacts_interface")
             
             # Get the interior PDF path
             interior_pdf = book_result["artifacts"].get("interior_pdf")
             if not interior_pdf:
                 raise ValueError("Interior PDF not found in artifacts")
             
-            # Run QA checks
-            checker = qa_module.EnhancedQAChecker()
-            qa_results = checker.run_enhanced_qa(interior_pdf)
+            # Run QA validation
+            pipeline = qa_module.QAValidationPipeline()
+            book_type = book_config.get("puzzle_type", "crossword")
+            qa_result = pipeline.validate_pdf(Path(interior_pdf), book_type=book_type)
             
             # Save QA results
             series_name = book_config.get("series_name", "Default_Series")
@@ -790,42 +795,74 @@ class BatchProcessor:
             output_dir = Path(f"books/active_production/{series_name}/volume_{volume}/qa")
             output_dir.mkdir(parents=True, exist_ok=True)
             
+            # Convert QAResult dataclass to dict for JSON serialization
+            qa_results_dict = qa_module.asdict(qa_result)
+            
             qa_report_file = output_dir / f"qa_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
             with open(qa_report_file, 'w') as f:
-                json.dump(qa_results, f, indent=2)
+                json.dump(qa_results_dict, f, indent=2)
+            
+            # Generate Claude Artifacts interface if available
+            qa_artifact_file = None
+            if artifacts_module:
+                interface = artifacts_module.QAArtifactsInterface()
+                html = interface.generate_qa_artifact(qa_results_dict, Path(interior_pdf))
+                qa_artifact_file = output_dir / f"qa_artifact_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
+                interface.save_artifact(html, qa_artifact_file)
+                
+                # Also generate markdown summary
+                markdown_summary = interface.generate_markdown_summary(qa_results_dict)
+                summary_file = output_dir / "qa_summary.md"
+                with open(summary_file, 'w') as f:
+                    f.write(markdown_summary)
             
             # Create validation report
             validation_report = f"""# Quality Assurance Report
 ## {book_config.get("title", f"{series_name} Volume {volume}")}
 
 ### 📊 **QA Results**
-- **Overall Score**: {qa_results['overall_score']}/100
-- **Critical Issues**: {len(qa_results['issues_found'])}
-- **Warnings**: {len(qa_results['warnings'])}
-- **Publish Ready**: {'Yes' if qa_results['publish_ready'] else 'No'}
+- **Overall Score**: {qa_result.overall_score}/100
+- **Status**: {'✅ PASSED' if qa_result.passed else '❌ FAILED'}
+- **Validation Model**: {qa_result.validation_model}
+- **Timestamp**: {qa_result.timestamp}
 
-### ❌ **Critical Issues**
-{chr(10).join([f"- {issue['description']}" for issue in qa_results['issues_found']])}
-
-### ⚠️ **Warnings**
-{chr(10).join([f"- {warning['description']}" for warning in qa_results['warnings']])}
-
-### 📋 **Next Steps**
-{'✅ Book is ready for publishing!' if qa_results['publish_ready'] else '❌ Fix critical issues before publishing'}
+### 📋 **Criteria Breakdown**
 """
             
-            validation_report_file = output_dir / "qa_validation_report.txt"
+            for criterion, details in qa_result.criteria.items():
+                status = "✅" if details.get("passed", False) else "❌"
+                validation_report += f"- {status} **{criterion}**: {details['score']} (threshold: {details['threshold']})\n"
+            
+            if qa_result.issues_found:
+                validation_report += f"\n### ⚠️ **Issues Found** ({len(qa_result.issues_found)})\n"
+                for issue in qa_result.issues_found[:10]:
+                    validation_report += f"- {issue.get('type', 'Unknown')}: {issue.get('message', str(issue))}\n"
+            
+            if qa_result.recommendations:
+                validation_report += f"\n### 💡 **Recommendations**\n"
+                for rec in qa_result.recommendations:
+                    validation_report += f"- {rec}\n"
+            
+            validation_report += f"\n### 📋 **Next Steps**\n"
+            validation_report += '✅ Book is ready for publishing!' if qa_result.passed else '❌ Fix issues before publishing (minimum score: 85/100)'
+            
+            validation_report_file = output_dir / "qa_validation_report.md"
             with open(validation_report_file, 'w') as f:
                 f.write(validation_report)
             
             # Return artifacts
-            return {
+            artifacts = {
                 "qa_dir": str(output_dir),
                 "qa_report": str(qa_report_file),
                 "validation_report": str(validation_report_file),
-                "publish_ready": qa_results['publish_ready'],
-                "qa_score": qa_results['overall_score']
+                "publish_ready": qa_result.passed,
+                "qa_score": qa_result.overall_score
             }
+            
+            if qa_artifact_file:
+                artifacts["qa_artifact"] = str(qa_artifact_file)
+            
+            return artifacts
             
         except Exception as e:
             logger.error(f"QA check failed: {e}")
