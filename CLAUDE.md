@@ -208,3 +208,13 @@ git push
 - Running the hardcover package creation script
 - Ensuring hardcover has all the same files as Volume 1 hardcover
 - Testing the output before claiming completion
+
+### QA Check Policy
+**CRITICAL**: Every product MUST pass QA check on GitHub Actions before delivery. This means:
+- All generated PDFs must be validated through automated QA pipeline
+- Answer keys must be complete with filled grids showing solutions
+- Crossword puzzles must contain REAL words, not empty grids
+- All clues must be legitimate and solvable
+- NEVER claim a product is ready without running QA checks
+- NEVER deliver empty or placeholder content
+- If QA fails, fix issues before claiming completion
