@@ -354,11 +354,21 @@ class BatchProcessor:
             elif book_config.get("create_hardcover", True):
                 price_estimate = float(book_config.get("hardcover_price_max", 0) or 0)
 
-            profit_estimate = max(price_estimate - cost_estimate, 0)
+            # Do NOT clamp to zero – negative profit highlights unprofitable books
+            profit_estimate = round(price_estimate - cost_estimate, 2)
 
             book_result["cost_estimate"] = round(cost_estimate, 2)
             book_result["price_estimate"] = round(price_estimate, 2)
             book_result["profit_estimate"] = round(profit_estimate, 2)
+
+            # ------------------------------------------------------------------
+            # Quality metrics: bubble up QA score & KDP readiness to top-level
+            # ------------------------------------------------------------------
+            if "qa_score" in book_result["artifacts"]:
+                book_result["qa_score"] = book_result["artifacts"]["qa_score"]
+
+            if "publish_ready" in book_result["artifacts"]:
+                book_result["publish_ready"] = book_result["artifacts"]["publish_ready"]
             # ------------------------------------------------------------------
         except Exception as e:
             # Record the failure

@@ -267,16 +267,46 @@ class SlackNotifier:
             qa_insights_fields.append({"type": "mrkdwn", "text": "*Overall QA Score:*\nN/A"})
             qa_insights_fields.append({"type": "mrkdwn", "text": "*KDP Ready Books:*\nN/A"})
 
-        critical_issues_list = []
+        # ------------------------------------------------------------------ #
+        # Pull critical QA issues from each book.  QA data may live either:
+        #   1. Directly as a dict in  book_result["artifacts"]["qa_report"]
+        #   2. As a file path   in  book_result["artifacts"]["qa_report"]
+        #   3. (legacy) at      book_result["qa_report"]
+        # ------------------------------------------------------------------ #
+        critical_issues_list: List[str] = []
+
+        def _load_qa_data(raw: Any) -> Optional[Dict]:
+            """Return QA dict if possible else None."""
+            if isinstance(raw, dict):
+                return raw
+            if isinstance(raw, str):
+                p = Path(raw)
+                if p.exists():
+                    try:
+                        with p.open("r") as fp:
+                            return json.load(fp)
+                    except Exception:
+                        logger.debug("Unable to load QA report JSON from %s", p)
+            return None
+
         for book_id, book_result in batch_results.get("book_results", {}).items():
-            if book_result.get("status") == "failed" and book_result.get("qa_report"):
-                qa_report = book_result["qa_report"]
-                if "issues_found" in qa_report and qa_report["issues_found"]:
-                    for issue in qa_report["issues_found"]:
-                        critical_issues_list.append(f"• {book_result.get('title', book_id)}: {issue['description']}")
-            elif book_result.get("qa_report") and book_result["qa_report"].get("issues_found"):
-                for issue in book_result["qa_report"]["issues_found"]:
-                    critical_issues_list.append(f"• {book_result.get('title', book_id)}: {issue['description']}")
+            title = book_result.get("title", book_id)
+
+            # Prefer nested artifacts QA report
+            qa_raw = book_result.get("artifacts", {}).get("qa_report")
+            if qa_raw is None:  # fallback to legacy
+                qa_raw = book_result.get("qa_report")
+
+            qa_data = _load_qa_data(qa_raw)
+            if not qa_data:
+                continue
+
+            for issue in qa_data.get("issues_found", []):
+                desc = issue.get("description", "")
+                # Highlight only business-relevant issues
+                if any(keyword in desc.lower() for keyword in
+                       ("duplicate", "cut off", "white", "whitespace")):
+                    critical_issues_list.append(f"• {title}: {desc}")
 
         if critical_issues_list:
             blocks.append({

@@ -932,6 +932,57 @@ class Volume3CrosswordGenerator:
             c.showPage()
             
             # Bonus Mini Puzzles (9 pages to reach 156)
+            mini_puzzle_patterns = [
+                # Pattern 1
+                {"black": [(1,1), (3,3)], 
+                 "across": [(0,0,"CAT"), (0,2,"DOG"), (2,0,"YES"), (4,0,"TEA"), (4,2,"EAR")],
+                 "down": [(0,0,"CRY"), (0,2,"DYE"), (0,4,"GAS"), (2,0,"YET"), (2,2,"SEA")],
+                 "clues_across": ["1. Feline pet", "3. Man's best friend", "6. Affirmative", "7. Hot beverage", "8. Hearing organ"],
+                 "clues_down": ["1. Shed tears", "2. Color fabric", "4. Car fuel", "5. Still; however", "6. Ocean"]},
+                # Pattern 2  
+                {"black": [(0,2), (2,0), (2,4), (4,2)],
+                 "across": [(0,0,"HI"), (0,3,"GO"), (1,0,"LOVE"), (3,0,"STAR"), (4,0,"ON"), (4,3,"ME")],
+                 "down": [(0,0,"HAS"), (0,1,"ITO"), (1,3,"OR"), (0,3,"GEM"), (0,4,"ONE")],
+                 "clues_across": ["1. Greeting", "2. Leave", "3. Deep affection", "5. Celestial body", "7. Switch position", "8. Myself"],
+                 "clues_down": ["1. Possesses", "2. Japanese name", "3. Alternative", "4. Jewel", "6. Single"]},
+                # Add 7 more varied patterns
+                {"black": [(1,2), (3,2)],
+                 "across": [(0,0,"SUN"), (0,3,"UP"), (2,0,"HOPE"), (4,0,"END"), (4,3,"SO")],
+                 "down": [(0,0,"SHE"), (0,1,"UN"), (2,3,"PEN"), (0,3,"UPS"), (0,4,"POD")],
+                 "clues_across": ["1. Star", "2. Higher", "4. Aspiration", "6. Conclusion", "7. Therefore"],
+                 "clues_down": ["1. Female pronoun", "2. Prefix: not", "3. Writing tool", "5. Increases", "6. Seed case"]},
+                {"black": [(0,1), (1,3), (3,1), (4,3)],
+                 "across": [(0,2,"RED"), (1,0,"ART"), (2,0,"LIFE"), (3,2,"TEN"), (4,0,"SEE")],
+                 "down": [(0,0,"PAL"), (2,0,"LET"), (2,1,"IRE"), (2,2,"FIT"), (2,3,"EYE")],
+                 "clues_across": ["1. Color", "3. Creative work", "4. Existence", "5. Number", "6. Observe"],
+                 "clues_down": ["1. Friend", "2. Allow", "3. Anger", "4. In shape", "5. Organ of sight"]},
+                {"black": [(1,0), (1,4), (3,0), (3,4)],
+                 "across": [(0,0,"STOP"), (2,0,"AREA"), (4,0,"NEAR")],
+                 "down": [(0,0,"SAN"), (0,1,"TEA"), (0,2,"ORE"), (0,3,"PAR"), (2,1,"RAN")],
+                 "clues_across": ["1. Halt", "3. Region", "5. Close by"],
+                 "clues_down": ["1. ___ Francisco", "2. Beverage", "3. Metal source", "4. Golf term", "5. Jogged"]},
+                {"black": [(0,0), (0,4), (4,0), (4,4)],
+                 "across": [(0,1,"OLD"), (1,0,"MOON"), (2,0,"IDEA"), (3,0,"TENT"), (4,1,"EST")],
+                 "down": [(1,0,"MOT"), (1,1,"ODE"), (1,2,"ONE"), (1,3,"NET"), (2,1,"DIE")],
+                 "clues_across": ["1. Not young", "2. Night light", "3. Thought", "4. Camping shelter", "5. Time zone"],
+                 "clues_down": ["1. Witty saying", "2. Poem", "3. Single", "4. Mesh", "5. Expire"]},
+                {"black": [(2,2)],
+                 "across": [(0,0,"HAPPY"), (1,0,"APPLE"), (3,0,"ROSES"), (4,0,"DENSE")],
+                 "down": [(0,0,"HARD"), (0,1,"APPS"), (0,2,"PLOD"), (0,3,"PEEN"), (0,4,"YESES")],
+                 "clues_across": ["1. Joyful", "2. Fruit", "3. Flowers", "4. Thick"],
+                 "clues_down": ["1. Difficult", "2. Phone programs", "3. Walk heavily", "4. Hammer part", "5. Agreements"]},
+                {"black": [(1,1), (1,3), (3,1), (3,3)],
+                 "across": [(0,0,"TOP"), (0,2,"ARM"), (2,0,"WATER"), (4,0,"END"), (4,2,"EAR")],
+                 "down": [(0,0,"TOE"), (0,2,"AWE"), (2,0,"WAR"), (2,2,"TEN"), (2,4,"RED")],
+                 "clues_across": ["1. Summit", "2. Limb", "3. H2O", "4. Finish", "5. Hearing organ"],
+                 "clues_down": ["1. Foot digit", "2. Wonder", "3. Conflict", "4. Number", "5. Color"]},
+                {"black": [(0,2), (4,2)],
+                 "across": [(0,0,"MY"), (0,3,"WE"), (1,0,"ATLAS"), (2,0,"PLANE"), (3,0,"LEMON"), (4,0,"ES"), (4,3,"ON")],
+                 "down": [(0,0,"MALE"), (0,1,"YEPS"), (1,3,"WON"), (0,3,"WEMO"), (0,4,"EONS")],
+                 "clues_across": ["1. Possessive", "2. Us", "3. Map book", "4. Aircraft", "5. Citrus", "6. Spanish 'is'", "7. Activated"],
+                 "clues_down": ["1. Man", "2. Informal yes", "3. Victory", "4. Smart plug", "5. Long times"]}
+            ]
+            
             for bonus_num in range(1, 10):
                 c.setFont("Helvetica-Bold", 16)
                 c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - TOP_MARGIN - 0.5*inch, f"Bonus Mini Puzzle {bonus_num}")
@@ -942,34 +993,72 @@ class Volume3CrosswordGenerator:
                 grid_x = (PAGE_WIDTH - (mini_grid_size * mini_cell_size)) / 2
                 grid_y = PAGE_HEIGHT - 3.5*inch
                 
-                # Simple 5x5 pattern
+                # Get pattern for this puzzle
+                pattern = mini_puzzle_patterns[bonus_num - 1] if bonus_num <= len(mini_puzzle_patterns) else mini_puzzle_patterns[0]
+                
+                # Create grid with numbers
+                numbers = {}
+                num = 1
+                
+                # Simple 5x5 pattern with numbers
                 c.setLineWidth(1.5)
                 for row in range(mini_grid_size):
                     for col in range(mini_grid_size):
                         x = grid_x + (col * mini_cell_size)
                         y = grid_y - (row * mini_cell_size)
                         
-                        # Create a simple pattern
-                        if (row == 1 and col == 1) or (row == 3 and col == 3):
+                        # Check if this is a black square
+                        if (row, col) in pattern["black"]:
                             c.setFillColor(colors.black)
                             c.rect(x, y, mini_cell_size, mini_cell_size, fill=1, stroke=0)
                         else:
                             c.setFillColor(colors.white)
                             c.setStrokeColor(colors.black)
                             c.rect(x, y, mini_cell_size, mini_cell_size, fill=1, stroke=1)
+                            
+                            # Add numbers where words start
+                            needs_number = False
+                            # Check across
+                            if col == 0 or (row, col-1) in pattern["black"]:
+                                if col < mini_grid_size - 1 and (row, col+1) not in pattern["black"]:
+                                    needs_number = True
+                            # Check down
+                            if row == 0 or (row-1, col) in pattern["black"]:
+                                if row < mini_grid_size - 1 and (row+1, col) not in pattern["black"]:
+                                    needs_number = True
+                            
+                            if needs_number:
+                                numbers[(row, col)] = num
+                                c.setFillColor(colors.black)
+                                c.setFont("Helvetica", 8)
+                                c.drawString(x + 2, y + mini_cell_size - 10, str(num))
+                                num += 1
                 
-                # Simple clues
+                # Clues
                 c.setFont("Helvetica-Bold", 12)
                 c.drawString(GUTTER, grid_y - (mini_grid_size * mini_cell_size) - 0.5*inch, "ACROSS")
                 c.setFont("Helvetica", 10)
-                c.drawString(GUTTER, grid_y - (mini_grid_size * mini_cell_size) - 0.8*inch, "1. Feline pet")
-                c.drawString(GUTTER, grid_y - (mini_grid_size * mini_cell_size) - 1.1*inch, "3. Opposite of no")
+                y_pos = grid_y - (mini_grid_size * mini_cell_size) - 0.8*inch
+                
+                for i, clue in enumerate(pattern["clues_across"][:5]):
+                    c.drawString(GUTTER, y_pos, clue)
+                    y_pos -= 0.25*inch
                 
                 c.setFont("Helvetica-Bold", 12)
                 c.drawString(PAGE_WIDTH/2, grid_y - (mini_grid_size * mini_cell_size) - 0.5*inch, "DOWN")
                 c.setFont("Helvetica", 10)
-                c.drawString(PAGE_WIDTH/2, grid_y - (mini_grid_size * mini_cell_size) - 0.8*inch, "1. Vehicle")
-                c.drawString(PAGE_WIDTH/2, grid_y - (mini_grid_size * mini_cell_size) - 1.1*inch, "2. Consumed")
+                y_pos = grid_y - (mini_grid_size * mini_cell_size) - 0.8*inch
+                
+                for i, clue in enumerate(pattern["clues_down"][:5]):
+                    c.drawString(PAGE_WIDTH/2, y_pos, clue)
+                    y_pos -= 0.25*inch
+                
+                # Add solution at bottom in small print
+                c.setFont("Helvetica", 7)
+                c.setFillColor(colors.gray)
+                solution_y = BOTTOM_MARGIN + 0.5*inch
+                c.drawString(GUTTER, solution_y, f"Solution on page {156 - (9 - bonus_num)}")
+                c.setFillColor(colors.black)
                 
                 c.showPage()
             
