@@ -1010,7 +1010,7 @@ class Volume3CrosswordGenerator:
                 mini_grid_size = 5
                 mini_cell_size = 0.4 * inch
                 grid_x = (PAGE_WIDTH - (mini_grid_size * mini_cell_size)) / 2
-                grid_y = PAGE_HEIGHT - 3.5*inch
+                grid_y = PAGE_HEIGHT - 2.5*inch  # Move grid up to leave room for clues
                 
                 # Get pattern for this puzzle
                 pattern = mini_puzzle_patterns[bonus_num - 1] if bonus_num <= len(mini_puzzle_patterns) else mini_puzzle_patterns[0]
@@ -1053,31 +1053,28 @@ class Volume3CrosswordGenerator:
                                 c.drawString(x + 2, y + mini_cell_size - 10, str(num))
                                 num += 1
                 
-                # Clues
-                c.setFont("Helvetica-Bold", 12)
-                c.drawString(GUTTER, grid_y - (mini_grid_size * mini_cell_size) - 0.5*inch, "ACROSS")
-                c.setFont("Helvetica", 10)
-                y_pos = grid_y - (mini_grid_size * mini_cell_size) - 0.8*inch
+                # Clues - positioned to be visible
+                clues_start_y = grid_y - (mini_grid_size * mini_cell_size) - 0.4*inch
+                
+                c.setFont("Helvetica-Bold", 11)
+                c.drawString(GUTTER, clues_start_y, "ACROSS")
+                c.setFont("Helvetica", 9)
+                y_pos = clues_start_y - 0.25*inch
                 
                 for i, clue in enumerate(pattern["clues_across"][:5]):
-                    c.drawString(GUTTER, y_pos, clue)
-                    y_pos -= 0.25*inch
+                    if y_pos > BOTTOM_MARGIN + 0.5*inch:  # Ensure clue is visible
+                        c.drawString(GUTTER, y_pos, clue)
+                        y_pos -= 0.2*inch
                 
-                c.setFont("Helvetica-Bold", 12)
-                c.drawString(PAGE_WIDTH/2, grid_y - (mini_grid_size * mini_cell_size) - 0.5*inch, "DOWN")
-                c.setFont("Helvetica", 10)
-                y_pos = grid_y - (mini_grid_size * mini_cell_size) - 0.8*inch
+                c.setFont("Helvetica-Bold", 11)
+                c.drawString(PAGE_WIDTH/2, clues_start_y, "DOWN")
+                c.setFont("Helvetica", 9)
+                y_pos = clues_start_y - 0.25*inch
                 
                 for i, clue in enumerate(pattern["clues_down"][:5]):
-                    c.drawString(PAGE_WIDTH/2, y_pos, clue)
-                    y_pos -= 0.25*inch
-                
-                # Add solution at bottom in small print
-                c.setFont("Helvetica", 7)
-                c.setFillColor(colors.gray)
-                solution_y = BOTTOM_MARGIN + 0.5*inch
-                c.drawString(GUTTER, solution_y, f"Solution on page {156 - (9 - bonus_num)}")
-                c.setFillColor(colors.black)
+                    if y_pos > BOTTOM_MARGIN + 0.5*inch:  # Ensure clue is visible
+                        c.drawString(PAGE_WIDTH/2, y_pos, clue)
+                        y_pos -= 0.2*inch
                 
                 c.showPage()
             
