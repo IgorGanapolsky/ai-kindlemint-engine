@@ -1,0 +1,52 @@
+# CodeRabbit Configuration
+# https://docs.coderabbit.ai/guides/configure-coderabbit
+
+language: en-US
+early_access: false
+
+reviews:
+  # Exclude CSV files from reviews to prevent path traversal warnings
+  path_filters:
+    - "!**/*.csv"
+    - "!**/*.xlsx"
+    - "!**/*.png"
+    - "!**/*.jpg"
+    - "!**/*.pdf"
+    - "!**/node_modules/**"
+    - "!**/venv/**"
+    - "!**/.env*"
+  
+  # Review settings
+  auto_review:
+    enabled: true
+    ignore_title_keywords:
+      - "WIP"
+      - "DO NOT MERGE"
+  
+  # Review tools
+  tools:
+    github-checks:
+      enabled: true
+    
+  # Review profile
+  profile: "assertive"  # Options: chill, assertive, brutal
+  
+  # High-level summary
+  high_level_summary: true
+  
+  # Enable poem and review stats
+  poem: false
+  review_status: true
+  
+# Path settings to prevent timeout issues
+path_instructions:
+  - path: "research/**"
+    instructions: "These are market research data files. Focus on data integrity and format consistency."
+  - path: "books/active_production/**"
+    instructions: "Production book files. Ensure KDP compliance and quality standards."
+  - path: "scripts/**"
+    instructions: "Core automation scripts. Check for error handling and API usage."
+
+# Chat settings
+chat:
+  auto_reply: true
