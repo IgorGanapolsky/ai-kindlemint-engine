@@ -17,6 +17,8 @@ from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Union, Any
 import importlib.util
 import shutil
+# Make Path alias available *before* load_dotenv so it's usable in the path expression
+from pathlib import Path as _PathForSentry
 # --------------------------------------------------------------------------- #
 # Load environment variables early so Sentry / Slack see them
 # --------------------------------------------------------------------------- #
@@ -27,7 +29,6 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path=(_PathForSentry(__file__).parent.parent / ".env"), override=False)
 
 # --- Sentry integration ------------------------------------------------------
-from pathlib import Path as _PathForSentry
 
 # Ensure we can import `sentry_config` that lives in the *scripts* folder even
 # when this file is executed from repository root.
@@ -489,7 +490,9 @@ class BatchProcessor:
         # Add any additional parameters from book config
         if "puzzle_params" in book_config:
             for key, value in book_config["puzzle_params"].items():
-                cmd.extend([f"--{key}", str(value)])
+                # CLI flags use kebab-case; convert snake_case keys to kebab-case
+                cli_flag = key.replace("_", "-")
+                cmd.extend([f"--{cli_flag}", str(value)])
         
         logger.info(f"Running puzzle generator: {' '.join(cmd)}")
         result = subprocess.run(cmd, capture_output=True, text=True)
@@ -533,7 +536,15 @@ class BatchProcessor:
         # Add any additional parameters from book config
         if "pdf_params" in book_config:
             for key, value in book_config["pdf_params"].items():
-                cmd.extend([f"--{key}", str(value)])
+                cli_flag = key.replace("_", "-")
+                # Boolean flags should be added only when True (CLI style `--flag`)
+                if isinstance(value, bool):
+                    if value:            # True  -> include flag without value
+                        cmd.append(f"--{cli_flag}")
+                    else:                # False -> omit flag entirely
+                        continue
+                else:
+                    cmd.extend([f"--{cli_flag}", str(value)])
         
         logger.info(f"Running PDF layout: {' '.join(cmd)}")
         result = subprocess.run(cmd, capture_output=True, text=True)

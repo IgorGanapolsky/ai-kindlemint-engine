@@ -11,11 +11,11 @@
 ## KDP Upload Steps
 1. [ ] Log into KDP Dashboard
 2. [ ] Click "Create Paperback"
-3. [ ] Enter title: Large Print Crossword Masters - Volume 3
+3. [ ] Enter title: Large Print Crossword Masters - Volume 3 Test
 4. [ ] Enter subtitle: 50 Puzzles for Relaxation
 5. [ ] Select "This is not a public domain work"
 6. [ ] Enter author: Crossword Masters Publishing
-7. [ ] Upload interior PDF: Large_Print_Crossword_Masters_-_Volume_3_interior_FINAL.pdf
+7. [ ] Upload interior PDF: Large_Print_Crossword_Masters_-_Volume_3_Test_interior_FINAL.pdf
 8. [ ] Upload cover: [Use cover generator]
 9. [ ] Select categories (3 maximum)
 10. [ ] Set price: $9.99
