@@ -1,0 +1,112 @@
+name: Production QA Validation
+
+on:
+  push:
+    paths:
+      - 'books/active_production/**/*.pdf'
+      - 'books/active_production/**/*.json'
+  pull_request:
+    paths:
+      - 'books/active_production/**/*.pdf'
+      - 'books/active_production/**/*.json'
+
+jobs:
+  qa-validation:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install PyPDF2 pillow reportlab
+    
+    - name: Find PDF files
+      id: find-pdfs
+      run: |
+        echo "pdf_files=$(find books/active_production -name '*_FINAL.pdf' -type f | tr '\n' ' ')" >> $GITHUB_OUTPUT
+    
+    - name: Run Production QA on each PDF
+      if: steps.find-pdfs.outputs.pdf_files != ''
+      run: |
+        for pdf in ${{ steps.find-pdfs.outputs.pdf_files }}; do
+          echo "Checking $pdf..."
+          python scripts/production_qa_validator.py "$pdf" || exit 1
+        done
+    
+    - name: Check for test content in metadata
+      run: |
+        # Find all JSON files and check for "test" or "Test"
+        for json_file in $(find books/active_production -name '*.json' -type f); do
+          if grep -i "test" "$json_file"; then
+            echo "❌ ERROR: Found 'test' in $json_file"
+            exit 1
+          fi
+        done
+        echo "✅ No test content found in metadata files"
+    
+    - name: Upload QA Reports
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: qa-reports
+        path: books/active_production/**/qa_production_report.json
+        
+    - name: Comment PR with QA Results
+      if: github.event_name == 'pull_request' && always()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          let comment = '## 📊 Production QA Results\n\n';
+          
+          // Find all QA reports
+          const reports = require('child_process')
+            .execSync('find books/active_production -name qa_production_report.json')
+            .toString()
+            .trim()
+            .split('\n')
+            .filter(Boolean);
+          
+          if (reports.length === 0) {
+            comment += '⚠️ No QA reports generated\n';
+          } else {
+            for (const reportPath of reports) {
+              try {
+                const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+                const book = reportPath.split('/').slice(-3, -1).join('/');
+                
+                comment += `### 📚 ${book}\n`;
+                comment += `- **Score**: ${report.score}/100\n`;
+                comment += `- **Status**: ${report.ready ? '✅ Ready' : '❌ Not Ready'}\n`;
+                
+                if (report.critical_issues.length > 0) {
+                  comment += `- **Critical Issues**: ${report.critical_issues.length}\n`;
+                  report.critical_issues.forEach(issue => {
+                    comment += `  - ❌ ${issue}\n`;
+                  });
+                }
+                
+                if (report.warnings.length > 0) {
+                  comment += `- **Warnings**: ${report.warnings.length}\n`;
+                }
+                
+                comment += '\n';
+              } catch (e) {
+                comment += `### ❌ Error reading ${reportPath}\n\n`;
+              }
+            }
+          }
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });

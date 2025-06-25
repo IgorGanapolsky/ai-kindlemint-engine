@@ -49,6 +49,16 @@
 - ALWAYS verify the actual output matches requirements
 - Test with sample data before running on production content
 
+### Production QA Policy
+**CRITICAL**: Every book MUST pass production QA before claiming it's ready:
+- Run `python scripts/production_qa_validator.py [PDF_PATH]`
+- Score must be 80+ and show "READY FOR PUBLISHING"
+- Visually inspect: Puzzles must have BLACK SQUARES
+- Visually inspect: Answer keys must show FILLED LETTERS
+- No "Test" or "test" in any production files
+- Page count must be exactly as specified (usually 156)
+- GitHub Actions must be green after push
+
 ### Repository Cleanliness Policy
 **CRITICAL**: No bogus failed files should remain in the repo when you push commits. Always:
 - Clean up failed attempts before committing
