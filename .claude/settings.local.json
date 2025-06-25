@@ -146,7 +146,13 @@
       "Bash(__NEW_LINE__ mv crossword_book_volume_2_FINAL.pdf crossword_book_volume_2_FINAL_BAD_QUALITY.pdf)",
       "Bash(__NEW_LINE__ mv crossword_volume_2_PROFESSIONAL_FINAL.pdf crossword_book_volume_2_FINAL.pdf)",
       "Bash(__NEW_LINE__ cp crossword_book_volume_2_FINAL.pdf ../hardcover/)",
-      "Bash(__NEW_LINE__ ls -la books/active_production/Large_Print_Crossword_Masters/volume_2/hardcover/*.pdf)"
+      "Bash(__NEW_LINE__ ls -la books/active_production/Large_Print_Crossword_Masters/volume_2/hardcover/*.pdf)",
+      "Bash(__NEW_LINE__ mv paperback/crossword_book_volume_2_FINAL.pdf paperback/crossword_book_volume_2_EMPTY_TRASH.pdf)",
+      "Bash(__NEW_LINE__ mv paperback/crossword_book_volume_2_REAL_FINAL.pdf paperback/crossword_book_volume_2_FINAL.pdf)",
+      "Bash(__NEW_LINE__ mv hardcover/crossword_book_volume_2_FINAL.pdf hardcover/crossword_book_volume_2_EMPTY_TRASH.pdf)",
+      "Bash(__NEW_LINE__ mv hardcover/crossword_book_volume_2_REAL_FINAL.pdf hardcover/crossword_book_volume_2_FINAL.pdf)",
+      "Bash(__NEW_LINE__ echo \"✅ Replaced empty garbage with REAL crossword book\")",
+      "Bash(pdfinfo:*)"
     ],
     "deny": []
   }
