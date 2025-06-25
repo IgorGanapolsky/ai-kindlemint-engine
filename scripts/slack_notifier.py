@@ -160,6 +160,21 @@ class SlackNotifier:
         seconds = total_time % 60
         time_str = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
         
+        # ------------------------------------------------------------------ #
+        # Business / efficiency metrics — taken only if provided so that
+        # older batch_result structures remain compatible.
+        # ------------------------------------------------------------------ #
+        avg_time_per_book = "N/A"
+        if books_processed:
+            avg_seconds = total_time / books_processed
+            avg_time_per_book = f"{int(avg_seconds // 60)}m {int(avg_seconds % 60)}s"
+
+        # Optional business metrics expected from BatchProcessor
+        total_profit          = batch_results.get("total_profit")
+        avg_profit_per_book   = batch_results.get("avg_profit_per_book")
+        previous_success_rate = batch_results.get("previous_success_rate")  # e.g. read from history
+        avg_qa_score          = batch_results.get("avg_qa_score")
+
         # Determine color based on success rate
         if success_rate == 100:
             color = "#2ecc71"  # Green
@@ -192,6 +207,33 @@ class SlackNotifier:
                 ]
             }
         ]
+
+        # Insert efficiency metrics
+        efficiency_fields: List[Dict[str, str]] = []
+
+        efficiency_fields.append({"type": "mrkdwn", "text": f"*Avg Time/Book:*\n{avg_time_per_book}"})
+
+        if avg_qa_score is not None:
+            efficiency_fields.append({"type": "mrkdwn", "text": f"*Avg QA Score:*\n{avg_qa_score}/100"})
+        if avg_profit_per_book is not None:
+            efficiency_fields.append({"type": "mrkdwn", "text": f"*Avg Profit/Book:*\n${avg_profit_per_book:.2f}"})
+        if total_profit is not None:
+            efficiency_fields.append({"type": "mrkdwn", "text": f"*Total Profit:*\n${total_profit:.2f}"})
+        if previous_success_rate is not None:
+            delta = success_rate - previous_success_rate
+            sign  = "▲" if delta >= 0 else "▼"
+            efficiency_fields.append(
+                {"type": "mrkdwn",
+                 "text": f"*Δ Success Rate:*\n{sign}{abs(delta):.1f}% vs last run"}
+            )
+
+        if efficiency_fields:
+            blocks.append(
+                {
+                    "type": "section",
+                    "fields": efficiency_fields
+                }
+            )
         
         # Add book details section if there are failed books
         if books_failed > 0:
@@ -424,6 +466,21 @@ class SlackNotifier:
                 ]
             }
         ]
+
+        # Optional per-book business metrics
+        profit_estimate = book_result.get("profit_estimate")
+        qa_score        = book_result.get("qa_score")
+        extra_fields: List[Dict[str, str]] = []
+        if profit_estimate is not None:
+            extra_fields.append(
+                {"type": "mrkdwn", "text": f"*Profit Estimate:*\n${profit_estimate:.2f}"}
+            )
+        if qa_score is not None:
+            extra_fields.append(
+                {"type": "mrkdwn", "text": f"*QA Score:*\n{qa_score}/100"}
+            )
+        if extra_fields:
+            blocks[1]["fields"].extend(extra_fields)
         
         # Add error if failed
         if status != "complete" and book_result.get("error"):

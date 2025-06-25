@@ -1,0 +1,12 @@
+{
+  "title": "Large Print Crossword Masters - Volume 2",
+  "pages": 128,
+  "trim_size": "6 x 9 inches",
+  "gutter_margin": "0.375 inches",
+  "kdp_compliant": true,
+  "issues_fixed": [
+    "Corrected trim size from 8.5x11 to 6x9",
+    "Added required 0.375 inch gutter margin",
+    "Proper margin setup for professional printing"
+  ]
+}

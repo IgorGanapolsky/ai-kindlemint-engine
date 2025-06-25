@@ -4,10 +4,10 @@
 ### 📊 **Hardcover Specifications**
 - **Format**: Case-Laminate Hardcover (KDP's only hardcover option)
 - **Trim Size**: 6 × 9 inches
-- **Page Count**: 103 pages
+- **Page Count**: 128 pages
 - **Paper**: White (best for puzzle grids)
 - **Ink**: Black & White (cost efficient)
-- **Spine Width**: 0.3175 inches `(103 × 0.0025) + 0.06`
+- **Spine Width**: 0.3800 inches `(128 × 0.0025) + 0.06`
 
 ### 📁 **Required Files**
 
@@ -18,7 +18,7 @@
 - [ ] File: `hardcover_interior.pdf`
 
 #### ✅ **Cover Wrap PDF**  
-- [ ] Use KDP template for 6×9, 103 pages, white paper, B/W
+- [ ] Use KDP template for 6×9, 128 pages, white paper, B/W
 - [ ] Create wrap design with front/spine/back
 - [ ] Export as PDF/X-1a with CMYK and outlined fonts
 - [ ] File: `hardcover_cover_wrap.pdf`
@@ -27,7 +27,7 @@
 
 #### **Source Assets**
 - **Front Cover**: `books/active_production/Large_Print_Crossword_Masters/volume_2/paperback/cover.png`
-- **Template**: `6x9_103pages_template.png`
+- **Template**: `6x9_128pages_template.png`
 
 #### **Design Requirements**
 1. **Canvas**: Exact template dimensions (3846 × 2850 pixels)

@@ -336,6 +336,30 @@ class BatchProcessor:
             book_result["status"] = "complete"
             logger.info(f"Book {book_id} processed successfully")
             
+            # ------------------------------------------------------------------
+            # Business Metrics: basic profit / cost estimates
+            # ------------------------------------------------------------------
+            # Very simple model:
+            #   cost_estimate  : printing_cost_estimate from config (default 0)
+            #   price_estimate : prefer kindle_price if EPUB enabled
+            #                    else hardcover_price_max if hardcover enabled
+            #                    else 0
+            #   profit_estimate: price_estimate - cost_estimate  (min 0)
+            # These numbers can be refined later; they give Slack an immediate
+            # sense of business impact.
+            cost_estimate = float(book_config.get("printing_cost_estimate", 0) or 0)
+            price_estimate = 0.0
+            if book_config.get("create_epub", True):
+                price_estimate = float(book_config.get("kindle_price", 0) or 0)
+            elif book_config.get("create_hardcover", True):
+                price_estimate = float(book_config.get("hardcover_price_max", 0) or 0)
+
+            profit_estimate = max(price_estimate - cost_estimate, 0)
+
+            book_result["cost_estimate"] = round(cost_estimate, 2)
+            book_result["price_estimate"] = round(price_estimate, 2)
+            book_result["profit_estimate"] = round(profit_estimate, 2)
+            # ------------------------------------------------------------------
         except Exception as e:
             # Record the failure
             error_msg = str(e)
@@ -344,7 +368,10 @@ class BatchProcessor:
             
             book_result["status"] = "failed"
             book_result["error"] = error_msg
-            
+            # Ensure business keys exist to avoid KeyError in aggregation
+            book_result.setdefault("cost_estimate", 0.0)
+            book_result.setdefault("price_estimate", 0.0)
+            book_result.setdefault("profit_estimate", 0.0)
             # Send Slack notification for critical error
             if self.slack_enabled:
                 try:
@@ -807,6 +834,43 @@ class BatchProcessor:
         books_succeeded = self.results["books_succeeded"]
         books_failed = self.results["books_failed"]
         success_rate = (books_succeeded / books_processed * 100) if books_processed > 0 else 0
+        # ------------------------------------------------------------------ #
+        # 1. Aggregate business metrics from individual book results
+        # ------------------------------------------------------------------ #
+        total_profit: float = 0.0
+        total_cost:   float = 0.0
+        qa_scores:    List[int] = []
+        kdp_ready_count: int = 0
+
+        for _bid, bres in self.results["book_results"].items():
+            total_profit += float(bres.get("profit_estimate", 0) or 0)
+            total_cost   += float(bres.get("cost_estimate",   0) or 0)
+            if "qa_score" in bres and isinstance(bres["qa_score"], (int, float)):
+                qa_scores.append(bres["qa_score"])
+            if bres.get("publish_ready"):
+                kdp_ready_count += 1
+
+        avg_profit_per_book = (total_profit / books_processed) if books_processed else 0
+        avg_qa_score        = (sum(qa_scores) / len(qa_scores)) if qa_scores else None
+        cost_per_book       = (total_cost / books_processed) if books_processed else 0
+        roi_percentage      = ((total_profit / total_cost) * 100) if total_cost else None
+        production_eff      = (total_time / books_processed) if books_processed else None  # secs/book
+
+        # Placeholder for historical comparison (could be filled externally)
+        previous_success_rate = None
+
+        # Persist metrics in results so SlackNotifier can use them
+        self.results.update({
+            "total_profit":           round(total_profit,  2),
+            "avg_profit_per_book":    round(avg_profit_per_book, 2),
+            "total_cost":             round(total_cost,    2),
+            "cost_per_book":          round(cost_per_book, 2),
+            "roi_percentage":         round(roi_percentage, 2) if roi_percentage is not None else None,
+            "avg_qa_score":           round(avg_qa_score, 1) if avg_qa_score is not None else None,
+            "production_efficiency":  round(production_eff, 2) if production_eff is not None else None,
+            "kdp_ready_count":        kdp_ready_count,
+            "previous_success_rate":  previous_success_rate
+        })
         
         # Create summary report
         summary = f"""# KindleMint Engine Batch Processing Report
