@@ -1,209 +1,167 @@
-# AI KindleMint Engine - Multi-Format Book Publishing
+# AI KindleMint Engine
 
-🏭 **Automated Book Generation with Quality Assurance Pipeline**
+![Build Status](https://img.shields.io/badge/build-passing-green)
+![KDP Integration](https://img.shields.io/badge/KDP-manual-yellow)
+![AWS Deploy](https://img.shields.io/badge/AWS-not_deployed-red)
+![Revenue](https://img.shields.io/badge/revenue-manual_tracking-orange)
 
-## 🎯 What This System Actually Does
+## 🎯 Honest Project Status
 
-The AI KindleMint Engine generates professional-quality books for Amazon KDP publishing. It currently focuses on crossword puzzle books with automated PDF and EPUB generation, quality validation, and format-specific organization.
+**What it is**: A semi-automated system for generating puzzle books for Amazon KDP  
+**What it's not**: A fully automated "zero-touch" publishing system (yet)
 
-## ✅ **WORKING FEATURES (Actually Implemented)**
+## ✅ What Actually Works Today
 
-### **📚 Book Generation**
-- **Claude-powered crossword generation** - Creates unique 15x15 puzzles
-- **Professional PDF output** - KDP-compliant with embedded fonts
-- **Enhanced EPUB creation** - Clickable navigation for Kindle
-- **Multi-format support** - Paperback PDF, Kindle EPUB ready
+### 📚 Book Generation (WORKING)
+- Generate crossword puzzles (50 puzzles in ~2 minutes)
+- Create PDF interiors with proper formatting
+- Generate EPUB files for Kindle
+- Create hardcover cover wraps
 
-### **🔧 Quality Assurance**
-- **Automated QA workflow** - Validates font embedding and layout
-- **Format validation** - Ensures KDP compliance
-- **File organization** - Format-specific directory structure
-- **Manual QA integration** - Kindle Previewer testing
-
-### **📊 Market Research Automation**
-- **Daily scheduled workflow** - Runs at 2 AM UTC automatically
-- **SerpAPI integration** - Fetches Amazon competitor data
-- **CSV output with schema** - date, keyword, amazon_rank, avg_price, est_sales
-- **Automatic PR creation** - Daily insights with top 5 opportunities
-- **Error handling** - Retry logic, rate limiting, fallback to mock data
-- **Sentry monitoring** - Optional error tracking and debugging
-
-### **📁 File Organization**
-```
-books/active_production/Series_Name/volume_X/
-├── paperback/          # PDF, KDP metadata, import files
-├── kindle/             # EPUB, validation reports, checklists  
-├── covers/             # Cover variants and thumbnails
-└── hardcover/          # Placeholder for future expansion
-```
-
-### **✅ Proven Results**
-- **Large Print Crossword Masters Volume 1**: Successfully published on Amazon KDP
-- **105-page paperback**: Professional layout, embedded fonts, $9.99 price point
-- **Enhanced Kindle EPUB**: Clickable TOC, high-resolution grids, marketing back-matter
-
-## 🚧 **PLANNED FEATURES (Not Yet Implemented)**
-
-### **AWS Infrastructure**
-- **Status**: Workflow files exist for Lambda deployment
-- **Reality**: No AWS resources currently deployed
-- **Next**: Deploy actual Lambda functions and DynamoDB tables
-
-### **Revenue Intelligence**
-- **Status**: Framework designed but not implemented
-- **Reality**: Manual tracking only, no automated profit calculation
-- **Next**: Build cost tracking and sales data ingestion
-
-### **Business Intelligence Dashboard**
-- **Status**: Concept documented but not built
-- **Reality**: No actual dashboard or CEO reports
-- **Next**: Create real-time business metrics system
-
-## 🚀 **Current Workflow (What Actually Works)**
-
-### **1. Generate New Book Series**
 ```bash
-python scripts/enhanced_epub_generator.py
+# These scripts actually exist and work:
+python scripts/crossword_engine_v2.py
+python scripts/book_layout_bot.py
+python scripts/cover_wrap_master.py
 ```
-- Creates professional EPUB with navigation
-- Generates high-resolution crossword grids
-- Includes marketing back-matter
 
-### **2. Quality Validation**
-```bash
-# Automated QA (runs on file changes)
-python scripts/enhanced_qa_checker.py
-```
-- Validates PDF font embedding
-- Checks EPUB navigation
-- Ensures KDP compliance
+### 🔍 Market Research (WORKING)
+- Daily automated market research via GitHub Actions
+- Fetches competitor data from Amazon
+- Creates PRs with opportunities
+- **Requires**: SERPAPI_API_KEY in GitHub Secrets
 
-### **3. Manual Publishing Process**
-1. Generate DALL-E cover using provided prompts
-2. Upload paperback PDF to Amazon KDP
-3. Upload Kindle EPUB to Amazon KDP
-4. Set pricing and categories
-5. Launch with marketing
+### ✅ Quality Assurance (WORKING)
+- Automated font embedding checks
+- PDF compliance validation
+- GitHub Actions on every push
 
-### **4. Market Research Automation**
-```bash
-# Manual trigger (for testing)
-gh workflow run market_research.yml
+## ❌ What Doesn't Exist (Despite Previous Claims)
 
-# View results
-ls research/YYYY-MM-DD/
-```
-- **Automatic**: Runs daily at 2 AM UTC
-- **Output**: CSV with keyword analysis + JSON summary
-- **PR Created**: Review top 5 opportunities daily
-- **Setup Required**: See `docs/GITHUB_SECRETS_SETUP.md`
+### 🚫 "Zero-Touch" Publishing
+- **Claimed**: Fully automated from idea to Amazon listing
+- **Reality**: KDP requires manual upload with CAPTCHA
+- **Limitation**: Amazon provides no public API for book uploads
 
-## 📊 **Actual Success Metrics**
+### 🚫 AWS Infrastructure
+- **Claimed**: Lambda functions deployed
+- **Reality**: No AWS resources actually deployed
+- **Missing**: 
+  - `/lambda/v3_orchestrator.py` (doesn't exist)
+  - `/infrastructure/` directory (doesn't exist)
+  - CloudFormation templates (not deployed)
 
-### **Current Status**
+### 🚫 Revenue Tracking
+- **Claimed**: Automated profit tracking
+- **Reality**: Empty function stubs
+- **Current**: Manual export from KDP dashboard
+
+### 🚫 KindleMint AI Modules
+- **Claimed**: `kindlemint/intelligence/` directory
+- **Reality**: This directory structure doesn't exist
+
+## 📊 Real Results
+
 - **Books Published**: 1 (Large Print Crossword Masters V1)
-- **Formats Available**: Paperback (live), Kindle (ready)
-- **Quality Score**: 100% KDP compliance
-- **File Organization**: Clean format-specific structure
+- **Time Saved**: ~4-6 hours per book
+- **Automation Level**: ~60% (content automated, publishing manual)
+- **Revenue**: Tracking manually in spreadsheet
 
-### **Realistic Targets**
-- **Publication Rate**: 1 book per week (manual process)
-- **Revenue Target**: $100-500 monthly per successful series
-- **Quality Goal**: Maintain 4.5+ star ratings
-- **Format Strategy**: Focus on paperback + Kindle initially
+## 🛠️ Actual Tech Stack
 
-## 🔧 **Technical Stack (What's Real)**
-
-### **Core Technologies**
-- **Python 3.11** - All automation scripts
-- **ReportLab** - Professional PDF generation
-- **EPUB3** - Kindle-compatible eBook format
-- **GitHub Actions** - Automated quality assurance
-- **Git LFS** - Large file management (ready)
-- **Sentry + Seer AI** - Zero-touch debugging and error resolution
-
-### **Dependencies**
-```bash
-pip install openai requests beautifulsoup4 python-dotenv
-pip install reportlab pillow pathlib
-pip install sentry-sdk  # Zero-touch debugging
+```
+Python 3.11      ✅ (All automation scripts)
+ReportLab        ✅ (PDF generation)
+GitHub Actions   ✅ (CI/CD and market research)
+AWS              ❌ (Not deployed)
+Selenium/KDP API ❌ (Not possible due to CAPTCHA)
 ```
 
-## 🤖 **Zero-Touch Debugging with Sentry + Seer AI**
+## 🚀 How to Actually Use This
 
-### **Why Critical for $300/day Revenue Goal**
-- **Browser automation failures** cost $10-50/month per failed book
-- **1 book/day publishing rate** requires 100% automation reliability
-- **Complex failure points**: Playwright, API integrations, AWS Lambda
+### 1. Setup
+```bash
+git clone https://github.com/IgorGanapolsky/ai-kindlemint-engine.git
+pip install -r requirements.txt
+```
 
-### **Seer AI Implementation**
-- **94.5% accuracy** in root cause analysis
-- **Automatic PR creation** for common fixes
-- **One-click fixes** for type errors, null references, timeouts
-- **Fixability scores** to prioritize which errors to tackle first
+### 2. Configure GitHub Secrets
+- `SERPAPI_API_KEY` - For market research (required)
+- `SENTRY_DSN` - For error tracking (optional)
 
-### **Critical Monitoring Points**
-1. **KDP Browser Automation** (highest failure rate)
-2. **SerpApi Integration** (rate limits, API changes)
-3. **Slack Notifications** (webhook failures)
-4. **File Upload Operations** (network timeouts)
+### 3. Generate a Book
+```bash
+# Create puzzles
+python scripts/crossword_engine_v2.py
 
-### **Business Impact**
-- **Reduce debugging time**: Hours → Minutes
-- **Prevent revenue loss**: Failed publishing = lost monthly income
-- **Maintain 100% deployment success rate**
-- **Enable true zero-touch automation**
+# Create interior
+python scripts/book_layout_bot.py
 
-## 🎯 **Business Model (Current Reality)**
+# Create cover (manually design in DALL-E first)
+python scripts/cover_wrap_master.py
+```
 
-### **Proven Revenue Stream**
-- **Large Print Crossword Masters**: Published paperback generating initial sales
-- **Target Audience**: Seniors 60+ seeking large print puzzle books
-- **Price Point**: $9.99 paperback, $2.99-4.99 Kindle
-- **Distribution**: Amazon KDP (US market)
+### 4. Manual Steps (Required)
+1. Log into KDP Dashboard
+2. Click "Create Paperback"
+3. Upload interior PDF
+4. Upload cover PDF
+5. Set metadata, categories, pricing
+6. Submit for review
 
-### **Expansion Strategy**
-1. **Complete Volume 1 Kindle Launch** - Upload enhanced EPUB
-2. **Generate Volume 2** - Same series, new puzzles
-3. **Test New Niches** - Adult coloring, brain training
-4. **Implement Real Market Research** - Move beyond manual research
-5. **Scale Successful Series** - Focus on what sells
+## 📈 Realistic Roadmap
 
-## 🚨 **Honest Assessment**
+### Phase 1: Current State ✅
+- Local book generation
+- Manual KDP uploads
+- Basic market research
 
-### **What Works Right Now**
-- Professional book generation (PDF + EPUB)
-- Quality assurance automation
-- KDP-compliant output
-- Organized file structure
-- One published, revenue-generating book
+### Phase 2: Q3 2024 🚧
+- Improve puzzle variety
+- Automate cover generation
+- Better market insights
 
-### **What's Actually Broken**
-- ❌ No AWS infrastructure deployed (despite documentation claiming it exists)
-- ❌ No revenue tracking automation implemented
-- ⚠️ Limited to crossword books currently
-- ⚠️ Covers require manual DALL-E generation
+### Phase 3: Q4 2024 📋
+- Sales data integration (manual import)
+- Multi-series management
+- Quality improvements
 
-### **Recently Fixed**
-- ✅ GitHub Actions workflows - removed complex over-engineered solutions
-- ✅ Market research automation - simplified approach with working APIs
-- ✅ Honest documentation - removed exaggerated claims
-- ✅ **Sentry + Seer AI integration** - zero-touch debugging for $300/day revenue goal
+### Phase 4: 2025 🔮
+- Investigate browser automation (risky)
+- Consider AWS if volume justifies cost
+- Build simple dashboard
 
-### **Next 30 Days Priority**
-1. **Launch Kindle Edition** - Upload enhanced EPUB
-2. **Generate Volume 2** - Expand successful series
-3. **Implement Real APIs** - Start with Google Trends
-4. **Basic Revenue Tracking** - Manual spreadsheet system
-5. **Test New Niche** - Adult coloring book pilot
+## ⚠️ Current Limitations
 
-## 💰 **Revenue Reality Check**
+1. **KDP Upload**: Must be done manually (no API exists)
+2. **Sales Data**: Must export manually from KDP
+3. **Cover Images**: Requires DALL-E or designer
+4. **Costs**: No automated tracking of API usage
+5. **Scale**: Works for 1-2 books/week, not 1/day
 
-- **Current Revenue**: ~$50-100/month (1 paperback book)
-- **Realistic 6-Month Goal**: $500-1000/month (5-10 books)
-- **Optimistic 12-Month Goal**: $2000-5000/month (20+ books)
-- **Success Metric**: Profitable after automation costs
+## 💡 Why Use This?
+
+Despite limitations, this system:
+- Reduces book creation from 2 days to 2 hours
+- Ensures consistent formatting
+- Automates market research
+- Handles complex PDF requirements
+- Produces KDP-compliant files
+
+## 🤝 Contributing
+
+We need help with:
+- [ ] Sales data CSV parser
+- [ ] More puzzle types
+- [ ] Cover template system
+- [ ] Documentation updates
+
+Please be honest about capabilities in any PRs.
+
+## 📝 License
+
+MIT - Use at your own risk
 
 ---
 
-**Bottom Line**: This system generates professional, KDP-compliant books with quality automation. The market research and business intelligence features are planned but not yet implemented. Focus is on proven book generation and manual scaling until automation is built out.
+**Note**: This README reflects actual capabilities as of June 2024. For the original vision, see [README_ORIGINAL.md](README_ORIGINAL.md). We believe in transparency over hype.

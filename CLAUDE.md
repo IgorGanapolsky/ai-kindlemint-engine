@@ -25,6 +25,52 @@
 ### Accuracy Policy
 **ABSOLUTE REQUIREMENT**: Only provide 100% factual, verified information. NEVER claim something exists or was completed unless actually verified. NEVER make excuses for incorrect information. Always verify file existence, tool outputs, and system state before making any claims.
 
+### File Organization Policy
+**CRITICAL**: Always put ALL necessary files in each directory. NEVER assume the user will copy files between directories. Each format directory (paperback, hardcover, kindle) must contain ALL files needed for that format, including:
+- Interior PDF (manuscript) - Copy to each directory that needs it
+- Cover files - Specific to each format
+- Metadata files - Specific to each format
+- Publishing checklists - Specific to each format
+
+### Publishing & Cover Instructions Policy
+**CRITICAL**: You are NOT allowed to make mistakes in cover instructions and publishing checklists. Everything MUST pass QA pipeline before claiming it's ready. Always:
+- Verify dimensions match between cover and interior
+- Run QA checks on all generated content
+- Test all instructions before providing them
+- Double-check all measurements, specifications, and requirements
+- NEVER provide publishing instructions without verification
+
+### Testing Policy
+**CRITICAL**: Any script you create or use MUST be properly tested before claiming it works. This means:
+- Run the script and verify output
+- Open generated files to confirm content is correct
+- Check that images, text, and formatting appear as expected
+- NEVER assume a script works just because it runs without errors
+- ALWAYS verify the actual output matches requirements
+- Test with sample data before running on production content
+
+### Repository Cleanliness Policy
+**CRITICAL**: No bogus failed files should remain in the repo when you push commits. Always:
+- Clean up failed attempts before committing
+- Use descriptive names for any temporary or test files
+- Remove all failed/test directories before pushing
+- Keep directory structure consistent across volumes
+- Delete ALL temporary files, logs, and abandoned experiments
+- Keep only production-ready code and essential documentation
+
+### No Unnecessary Files Policy
+**CRITICAL**: No unnecessary and extraneous files in the repo after you push. This includes:
+- Individual puzzle source files after PDF generation (they're embedded in the PDF)
+- Temporary generation artifacts
+- Old planning documents that are no longer relevant
+- Debug logs and test outputs
+- Any intermediate files used during processing
+- Keep ONLY the final deliverables needed for KDP upload
+- Never leave "_failed" or "_test" directories in the repository
+- Delete directories that are not needed on every push
+- Remove any logs, temporary files, or abandoned experiments
+- Keep only production-ready code and essential documentation
+
 ## Claude Max Subscription Status
 
 **CURRENT PLAN**: Claude Max ($20/month) - Includes unlimited Claude Code usage!
@@ -155,3 +201,10 @@ git push
 4. Commit and push results
 
 **Estimated time per volume:** 10-15 minutes for complete hardcover package generation.
+
+### Paperback and Hardcover Policy
+**CRITICAL**: When creating paperback materials, ALWAYS generate the adequate hardcover materials immediately after. This includes:
+- Creating hardcover_config.json with proper description
+- Running the hardcover package creation script
+- Ensuring hardcover has all the same files as Volume 1 hardcover
+- Testing the output before claiming completion

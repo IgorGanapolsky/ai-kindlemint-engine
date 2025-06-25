@@ -1,0 +1,44 @@
+{
+  "batch_name": "Volume 2 Test Production",
+  "description": "Single-book batch to test processor with Volume 2 of Crossword Masters",
+  "delay_between_books": 0,
+  "books": [
+    {
+      "id": "crossword_masters_v2",
+      "title": "Large Print Crossword Masters - Volume 2",
+      "subtitle": "50 Medium-Difficulty Crossword Puzzles for Seniors",
+      "series_name": "Large_Print_Crossword_Masters",
+      "volume": 2,
+      "puzzle_type": "crossword",
+      "puzzle_count": 50,
+      "difficulty": "medium",
+      "pages": 110,
+      "author": "Crossword Masters Publishing",
+      "publisher": "Crossword Masters Publishing",
+      "description": "The second volume in our popular Large Print Crossword Masters series, featuring 50 medium-difficulty puzzles with larger text for easier reading. Perfect for seniors looking for a bit more challenge.",
+      "keywords": ["large print", "crossword puzzles", "seniors", "medium difficulty", "brain games"],
+      "categories": ["Games & Puzzles", "Activity Books"],
+      "language": "en",
+      "target_audience": "Seniors, Puzzle enthusiasts",
+      "create_epub": true,
+      "create_hardcover": true,
+      "kindle_price": 2.99,
+      "hardcover_price_min": 14.99,
+      "hardcover_price_max": 19.99,
+      "printing_cost_estimate": 5.50,
+      "royalty_min": 4.50,
+      "royalty_max": 7.50,
+      "puzzle_params": {
+        "grid_size": 15,
+        "word_count": 35,
+        "max_word_length": 15
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "font_size": 14,
+        "include_solutions": true
+      },
+      "back_cover_description": "Large Print Crossword Masters\nVolume 2\n\n50 Medium-Difficulty Crossword Puzzles\nDesigned specifically for seniors\nThe perfect next step after Volume 1"
+    }
+  ]
+}

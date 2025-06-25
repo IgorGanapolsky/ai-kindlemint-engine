@@ -1,0 +1,44 @@
+{
+  "batch_name": "Minimal Integration Test",
+  "description": "Single-book batch to test all integrations work properly.",
+  "delay_between_books": 0,
+  "books": [
+    {
+      "id": "crossword_masters_v3_test",
+      "title": "Large Print Crossword Masters - Volume 3 Test",
+      "subtitle": "50 Advanced Crossword Puzzles for Seniors (Test Run)",
+      "series_name": "Large_Print_Crossword_Masters",
+      "volume": 3,
+      "puzzle_type": "crossword",
+      "puzzle_count": 5,
+      "difficulty": "hard",
+      "pages": 110,
+      "author": "Crossword Masters Publishing",
+      "publisher": "Crossword Masters Publishing",
+      "description": "A test run of the third volume in our popular Large Print Crossword Masters series, featuring 5 advanced puzzles designed to challenge experienced solvers. This is for integration testing purposes.",
+      "keywords": ["large print", "crossword puzzles", "seniors", "advanced puzzles", "brain games", "cognitive exercise", "test"],
+      "categories": ["Games & Puzzles", "Activity Books", "Crosswords"],
+      "language": "en",
+      "target_audience": "Seniors, Experienced puzzle enthusiasts",
+      "create_epub": true,
+      "create_hardcover": true,
+      "kindle_price": 0.99,
+      "hardcover_price_min": 4.99,
+      "hardcover_price_max": 7.99,
+      "printing_cost_estimate": 1.50,
+      "royalty_min": 0.50,
+      "royalty_max": 1.50,
+      "puzzle_params": {
+        "grid_size": 15,
+        "word_count": 10,
+        "max_word_length": 10
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "font_size": 12,
+        "include_solutions": true
+      },
+      "back_cover_description": "Large Print Crossword Masters\\nVolume 3 Test\\n\\n5 Advanced Crossword Puzzles\\nFor integration testing\\nEnsuring all systems are go!"
+    }
+  ]
+}
