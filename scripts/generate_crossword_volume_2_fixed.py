@@ -11,7 +11,10 @@ from datetime import datetime
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import inch
+# KDP 6x9 book dimensions (not letter size!)
+BOOK_WIDTH = 6 * inch
+BOOK_HEIGHT = 9 * inch
 from reportlab.lib.units import inch
 import string
 
@@ -309,8 +312,8 @@ class FixedCrosswordGenerator:
         """Create the interior PDF"""
         pdf_path = self.paperback_dir / "crossword_book_volume_2_interior.pdf"
         
-        page_width, page_height = letter
-        c = canvas.Canvas(str(pdf_path), pagesize=letter)
+        page_width, page_height = BOOK_WIDTH, BOOK_HEIGHT
+        c = canvas.Canvas(str(pdf_path), pagesize=(BOOK_WIDTH, BOOK_HEIGHT))
         
         # Title page
         c.setFont("Helvetica-Bold", 36)
@@ -485,7 +488,7 @@ class FixedCrosswordGenerator:
             ],
             "language": "English",
             "pages": 110,
-            "dimensions": "8.5 x 11 inches",
+            "dimensions": "6 x 9 inches",
             "publication_date": str(datetime.now().date())
         }
         
@@ -496,7 +499,7 @@ class FixedCrosswordGenerator:
         checklist = """# Cover Generation Checklist - Volume 2
 
 ## Cover Specifications
-- Size: 2550 x 3300 pixels (8.5" x 11" at 300 DPI)
+- Size: 2550 x 3300 pixels (8.5" x 11" at 300 DPI for paperback cover)
 - Format: RGB color
 - File type: PNG or JPG
 - Background: Navy blue (#2C3E50)
