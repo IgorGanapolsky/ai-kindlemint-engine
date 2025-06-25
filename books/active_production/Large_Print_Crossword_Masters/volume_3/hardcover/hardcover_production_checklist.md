@@ -1,13 +1,13 @@
 # Hardcover Production Checklist
-## Large Print Crossword Masters - Volume 3 Test - 50 Advanced Crossword Puzzles for Seniors (Test Run)
+## Large Print Crossword Masters - 50 Easy Crossword Puzzles for Seniors - Volume 3
 
 ### 📊 **Hardcover Specifications**
 - **Format**: Case-Laminate Hardcover (KDP's only hardcover option)
 - **Trim Size**: 6 × 9 inches
-- **Page Count**: 110 pages
+- **Page Count**: 156 pages
 - **Paper**: White (best for puzzle grids)
 - **Ink**: Black & White (cost efficient)
-- **Spine Width**: 0.3350 inches `(110 × 0.0025) + 0.06`
+- **Spine Width**: 0.4500 inches `(156 × 0.0025) + 0.06`
 
 ### 📁 **Required Files**
 
@@ -18,7 +18,7 @@
 - [ ] File: `hardcover_interior.pdf`
 
 #### ✅ **Cover Wrap PDF**  
-- [ ] Use KDP template for 6×9, 110 pages, white paper, B/W
+- [ ] Use KDP template for 6×9, 156 pages, white paper, B/W
 - [ ] Create wrap design with front/spine/back
 - [ ] Export as PDF/X-1a with CMYK and outlined fonts
 - [ ] File: `hardcover_cover_wrap.pdf`
@@ -26,8 +26,8 @@
 ### 🎨 **Cover Design Elements**
 
 #### **Source Assets**
-- **Front Cover**: `default_cover.jpg`
-- **Template**: `6x9_110pages_template.png`
+- **Front Cover**: `books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/cover.png`
+- **Template**: `6x9_156pages_template.png`
 
 #### **Design Requirements**
 1. **Canvas**: Exact template dimensions (3846 × 2850 pixels)
@@ -37,12 +37,12 @@
 5. **Back Cover**: Book description + barcode placeholder (2×1.2 in)
 6. **Spine**: 
    - Title (stacked) centered, 0.125 in from edges
-   - Publisher: "Crossword Masters Publishing" at bottom
+   - Publisher: "KindleMint Press" at bottom
 
 ### 💰 **Pricing Strategy**
-- **Printing Cost**: ~$1.50 (estimated)
-- **Target Price**: $4.99 - $7.99
-- **Royalty**: ~$4.50 - $7.50 per book
+- **Printing Cost**: ~$7.50 (estimated)
+- **Target Price**: $19.99 - $24.99
+- **Royalty**: ~$4.50 - $9.50 per book
 - **Revenue Multiplier**: 2-3x paperback profit margin
 
 ### 📋 **Quality Control Checklist**
@@ -54,7 +54,7 @@
 
 ### 📈 **Metadata Updates**
 - [ ] New ISBN (KDP assigns automatically)
-- [ ] Price: $4.99 - $7.99 range
+- [ ] Price: $19.99 - $24.99 range
 - [ ] Description: Enhanced with hardcover benefits
 - [ ] Categories: Same as paperback
 - [ ] Keywords: Include "hardcover", "premium", "gift"
