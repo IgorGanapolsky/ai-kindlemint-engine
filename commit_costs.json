@@ -1,0 +1,25 @@
+{
+  "total_cost": 0.3250365,
+  "commits": [
+    {
+      "hash": "c08cdbab",
+      "timestamp": "2025-06-26T16:52:19.989577",
+      "message": "Initial Claude cost tracking setup",
+      "cost": 0.1460835,
+      "tokens": 3607,
+      "files_changed": 1,
+      "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "c08cdbab",
+      "timestamp": "2025-06-26T16:52:22.127541",
+      "message": "feat: Enhance Slack notifications for better QA visibility",
+      "cost": 0.178953,
+      "tokens": 4896,
+      "files_changed": 2,
+      "model": "claude-3-sonnet"
+    }
+  ],
+  "first_tracked": "2025-06-26T16:52:19.989559",
+  "last_updated": "2025-06-26T16:52:22.127566"
+}
