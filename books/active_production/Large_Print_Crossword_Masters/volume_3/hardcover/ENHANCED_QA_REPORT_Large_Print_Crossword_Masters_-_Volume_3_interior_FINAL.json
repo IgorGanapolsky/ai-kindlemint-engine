@@ -1,0 +1,268 @@
+{
+  "file_path": "/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Crossword_Masters/volume_3/hardcover/Large_Print_Crossword_Masters_-_Volume_3_interior_FINAL.pdf",
+  "timestamp": "2025-06-25T23:23:53.272704",
+  "overall_score": 36,
+  "publish_ready": false,
+  "issues_found": [
+    {
+      "type": "CRITICAL",
+      "code": "High duplication",
+      "description": "Content is 73.6% duplicate (threshold: 10.0%)"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 3: Text 'Puzzle 28: Desserts...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 1: Duplicate content in puzzle solutions across multiple puzzles."
+    },
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 2: Missing ISBN number which is required for KDP compliance."
+    }
+  ],
+  "warnings": [
+    {
+      "type": "WARNING",
+      "code": "Excessive whitespace",
+      "description": "156 of 156 pages (100.0%) have excessive whitespace"
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 1: Table of contents lists puzzles up to 18, but solutions are provided for 50 puzzles."
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 2: Incomplete content sample, making it difficult to assess the full structure and flow."
+    },
+    {
+      "type": "WARNING",
+      "code": "KDP check error",
+      "description": "KDP compliance check failed: 'Document' object has no attribute 'pdf_version'"
+    }
+  ],
+  "info": [],
+  "checks": {
+    "file_properties": {
+      "file_exists": true,
+      "file_size_bytes": 3232522
+    },
+    "pdf_structure": {
+      "page_count": 156,
+      "not_encrypted": true,
+      "fonts": {
+        "all_embedded": true,
+        "fonts": [
+          {
+            "name": "Helvetica",
+            "embedded": true,
+            "page": 1
+          },
+          {
+            "name": "Helvetica-Bold",
+            "embedded": true,
+            "page": 1
+          }
+        ]
+      }
+    },
+    "content_quality": {
+      "total_characters": 35090,
+      "total_words": 5672,
+      "duplicate_content_ratio": 0.7362954414310444
+    },
+    "visual_layout": {
+      "pages_analyzed": 156,
+      "pages_with_high_whitespace": 156,
+      "text_cutoff_instances": 1,
+      "whitespace_ratio_by_page": {
+        "1": 0.9763092526572918,
+        "2": 0.9756119198521159,
+        "3": 0.9555254340793556,
+        "4": 0.9865134184987127,
+        "5": 0.9599838251799037,
+        "6": 0.9260001980590216,
+        "7": 0.9835693536673928,
+        "8": 0.9261219218327061,
+        "9": 0.9834909553046808,
+        "10": 0.92619825708061,
+        "11": 0.9834827028454479,
+        "12": 0.9264128210206641,
+        "13": 0.9834620716973658,
+        "14": 0.926575807090513,
+        "15": 0.9834414405492837,
+        "16": 0.9266005644682115,
+        "17": 0.9834538192381329,
+        "18": 0.9266170693866772,
+        "19": 0.9834785766158315,
+        "20": 0.9265985013534033,
+        "21": 0.9834373143196673,
+        "22": 0.9263302964283356,
+        "23": 0.9834022413679276,
+        "24": 0.9262890341321713,
+        "25": 0.9833589159569551,
+        "26": 0.9262085726546511,
+        "27": 0.9834496930085166,
+        "28": 0.9263014128210206,
+        "29": 0.9833733577606126,
+        "30": 0.9261734997029115,
+        "31": 0.9833877995642701,
+        "32": 0.9264066316762395,
+        "33": 0.9833692315309962,
+        "34": 0.9265407341387734,
+        "35": 0.9833547897273387,
+        "36": 0.9265242292203076,
+        "37": 0.9833630421865716,
+        "38": 0.926478840694527,
+        "39": 0.9833919257938866,
+        "40": 0.9265737439757048,
+        "41": 0.9833877995642701,
+        "42": 0.926449957087212,
+        "43": 0.9833506634977223,
+        "44": 0.9264004423318148,
+        "45": 0.9833155905459827,
+        "46": 0.9258722849409123,
+        "47": 0.9834063675975441,
+        "48": 0.9257876972337756,
+        "49": 0.9833300323496402,
+        "50": 0.925810391496666,
+        "51": 0.9833403479236813,
+        "52": 0.9262580874100482,
+        "53": 0.9833217798904074,
+        "54": 0.9260084505182544,
+        "55": 0.9833073380867499,
+        "56": 0.9263839374133491,
+        "57": 0.9833155905459827,
+        "58": 0.9264747144649106,
+        "59": 0.9833444741532977,
+        "60": 0.9261879415065689,
+        "61": 0.9833238430052156,
+        "62": 0.926421073479897,
+        "63": 0.9832867069386677,
+        "64": 0.9262312669175414,
+        "65": 0.9832846438238595,
+        "66": 0.9259114841222684,
+        "67": 0.9833754208754208,
+        "68": 0.9264685251204859,
+        "69": 0.983299085627517,
+        "70": 0.9262436456063907,
+        "71": 0.983346537268106,
+        "72": 0.9258805374001452,
+        "73": 0.983327969234832,
+        "74": 0.9266851521753483,
+        "75": 0.9833135274311745,
+        "76": 0.9263983792170066,
+        "77": 0.9833217798904074,
+        "78": 0.9265840595497459,
+        "79": 0.9833506634977223,
+        "80": 0.9258557800224467,
+        "81": 0.983299085627517,
+        "82": 0.9263282333135274,
+        "83": 0.9832619495609691,
+        "84": 0.9260022611738298,
+        "85": 0.9832949593979006,
+        "86": 0.9262498349508154,
+        "87": 0.9833857364494619,
+        "88": 0.9262807816729385,
+        "89": 0.9833094012015581,
+        "90": 0.9260167029774873,
+        "91": 0.9833382848088731,
+        "92": 0.9257484980524197,
+        "93": 0.9833197167755992,
+        "94": 0.9261446160955965,
+        "95": 0.9833052749719416,
+        "96": 0.9263158546246781,
+        "97": 0.9833135274311745,
+        "98": 0.9260992275698158,
+        "99": 0.9833424110384895,
+        "100": 0.9260889119957747,
+        "101": 0.9832867069386677,
+        "102": 0.9260847857661583,
+        "103": 0.9832495708721198,
+        "104": 0.9259857562553641,
+        "105": 0.9832475077573117,
+        "106": 0.9945059252657292,
+        "107": 0.9722614214035783,
+        "108": 0.9721768336964416,
+        "109": 0.9721706443520169,
+        "110": 0.9722263484518386,
+        "111": 0.9722428533703044,
+        "112": 0.9722036541889483,
+        "113": 0.9722469795999208,
+        "114": 0.9722098435333729,
+        "115": 0.9721995279593318,
+        "116": 0.9721108140225787,
+        "117": 0.9722036541889483,
+        "118": 0.9721211295966198,
+        "119": 0.9721108140225787,
+        "120": 0.9721004984485376,
+        "121": 0.972123192711428,
+        "122": 0.9720798673004556,
+        "123": 0.9721273189410444,
+        "124": 0.9720839935300719,
+        "125": 0.9720716148412227,
+        "126": 0.9720324156598666,
+        "127": 0.9721252558262362,
+        "128": 0.9720427312339077,
+        "129": 0.9720324156598666,
+        "130": 0.9720427312339077,
+        "131": 0.9720654254967981,
+        "132": 0.9720221000858256,
+        "133": 0.9720695517264145,
+        "134": 0.972026226315442,
+        "135": 0.9720138476265927,
+        "136": 0.9720076582821681,
+        "137": 0.9721004984485376,
+        "138": 0.9720179738562091,
+        "139": 0.9720076582821681,
+        "140": 0.9720406681190995,
+        "141": 0.9720633623819899,
+        "142": 0.9720200369710174,
+        "143": 0.9720674886116063,
+        "144": 0.9720241632006338,
+        "145": 0.9720117845117845,
+        "146": 0.9720406681190995,
+        "147": 0.9721335082854691,
+        "148": 0.9720509836931406,
+        "149": 0.9720406681190995,
+        "150": 0.9720468574635241,
+        "151": 0.9720695517264145,
+        "152": 0.972026226315442,
+        "153": 0.972073677956031,
+        "154": 0.9720303525450584,
+        "155": 0.9720179738562091,
+        "156": 0.9720117845117845
+      },
+      "whitespace_compliance": 0.0
+    },
+    "llm_content_validation": {
+      "models_used": [
+        "gpt4o"
+      ],
+      "validation_results": {
+        "gpt4o": {
+          "quality_score": 60,
+          "issues": [
+            "Critical issue 1: Duplicate content in puzzle solutions across multiple puzzles.",
+            "Critical issue 2: Missing ISBN number which is required for KDP compliance."
+          ],
+          "warnings": [
+            "Warning 1: Table of contents lists puzzles up to 18, but solutions are provided for 50 puzzles.",
+            "Warning 2: Incomplete content sample, making it difficult to assess the full structure and flow."
+          ],
+          "feedback": "The book contains significant duplicate content in the puzzle solutions, which is a critical issue that must be resolved before publishing. Each puzzle should have unique solutions to maintain puzzle integrity. Additionally, the ISBN number is missing, which is necessary for KDP compliance. The table of contents does not match the number of puzzles with solutions provided, indicating a potential inconsistency in the book's structure. Ensure that the table of contents accurately reflects the content of the book. Address these issues to improve the quality score and meet the minimum acceptable standards for publication."
+        }
+      },
+      "consensus_score": 60
+    },
+    "kdp_compliance": {
+      "file_size_mb": 3.082773208618164
+    }
+  }
+}

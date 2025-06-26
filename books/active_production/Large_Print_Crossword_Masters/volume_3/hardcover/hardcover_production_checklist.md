@@ -1,5 +1,5 @@
 # Hardcover Production Checklist
-## Large Print Crossword Masters - 50 Easy Crossword Puzzles for Seniors - Volume 3
+## Large Print Crossword Masters - 50 Puzzles for Relaxation - Volume 3
 
 ### 📊 **Hardcover Specifications**
 - **Format**: Case-Laminate Hardcover (KDP's only hardcover option)
@@ -26,7 +26,7 @@
 ### 🎨 **Cover Design Elements**
 
 #### **Source Assets**
-- **Front Cover**: `books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/cover.png`
+- **Front Cover**: `/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/cover.png`
 - **Template**: `6x9_156pages_template.png`
 
 #### **Design Requirements**
@@ -37,12 +37,12 @@
 5. **Back Cover**: Book description + barcode placeholder (2×1.2 in)
 6. **Spine**: 
    - Title (stacked) centered, 0.125 in from edges
-   - Publisher: "KindleMint Press" at bottom
+   - Publisher: "Crossword Masters Publishing" at bottom
 
 ### 💰 **Pricing Strategy**
 - **Printing Cost**: ~$7.50 (estimated)
 - **Target Price**: $19.99 - $24.99
-- **Royalty**: ~$4.50 - $9.50 per book
+- **Royalty**: ~$3.50 - $7.50 per book
 - **Revenue Multiplier**: 2-3x paperback profit margin
 
 ### 📋 **Quality Control Checklist**
