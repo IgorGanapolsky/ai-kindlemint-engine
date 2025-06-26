@@ -4,6 +4,11 @@ Configuration Usage Examples
 This script demonstrates best practices for using the centralized configuration
 system in the AI KindleMint Engine.
 """
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+
 
 import sys
 from pathlib import Path

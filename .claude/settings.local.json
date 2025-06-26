@@ -154,7 +154,8 @@
       "Bash(__NEW_LINE__ echo \"✅ Replaced empty garbage with REAL crossword book\")",
       "Bash(pdfinfo:*)",
       "Bash(pdftotext:*)",
-      "Bash(gh secret:*)"
+      "Bash(gh secret:*)",
+      "Bash(curl:*)"
     ],
     "deny": []
   }
