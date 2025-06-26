@@ -539,7 +539,7 @@ class Volume4CrosswordGenerator:
                 for row in range(GRID_SIZE):
                     for col in range(GRID_SIZE):
                         x = grid_x + (col * small_cell)
-                        y = grid_y - (row * small_cell)
+                        y = grid_y - ((GRID_SIZE - 1 - row) * small_cell)
                         
                         if puzzle['solution'][row][col] == '#':
                             c.setFillColor(colors.black)
@@ -552,7 +552,9 @@ class Volume4CrosswordGenerator:
                             # Add solution letter
                             c.setFillColor(colors.black)
                             c.setFont("Helvetica-Bold", 10)
-                            c.drawCentredString(x + small_cell/2, y + small_cell/2 - 3, 
+                            # Center letter in cell - y coordinate needs adjustment for PDF coordinate system
+                            text_y = y + (small_cell * 0.35)  # Position text in lower third of cell
+                            c.drawCentredString(x + small_cell/2, text_y, 
                                               puzzle['solution'][row][col])
                 
                 # Add word lists below grid
@@ -570,21 +572,29 @@ class Volume4CrosswordGenerator:
                 y_pos -= 0.25*inch
                 c.setFont("Helvetica", 9)
                 
-                # List unique words for this puzzle
-                for i, (across, down) in enumerate(zip(across_words[:10], down_words[:10])):
+                # List words for this puzzle - handle unequal lists properly
+                max_words = max(len(across_words), len(down_words))
+                
+                for i in range(min(max_words, 10)):  # Show up to 10 words
+                    # Draw across word if available
                     if i < len(across_words):
+                        across = across_words[i]
                         # Find clue number for this word
                         word_info = next((w for w in puzzle['words'] if w['word'] == across and w['direction'] == 'across'), None)
                         if word_info:
                             clue_num = puzzle['numbers'].get((word_info['row'], word_info['col']), "?")
-                            c.drawString(GUTTER + 0.5*inch, y_pos, f"{clue_num}. {across} - {word_info['clue'][:30]}")
+                            clue_text = word_info['clue'][:30] + "..." if len(word_info['clue']) > 30 else word_info['clue']
+                            c.drawString(GUTTER + 0.5*inch, y_pos, f"{clue_num}. {across}")
                     
+                    # Draw down word if available
                     if i < len(down_words):
+                        down = down_words[i]
                         # Find clue number for this word
                         word_info = next((w for w in puzzle['words'] if w['word'] == down and w['direction'] == 'down'), None)
                         if word_info:
                             clue_num = puzzle['numbers'].get((word_info['row'], word_info['col']), "?")
-                            c.drawString(PAGE_WIDTH/2 + 0.1*inch, y_pos, f"{clue_num}. {down} - {word_info['clue'][:30]}")
+                            clue_text = word_info['clue'][:30] + "..." if len(word_info['clue']) > 30 else word_info['clue']
+                            c.drawString(PAGE_WIDTH/2 + 0.1*inch, y_pos, f"{clue_num}. {down}")
                     
                     y_pos -= 0.2*inch
                 
