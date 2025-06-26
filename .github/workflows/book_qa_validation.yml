@@ -77,7 +77,7 @@ jobs:
         name: qa-reports
         path: books/active_production/**/ENHANCED_QA_REPORT_*.json
     
-    - name: 💬 Send Slack Notification
+    - name: 💬 Send Enhanced Slack Notification
       if: always()
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -87,23 +87,35 @@ jobs:
           exit 0
         fi
         
-        # Parse QA results
+        # Parse QA results with detailed information
         TOTAL_BOOKS=0
         PASSED_BOOKS=0
         FAILED_BOOKS=0
-        CRITICAL_ISSUES=""
+        BOOK_DETAILS=""
         
         for report in $(find books/active_production -name "ENHANCED_QA_REPORT_*.json" 2>/dev/null); do
           TOTAL_BOOKS=$((TOTAL_BOOKS + 1))
           STATUS=$(jq -r '.overall_status' "$report" 2>/dev/null || echo "UNKNOWN")
           
+          # Extract full book path
+          BOOK_PATH=$(echo "$report" | sed 's|books/active_production/||' | sed 's|/ENHANCED_QA_REPORT.*||')
+          
           if [ "$STATUS" == "PASS" ]; then
             PASSED_BOOKS=$((PASSED_BOOKS + 1))
+            SCORE=$(jq -r '.summary.total_score // 100' "$report" 2>/dev/null)
+            BOOK_DETAILS="${BOOK_DETAILS}• ✅ *${BOOK_PATH}*: PASSED (Score: ${SCORE})\n"
           else
             FAILED_BOOKS=$((FAILED_BOOKS + 1))
-            BOOK_NAME=$(basename $(dirname "$report"))
             ISSUES=$(jq -r '.summary.critical_issues_count // 0' "$report" 2>/dev/null)
-            CRITICAL_ISSUES="${CRITICAL_ISSUES}• $BOOK_NAME: $ISSUES critical issues\n"
+            SCORE=$(jq -r '.summary.total_score // 0' "$report" 2>/dev/null)
+            
+            # Get first 2 critical issues
+            CRITICAL_LIST=$(jq -r '.critical_issues[0:2][] | "    → " + .description' "$report" 2>/dev/null || echo "")
+            
+            BOOK_DETAILS="${BOOK_DETAILS}• ❌ *${BOOK_PATH}*: FAILED (Score: ${SCORE}, ${ISSUES} issues)\n"
+            if [ -n "$CRITICAL_LIST" ]; then
+              BOOK_DETAILS="${BOOK_DETAILS}${CRITICAL_LIST}\n"
+            fi
           fi
         done
         
@@ -122,7 +134,7 @@ jobs:
           STATUS="$FAILED_BOOKS books failed QA"
         fi
         
-        # Build message
+        # Build enhanced message
         PAYLOAD=$(cat <<EOF
         {
           "attachments": [{
@@ -132,41 +144,30 @@ jobs:
                 "type": "header",
                 "text": {
                   "type": "plain_text",
-                  "text": "$EMOJI Book QA Validation"
+                  "text": "$EMOJI Book QA Validation Results"
                 }
               },
               {
                 "type": "section",
-                "fields": [
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Total Books:* $TOTAL_BOOKS"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Passed:* $PASSED_BOOKS"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Failed:* $FAILED_BOOKS"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Status:* $STATUS"
-                  }
-                ]
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Summary:* ${STATUS}\n*Total Books:* ${TOTAL_BOOKS} | *Passed:* ${PASSED_BOOKS} | *Failed:* ${FAILED_BOOKS}"
+                }
               }
         EOF
         )
         
-        # Add critical issues if any
-        if [ -n "$CRITICAL_ISSUES" ] && [ "$CRITICAL_ISSUES" != "" ]; then
+        # Add book details if any
+        if [ -n "$BOOK_DETAILS" ] && [ "$TOTAL_BOOKS" -gt 0 ]; then
           PAYLOAD="${PAYLOAD},
+              {
+                \"type\": \"divider\"
+              },
               {
                 \"type\": \"section\",
                 \"text\": {
                   \"type\": \"mrkdwn\",
-                  \"text\": \"*Failed Books:*\n$CRITICAL_ISSUES\"
+                  \"text\": \"*📚 Detailed Results:*\n${BOOK_DETAILS}\"
                 }
               }"
         fi

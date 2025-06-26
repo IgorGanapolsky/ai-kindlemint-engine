@@ -130,7 +130,7 @@ jobs:
             body: comment
           });
           
-    - name: 💬 Send Slack Notification
+    - name: 💬 Send Enhanced Slack Notification
       if: always()
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -146,23 +146,33 @@ jobs:
           TEST_CONTENT_FOUND=true
         fi
         
-        # Parse QA results
+        # Parse QA results with detailed information
         TOTAL_BOOKS=0
         PASSED_BOOKS=0
         FAILED_BOOKS=0
-        CRITICAL_ISSUES=""
+        BOOK_DETAILS=""
         
         for report in $(find books/active_production -name "qa_production_report.json" 2>/dev/null); do
           TOTAL_BOOKS=$((TOTAL_BOOKS + 1))
           READY=$(jq -r '.ready' "$report" 2>/dev/null || echo "false")
           
+          # Extract full book path (e.g., Large_Print_Crossword_Masters/volume_4/paperback)
+          BOOK_PATH=$(echo "$report" | sed 's|books/active_production/||' | sed 's|/qa_production_report.json||')
+          SCORE=$(jq -r '.score // 0' "$report" 2>/dev/null)
+          
           if [ "$READY" == "true" ]; then
             PASSED_BOOKS=$((PASSED_BOOKS + 1))
+            BOOK_DETAILS="${BOOK_DETAILS}• ✅ *${BOOK_PATH}*: Score ${SCORE}/100 - Ready\n"
           else
             FAILED_BOOKS=$((FAILED_BOOKS + 1))
-            BOOK_NAME=$(basename $(dirname "$report"))
-            SCORE=$(jq -r '.score // 0' "$report" 2>/dev/null)
-            CRITICAL_ISSUES="${CRITICAL_ISSUES}• $BOOK_NAME: Score $SCORE/100\n"
+            
+            # Get critical issues (first 2)
+            CRITICAL_ISSUES=$(jq -r '.critical_issues[0:2][]' "$report" 2>/dev/null | sed 's/^/    → /')
+            
+            BOOK_DETAILS="${BOOK_DETAILS}• ❌ *${BOOK_PATH}*: Score ${SCORE}/100\n"
+            if [ -n "$CRITICAL_ISSUES" ]; then
+              BOOK_DETAILS="${BOOK_DETAILS}${CRITICAL_ISSUES}\n"
+            fi
           fi
         done
         
@@ -178,10 +188,10 @@ jobs:
         else
           COLOR="danger"
           EMOJI="❌"
-          STATUS="$FAILED_BOOKS books not ready for production"
+          STATUS="$FAILED_BOOKS of $TOTAL_BOOKS books not ready for production"
         fi
         
-        # Build message
+        # Build enhanced message
         PAYLOAD=$(cat <<EOF
         {
           "attachments": [{
@@ -191,51 +201,46 @@ jobs:
                 "type": "header",
                 "text": {
                   "type": "plain_text",
-                  "text": "$EMOJI Production QA Validation"
+                  "text": "$EMOJI Production QA Validation Results"
                 }
-              },
-              {
-                "type": "section",
-                "fields": [
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Environment:* Production"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Books Validated:* $TOTAL_BOOKS"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Ready:* $PASSED_BOOKS"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Not Ready:* $FAILED_BOOKS"
-                  }
-                ]
               },
               {
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*Status:* $STATUS"
+                  "text": "*Summary:* ${STATUS}\n*Total Books:* ${TOTAL_BOOKS} | *Ready:* ${PASSED_BOOKS} | *Failed:* ${FAILED_BOOKS}"
                 }
               }
         EOF
         )
         
-        # Add issues if any
-        if [ -n "$CRITICAL_ISSUES" ] && [ "$CRITICAL_ISSUES" != "" ]; then
+        # Add book details if any
+        if [ -n "$BOOK_DETAILS" ] && [ "$TOTAL_BOOKS" -gt 0 ]; then
           PAYLOAD="${PAYLOAD},
+              {
+                \"type\": \"divider\"
+              },
               {
                 \"type\": \"section\",
                 \"text\": {
                   \"type\": \"mrkdwn\",
-                  \"text\": \"*Books Not Ready:*\n$CRITICAL_ISSUES\"
+                  \"text\": \"*📚 Book Status Details:*\n${BOOK_DETAILS}\"
                 }
               }"
         fi
+        
+        # Add helpful context
+        PAYLOAD="${PAYLOAD},
+              {
+                \"type\": \"divider\"
+              },
+              {
+                \"type\": \"section\",
+                \"text\": {
+                  \"type\": \"mrkdwn\",
+                  \"text\": \"*💡 Quick Reference:*\n• Score 75/100: Grid rendering detection issue (false positive)\n• Score 55/100: Missing content or structural issues\n• Score <50: Critical content problems\"
+                }
+              }"
         
         PAYLOAD="${PAYLOAD},
               {
