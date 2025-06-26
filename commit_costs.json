@@ -27,8 +27,17 @@
       "tokens": 394114,
       "files_changed": 8,
       "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "21c4f3b2",
+      "timestamp": "2025-06-26T17:06:41.488419",
+      "message": "feat: Add Claude cost tracking and update volume 1 covers",
+      "cost": 0.0,
+      "tokens": 0,
+      "files_changed": 0,
+      "model": "claude-3-sonnet"
     }
   ],
   "first_tracked": "2025-06-26T16:52:19.989559",
-  "last_updated": "2025-06-26T17:03:04.457730"
+  "last_updated": "2025-06-26T17:06:41.488433"
 }
