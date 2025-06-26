@@ -7,6 +7,14 @@
 - `npm run typecheck`: Run TypeScript type checking
 - `./claude-flow --help`: Show all available commands
 
+## Claude Cost Tracking & Slack Notifications
+- `./claude-flow-costs status`: Show current cost status
+- `./claude-flow-costs summary --days 7`: View cost summary
+- `./claude-flow-costs-notify setup`: Set up automated Slack notifications
+- `./claude-flow-costs-notify daily`: Send daily cost report to Slack
+- `./claude-flow-costs-notify weekly`: Send weekly analysis to Slack
+- `./claude-flow-costs-notify test`: Test all notification types
+
 ## Claude-Flow Complete Command Reference
 
 ### Core System Commands
