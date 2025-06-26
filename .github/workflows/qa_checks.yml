@@ -31,6 +31,11 @@ jobs:
           pip install --require-hashes -r requirements-locked.txt
           pip install -r requirements-dev.txt
 
+      - name: Install Playwright Browsers
+        run: |
+          # Install required browser binaries for Playwright
+          python -m playwright install --with-deps
+
       - name: Run end-to-end pipeline tests
         run: pytest tests/test_end_to_end_pipeline.py
 

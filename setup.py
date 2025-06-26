@@ -14,8 +14,7 @@ setuptools.setup(
         "playwright>=1.40.0",
         "nova-act>=0.1.0",
         "boto3>=1.34.0",
-        "selenium>=4.15.0",
-        "webdriver-manager>=4.0.0",
+        # Selenium and webdriver-manager removed. Using Playwright for browser automation.
         "openai>=1.3.0",
         "nltk>=3.6.5",
         "markdown2>=2.4.3",
