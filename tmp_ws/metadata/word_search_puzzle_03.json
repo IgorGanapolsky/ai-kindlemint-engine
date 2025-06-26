@@ -1,0 +1,12 @@
+{
+  "id": 3,
+  "words": [
+    "PUZZLE",
+    "KINDLE",
+    "BOOK",
+    "ENGINE",
+    "SOLUTION"
+  ],
+  "grid_size": 15,
+  "grid_path": "tmp_ws/puzzles/word_search_puzzle_03.png"
+}

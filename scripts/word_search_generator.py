@@ -62,9 +62,15 @@ class WordSearchGenerator:
         for r in range(self.grid_size):
             for c in range(self.grid_size):
                 letter = grid[r][c]
-                w, h = draw.textsize(letter, font=font)
-                x = margin + c*cell_size + (cell_size - w)/2
-                y = margin + r*cell_size + (cell_size - h)/2
+                # Compute text size
+                try:
+                    w, h = font.getsize(letter)
+                except AttributeError:
+                    # Fallback to textbbox if getsize is unavailable
+                    bbox = draw.textbbox((0, 0), letter, font=font)
+                    w, h = bbox[2] - bbox[0], bbox[3] - bbox[1]
+                x = margin + c*cell_size + (cell_size - w) / 2
+                y = margin + r*cell_size + (cell_size - h) / 2
                 draw.text((x, y), letter, fill='black', font=font)
         # Save image
         img_path = self.puzzles_dir / f"word_search_puzzle_{puzzle_id:02d}.png"
