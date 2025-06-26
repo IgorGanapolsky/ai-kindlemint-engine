@@ -1,0 +1,37 @@
+{
+  "date": "2025-06-26",
+  "total_keywords": 100,
+  "top_opportunities": [
+    {
+      "keyword": "crossword puzzle books large print",
+      "est_sales": 2000,
+      "avg_price": 15.85,
+      "competition": 1
+    },
+    {
+      "keyword": "sudoku books for adults",
+      "est_sales": 2000,
+      "avg_price": 19.3,
+      "competition": 1
+    },
+    {
+      "keyword": "word search puzzle books",
+      "est_sales": 2000,
+      "avg_price": 23.8,
+      "competition": 1
+    },
+    {
+      "keyword": "brain games for seniors",
+      "est_sales": 2000,
+      "avg_price": 24.37,
+      "competition": 1
+    },
+    {
+      "keyword": "cryptogram puzzle books",
+      "est_sales": 2000,
+      "avg_price": 13.18,
+      "competition": 1
+    }
+  ],
+  "market_gaps": []
+}
