@@ -1,0 +1,321 @@
+{
+  "timestamp": "2025-06-26T13:19:38.257921",
+  "pdf_path": "books/active_production/Large_Print_Crossword_Masters/volume_4/paperback/interior.pdf",
+  "status": "FAIL",
+  "score": 57,
+  "issues": [
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 1: Poor clue balance (1 DOWN / 5 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 2: Poor clue balance (1 DOWN / 6 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 3: Poor clue balance (2 DOWN / 7 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 4: Poor clue balance (0 DOWN / 7 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 5: Poor clue balance (0 DOWN / 9 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 6: Poor clue balance (1 DOWN / 7 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 7: Poor clue balance (0 DOWN / 8 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 8: Poor clue balance (0 DOWN / 8 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 9: Poor clue balance (0 DOWN / 7 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 10: Poor clue balance (1 DOWN / 13 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 11: Poor clue balance (2 DOWN / 6 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 12: Poor clue balance (0 DOWN / 7 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 13: Poor clue balance (1 DOWN / 9 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 14: Poor clue balance (0 DOWN / 8 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 15: Poor clue balance (0 DOWN / 6 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 16: Poor clue balance (2 DOWN / 7 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 17: Poor clue balance (0 DOWN / 9 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 18: Poor clue balance (1 DOWN / 9 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 19: Poor clue balance (0 DOWN / 6 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 20: Poor clue balance (1 DOWN / 8 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 21: Poor clue balance (2 DOWN / 4 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 22: Poor clue balance (0 DOWN / 5 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 23: Poor clue balance (1 DOWN / 10 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 24: Poor clue balance (0 DOWN / 7 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 25: Poor clue balance (1 DOWN / 9 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 26: Poor clue balance (0 DOWN / 9 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 27: Poor clue balance (0 DOWN / 6 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 28: Poor clue balance (0 DOWN / 5 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 29: Poor clue balance (1 DOWN / 11 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 30: Poor clue balance (0 DOWN / 5 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 31: Poor clue balance (1 DOWN / 7 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 32: Poor clue balance (0 DOWN / 6 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 33: Poor clue balance (0 DOWN / 8 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 34: Poor clue balance (2 DOWN / 8 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 35: Poor clue balance (0 DOWN / 6 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 36: Poor clue balance (1 DOWN / 8 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 37: Poor clue balance (0 DOWN / 7 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 38: Poor clue balance (1 DOWN / 8 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 39: Poor clue balance (0 DOWN / 6 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 40: Poor clue balance (1 DOWN / 9 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 41: Poor clue balance (2 DOWN / 5 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 42: Poor clue balance (0 DOWN / 3 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 43: Poor clue balance (1 DOWN / 7 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 44: Poor clue balance (0 DOWN / 5 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 45: Poor clue balance (2 DOWN / 8 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 46: Poor clue balance (2 DOWN / 4 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 47: Poor clue balance (0 DOWN / 11 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 48: Poor clue balance (1 DOWN / 10 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 49: Poor clue balance (0 DOWN / 4 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 50: Poor clue balance (0 DOWN / 9 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "uniqueness",
+      "message": "7 clues used in too many puzzles",
+      "details": [
+        [
+          "Word with repeated L",
+          26
+        ],
+        [
+          "Word with repeated E",
+          40
+        ],
+        [
+          "Word with repeated S",
+          6
+        ],
+        [
+          "Word with repeated G",
+          27
+        ],
+        [
+          "Word with repeated D",
+          34
+        ]
+      ]
+    },
+    {
+      "severity": "HIGH",
+      "category": "quality",
+      "message": "Low clue variety: only 181 unique clues"
+    },
+    {
+      "severity": "HIGH",
+      "category": "solvability",
+      "message": "Missing solutions for 49 puzzles"
+    }
+  ],
+  "metrics": {
+    "category_scores": {
+      "structure": 0,
+      "uniqueness": 86,
+      "quality": 70,
+      "solvability": 50
+    },
+    "weights": {
+      "structure": 20,
+      "uniqueness": 35,
+      "quality": 25,
+      "solvability": 20
+    },
+    "content_stats": {
+      "total_puzzles": 50,
+      "avg_across_clues": 7.24,
+      "avg_down_clues": 0.64,
+      "unique_clues": 181,
+      "duplicate_puzzles": 0
+    }
+  },
+  "recommendations": [
+    "CRITICAL: Generate unique puzzles for each slot. Use different word combinations and varied clue phrasings.",
+    "Ensure all puzzles have balanced ACROSS/DOWN clues (40-60% each).",
+    "Increase clue variety. Each clue should appear in at most 5 puzzles."
+  ]
+}

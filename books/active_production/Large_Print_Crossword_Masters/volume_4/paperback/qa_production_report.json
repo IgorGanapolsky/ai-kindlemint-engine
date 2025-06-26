@@ -1,13 +1,9 @@
 {
-  "timestamp": "2025-06-26T12:41:56.682370",
-  "score": 0,
+  "timestamp": "2025-06-26T14:00:19.644661",
+  "score": 75,
   "ready": false,
   "critical_issues": [
-    "Crossword grids appear to be missing or improperly rendered",
-    "Invalid crossword clues found: 394 placeholder clues detected",
-    "  - Page 6: 'Word meaning frame' (Placeholder pattern detected: word meaning \\w+)",
-    "  - Page 6: 'Word meaning pelt' (Placeholder pattern detected: word meaning \\w+)",
-    "  - Page 6: 'Word meaning river' (Placeholder pattern detected: word meaning \\w+)"
+    "Crossword grids appear to be missing or improperly rendered"
   ],
   "warnings": [
     "\u26a0\ufe0f  Black squares may not be rendering properly"
@@ -16,6 +12,7 @@
     "\u2705 Correct page count (156)",
     "\u2705 All checked pages have content",
     "\u2705 Answer key found with filled solutions",
+    "\u2705 All 421 crossword clues are valid",
     "\u2705 File size OK: 0.27 MB"
   ]
 }

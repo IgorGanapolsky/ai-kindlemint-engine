@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Create crossword puzzles for Volume 4 with UNIQUE solutions for each puzzle
-Building on Volume 3's success with enhanced word variety
+Building on Volume 4's success with enhanced word variety
 """
 
 import random
@@ -12,6 +12,9 @@ from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from datetime import datetime
 import hashlib
+import sys
+sys.path.append(str(Path(__file__).parent))
+from volume_4_clue_generator import Volume4ClueGenerator
 
 # 6×9 book dimensions (KDP Standard)
 PAGE_WIDTH = 6 * inch
@@ -31,6 +34,9 @@ class Volume4CrosswordGenerator:
         self.output_dir = Path("books/active_production/Large_Print_Crossword_Masters/volume_4")
         self.paperback_dir = self.output_dir / "paperback"
         self.hardcover_dir = self.output_dir / "hardcover"
+        
+        # Initialize the professional clue generator for Volume 4
+        self.clue_generator = Volume4ClueGenerator()
         
         # Expanded word database for Volume 4 with fresh variety
         self.word_database = {
@@ -95,34 +101,18 @@ class Volume4CrosswordGenerator:
             ]
         }
         
-        # Expanded clue database - ensure unique clues for each word
-        self.clue_database = {
-            # 3-letter words with varied clues
-            "CAT": ["Feline pet that purrs", "Tabby or Siamese", "Mouse chaser", "Meowing pet"],
-            "DOG": ["Man's best friend", "Barking pet", "Canine companion", "Fetch player"],
-            "SUN": ["Star at center of solar system", "Source of daylight", "It rises in the east", "Solar body"],
-            "RUN": ["Move quickly on foot", "Jog fast", "Sprint", "Race on foot"],
-            "EAT": ["Consume food", "Have a meal", "Dine", "Take nourishment"],
-            "RED": ["Color of roses", "Stop sign color", "Cherry hue", "Cardinal's color"],
-            "YES": ["Affirmative response", "Agreement word", "Opposite of no", "Positive answer"],
-            "TOP": ["Highest point", "Summit", "Peak", "Upper part"],
-            "ARM": ["Limb attached to shoulder", "Upper extremity", "Part with elbow", "Sleeve filler"],
-            "LEG": ["Lower limb for walking", "Knee connector", "Part below hip", "Stocking holder"],
-            # Add more variations...
-        }
         
         # Initialize used words tracker for each puzzle
         self.used_words_by_puzzle = {}
 
     def get_clue_for_word(self, word, puzzle_num):
         """Get a unique clue for a word, varying by puzzle number"""
-        if word in self.clue_database and isinstance(self.clue_database[word], list):
-            # Use puzzle number to select different clue variations
-            clues = self.clue_database[word]
-            clue_index = puzzle_num % len(clues)
-            return clues[clue_index]
+        # Use the professional clue generator to get varied clues
+        clue = self.clue_generator.get_clue(word, difficulty="medium", puzzle_num=puzzle_num)
+        if clue:
+            return clue
         else:
-            # Default clue
+            # Fallback to a generic clue only if absolutely necessary
             return f"Word meaning {word.lower()}"
 
     def create_filled_grid(self, puzzle_num):
@@ -269,8 +259,29 @@ class Volume4CrosswordGenerator:
         
         return grid, solution, placed_words
 
-    def assign_numbers(self, grid):
+    def assign_numbers(self, grid, placed_words=None):
         """Assign numbers to cells that start words"""
+        if placed_words is None:
+            # Fallback to old method if no word list provided
+            return self._assign_numbers_by_pattern(grid)
+        
+        # Collect all word start positions
+        word_starts = set()
+        for word_info in placed_words:
+            word_starts.add((word_info['row'], word_info['col']))
+        
+        # Sort positions by row, then column for consistent numbering
+        sorted_positions = sorted(word_starts)
+        
+        # Assign numbers to each position
+        numbers = {}
+        for i, (row, col) in enumerate(sorted_positions):
+            numbers[(row, col)] = i + 1
+        
+        return numbers
+    
+    def _assign_numbers_by_pattern(self, grid):
+        """Original numbering method based on grid pattern detection"""
         numbers = {}
         current_num = 1
         
@@ -328,13 +339,13 @@ class Volume4CrosswordGenerator:
                         c.drawCentredString(x + CELL_SIZE/2, y + CELL_SIZE/2 - 4, solution[row][col])
 
     def create_complete_book(self):
-        """Create the complete crossword book with UNIQUE puzzles for Volume 3"""
-        print("🔧 Creating Volume 3 with UNIQUE solutions for each puzzle...")
+        """Create the complete crossword book with UNIQUE puzzles for Volume 4"""
+        print("🔧 Creating Volume 4 with UNIQUE solutions for each puzzle...")
         
         # Create for both paperback and hardcover
         for output_dir in [self.paperback_dir, self.hardcover_dir]:
             output_dir.mkdir(parents=True, exist_ok=True)
-            pdf_path = output_dir / "Large_Print_Crossword_Masters_-_Volume_3_interior_FINAL.pdf"
+            pdf_path = output_dir / "Large_Print_Crossword_Masters_-_Volume_4_interior_FINAL.pdf"
             
             c = canvas.Canvas(str(pdf_path), pagesize=(PAGE_WIDTH, PAGE_HEIGHT))
             
@@ -440,7 +451,7 @@ class Volume4CrosswordGenerator:
                 
                 # Create puzzle with actual words - UNIQUE for each puzzle
                 grid, solution, placed_words = self.create_filled_grid(puzzle_num)
-                numbers = self.assign_numbers(grid)
+                numbers = self.assign_numbers(grid, placed_words)
                 
                 # Store for answer key
                 all_puzzles.append({
@@ -599,7 +610,7 @@ class Volume4CrosswordGenerator:
                 "• Complete answer keys",
                 "• Progressive difficulty levels",
                 "",
-                "Volume 3 features 50 completely unique puzzles,",
+                "Volume 4 features 50 completely unique puzzles,",
                 "each with different word selections and patterns",
                 "to provide maximum variety and challenge.",
                 "",
