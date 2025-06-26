@@ -26,18 +26,17 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install PyPDF2 pillow reportlab
-    
-    - name: Find PDF files
-      id: find-pdfs
+    - name: Find book directories
+      id: find-books
       run: |
-        echo "pdf_files=$(find books/active_production -name '*_FINAL.pdf' -type f | tr '\n' ' ')" >> $GITHUB_OUTPUT
+        echo "book_dirs=$(find books/active_production -type f -name collection.json -print0 | xargs -0 -n1 dirname | tr '\n' ' ')" >> $GITHUB_OUTPUT
     
-    - name: Run Production QA on each PDF
-      if: steps.find-pdfs.outputs.pdf_files != ''
+    - name: Run Enhanced QA on each Book
+      if: steps.find-books.outputs.book_dirs != ''
       run: |
-        for pdf in ${{ steps.find-pdfs.outputs.pdf_files }}; do
-          echo "Checking $pdf..."
-          python scripts/production_qa_validator.py "$pdf" || exit 1
+        for dir in ${{ steps.find-books.outputs.book_dirs }}; do
+          echo "Running Enhanced QA on $dir..."
+          python scripts/enhanced_qa_validator_v2.py "$dir" --output-dir "$dir" || exit 1
         done
     
     - name: Check for test content in metadata
@@ -56,7 +55,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: qa-reports
-        path: books/active_production/**/qa_production_report.json
+        path: books/active_production/**/ENHANCED_QA_REPORT_*.json
         
     - name: Comment PR with QA Results
       if: github.event_name == 'pull_request' && always()
