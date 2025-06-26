@@ -575,19 +575,30 @@ def main():
         puzzle = generator.generate_puzzle(i)
         puzzles.append(puzzle)
     
-    # Create output directory
-    output_dir = Path("/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Crossword_Masters/volume_3/paperback")
+    # Import config loader
+    sys.path.append(str(Path(__file__).parent.parent))
+    from scripts.config_loader import config
+    
+    # Create output directory using config
+    base_dir = Path(config.get_path("file_paths.base_output_dir"))
+    series_name = config.get("series_defaults.default_series_name", "Large_Print_Crossword_Masters")
+    volume_dir = base_dir / series_name / "volume_3"
+    
+    output_dir = volume_dir / config.get("file_paths.paperback_subdir", "paperback")
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # Generate PDF
-    output_path = output_dir / "Large_Print_Crossword_Masters_-_Volume_3_interior_FINAL.pdf"
+    pdf_filename = config.get("file_paths.pdf_filename_pattern", "{title}_interior_FINAL.pdf").format(
+        title="Large_Print_Crossword_Masters_-_Volume_3"
+    )
+    output_path = output_dir / pdf_filename
     create_pdf(puzzles, str(output_path))
     
     logger.info(f"Volume 3 generated successfully with 50 unique puzzles!")
     logger.info(f"Output: {output_path}")
     
     # Also copy to hardcover directory
-    hardcover_dir = Path("/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Crossword_Masters/volume_3/hardcover")
+    hardcover_dir = volume_dir / config.get("file_paths.hardcover_subdir", "hardcover")
     hardcover_dir.mkdir(parents=True, exist_ok=True)
     
     import shutil

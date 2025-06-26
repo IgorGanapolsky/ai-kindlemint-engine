@@ -17,11 +17,17 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Constants
-PAGE_WIDTH, PAGE_HEIGHT = letter
-MARGIN = 0.75 * 72
-GRID_SIZE = 15
-CELL_SIZE = 18
+# Import config loader at module level
+import sys
+sys.path.append(str(Path(__file__).parent.parent))
+from scripts.config_loader import config
+
+# Constants from config
+PAGE_WIDTH = config.get("kdp_specifications.paperback.page_width_in", 8.5) * 72
+PAGE_HEIGHT = config.get("kdp_specifications.paperback.page_height_in", 11) * 72
+MARGIN = config.get("kdp_specifications.paperback.top_margin_in", 0.75) * 72
+GRID_SIZE = config.get("puzzle_generation.crossword.grid_size", 15)
+CELL_SIZE = config.get("puzzle_generation.crossword.cell_size_pixels", 18)
 PUZZLE_WIDTH = GRID_SIZE * CELL_SIZE
 PUZZLE_HEIGHT = GRID_SIZE * CELL_SIZE
 
@@ -514,9 +520,17 @@ def main():
     # Ensure we have exactly 50 puzzles
     all_puzzles = all_puzzles[:50]
     
-    # Create output directories
-    paperback_dir = Path("/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Crossword_Masters/volume_3/paperback")
-    hardcover_dir = Path("/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Crossword_Masters/volume_3/hardcover")
+    # Import config loader
+    sys.path.append(str(Path(__file__).parent.parent))
+    from scripts.config_loader import config
+    
+    # Create output directories using config
+    base_dir = Path(config.get_path("file_paths.base_output_dir"))
+    series_name = config.get("series_defaults.default_series_name", "Large_Print_Crossword_Masters")
+    volume_dir = base_dir / series_name / "volume_3"
+    
+    paperback_dir = volume_dir / config.get("file_paths.paperback_subdir", "paperback")
+    hardcover_dir = volume_dir / config.get("file_paths.hardcover_subdir", "hardcover")
     
     paperback_dir.mkdir(parents=True, exist_ok=True)
     hardcover_dir.mkdir(parents=True, exist_ok=True)

@@ -417,10 +417,21 @@ def main():
     """Run content validation on Volume 3"""
     import sys
     
+    # Import config loader
+    from pathlib import Path
+    sys.path.append(str(Path(__file__).parent.parent))
+    from scripts.config_loader import config
+    
     if len(sys.argv) > 1:
         pdf_path = sys.argv[1]
     else:
-        pdf_path = "/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/Large_Print_Crossword_Masters_-_Volume_3_interior_FINAL.pdf"
+        # Build default path from config
+        base_dir = Path(config.get_path("file_paths.base_output_dir"))
+        series_name = config.get("series_defaults.default_series_name", "Large_Print_Crossword_Masters") 
+        pdf_filename = config.get("file_paths.pdf_filename_pattern", "{title}_interior_FINAL.pdf").format(
+            title="Large_Print_Crossword_Masters_-_Volume_3"
+        )
+        pdf_path = str(base_dir / series_name / "volume_3" / "paperback" / pdf_filename)
     
     validator = CrosswordContentValidator()
     results = validator.validate_pdf(pdf_path)

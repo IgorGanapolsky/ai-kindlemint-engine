@@ -1,24 +1,55 @@
 # Comprehensive Configuration for AI KindleMint Engine
 # This file centralizes all settings to eliminate hardcoded values.
-# All paths are relative to the project root.
+# All paths are relative to the project root unless specified otherwise.
 
 # 1. KDP (Kindle Direct Publishing) Specifications
 # -------------------------------------------------
 # Defines the technical requirements for generating KDP-compliant print-ready PDFs.
 kdp_specifications:
   paperback:
+    # Page dimensions
     page_width_in: 8.5
     page_height_in: 11
-    margin_in: 0.5
-    bleed_in: 0.125 # Standard KDP bleed for full-page images
+    
+    # Margin specifications (in inches)
+    gutter_in: 0.375      # Inside margin (binding side)
+    outer_margin_in: 0.5  # Outside margin
+    top_margin_in: 0.75   # Top margin
+    bottom_margin_in: 0.5 # Bottom margin
+    
+    # Additional specifications
+    bleed_in: 0.125       # Standard KDP bleed for full-page images
+    barcode_width_in: 2.0
+    barcode_height_in: 1.2
+    
   hardcover:
+    # Page dimensions
     page_width_in: 8.5
     page_height_in: 11
-    margin_in: 0.75 # Hardcovers often require larger margins
-  
+    
+    # Margin specifications (in inches)
+    gutter_in: 0.5        # Larger gutter for hardcover
+    outer_margin_in: 0.75 # Hardcovers often require larger margins
+    top_margin_in: 0.75
+    bottom_margin_in: 0.75
+    
+    # Hardcover specific
+    spine_base_in: 0.06   # Base spine width
+    pages_to_spine_multiplier: 0.0025  # Multiply by page count for spine width
+    wrap_coverage_in: 1.5 # How far the cover wraps around
+    
   # Common settings for all book types
   expected_page_count: 156 # Target page count for a standard 50-puzzle book
-  dpi: 300 # Required resolution for all images
+  min_page_count: 128      # Minimum for spine calculations
+  dpi: 300                 # Required resolution for all images
+  max_file_size_mb: 650    # Maximum PDF file size
+  
+  # Cover specifications
+  cover:
+    width_pixels: 2550     # 8.5" at 300 DPI
+    height_pixels: 3300    # 11" at 300 DPI
+    thumbnail_width: 1800  # 6" at 300 DPI
+    thumbnail_height: 2700 # 9" at 300 DPI
 
 # 2. Puzzle Generation Settings
 # -------------------------------------------------
@@ -26,22 +57,34 @@ kdp_specifications:
 puzzle_generation:
   # Default settings for all puzzle types
   default_puzzle_count: 50
+  min_puzzle_count: 50  # For QA validation
 
   crossword:
+    # Grid specifications
     grid_size: 15
+    cell_size_points: 18.72  # 0.26 inches in points
+    cell_size_pixels: 18     # For image generation
+    
+    # Word constraints
     max_word_length: 15
     min_word_length: 3
+    max_black_square_ratio: 0.25  # Maximum 25% black squares
+    max_down_clue_ratio: 0.65     # Maximum 65% down clues
+    
     # Defines the progressive difficulty curve for a 50-puzzle book
     difficulty_distribution:
       easy_ratio: 0.4   # First 40% of puzzles are easy (Puzzles 1-20)
       medium_ratio: 0.4 # Next 40% are medium (Puzzles 21-40)
       hard_ratio: 0.2   # Final 20% are hard (Puzzles 41-50)
-    # Backtracking algorithm settings
+    
+    # Algorithm settings
     backtracking_max_attempts: 3
+    generation_max_retries: 10
     
   sudoku:
     # Settings for the Sudoku generator (if integrated)
     supported_difficulties: ['easy', 'medium', 'hard', 'expert']
+    grid_size: 9
     
   word_search:
     # Settings for the Word Search generator (if integrated)
@@ -49,34 +92,94 @@ puzzle_generation:
     min_words: 15
     max_words: 30
 
-# 3. File Paths and Directory Structure
+# 3. Typography and Fonts
+# -------------------------------------------------
+# Centralizes all font-related settings
+typography:
+  fonts:
+    title: "Helvetica-Bold"
+    subtitle: "Helvetica"
+    body: "Helvetica"
+    monospace: "Courier"
+    
+  font_sizes:
+    large_title: 20
+    title: 18
+    subtitle: 14
+    section_header: 14
+    body: 12
+    small_text: 10
+    grid_numbers: 9
+    
+  spacing:
+    line_spacing_in: 0.25
+    paragraph_spacing_in: 0.5
+
+# 4. File Paths and Directory Structure
 # -------------------------------------------------
 # Centralizes all file system paths to make the structure configurable.
 file_paths:
-  # Core directories
+  # Core directories (relative to project root)
   base_output_dir: "books/active_production"
   research_dir: "research"
   templates_dir: "templates"
+  batch_reports_dir: "batch_reports"
+  automation_logs_dir: "automation_logs"
+  fonts_dir: "fonts"
+  assets_dir: "assets"
   
   # Subdirectories within a book's folder
   puzzles_subdir: "puzzles"
   metadata_subdir: "metadata"
   solutions_subdir: "solutions"
+  paperback_subdir: "paperback"
+  hardcover_subdir: "hardcover"
+  kindle_subdir: "kindle"
+  
+  # File naming patterns
+  pdf_filename_pattern: "{title}_interior_FINAL.pdf"
+  cover_filename_pattern: "cover_{format}_{width}x{height}.{ext}"
+  metadata_filename: "collection.json"
+  qa_report_filename: "qa_production_report.json"
   
   # Resource files
   word_list_path: "resources/wordlist.txt" # Path to the master word dictionary
+  requirements_files:
+    - "requirements.txt"
+    - "requirements-locked.txt"
+    - "requirements-production.txt"
+    - "requirements-pinned.txt"
 
-# 4. API Settings and Endpoints
+# 5. Processing Settings
+# -------------------------------------------------
+# Controls various processing behaviors
+processing:
+  # Image processing
+  pdf_to_image_dpi: 150  # DPI for converting PDFs to images
+  cover_generation_dpi: 300
+  
+  # Performance settings
+  parallel_processing: true
+  max_workers: 4
+  
+  # Validation settings
+  enable_qa_validation: true
+  strict_mode: false  # If true, fail on any QA warning
+
+# 6. API Settings and Endpoints
 # -------------------------------------------------
 # Configuration for external services. Sensitive keys should be in .env.
 api_settings:
   serpapi:
     base_url: "https://serpapi.com/search"
     # Rate limits can be defined here to prevent hitting API caps
-    # requests_per_minute: 60
+    requests_per_minute: 60
     
   openai:
     dalle_model: "dall-e-3"
+    gpt_model: "gpt-4"
+    max_tokens: 8000
+    temperature: 0.7
     # Template for generating cover design prompts
     cover_prompt_template: >
       "Create a vibrant, high-contrast, professional book cover for a puzzle book titled '{title}'. 
@@ -92,62 +195,28 @@ api_settings:
     enabled: true
     default_channel: "#kdp-automation"
 
-# 5. QA Validation Thresholds
+# 7. QA Validation Thresholds
 # -------------------------------------------------
 # Defines the rules and scores for the content-first QA validation system.
 qa_validation:
   # Scoring penalties
   critical_issue_penalty: 20
-  warning_penalty: 5
+  major_issue_penalty: 10
+  minor_issue_penalty: 5
   
-  # Thresholds for passing QA
-  min_passing_score: 80
+  # Pass/fail thresholds
+  minimum_score: 70
   
-  # Puzzle content rules
-  min_word_count_per_puzzle: 20
-  word_balance_ratio: 0.3 # Min ratio for both ACROSS and DOWN words (e.g., 30%)
+  # Specific checks
+  page_count_tolerance: 2  # Allow ±2 pages from expected
   
-  # PDF file checks
-  max_file_size_mb: 400
-  min_file_size_mb: 0.1
+  # Revenue targets (for reporting)
+  daily_revenue_target: 300  # USD per day
 
-# 6. Style, Font, and Image Settings
+# 8. Default Series Configuration
 # -------------------------------------------------
-# Centralizes all visual styling for PDF and image generation.
-style_settings:
-  fonts:
-    # Font families used in the PDF layout
-    title_font: "Helvetica-Bold"
-    subtitle_font: "Helvetica"
-    heading_font: "Helvetica-Bold"
-    body_font: "Helvetica"
-    
-    # Font sizes (in points)
-    font_sizes:
-      title: 36
-      subtitle: 24
-      heading: 18
-      body: 12
-      small: 10
-      grid_letter: 36
-      grid_number: 20
-      
-    # Font file paths for PIL (used in grid image generation)
-    # Includes fallbacks for different operating systems.
-    grid_font_paths:
-      - "/System/Library/Fonts/Helvetica.ttc" # macOS
-      - "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf" # Linux
-      - "C:/Windows/Fonts/arial.ttf" # Windows
-
-  images:
-    # Settings for rendering the crossword grid images
-    grid_cell_size_px: 60
-    grid_margin_px: 40
-    grid_border_width_px: 2
-    
-  colors:
-    # RGB or standard color names for ReportLab/PIL
-    grid_line_color: "black"
-    grid_fill_color: "white"
-    black_square_color: "black"
-    text_color: "black"
+# Default settings for book series
+series_defaults:
+  default_series_name: "Large_Print_Crossword_Masters"
+  default_start_volume: 1
+  volumes_per_batch: 5
