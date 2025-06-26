@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-06-25T23:59:53.784796",
+  "book_directory": "books/active_production/large_print_crossword_masters/volume_3/hardcover",
+  "status": "FAIL",
+  "score": 50,
+  "critical_issues": [
+    "Missing required directory: metadata",
+    "Missing required file: metadata/collection.json",
+    "Wrong page count: 107 (expected 156)",
+    "Solution validation failed: 2 empty solutions found",
+    "Empty solutions for puzzles: [46, 48]"
+  ],
+  "warnings": [],
+  "passed_checks": [
+    "\u2705 File size OK: 0.24 MB"
+  ],
+  "pdf_validation": {
+    "page_count": 107,
+    "solution_validation": {
+      "total_solutions": 6,
+      "valid_solutions": 4,
+      "empty_solutions": 2,
+      "empty_solution_ids": [
+        46,
+        48
+      ],
+      "success_rate": 0.6666666666666666
+    },
+    "file_size_mb": 0.2423238754272461
+  },
+  "metadata_validation": {},
+  "content_validation": {}
+}

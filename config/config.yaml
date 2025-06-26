@@ -1,0 +1,153 @@
+# Comprehensive Configuration for AI KindleMint Engine
+# This file centralizes all settings to eliminate hardcoded values.
+# All paths are relative to the project root.
+
+# 1. KDP (Kindle Direct Publishing) Specifications
+# -------------------------------------------------
+# Defines the technical requirements for generating KDP-compliant print-ready PDFs.
+kdp_specifications:
+  paperback:
+    page_width_in: 8.5
+    page_height_in: 11
+    margin_in: 0.5
+    bleed_in: 0.125 # Standard KDP bleed for full-page images
+  hardcover:
+    page_width_in: 8.5
+    page_height_in: 11
+    margin_in: 0.75 # Hardcovers often require larger margins
+  
+  # Common settings for all book types
+  expected_page_count: 156 # Target page count for a standard 50-puzzle book
+  dpi: 300 # Required resolution for all images
+
+# 2. Puzzle Generation Settings
+# -------------------------------------------------
+# Controls the behavior and difficulty of the puzzle engines.
+puzzle_generation:
+  # Default settings for all puzzle types
+  default_puzzle_count: 50
+
+  crossword:
+    grid_size: 15
+    max_word_length: 15
+    min_word_length: 3
+    # Defines the progressive difficulty curve for a 50-puzzle book
+    difficulty_distribution:
+      easy_ratio: 0.4   # First 40% of puzzles are easy (Puzzles 1-20)
+      medium_ratio: 0.4 # Next 40% are medium (Puzzles 21-40)
+      hard_ratio: 0.2   # Final 20% are hard (Puzzles 41-50)
+    # Backtracking algorithm settings
+    backtracking_max_attempts: 3
+    
+  sudoku:
+    # Settings for the Sudoku generator (if integrated)
+    supported_difficulties: ['easy', 'medium', 'hard', 'expert']
+    
+  word_search:
+    # Settings for the Word Search generator (if integrated)
+    default_grid_size: 20
+    min_words: 15
+    max_words: 30
+
+# 3. File Paths and Directory Structure
+# -------------------------------------------------
+# Centralizes all file system paths to make the structure configurable.
+file_paths:
+  # Core directories
+  base_output_dir: "books/active_production"
+  research_dir: "research"
+  templates_dir: "templates"
+  
+  # Subdirectories within a book's folder
+  puzzles_subdir: "puzzles"
+  metadata_subdir: "metadata"
+  solutions_subdir: "solutions"
+  
+  # Resource files
+  word_list_path: "resources/wordlist.txt" # Path to the master word dictionary
+
+# 4. API Settings and Endpoints
+# -------------------------------------------------
+# Configuration for external services. Sensitive keys should be in .env.
+api_settings:
+  serpapi:
+    base_url: "https://serpapi.com/search"
+    # Rate limits can be defined here to prevent hitting API caps
+    # requests_per_minute: 60
+    
+  openai:
+    dalle_model: "dall-e-3"
+    # Template for generating cover design prompts
+    cover_prompt_template: >
+      "Create a vibrant, high-contrast, professional book cover for a puzzle book titled '{title}'. 
+      The theme is '{theme}'. The style should be modern and clean, with easily readable text. 
+      Avoid small, busy details. The primary colors should be {primary_color} and {secondary_color}."
+
+  sentry:
+    # SENTRY_DSN should be loaded from an environment variable, not stored here.
+    enabled: true
+
+  slack:
+    # SLACK_WEBHOOK_URL should be loaded from an environment variable.
+    enabled: true
+    default_channel: "#kdp-automation"
+
+# 5. QA Validation Thresholds
+# -------------------------------------------------
+# Defines the rules and scores for the content-first QA validation system.
+qa_validation:
+  # Scoring penalties
+  critical_issue_penalty: 20
+  warning_penalty: 5
+  
+  # Thresholds for passing QA
+  min_passing_score: 80
+  
+  # Puzzle content rules
+  min_word_count_per_puzzle: 20
+  word_balance_ratio: 0.3 # Min ratio for both ACROSS and DOWN words (e.g., 30%)
+  
+  # PDF file checks
+  max_file_size_mb: 400
+  min_file_size_mb: 0.1
+
+# 6. Style, Font, and Image Settings
+# -------------------------------------------------
+# Centralizes all visual styling for PDF and image generation.
+style_settings:
+  fonts:
+    # Font families used in the PDF layout
+    title_font: "Helvetica-Bold"
+    subtitle_font: "Helvetica"
+    heading_font: "Helvetica-Bold"
+    body_font: "Helvetica"
+    
+    # Font sizes (in points)
+    font_sizes:
+      title: 36
+      subtitle: 24
+      heading: 18
+      body: 12
+      small: 10
+      grid_letter: 36
+      grid_number: 20
+      
+    # Font file paths for PIL (used in grid image generation)
+    # Includes fallbacks for different operating systems.
+    grid_font_paths:
+      - "/System/Library/Fonts/Helvetica.ttc" # macOS
+      - "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf" # Linux
+      - "C:/Windows/Fonts/arial.ttf" # Windows
+
+  images:
+    # Settings for rendering the crossword grid images
+    grid_cell_size_px: 60
+    grid_margin_px: 40
+    grid_border_width_px: 2
+    
+  colors:
+    # RGB or standard color names for ReportLab/PIL
+    grid_line_color: "black"
+    grid_fill_color: "white"
+    black_square_color: "black"
+    text_color: "black"

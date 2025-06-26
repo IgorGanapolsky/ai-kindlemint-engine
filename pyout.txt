@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-7.4.4, pluggy-1.0.0 -- /opt/homebrew/anaconda3/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine
+plugins: asyncio-0.23.5, libtmux-0.39.0, anyio-4.9.0, mock-3.14.1, langsmith-0.3.45, cov-6.1.1
+asyncio: mode=Mode.STRICT
+collecting ... collected 30 items / 1 error / 2 skipped
+
+==================================== ERRORS ====================================
+__________________ ERROR collecting scripts/test_qa_system.py __________________
+ImportError while importing test module '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/scripts/test_qa_system.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/anaconda3/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+/opt/homebrew/anaconda3/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/opt/homebrew/anaconda3/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+/opt/homebrew/anaconda3/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+scripts/test_qa_system.py:7: in <module>
+    from crossword_qa_validator import CrosswordQAValidator, PuzzleData, ValidationResult
+E   ModuleNotFoundError: No module named 'crossword_qa_validator'
+=============================== warnings summary ===============================
+tests/test_crossword_engine_v3.py:228
+  /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/tests/test_crossword_engine_v3.py:228: PytestUnknownMarkWarning: Unknown pytest.mark.performance - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.performance
+
+../../../../../../opt/homebrew/anaconda3/lib/python3.12/site-packages/PyPDF2/__init__.py:21
+  /opt/homebrew/anaconda3/lib/python3.12/site-packages/PyPDF2/__init__.py:21: DeprecationWarning: PyPDF2 is deprecated. Please move to the pypdf library instead.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR scripts/test_qa_system.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+=================== 2 skipped, 2 warnings, 1 error in 0.18s ====================

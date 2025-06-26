@@ -4,6 +4,9 @@ requests>=2.31.0
 beautifulsoup4>=4.10.0
 lxml>=4.6.3
 
+# Configuration / YAML parsing
+PyYAML>=6.0
+
 # Browser automation (primary)
 playwright>=1.40.0
 nova-act>=0.1.0

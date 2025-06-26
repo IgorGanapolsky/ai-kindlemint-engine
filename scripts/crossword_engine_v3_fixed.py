@@ -18,6 +18,22 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from collections import defaultdict, Counter
 
+# Add project root to path to allow importing config_loader
+project_root = Path(__file__).parent.parent.resolve()
+sys.path.insert(0, str(project_root))
+
+try:
+    from scripts.config_loader import config
+except ImportError:
+    print("❌ ERROR: Could not import config_loader. Make sure it exists in the 'scripts' directory.")
+    # Define a dummy config object to prevent crashing if the import fails
+    class DummyConfig:
+        def get(self, key, default=None): return default
+        def get_path(self, key, default=None): return default
+        def get_puzzle_setting(self, puzzle_type, key): return None
+        def get_qa_threshold(self, key): return None
+    config = DummyConfig()
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, 
                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -26,48 +42,58 @@ logger = logging.getLogger('CrosswordEngine')
 class CrosswordEngineV3:
     """Generate crossword puzzles with proper filled grids and real words"""
     
-    def __init__(self, output_dir, puzzle_count=50, difficulty="mixed", grid_size=15, 
-                 word_count=None, max_word_length=15, word_list_path=None):
-        """Initialize the crossword generator with configuration"""
-        self.grid_size = grid_size
+    def __init__(self, output_dir, puzzle_count=None, difficulty=None, grid_size=None, 
+                 word_count=None, max_word_length=None, min_word_length=None, word_list_path=None):
+        """Initialize the crossword generator with configuration."""
+        
+        # --- Load settings from config, with overrides from arguments ---
+        self.grid_size = grid_size or config.get_puzzle_setting('crossword', 'grid_size') or 15
+        self.puzzle_count = puzzle_count or config.get('puzzle_generation.default_puzzle_count') or 50
+        self.difficulty_mode = difficulty or "mixed"
+        self.max_word_length = max_word_length or config.get_puzzle_setting('crossword', 'max_word_length') or 15
+        self.min_word_length = min_word_length or config.get_puzzle_setting('crossword', 'min_word_length') or 3
+        self.word_list_path = word_list_path or config.get_path('file_paths.word_list_path')
+        self.backtracking_max_attempts = config.get_puzzle_setting('crossword', 'backtracking_max_attempts') or 3
+        self.difficulty_distribution = config.get_puzzle_setting('crossword', 'difficulty_distribution') or \
+                                       {'easy_ratio': 0.4, 'medium_ratio': 0.4}
+
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.puzzle_count = puzzle_count
-        self.difficulty_mode = difficulty
-        self.word_count = word_count
-        self.max_word_length = max_word_length
+        self.word_count = word_count # Not used by generator logic, but can be metadata
         
-        # Create puzzles directory structure
-        self.puzzles_dir = self.output_dir / "puzzles"
+        # --- Create directory structure from config ---
+        puzzles_subdir = config.get('file_paths.puzzles_subdir', 'puzzles')
+        metadata_subdir = config.get('file_paths.metadata_subdir', 'metadata')
+        solutions_subdir = config.get('file_paths.solutions_subdir', 'solutions')
+        
+        self.puzzles_dir = self.output_dir / puzzles_subdir
         self.puzzles_dir.mkdir(exist_ok=True)
         
-        # Create metadata directory
-        self.metadata_dir = self.output_dir / "metadata"
+        self.metadata_dir = self.output_dir / metadata_subdir
         self.metadata_dir.mkdir(exist_ok=True)
         
-        # Create solutions directory
-        self.solutions_dir = self.output_dir / "solutions"
+        self.solutions_dir = self.output_dir / solutions_subdir
         self.solutions_dir.mkdir(exist_ok=True)
         
-        # Load word dictionary
-        self.word_dict = self._load_word_dictionary(word_list_path)
+        # --- Load resources ---
+        self.word_dict = self._load_word_dictionary()
         logger.info(f"Loaded {len(self.word_dict)} words into dictionary")
         
-        # Dictionary to store theme-specific words
         self.theme_words = self._generate_theme_words()
     
-    def _load_word_dictionary(self, word_list_path=None):
-        """Load word dictionary from file or use built-in common words"""
+    def _load_word_dictionary(self):
+        """Load word dictionary from file or use built-in common words."""
         word_dict = {}
         
-        if word_list_path and Path(word_list_path).exists():
-            # Load from provided file
-            with open(word_list_path, 'r') as f:
+        if self.word_list_path and self.word_list_path.exists():
+            with open(self.word_list_path, 'r') as f:
                 for line in f:
                     word = line.strip().upper()
-                    if 3 <= len(word) <= self.max_word_length and word.isalpha():
+                    if self.min_word_length <= len(word) <= self.max_word_length and word.isalpha():
                         word_dict[word] = True
         else:
+            if self.word_list_path:
+                logger.warning(f"Word list not found at {self.word_list_path}. Falling back to built-in list.")
             # Use built-in common English words (limited set)
             common_words = [
                 # 3-letter words
@@ -219,11 +245,10 @@ class CrosswordEngineV3:
                 "WOULD", "WOUND", "WRITE", "WRONG", "WROTE", "YIELD", "YOUNG", "YOUTH"
             ]
             
-            # Add words to dictionary
             for word in common_words:
-                word_dict[word] = True
+                if self.min_word_length <= len(word) <= self.max_word_length:
+                    word_dict[word] = True
                 
-            # Add some longer words for variety
             longer_words = [
                 "PUZZLE", "CROSSWORD", "SOLUTION", "CHALLENGE", "DICTIONARY", 
                 "KNOWLEDGE", "QUESTION", "ANSWER", "MYSTERY", "DISCOVERY",
@@ -238,7 +263,7 @@ class CrosswordEngineV3:
             ]
             
             for word in longer_words:
-                if len(word) <= self.max_word_length:
+                if self.min_word_length <= len(word) <= self.max_word_length:
                     word_dict[word] = True
         
         return word_dict
@@ -326,13 +351,11 @@ class CrosswordEngineV3:
                     c += 1
                     continue
                 
-                # Found start of a potential word
                 start_c = c
                 while c < self.grid_size and grid[r][c] != '#':
                     c += 1
                 
-                # If length >= 3, it's a valid word slot
-                if c - start_c >= 3:
+                if c - start_c >= self.min_word_length:
                     across_slots.append((r, start_c, c - start_c))
                 else:
                     c = start_c + 1
@@ -345,73 +368,48 @@ class CrosswordEngineV3:
                     r += 1
                     continue
                 
-                # Found start of a potential word
                 start_r = r
                 while r < self.grid_size and grid[r][c] != '#':
                     r += 1
                 
-                # If length >= 3, it's a valid word slot
-                if r - start_r >= 3:
+                if r - start_r >= self.min_word_length:
                     down_slots.append((start_r, c, r - start_r))
                 else:
                     r = start_r + 1
         
-        # Sort slots by decreasing length (fill longer words first)
         across_slots.sort(key=lambda x: -x[2])
         down_slots.sort(key=lambda x: -x[2])
         
-        # Get theme-specific words if available
         theme_word_list = self.theme_words.get(theme, [])
         
-        # Fill the grid using backtracking
         filled_grid = self._fill_grid(grid, across_slots, down_slots, theme_word_list)
         
         if not filled_grid:
             logger.warning(f"Failed to fill grid for puzzle {puzzle_id}. Retrying with simpler pattern.")
-            # Retry with simpler pattern
             grid = [[' ' for _ in range(self.grid_size)] for _ in range(self.grid_size)]
             black_squares = self.create_symmetric_pattern("EASY")
             for r, c in black_squares:
                 grid[r][c] = '#'
                 grid[self.grid_size-1-r][self.grid_size-1-c] = '#'
             
-            # Recalculate word slots
             across_slots = []
             down_slots = []
-            
-            # Find across word slots
             for r in range(self.grid_size):
                 c = 0
                 while c < self.grid_size:
-                    if grid[r][c] == '#':
-                        c += 1
-                        continue
-                    
+                    if grid[r][c] == '#': c += 1; continue
                     start_c = c
-                    while c < self.grid_size and grid[r][c] != '#':
-                        c += 1
-                    
-                    if c - start_c >= 3:
-                        across_slots.append((r, start_c, c - start_c))
-                    else:
-                        c = start_c + 1
-            
-            # Find down word slots
+                    while c < self.grid_size and grid[r][c] != '#': c += 1
+                    if c - start_c >= self.min_word_length: across_slots.append((r, start_c, c - start_c))
+                    else: c = start_c + 1
             for c in range(self.grid_size):
                 r = 0
                 while r < self.grid_size:
-                    if grid[r][c] == '#':
-                        r += 1
-                        continue
-                    
+                    if grid[r][c] == '#': r += 1; continue
                     start_r = r
-                    while r < self.grid_size and grid[r][c] != '#':
-                        r += 1
-                    
-                    if r - start_r >= 3:
-                        down_slots.append((start_r, c, r - start_r))
-                    else:
-                        r = start_r + 1
+                    while r < self.grid_size and grid[r][c] != '#': r += 1
+                    if r - start_r >= self.min_word_length: down_slots.append((start_r, c, r - start_r))
+                    else: r = start_r + 1
             
             across_slots.sort(key=lambda x: -x[2])
             down_slots.sort(key=lambda x: -x[2])
@@ -420,20 +418,15 @@ class CrosswordEngineV3:
         
         if not filled_grid:
             logger.error(f"Failed to generate valid grid for puzzle {puzzle_id} after retries.")
-            # Fall back to a very simple grid with predefined words
             filled_grid = self._create_fallback_grid()
         
         return filled_grid
     
-    def _fill_grid(self, grid, across_slots, down_slots, theme_words, max_attempts=3):
+    def _fill_grid(self, grid, across_slots, down_slots, theme_words):
         """Fill the grid with valid words using backtracking"""
-        # Make a copy of the grid
         grid_copy = [row[:] for row in grid]
-        
-        # Create a list of all slots
         all_slots = [(slot, 'across') for slot in across_slots] + [(slot, 'down') for slot in down_slots]
         
-        # Sort by number of intersections (most constrained first)
         slot_intersections = {}
         for (slot, direction) in all_slots:
             intersections = 0
@@ -445,7 +438,7 @@ class CrosswordEngineV3:
                             other_r, other_c, other_len = other_slot
                             if other_c == c + i and other_r <= r < other_r + other_len:
                                 intersections += 1
-            else:  # down
+            else:
                 r, c, length = slot
                 for i in range(length):
                     for other_slot, other_dir in all_slots:
@@ -453,15 +446,11 @@ class CrosswordEngineV3:
                             other_r, other_c, other_len = other_slot
                             if other_r == r + i and other_c <= c < other_c + other_len:
                                 intersections += 1
-            
             slot_intersections[(slot, direction)] = intersections
         
         all_slots.sort(key=lambda x: (-slot_intersections[x], -x[0][2]))
         
-        # Try to fill the grid
         used_words = set()
-        
-        # First try to place theme words
         theme_words_used = []
         for word in theme_words:
             if len(word) <= self.max_word_length and word in self.word_dict:
@@ -473,17 +462,14 @@ class CrosswordEngineV3:
                         all_slots.pop(i)
                         break
         
-        # Now fill the rest
-        for attempt in range(max_attempts):
+        for attempt in range(self.backtracking_max_attempts):
             success = self._backtrack_fill(grid_copy, all_slots, used_words)
             if success:
                 return grid_copy
             
-            # Reset for next attempt
             grid_copy = [row[:] for row in grid]
             used_words = set(word for word, _, _ in theme_words_used)
             
-            # Re-place theme words
             for word, slot, direction in theme_words_used:
                 self._place_word(grid_copy, slot, direction, word)
         
@@ -497,23 +483,16 @@ class CrosswordEngineV3:
         slot, direction = slots[index]
         r, c, length = slot
         
-        # Get current constraints
         constraints = self._get_constraints(grid, slot, direction)
-        
-        # Find valid words matching constraints
         valid_words = self._find_valid_words(constraints, length, used_words)
         
-        # Try each valid word
         for word in valid_words:
-            # Place the word
             self._place_word(grid, slot, direction, word)
             used_words.add(word)
             
-            # Recursively fill the rest
             if self._backtrack_fill(grid, slots, used_words, index + 1):
                 return True
             
-            # Backtrack
             used_words.remove(word)
             self._remove_word(grid, slot, direction)
         
@@ -528,7 +507,7 @@ class CrosswordEngineV3:
             for i in range(length):
                 if grid[r][c + i] != ' ':
                     constraints[i] = grid[r][c + i]
-        else:  # down
+        else:
             for i in range(length):
                 if grid[r + i][c] != ' ':
                     constraints[i] = grid[r + i][c]
@@ -539,37 +518,30 @@ class CrosswordEngineV3:
         """Find valid words matching constraints"""
         valid_words = []
         
-        # Check all words in dictionary
         for word in self.word_dict:
             if len(word) == length and word not in used_words:
-                # Check constraints
                 matches = True
                 for pos, letter in constraints.items():
                     if word[pos] != letter:
                         matches = False
                         break
-                
                 if matches:
                     valid_words.append(word)
         
-        # Shuffle to avoid similar patterns
         random.shuffle(valid_words)
-        
         return valid_words
     
     def _can_place_word(self, grid, slot, direction, word):
         """Check if a word can be placed at the given slot"""
         r, c, length = slot
-        
         if len(word) != length:
             return False
         
-        # Check constraints
         if direction == 'across':
             for i in range(length):
                 if grid[r][c + i] != ' ' and grid[r][c + i] != word[i]:
                     return False
-        else:  # down
+        else:
             for i in range(length):
                 if grid[r + i][c] != ' ' and grid[r + i][c] != word[i]:
                     return False
@@ -579,46 +551,34 @@ class CrosswordEngineV3:
     def _place_word(self, grid, slot, direction, word):
         """Place a word on the grid"""
         r, c, length = slot
-        
         if direction == 'across':
             for i in range(length):
                 grid[r][c + i] = word[i]
-        else:  # down
+        else:
             for i in range(length):
                 grid[r + i][c] = word[i]
     
     def _remove_word(self, grid, slot, direction):
         """Remove a word from the grid, preserving intersections"""
         r, c, length = slot
-        
-        # Create a temporary grid to track which cells to clear
         temp_grid = [[False for _ in range(self.grid_size)] for _ in range(self.grid_size)]
         
         if direction == 'across':
-            for i in range(length):
-                temp_grid[r][c + i] = True
-        else:  # down
-            for i in range(length):
-                temp_grid[r + i][c] = True
+            for i in range(length): temp_grid[r][c + i] = True
+        else:
+            for i in range(length): temp_grid[r + i][c] = True
         
-        # Clear cells, but only if they're not part of another word
         for i in range(self.grid_size):
             for j in range(self.grid_size):
                 if temp_grid[i][j]:
-                    # Check if this cell is part of another word
                     is_intersection = False
-                    
                     if direction == 'across':
-                        # Check if it's part of a down word
-                        if i > 0 and grid[i-1][j] != ' ' and grid[i-1][j] != '#':
+                        if (i > 0 and grid[i-1][j] not in (' ', '#')) or \
+                           (i < self.grid_size - 1 and grid[i+1][j] not in (' ', '#')):
                             is_intersection = True
-                        elif i < self.grid_size - 1 and grid[i+1][j] != ' ' and grid[i+1][j] != '#':
-                            is_intersection = True
-                    else:  # down
-                        # Check if it's part of an across word
-                        if j > 0 and grid[i][j-1] != ' ' and grid[i][j-1] != '#':
-                            is_intersection = True
-                        elif j < self.grid_size - 1 and grid[i][j+1] != ' ' and grid[i][j+1] != '#':
+                    else:
+                        if (j > 0 and grid[i][j-1] not in (' ', '#')) or \
+                           (j < self.grid_size - 1 and grid[i][j+1] not in (' ', '#')):
                             is_intersection = True
                     
                     if not is_intersection:
@@ -627,39 +587,30 @@ class CrosswordEngineV3:
     def _create_fallback_grid(self):
         """Create a simple grid with predefined words as a last resort"""
         grid = [[' ' for _ in range(self.grid_size)] for _ in range(self.grid_size)]
-        
-        # Create a simple pattern of black squares
         for i in range(0, self.grid_size, 4):
             for j in range(0, self.grid_size, 4):
                 grid[i][j] = '#'
                 grid[self.grid_size-1-i][self.grid_size-1-j] = '#'
         
-        # Add some predefined words
         words_across = ["PUZZLE", "CROSS", "WORD", "GAME", "PLAY", "FUN", "SOLVE"]
         words_down = ["PENCIL", "CLUE", "GRID", "BOX", "WIN", "TRY", "MIND"]
         
-        # Place across words
         row = 1
         for word in words_across:
-            if row >= self.grid_size:
-                break
+            if row >= self.grid_size: break
             col = 1
             for c in word:
-                if col >= self.grid_size:
-                    break
+                if col >= self.grid_size: break
                 grid[row][col] = c
                 col += 1
             row += 2
         
-        # Place down words
         col = 1
         for word in words_down:
-            if col >= self.grid_size:
-                break
+            if col >= self.grid_size: break
             row = 1
             for c in word:
-                if row >= self.grid_size:
-                    break
+                if row >= self.grid_size: break
                 grid[row][col] = c
                 row += 1
             col += 2
@@ -668,33 +619,40 @@ class CrosswordEngineV3:
     
     def create_grid_images(self, grid, puzzle_id):
         """Create high-quality grid images for puzzle and solution"""
-        cell_size = 60
-        margin = 40
+        # Load style settings from config
+        cell_size = config.get('style_settings.images.grid_cell_size_px', 60)
+        margin = config.get('style_settings.images.grid_margin_px', 40)
+        border_width = config.get('style_settings.images.grid_border_width_px', 2)
+        grid_line_color = config.get('style_settings.colors.grid_line_color', 'black')
+        black_square_color = config.get('style_settings.colors.black_square_color', 'black')
+        text_color = config.get('style_settings.colors.text_color', 'black')
+        
         img_size = self.grid_size * cell_size + 2 * margin
         
-        # Create empty grid image (for puzzle)
         empty_img = Image.new('RGB', (img_size, img_size), 'white')
         empty_draw = ImageDraw.Draw(empty_img)
-        
-        # Create filled grid image (for solution)
         filled_img = Image.new('RGB', (img_size, img_size), 'white')
         filled_draw = ImageDraw.Draw(filled_img)
         
-        # Try to load font
-        try:
-            font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
-            number_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 20)
-        except:
-            try:
-                # Try common Linux font
-                font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 36)
-                number_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
-            except:
-                # Fall back to default
-                font = ImageFont.load_default()
-                number_font = font
+        # Load fonts from config paths
+        font_paths = config.get('style_settings.fonts.grid_font_paths', [])
+        letter_font_size = config.get('style_settings.fonts.font_sizes.grid_letter', 36)
+        number_font_size = config.get('style_settings.fonts.font_sizes.grid_number', 20)
         
-        # Draw grid and add numbers
+        font, number_font = None, None
+        for path in font_paths:
+            try:
+                if Path(path).exists():
+                    font = ImageFont.truetype(path, letter_font_size)
+                    number_font = ImageFont.truetype(path, number_font_size)
+                    break
+            except Exception:
+                continue
+        if not font:
+            logger.warning("No valid font found in config paths. Using default font.")
+            font = ImageFont.load_default()
+            number_font = font
+        
         number = 1
         clue_positions = {}
         
@@ -704,40 +662,31 @@ class CrosswordEngineV3:
                 y = margin + row * cell_size
                 
                 if grid[row][col] == '#':
-                    # Black square (same for both grids)
-                    empty_draw.rectangle([x, y, x + cell_size, y + cell_size], fill='black')
-                    filled_draw.rectangle([x, y, x + cell_size, y + cell_size], fill='black')
+                    empty_draw.rectangle([x, y, x + cell_size, y + cell_size], fill=black_square_color)
+                    filled_draw.rectangle([x, y, x + cell_size, y + cell_size], fill=black_square_color)
                 else:
-                    # White square with border
-                    empty_draw.rectangle([x, y, x + cell_size, y + cell_size], outline='black', width=2)
-                    filled_draw.rectangle([x, y, x + cell_size, y + cell_size], outline='black', width=2)
+                    empty_draw.rectangle([x, y, x + cell_size, y + cell_size], outline=grid_line_color, width=border_width)
+                    filled_draw.rectangle([x, y, x + cell_size, y + cell_size], outline=grid_line_color, width=border_width)
                     
-                    # Add letter to filled grid (solution)
                     letter = grid[row][col]
                     text_width, text_height = filled_draw.textsize(letter, font=font)
                     filled_draw.text(
                         (x + (cell_size - text_width) / 2, y + (cell_size - text_height) / 2),
-                        letter, font=font, fill='black'
+                        letter, font=font, fill=text_color
                     )
                     
-                    # Add number if this starts a word
                     needs_number = False
-                    
-                    # Check across
                     if (col == 0 or grid[row][col-1] == '#') and col < self.grid_size-1 and grid[row][col+1] != '#':
                         needs_number = True
-                    
-                    # Check down
                     if (row == 0 or grid[row-1][col] == '#') and row < self.grid_size-1 and grid[row+1][col] != '#':
                         needs_number = True
                     
                     if needs_number:
-                        empty_draw.text((x + 5, y + 5), str(number), font=number_font, fill='black')
-                        filled_draw.text((x + 5, y + 5), str(number), font=number_font, fill='black')
+                        empty_draw.text((x + 5, y + 5), str(number), font=number_font, fill=text_color)
+                        filled_draw.text((x + 5, y + 5), str(number), font=number_font, fill=text_color)
                         clue_positions[(row, col)] = number
                         number += 1
         
-        # Save images
         empty_img_path = self.puzzles_dir / f"puzzle_{puzzle_id:02d}.png"
         empty_img.save(empty_img_path, 'PNG')
         
@@ -751,7 +700,6 @@ class CrosswordEngineV3:
         across_words = []
         down_words = []
         
-        # Extract across words
         for row in range(self.grid_size):
             col = 0
             while col < self.grid_size:
@@ -759,25 +707,20 @@ class CrosswordEngineV3:
                     col += 1
                     continue
                 
-                # Check if this is the start of a word
                 if col == 0 or grid[row][col-1] == '#':
-                    # Find the word
                     start_col = col
                     word = ""
                     while col < self.grid_size and grid[row][col] != '#':
                         word += grid[row][col]
                         col += 1
                     
-                    # Only add if length >= 3
-                    if len(word) >= 3:
-                        # Find the clue number
+                    if len(word) >= self.min_word_length:
                         number = clue_positions.get((row, start_col))
                         if number:
                             across_words.append((number, word, (row, start_col)))
                 else:
                     col += 1
         
-        # Extract down words
         for col in range(self.grid_size):
             row = 0
             while row < self.grid_size:
@@ -785,25 +728,20 @@ class CrosswordEngineV3:
                     row += 1
                     continue
                 
-                # Check if this is the start of a word
                 if row == 0 or grid[row-1][col] == '#':
-                    # Find the word
                     start_row = row
                     word = ""
                     while row < self.grid_size and grid[row][col] != '#':
                         word += grid[row][col]
                         row += 1
                     
-                    # Only add if length >= 3
-                    if len(word) >= 3:
-                        # Find the clue number
+                    if len(word) >= self.min_word_length:
                         number = clue_positions.get((start_row, col))
                         if number:
                             down_words.append((number, word, (start_row, col)))
                 else:
                     row += 1
         
-        # Sort by clue number
         across_words.sort(key=lambda x: x[0])
         down_words.sort(key=lambda x: x[0])
         
@@ -811,166 +749,97 @@ class CrosswordEngineV3:
     
     def generate_clues(self, puzzle_id, theme, difficulty, across_words, down_words):
         """Generate appropriate clues based on words and difficulty"""
-        # Dictionary of common words and their clues
         common_clues = {
-            # 3-letter words
-            "ACE": ["High card", "Tennis winner", "Top pilot"],
-            "AIR": ["What we breathe", "Radio broadcast", "Tune"],
-            "ALL": ["Everything", "The whole amount", "Entirely"],
-            "AND": ["Plus", "Also", "In addition"],
-            "ART": ["Gallery display", "Creative work", "Painting or sculpture"],
-            "BAG": ["Shopping carrier", "Sack", "Luggage piece"],
-            "BOX": ["Container", "Square shape", "Package"],
-            "CAR": ["Vehicle", "Automobile", "Driving machine"],
-            "CAT": ["Feline pet", "Meowing animal", "Lion's cousin"],
-            "DOG": ["Canine pet", "Barking animal", "Wolf's cousin"],
-            "EAR": ["Hearing organ", "Side of the head", "What catches sound"],
-            "EAT": ["Consume food", "Have a meal", "Dine"],
-            "EGG": ["Breakfast staple", "Oval food", "Chicken product"],
-            "EYE": ["Seeing organ", "Vision part", "Pupil's place"],
-            "FAN": ["Cooling device", "Sports enthusiast", "Admirer"],
-            
-            # 4-letter words
-            "ABLE": ["Capable", "Having skill", "Competent"],
-            "AREA": ["Region", "Space", "Section"],
-            "BALL": ["Round toy", "Sports object", "Sphere"],
-            "BLUE": ["Sky color", "Sad feeling", "Ocean hue"],
-            "BOOK": ["Reading material", "Bound pages", "Literary work"],
-            "CARD": ["Greeting paper", "Playing piece", "ID document"],
-            "DOOR": ["Entry point", "Room divider", "Swinging barrier"],
-            "FACE": ["Front of head", "Visage", "Expression"],
-            "GAME": ["Play activity", "Sport contest", "Competition"],
-            "HAND": ["End of arm", "Palm and fingers", "Clock pointer"],
-            
-            # 5+ letter words
-            "APPLE": ["Red or green fruit", "iPhone maker", "Teacher's gift"],
-            "BEACH": ["Sandy shore", "Ocean's edge", "Coastal area"],
-            "CHAIR": ["Sitting furniture", "Desk companion", "Seat"],
-            "DANCE": ["Rhythmic movement", "Ballroom activity", "Party activity"],
-            "EARTH": ["Our planet", "Soil", "Ground"],
-            "FLOWER": ["Bloom", "Garden plant", "Petal bearer"],
-            "GARDEN": ["Plant area", "Growing space", "Flower bed"],
-            "HOUSE": ["Home", "Dwelling", "Residence"],
-            "ISLAND": ["Land surrounded by water", "Tropical getaway", "Isolated area"],
-            "JACKET": ["Coat", "Outerwear", "Covering"],
-            "KITCHEN": ["Cooking room", "Food preparation area", "Chef's domain"],
-            "LETTER": ["Written message", "Alphabet unit", "Mail piece"],
-            "MARKET": ["Shopping place", "Store", "Trading venue"],
-            "NUMBER": ["Counting unit", "Digit", "Quantity"],
-            "ORANGE": ["Citrus fruit", "Color between red and yellow", "Tangerine relative"],
-            "PENCIL": ["Writing tool", "Drawing implement", "Graphite stick"],
-            "PUZZLE": ["Brain teaser", "Jigsaw challenge", "Mental game"],
-            "RIVER": ["Flowing water", "Stream", "Waterway"],
-            "SCHOOL": ["Learning place", "Education building", "Student's destination"],
-            "TABLE": ["Flat surface furniture", "Dining platform", "Desk"],
-            "WINDOW": ["Glass opening", "View frame", "Wall aperture"],
-            "WINTER": ["Cold season", "Snow time", "December to March"],
-            
-            # Theme-specific words
-            "CROSSWORD": ["Word puzzle", "Grid challenge", "Intersecting words game"],
-            "SOLUTION": ["Answer", "Resolution", "Puzzle completion"],
-            "CHALLENGE": ["Difficult task", "Test of ability", "Contest"],
-            "KNOWLEDGE": ["Information", "Learning", "Understanding"],
-            "QUESTION": ["Inquiry", "Query", "Problem to solve"]
+            "ACE": ["High card", "Tennis winner", "Top pilot"], "AIR": ["What we breathe", "Radio broadcast", "Tune"],
+            "ALL": ["Everything", "The whole amount", "Entirely"], "AND": ["Plus", "Also", "In addition"],
+            "ART": ["Gallery display", "Creative work", "Painting or sculpture"], "BAG": ["Shopping carrier", "Sack", "Luggage piece"],
+            "BOX": ["Container", "Square shape", "Package"], "CAR": ["Vehicle", "Automobile", "Driving machine"],
+            "CAT": ["Feline pet", "Meowing animal", "Lion's cousin"], "DOG": ["Canine pet", "Barking animal", "Wolf's cousin"],
+            "EAR": ["Hearing organ", "Side of the head", "What catches sound"], "EAT": ["Consume food", "Have a meal", "Dine"],
+            "EGG": ["Breakfast staple", "Oval food", "Chicken product"], "EYE": ["Seeing organ", "Vision part", "Pupil's place"],
+            "FAN": ["Cooling device", "Sports enthusiast", "Admirer"], "ABLE": ["Capable", "Having skill", "Competent"],
+            "AREA": ["Region", "Space", "Section"], "BALL": ["Round toy", "Sports object", "Sphere"],
+            "BLUE": ["Sky color", "Sad feeling", "Ocean hue"], "BOOK": ["Reading material", "Bound pages", "Literary work"],
+            "CARD": ["Greeting paper", "Playing piece", "ID document"], "DOOR": ["Entry point", "Room divider", "Swinging barrier"],
+            "FACE": ["Front of head", "Visage", "Expression"], "GAME": ["Play activity", "Sport contest", "Competition"],
+            "HAND": ["End of arm", "Palm and fingers", "Clock pointer"], "APPLE": ["Red or green fruit", "iPhone maker", "Teacher's gift"],
+            "BEACH": ["Sandy shore", "Ocean's edge", "Coastal area"], "CHAIR": ["Sitting furniture", "Desk companion", "Seat"],
+            "DANCE": ["Rhythmic movement", "Ballroom activity", "Party activity"], "EARTH": ["Our planet", "Soil", "Ground"],
+            "FLOWER": ["Bloom", "Garden plant", "Petal bearer"], "GARDEN": ["Plant area", "Growing space", "Flower bed"],
+            "HOUSE": ["Home", "Dwelling", "Residence"], "ISLAND": ["Land surrounded by water", "Tropical getaway", "Isolated area"],
+            "JACKET": ["Coat", "Outerwear", "Covering"], "KITCHEN": ["Cooking room", "Food preparation area", "Chef's domain"],
+            "LETTER": ["Written message", "Alphabet unit", "Mail piece"], "MARKET": ["Shopping place", "Store", "Trading venue"],
+            "NUMBER": ["Counting unit", "Digit", "Quantity"], "ORANGE": ["Citrus fruit", "Color between red and yellow", "Tangerine relative"],
+            "PENCIL": ["Writing tool", "Drawing implement", "Graphite stick"], "PUZZLE": ["Brain teaser", "Jigsaw challenge", "Mental game"],
+            "RIVER": ["Flowing water", "Stream", "Waterway"], "SCHOOL": ["Learning place", "Education building", "Student's destination"],
+            "TABLE": ["Flat surface furniture", "Dining platform", "Desk"], "WINDOW": ["Glass opening", "View frame", "Wall aperture"],
+            "WINTER": ["Cold season", "Snow time", "December to March"], "CROSSWORD": ["Word puzzle", "Grid challenge", "Intersecting words game"],
+            "SOLUTION": ["Answer", "Resolution", "Puzzle completion"], "CHALLENGE": ["Difficult task", "Test of ability", "Contest"],
+            "KNOWLEDGE": ["Information", "Learning", "Understanding"], "QUESTION": ["Inquiry", "Query", "Problem to solve"]
         }
         
-        clues = {
-            "across": [],
-            "down": []
-        }
+        clues = {"across": [], "down": []}
         
-        # Generate clues for across words
         for number, word, _ in across_words:
             if word in common_clues:
-                # Use predefined clue
                 clue_options = common_clues[word]
-                # Select harder or easier clues based on difficulty
-                clue_index = 0  # Easy
-                if difficulty == "MEDIUM":
-                    clue_index = min(1, len(clue_options) - 1)  # Medium
-                elif difficulty == "HARD":
-                    clue_index = min(2, len(clue_options) - 1)  # Hard
-                
+                clue_index = 0
+                if difficulty == "MEDIUM": clue_index = min(1, len(clue_options) - 1)
+                elif difficulty == "HARD": clue_index = min(2, len(clue_options) - 1)
                 clue = clue_options[clue_index]
             else:
-                # Generate a simple clue based on word characteristics
-                if word.endswith("ING"):
-                    clue = f"Action of {word[:-3].lower()}"
-                elif word.endswith("ER"):
-                    clue = f"One who {word[:-2].lower()}s"
-                elif word.endswith("LY"):
-                    clue = f"In a {word[:-2].lower()} manner"
-                else:
-                    clue = f"Related to {word.lower()}"
-            
+                if word.endswith("ING"): clue = f"Action of {word[:-3].lower()}"
+                elif word.endswith("ER"): clue = f"One who {word[:-2].lower()}s"
+                elif word.endswith("LY"): clue = f"In a {word[:-2].lower()} manner"
+                else: clue = f"Related to {word.lower()}"
             clues["across"].append((number, clue, word))
         
-        # Generate clues for down words
         for number, word, _ in down_words:
             if word in common_clues:
-                # Use predefined clue
                 clue_options = common_clues[word]
-                # Select harder or easier clues based on difficulty
-                clue_index = 0  # Easy
-                if difficulty == "MEDIUM":
-                    clue_index = min(1, len(clue_options) - 1)  # Medium
-                elif difficulty == "HARD":
-                    clue_index = min(2, len(clue_options) - 1)  # Hard
-                
+                clue_index = 0
+                if difficulty == "MEDIUM": clue_index = min(1, len(clue_options) - 1)
+                elif difficulty == "HARD": clue_index = min(2, len(clue_options) - 1)
                 clue = clue_options[clue_index]
             else:
-                # Generate a simple clue based on word characteristics
-                if word.endswith("ING"):
-                    clue = f"Action of {word[:-3].lower()}"
-                elif word.endswith("ER"):
-                    clue = f"One who {word[:-2].lower()}s"
-                elif word.endswith("LY"):
-                    clue = f"In a {word[:-2].lower()} manner"
-                else:
-                    clue = f"Related to {word.lower()}"
-            
+                if word.endswith("ING"): clue = f"Action of {word[:-3].lower()}"
+                elif word.endswith("ER"): clue = f"One who {word[:-2].lower()}s"
+                elif word.endswith("LY"): clue = f"In a {word[:-2].lower()} manner"
+                else: clue = f"Related to {word.lower()}"
             clues["down"].append((number, clue, word))
         
         return clues
     
     def validate_puzzle(self, grid, across_words, down_words, clues):
         """Validate that the puzzle meets quality standards"""
-        validation = {
-            "valid": True,
-            "issues": []
-        }
+        validation = {"valid": True, "issues": []}
+        min_word_count = config.get_qa_threshold('min_word_count_per_puzzle') or 20
+        balance_ratio = config.get_qa_threshold('word_balance_ratio') or 0.3
         
-        # Check minimum word count
-        if len(across_words) < 10 or len(down_words) < 10:
-            validation["valid"] = False
-            validation["issues"].append(f"Too few words: {len(across_words)} across, {len(down_words)} down")
-        
-        # Check word balance (should have roughly equal across and down)
         total_words = len(across_words) + len(down_words)
-        if len(across_words) < total_words * 0.3 or len(down_words) < total_words * 0.3:
+        if total_words < min_word_count:
+            validation["valid"] = False
+            validation["issues"].append(f"Too few words: {total_words} (min {min_word_count})")
+        
+        if total_words > 0 and (len(across_words) < total_words * balance_ratio or len(down_words) < total_words * balance_ratio):
             validation["valid"] = False
             validation["issues"].append("Unbalanced word distribution")
         
-        # Check for duplicate words
         all_words = [word for _, word, _ in across_words + down_words]
-        word_counts = Counter(all_words)
-        duplicates = [word for word, count in word_counts.items() if count > 1]
+        duplicates = [word for word, count in Counter(all_words).items() if count > 1]
         if duplicates:
             validation["valid"] = False
             validation["issues"].append(f"Duplicate words: {', '.join(duplicates)}")
         
-        # Check for very short words (should be minimal)
-        short_words = [word for _, word, _ in across_words + down_words if len(word) <= 2]
-        if len(short_words) > 3:
+        short_words = [word for _, word, _ in across_words + down_words if len(word) < self.min_word_length]
+        if short_words:
             validation["valid"] = False
-            validation["issues"].append(f"Too many short words: {len(short_words)}")
+            validation["issues"].append(f"Found words shorter than min length {self.min_word_length}")
         
-        # Check for grid connectivity (no isolated sections)
         if not self._check_grid_connectivity(grid):
             validation["valid"] = False
             validation["issues"].append("Grid has isolated sections")
         
-        # Check that all clues have corresponding words
         for direction in ["across", "down"]:
             for number, clue, answer in clues[direction]:
                 found = False
@@ -979,7 +848,6 @@ class CrosswordEngineV3:
                     if num == number and word == answer:
                         found = True
                         break
-                
                 if not found:
                     validation["valid"] = False
                     validation["issues"].append(f"Clue mismatch: {direction} {number}")
@@ -988,7 +856,6 @@ class CrosswordEngineV3:
     
     def _check_grid_connectivity(self, grid):
         """Check that the grid has no isolated sections"""
-        # Find a starting white square
         start_r, start_c = None, None
         for r in range(self.grid_size):
             for c in range(self.grid_size):
@@ -998,31 +865,24 @@ class CrosswordEngineV3:
             if start_r is not None:
                 break
         
-        if start_r is None:
-            return False  # No white squares
+        if start_r is None: return False
         
-        # Do a flood fill to find all connected white squares
         visited = [[False for _ in range(self.grid_size)] for _ in range(self.grid_size)]
         self._flood_fill(grid, visited, start_r, start_c)
         
-        # Check if all white squares are visited
         for r in range(self.grid_size):
             for c in range(self.grid_size):
                 if grid[r][c] != '#' and not visited[r][c]:
-                    return False  # Found an unvisited white square
+                    return False
         
         return True
     
     def _flood_fill(self, grid, visited, r, c):
         """Flood fill algorithm to mark connected squares"""
-        if r < 0 or r >= self.grid_size or c < 0 or c >= self.grid_size:
-            return
-        if grid[r][c] == '#' or visited[r][c]:
-            return
+        if not (0 <= r < self.grid_size and 0 <= c < self.grid_size): return
+        if grid[r][c] == '#' or visited[r][c]: return
         
         visited[r][c] = True
-        
-        # Visit neighbors
         self._flood_fill(grid, visited, r+1, c)
         self._flood_fill(grid, visited, r-1, c)
         self._flood_fill(grid, visited, r, c+1)
@@ -1034,88 +894,53 @@ class CrosswordEngineV3:
         print(f"📁 Output directory: {self.puzzles_dir}")
         
         puzzles_data = []
-        
-        # Generate themes based on difficulty mode
         themes = self._generate_themes()
         
         for i in range(self.puzzle_count):
             puzzle_id = i + 1
-            
-            # Determine difficulty based on mode
             difficulty = self._get_difficulty_for_puzzle(puzzle_id)
-            
             theme = themes[i % len(themes)]
             
             print(f"  Creating puzzle {puzzle_id}/{self.puzzle_count}: {theme} ({difficulty})")
             
-            # Generate grid with actual content
             grid = self.generate_grid_with_content(puzzle_id, theme, difficulty)
-            
-            # Create grid images (empty and filled)
             empty_grid_path, filled_grid_path, clue_positions = self.create_grid_images(grid, puzzle_id)
-            
-            # Extract words from grid
             across_words, down_words = self.extract_words_from_grid(grid, clue_positions)
-            
-            # Generate clues
             clues = self.generate_clues(puzzle_id, theme, difficulty, across_words, down_words)
-            
-            # Validate puzzle
             validation = self.validate_puzzle(grid, across_words, down_words, clues)
             
             if not validation["valid"]:
-                print(f"    ⚠️ Puzzle {puzzle_id} has issues: {validation['issues']}")
-                # Try to regenerate if invalid
+                logger.warning(f"Puzzle {puzzle_id} has issues: {validation['issues']}. Trying to regenerate.")
                 attempts = 0
-                while not validation["valid"] and attempts < 3:
+                while not validation["valid"] and attempts < self.backtracking_max_attempts:
                     attempts += 1
-                    print(f"    Regenerating puzzle {puzzle_id} (attempt {attempts})...")
-                    
                     grid = self.generate_grid_with_content(puzzle_id, theme, difficulty)
                     empty_grid_path, filled_grid_path, clue_positions = self.create_grid_images(grid, puzzle_id)
                     across_words, down_words = self.extract_words_from_grid(grid, clue_positions)
                     clues = self.generate_clues(puzzle_id, theme, difficulty, across_words, down_words)
                     validation = self.validate_puzzle(grid, across_words, down_words, clues)
-                
                 if not validation["valid"]:
-                    print(f"    ⚠️ Could not generate valid puzzle after {attempts} attempts. Using best effort.")
+                    logger.error(f"Could not generate valid puzzle {puzzle_id} after {attempts} attempts.")
             
-            # Store puzzle data
             puzzle_data = {
-                "id": puzzle_id,
-                "theme": theme,
-                "difficulty": difficulty,
-                "grid_path": str(empty_grid_path),
-                "solution_path": str(filled_grid_path),
+                "id": puzzle_id, "theme": theme, "difficulty": difficulty,
+                "grid_path": str(empty_grid_path), "solution_path": str(filled_grid_path),
                 "clues": clues,
-                "word_count": {
-                    "across": len(across_words),
-                    "down": len(down_words),
-                    "total": len(across_words) + len(down_words)
-                },
-                "validation": {
-                    "valid": validation["valid"],
-                    "issues": validation["issues"] if not validation["valid"] else []
-                },
+                "word_count": {"across": len(across_words), "down": len(down_words), "total": len(across_words) + len(down_words)},
+                "validation": {"valid": validation["valid"], "issues": validation["issues"] if not validation["valid"] else []},
                 "clue_positions": {f"{r},{c}": num for (r, c), num in clue_positions.items()}
             }
             
-            # Save individual puzzle metadata
             puzzle_meta_path = self.metadata_dir / f"puzzle_{puzzle_id:02d}.json"
             with open(puzzle_meta_path, 'w') as f:
                 json.dump(puzzle_data, f, indent=2)
             
             puzzles_data.append(puzzle_data)
-            
-            # Add a small delay to prevent system overload
             time.sleep(0.1)
         
-        # Save full puzzle collection metadata
         collection_meta = {
-            "puzzle_count": self.puzzle_count,
-            "difficulty_mode": self.difficulty_mode,
-            "grid_size": self.grid_size,
-            "generation_date": datetime.now().isoformat(),
+            "puzzle_count": self.puzzle_count, "difficulty_mode": self.difficulty_mode,
+            "grid_size": self.grid_size, "generation_date": datetime.now().isoformat(),
             "puzzles": [p["id"] for p in puzzles_data],
             "validation_summary": {
                 "valid_puzzles": sum(1 for p in puzzles_data if p["validation"]["valid"]),
@@ -1127,14 +952,8 @@ class CrosswordEngineV3:
             json.dump(collection_meta, f, indent=2)
         
         print(f"✅ Generated {self.puzzle_count} crossword puzzles")
-        print(f"📊 Metadata saved to {self.metadata_dir}")
-        print(f"🧩 Puzzles saved to {self.puzzles_dir}")
-        print(f"🔍 Solutions saved to {self.solutions_dir}")
-        
-        # Print validation summary
-        valid_count = sum(1 for p in puzzles_data if p["validation"]["valid"])
+        valid_count = collection_meta["validation_summary"]["valid_puzzles"]
         print(f"✓ Valid puzzles: {valid_count}/{self.puzzle_count}")
-        
         if valid_count < self.puzzle_count:
             print(f"⚠️ {self.puzzle_count - valid_count} puzzles have validation issues")
         
@@ -1143,93 +962,61 @@ class CrosswordEngineV3:
     def _generate_themes(self):
         """Generate themes based on difficulty mode"""
         themes = [
-            # Easy themes
-            "Garden Flowers", "Kitchen Tools", "Family Time", "Weather",
-            "Colors", "Fruits", "Birds", "Pets", "Seasons", "Numbers",
-            "Body Parts", "Clothing", "Breakfast", "Rooms", "Tools",
-            "Trees", "Ocean", "Farm", "Music", "Sports",
-            
-            # Medium themes
-            "Classic Movies", "Famous Authors", "World Capitals", "Cooking",
-            "Card Games", "Dance", "Gems", "Desserts", "Travel", "Hobbies",
-            "Classic Songs", "Wine", "Antiques", "Board Games", "Art",
-            "Opera", "Cars", "Radio Shows", "History", "Architecture",
-            
-            # Hard themes
-            "Literature", "Science", "Geography", "Classical Music",
-            "Art History", "Cuisine", "Philosophy", "Astronomy",
-            "Medicine", "Technology"
+            "Garden Flowers", "Kitchen Tools", "Family Time", "Weather", "Colors", "Fruits", "Birds", "Pets", "Seasons", "Numbers",
+            "Body Parts", "Clothing", "Breakfast", "Rooms", "Tools", "Trees", "Ocean", "Farm", "Music", "Sports",
+            "Classic Movies", "Famous Authors", "World Capitals", "Cooking", "Card Games", "Dance", "Gems", "Desserts", "Travel", "Hobbies",
+            "Classic Songs", "Wine", "Antiques", "Board Games", "Art", "Opera", "Cars", "Radio Shows", "History", "Architecture",
+            "Literature", "Science", "Geography", "Classical Music", "Art History", "Cuisine", "Philosophy", "Astronomy", "Medicine", "Technology"
         ]
-        
-        # If we have fewer themes than puzzles, repeat themes
         if len(themes) < self.puzzle_count:
             themes = themes * (self.puzzle_count // len(themes) + 1)
-        
-        # Shuffle themes if mixed difficulty
         if self.difficulty_mode.lower() == "mixed":
             random.shuffle(themes)
-        
         return themes[:self.puzzle_count]
     
     def _get_difficulty_for_puzzle(self, puzzle_id):
         """Determine difficulty for a puzzle based on mode and ID"""
         mode = self.difficulty_mode.lower()
+        if mode in ["easy", "medium", "hard"]:
+            return mode.upper()
         
-        if mode == "easy":
+        easy_ratio = self.difficulty_distribution.get('easy_ratio', 0.4)
+        medium_ratio = self.difficulty_distribution.get('medium_ratio', 0.4)
+        
+        if puzzle_id <= int(self.puzzle_count * easy_ratio):
             return "EASY"
-        elif mode == "medium":
+        elif puzzle_id <= int(self.puzzle_count * (easy_ratio + medium_ratio)):
             return "MEDIUM"
-        elif mode == "hard":
+        else:
             return "HARD"
-        else:  # mixed or progressive
-            # Progressive difficulty: 40% easy, 40% medium, 20% hard
-            if puzzle_id <= int(self.puzzle_count * 0.4):
-                return "EASY"
-            elif puzzle_id <= int(self.puzzle_count * 0.8):
-                return "MEDIUM"
-            else:
-                return "HARD"
 
 def main():
     """Main entry point for crossword engine"""
     parser = argparse.ArgumentParser(description='Crossword Engine v3 Fixed - Generate high-quality crossword puzzles')
     parser.add_argument('--output', required=True, help='Output directory for puzzles')
-    parser.add_argument('--count', type=int, default=50, help='Number of puzzles to generate')
-    parser.add_argument('--difficulty', default='mixed', 
-                        choices=['easy', 'medium', 'hard', 'mixed'],
-                        help='Difficulty level for puzzles')
-    parser.add_argument('--grid-size', type=int, default=15, help='Grid size (default: 15x15)')
-    parser.add_argument('--word-count', type=int, help='Words per puzzle (optional)')
-    parser.add_argument('--max-word-length', type=int, default=15, 
-                        help='Maximum word length (default: 15)')
-    parser.add_argument('--word-list', help='Path to custom word list file')
-    parser.add_argument('--log-level', default='info', 
-                        choices=['debug', 'info', 'warning', 'error'],
-                        help='Logging level')
+    parser.add_argument('--count', type=int, default=config.get('puzzle_generation.default_puzzle_count', 50), help='Number of puzzles to generate')
+    parser.add_argument('--difficulty', default='mixed', choices=['easy', 'medium', 'hard', 'mixed'], help='Difficulty level for puzzles')
+    parser.add_argument('--grid-size', type=int, default=config.get_puzzle_setting('crossword', 'grid_size', 15), help='Grid size (default: 15x15)')
+    parser.add_argument('--max-word-length', type=int, default=config.get_puzzle_setting('crossword', 'max_word_length', 15), help='Maximum word length')
+    parser.add_argument('--word-list', default=config.get_path('file_paths.word_list_path'), help='Path to custom word list file')
+    parser.add_argument('--log-level', default='info', choices=['debug', 'info', 'warning', 'error'], help='Logging level')
     
     args = parser.parse_args()
     
-    # Set logging level
-    log_level = getattr(logging, args.log_level.upper())
-    logger.setLevel(log_level)
+    logger.setLevel(getattr(logging, args.log_level.upper()))
     
     try:
         start_time = time.time()
-        
         engine = CrosswordEngineV3(
             output_dir=args.output,
             puzzle_count=args.count,
             difficulty=args.difficulty,
             grid_size=args.grid_size,
-            word_count=args.word_count,
             max_word_length=args.max_word_length,
             word_list_path=args.word_list
         )
-        
         puzzles = engine.generate_puzzles()
-        
-        end_time = time.time()
-        elapsed_time = end_time - start_time
+        elapsed_time = time.time() - start_time
         
         print(f"\n🎯 CROSSWORD ENGINE V3 - SUCCESS")
         print(f"📊 Generated {len(puzzles)} puzzles")
@@ -1237,11 +1024,8 @@ def main():
         print(f"📁 Output directory: {args.output}")
         
         return 0
-    
     except Exception as e:
-        logger.error(f"Error: {e}")
-        import traceback
-        traceback.print_exc()
+        logger.error(f"Error: {e}", exc_info=True)
         return 1
 
 if __name__ == "__main__":
