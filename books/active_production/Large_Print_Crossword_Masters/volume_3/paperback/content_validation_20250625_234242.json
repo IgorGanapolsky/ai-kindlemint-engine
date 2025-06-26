@@ -1,0 +1,813 @@
+{
+  "timestamp": "2025-06-25T23:42:42.913808",
+  "file_path": "books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/Large_Print_Crossword_Masters_-_Volume_3_interior_FINAL.pdf",
+  "puzzle_count": 51,
+  "validations": {
+    "uniqueness": {
+      "passed": true,
+      "unique_puzzles": 51,
+      "total_puzzles": 51,
+      "uniqueness_ratio": 1.0,
+      "duplicates": []
+    },
+    "completeness": {
+      "passed": false,
+      "complete_puzzles": 0,
+      "incomplete_puzzles": [
+        {
+          "puzzle": 1,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 1,
+          "issues": [
+            "No solution found",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 2,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 3,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 4,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 5,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 6,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 7,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 8,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 9,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 10,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 11,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 12,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 13,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 14,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 15,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 16,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 17,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 18,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 19,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 20,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 21,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 22,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 23,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 24,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 25,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 26,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 27,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 28,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 29,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 30,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 31,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 32,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 33,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 34,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 35,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 36,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 37,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 38,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 39,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 40,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 41,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 42,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 43,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 44,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 45,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 46,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 47,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 48,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 49,
+          "issues": [
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 50,
+          "issues": [
+            "No solution found",
+            "Missing answer words in solution"
+          ]
+        }
+      ]
+    },
+    "content_quality": {
+      "passed": false,
+      "quality_score": 0.11764705882352941,
+      "issues": [
+        {
+          "puzzle": 6,
+          "issues": [
+            "Clue repeated 10 times: 'Sports & Games related term'",
+            "Clue repeated 10 times: 'Sports & Games concept'"
+          ]
+        },
+        {
+          "puzzle": 7,
+          "issues": [
+            "Clue repeated 10 times: 'Technology related term'",
+            "Clue repeated 10 times: 'Technology concept'"
+          ]
+        },
+        {
+          "puzzle": 8,
+          "issues": [
+            "Clue repeated 10 times: 'Literature related term'",
+            "Clue repeated 10 times: 'Literature concept'"
+          ]
+        },
+        {
+          "puzzle": 9,
+          "issues": [
+            "Clue repeated 10 times: 'History related term'",
+            "Clue repeated 10 times: 'History concept'"
+          ]
+        },
+        {
+          "puzzle": 10,
+          "issues": [
+            "Clue repeated 10 times: 'Movies & TV related term'",
+            "Clue repeated 10 times: 'Movies & TV concept'"
+          ]
+        },
+        {
+          "puzzle": 11,
+          "issues": [
+            "Clue repeated 10 times: 'Fashion related term'",
+            "Clue repeated 10 times: 'Fashion concept'"
+          ]
+        },
+        {
+          "puzzle": 12,
+          "issues": [
+            "Clue repeated 10 times: 'Weather related term'",
+            "Clue repeated 10 times: 'Weather concept'"
+          ]
+        },
+        {
+          "puzzle": 13,
+          "issues": [
+            "Clue repeated 10 times: 'Transportation related term'",
+            "Clue repeated 10 times: 'Transportation concept'"
+          ]
+        },
+        {
+          "puzzle": 14,
+          "issues": [
+            "Clue repeated 10 times: 'Holidays related term'",
+            "Clue repeated 10 times: 'Holidays concept'"
+          ]
+        },
+        {
+          "puzzle": 15,
+          "issues": [
+            "Clue repeated 10 times: 'Occupations related term'",
+            "Clue repeated 10 times: 'Occupations concept'"
+          ]
+        },
+        {
+          "puzzle": 16,
+          "issues": [
+            "Clue repeated 10 times: 'Colors & Shapes related term'",
+            "Clue repeated 10 times: 'Colors & Shapes concept'"
+          ]
+        },
+        {
+          "puzzle": 17,
+          "issues": [
+            "Clue repeated 10 times: 'Numbers & Math related term'",
+            "Clue repeated 10 times: 'Numbers & Math concept'"
+          ]
+        },
+        {
+          "puzzle": 18,
+          "issues": [
+            "Clue repeated 10 times: 'Emotions related term'",
+            "Clue repeated 10 times: 'Emotions concept'"
+          ]
+        },
+        {
+          "puzzle": 19,
+          "issues": [
+            "Clue repeated 10 times: 'School Subjects related term'",
+            "Clue repeated 10 times: 'School Subjects concept'"
+          ]
+        },
+        {
+          "puzzle": 20,
+          "issues": [
+            "Clue repeated 10 times: 'Hobbies related term'",
+            "Clue repeated 10 times: 'Hobbies concept'"
+          ]
+        },
+        {
+          "puzzle": 21,
+          "issues": [
+            "Clue repeated 10 times: 'Garden & Plants related term'",
+            "Clue repeated 10 times: 'Garden & Plants concept'"
+          ]
+        },
+        {
+          "puzzle": 22,
+          "issues": [
+            "Clue repeated 10 times: 'Ocean Life related term'",
+            "Clue repeated 10 times: 'Ocean Life concept'"
+          ]
+        },
+        {
+          "puzzle": 23,
+          "issues": [
+            "Clue repeated 10 times: 'Mountains related term'",
+            "Clue repeated 10 times: 'Mountains concept'"
+          ]
+        },
+        {
+          "puzzle": 24,
+          "issues": [
+            "Clue repeated 10 times: 'Desserts related term'",
+            "Clue repeated 10 times: 'Desserts concept'"
+          ]
+        },
+        {
+          "puzzle": 25,
+          "issues": [
+            "Clue repeated 10 times: 'Beverages related term'",
+            "Clue repeated 10 times: 'Beverages concept'"
+          ]
+        },
+        {
+          "puzzle": 26,
+          "issues": [
+            "Clue repeated 10 times: 'Tools & Hardware related term'",
+            "Clue repeated 10 times: 'Tools & Hardware concept'"
+          ]
+        },
+        {
+          "puzzle": 27,
+          "issues": [
+            "Clue repeated 10 times: 'Furniture related term'",
+            "Clue repeated 10 times: 'Furniture concept'"
+          ]
+        },
+        {
+          "puzzle": 28,
+          "issues": [
+            "Clue repeated 10 times: 'Clothing related term'",
+            "Clue repeated 10 times: 'Clothing concept'"
+          ]
+        },
+        {
+          "puzzle": 29,
+          "issues": [
+            "Clue repeated 10 times: 'Body Parts related term'",
+            "Clue repeated 10 times: 'Body Parts concept'"
+          ]
+        },
+        {
+          "puzzle": 30,
+          "issues": [
+            "Clue repeated 10 times: 'Languages related term'",
+            "Clue repeated 10 times: 'Languages concept'"
+          ]
+        },
+        {
+          "puzzle": 31,
+          "issues": [
+            "Clue repeated 10 times: 'Countries related term'",
+            "Clue repeated 10 times: 'Countries concept'"
+          ]
+        },
+        {
+          "puzzle": 32,
+          "issues": [
+            "Clue repeated 10 times: 'Rivers & Lakes related term'",
+            "Clue repeated 10 times: 'Rivers & Lakes concept'"
+          ]
+        },
+        {
+          "puzzle": 33,
+          "issues": [
+            "Clue repeated 10 times: 'Space related term'",
+            "Clue repeated 10 times: 'Space concept'"
+          ]
+        },
+        {
+          "puzzle": 34,
+          "issues": [
+            "Clue repeated 10 times: 'Mythology related term'",
+            "Clue repeated 10 times: 'Mythology concept'"
+          ]
+        },
+        {
+          "puzzle": 35,
+          "issues": [
+            "Clue repeated 10 times: 'Seasons related term'",
+            "Clue repeated 10 times: 'Seasons concept'"
+          ]
+        },
+        {
+          "puzzle": 36,
+          "issues": [
+            "Clue repeated 10 times: 'Flowers related term'",
+            "Clue repeated 10 times: 'Flowers concept'"
+          ]
+        },
+        {
+          "puzzle": 37,
+          "issues": [
+            "Clue repeated 10 times: 'Trees related term'",
+            "Clue repeated 10 times: 'Trees concept'"
+          ]
+        },
+        {
+          "puzzle": 38,
+          "issues": [
+            "Clue repeated 10 times: 'Birds related term'",
+            "Clue repeated 10 times: 'Birds concept'"
+          ]
+        },
+        {
+          "puzzle": 39,
+          "issues": [
+            "Clue repeated 10 times: 'Insects related term'",
+            "Clue repeated 10 times: 'Insects concept'"
+          ]
+        },
+        {
+          "puzzle": 40,
+          "issues": [
+            "Clue repeated 10 times: 'Reptiles related term'",
+            "Clue repeated 10 times: 'Reptiles concept'"
+          ]
+        },
+        {
+          "puzzle": 41,
+          "issues": [
+            "Clue repeated 10 times: 'Weather Events related term'",
+            "Clue repeated 10 times: 'Weather Events concept'"
+          ]
+        },
+        {
+          "puzzle": 42,
+          "issues": [
+            "Clue repeated 10 times: 'Kitchen Items related term'",
+            "Clue repeated 10 times: 'Kitchen Items concept'"
+          ]
+        },
+        {
+          "puzzle": 43,
+          "issues": [
+            "Clue repeated 10 times: 'Office Supplies related term'",
+            "Clue repeated 10 times: 'Office Supplies concept'"
+          ]
+        },
+        {
+          "puzzle": 44,
+          "issues": [
+            "Clue repeated 10 times: 'Sports Equipment related term'",
+            "Clue repeated 10 times: 'Sports Equipment concept'"
+          ]
+        },
+        {
+          "puzzle": 45,
+          "issues": [
+            "Clue repeated 10 times: 'Musical Terms related term'",
+            "Clue repeated 10 times: 'Musical Terms concept'"
+          ]
+        },
+        {
+          "puzzle": 46,
+          "issues": [
+            "Clue repeated 10 times: 'Dance Styles related term'",
+            "Clue repeated 10 times: 'Dance Styles concept'"
+          ]
+        },
+        {
+          "puzzle": 47,
+          "issues": [
+            "Clue repeated 10 times: 'Art Movements related term'",
+            "Clue repeated 10 times: 'Art Movements concept'"
+          ]
+        },
+        {
+          "puzzle": 48,
+          "issues": [
+            "Clue repeated 10 times: 'Architecture related term'",
+            "Clue repeated 10 times: 'Architecture concept'"
+          ]
+        },
+        {
+          "puzzle": 49,
+          "issues": [
+            "Clue repeated 10 times: 'Gemstones related term'",
+            "Clue repeated 10 times: 'Gemstones concept'"
+          ]
+        },
+        {
+          "puzzle": 50,
+          "issues": [
+            "Clue repeated 10 times: 'Metals related term'",
+            "Clue repeated 10 times: 'Metals concept'"
+          ]
+        }
+      ]
+    },
+    "solutions": {
+      "passed": true,
+      "valid_solutions": 51,
+      "issues": []
+    },
+    "clue_balance": {
+      "passed": true,
+      "balanced_puzzles": 51,
+      "imbalanced": []
+    }
+  },
+  "issues": [
+    "Puzzle 1: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 1: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 1: Missing answer words in solution",
+    "Puzzle 1: No solution found",
+    "Puzzle 1: Missing answer words in solution",
+    "Puzzle 2: Missing answer words in solution",
+    "Puzzle 3: Missing answer words in solution",
+    "Puzzle 4: Missing answer words in solution",
+    "Puzzle 5: Missing answer words in solution",
+    "Puzzle 6: Missing answer words in solution",
+    "Puzzle 7: Missing answer words in solution",
+    "Puzzle 8: Missing answer words in solution",
+    "Puzzle 9: Missing answer words in solution",
+    "Puzzle 10: Missing answer words in solution",
+    "Puzzle 11: Missing answer words in solution",
+    "Puzzle 12: Missing answer words in solution",
+    "Puzzle 13: Missing answer words in solution",
+    "Puzzle 14: Missing answer words in solution",
+    "Puzzle 15: Missing answer words in solution",
+    "Puzzle 16: Missing answer words in solution",
+    "Puzzle 17: Missing answer words in solution",
+    "Puzzle 18: Missing answer words in solution",
+    "Puzzle 19: Missing answer words in solution",
+    "Puzzle 20: Missing answer words in solution",
+    "Puzzle 21: Missing answer words in solution",
+    "Puzzle 22: Missing answer words in solution",
+    "Puzzle 23: Missing answer words in solution",
+    "Puzzle 24: Missing answer words in solution",
+    "Puzzle 25: Missing answer words in solution",
+    "Puzzle 26: Missing answer words in solution",
+    "Puzzle 27: Missing answer words in solution",
+    "Puzzle 28: Missing answer words in solution",
+    "Puzzle 29: Missing answer words in solution",
+    "Puzzle 30: Missing answer words in solution",
+    "Puzzle 31: Missing answer words in solution",
+    "Puzzle 32: Missing answer words in solution",
+    "Puzzle 33: Missing answer words in solution",
+    "Puzzle 34: Missing answer words in solution",
+    "Puzzle 35: Missing answer words in solution",
+    "Puzzle 36: Missing answer words in solution",
+    "Puzzle 37: Missing answer words in solution",
+    "Puzzle 38: Missing answer words in solution",
+    "Puzzle 39: Missing answer words in solution",
+    "Puzzle 40: Missing answer words in solution",
+    "Puzzle 41: Missing answer words in solution",
+    "Puzzle 42: Missing answer words in solution",
+    "Puzzle 43: Missing answer words in solution",
+    "Puzzle 44: Missing answer words in solution",
+    "Puzzle 45: Missing answer words in solution",
+    "Puzzle 46: Missing answer words in solution",
+    "Puzzle 47: Missing answer words in solution",
+    "Puzzle 48: Missing answer words in solution",
+    "Puzzle 49: Missing answer words in solution",
+    "Puzzle 50: No solution found",
+    "Puzzle 50: Missing answer words in solution"
+  ],
+  "warnings": [
+    "Puzzle 6: Clue repeated 10 times: 'Sports & Games related term'",
+    "Puzzle 6: Clue repeated 10 times: 'Sports & Games concept'",
+    "Puzzle 7: Clue repeated 10 times: 'Technology related term'",
+    "Puzzle 7: Clue repeated 10 times: 'Technology concept'",
+    "Puzzle 8: Clue repeated 10 times: 'Literature related term'",
+    "Puzzle 8: Clue repeated 10 times: 'Literature concept'",
+    "Puzzle 9: Clue repeated 10 times: 'History related term'",
+    "Puzzle 9: Clue repeated 10 times: 'History concept'",
+    "Puzzle 10: Clue repeated 10 times: 'Movies & TV related term'",
+    "Puzzle 10: Clue repeated 10 times: 'Movies & TV concept'",
+    "Puzzle 11: Clue repeated 10 times: 'Fashion related term'",
+    "Puzzle 11: Clue repeated 10 times: 'Fashion concept'",
+    "Puzzle 12: Clue repeated 10 times: 'Weather related term'",
+    "Puzzle 12: Clue repeated 10 times: 'Weather concept'",
+    "Puzzle 13: Clue repeated 10 times: 'Transportation related term'",
+    "Puzzle 13: Clue repeated 10 times: 'Transportation concept'",
+    "Puzzle 14: Clue repeated 10 times: 'Holidays related term'",
+    "Puzzle 14: Clue repeated 10 times: 'Holidays concept'",
+    "Puzzle 15: Clue repeated 10 times: 'Occupations related term'",
+    "Puzzle 15: Clue repeated 10 times: 'Occupations concept'",
+    "Puzzle 16: Clue repeated 10 times: 'Colors & Shapes related term'",
+    "Puzzle 16: Clue repeated 10 times: 'Colors & Shapes concept'",
+    "Puzzle 17: Clue repeated 10 times: 'Numbers & Math related term'",
+    "Puzzle 17: Clue repeated 10 times: 'Numbers & Math concept'",
+    "Puzzle 18: Clue repeated 10 times: 'Emotions related term'",
+    "Puzzle 18: Clue repeated 10 times: 'Emotions concept'",
+    "Puzzle 19: Clue repeated 10 times: 'School Subjects related term'",
+    "Puzzle 19: Clue repeated 10 times: 'School Subjects concept'",
+    "Puzzle 20: Clue repeated 10 times: 'Hobbies related term'",
+    "Puzzle 20: Clue repeated 10 times: 'Hobbies concept'",
+    "Puzzle 21: Clue repeated 10 times: 'Garden & Plants related term'",
+    "Puzzle 21: Clue repeated 10 times: 'Garden & Plants concept'",
+    "Puzzle 22: Clue repeated 10 times: 'Ocean Life related term'",
+    "Puzzle 22: Clue repeated 10 times: 'Ocean Life concept'",
+    "Puzzle 23: Clue repeated 10 times: 'Mountains related term'",
+    "Puzzle 23: Clue repeated 10 times: 'Mountains concept'",
+    "Puzzle 24: Clue repeated 10 times: 'Desserts related term'",
+    "Puzzle 24: Clue repeated 10 times: 'Desserts concept'",
+    "Puzzle 25: Clue repeated 10 times: 'Beverages related term'",
+    "Puzzle 25: Clue repeated 10 times: 'Beverages concept'",
+    "Puzzle 26: Clue repeated 10 times: 'Tools & Hardware related term'",
+    "Puzzle 26: Clue repeated 10 times: 'Tools & Hardware concept'",
+    "Puzzle 27: Clue repeated 10 times: 'Furniture related term'",
+    "Puzzle 27: Clue repeated 10 times: 'Furniture concept'",
+    "Puzzle 28: Clue repeated 10 times: 'Clothing related term'",
+    "Puzzle 28: Clue repeated 10 times: 'Clothing concept'",
+    "Puzzle 29: Clue repeated 10 times: 'Body Parts related term'",
+    "Puzzle 29: Clue repeated 10 times: 'Body Parts concept'",
+    "Puzzle 30: Clue repeated 10 times: 'Languages related term'",
+    "Puzzle 30: Clue repeated 10 times: 'Languages concept'",
+    "Puzzle 31: Clue repeated 10 times: 'Countries related term'",
+    "Puzzle 31: Clue repeated 10 times: 'Countries concept'",
+    "Puzzle 32: Clue repeated 10 times: 'Rivers & Lakes related term'",
+    "Puzzle 32: Clue repeated 10 times: 'Rivers & Lakes concept'",
+    "Puzzle 33: Clue repeated 10 times: 'Space related term'",
+    "Puzzle 33: Clue repeated 10 times: 'Space concept'",
+    "Puzzle 34: Clue repeated 10 times: 'Mythology related term'",
+    "Puzzle 34: Clue repeated 10 times: 'Mythology concept'",
+    "Puzzle 35: Clue repeated 10 times: 'Seasons related term'",
+    "Puzzle 35: Clue repeated 10 times: 'Seasons concept'",
+    "Puzzle 36: Clue repeated 10 times: 'Flowers related term'",
+    "Puzzle 36: Clue repeated 10 times: 'Flowers concept'",
+    "Puzzle 37: Clue repeated 10 times: 'Trees related term'",
+    "Puzzle 37: Clue repeated 10 times: 'Trees concept'",
+    "Puzzle 38: Clue repeated 10 times: 'Birds related term'",
+    "Puzzle 38: Clue repeated 10 times: 'Birds concept'",
+    "Puzzle 39: Clue repeated 10 times: 'Insects related term'",
+    "Puzzle 39: Clue repeated 10 times: 'Insects concept'",
+    "Puzzle 40: Clue repeated 10 times: 'Reptiles related term'",
+    "Puzzle 40: Clue repeated 10 times: 'Reptiles concept'",
+    "Puzzle 41: Clue repeated 10 times: 'Weather Events related term'",
+    "Puzzle 41: Clue repeated 10 times: 'Weather Events concept'",
+    "Puzzle 42: Clue repeated 10 times: 'Kitchen Items related term'",
+    "Puzzle 42: Clue repeated 10 times: 'Kitchen Items concept'",
+    "Puzzle 43: Clue repeated 10 times: 'Office Supplies related term'",
+    "Puzzle 43: Clue repeated 10 times: 'Office Supplies concept'",
+    "Puzzle 44: Clue repeated 10 times: 'Sports Equipment related term'",
+    "Puzzle 44: Clue repeated 10 times: 'Sports Equipment concept'",
+    "Puzzle 45: Clue repeated 10 times: 'Musical Terms related term'",
+    "Puzzle 45: Clue repeated 10 times: 'Musical Terms concept'",
+    "Puzzle 46: Clue repeated 10 times: 'Dance Styles related term'",
+    "Puzzle 46: Clue repeated 10 times: 'Dance Styles concept'",
+    "Puzzle 47: Clue repeated 10 times: 'Art Movements related term'",
+    "Puzzle 47: Clue repeated 10 times: 'Art Movements concept'",
+    "Puzzle 48: Clue repeated 10 times: 'Architecture related term'",
+    "Puzzle 48: Clue repeated 10 times: 'Architecture concept'",
+    "Puzzle 49: Clue repeated 10 times: 'Gemstones related term'",
+    "Puzzle 49: Clue repeated 10 times: 'Gemstones concept'",
+    "Puzzle 50: Clue repeated 10 times: 'Metals related term'",
+    "Puzzle 50: Clue repeated 10 times: 'Metals concept'"
+  ],
+  "processing_time": 0.587996,
+  "score": 60,
+  "publish_ready": false
+}

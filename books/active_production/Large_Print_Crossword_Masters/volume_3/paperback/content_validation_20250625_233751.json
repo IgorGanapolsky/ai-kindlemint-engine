@@ -1,0 +1,1063 @@
+{
+  "timestamp": "2025-06-25T23:37:51.736774",
+  "file_path": "/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/Large_Print_Crossword_Masters_-_Volume_3_interior_FINAL.pdf",
+  "puzzle_count": 51,
+  "validations": {
+    "uniqueness": {
+      "passed": false,
+      "unique_puzzles": 20,
+      "total_puzzles": 51,
+      "uniqueness_ratio": 0.39215686274509803,
+      "duplicates": [
+        {
+          "puzzle": 3,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 6,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 8,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 10,
+          "duplicate_of": 5,
+          "signature": "a54a35d6ddb19a75eedb27abe264f4a8"
+        },
+        {
+          "puzzle": 13,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 15,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 17,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 18,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 21,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 23,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 24,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 25,
+          "duplicate_of": 5,
+          "signature": "a54a35d6ddb19a75eedb27abe264f4a8"
+        },
+        {
+          "puzzle": 27,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 28,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 29,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 30,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 31,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 33,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 34,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 35,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 36,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 37,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 38,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 40,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 41,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 43,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 44,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 45,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 47,
+          "duplicate_of": 7,
+          "signature": "ddaa91c2e2b81e43273f92b3ccd5aae7"
+        },
+        {
+          "puzzle": 48,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        },
+        {
+          "puzzle": 49,
+          "duplicate_of": 1,
+          "signature": "848abaa8fd33ef46b943bcb0ece57d6f"
+        }
+      ]
+    },
+    "completeness": {
+      "passed": false,
+      "complete_puzzles": 0,
+      "incomplete_puzzles": [
+        {
+          "puzzle": 1,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 1,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "No solution found",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 2,
+          "issues": [
+            "Only 1 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 3,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 4,
+          "issues": [
+            "Only 2 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 5,
+          "issues": [
+            "Only 1 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 6,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 7,
+          "issues": [
+            "Only 1 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 8,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 9,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 2 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 10,
+          "issues": [
+            "Only 1 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 11,
+          "issues": [
+            "Only 2 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 12,
+          "issues": [
+            "Only 2 ACROSS clues (minimum 5)",
+            "Only 1 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 13,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 14,
+          "issues": [
+            "Only 2 ACROSS clues (minimum 5)",
+            "Only 1 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 15,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 16,
+          "issues": [
+            "Only 1 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 17,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 18,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 19,
+          "issues": [
+            "Only 4 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 20,
+          "issues": [
+            "Only 2 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 21,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 22,
+          "issues": [
+            "Only 1 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 23,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 24,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 25,
+          "issues": [
+            "Only 1 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 26,
+          "issues": [
+            "Only 1 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 27,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 28,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 29,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 30,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 31,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 32,
+          "issues": [
+            "Only 2 ACROSS clues (minimum 5)",
+            "Only 2 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 33,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 34,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 35,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 36,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 37,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 38,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 39,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 1 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 40,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 41,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 42,
+          "issues": [
+            "Only 2 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 43,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 44,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 45,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 46,
+          "issues": [
+            "Only 1 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 47,
+          "issues": [
+            "Only 1 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 48,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 49,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "Only 0 DOWN clues (minimum 5)",
+            "Missing answer words in solution"
+          ]
+        },
+        {
+          "puzzle": 50,
+          "issues": [
+            "Only 0 ACROSS clues (minimum 5)",
+            "No solution found",
+            "Missing answer words in solution"
+          ]
+        }
+      ]
+    },
+    "content_quality": {
+      "passed": false,
+      "quality_score": 0.6666666666666666,
+      "issues": [
+        {
+          "puzzle": 4,
+          "issues": [
+            "Generic clue detected: 'Puzzle 3 word'",
+            "Generic clue detected: 'Puzzle 3 word'",
+            "Clue repeated 2 times: 'Puzzle 3 word'"
+          ]
+        },
+        {
+          "puzzle": 5,
+          "issues": [
+            "Generic clue detected: 'Crossword entry'"
+          ]
+        },
+        {
+          "puzzle": 9,
+          "issues": [
+            "Generic clue detected: 'Puzzle 8 word'",
+            "Generic clue detected: 'Puzzle 8 word'",
+            "Clue repeated 2 times: 'Puzzle 8 word'"
+          ]
+        },
+        {
+          "puzzle": 10,
+          "issues": [
+            "Generic clue detected: 'Crossword entry'"
+          ]
+        },
+        {
+          "puzzle": 11,
+          "issues": [
+            "Generic clue detected: '5-letter word'"
+          ]
+        },
+        {
+          "puzzle": 12,
+          "issues": [
+            "Clue repeated 2 times: 'Word with 5 letters'"
+          ]
+        },
+        {
+          "puzzle": 14,
+          "issues": [
+            "Generic clue detected: 'Puzzle 13 word'",
+            "Generic clue detected: 'Puzzle 13 word'",
+            "Generic clue detected: 'Puzzle 13 word'",
+            "Clue repeated 3 times: 'Puzzle 13 word'"
+          ]
+        },
+        {
+          "puzzle": 16,
+          "issues": [
+            "Generic clue detected: '5-letter word'"
+          ]
+        },
+        {
+          "puzzle": 19,
+          "issues": [
+            "Generic clue detected: 'Puzzle 18 word'",
+            "Generic clue detected: 'Puzzle 18 word'",
+            "Generic clue detected: 'Puzzle 18 word'",
+            "Generic clue detected: 'Puzzle 18 word'",
+            "Clue repeated 4 times: 'Puzzle 18 word'"
+          ]
+        },
+        {
+          "puzzle": 20,
+          "issues": [
+            "Generic clue detected: 'Crossword entry'",
+            "Generic clue detected: 'Crossword entry'",
+            "Clue repeated 2 times: 'Crossword entry'"
+          ]
+        },
+        {
+          "puzzle": 25,
+          "issues": [
+            "Generic clue detected: 'Crossword entry'"
+          ]
+        },
+        {
+          "puzzle": 26,
+          "issues": [
+            "Generic clue detected: '5-letter word'"
+          ]
+        },
+        {
+          "puzzle": 32,
+          "issues": [
+            "Clue repeated 2 times: 'Word with 5 letters'"
+          ]
+        },
+        {
+          "puzzle": 39,
+          "issues": [
+            "Generic clue detected: 'Puzzle 38 word'"
+          ]
+        },
+        {
+          "puzzle": 42,
+          "issues": [
+            "Clue repeated 2 times: 'Word with 5 letters'"
+          ]
+        },
+        {
+          "puzzle": 46,
+          "issues": [
+            "Generic clue detected: '5-letter word'"
+          ]
+        },
+        {
+          "puzzle": 50,
+          "issues": [
+            "Generic clue detected: 'TANGO - 5-letter word'",
+            "Generic clue detected: '... - Puzzle 8 word'",
+            "Generic clue detected: 'TREE - Puzzle 3 word'",
+            "Generic clue detected: '......... - Crossword entry'",
+            "Generic clue detected: '.... - Puzzle 8 word'"
+          ]
+        }
+      ]
+    },
+    "solutions": {
+      "passed": true,
+      "valid_solutions": 51,
+      "issues": []
+    },
+    "clue_balance": {
+      "passed": false,
+      "balanced_puzzles": 33,
+      "imbalanced": [
+        {
+          "puzzle": 2,
+          "across": 1,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 4,
+          "across": 2,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 5,
+          "across": 1,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 7,
+          "across": 1,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 9,
+          "across": 0,
+          "down": 2,
+          "ratio": "0/100"
+        },
+        {
+          "puzzle": 10,
+          "across": 1,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 11,
+          "across": 2,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 16,
+          "across": 1,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 19,
+          "across": 4,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 20,
+          "across": 2,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 22,
+          "across": 1,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 25,
+          "across": 1,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 26,
+          "across": 1,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 39,
+          "across": 0,
+          "down": 1,
+          "ratio": "0/100"
+        },
+        {
+          "puzzle": 42,
+          "across": 2,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 46,
+          "across": 1,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 47,
+          "across": 1,
+          "down": 0,
+          "ratio": "100/0"
+        },
+        {
+          "puzzle": 50,
+          "across": 0,
+          "down": 16,
+          "ratio": "0/100"
+        }
+      ]
+    }
+  },
+  "issues": [
+    "Puzzle 3 is duplicate of puzzle 1",
+    "Puzzle 6 is duplicate of puzzle 1",
+    "Puzzle 8 is duplicate of puzzle 1",
+    "Puzzle 10 is duplicate of puzzle 5",
+    "Puzzle 13 is duplicate of puzzle 1",
+    "Puzzle 15 is duplicate of puzzle 1",
+    "Puzzle 17 is duplicate of puzzle 1",
+    "Puzzle 18 is duplicate of puzzle 1",
+    "Puzzle 21 is duplicate of puzzle 1",
+    "Puzzle 23 is duplicate of puzzle 1",
+    "Puzzle 24 is duplicate of puzzle 1",
+    "Puzzle 25 is duplicate of puzzle 5",
+    "Puzzle 27 is duplicate of puzzle 1",
+    "Puzzle 28 is duplicate of puzzle 1",
+    "Puzzle 29 is duplicate of puzzle 1",
+    "Puzzle 30 is duplicate of puzzle 1",
+    "Puzzle 31 is duplicate of puzzle 1",
+    "Puzzle 33 is duplicate of puzzle 1",
+    "Puzzle 34 is duplicate of puzzle 1",
+    "Puzzle 35 is duplicate of puzzle 1",
+    "Puzzle 36 is duplicate of puzzle 1",
+    "Puzzle 37 is duplicate of puzzle 1",
+    "Puzzle 38 is duplicate of puzzle 1",
+    "Puzzle 40 is duplicate of puzzle 1",
+    "Puzzle 41 is duplicate of puzzle 1",
+    "Puzzle 43 is duplicate of puzzle 1",
+    "Puzzle 44 is duplicate of puzzle 1",
+    "Puzzle 45 is duplicate of puzzle 1",
+    "Puzzle 47 is duplicate of puzzle 7",
+    "Puzzle 48 is duplicate of puzzle 1",
+    "Puzzle 49 is duplicate of puzzle 1",
+    "Only 20/51 puzzles are unique (39.2%)",
+    "Puzzle 1: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 1: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 1: Missing answer words in solution",
+    "Puzzle 1: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 1: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 1: No solution found",
+    "Puzzle 1: Missing answer words in solution",
+    "Puzzle 2: Only 1 ACROSS clues (minimum 5)",
+    "Puzzle 2: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 2: Missing answer words in solution",
+    "Puzzle 3: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 3: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 3: Missing answer words in solution",
+    "Puzzle 4: Only 2 ACROSS clues (minimum 5)",
+    "Puzzle 4: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 4: Missing answer words in solution",
+    "Puzzle 5: Only 1 ACROSS clues (minimum 5)",
+    "Puzzle 5: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 5: Missing answer words in solution",
+    "Puzzle 6: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 6: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 6: Missing answer words in solution",
+    "Puzzle 7: Only 1 ACROSS clues (minimum 5)",
+    "Puzzle 7: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 7: Missing answer words in solution",
+    "Puzzle 8: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 8: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 8: Missing answer words in solution",
+    "Puzzle 9: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 9: Only 2 DOWN clues (minimum 5)",
+    "Puzzle 9: Missing answer words in solution",
+    "Puzzle 10: Only 1 ACROSS clues (minimum 5)",
+    "Puzzle 10: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 10: Missing answer words in solution",
+    "Puzzle 11: Only 2 ACROSS clues (minimum 5)",
+    "Puzzle 11: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 11: Missing answer words in solution",
+    "Puzzle 12: Only 2 ACROSS clues (minimum 5)",
+    "Puzzle 12: Only 1 DOWN clues (minimum 5)",
+    "Puzzle 12: Missing answer words in solution",
+    "Puzzle 13: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 13: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 13: Missing answer words in solution",
+    "Puzzle 14: Only 2 ACROSS clues (minimum 5)",
+    "Puzzle 14: Only 1 DOWN clues (minimum 5)",
+    "Puzzle 14: Missing answer words in solution",
+    "Puzzle 15: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 15: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 15: Missing answer words in solution",
+    "Puzzle 16: Only 1 ACROSS clues (minimum 5)",
+    "Puzzle 16: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 16: Missing answer words in solution",
+    "Puzzle 17: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 17: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 17: Missing answer words in solution",
+    "Puzzle 18: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 18: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 18: Missing answer words in solution",
+    "Puzzle 19: Only 4 ACROSS clues (minimum 5)",
+    "Puzzle 19: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 19: Missing answer words in solution",
+    "Puzzle 20: Only 2 ACROSS clues (minimum 5)",
+    "Puzzle 20: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 20: Missing answer words in solution",
+    "Puzzle 21: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 21: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 21: Missing answer words in solution",
+    "Puzzle 22: Only 1 ACROSS clues (minimum 5)",
+    "Puzzle 22: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 22: Missing answer words in solution",
+    "Puzzle 23: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 23: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 23: Missing answer words in solution",
+    "Puzzle 24: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 24: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 24: Missing answer words in solution",
+    "Puzzle 25: Only 1 ACROSS clues (minimum 5)",
+    "Puzzle 25: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 25: Missing answer words in solution",
+    "Puzzle 26: Only 1 ACROSS clues (minimum 5)",
+    "Puzzle 26: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 26: Missing answer words in solution",
+    "Puzzle 27: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 27: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 27: Missing answer words in solution",
+    "Puzzle 28: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 28: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 28: Missing answer words in solution",
+    "Puzzle 29: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 29: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 29: Missing answer words in solution",
+    "Puzzle 30: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 30: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 30: Missing answer words in solution",
+    "Puzzle 31: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 31: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 31: Missing answer words in solution",
+    "Puzzle 32: Only 2 ACROSS clues (minimum 5)",
+    "Puzzle 32: Only 2 DOWN clues (minimum 5)",
+    "Puzzle 32: Missing answer words in solution",
+    "Puzzle 33: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 33: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 33: Missing answer words in solution",
+    "Puzzle 34: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 34: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 34: Missing answer words in solution",
+    "Puzzle 35: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 35: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 35: Missing answer words in solution",
+    "Puzzle 36: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 36: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 36: Missing answer words in solution",
+    "Puzzle 37: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 37: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 37: Missing answer words in solution",
+    "Puzzle 38: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 38: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 38: Missing answer words in solution",
+    "Puzzle 39: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 39: Only 1 DOWN clues (minimum 5)",
+    "Puzzle 39: Missing answer words in solution",
+    "Puzzle 40: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 40: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 40: Missing answer words in solution",
+    "Puzzle 41: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 41: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 41: Missing answer words in solution",
+    "Puzzle 42: Only 2 ACROSS clues (minimum 5)",
+    "Puzzle 42: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 42: Missing answer words in solution",
+    "Puzzle 43: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 43: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 43: Missing answer words in solution",
+    "Puzzle 44: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 44: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 44: Missing answer words in solution",
+    "Puzzle 45: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 45: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 45: Missing answer words in solution",
+    "Puzzle 46: Only 1 ACROSS clues (minimum 5)",
+    "Puzzle 46: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 46: Missing answer words in solution",
+    "Puzzle 47: Only 1 ACROSS clues (minimum 5)",
+    "Puzzle 47: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 47: Missing answer words in solution",
+    "Puzzle 48: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 48: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 48: Missing answer words in solution",
+    "Puzzle 49: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 49: Only 0 DOWN clues (minimum 5)",
+    "Puzzle 49: Missing answer words in solution",
+    "Puzzle 50: Only 0 ACROSS clues (minimum 5)",
+    "Puzzle 50: No solution found",
+    "Puzzle 50: Missing answer words in solution"
+  ],
+  "warnings": [
+    "Puzzle 4: Generic clue detected: 'Puzzle 3 word'",
+    "Puzzle 4: Generic clue detected: 'Puzzle 3 word'",
+    "Puzzle 5: Generic clue detected: 'Crossword entry'",
+    "Puzzle 9: Generic clue detected: 'Puzzle 8 word'",
+    "Puzzle 9: Generic clue detected: 'Puzzle 8 word'",
+    "Puzzle 10: Generic clue detected: 'Crossword entry'",
+    "Puzzle 11: Generic clue detected: '5-letter word'",
+    "Puzzle 12: Clue repeated 2 times: 'Word with 5 letters'",
+    "Puzzle 14: Generic clue detected: 'Puzzle 13 word'",
+    "Puzzle 14: Generic clue detected: 'Puzzle 13 word'",
+    "Puzzle 16: Generic clue detected: '5-letter word'",
+    "Puzzle 19: Generic clue detected: 'Puzzle 18 word'",
+    "Puzzle 19: Generic clue detected: 'Puzzle 18 word'",
+    "Puzzle 20: Generic clue detected: 'Crossword entry'",
+    "Puzzle 20: Generic clue detected: 'Crossword entry'",
+    "Puzzle 25: Generic clue detected: 'Crossword entry'",
+    "Puzzle 26: Generic clue detected: '5-letter word'",
+    "Puzzle 32: Clue repeated 2 times: 'Word with 5 letters'",
+    "Puzzle 39: Generic clue detected: 'Puzzle 38 word'",
+    "Puzzle 42: Clue repeated 2 times: 'Word with 5 letters'",
+    "Puzzle 46: Generic clue detected: '5-letter word'",
+    "Puzzle 50: Generic clue detected: 'TANGO - 5-letter word'",
+    "Puzzle 50: Generic clue detected: '... - Puzzle 8 word'",
+    "Puzzle 2: Imbalanced clues (1 across, 0 down)",
+    "Puzzle 4: Imbalanced clues (2 across, 0 down)",
+    "Puzzle 5: Imbalanced clues (1 across, 0 down)",
+    "Puzzle 7: Imbalanced clues (1 across, 0 down)",
+    "Puzzle 9: Imbalanced clues (0 across, 2 down)",
+    "Puzzle 10: Imbalanced clues (1 across, 0 down)",
+    "Puzzle 11: Imbalanced clues (2 across, 0 down)",
+    "Puzzle 16: Imbalanced clues (1 across, 0 down)",
+    "Puzzle 19: Imbalanced clues (4 across, 0 down)",
+    "Puzzle 20: Imbalanced clues (2 across, 0 down)",
+    "Puzzle 22: Imbalanced clues (1 across, 0 down)",
+    "Puzzle 25: Imbalanced clues (1 across, 0 down)",
+    "Puzzle 26: Imbalanced clues (1 across, 0 down)",
+    "Puzzle 39: Imbalanced clues (0 across, 1 down)",
+    "Puzzle 42: Imbalanced clues (2 across, 0 down)",
+    "Puzzle 46: Imbalanced clues (1 across, 0 down)",
+    "Puzzle 47: Imbalanced clues (1 across, 0 down)",
+    "Puzzle 50: Imbalanced clues (0 across, 16 down)"
+  ],
+  "processing_time": 0.365848,
+  "score": 20,
+  "publish_ready": false
+}

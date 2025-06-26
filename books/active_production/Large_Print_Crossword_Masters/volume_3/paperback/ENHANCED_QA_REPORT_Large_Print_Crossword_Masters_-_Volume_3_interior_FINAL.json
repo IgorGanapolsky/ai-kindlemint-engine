@@ -1,0 +1,464 @@
+{
+  "file_path": "books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/Large_Print_Crossword_Masters_-_Volume_3_interior_FINAL.pdf",
+  "timestamp": "2025-06-25T23:42:52.495879",
+  "overall_score": 40,
+  "publish_ready": false,
+  "issues_found": [
+    {
+      "type": "CRITICAL",
+      "code": "High duplication",
+      "description": "Content is 89.4% duplicate (threshold: 10.0%)"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 6: Text '1. Feline pet...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 7: Text '1. Bakery staple...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 8: Text '1. French capital...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 9: Text '1. 88-key instrument...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 10: Text '1. Smallest unit...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 11: Text '1. Sports & Games re...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 12: Text '1. Technology relate...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 13: Text '1. Literature relate...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 14: Text '1. History related t...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 15: Text '1. Movies & TV relat...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 16: Text '1. Fashion related t...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 17: Text '1. Weather related t...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 18: Text '1. Transportation re...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 19: Text '1. Holidays related ...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 20: Text '1. Occupations relat...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 21: Text '1. Colors & Shapes r...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 22: Text '1. Numbers & Math re...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 23: Text '1. Emotions related ...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 24: Text '1. School Subjects r...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 25: Text '1. Hobbies related t...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 26: Text '1. Garden & Plants r...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 27: Text '1. Ocean Life relate...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 28: Text '1. Mountains related...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 29: Text '1. Desserts related ...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 30: Text '1. Beverages related...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 31: Text '1. Tools & Hardware ...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 32: Text '1. Furniture related...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 33: Text '1. Clothing related ...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 34: Text '1. Body Parts relate...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 35: Text '1. Languages related...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 36: Text '1. Countries related...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 37: Text '1. Rivers & Lakes re...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 38: Text '1. Space related ter...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 39: Text '1. Mythology related...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 40: Text '1. Seasons related t...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 41: Text '1. Flowers related t...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 42: Text '1. Trees related ter...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 43: Text '1. Birds related ter...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 44: Text '1. Insects related t...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 45: Text '1. Reptiles related ...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 46: Text '1. Weather Events re...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 47: Text '1. Kitchen Items rel...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 48: Text '1. Office Supplies r...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 49: Text '1. Sports Equipment ...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 50: Text '1. Musical Terms rel...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 51: Text '1. Dance Styles rela...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 52: Text '1. Art Movements rel...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 53: Text '1. Architecture rela...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 54: Text '1. Gemstones related...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "Text cutoff risk",
+      "description": "Page 55: Text '1. Metals related te...' may be cut off"
+    },
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 1: Duplicate content in puzzle clues and answers."
+    },
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 2: Incomplete and inconsistent puzzle clues and answers."
+    }
+  ],
+  "warnings": [
+    {
+      "type": "WARNING",
+      "code": "Excessive whitespace",
+      "description": "46 of 107 pages (43.0%) have excessive whitespace"
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 1: Table of contents is not properly aligned or formatted."
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 2: Missing page numbers or identifiers for puzzles."
+    },
+    {
+      "type": "WARNING",
+      "code": "KDP check error",
+      "description": "KDP compliance check failed: 'Document' object has no attribute 'pdf_version'"
+    }
+  ],
+  "info": [],
+  "checks": {
+    "file_properties": {
+      "file_exists": true,
+      "file_size_bytes": 254095
+    },
+    "pdf_structure": {
+      "page_count": 107,
+      "not_encrypted": true,
+      "fonts": {
+        "all_embedded": true,
+        "fonts": [
+          {
+            "name": "Helvetica",
+            "embedded": true,
+            "page": 1
+          },
+          {
+            "name": "Helvetica-Bold",
+            "embedded": true,
+            "page": 1
+          }
+        ]
+      }
+    },
+    "content_quality": {
+      "total_characters": 50472,
+      "total_words": 14522,
+      "duplicate_content_ratio": 0.8935704514363885
+    },
+    "visual_layout": {
+      "pages_analyzed": 107,
+      "pages_with_high_whitespace": 46,
+      "text_cutoff_instances": 50,
+      "whitespace_ratio_by_page": {
+        "1": 0.9792512543738034,
+        "2": 0.9953497392222882,
+        "3": 0.9231530996236879,
+        "4": 0.9825831847890671,
+        "5": 0.9852507922360864,
+        "6": 0.905175117184921,
+        "7": 0.9042095794546775,
+        "8": 0.8980326137188882,
+        "9": 0.9066151713210536,
+        "10": 0.9011107810127418,
+        "11": 0.8962769030170991,
+        "12": 0.9147871690763848,
+        "13": 0.9400623885918004,
+        "14": 0.9235492176668647,
+        "15": 0.930336865385885,
+        "16": 0.9339679474483396,
+        "17": 0.8983235129068462,
+        "18": 0.9136215092097445,
+        "19": 0.9349396745230079,
+        "20": 0.9216738463061992,
+        "21": 0.9289855251865056,
+        "22": 0.930404948174556,
+        "23": 0.8981914735591207,
+        "24": 0.9132212649369512,
+        "25": 0.9400892090843072,
+        "26": 0.9209414405492837,
+        "27": 0.9308877170396779,
+        "28": 0.9253833267313659,
+        "29": 0.8981687792962303,
+        "30": 0.9146530666138509,
+        "31": 0.9375722090182874,
+        "32": 0.9227796758434014,
+        "33": 0.9310857760612663,
+        "34": 0.9356370073281838,
+        "35": 0.8973435333729451,
+        "36": 0.9153338945005611,
+        "37": 0.938556314781805,
+        "38": 0.9235079553707005,
+        "39": 0.9304668416188024,
+        "40": 0.9360001155344293,
+        "41": 0.8985401399617086,
+        "42": 0.9165903314187628,
+        "43": 0.9409680959926058,
+        "44": 0.9234584406153034,
+        "45": 0.9311167227833894,
+        "46": 0.9335429457978478,
+        "47": 0.8969659833630422,
+        "48": 0.9132109493629101,
+        "49": 0.9371905327787681,
+        "50": 0.9210755430118175,
+        "51": 0.929852033405955,
+        "52": 0.9366025450584274,
+        "53": 0.8973290915692876,
+        "54": 0.914634498580577,
+        "55": 0.9405369049976893,
+        "56": 0.9978275401069518,
+        "57": 0.8944015316564337,
+        "58": 0.8948059021588434,
+        "59": 0.8895903479236813,
+        "60": 0.896266587443058,
+        "61": 0.8921589258599063,
+        "62": 0.8914739717435796,
+        "63": 0.9032626097577078,
+        "64": 0.9236234897999603,
+        "65": 0.9116924968640655,
+        "66": 0.9147747903875355,
+        "67": 0.9188205585264408,
+        "68": 0.8908632897603486,
+        "69": 0.9037061794414736,
+        "70": 0.9193755364098501,
+        "71": 0.9113087575097379,
+        "72": 0.9147644748134944,
+        "73": 0.917260843731432,
+        "74": 0.8909458143526771,
+        "75": 0.9049749950485244,
+        "76": 0.9236007955370701,
+        "77": 0.9121752657291873,
+        "78": 0.9147438436654123,
+        "79": 0.9124352181950222,
+        "80": 0.8913708160031689,
+        "81": 0.9036669802601175,
+        "82": 0.9236276160295768,
+        "83": 0.9105557206047402,
+        "84": 0.914712896943289,
+        "85": 0.9202812438106556,
+        "86": 0.8899844028520499,
+        "87": 0.9044819106093616,
+        "88": 0.9233903578266324,
+        "89": 0.9110343632402456,
+        "90": 0.9147294018617548,
+        "91": 0.9202544233181488,
+        "92": 0.8913316168218129,
+        "93": 0.9051235393147158,
+        "94": 0.9234831979930019,
+        "95": 0.9107372747078629,
+        "96": 0.9147273387469466,
+        "97": 0.9197262659272463,
+        "98": 0.8911541889483066,
+        "99": 0.9033410081204198,
+        "100": 0.9235058922558923,
+        "101": 0.9120184690037632,
+        "102": 0.9147170231729055,
+        "103": 0.9221628045157457,
+        "104": 0.8904733610615964,
+        "105": 0.9039578794480755,
+        "106": 0.9235058922558923,
+        "107": 0.992642932593913
+      },
+      "whitespace_compliance": 0.5700934579439252
+    },
+    "llm_content_validation": {
+      "models_used": [
+        "gpt4o"
+      ],
+      "validation_results": {
+        "gpt4o": {
+          "quality_score": 70,
+          "issues": [
+            "Critical issue 1: Duplicate content in puzzle clues and answers.",
+            "Critical issue 2: Incomplete and inconsistent puzzle clues and answers."
+          ],
+          "warnings": [
+            "Warning 1: Table of contents is not properly aligned or formatted.",
+            "Warning 2: Missing page numbers or identifiers for puzzles."
+          ],
+          "feedback": "The book contains several critical issues that need to be addressed before publishing. There are duplicate entries in the puzzle clues and answers, which can confuse readers and affect the integrity of the puzzles. Additionally, some puzzles have incomplete or inconsistent clues and answers, which need to be corrected to ensure a smooth solving experience. The table of contents should be properly aligned and formatted for better readability. Consider adding page numbers or identifiers to help readers navigate through the puzzles more easily. Address these issues to improve the overall quality and ensure compliance with KDP standards."
+        }
+      },
+      "consensus_score": 70
+    },
+    "kdp_compliance": {
+      "file_size_mb": 0.2423238754272461
+    }
+  }
+}

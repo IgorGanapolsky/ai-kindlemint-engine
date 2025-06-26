@@ -1,0 +1,16 @@
+{
+  "title": "Large Print Crossword Masters",
+  "subtitle": "Volume 3",
+  "author": "KindleMint Publications",
+  "publisher": "KindleMint Publishing",
+  "isbn": "979-8-12345-678-9",
+  "pages": 156,
+  "back_cover_description": "Challenge Your Mind with 50 Unique Puzzles!\n\nLarge Print Crossword Masters Volume 3 continues our tradition of premium puzzle books designed for comfort and enjoyment.\n\nInside you'll find:\n• 50 completely unique crossword puzzles\n• Large, easy-to-read 15×15 grids\n• Carefully crafted clues for all skill levels\n• Complete answer key included\n• Perfect binding for flat-open solving\n\nIdeal for puzzle enthusiasts, seniors, and anyone who enjoys mental challenges in a comfortable format.",
+  "cover_source": "cover.png",
+  "output_dir": "books/active_production/Large_Print_Crossword_Masters/volume_3/hardcover",
+  "trim_size": "6x9",
+  "spine_width_inches": 0.45,
+  "hardcover_price_min": 19.99,
+  "hardcover_price_max": 24.99,
+  "page_count": 156
+}
