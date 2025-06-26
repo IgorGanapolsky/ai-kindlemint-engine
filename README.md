@@ -135,17 +135,17 @@ python scripts/enhanced_qa_validator_v2.py books/new_puzzle_batch
 - Manual KDP uploads
 - Basic market research
 
-### Phase 2: Q3 2024 🚧
+### Phase 2: Q3 2025 🚧
 - Improve puzzle variety
 - Automate cover generation
 - Better market insights
 
-### Phase 3: Q4 2024 📋
+### Phase 3: Q4 2025 📋
 - Sales data integration (manual import)
 - Multi-series management
 - Quality improvements
 
-### Phase 4: 2025 🔮
+### Phase 4: 2026 🔮
 - Investigate browser automation (risky)
 - Consider AWS if volume justifies cost
 - Build simple dashboard
@@ -183,4 +183,4 @@ MIT - Use at your own risk
 
 ---
 
-**Note**: This README reflects actual capabilities as of June 2024. For the original vision, see [README_ORIGINAL.md](README_ORIGINAL.md). We believe in transparency over hype.
+**Note**: This README reflects actual capabilities as of June 2025. For the original vision, see [README_ORIGINAL.md](README_ORIGINAL.md). We believe in transparency over hype.

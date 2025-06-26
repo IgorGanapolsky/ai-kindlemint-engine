@@ -96,16 +96,12 @@ _(no longer listed: “Quality assurance” – now complete)_
 
 ## Success Metrics
 
-### Q3 2024 Goals
 ### Q3 2025 Goals
-- [ ] 20 books published
 - [ ] 3 puzzle types supported (Crossword, Sudoku, Word-Search)
 - [ ] <20 min automated work per book
 - [ ] 2 active series
 
-### Q4 2024 Goals
 ### Q4 2025 Goals
-- [ ] 40 books published
 - [ ] $750 / month net revenue
 - [ ] 5 active series
 - [ ] 2 external contributors
