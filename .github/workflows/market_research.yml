@@ -57,6 +57,11 @@ jobs:
       run: |
         # Create research output directory
         mkdir -p research/$(date +%Y-%m-%d)
+        mkdir -p data/market-insights
+        
+        # Run Reddit scraper first
+        echo "📱 Running Reddit market scraper..."
+        python scripts/reddit_market_scraper.py || echo "⚠️ Reddit scraper failed, continuing..."
         
         # Run the market research script with CSV output (allow failure)
         python scripts/market_research_csv_output.py || {

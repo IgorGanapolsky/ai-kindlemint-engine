@@ -12,6 +12,7 @@ import json
 import re
 from datetime import datetime
 import sys
+from puzzle_validators import validate_clue_content, validate_crossword_clue_quality_in_pdf
 
 class ProductionQAValidator:
     def __init__(self):
@@ -147,6 +148,18 @@ class ProductionQAValidator:
                 # Check for "Test" in title
                 if "Test" in sample_text[:500] or "test" in sample_text[:500]:
                     self.warnings.append("⚠️  'Test' found in content - remove for production")
+                
+                # 7. Crossword clue quality check
+                print("\n📝 Checking crossword clue quality...")
+                clue_valid, clue_stats = validate_crossword_clue_quality_in_pdf(pdf_path)
+                
+                if not clue_valid:
+                    self.critical_issues.append(f"Invalid crossword clues found: {clue_stats.get('invalid_clues', 0)} placeholder clues detected")
+                    if 'invalid_examples' in clue_stats:
+                        for example in clue_stats['invalid_examples'][:3]:
+                            self.critical_issues.append(f"  - Page {example['page']}: '{example['clue']}' ({example['error']})")
+                else:
+                    self.passed_checks.append(f"✅ All {clue_stats.get('total_clues', 0)} crossword clues are valid")
                 
                 # Check for repeated content
                 lines = sample_text.split('\n')

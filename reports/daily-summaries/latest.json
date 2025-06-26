@@ -1,0 +1,73 @@
+{
+  "date": "2025-06-26",
+  "timestamp": "2025-06-26T12:54:13.140072",
+  "production": {
+    "books_generated_today": 0,
+    "total_books": 5,
+    "puzzles_created": 250,
+    "formats": {
+      "paperback": 5,
+      "hardcover": 4,
+      "kindle": 3
+    },
+    "series_status": [
+      {
+        "name": "Large_Print_Crossword_Masters",
+        "volumes": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "name": "Test_Series",
+        "volumes": [
+          1
+        ]
+      }
+    ]
+  },
+  "quality": {
+    "qa_runs_today": 2,
+    "qa_pass_rate": 0.0,
+    "common_issues": [
+      "Crossword grids appear to be missing or improperly rendered",
+      "Invalid crossword clues found: 394 placeholder clues detected"
+    ],
+    "last_validation": "2025-06-26 12:41:56"
+  },
+  "market_research": {
+    "trending_keywords": [],
+    "hot_niches": [],
+    "competitor_activity": "Unknown",
+    "last_scrape": null
+  },
+  "revenue_estimate": {
+    "daily_estimate": 167.4,
+    "monthly_estimate": 5022.0,
+    "breakdown": {
+      "paperback": 57.400000000000006,
+      "hardcover": 68.0,
+      "kindle": 42.0
+    },
+    "assumptions": {
+      "avg_sales_per_book_daily": 2,
+      "paperback_profit": 5.74,
+      "hardcover_profit": 8.5,
+      "kindle_profit": 7.0
+    }
+  },
+  "automation_status": {
+    "github_actions": "Configured",
+    "market_research": "Pending",
+    "last_commit": "2025-06-26 12:43:30 -0400",
+    "pending_tasks": [
+      "Run market research"
+    ]
+  },
+  "next_actions": [
+    "\ud83d\udcd6 Create hardcover editions for existing paperbacks (higher profit margin)",
+    "\u26a0\ufe0f Fix QA issues before publishing - current pass rate: 0%"
+  ]
+}

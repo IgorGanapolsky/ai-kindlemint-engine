@@ -1,9 +1,13 @@
 {
-  "timestamp": "2025-06-26T12:18:23.359938",
-  "score": 75,
+  "timestamp": "2025-06-26T12:41:56.682370",
+  "score": 0,
   "ready": false,
   "critical_issues": [
-    "Crossword grids appear to be missing or improperly rendered"
+    "Crossword grids appear to be missing or improperly rendered",
+    "Invalid crossword clues found: 394 placeholder clues detected",
+    "  - Page 6: 'Word meaning frame' (Placeholder pattern detected: word meaning \\w+)",
+    "  - Page 6: 'Word meaning pelt' (Placeholder pattern detected: word meaning \\w+)",
+    "  - Page 6: 'Word meaning river' (Placeholder pattern detected: word meaning \\w+)"
   ],
   "warnings": [
     "\u26a0\ufe0f  Black squares may not be rendering properly"

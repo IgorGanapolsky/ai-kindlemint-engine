@@ -300,6 +300,111 @@ def validate_crossword_solutions_in_pdf(pdf_path: Path) -> Tuple[bool, Dict]:
         return False, {"error": str(e)}
 
 
+def validate_clue_content(clue_text: str) -> Tuple[bool, str]:
+    """
+    Validate individual clue content for quality and correctness.
+    Returns (is_valid, error_message)
+    """
+    # Check for placeholder patterns
+    placeholder_patterns = [
+        r"word meaning \w+",
+        r"related term",
+        r"placeholder",
+        r"test",
+        r"^clue \d+$",
+        r"^word \d+$",
+        r"TODO",
+        r"FIXME",
+        r"XXX",
+        r"temp",
+        r"dummy"
+    ]
+    
+    clue_lower = clue_text.lower().strip()
+    
+    for pattern in placeholder_patterns:
+        if re.search(pattern, clue_lower, re.IGNORECASE):
+            return False, f"Placeholder pattern detected: {pattern}"
+    
+    # Check minimum quality
+    if len(clue_text.split()) < 2:
+        return False, "Clue too short (less than 2 words)"
+    
+    if len(clue_text) < 5:
+        return False, "Clue too short (less than 5 characters)"
+    
+    # Check for repetitive patterns
+    if re.match(r"^(\w+\s+){1,2}$", clue_text):
+        return False, "Clue appears to be incomplete"
+    
+    # Check for question marks or incomplete sentences
+    if clue_text.count("?") > 3:
+        return False, "Too many question marks"
+    
+    return True, ""
+
+
+def validate_crossword_clue_quality_in_pdf(pdf_path: Path) -> Tuple[bool, Dict]:
+    """
+    Validate that crossword clues in PDF are actual clues, not placeholders.
+    Returns (success, stats_dict)
+    """
+    try:
+        with open(pdf_path, 'rb') as file:
+            pdf = PyPDF2.PdfReader(file)
+            
+            invalid_clues = []
+            total_clues = 0
+            pages_checked = 0
+            
+            # Check first 50 pages for puzzles
+            for page_num in range(min(50, len(pdf.pages))):
+                page_text = pdf.pages[page_num].extract_text()
+                
+                # Look for puzzle pages
+                if re.search(r'Puzzle \d+ - Clues', page_text) or 'ACROSS' in page_text:
+                    pages_checked += 1
+                    
+                    # Extract clues using various patterns
+                    clue_patterns = [
+                        r'\d+\.\s+(.+?)(?=\d+\.|$|ACROSS|DOWN)',  # Numbered clues
+                        r'(?:ACROSS|DOWN)\s*\n((?:.+\n)+)',  # Section-based
+                    ]
+                    
+                    for pattern in clue_patterns:
+                        matches = re.findall(pattern, page_text, re.MULTILINE)
+                        for match in matches:
+                            # Clean up the match
+                            clue_lines = match.strip().split('\n')
+                            for line in clue_lines:
+                                # Extract clue text after number
+                                clue_match = re.match(r'\d+\.\s+(.+)', line.strip())
+                                if clue_match:
+                                    clue_text = clue_match.group(1).strip()
+                                    total_clues += 1
+                                    
+                                    is_valid, error = validate_clue_content(clue_text)
+                                    if not is_valid:
+                                        invalid_clues.append({
+                                            'page': page_num + 1,
+                                            'clue': clue_text,
+                                            'error': error
+                                        })
+            
+            success_rate = (total_clues - len(invalid_clues)) / total_clues if total_clues > 0 else 0
+            
+            return success_rate > 0.95, {
+                "pages_checked": pages_checked,
+                "total_clues": total_clues,
+                "invalid_clues": len(invalid_clues),
+                "invalid_examples": invalid_clues[:10],  # First 10 examples
+                "success_rate": success_rate
+            }
+            
+    except Exception as e:
+        return False, {"error": str(e)}
+
+
 def validate_crossword_metadata(metadata_dir: Path) -> List[Dict]:
     """Enhanced crossword validation for metadata with strict answer checks"""
     issues = []
@@ -331,26 +436,17 @@ def validate_crossword_metadata(metadata_dir: Path) -> List[Dict]:
                         'description': f'Clue "{clue}" appears {count} times'
                     })
             
-            # Check for placeholder clues
-            placeholder_patterns = [
-                r"related term",
-                r"placeholder",
-                r"test",
-                r"^clue \d+$",
-                r"^word \d+$"
-            ]
-            
+            # Validate each clue content
             for direction in ['across', 'down']:
                 for clue_data in clues.get(direction, []):
                     if len(clue_data) > 1:
-                        clue_text = clue_data[1].lower()
-                        for pattern in placeholder_patterns:
-                            if re.search(pattern, clue_text):
-                                issues.append({
-                                    'puzzle_id': pid,
-                                    'description': f'Placeholder clue detected: "{clue_data[1]}"'
-                                })
-                                break
+                        clue_text = clue_data[1]
+                        is_valid, error = validate_clue_content(clue_text)
+                        if not is_valid:
+                            issues.append({
+                                'puzzle_id': pid,
+                                'description': f'Invalid clue: {error} - "{clue_text}"'
+                            })
                                 
         except Exception as e:
             issues.append({'puzzle_id': None, 'description': f'Error in enhanced validation: {str(e)}'})
