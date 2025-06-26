@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-06-26T13:18:53.937884",
+  "score": 80,
+  "ready": false,
+  "critical_issues": [
+    "PDF file does not exist"
+  ],
+  "warnings": [],
+  "passed_checks": []
+}

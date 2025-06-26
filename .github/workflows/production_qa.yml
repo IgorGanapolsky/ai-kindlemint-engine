@@ -25,7 +25,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install PyPDF2 pillow reportlab
+        # Core Python libs needed by validators
+        pip install PyPDF2 pillow reportlab pymupdf
+        # jq is used by the Slack-notification step – add it via apt
+        sudo apt-get update && sudo apt-get install -y jq
+        # Expose repository root so in-repo modules (e.g. puzzle_validators) resolve
+        echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
     - name: Find book directories
       id: find-books
       run: |
@@ -34,10 +39,25 @@ jobs:
     - name: Run Enhanced QA on each Book
       if: steps.find-books.outputs.book_dirs != ''
       run: |
+        echo "🔍 Running Enhanced QA on detected books..."
+        EXIT_CODE=0
         for dir in ${{ steps.find-books.outputs.book_dirs }}; do
-          echo "Running Enhanced QA on $dir..."
-          python scripts/enhanced_qa_validator_v2.py "$dir" --output-dir "$dir" || exit 1
+          echo "▶️  Validating $dir"
+          python scripts/enhanced_qa_validator_v2.py "$dir" --output-dir "$dir"
+          CODE=$?
+          if [ $CODE -ne 0 ]; then
+            echo "❌ QA FAILED for $dir"
+            EXIT_CODE=$CODE
+          fi
         done
+        if [ $EXIT_CODE -ne 0 ]; then
+          echo "One or more books failed QA"
+          exit $EXIT_CODE
+        fi
+
+    - name: Skip if no books
+      if: steps.find-books.outputs.book_dirs == ''
+      run: echo "ℹ️  No books in active_production – skipping content QA."
     
     - name: Check for test content in metadata
       run: |

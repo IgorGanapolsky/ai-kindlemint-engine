@@ -27,7 +27,13 @@ jobs:
         
     - name: 📦 Install Dependencies
       run: |
-        pip install PyMuPDF reportlab pathlib PyPDF2 Pillow
+        python -m pip install --upgrade pip
+        # Core libs (PyMuPDF brings fitz)
+        pip install PyMuPDF reportlab PyPDF2 Pillow
+        # Extra utils required by validators / workflow
+        sudo apt-get update -y && sudo apt-get install -y jq
+        # Ensure local repo modules are discoverable (e.g. puzzle_validators)
+        echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
 
     # --------------------------------------------------------------------
     # Dynamically find every book (identified by metadata/collection.json)
@@ -44,10 +50,25 @@ jobs:
     - name: 🔍 Run Enhanced QA Validator v2
       if: steps.find-books.outputs.book_dirs != ''
       run: |
+        echo "🔍 Running QA on detected books..."
+        EXIT_CODE=0
         for dir in ${{ steps.find-books.outputs.book_dirs }}; do
-          echo "Running Enhanced QA on ${dir} ..."
+          echo "▶️  Validating ${dir}"
           python scripts/enhanced_qa_validator_v2.py "${dir}" --output-dir "${dir}"
+          CODE=$?
+          if [ $CODE -ne 0 ]; then
+            echo "❌ QA failed for ${dir}"
+            EXIT_CODE=$CODE
+          fi
         done
+        if [ $EXIT_CODE -ne 0 ]; then
+          echo "One or more books failed QA."
+          exit $EXIT_CODE
+        fi
+
+    - name: ℹ️  Skip QA (no books found)
+      if: steps.find-books.outputs.book_dirs == ''
+      run: echo "No books found in books/active_production – skipping content QA."
 
     - name: 📦 Upload QA Reports
       if: always()
