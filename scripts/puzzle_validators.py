@@ -5,6 +5,10 @@ Puzzle Validators - Domain-aware validation for puzzles
 import json
 from pathlib import Path
 from math import sqrt
+import re
+from typing import Dict, List, Tuple, Optional
+from collections import Counter
+import PyPDF2
 
 def validate_sudoku(metadata_dir):
     """
@@ -151,7 +155,7 @@ def _find_word_count(grid, word):
 
 def validate_crossword(metadata_dir):
     """
-    Basic crossword validation: checks clue positions match clues count.
+    Advanced crossword validation with solution checks.
     Returns a list of issues: [{ 'puzzle_id': int, 'description': str }, ...]
     """
     issues = []
@@ -161,11 +165,192 @@ def validate_crossword(metadata_dir):
             data = json.loads(meta_file.read_text())
             pid = data.get('id')
             clues = data.get('clues', {})
-            pos = data.get('clue_positions', {})
-            expected = len(clues.get('across', [])) + len(clues.get('down', []))
-            actual = len(pos)
-            if expected != actual:
-                issues.append({'puzzle_id': pid, 'description': f'Expected {expected} clues, found {actual} positions'})
+            pos_map = data.get('clue_positions', {})
+            grid = data.get('grid_pattern')
+            
+            # Check for empty answers
+            for direction in ['across', 'down']:
+                for clue_data in clues.get(direction, []):
+                    if len(clue_data) < 3:
+                        issues.append({'puzzle_id': pid, 'description': f'Invalid {direction} clue format'})
+                        continue
+                    num, clue_text, answer = clue_data[0], clue_data[1], clue_data[2]
+                    if not answer or not answer.strip():
+                        issues.append({'puzzle_id': pid, 'description': f'Empty answer for {direction} {num}'})
+                    if not clue_text or clue_text.strip() == "":
+                        issues.append({'puzzle_id': pid, 'description': f'Empty clue text for {direction} {num}'})
+                    if answer and not answer.replace(' ', '').isalpha():
+                        issues.append({'puzzle_id': pid, 'description': f'Invalid answer "{answer}" for {direction} {num} - contains non-letters'})
+            
+            if grid:
+                # Build number to position mapping
+                number_positions = {}
+                for key, num in pos_map.items():
+                    try:
+                        r, c = map(int, key.split(','))
+                        number_positions[num] = (r, c)
+                    except Exception:
+                        continue
+                # Validate across clues
+                for num, _, ans in clues.get('across', []):
+                    if num not in number_positions:
+                        issues.append({'puzzle_id': pid, 'description': f'No position for across clue number {num}'})
+                        continue
+                    r, c = number_positions[num]
+                    # Count horizontal cells until black square or edge
+                    length = 0
+                    while c + length < len(grid[0]) and grid[r][c + length] != '#':
+                        length += 1
+                    if length != len(ans):
+                        issues.append({'puzzle_id': pid, 'description': f'Across clue {num} length mismatch: expected {length}, got {len(ans)}'})
+                # Validate down clues
+                for num, _, ans in clues.get('down', []):
+                    if num not in number_positions:
+                        issues.append({'puzzle_id': pid, 'description': f'No position for down clue number {num}'})
+                        continue
+                    r, c = number_positions[num]
+                    length = 0
+                    while r + length < len(grid) and grid[r + length][c] != '#':
+                        length += 1
+                    if length != len(ans):
+                        issues.append({'puzzle_id': pid, 'description': f'Down clue {num} length mismatch: expected {length}, got {len(ans)}'})
+            else:
+                # Fallback: basic count check
+                expected = len(clues.get('across', [])) + len(clues.get('down', []))
+                actual = len(pos_map)
+                if expected != actual:
+                    issues.append({'puzzle_id': pid, 'description': f'Expected {expected} clues, found {actual} positions'})
         except Exception as e:
             issues.append({'puzzle_id': None, 'description': f'Error validating puzzle file {meta_file.name}: {e}'})
+    return issues
+
+
+def validate_crossword_solutions_in_pdf(pdf_path: Path) -> Tuple[bool, Dict]:
+    """
+    Validate that all crossword solutions in a PDF are properly filled with letters.
+    Returns (success, stats_dict)
+    """
+    try:
+        with open(pdf_path, 'rb') as file:
+            pdf = PyPDF2.PdfReader(file)
+            page_count = len(pdf.pages)
+            
+            # Find solution section
+            solution_start = None
+            for i in range(min(100, page_count), page_count):
+                text = pdf.pages[i].extract_text()
+                if "Solution" in text or "Answer" in text:
+                    solution_start = i
+                    break
+            
+            if solution_start is None:
+                return False, {"error": "No solution section found"}
+            
+            # Check each solution page
+            empty_solutions = []
+            valid_solutions = 0
+            total_solutions = 0
+            
+            for page_num in range(solution_start, page_count):
+                page_text = pdf.pages[page_num].extract_text()
+                
+                # Find puzzle numbers
+                puzzle_matches = re.findall(r'(?:Solution for |Answer to )?Puzzle (\d+)', page_text)
+                
+                for puzzle_num in puzzle_matches:
+                    total_solutions += 1
+                    puzzle_id = int(puzzle_num)
+                    
+                    # Extract solution text after puzzle number
+                    parts = page_text.split(f"Puzzle {puzzle_num}")
+                    if len(parts) > 1:
+                        solution_text = parts[1][:1500]  # Get more text
+                        
+                        # Count letters in solution
+                        letter_count = len(re.findall(r'[A-Z]', solution_text))
+                        
+                        # Check for grid pattern (rows of letters)
+                        grid_lines = re.findall(r'[A-Z\s■]{10,}', solution_text)
+                        grid_letter_count = sum(len(re.findall(r'[A-Z]', line)) for line in grid_lines)
+                        
+                        # A 15x15 crossword should have 150+ letters
+                        if letter_count < 150 or grid_letter_count < 100:
+                            empty_solutions.append(puzzle_id)
+                        else:
+                            # Additional check: variety of letters
+                            unique_letters = len(set(re.findall(r'[A-Z]', solution_text)))
+                            if unique_letters < 15:  # Should use most of alphabet
+                                empty_solutions.append(puzzle_id)
+                            else:
+                                valid_solutions += 1
+            
+            success_rate = valid_solutions / total_solutions if total_solutions > 0 else 0
+            
+            return success_rate > 0.95, {
+                "total_solutions": total_solutions,
+                "valid_solutions": valid_solutions,
+                "empty_solutions": len(empty_solutions),
+                "empty_solution_ids": empty_solutions[:10],  # First 10
+                "success_rate": success_rate
+            }
+            
+    except Exception as e:
+        return False, {"error": str(e)}
+
+
+def validate_crossword_metadata(metadata_dir: Path) -> List[Dict]:
+    """Enhanced crossword validation for metadata with strict answer checks"""
+    issues = []
+    
+    # First run standard validation
+    standard_issues = validate_crossword(metadata_dir)
+    issues.extend(standard_issues)
+    
+    # Additional answer validation
+    md = Path(metadata_dir)
+    for meta_file in sorted(md.glob('puzzle_*.json')):
+        try:
+            data = json.loads(meta_file.read_text())
+            pid = data.get('id')
+            clues = data.get('clues', {})
+            
+            # Check for duplicate clues
+            all_clue_texts = []
+            for direction in ['across', 'down']:
+                for clue_data in clues.get(direction, []):
+                    if len(clue_data) > 1:
+                        all_clue_texts.append(clue_data[1])
+            
+            clue_counts = Counter(all_clue_texts)
+            for clue, count in clue_counts.items():
+                if count > 2:  # Allow up to 2 duplicates
+                    issues.append({
+                        'puzzle_id': pid,
+                        'description': f'Clue "{clue}" appears {count} times'
+                    })
+            
+            # Check for placeholder clues
+            placeholder_patterns = [
+                r"related term",
+                r"placeholder",
+                r"test",
+                r"^clue \d+$",
+                r"^word \d+$"
+            ]
+            
+            for direction in ['across', 'down']:
+                for clue_data in clues.get(direction, []):
+                    if len(clue_data) > 1:
+                        clue_text = clue_data[1].lower()
+                        for pattern in placeholder_patterns:
+                            if re.search(pattern, clue_text):
+                                issues.append({
+                                    'puzzle_id': pid,
+                                    'description': f'Placeholder clue detected: "{clue_data[1]}"'
+                                })
+                                break
+                                
+        except Exception as e:
+            issues.append({'puzzle_id': None, 'description': f'Error in enhanced validation: {str(e)}'})
+    
     return issues

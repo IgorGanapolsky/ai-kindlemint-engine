@@ -64,7 +64,67 @@ class CrosswordEngineV2:
                     
         return grid
     
-    def create_grid_image(self, grid, puzzle_id):
+    def generate_filled_solution_grid(self, grid, clues):
+        """Generate a filled grid with all answers placed"""
+        filled_grid = [row[:] for row in grid]  # Copy the grid
+        
+        # Place across words
+        for num, clue_text, answer in clues.get("across", []):
+            # Find position for this clue number
+            placed = False
+            for row in range(self.grid_size):
+                for col in range(self.grid_size):
+                    if self._can_place_across(grid, row, col, len(answer)):
+                        # Place the word
+                        for i, letter in enumerate(answer):
+                            filled_grid[row][col + i] = letter
+                        placed = True
+                        break
+                if placed:
+                    break
+        
+        # Place down words
+        for num, clue_text, answer in clues.get("down", []):
+            placed = False
+            for row in range(self.grid_size):
+                for col in range(self.grid_size):
+                    if self._can_place_down(grid, row, col, len(answer)):
+                        # Check for conflicts with existing letters
+                        conflict = False
+                        for i, letter in enumerate(answer):
+                            if filled_grid[row + i][col] != ' ' and filled_grid[row + i][col] != letter:
+                                conflict = True
+                                break
+                        
+                        if not conflict:
+                            for i, letter in enumerate(answer):
+                                filled_grid[row + i][col] = letter
+                            placed = True
+                            break
+                if placed:
+                    break
+        
+        return filled_grid
+    
+    def _can_place_across(self, grid, row, col, length):
+        """Check if word can be placed horizontally"""
+        if col + length > self.grid_size:
+            return False
+        for i in range(length):
+            if grid[row][col + i] == '#':
+                return False
+        return True
+    
+    def _can_place_down(self, grid, row, col, length):
+        """Check if word can be placed vertically"""
+        if row + length > self.grid_size:
+            return False
+        for i in range(length):
+            if grid[row + i][col] == '#':
+                return False
+        return True
+    
+    def create_grid_image(self, grid, puzzle_id, is_solution=False, filled_grid=None):
         """Create high-quality grid image"""
         cell_size = 60
         margin = 40
@@ -95,8 +155,18 @@ class CrosswordEngineV2:
                     # Black square
                     draw.rectangle([x, y, x + cell_size, y + cell_size], fill='black')
                 else:
-                    # White square with border - EMPTY for solving
+                    # White square with border
                     draw.rectangle([x, y, x + cell_size, y + cell_size], outline='black', width=2)
+                    
+                    # For solution grids, fill in the letters
+                    if is_solution and filled_grid and filled_grid[row][col] != ' ':
+                        text = filled_grid[row][col]
+                        text_bbox = draw.textbbox((0, 0), text, font=font)
+                        text_width = text_bbox[2] - text_bbox[0]
+                        text_height = text_bbox[3] - text_bbox[1]
+                        text_x = x + (cell_size - text_width) // 2
+                        text_y = y + (cell_size - text_height) // 2
+                        draw.text((text_x, text_y), text, fill='black', font=font)
                     
                     # Add number if this starts a word
                     needs_number = False
@@ -109,13 +179,16 @@ class CrosswordEngineV2:
                     if (row == 0 or grid[row-1][col] == '#') and row < self.grid_size-1 and grid[row+1][col] != '#':
                         needs_number = True
                         
-                    if needs_number:
+                    if needs_number and not is_solution:  # Don't add numbers to solution grids
                         draw.text((x + 5, y + 5), str(number), font=number_font, fill='black')
                         clue_positions[(row, col)] = number
                         number += 1
         
-        # Save image
-        img_path = self.puzzles_dir / f"puzzle_{puzzle_id:02d}.png"
+        # Save image with appropriate name
+        if is_solution:
+            img_path = self.puzzles_dir / f"solution_{puzzle_id:02d}.png"
+        else:
+            img_path = self.puzzles_dir / f"puzzle_{puzzle_id:02d}.png"
         img.save(img_path, 'PNG')
         
         return img_path, clue_positions
@@ -212,14 +285,29 @@ class CrosswordEngineV2:
             # Generate clues
             clues = self.generate_clues(puzzle_id, theme, difficulty)
             
+            # Generate filled solution grid
+            filled_grid = self.generate_filled_solution_grid(grid, clues)
+            
+            # Create solution image
+            solution_path, _ = self.create_grid_image(grid, puzzle_id, is_solution=True, filled_grid=filled_grid)
+            
             # Store puzzle data
             puzzle_data = {
                 "id": puzzle_id,
                 "theme": theme,
                 "difficulty": difficulty,
+                # Embed grid pattern for domain validation: '#' for black, ' ' for white
+                "grid_pattern": grid,
                 "grid_path": str(grid_path),
+                "solution_path": str(solution_path),
+                "solution_grid": filled_grid,  # Store the filled solution
                 "clues": clues,
-                "clue_positions": {f"{r},{c}": num for (r, c), num in clue_positions.items()}
+                "clue_positions": {f"{r},{c}": num for (r, c), num in clue_positions.items()},
+                "word_count": {
+                    "across": len(clues.get("across", [])),
+                    "down": len(clues.get("down", [])),
+                    "total": len(clues.get("across", [])) + len(clues.get("down", []))
+                }
             }
             
             # Save individual puzzle metadata
