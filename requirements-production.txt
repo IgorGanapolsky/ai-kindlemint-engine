@@ -11,7 +11,7 @@ python-dotenv==1.0.1
 PyYAML==6.0.1
 
 # Web scraping for market research
-requests==2.31.0
+requests==2.32.4
 beautifulsoup4==4.12.3
 lxml==5.1.0
 
