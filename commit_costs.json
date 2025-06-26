@@ -1,5 +1,5 @@
 {
-  "total_cost": 0.3250365,
+  "total_cost": 10.429048499999999,
   "commits": [
     {
       "hash": "c08cdbab",
@@ -18,8 +18,17 @@
       "tokens": 4896,
       "files_changed": 2,
       "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "110e5b84",
+      "timestamp": "2025-06-26T17:03:04.457710",
+      "message": "docs: Add comprehensive Slack notifications guide",
+      "cost": 10.104011999999999,
+      "tokens": 394114,
+      "files_changed": 8,
+      "model": "claude-3-sonnet"
     }
   ],
   "first_tracked": "2025-06-26T16:52:19.989559",
-  "last_updated": "2025-06-26T16:52:22.127566"
+  "last_updated": "2025-06-26T17:03:04.457730"
 }

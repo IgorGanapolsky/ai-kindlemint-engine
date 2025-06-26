@@ -106,6 +106,14 @@ python scripts/generate_series.py \
   --type crossword \
   --difficulty progressive
 ```
+## 🛠️ Development Setup
+
+Install development dependencies and enable pre-commit hooks:
+
+```bash
+pip install .[dev]
+pre-commit install
+```
 
 ## 📊 Daily Market Insights
 

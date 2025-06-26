@@ -155,7 +155,8 @@
       "Bash(pdfinfo:*)",
       "Bash(pdftotext:*)",
       "Bash(gh secret:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(./claude-flow-costs:*)"
     ],
     "deny": []
   }
