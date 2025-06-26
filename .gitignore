@@ -223,3 +223,4 @@ kdp_*_source.html
 debug_kdp_*.html
 debug_kdp_*.png
 *_session_cookies.json
+.pytest_tmp/
