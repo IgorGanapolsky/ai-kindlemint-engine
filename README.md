@@ -76,7 +76,7 @@ python scripts/word_search_generator.py --output <output_dir> --count <N> [--gri
 
 ## 📊 Real Results
 
-- **Books Published**: 1 (Large Print Crossword Masters V1)
+- **Books Generated (with PDFs)**: 3 volumes (Large Print Crossword Masters Vol 1-3)
 - **Time Saved**: ~4-6 hours per book
 - **Automation Level**: ~60% (content automated, publishing manual)
 - **Revenue**: Tracking manually in spreadsheet
