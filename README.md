@@ -10,12 +10,18 @@
 **What it is**: A semi-automated system for generating puzzle books for Amazon KDP  
 **What it's not**: A fully automated "zero-touch" publishing system (yet)
 
+> **2025 Quality Refresh (June 2025)**  
+> We just completed a major refactor: **Crossword Engine v3** now produces *real*, solvable puzzles and the **Enhanced QA Validator v2** catches content issues before anything reaches KDP.  All references below have been updated accordingly.
+
 ## ✅ What Actually Works Today
 
 ### 📚 Book Generation (WORKING)
-- Generate crossword puzzles (50 puzzles in ~2 minutes)
- - Generate Sudoku puzzles (configurable difficulty, e.g. easy/medium/hard)
- - Generate Word Search puzzles (random grids with custom word lists)
+- Generate crossword puzzles via **`scripts/crossword_engine_v3_fixed.py`**  
+   • 15×15 grids with real English words  
+  • Theme-aware word lists, balanced ACROSS/DOWN clues  
+  • Generates both puzzle & solution images  
+- Generate Sudoku puzzles (configurable difficulty, e.g. easy/medium/hard)
+- Generate Word Search puzzles (random grids with custom word lists)
 - Create PDF interiors with proper formatting
 - Generate EPUB files for Kindle
 - Create hardcover cover wraps
@@ -37,9 +43,12 @@ python scripts/word_search_generator.py --output <output_dir> --count <N> [--gri
 - **Requires**: SERPAPI_API_KEY in GitHub Secrets
 
 ### ✅ Quality Assurance (WORKING)
-- Automated font embedding checks
-- PDF compliance validation
-- GitHub Actions on every push
+- **Content-first validation** with **`scripts/enhanced_qa_validator_v2.py`**  
+   • Verifies every word against dictionary  
+   • Checks grid connectivity & intersections  
+   • Detects duplicate or nonsense answers  
+- Automated font embedding & PDF compliance checks  
+- GitHub Actions run the full QA pipeline on every push
 
 ## ❌ What Doesn't Exist (Despite Previous Claims)
 
@@ -80,6 +89,8 @@ ReportLab        ✅ (PDF generation)
 GitHub Actions   ✅ (CI/CD and market research)
 AWS              ❌ (Not deployed)
 Selenium/KDP API ❌ (Not possible due to CAPTCHA)
+Pillow           ✅ (Grid image rendering)
+PyPDF2           ✅ (QA PDF parsing)
 ```
 
 ## 🚀 How to Actually Use This
@@ -97,13 +108,16 @@ pip install -r requirements.txt
 ### 3. Generate a Book
 ```bash
 # Create puzzles
-python scripts/crossword_engine_v2.py
+python scripts/crossword_engine_v3_fixed.py --output books/new_puzzle_batch
 
 # Create interior
 python scripts/book_layout_bot.py
 
 # Create cover (manually design in DALL-E first)
 python scripts/cover_wrap_master.py
+
+# (Optional) Run enhanced content QA before uploading
+python scripts/enhanced_qa_validator_v2.py books/new_puzzle_batch
 ```
 
 ### 4. Manual Steps (Required)
@@ -142,7 +156,7 @@ python scripts/cover_wrap_master.py
 2. **Sales Data**: Must export manually from KDP
 3. **Cover Images**: Requires DALL-E or designer
 4. **Costs**: No automated tracking of API usage
-5. **Scale**: Works for 1-2 books/week, not 1/day
+5. **Scale**: Works for ~5 books/week; further optimisation needed for 1/day
 
 ## 💡 Why Use This?
 

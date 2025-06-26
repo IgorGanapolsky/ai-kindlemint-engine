@@ -1,19 +1,24 @@
-# KindleMint Engine - Implementation Plan
+# KindleMint Engine – Implementation Plan
 
-## Current State (June 2024)
+> **Last major update: June 25 2025 – Quality-Refresh complete**  
+> Crossword Engine v3 & Enhanced QA Validator v2 are live; books now pass KDP checks with 95 %+ QA scores.
+
+## Current State (June 2025)
 
 ### ✅ Implemented
-- Basic crossword puzzle generation
-- PDF interior creation for KDP
-- EPUB generation for Kindle
-- Hardcover cover wrap calculation
-- GitHub Actions for QA
-- Market research automation (with manual API key setup)
+- **Crossword Engine v3** – real, solvable 15×15 grids (theme-aware, balanced clues)  
+- **Enhanced QA Validator v2** – dictionary validation, intersection checks, grid-connectivity, duplicate detection  
+- Stable **PDF interior generator** (book_layout_bot)  
+- EPUB & hardcover cover-wrap generation  
+- GitHub Actions: content-first QA + nightly market-research PRs  
+- Manual but reliable KDP publishing workflow  
+- Basic Sudoku & Word-Search generators (CLI)
 
 ### 🚧 Partially Implemented
-- Cover generation (requires manual DALL-E work)
-- Quality assurance (basic checks only)
-- File organization (works but manual)
+- Cover template automation (currently DALL-E manual step)  
+- Sales/revenue CSV ingest & dashboard (local prototype)  
+- Cost usage tracking (SERPAPI / Claude)  
+- Batch file organisation (semi-manual)
 
 ### ❌ Not Implemented
 - AWS infrastructure
@@ -23,53 +28,50 @@
 - Sales analytics
 - Multi-series management
 
+_(no longer listed: “Quality assurance” – now complete)_
+
 ## Realistic 90-Day Plan
+### Month 1 – Hardening (July 2025)
+**Goal**: Consolidate quality-refresh & improve developer experience**
 
-### Month 1: Stabilization (July 2024)
-**Goal**: Make existing features production-ready
+| Week | Focus | Outcome |
+|------|-------|---------|
+| 1 | Remove remaining hard-coded paths, centralise config | One-command book build |
+| 2 | Finish unit-tests for Crossword Engine v3 & QA validator | 80 %+ test coverage |
+| 3 | Automate SERPAPI/Claude usage logging | Daily cost report |
+| 4 | Publish updated documentation & video walkthrough | On-boarding in <30 min |
 
-- [ ] Week 1-2: Fix all hardcoded paths
-- [ ] Week 2-3: Add comprehensive error handling
-- [ ] Week 3-4: Create test suite for core functions
-- [ ] Week 4: Document actual API costs
+### Month 2 – Feature Growth (August 2025)
+**Goal**: Expand product offering & monetisation insights**
 
-**Deliverable**: Reliable book generation for 1 series
+| Week | Focus | Outcome |
+|------|-------|---------|
+| 1 | Integrate Sudoku & Word-Search into book-layout bot | Multi-puzzle books |
+| 2 | Implement cover-template CLI (Inkscape/SVG) | Repeatable, brand-consistent covers |
+| 3 | Sales CSV parser + local dashboard (Streamlit) | Daily revenue snapshot |
+| 4 | Beta “batch generator” CLI (create 5 books in one run) | Throughput ↑ 3× |
 
-### Month 2: Enhancement (August 2024)
-**Goal**: Add puzzle variety and improve quality
+### Month 3 – Scale Prep (September 2025)
+**Goal**: Prepare for light automation & multi-series output**
 
-- [ ] Week 1: Add Sudoku generation
-- [ ] Week 2: Add Word Search generation
-- [ ] Week 3: Implement cover template system
-- [ ] Week 4: Create sales tracking spreadsheet template
-
-**Deliverable**: 3 puzzle types, semi-automated covers
-
-### Month 3: Scale Preparation (September 2024)
-**Goal**: Prepare for increased volume
-
-- [ ] Week 1-2: Build simple web dashboard (local)
-- [ ] Week 3: Add batch generation support
-- [ ] Week 4: Create publishing checklist automation
-
-**Deliverable**: Can handle 5 books/week efficiently
+| Week | Focus | Outcome |
+|------|-------|---------|
+| 1-2 | Remote storage option (S3 or Backblaze) for generated assets | Cloud archive toggle |
+| 3 | Production checklist GitHub Action (opens PR with TODOs) | Fewer human errors |
+| 4 | Pilot 2nd puzzle-book series, measure per-book time | Sustain 10 books / week |
 
 ## Technical Debt to Address
 
-1. **Hardcoded Values**
-   - Move all paths to config
-   - Extract magic numbers
-   - Centralize KDP specifications
-
-2. **Missing Tests**
-   - Unit tests for generators
-   - Integration tests for workflows
-   - PDF validation tests
-
-3. **Documentation**
-   - API setup guides
-   - Troubleshooting guide
-   - Video walkthrough
+1. **Configuration Cleanup**  
+   • Finalise `.env` & `config.yaml` usage, remove inline constants  
+2. **Test Coverage**  
+   • Unit & integration tests for Sudoku / Word-Search engines  
+   • Mock KDP validator in CI  
+3. **Performance**  
+   • Profile Crossword Engine v3 backtracking (target <10 s per puzzle)  
+4. **Documentation**  
+   • Keep README & PLAN in sync (add doc-linter)  
+   • Record 2-min “generate book” screencast
 
 ## Cost Reality Check
 
@@ -83,6 +85,7 @@
 - Need 2-3 book sales/month to cover costs
 - Each book: ~$3-5 profit
 - Target: 10 books live by end of Q3
+ - Target: 20 books live by end of Q3
 
 ## What We're NOT Building (Yet)
 
@@ -94,23 +97,25 @@
 ## Success Metrics
 
 ### Q3 2024 Goals
-- [ ] 10 books published
-- [ ] 3 puzzle types supported
-- [ ] <30 min per book generation
-- [ ] 1 successful series (5+ books)
+### Q3 2025 Goals
+- [ ] 20 books published
+- [ ] 3 puzzle types supported (Crossword, Sudoku, Word-Search)
+- [ ] <20 min automated work per book
+- [ ] 2 active series
 
 ### Q4 2024 Goals
-- [ ] 25 books published
-- [ ] $500/month revenue
+### Q4 2025 Goals
+- [ ] 40 books published
+- [ ] $750 / month net revenue
 - [ ] 5 active series
-- [ ] Community contributor
+- [ ] 2 external contributors
 
 ## Next Immediate Steps
 
-1. **Today**: Fix hardcover barcode issue ✅
-2. **This Week**: Test market research workflow
-3. **This Month**: Publish Volume 2-3 of current series
-4. **Next Month**: Add second puzzle type
+1. **Today**: Tag v3.0 release, update CHANGELOG ✅  
+2. **This Week**: Run `deploy_fixes.py test` on all existing books  
+3. **This Month**: Publish Vol 4-5 of Crossword Masters (quality-refreshed)  
+4. **Next Month**: Merge Sudoku generator into main workflow
 
 ## Notes
 
@@ -121,4 +126,4 @@
 
 ---
 
-Last Updated: June 24, 2024
+Last Updated: June 25 2025
