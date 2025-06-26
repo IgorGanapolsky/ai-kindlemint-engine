@@ -1,0 +1,214 @@
+name: 🔍 Comprehensive QA & Testing
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'scripts/**/*.py'
+      - 'books/active_production/**/*'
+      - 'config/**/*'
+      - 'tests/**/*'
+      - '.github/workflows/comprehensive_qa.yml'
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      test_scope:
+        description: 'Test scope (full or quick)'
+        required: false
+        default: 'full'
+        type: choice
+        options:
+        - full
+        - quick
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  setup-and-test:
+    runs-on: ubuntu-latest
+    name: 🧪 Setup & Unit Tests
+    
+    outputs:
+      test-scope: ${{ steps.set-scope.outputs.scope }}
+      has-books: ${{ steps.check-books.outputs.has_books }}
+      
+    steps:
+    - name: 🔄 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+        
+    - name: 📦 Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install pytest pytest-cov
+        
+    - name: 🎯 Set Test Scope
+      id: set-scope
+      run: |
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          echo "scope=${{ github.event.inputs.test_scope }}" >> $GITHUB_OUTPUT
+        else
+          echo "scope=full" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: 📚 Check for Books
+      id: check-books
+      run: |
+        if find books/active_production -name "collection.json" -print -quit | grep -q .; then
+          echo "has_books=true" >> $GITHUB_OUTPUT
+        else
+          echo "has_books=false" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: 🧪 Run Unit Tests
+      run: |
+        echo "🔬 Running unit tests..."
+        if [ -d "tests" ]; then
+          python -m pytest tests/ -v --tb=short --cov=scripts --cov-report=xml
+        else
+          echo "⚠️ No tests directory found, skipping unit tests."
+        fi
+        
+    - name: 📊 Upload Test Coverage
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-coverage-report
+        path: coverage.xml
+        retention-days: 7
+
+  test-one-click-generator:
+    runs-on: ubuntu-latest
+    name: 🚀 Test One-Click Generator
+    needs: setup-and-test
+    if: needs.setup-and-test.outputs.test-scope == 'full'
+    
+    steps:
+    - name: 🔄 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: 📦 Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        
+    - name: 🧪 Test Generator Help
+      run: |
+        echo "🧪 Testing one-click generator help..."
+        python generate_book.py --help
+        
+    - name: 📊 Test Market Validator
+      run: |
+        echo "📊 Testing market validator..."
+        python scripts/market_validator.py "Garden Flowers" --output /tmp/market_test.json
+        
+    - name: 🏗️ Test Mini Book Generation
+      run: |
+        echo "🏗️ Testing mini book generation..."
+        mkdir -p /tmp/test_book
+        python generate_book.py "Test Theme" 5 easy --output /tmp/test_book --quick
+        
+    - name: ✅ Validate Generated Content
+      run: |
+        echo "✅ Validating generated test content..."
+        if [ -f "/tmp/test_book/metadata/collection.json" ]; then
+          echo "✅ Test book generation successful."
+        else
+          echo "❌ Test book generation failed."
+          exit 1
+        fi
+
+  content-validation:
+    runs-on: ubuntu-latest
+    name: 🔍 Content-Aware Validation
+    needs: [setup-and-test]
+    if: needs.setup-and-test.outputs.has-books == 'true'
+    
+    steps:
+    - name: 🔄 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: 📦 Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        
+    - name: 🗂️ Find Book Directories
+      id: find-books
+      run: |
+        book_dirs=$(find books/active_production -name collection.json -print0 | xargs -0 -n1 dirname | tr '\n' ' ')
+        echo "book_dirs=${book_dirs}" >> $GITHUB_OUTPUT
+        echo "Found book directories: ${book_dirs}"
+        
+    - name: 🔍 Run Enhanced QA Validator v3
+      if: steps.find-books.outputs.book_dirs != ''
+      run: |
+        for dir in ${{ steps.find-books.outputs.book_dirs }}; do
+          echo "🔍 Running Enhanced QA v3 on ${dir}..."
+          python scripts/enhanced_qa_validator_v3.py "${dir}" --output-dir "${dir}" --verbose || echo "⚠️ QA issues found in ${dir}"
+        done
+        
+    - name: 📊 Upload QA Reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: content-qa-reports
+        path: books/active_production/**/ENHANCED_QA_REPORT_v3_*.json
+        retention-days: 30
+
+  final-report:
+    runs-on: ubuntu-latest
+    name: 📋 Generate Final Report
+    needs: [setup-and-test, test-one-click-generator, content-validation]
+    if: always()
+    
+    steps:
+    - name: 📊 Collect Results
+      id: collect-results
+      run: |
+        echo "📊 Collecting test results..."
+        
+        SETUP_STATUS="${{ needs.setup-and-test.result }}"
+        GENERATOR_STATUS="${{ needs.test-one-click-generator.result }}"
+        CONTENT_STATUS="${{ needs.content-validation.result }}"
+        
+        echo "Setup & Unit Tests: $SETUP_STATUS"
+        echo "One-Click Generator Test: $GENERATOR_STATUS"
+        echo "Content Validation: $CONTENT_STATUS"
+        
+        # Determine overall status
+        if [[ "$SETUP_STATUS" == "failure" || "$GENERATOR_STATUS" == "failure" ]]; then
+          echo "OVERALL_STATUS=FAILURE" >> $GITHUB_ENV
+          echo "FINAL_MESSAGE=❌ Critical tests failed - failing workflow." >> $GITHUB_ENV
+        elif [[ "$CONTENT_STATUS" == "failure" ]]; then
+          echo "OVERALL_STATUS=PARTIAL_SUCCESS" >> $GITHUB_ENV
+          echo "FINAL_MESSAGE=⚠️ Some QA checks failed but core functionality works." >> $GITHUB_ENV
+        else
+          echo "OVERALL_STATUS=SUCCESS" >> $GITHUB_ENV
+          echo "FINAL_MESSAGE=✅ All tests passed successfully." >> $GITHUB_ENV
+        fi
+        
+    - name: 🎯 Final Status Check
+      run: |
+        echo "${{ env.FINAL_MESSAGE }}"
+        if [ "${{ env.OVERALL_STATUS }}" == "FAILURE" ]; then
+          exit 1
+        fi

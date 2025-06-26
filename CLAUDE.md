@@ -1,230 +1,246 @@
-# Claude Memory
+# Claude Code Configuration
 
-## Important Reminders
+## Build Commands
+- `npm run build`: Build the project
+- `npm run test`: Run the full test suite
+- `npm run lint`: Run ESLint and format checks
+- `npm run typecheck`: Run TypeScript type checking
+- `./claude-flow --help`: Show all available commands
 
-### Always Push Changes
-**CRITICAL**: Always commit and push changes immediately after making them. Igor expects all fixes and updates to be pushed to the repository automatically.
+## Claude-Flow Complete Command Reference
 
-### Workflow Commands
-- Lint: `npm run lint` (check if available)
-- Typecheck: `npm run typecheck` (check if available)
-- Test: `npm test` (check if available)
+### Core System Commands
+- `./claude-flow start [--ui] [--port 3000] [--host localhost]`: Start orchestration system with optional web UI
+- `./claude-flow status`: Show comprehensive system status
+- `./claude-flow monitor`: Real-time system monitoring dashboard
+- `./claude-flow config <subcommand>`: Configuration management (show, get, set, init, validate)
 
-### Repository Structure
-- Main deployment script: `scripts/utilities/deploy_lambda.py`
-- GitHub Actions workflows: `.github/workflows/`
-- Lambda functions: `lambda/`
-- Core application: `kindlemint/`
+### Agent Management
+- `./claude-flow agent spawn <type> [--name <name>]`: Create AI agents (researcher, coder, analyst, etc.)
+- `./claude-flow agent list`: List all active agents
+- `./claude-flow spawn <type>`: Quick agent spawning (alias for agent spawn)
 
-### Cover Design Policy
-**NEVER generate covers automatically.** Always provide DALL-E prompts for Igor to use instead of creating cover images programmatically. Store all DALL-E prompts in checklist.md files for easy reference and reuse.
+### Task Orchestration
+- `./claude-flow task create <type> [description]`: Create and manage tasks
+- `./claude-flow task list`: View active task queue
+- `./claude-flow workflow <file>`: Execute workflow automation files
 
-### KDP Categories Policy
-**CRITICAL**: Amazon KDP allows exactly **3 categories** per book. Always use 3 categories to maximize discoverability. Use actual KDP category names from the interface, never hallucinate category paths.
+### Memory Management
+- `./claude-flow memory store <key> <data>`: Store persistent data across sessions
+- `./claude-flow memory get <key>`: Retrieve stored information
+- `./claude-flow memory list`: List all memory keys
+- `./claude-flow memory export <file>`: Export memory to file
+- `./claude-flow memory import <file>`: Import memory from file
+- `./claude-flow memory stats`: Memory usage statistics
+- `./claude-flow memory cleanup`: Clean unused memory entries
 
-### Accuracy Policy
-**ABSOLUTE REQUIREMENT**: Only provide 100% factual, verified information. NEVER claim something exists or was completed unless actually verified. NEVER make excuses for incorrect information. Always verify file existence, tool outputs, and system state before making any claims.
+### SPARC Development Modes
+- `./claude-flow sparc "<task>"`: Run orchestrator mode (default)
+- `./claude-flow sparc run <mode> "<task>"`: Run specific SPARC mode
+- `./claude-flow sparc tdd "<feature>"`: Test-driven development mode
+- `./claude-flow sparc modes`: List all 17 available SPARC modes
 
-### File Organization Policy
-**CRITICAL**: Always put ALL necessary files in each directory. NEVER assume the user will copy files between directories. Each format directory (paperback, hardcover, kindle) must contain ALL files needed for that format, including:
-- Interior PDF (manuscript) - Copy to each directory that needs it
-- Cover files - Specific to each format
-- Metadata files - Specific to each format
-- Publishing checklists - Specific to each format
+Available SPARC modes: orchestrator, coder, researcher, tdd, architect, reviewer, debugger, tester, analyzer, optimizer, documenter, designer, innovator, swarm-coordinator, memory-manager, batch-executor, workflow-manager
 
-### Publishing & Cover Instructions Policy
-**CRITICAL**: You are NOT allowed to make mistakes in cover instructions and publishing checklists. Everything MUST pass QA pipeline before claiming it's ready. Always:
-- Verify dimensions match between cover and interior
-- Run QA checks on all generated content
-- Test all instructions before providing them
-- Double-check all measurements, specifications, and requirements
-- NEVER provide publishing instructions without verification
+### Swarm Coordination
+- `./claude-flow swarm "<objective>" [options]`: Multi-agent swarm coordination
+- `--strategy`: research, development, analysis, testing, optimization, maintenance
+- `--mode`: centralized, distributed, hierarchical, mesh, hybrid
+- `--max-agents <n>`: Maximum number of agents (default: 5)
+- `--parallel`: Enable parallel execution
+- `--monitor`: Real-time monitoring
+- `--output <format>`: json, sqlite, csv, html
 
-### Testing Policy
-**CRITICAL**: Any script you create or use MUST be properly tested before claiming it works. This means:
-- Run the script and verify output
-- Open generated files to confirm content is correct
-- Check that images, text, and formatting appear as expected
-- NEVER assume a script works just because it runs without errors
-- ALWAYS verify the actual output matches requirements
-- Test with sample data before running on production content
+### MCP Server Integration
+- `./claude-flow mcp start [--port 3000] [--host localhost]`: Start MCP server
+- `./claude-flow mcp status`: Show MCP server status
+- `./claude-flow mcp tools`: List available MCP tools
 
-### Production QA Policy
-**CRITICAL**: Every book MUST pass production QA before claiming it's ready:
-- Run `python scripts/production_qa_validator.py [PDF_PATH]`
-- Score must be 80+ and show "READY FOR PUBLISHING"
-- Visually inspect: Puzzles must have BLACK SQUARES
-- Visually inspect: Answer keys must show FILLED LETTERS
-- No "Test" or "test" in any production files
-- Page count must be exactly as specified (usually 156)
-- GitHub Actions must be green after push
+### Claude Integration
+- `./claude-flow claude auth`: Authenticate with Claude API
+- `./claude-flow claude models`: List available Claude models
+- `./claude-flow claude chat`: Interactive chat mode
 
-### Repository Cleanliness Policy
-**CRITICAL**: No bogus failed files should remain in the repo when you push commits. Always:
-- Clean up failed attempts before committing
-- Use descriptive names for any temporary or test files
-- Remove all failed/test directories before pushing
-- Keep directory structure consistent across volumes
-- Delete ALL temporary files, logs, and abandoned experiments
-- Keep only production-ready code and essential documentation
+### Session Management
+- `./claude-flow session`: Manage terminal sessions
+- `./claude-flow repl`: Start interactive REPL mode
 
-### No Unnecessary Files Policy
-**CRITICAL**: No unnecessary and extraneous files in the repo after you push. This includes:
-- Individual puzzle source files after PDF generation (they're embedded in the PDF)
-- Temporary generation artifacts
-- Old planning documents that are no longer relevant
-- Debug logs and test outputs
-- Any intermediate files used during processing
-- Keep ONLY the final deliverables needed for KDP upload
-- Never leave "_failed" or "_test" directories in the repository
-- Delete directories that are not needed on every push
-- Remove any logs, temporary files, or abandoned experiments
-- Keep only production-ready code and essential documentation
+### Enterprise Features
+- `./claude-flow project <subcommand>`: Project management (Enterprise)
+- `./claude-flow deploy <subcommand>`: Deployment operations (Enterprise)
+- `./claude-flow cloud <subcommand>`: Cloud infrastructure management (Enterprise)
+- `./claude-flow security <subcommand>`: Security and compliance tools (Enterprise)
+- `./claude-flow analytics <subcommand>`: Analytics and insights (Enterprise)
 
-## Claude Max Subscription Status
+### Project Initialization
+- `./claude-flow init`: Initialize Claude-Flow project
+- `./claude-flow init --sparc`: Initialize with full SPARC development environment
 
-**CURRENT PLAN**: Claude Max ($20/month) - Includes unlimited Claude Code usage!
+## Quick Start Workflows
 
-### Usage Guidelines
-Since Claude Code is included in your Claude Max subscription:
-- **No credit limits** - Use Claude Code freely without worrying about costs
-- **No need to batch sessions** - Work whenever inspiration strikes
-- **Full feature access** - All Claude Code capabilities available
-- **Unlimited iterations** - Refine and perfect your code without cost concerns
-
-### Development Best Practices
-Now that cost isn't a factor, focus on:
-- **Code quality** over session efficiency
-- **Thorough testing** and experimentation
-- **Comprehensive implementations** without rushing
-- **Learning and exploration** of new approaches
-
-## Hardcover Production Workflow
-
-### Complete Hardcover Creation Process
-
-**CRITICAL**: This is the proven workflow for creating KDP-ready hardcover editions. Follow these exact steps for all future volumes.
-
-#### 1. Preparation Phase
+### Research Workflow
 ```bash
-# Ensure hardcover system is available
-ls templates/hardcover/
-ls scripts/hardcover/
+# Start a research swarm with distributed coordination
+./claude-flow swarm "Research modern web frameworks" --strategy research --mode distributed --parallel --monitor
+
+# Or use SPARC researcher mode for focused research
+./claude-flow sparc run researcher "Analyze React vs Vue vs Angular performance characteristics"
+
+# Store findings in memory for later use
+./claude-flow memory store "research_findings" "Key insights from framework analysis"
 ```
 
-Required components:
-- `templates/hardcover/kdp_case_laminate/6x9_103pages_template.png` - KDP template
-- `templates/hardcover/production_docs/book_config_template.json` - Configuration template
-- `scripts/hardcover/create_hardcover_package.py` - Automated production script
-
-#### 2. Configuration Setup
+### Development Workflow
 ```bash
-# Copy and customize book configuration
-cp templates/hardcover/production_docs/book_config_template.json books/active_production/SERIES/VOLUME/hardcover_config.json
+# Start orchestration system with web UI
+./claude-flow start --ui --port 3000
+
+# Run TDD workflow for new feature
+./claude-flow sparc tdd "User authentication system with JWT tokens"
+
+# Development swarm for complex projects
+./claude-flow swarm "Build e-commerce API with payment integration" --strategy development --mode hierarchical --max-agents 8 --monitor
+
+# Check system status
+./claude-flow status
 ```
 
-**Key configuration fields:**
-- `title`, `subtitle`, `author`, `publisher`
-- `pages` - Used for spine width calculation: `(pages × 0.0025) + 0.06`
-- `cover_source` - Path to 1600×2560 source cover image
-- `output_dir` - Target hardcover directory
-- `pricing` - Hardcover should be 2-3x paperback price for optimal margins
-
-#### 3. Automated Production
+### Analysis Workflow
 ```bash
-# Run complete hardcover package creation
-python scripts/hardcover/create_hardcover_package.py books/active_production/SERIES/VOLUME/hardcover_config.json
+# Analyze codebase performance
+./claude-flow sparc run analyzer "Identify performance bottlenecks in current codebase"
+
+# Data analysis swarm
+./claude-flow swarm "Analyze user behavior patterns from logs" --strategy analysis --mode mesh --parallel --output sqlite
+
+# Store analysis results
+./claude-flow memory store "performance_analysis" "Bottlenecks identified in database queries"
 ```
 
-**This script automatically creates:**
-- Complete directory structure
-- KDP metadata with hardcover-specific enhancements
-- Production checklist with spine calculations
-- Print-ready cover wrap design (13.996" × 10.417")
-- PDF/X-1a export with CMYK color mode
-- All quality control documentation
-
-#### 4. Output Files Generated
-```
-books/active_production/SERIES/VOLUME/hardcover/
-├── amazon_kdp_metadata.json          # KDP upload metadata
-├── hardcover_production_checklist.md # Complete production guide
-├── cover_wrap_design_brief.md         # Design specifications
-├── hardcover_cover_wrap.pdf          # KDP-ready PDF/X-1a (UPLOAD THIS)
-├── hardcover_cover_wrap_final.png    # Final artwork
-├── hardcover_cover_wrap_preview.png  # With template overlay
-└── cover_source_1600x2560.jpg       # Source cover copy
-
-# Scripts and templates are stored separately:
-scripts/hardcover/                     # Production scripts
-templates/hardcover/                   # KDP templates and configs
-```
-
-#### 5. KDP Requirements Verification
-**Automated quality checks ensure:**
-- ✅ Exact template dimensions (13.996" × 10.417")
-- ✅ CMYK color mode for professional printing
-- ✅ PDF/X-1a format compliance
-- ✅ File size under 650 MB KDP limit
-- ✅ Proper spine text margins (0.125" from edges)
-- ✅ Barcode placeholder area (2" × 1.2")
-
-#### 6. Revenue Optimization
-**Hardcover pricing strategy:**
-- Printing cost: ~$6.50 for 6×9, 103 pages
-- Target price: $19.99 - $24.99 (2-3x paperback)
-- Royalty: $3.50 - $8.50 per book
-- Market: Premium gift segment, collectors
-
-#### 7. Commit and Deploy
+### Maintenance Workflow
 ```bash
-# Always commit hardcover packages
-git add books/active_production/SERIES/VOLUME/hardcover/
-git commit -m "feat: complete hardcover production for TITLE VOLUME"
-git push
+# System maintenance with safety controls
+./claude-flow swarm "Update dependencies and security patches" --strategy maintenance --mode centralized --monitor
+
+# Security review
+./claude-flow sparc run reviewer "Security audit of authentication system"
+
+# Export maintenance logs
+./claude-flow memory export maintenance_log.json
 ```
 
-### Spine Width Reference
-- 50 pages: 0.185 inches
-- 75 pages: 0.248 inches  
-- 100 pages: 0.310 inches
-- 103 pages: 0.318 inches (Large Print Crossword Masters Vol 1)
-- 125 pages: 0.373 inches
-- 150 pages: 0.435 inches
+## Integration Patterns
 
-### Template Library
-- `6x9_103pages_template.png` - Tested for Large Print Crossword Masters
-- Additional templates added as needed for different page counts
-- KDP provides templates for: 5×8, 5.5×8.5, 6×9, 6.14×9.21 trim sizes
+### Memory-Driven Coordination
+Use Memory to coordinate information across multiple SPARC modes and swarm operations:
 
-### Troubleshooting
-- **Font loading errors**: Script includes fallback font handling
-- **CMYK conversion issues**: Automatic RGB→CMYK conversion included  
-- **File size limits**: Compression automatically optimized for KDP
-- **Template misalignment**: 30% opacity guide layer for precise positioning
+```bash
+# Store architecture decisions
+./claude-flow memory store "system_architecture" "Microservices with API Gateway pattern"
 
-### Future Volume Creation
-**For Volume 2, 3, etc.:**
-1. Copy `hardcover_config.json` template
-2. Update title, subtitle, volume number, cover source path
-3. Run `python scripts/hardcover/create_hardcover_package.py CONFIG_FILE`
-4. Commit and push results
+# All subsequent operations can reference this decision
+./claude-flow sparc run coder "Implement user service based on system_architecture in memory"
+./claude-flow sparc run tester "Create integration tests for microservices architecture"
+```
 
-**Estimated time per volume:** 10-15 minutes for complete hardcover package generation.
+### Multi-Stage Development
+Coordinate complex development through staged execution:
 
-### Paperback and Hardcover Policy
-**CRITICAL**: When creating paperback materials, ALWAYS generate the adequate hardcover materials immediately after. This includes:
-- Creating hardcover_config.json with proper description
-- Running the hardcover package creation script
-- Ensuring hardcover has all the same files as Volume 1 hardcover
-- Testing the output before claiming completion
+```bash
+# Stage 1: Research and planning
+./claude-flow sparc run researcher "Research authentication best practices"
+./claude-flow sparc run architect "Design authentication system architecture"
 
-### QA Check Policy
-**CRITICAL**: Every product MUST pass QA check on GitHub Actions before delivery. This means:
-- All generated PDFs must be validated through automated QA pipeline
-- Answer keys must be complete with filled grids showing solutions
-- Crossword puzzles must contain REAL words, not empty grids
-- All clues must be legitimate and solvable
-- NEVER claim a product is ready without running QA checks
-- NEVER deliver empty or placeholder content
-- If QA fails, fix issues before claiming completion
+# Stage 2: Implementation
+./claude-flow sparc tdd "User registration and login functionality"
+./claude-flow sparc run coder "Implement JWT token management"
+
+# Stage 3: Testing and deployment
+./claude-flow sparc run tester "Comprehensive security testing"
+./claude-flow swarm "Deploy authentication system" --strategy maintenance --mode centralized
+```
+
+### Enterprise Integration
+For enterprise environments with additional tooling:
+
+```bash
+# Project management integration
+./claude-flow project create "authentication-system"
+./claude-flow project switch "authentication-system"
+
+# Security compliance
+./claude-flow security scan
+./claude-flow security audit
+
+# Analytics and monitoring
+./claude-flow analytics dashboard
+./claude-flow deploy production --monitor
+```
+
+## Advanced Batch Tool Patterns
+
+### TodoWrite Coordination
+Always use TodoWrite for complex task coordination:
+
+```javascript
+TodoWrite([
+  {
+    id: "architecture_design",
+    content: "Design system architecture and component interfaces",
+    status: "pending",
+    priority: "high",
+    dependencies: [],
+    estimatedTime: "60min",
+    assignedAgent: "architect"
+  },
+  {
+    id: "frontend_development", 
+    content: "Develop React components and user interface",
+    status: "pending",
+    priority: "medium",
+    dependencies: ["architecture_design"],
+    estimatedTime: "120min",
+    assignedAgent: "frontend_team"
+  }
+]);
+```
+
+### Task and Memory Integration
+Launch coordinated agents with shared memory:
+
+```javascript
+// Store architecture in memory
+Task("System Architect", "Design architecture and store specs in Memory");
+
+// Other agents use memory for coordination
+Task("Frontend Team", "Develop UI using Memory architecture specs");
+Task("Backend Team", "Implement APIs according to Memory specifications");
+```
+
+## Code Style Preferences
+- Use ES modules (import/export) syntax
+- Destructure imports when possible
+- Use TypeScript for all new code
+- Follow existing naming conventions
+- Add JSDoc comments for public APIs
+- Use async/await instead of Promise chains
+- Prefer const/let over var
+
+## Workflow Guidelines
+- Always run typecheck after making code changes
+- Run tests before committing changes
+- Use meaningful commit messages
+- Create feature branches for new functionality
+- Ensure all tests pass before merging
+
+## Important Notes
+- **Use TodoWrite extensively** for all complex task coordination
+- **Leverage Task tool** for parallel agent execution on independent work
+- **Store all important information in Memory** for cross-agent coordination
+- **Use batch file operations** whenever reading/writing multiple files
+- **Check .claude/commands/** for detailed command documentation
+- **All swarm operations include automatic batch tool coordination**
+- **Monitor progress** with TodoRead during long-running operations
+- **Enable parallel execution** with --parallel flags for maximum efficiency
+
+This configuration ensures optimal use of Claude Code's batch tools for swarm orchestration and parallel task execution with full Claude-Flow capabilities.
