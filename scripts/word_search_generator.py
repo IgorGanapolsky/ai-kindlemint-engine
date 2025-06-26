@@ -87,6 +87,7 @@ class WordSearchGenerator:
                 "id": i,
                 "words": self.words,
                 "grid_size": self.grid_size,
+                "grid": grid,
                 "grid_path": str(img_path)
             }
             # save metadata

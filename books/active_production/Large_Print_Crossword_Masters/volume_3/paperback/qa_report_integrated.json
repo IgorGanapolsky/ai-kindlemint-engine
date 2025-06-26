@@ -1,0 +1,160 @@
+{
+  "timestamp": "2025-06-25T22:51:11.740503",
+  "pdf_path": "books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/crossword_book_volume_3.pdf",
+  "status": "FAIL",
+  "score": 48,
+  "issues": [
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 4: Poor clue balance (6 DOWN / 15 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 7: Poor clue balance (0 DOWN / 12 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 10: Poor clue balance (10 DOWN / 22 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 14: Poor clue balance (6 DOWN / 15 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 17: Poor clue balance (0 DOWN / 12 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 18: Poor clue balance (5 DOWN / 10 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 20: Poor clue balance (10 DOWN / 22 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 24: Poor clue balance (6 DOWN / 15 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 27: Poor clue balance (0 DOWN / 13 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 28: Poor clue balance (5 DOWN / 10 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 30: Poor clue balance (10 DOWN / 22 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 34: Poor clue balance (6 DOWN / 15 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 37: Poor clue balance (0 DOWN / 15 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 38: Poor clue balance (5 DOWN / 10 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 40: Poor clue balance (10 DOWN / 22 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 44: Poor clue balance (6 DOWN / 15 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 47: Poor clue balance (0 DOWN / 13 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 48: Poor clue balance (5 DOWN / 10 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "structure",
+      "message": "Puzzle 50: Poor clue balance (10 DOWN / 22 ACROSS)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "uniqueness",
+      "message": "32 clues used in too many puzzles",
+      "details": [
+        [
+          "Starts with R",
+          25
+        ],
+        [
+          "Fill in: N__",
+          10
+        ],
+        [
+          "Contains A",
+          35
+        ],
+        [
+          "F-T word",
+          11
+        ],
+        [
+          "Contains I",
+          30
+        ]
+      ]
+    },
+    {
+      "severity": "HIGH",
+      "category": "solvability",
+      "message": "Missing solutions for 49 puzzles"
+    }
+  ],
+  "metrics": {
+    "category_scores": {
+      "structure": 5,
+      "uniqueness": 36,
+      "quality": 100,
+      "solvability": 50
+    },
+    "weights": {
+      "structure": 20,
+      "uniqueness": 35,
+      "quality": 25,
+      "solvability": 20
+    },
+    "content_stats": {
+      "total_puzzles": 50,
+      "avg_across_clues": 15.46,
+      "avg_down_clues": 11.0,
+      "unique_clues": 456,
+      "duplicate_puzzles": 0
+    }
+  },
+  "recommendations": [
+    "CRITICAL: Generate unique puzzles for each slot. Use different word combinations and varied clue phrasings.",
+    "Ensure all puzzles have balanced ACROSS/DOWN clues (40-60% each)."
+  ]
+}

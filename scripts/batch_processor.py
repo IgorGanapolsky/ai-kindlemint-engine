@@ -779,6 +779,33 @@ class BatchProcessor:
             # Run QA checks
             checker = EnhancedQAValidator()
             qa_results = checker.run_enhanced_qa(interior_pdf)
+            # Domain-aware puzzle validation
+            try:
+                from scripts.puzzle_validators import (
+                    validate_sudoku,
+                    validate_word_search,
+                    validate_crossword,
+                )
+                puzzle_type = book_config.get("puzzle_type", "").lower()
+                puzzles_dir = Path(book_result["artifacts"].get("puzzles_dir", ""))
+                metadata_dir = puzzles_dir.parent / "metadata"
+                domain_issues = []
+                if puzzle_type == "sudoku":
+                    domain_issues = validate_sudoku(metadata_dir)
+                elif puzzle_type == "word_search":
+                    domain_issues = validate_word_search(metadata_dir)
+                elif puzzle_type == "crossword":
+                    domain_issues = validate_crossword(metadata_dir)
+                # Integrate domain issues into QA results
+                if domain_issues:
+                    qa_results.setdefault('issues_found', []).extend(domain_issues)
+                    # mark as not ready for publish
+                    qa_results['publish_ready'] = False
+                    # penalize score for domain issues
+                    qa_results['overall_score'] = max(0, qa_results.get('overall_score', 0) - len(domain_issues) * 10)
+                    qa_results['domain_issues'] = domain_issues
+            except Exception as e:
+                logger.warning(f"Domain validation skipped or failed: {e}")
             
             # Save QA results
             series_name = book_config.get("series_name", "Default_Series")
