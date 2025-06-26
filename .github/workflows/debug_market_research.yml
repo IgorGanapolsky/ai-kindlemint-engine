@@ -66,11 +66,28 @@ jobs:
         csv_count=$(find research -type f -name "*.csv" 2>/dev/null | wc -l || echo "0")
         echo "csv_count=$csv_count" >> $GITHUB_OUTPUT
         
-        # Get file list
+        # Get file list with details
         csv_files=$(find research -type f -name "*.csv" 2>/dev/null || echo "")
         echo "csv_files<<EOF" >> $GITHUB_OUTPUT
         echo "$csv_files" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
+        
+        # Get all generated files with sizes
+        all_files=$(find research -type f 2>/dev/null | while read f; do
+          size=$(ls -lh "$f" | awk '{print $5}')
+          echo "• $(basename "$f") ($size)"
+        done || echo "No files found")
+        echo "all_files<<EOF" >> $GITHUB_OUTPUT
+        echo "$all_files" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+        
+    - name: 📤 Upload Research Artifacts
+      if: success() && steps.output_check.outputs.csv_count != '0'
+      uses: actions/upload-artifact@v4
+      with:
+        name: market-research-${{ github.run_number }}
+        path: research/
+        retention-days: 7
         
     - name: 💬 Send Slack Notification
       if: always()
@@ -95,6 +112,22 @@ jobs:
         
         # Build detailed message
         CSV_COUNT="${{ steps.output_check.outputs.csv_count }}"
+        ALL_FILES="${{ steps.output_check.outputs.all_files }}"
+        
+        # Create files section if files were generated
+        FILES_SECTION=""
+        if [ "$CSV_COUNT" -gt 0 ]; then
+          FILES_SECTION=$(cat <<SECTION
+              ,{
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*📄 Generated Files:*\n$ALL_FILES"
+                }
+              }
+SECTION
+          )
+        fi
         
         PAYLOAD=$(cat <<EOF
         {
@@ -128,12 +161,12 @@ jobs:
                     "text": "*Triggered By:* ${{ github.actor }}"
                   }
                 ]
-              },
+              }$FILES_SECTION,
               {
                 "type": "context",
                 "elements": [{
                   "type": "mrkdwn",
-                  "text": "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub>"
+                  "text": "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub> | <https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts|Download Artifacts>"
                 }]
               }
             ]
