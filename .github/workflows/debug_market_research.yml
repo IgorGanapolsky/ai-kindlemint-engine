@@ -20,7 +20,7 @@ jobs:
         
     - name: 📦 Install minimal dependencies
       run: |
-        pip install requests pandas
+        pip install requests pandas python-dotenv
         
     - name: 🔍 Check if script exists
       run: |
@@ -37,19 +37,24 @@ jobs:
       run: |
         python << 'EOF'
         import sys
+        import traceback
         sys.path.append('scripts')
         try:
             import market_research_csv_output
             print('✅ Script imported successfully')
         except Exception as e:
             print(f'❌ Import failed: {e}')
+            traceback.print_exc()
             exit(1)
         EOF
         
     - name: 📊 Run minimal test
       run: |
         mkdir -p research/test
-        python scripts/market_research_csv_output.py || echo "Script failed but continuing..."
+        python scripts/market_research_csv_output.py 2>&1 || {
+          echo "Script failed with exit code: $?"
+          echo "Continuing for debugging..."
+        }
         
     - name: 📁 Check output
       id: output_check
