@@ -16,4 +16,4 @@ beautifulsoup4==4.12.3
 lxml==5.1.0
 
 # Error tracking (optional but recommended)
-sentry-sdk==1.40.6
+sentry-sdk==1.45.1
