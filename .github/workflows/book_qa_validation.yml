@@ -55,3 +55,113 @@ jobs:
       with:
         name: qa-reports
         path: books/active_production/**/ENHANCED_QA_REPORT_*.json
+    
+    - name: 💬 Send Slack Notification
+      if: always()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        if [ -z "$SLACK_WEBHOOK_URL" ]; then
+          echo "No Slack webhook configured"
+          exit 0
+        fi
+        
+        # Parse QA results
+        TOTAL_BOOKS=0
+        PASSED_BOOKS=0
+        FAILED_BOOKS=0
+        CRITICAL_ISSUES=""
+        
+        for report in $(find books/active_production -name "ENHANCED_QA_REPORT_*.json" 2>/dev/null); do
+          TOTAL_BOOKS=$((TOTAL_BOOKS + 1))
+          STATUS=$(jq -r '.overall_status' "$report" 2>/dev/null || echo "UNKNOWN")
+          
+          if [ "$STATUS" == "PASS" ]; then
+            PASSED_BOOKS=$((PASSED_BOOKS + 1))
+          else
+            FAILED_BOOKS=$((FAILED_BOOKS + 1))
+            BOOK_NAME=$(basename $(dirname "$report"))
+            ISSUES=$(jq -r '.summary.critical_issues_count // 0' "$report" 2>/dev/null)
+            CRITICAL_ISSUES="${CRITICAL_ISSUES}• $BOOK_NAME: $ISSUES critical issues\n"
+          fi
+        done
+        
+        # Determine overall status
+        if [ "$FAILED_BOOKS" -eq 0 ] && [ "$TOTAL_BOOKS" -gt 0 ]; then
+          COLOR="good"
+          EMOJI="✅"
+          STATUS="All books passed QA"
+        elif [ "$TOTAL_BOOKS" -eq 0 ]; then
+          COLOR="warning"
+          EMOJI="⚠️"
+          STATUS="No books found to validate"
+        else
+          COLOR="danger"
+          EMOJI="❌"
+          STATUS="$FAILED_BOOKS books failed QA"
+        fi
+        
+        # Build message
+        PAYLOAD=$(cat <<EOF
+        {
+          "attachments": [{
+            "color": "$COLOR",
+            "blocks": [
+              {
+                "type": "header",
+                "text": {
+                  "type": "plain_text",
+                  "text": "$EMOJI Book QA Validation"
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Total Books:* $TOTAL_BOOKS"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Passed:* $PASSED_BOOKS"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Failed:* $FAILED_BOOKS"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Status:* $STATUS"
+                  }
+                ]
+              }
+        EOF
+        )
+        
+        # Add critical issues if any
+        if [ -n "$CRITICAL_ISSUES" ] && [ "$CRITICAL_ISSUES" != "" ]; then
+          PAYLOAD="${PAYLOAD},
+              {
+                \"type\": \"section\",
+                \"text\": {
+                  \"type\": \"mrkdwn\",
+                  \"text\": \"*Failed Books:*\n$CRITICAL_ISSUES\"
+                }
+              }"
+        fi
+        
+        PAYLOAD="${PAYLOAD},
+              {
+                \"type\": \"context\",
+                \"elements\": [{
+                  \"type\": \"mrkdwn\",
+                  \"text\": \"<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub> • Triggered by ${{ github.actor }}\"
+                }]
+              }
+            ]
+          }]
+        }"
+        
+        echo "$PAYLOAD" | curl -X POST -H 'Content-type: application/json' \
+          --data @- \
+          "$SLACK_WEBHOOK_URL"

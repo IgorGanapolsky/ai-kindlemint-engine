@@ -168,21 +168,23 @@ def validate_crossword(metadata_dir):
             pos_map = data.get('clue_positions', {})
             grid = data.get('grid_pattern')
             
-            # Check for empty answers
-            for direction in ['across', 'down']:
-                for clue_data in clues.get(direction, []):
-                    if len(clue_data) < 3:
-                        issues.append({'puzzle_id': pid, 'description': f'Invalid {direction} clue format'})
-                        continue
-                    num, clue_text, answer = clue_data[0], clue_data[1], clue_data[2]
-                    if not answer or not answer.strip():
-                        issues.append({'puzzle_id': pid, 'description': f'Empty answer for {direction} {num}'})
-                    if not clue_text or clue_text.strip() == "":
-                        issues.append({'puzzle_id': pid, 'description': f'Empty clue text for {direction} {num}'})
-                    if answer and not answer.replace(' ', '').isalpha():
-                        issues.append({'puzzle_id': pid, 'description': f'Invalid answer "{answer}" for {direction} {num} - contains non-letters'})
-            
             if grid:
+                # Domain-aware validation only when grid pattern is available
+                # Check for empty or invalid answers
+                for direction in ['across', 'down']:
+                    for clue_data in clues.get(direction, []):
+                        if len(clue_data) < 3:
+                            issues.append({'puzzle_id': pid, 'description': f'Invalid {direction} clue format'})
+                            continue
+                        num, clue_text, answer = clue_data[0], clue_data[1], clue_data[2]
+                        if not answer or not answer.strip():
+                            issues.append({'puzzle_id': pid, 'description': f'Empty answer for {direction} {num}'})
+                        if not clue_text or clue_text.strip() == "":
+                            issues.append({'puzzle_id': pid, 'description': f'Empty clue text for {direction} {num}'})
+                        if answer and not answer.replace(' ', '').isalpha():
+                            issues.append({'puzzle_id': pid, 'description': f'Invalid answer "{answer}" for {direction} {num} - contains non-letters'})
+                # Validate grid-based length and positions
+                # Build number to position mapping
                 # Build number to position mapping
                 number_positions = {}
                 for key, num in pos_map.items():

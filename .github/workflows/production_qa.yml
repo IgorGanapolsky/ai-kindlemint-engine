@@ -109,3 +109,126 @@ jobs:
             repo: context.repo.repo,
             body: comment
           });
+          
+    - name: 💬 Send Slack Notification
+      if: always()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        if [ -z "$SLACK_WEBHOOK_URL" ]; then
+          echo "No Slack webhook configured"
+          exit 0
+        fi
+        
+        # Check for test content failures
+        TEST_CONTENT_FOUND=false
+        if grep -i "test" books/active_production/**/*.json 2>/dev/null; then
+          TEST_CONTENT_FOUND=true
+        fi
+        
+        # Parse QA results
+        TOTAL_BOOKS=0
+        PASSED_BOOKS=0
+        FAILED_BOOKS=0
+        CRITICAL_ISSUES=""
+        
+        for report in $(find books/active_production -name "qa_production_report.json" 2>/dev/null); do
+          TOTAL_BOOKS=$((TOTAL_BOOKS + 1))
+          READY=$(jq -r '.ready' "$report" 2>/dev/null || echo "false")
+          
+          if [ "$READY" == "true" ]; then
+            PASSED_BOOKS=$((PASSED_BOOKS + 1))
+          else
+            FAILED_BOOKS=$((FAILED_BOOKS + 1))
+            BOOK_NAME=$(basename $(dirname "$report"))
+            SCORE=$(jq -r '.score // 0' "$report" 2>/dev/null)
+            CRITICAL_ISSUES="${CRITICAL_ISSUES}• $BOOK_NAME: Score $SCORE/100\n"
+          fi
+        done
+        
+        # Determine overall status
+        if [ "$TEST_CONTENT_FOUND" == "true" ]; then
+          COLOR="danger"
+          EMOJI="🚨"
+          STATUS="Test content detected in metadata!"
+        elif [ "$FAILED_BOOKS" -eq 0 ] && [ "$TOTAL_BOOKS" -gt 0 ]; then
+          COLOR="good"
+          EMOJI="✅"
+          STATUS="All books ready for production"
+        else
+          COLOR="danger"
+          EMOJI="❌"
+          STATUS="$FAILED_BOOKS books not ready for production"
+        fi
+        
+        # Build message
+        PAYLOAD=$(cat <<EOF
+        {
+          "attachments": [{
+            "color": "$COLOR",
+            "blocks": [
+              {
+                "type": "header",
+                "text": {
+                  "type": "plain_text",
+                  "text": "$EMOJI Production QA Validation"
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Environment:* Production"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Books Validated:* $TOTAL_BOOKS"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Ready:* $PASSED_BOOKS"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Not Ready:* $FAILED_BOOKS"
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Status:* $STATUS"
+                }
+              }
+        EOF
+        )
+        
+        # Add issues if any
+        if [ -n "$CRITICAL_ISSUES" ] && [ "$CRITICAL_ISSUES" != "" ]; then
+          PAYLOAD="${PAYLOAD},
+              {
+                \"type\": \"section\",
+                \"text\": {
+                  \"type\": \"mrkdwn\",
+                  \"text\": \"*Books Not Ready:*\n$CRITICAL_ISSUES\"
+                }
+              }"
+        fi
+        
+        PAYLOAD="${PAYLOAD},
+              {
+                \"type\": \"context\",
+                \"elements\": [{
+                  \"type\": \"mrkdwn\",
+                  \"text\": \"<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Full Report> • ${{ github.event_name }}\"
+                }]
+              }
+            ]
+          }]
+        }"
+        
+        echo "$PAYLOAD" | curl -X POST -H 'Content-type: application/json' \
+          --data @- \
+          "$SLACK_WEBHOOK_URL"

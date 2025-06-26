@@ -153,7 +153,8 @@
       "Bash(__NEW_LINE__ mv hardcover/crossword_book_volume_2_REAL_FINAL.pdf hardcover/crossword_book_volume_2_FINAL.pdf)",
       "Bash(__NEW_LINE__ echo \"✅ Replaced empty garbage with REAL crossword book\")",
       "Bash(pdfinfo:*)",
-      "Bash(pdftotext:*)"
+      "Bash(pdftotext:*)",
+      "Bash(gh secret:*)"
     ],
     "deny": []
   }

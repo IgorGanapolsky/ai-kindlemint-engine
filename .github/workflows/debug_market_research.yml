@@ -52,7 +52,91 @@ jobs:
         python scripts/market_research_csv_output.py || echo "Script failed but continuing..."
         
     - name: 📁 Check output
+      id: output_check
       run: |
         echo "Checking research directory..."
         ls -la research/ || echo "No research directory"
-        find research -type f -name "*.csv" || echo "No CSV files found"
+        
+        # Count CSV files
+        csv_count=$(find research -type f -name "*.csv" 2>/dev/null | wc -l || echo "0")
+        echo "csv_count=$csv_count" >> $GITHUB_OUTPUT
+        
+        # Get file list
+        csv_files=$(find research -type f -name "*.csv" 2>/dev/null || echo "")
+        echo "csv_files<<EOF" >> $GITHUB_OUTPUT
+        echo "$csv_files" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+        
+    - name: 💬 Send Slack Notification
+      if: always()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        if [ -z "$SLACK_WEBHOOK_URL" ]; then
+          echo "No Slack webhook configured"
+          exit 0
+        fi
+        
+        # Determine status
+        if [ "${{ job.status }}" == "success" ]; then
+          COLOR="good"
+          EMOJI="✅"
+          STATUS="Success"
+        else
+          COLOR="danger"
+          EMOJI="❌"
+          STATUS="Failed"
+        fi
+        
+        # Build detailed message
+        CSV_COUNT="${{ steps.output_check.outputs.csv_count }}"
+        
+        PAYLOAD=$(cat <<EOF
+        {
+          "attachments": [{
+            "color": "$COLOR",
+            "blocks": [
+              {
+                "type": "header",
+                "text": {
+                  "type": "plain_text",
+                  "text": "$EMOJI Debug Market Research - $STATUS"
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Workflow:* Debug Market Research"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Status:* $STATUS"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*CSV Files Generated:* $CSV_COUNT"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Triggered By:* ${{ github.actor }}"
+                  }
+                ]
+              },
+              {
+                "type": "context",
+                "elements": [{
+                  "type": "mrkdwn",
+                  "text": "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View in GitHub>"
+                }]
+              }
+            ]
+          }]
+        }
+        EOF
+        )
+        
+        curl -X POST -H 'Content-type: application/json' \
+          --data "$PAYLOAD" \
+          "$SLACK_WEBHOOK_URL"

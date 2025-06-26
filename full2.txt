@@ -1,0 +1,63 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.7, pytest-7.4.4, pluggy-1.0.0 -- /opt/homebrew/anaconda3/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine
+plugins: asyncio-0.23.5, libtmux-0.39.0, anyio-4.9.0, mock-3.14.1, langsmith-0.3.45, cov-6.1.1
+asyncio: mode=Mode.STRICT
+collecting ... collected 18 items / 2 skipped
+
+temp_slack_test.py::test_slack PASSED                                    [  5%]
+tests/test_dummy.py::test_dummy PASSED                                   [ 11%]
+tests/test_puzzle_validators.py::test_validate_sudoku_valid PASSED       [ 16%]
+tests/test_puzzle_validators.py::test_validate_sudoku_duplicate PASSED   [ 22%]
+tests/test_puzzle_validators.py::test_validate_sudoku_multiple_solutions PASSED [ 27%]
+tests/test_puzzle_validators.py::test_validate_word_search_valid PASSED  [ 33%]
+tests/test_puzzle_validators.py::test_validate_word_search_not_found PASSED [ 38%]
+tests/test_puzzle_validators.py::test_validate_crossword_valid FAILED    [ 44%]
+tests/test_puzzle_validators.py::test_validate_crossword_mismatch PASSED [ 50%]
+tests/test_schema.py::TestMarketResearchSchema::test_csv_exists SKIPPED  [ 55%]
+tests/test_schema.py::TestMarketResearchSchema::test_csv_schema SKIPPED  [ 61%]
+tests/test_schema.py::TestMarketResearchSchema::test_all_rows_valid SKIPPED [ 66%]
+tests/test_schema.py::TestMarketResearchSchema::test_summary_json_exists SKIPPED [ 72%]
+tests/test_schema.py::TestMarketResearchSchema::test_data_quality SKIPPED [ 77%]
+tests/test_schema.py::test_schema_compliance SKIPPED (Skipping market
+research CSV schema tests in CI)                                         [ 83%]
+tests/test_word_search_generator.py::test_word_search_generator_creates_files[1] PASSED [ 88%]
+tests/test_word_search_generator.py::test_word_search_generator_creates_files[3] PASSED [ 94%]
+tests/test_word_search_generator.py::test_words_file_option PASSED       [100%]
+
+=================================== FAILURES ===================================
+________________________ test_validate_crossword_valid _________________________
+
+tmp_meta_dir = PosixPath('/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_crossword_valid0/metadata')
+
+    def test_validate_crossword_valid(tmp_meta_dir):
+        clues = { 'across': [(1,'Clue','WORD')], 'down': [(1,'Clue','WORD2')] }
+        pos = { '0,0': 1, '0,2': 2 }
+        data = { 'id': 1, 'clues': clues, 'clue_positions': pos }
+        write_meta(tmp_meta_dir, 'puzzle_01.json', data)
+        issues = validate_crossword(tmp_meta_dir)
+>       assert issues == []
+E       assert [{'puzzle_id': 1, 'description': 'Invalid answer "WORD2" for down 1 - contains non-letters'}] == []
+E         Left contains one more item: {'description': 'Invalid answer "WORD2" for down 1 - contains non-letters', 'puzzle_id': 1}
+E         Full diff:
+E           [
+E         -  ,
+E         +  {'description': 'Invalid answer "WORD2" for down 1 - contains non-letters',
+E         +   'puzzle_id': 1},
+E           ]
+
+tests/test_puzzle_validators.py:79: AssertionError
+=============================== warnings summary ===============================
+../../../../../../opt/homebrew/anaconda3/lib/python3.12/site-packages/PyPDF2/__init__.py:21
+  /opt/homebrew/anaconda3/lib/python3.12/site-packages/PyPDF2/__init__.py:21: DeprecationWarning: PyPDF2 is deprecated. Please move to the pypdf library instead.
+    warnings.warn(
+
+temp_slack_test.py::test_slack
+  /opt/homebrew/anaconda3/lib/python3.12/site-packages/_pytest/python.py:198: PytestReturnNotNoneWarning: Expected None, but temp_slack_test.py::test_slack returned True, which will be an error in a future version of pytest.  Did you mean to use `assert` instead of `return`?
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_puzzle_validators.py::test_validate_crossword_valid - asser...
+============= 1 failed, 11 passed, 8 skipped, 2 warnings in 0.69s ==============
