@@ -28,32 +28,30 @@ jobs:
     - name: 📦 Install Dependencies
       run: |
         pip install PyMuPDF reportlab pathlib PyPDF2 Pillow
-        
-    - name: 🔍 Run Enhanced QA Checker
+
+    # --------------------------------------------------------------------
+    # Dynamically find every book (identified by metadata/collection.json)
+    # and run the *new* content-first Enhanced QA Validator v2 on each one.
+    # The validator exits non-zero if any critical issues are found, which
+    # automatically fails the job – no extra “fail” step required.
+    # --------------------------------------------------------------------
+
+    - name: 🗂️  Find book directories
+      id: find-books
       run: |
-        # Check if PDF exists and run QA
-        if [ -f "books/active_production/Large_Print_Crossword_Masters/volume_1/paperback/crossword_book_volume_1_FINAL.pdf" ]; then
-          python scripts/enhanced_qa_checker.py books/active_production/Large_Print_Crossword_Masters/volume_1/paperback/crossword_book_volume_1_FINAL.pdf
-        else
-          echo "✅ No PDF files found - skipping QA check"
-          echo "📚 QA will run when PDF files are added to books/active_production/"
-        fi
-        
-    - name: 📊 Validate PDF Quality
+        echo "book_dirs=$(find books/active_production -type f -name collection.json -print0 | xargs -0 -n1 dirname | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
+
+    - name: 🔍 Run Enhanced QA Validator v2
+      if: steps.find-books.outputs.book_dirs != ''
       run: |
-        echo "✅ PDF Quality Check: Manual validation required"
-        echo "📄 Final PDF: crossword_book_volume_1_FINAL.pdf"
-        
-    - name: ✅ QA Summary
-      run: |
-        echo "🎯 QA Validation Complete"
-        echo "📋 All books meet quality standards"
-        echo "✅ Ready for Amazon KDP publishing"
-        
-    - name: 🚨 Fail on QA Issues
-      if: failure()
-      run: |
-        echo "❌ QA VALIDATION FAILED"
-        echo "📚 Books do not meet quality standards"
-        echo "🔧 Fix issues before proceeding"
-        exit 1
+        for dir in ${{ steps.find-books.outputs.book_dirs }}; do
+          echo "Running Enhanced QA on ${dir} ..."
+          python scripts/enhanced_qa_validator_v2.py "${dir}" --output-dir "${dir}"
+        done
+
+    - name: 📦 Upload QA Reports
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: qa-reports
+        path: books/active_production/**/ENHANCED_QA_REPORT_*.json
