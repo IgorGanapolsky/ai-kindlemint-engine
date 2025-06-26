@@ -1,0 +1,77 @@
+# Files and patterns to exclude from Claude Code Flow analysis
+# This prevents sensitive data from being sent to the API
+
+# Environment and secrets
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*_secret*
+*_private*
+
+# API credentials
+*api_key*
+*credentials*
+.netrc
+
+# Generated output (large files)
+output/
+research/
+published_archive/
+books/*/paperback/*.pdf
+books/*/hardcover/*.pdf
+books/*/kindle/*.pdf
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+.pytest_tmp/
+__pycache__/
+*.pyc
+
+# Large data files
+*.csv
+*.xlsx
+*.db
+*.sqlite
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+_internal/
+
+# Git LFS files
+*.pdf
+*.png
+*.jpg
+*.jpeg
+
+# Node modules (if any)
+node_modules/
+
+# IDE files
+.idea/
+.vscode/settings.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Archive files
+*.zip
+*.tar
+*.gz
+*.7z
+
+# KDP session data
+kdp_session_cookies.json
+kdp_form_elements.json
+debug_kdp_*.html
