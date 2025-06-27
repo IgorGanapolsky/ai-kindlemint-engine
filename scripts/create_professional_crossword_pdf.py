@@ -13,6 +13,7 @@ from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_JUSTIFY
 from pathlib import Path
+from scripts.formatter import Formatter
 
 # Professional 6x9 book dimensions
 PAGE_WIDTH = 6 * inch
@@ -54,10 +55,16 @@ def create_crossword_grid(c, x_offset, y_offset, puzzle_data):
                     c.setFont("Helvetica", 8)
                     c.drawString(x + 2, y + CELL_SIZE - 10, str(puzzle_data['numbers'][(row, col)]))
 
-def create_professional_pdf():
+def create_professional_pdf(output_path: Path = None) -> Path:
     """Create a professional crossword book PDF"""
-    
-    output_path = Path("books/active_production/Large_Print_Crossword_Masters/volume_2/paperback/crossword_volume_2_PROFESSIONAL.pdf")
+    # Determine output path
+    if output_path is None:
+        output_path = Path(
+            "books/active_production/Large_Print_Crossword_Masters/volume_2/paperback/"
+            "crossword_volume_2_PROFESSIONAL.pdf"
+        )
+    # Ensure parent directory exists
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     
     # Create canvas with exact dimensions
     c = canvas.Canvas(str(output_path), pagesize=(PAGE_WIDTH, PAGE_HEIGHT))
@@ -140,5 +147,17 @@ def create_professional_pdf():
     
     return output_path
 
+class ProfessionalCrosswordFormatter(Formatter):
+    """
+    Formatter for professional crossword PDFs.
+    """
+    def __init__(self, output_path: Path = None):
+        self.output_path = output_path
+
+    def create_pdf(self) -> Path:
+        return create_professional_pdf(self.output_path)
+
 if __name__ == "__main__":
-    create_professional_pdf()
+    formatter = ProfessionalCrosswordFormatter()
+    pdf_path = formatter.create_pdf()
+    print(f"✅ PDF generated at: {pdf_path}")

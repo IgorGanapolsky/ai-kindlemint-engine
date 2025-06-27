@@ -1,259 +1,253 @@
 #!/usr/bin/env python3
 """
-Market-First Validation for KindleMint
-Validate demand before building - use real user signals, not guesswork.
+Market-First Validation for KindleMint Engine
+
+This script provides a data-driven analysis of a potential puzzle book niche
+to determine its market viability before any content is generated. It helps
+answer the question: "Should I build a book for this theme?"
+
+It analyzes:
+- Demand (Search volume, social signals)
+- Competition (Number of competitors, their sales rank)
+- Profitability (Average market price vs. costs)
+
+And provides a clear "GO / NO-GO / PIVOT" recommendation.
+
+Usage:
+    python scripts/market_validator.py "Garden Flowers"
+    python scripts/market_validator.py "17th Century Botanical Terms" --output-dir reports/
 """
 
-import requests
 import json
-import time
+import argparse
+import random
 from pathlib import Path
 from datetime import datetime
-import re
 
 class MarketValidator:
-    """Validate market demand using real signals"""
-    
-    def __init__(self):
-        self.popular_themes = {
-            # Validated themes with search volume data
-            "Garden Flowers": {"searches": "high", "competition": "medium", "price_range": "$7.99-$12.99"},
-            "Classic Movies": {"searches": "high", "competition": "high", "price_range": "$8.99-$14.99"},
-            "Famous Authors": {"searches": "medium", "competition": "medium", "price_range": "$7.99-$11.99"},
-            "World Capitals": {"searches": "medium", "competition": "low", "price_range": "$6.99-$10.99"},
-            "Animals": {"searches": "very_high", "competition": "very_high", "price_range": "$5.99-$9.99"},
-            "Science": {"searches": "medium", "competition": "low", "price_range": "$8.99-$13.99"},
-            "History": {"searches": "medium", "competition": "medium", "price_range": "$7.99-$12.99"},
-            "Sports": {"searches": "high", "competition": "high", "price_range": "$6.99-$11.99"},
-            "Food & Cooking": {"searches": "high", "competition": "medium", "price_range": "$7.99-$12.99"},
-            "Travel": {"searches": "high", "competition": "medium", "price_range": "$8.99-$13.99"}
+    """Analyzes market data to provide GO/NO-GO/PIVOT recommendations."""
+
+    def __init__(self, output_dir: Path = None):
+        self.output_dir = output_dir
+        if self.output_dir:
+            self.output_dir.mkdir(parents=True, exist_ok=True)
+
+    def _fetch_amazon_data(self, theme: str) -> dict:
+        """
+        Simulates fetching data from Amazon for a given theme.
+        In a real implementation, this would use SerpAPI or a similar service.
+        """
+        print(f"🔍 Simulating Amazon search for '{theme}'...")
+        # Mock data based on theme popularity
+        theme_lower = theme.lower()
+        if "garden" in theme_lower or "flower" in theme_lower:
+            return {
+                "search_results_count": 850,
+                "top_competitors": [
+                    {"bsr": 50000, "price": 8.99, "reviews": 150},
+                    {"bsr": 75000, "price": 7.99, "reviews": 80},
+                    {"bsr": 120000, "price": 9.99, "reviews": 250},
+                ]
+            }
+        elif "movie" in theme_lower or "film" in theme_lower:
+            return {
+                "search_results_count": 2500,
+                "top_competitors": [
+                    {"bsr": 25000, "price": 12.99, "reviews": 800},
+                    {"bsr": 40000, "price": 11.99, "reviews": 550},
+                    {"bsr": 90000, "price": 10.99, "reviews": 300},
+                ]
+            }
+        elif "botanical" in theme_lower or "17th century" in theme_lower:
+             return {
+                "search_results_count": 15,
+                "top_competitors": [] # No direct competitors found
+            }
+        else: # Generic fallback for less popular themes
+            return {
+                "search_results_count": 5000,
+                "top_competitors": [
+                    {"bsr": 500000, "price": 6.99, "reviews": 15},
+                    {"bsr": 800000, "price": 7.49, "reviews": 5},
+                ]
+            }
+
+    def _fetch_reddit_data(self, theme: str) -> dict:
+        """
+        Simulates fetching data from Reddit.
+        In a real implementation, this would use the reddit_market_scraper.py output.
+        """
+        print(f"📊 Simulating Reddit analysis for '{theme}'...")
+        mentions = 0
+        if "garden" in theme.lower(): mentions = 150
+        elif "movie" in theme.lower(): mentions = 250
+        elif "botanical" in theme.lower(): mentions = 2
+        else: mentions = 20
+        return {"mentions": mentions, "positive_sentiment": 0.75 + (random.random() * 0.2)}
+
+    def _calculate_scores(self, amazon_data: dict, reddit_data: dict) -> dict:
+        """Calculates demand, competition, profitability, and overall viability scores."""
+        scores = {
+            "demand": 0, "competition": 0, "profitability": 0, "overall": 0
         }
         
-        self.red_flags = [
-            "very niche", "too specific", "limited audience", "seasonal only",
-            "trademark issues", "copyrighted", "too adult", "inappropriate"
-        ]
-    
-    def validate_theme(self, theme):
-        """Validate a theme for market potential"""
-        print(f"🔍 Validating market demand for '{theme}'...")
-        
-        results = {
-            "theme": theme,
-            "validated": False,
-            "confidence": "low",
-            "suggestions": [],
-            "price_range": "$6.99-$9.99",
-            "competition": "unknown",
-            "market_size": "unknown"
-        }
-        
-        # Check against known successful themes
-        theme_lower = theme.lower()
-        for popular_theme, data in self.popular_themes.items():
-            if popular_theme.lower() in theme_lower or any(word in theme_lower for word in popular_theme.lower().split()):
-                results["validated"] = True
-                results["confidence"] = "high"
-                results["price_range"] = data["price_range"]
-                results["competition"] = data["competition"]
-                results["market_size"] = data["searches"]
-                print(f"✅ '{theme}' matches successful theme '{popular_theme}'")
-                break
-        
-        # Check for red flags
-        for flag in self.red_flags:
-            if flag in theme_lower:
-                results["validated"] = False
-                results["confidence"] = "low"
-                results["suggestions"].append(f"⚠️  Contains red flag: {flag}")
-        
-        # Generate suggestions
-        if not results["validated"]:
-            results["suggestions"].extend(self._generate_alternatives(theme))
-        
-        return results
-    
-    def _generate_alternatives(self, theme):
-        """Generate alternative theme suggestions"""
-        alternatives = []
-        
-        # Map to similar successful themes
-        theme_lower = theme.lower()
-        
-        if any(word in theme_lower for word in ["flower", "plant", "garden"]):
-            alternatives.append("💡 Try: 'Garden Flowers' (proven seller)")
-        elif any(word in theme_lower for word in ["movie", "film", "cinema"]):
-            alternatives.append("💡 Try: 'Classic Movies' (high demand)")
-        elif any(word in theme_lower for word in ["book", "author", "writer"]):
-            alternatives.append("💡 Try: 'Famous Authors' (good niche)")
-        elif any(word in theme_lower for word in ["place", "city", "country"]):
-            alternatives.append("💡 Try: 'World Capitals' (educational market)")
+        # Demand Score (40% weight)
+        # Based on Reddit mentions and inverse of search results (lower is better)
+        reddit_score = min(100, (reddit_data.get("mentions", 0) / 200) * 100)
+        search_score = max(0, 100 - (amazon_data.get("search_results_count", 10000) / 10000) * 100)
+        scores["demand"] = (reddit_score * 0.6) + (search_score * 0.4)
+
+        # Competition Score (30% weight)
+        # Based on average BSR and review count of competitors
+        competitors = amazon_data.get("top_competitors", [])
+        if not competitors:
+            scores["competition"] = 100 # No competition is a good sign
         else:
-            # General suggestions
-            alternatives.extend([
-                "💡 Consider: 'Animals' (very popular but competitive)",
-                "💡 Consider: 'Science' (good niche, less competitive)",
-                "💡 Consider: 'Food & Cooking' (broad appeal)"
-            ])
+            avg_bsr = sum(c['bsr'] for c in competitors) / len(competitors)
+            avg_reviews = sum(c['reviews'] for c in competitors) / len(competitors)
+            bsr_score = max(0, 100 - (avg_bsr / 100000) * 100) # Lower BSR is harder
+            review_score = max(0, 100 - (avg_reviews / 500) * 100) # More reviews is harder
+            scores["competition"] = (bsr_score * 0.5) + (review_score * 0.5)
+
+        # Profitability Score (30% weight)
+        # Based on average market price
+        if not competitors:
+            scores["profitability"] = 50 # Default score if no price data
+        else:
+            avg_price = sum(c['price'] for c in competitors) / len(competitors)
+            # Scale price from $5.99 (0 score) to $15.99 (100 score)
+            scores["profitability"] = min(100, max(0, ((avg_price - 5.99) / 10) * 100))
         
-        return alternatives
-    
-    def simulate_reddit_research(self, theme):
-        """Simulate Reddit pain point research (placeholder for real implementation)"""
-        print(f"🔍 Checking Reddit for '{theme}' crossword demand...")
+        # Overall Viability Score
+        scores["overall"] = (scores["demand"] * 0.4) + (scores["competition"] * 0.3) + (scores["profitability"] * 0.3)
+
+        return {k: int(v) for k, v in scores.items()}
+
+    def _estimate_revenue(self, amazon_data: dict) -> dict:
+        """Provides a rough, heuristic-based revenue estimation."""
+        competitors = amazon_data.get("top_competitors", [])
+        if not competitors:
+            return {"monthly_potential": "$0 - $50", "confidence": "very low"}
+
+        # Use the top competitor's BSR to estimate their sales
+        top_bsr = min(c['bsr'] for c in competitors)
+        # Very rough heuristic: sales ≈ 30000 / sqrt(BSR)
+        est_top_sales = int(30000 / (top_bsr**0.5)) if top_bsr > 0 else 0
         
-        # Simulate research results
-        reddit_signals = {
-            "mentions": 15 + hash(theme) % 50,  # Simulated mention count
-            "pain_points": [
-                f"Hard to find good {theme.lower()} crosswords",
-                f"Need more {theme.lower()} themed puzzles",
-                f"Looking for {theme.lower()} crossword books"
-            ],
-            "positive_sentiment": 0.7 + (hash(theme) % 30) / 100,  # Simulated sentiment
+        # Assume a new book can capture 5-15% of the top competitor's sales
+        est_our_sales_low = int(est_top_sales * 0.05)
+        est_our_sales_high = int(est_top_sales * 0.15)
+        
+        avg_price = sum(c['price'] for c in competitors) / len(competitors)
+        # KDP Royalty is roughly (Price * 0.6) - PrintCost
+        est_profit_per_book = (avg_price * 0.6) - 3.50 
+
+        est_monthly_low = int(est_our_sales_low * est_profit_per_book)
+        est_monthly_high = int(est_our_sales_high * est_profit_per_book)
+
+        return {
+            "monthly_potential": f"${max(0, est_monthly_low)} - ${max(0, est_monthly_high)}",
+            "confidence": "low"
         }
-        
-        return reddit_signals
-    
-    def generate_market_report(self, theme):
-        """Generate a comprehensive market validation report"""
-        print(f"\n📊 Generating market report for '{theme}'...")
-        
-        validation = self.validate_theme(theme)
-        reddit_data = self.simulate_reddit_research(theme)
-        
+
+    def _generate_recommendation(self, scores: dict, amazon_data: dict) -> dict:
+        """Generates the final GO/NO-GO/PIVOT recommendation."""
+        overall = scores.get("overall", 0)
+        demand = scores.get("demand", 0)
+        competition = scores.get("competition", 0)
+
+        if overall >= 75:
+            return {"decision": "GO", "reason": "Strong demand with manageable competition. High probability of success."}
+        elif overall >= 50:
+            if demand < 40:
+                return {"decision": "PIVOT", "reason": "Market exists, but demand signals are weak. Consider a related, more popular theme."}
+            if competition < 50:
+                 return {"decision": "GO", "reason": "Solid demand in a competitive market. A high-quality book can succeed."}
+            return {"decision": "PROCEED WITH CAUTION", "reason": "Moderate signals across the board. Success depends on high-quality execution and marketing."}
+        elif amazon_data.get("search_results_count", 0) < 100 and reddit_data.get("mentions", 0) > 50:
+             return {"decision": "GO (High Risk/Reward)", "reason": "Undiscovered niche with strong social signals. Could be a breakout hit or a total flop."}
+        else:
+            return {"decision": "NO-GO", "reason": "Low demand and/or overwhelming competition. High probability of failure."}
+
+    def validate_theme(self, theme: str) -> dict:
+        """
+        Performs a full market validation for a given theme and returns a report.
+        """
+        print(f"\n🚀 Starting market validation for theme: '{theme}'")
+        start_time = datetime.now()
+
+        amazon_data = self._fetch_amazon_data(theme)
+        reddit_data = self._fetch_reddit_data(theme)
+        scores = self._calculate_scores(amazon_data, reddit_data)
+        revenue_est = self._estimate_revenue(amazon_data)
+        recommendation = self._generate_recommendation(scores, amazon_data)
+
         report = {
             "theme": theme,
-            "timestamp": datetime.now().isoformat(),
-            "validation": validation,
-            "reddit_signals": reddit_data,
-            "recommendation": self._make_recommendation(validation, reddit_data),
-            "action_plan": self._create_action_plan(validation, reddit_data)
+            "timestamp": start_time.isoformat(),
+            "viability_score": scores['overall'],
+            "recommendation": recommendation,
+            "detailed_scores": scores,
+            "revenue_estimation": revenue_est,
+            "market_data": {
+                "amazon": amazon_data,
+                "reddit": reddit_data
+            }
         }
         
+        self.print_report(report)
+        
+        if self.output_dir:
+            report_path = self.output_dir / f"market_report_{theme.replace(' ', '_').lower()}.json"
+            with open(report_path, 'w') as f:
+                json.dump(report, f, indent=2)
+            print(f"\n💾 Report saved to: {report_path}")
+
         return report
-    
-    def _make_recommendation(self, validation, reddit_data):
-        """Make a go/no-go recommendation"""
-        if validation["validated"] and validation["confidence"] == "high":
-            return {
-                "decision": "GO",
-                "confidence": "high",
-                "reason": "Theme matches proven successful patterns"
-            }
-        elif reddit_data["positive_sentiment"] > 0.8 and reddit_data["mentions"] > 30:
-            return {
-                "decision": "GO",
-                "confidence": "medium", 
-                "reason": "Strong social signals despite unknown theme"
-            }
-        elif validation["suggestions"]:
-            return {
-                "decision": "PIVOT",
-                "confidence": "medium",
-                "reason": "Consider suggested alternatives for better market fit"
-            }
-        else:
-            return {
-                "decision": "NO-GO",
-                "confidence": "high",
-                "reason": "Insufficient market signals, high risk"
-            }
-    
-    def _create_action_plan(self, validation, reddit_data):
-        """Create specific next steps"""
-        plan = []
+
+    def print_report(self, report: dict):
+        """Prints a formatted summary of the validation report to the console."""
+        print("\n" + "="*60)
+        print(f"📊 MARKET VALIDATION REPORT: '{report['theme']}'")
+        print("="*60)
         
-        if validation["validated"]:
-            plan.extend([
-                f"✅ Proceed with '{validation['theme']}' theme",
-                f"💰 Price in range: {validation['price_range']}",
-                f"📊 Competition level: {validation['competition']}"
-            ])
-        else:
-            plan.extend([
-                "⚠️  Consider alternative themes",
-                "🔍 Research competition on Amazon KDP",
-                "📱 Check social media for demand signals"
-            ])
+        rec = report['recommendation']
+        emoji = {"GO": "✅", "PIVOT": "🔄", "PROCEED WITH CAUTION": "⚠️", "NO-GO": "❌"}.get(rec['decision'], "💡")
         
-        plan.extend([
-            "🎯 Create 40-50 puzzles for optimal length",
-            "📝 Write compelling book description",
-            "🔑 Use strategic keywords for discoverability"
-        ])
+        print(f"\n🎯 Recommendation: {emoji} {rec['decision']} (Viability Score: {report['viability_score']}/100)")
+        print(f"   Reason: {rec['reason']}")
+
+        print("\n💰 Estimated Monthly Revenue Potential:")
+        print(f"   Range: {report['revenue_estimation']['monthly_potential']} (Confidence: {report['revenue_estimation']['confidence']})")
+
+        print("\n📈 Detailed Scores:")
+        print(f"   - Demand Score:       {report['detailed_scores']['demand']}/100")
+        print(f"   - Competition Score:    {report['detailed_scores']['competition']}/100 (Higher is better/less competition)")
+        print(f"   - Profitability Score:  {report['detailed_scores']['profitability']}/100")
         
-        return plan
+        print("\n--- Raw Data ---")
+        print("Amazon Data:")
+        print(f"  - Search Results: {report['market_data']['amazon']['search_results_count']}")
+        print(f"  - Competitors Found: {len(report['market_data']['amazon']['top_competitors'])}")
+        print("Reddit Data:")
+        print(f"  - Mentions: {report['market_data']['reddit']['mentions']}")
+        print(f"  - Positive Sentiment: {report['market_data']['reddit']['positive_sentiment']:.1%}")
+        print("="*60)
+
 
 def main():
-    """CLI for market validation"""
-    import argparse
-    
-    parser = argparse.ArgumentParser(description="Validate market demand for crossword themes")
-    parser.add_argument("theme", help="Theme to validate (e.g., 'Garden Flowers')")
-    parser.add_argument("--output", help="Output file for report (JSON)")
-    parser.add_argument("--interactive", action="store_true", help="Interactive mode")
+    """Main entry point for the market validator CLI."""
+    parser = argparse.ArgumentParser(
+        description="Validate the market viability of a puzzle book theme.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser.add_argument("theme", help="The puzzle book theme to validate (e.g., 'Garden Flowers').")
+    parser.add_argument("--output-dir", type=Path, help="Directory to save the JSON report.")
     
     args = parser.parse_args()
     
-    validator = MarketValidator()
-    
-    if args.interactive:
-        print("🎯 Interactive Market Validation")
-        print("Enter themes to validate (empty line to quit):")
-        
-        while True:
-            theme = input("\n📚 Theme: ").strip()
-            if not theme:
-                break
-            
-            report = validator.generate_market_report(theme)
-            print_report(report)
-    else:
-        report = validator.generate_market_report(args.theme)
-        print_report(report)
-        
-        if args.output:
-            with open(args.output, 'w') as f:
-                json.dump(report, f, indent=2)
-            print(f"\n💾 Report saved to: {args.output}")
-
-def print_report(report):
-    """Print a formatted market validation report"""
-    print("\n" + "="*60)
-    print(f"📊 MARKET VALIDATION REPORT: {report['theme']}")
-    print("="*60)
-    
-    validation = report["validation"]
-    reddit = report["reddit_signals"]
-    recommendation = report["recommendation"]
-    
-    # Validation summary
-    print(f"\n✅ VALIDATION STATUS: {validation['confidence'].upper()}")
-    print(f"💰 Suggested Price: {validation['price_range']}")
-    print(f"🏆 Competition: {validation['competition']}")
-    print(f"📈 Market Size: {validation['market_size']}")
-    
-    # Reddit signals
-    print(f"\n🔍 SOCIAL SIGNALS:")
-    print(f"   Mentions: {reddit['mentions']}")
-    print(f"   Sentiment: {reddit['positive_sentiment']:.1%}")
-    
-    # Recommendation
-    print(f"\n🎯 RECOMMENDATION: {recommendation['decision']}")
-    print(f"   Confidence: {recommendation['confidence']}")
-    print(f"   Reason: {recommendation['reason']}")
-    
-    # Suggestions
-    if validation["suggestions"]:
-        print(f"\n💡 SUGGESTIONS:")
-        for suggestion in validation["suggestions"]:
-            print(f"   {suggestion}")
-    
-    # Action plan
-    print(f"\n📋 ACTION PLAN:")
-    for action in report["action_plan"]:
-        print(f"   {action}")
+    validator = MarketValidator(output_dir=args.output_dir)
+    validator.validate_theme(args.theme)
 
 if __name__ == "__main__":
     main()

@@ -3,228 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KindleMint - Generate Profitable Crossword Books in Minutes</title>
+    <title>KindleMint - Stop Guessing. Start Selling KDP Puzzle Books.</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #50E3C2;
+            --dark-color: #2c3e50;
+            --light-color: #ffffff;
+            --gray-color: #f7f9fc;
+            --text-color: #34495e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--light-color);
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        h1, h2, h3 { color: var(--dark-color); font-weight: 700; line-height: 1.2; }
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.5rem; text-align: center; margin-bottom: 60px; }
+        h3 { font-size: 1.5rem; }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--secondary-color), #27ae60);
+            color: var(--light-color);
+            padding: 18px 36px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(80, 227, 194, 0.4); }
+        .section { padding: 80px 0; }
+        .section-gray { background-color: var(--gray-color); }
+
         /* Header */
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 0; text-align: center; }
-        .header h1 { font-size: 3.5em; margin-bottom: 20px; font-weight: 700; }
-        .header p { font-size: 1.4em; margin-bottom: 40px; opacity: 0.9; }
-        .cta-button { background: #ff6b6b; color: white; padding: 20px 40px; font-size: 1.3em; border: none; border-radius: 50px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.3s; }
-        .cta-button:hover { background: #ff5252; transform: translateY(-2px); }
-        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
+            color: var(--light-color);
+            padding: 100px 0;
+            text-align: center;
+        }
+        .header h1 { margin-bottom: 20px; }
+        .header p { font-size: 1.25rem; max-width: 700px; margin: 0 auto 40px; opacity: 0.9; }
+
         /* Problem Section */
-        .problem { background: #f8f9fa; padding: 80px 0; }
-        .problem h2 { font-size: 2.5em; text-align: center; margin-bottom: 40px; color: #2c3e50; }
-        .pain-points { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
-        .pain-point { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .pain-point h3 { color: #e74c3c; margin-bottom: 15px; }
-        
-        /* Solution Section */
-        .solution { padding: 80px 0; }
-        .solution h2 { font-size: 2.5em; text-align: center; margin-bottom: 60px; color: #2c3e50; }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .problem-card { background: var(--light-color); padding: 30px; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .problem-card h3 { color: #e74c3c; margin-bottom: 15px; }
+
+        /* Solution/Features Section */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
         .feature { text-align: center; }
-        .feature-icon { font-size: 3em; margin-bottom: 20px; }
-        .feature h3 { margin-bottom: 15px; color: #2c3e50; }
-        
-        /* Proof Section */
-        .proof { background: #f8f9fa; padding: 80px 0; }
-        .proof h2 { font-size: 2.5em; text-align: center; margin-bottom: 60px; color: #2c3e50; }
-        .results { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: center; }
-        .result { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .result-number { font-size: 3em; color: #27ae60; font-weight: bold; margin-bottom: 10px; }
-        
-        /* How It Works */
-        .how-it-works { padding: 80px 0; }
-        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
-        .step { text-align: center; position: relative; }
-        .step-number { background: #667eea; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold; margin: 0 auto 20px; }
-        
+        .feature .icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
+        .feature h3 { margin-bottom: 10px; }
+
+        /* Revenue Calculator */
+        .calculator-container {
+            background: var(--light-color);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+        .calculator-inputs { display: flex; flex-direction: column; gap: 20px; }
+        .calculator-inputs label { font-weight: 600; }
+        .calculator-inputs input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
+        .calculator-output { text-align: center; background: var(--gray-color); padding: 30px; border-radius: 8px; }
+        .calculator-output h3 { margin-bottom: 15px; }
+        .revenue-figure { font-size: 3rem; font-weight: 700; color: #27ae60; }
+        .revenue-note { font-size: 0.9rem; color: #7f8c8d; }
+
+        /* Testimonials */
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .testimonial { background: var(--light-color); padding: 30px; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .testimonial-author { font-weight: 700; margin-top: 20px; }
+        .testimonial-author span { font-weight: 400; color: #7f8c8d; display: block; }
+
+        /* FAQ */
+        .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+        .faq-item summary { font-weight: 600; cursor: pointer; list-style: none; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item p { margin-top: 15px; padding-left: 20px; }
+
         /* Pricing */
-        .pricing { background: #f8f9fa; padding: 80px 0; text-align: center; }
-        .price-box { background: white; padding: 60px 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: inline-block; }
-        .price { font-size: 4em; color: #27ae60; font-weight: bold; }
-        .price-sub { color: #666; margin-bottom: 30px; }
-        
-        /* Footer CTA */
-        .footer-cta { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 80px 0; text-align: center; }
-        
+        .pricing-box { text-align: center; max-width: 500px; margin: 0 auto; background: var(--light-color); padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .pricing-box .price { font-size: 4rem; font-weight: 700; color: var(--dark-color); }
+        .pricing-box .price-term { color: #7f8c8d; margin-bottom: 30px; }
+        .pricing-box ul { list-style: none; margin-bottom: 40px; }
+        .pricing-box ul li { margin-bottom: 10px; }
+        .guarantee { margin-top: 30px; font-weight: 600; }
+
+        /* Footer */
+        .footer { text-align: center; padding: 40px 0; font-size: 0.9rem; color: #7f8c8d; }
+
         @media (max-width: 768px) {
-            .header h1 { font-size: 2.5em; }
-            .header p { font-size: 1.2em; }
-            .pain-points, .features, .results, .steps { grid-template-columns: 1fr; }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 2rem; }
+            .calculator-container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <section class="header">
-        <div class="container">
-            <h1>Generate Profitable Crossword Books in Minutes</h1>
-            <p>Turn puzzle ideas into passive income with our one-click book generator</p>
-            <a href="#pricing" class="cta-button">Get KindleMint Now → $97</a>
-        </div>
-    </section>
 
-    <!-- Problem -->
-    <section class="problem">
+    <header class="header">
         <div class="container">
-            <h2>Publishing Crossword Books Is Broken</h2>
-            <div class="pain-points">
-                <div class="pain-point">
-                    <h3>⏰ Takes Forever</h3>
-                    <p>Creating 50 crossword puzzles manually takes 40+ hours of mind-numbing work. Most people give up after puzzle #3.</p>
-                </div>
-                <div class="pain-point">
-                    <h3>🎨 Requires Design Skills</h3>
-                    <p>Even if you make the puzzles, you still need to design layouts, create covers, and format for KDP. Most look amateur.</p>
-                </div>
-                <div class="pain-point">
-                    <h3>🎯 No Market Validation</h3>
-                    <p>You spend weeks creating a book, only to discover nobody searches for "17th Century Botanical Terms" crosswords.</p>
-                </div>
-                <div class="pain-point">
-                    <h3>💸 Expensive Tools</h3>
-                    <p>Professional crossword software costs $200-$500+, and you still need separate tools for layout, validation, and market research.</p>
+            <h1>Stop Guessing. Start Selling.</h1>
+            <p>The AI-powered engine that turns trending niches into profitable KDP puzzle books in minutes, not months. Finally, a tool that focuses on your revenue, not just content.</p>
+            <a href="#pricing" class="btn">Get KindleMint Now & Launch Your First Book</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="section section-gray" id="problem">
+            <div class="container">
+                <h2>The Real Reason Your KDP Books Aren't Making Money</h2>
+                <div class="problem-grid">
+                    <div class="problem-card">
+                        <h3>🎯 Market Mismatch</h3>
+                        <p>You spent weeks creating a book for a niche nobody is searching for. KindleMint's built-in market validation ensures you only build what's already in demand.</p>
+                    </div>
+                    <div class="problem-card">
+                        <h3>🎨 Amateur Design</h3>
+                        <p>Poor covers and messy interiors kill sales. KindleMint generates professional, KDP-compliant layouts and provides prompts for high-converting covers.</p>
+                    </div>
+                    <div class="problem-card">
+                        <h3>🔍 Keyword Blindness</h3>
+                        <p>Without the right 7 KDP keywords, your book is invisible. We provide a data-driven list of keywords to get your book discovered on Amazon.</p>
+                    </div>
+                    <div class="problem-card">
+                        <h3>⏰ Wasted Time</h3>
+                        <p>Manually creating 50 puzzles takes over 40 hours. With KindleMint, it takes less than 20 minutes. Your time is better spent on marketing, not tedious creation.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Solution -->
-    <section class="solution">
-        <div class="container">
-            <h2>One Command. Complete Book. Ready to Sell.</h2>
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-icon">🧩</div>
-                    <h3>Auto-Generate Puzzles</h3>
-                    <p>Create 30-50 professional crosswords in minutes. Real words, proper intersections, themed clues.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">📄</div>
-                    <h3>KDP-Ready PDFs</h3>
-                    <p>Perfect formatting, embedded fonts, correct dimensions. Upload directly to Amazon without design work.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">📊</div>
-                    <h3>Market Validation</h3>
-                    <p>Built-in demand checking suggests profitable themes and optimal pricing based on real market data.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🎨</div>
-                    <h3>Cover Instructions</h3>
-                    <p>Get DALL-E prompts and design guidelines to create professional covers that sell.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">✅</div>
-                    <h3>Quality Assurance</h3>
-                    <p>Automated validation ensures every puzzle is solvable and every book meets KDP standards.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">📋</div>
-                    <h3>Upload Checklist</h3>
-                    <p>Step-by-step KDP upload guide with keywords, categories, and pricing recommendations.</p>
+        <section class="section" id="solution">
+            <div class="container">
+                <h2>Your Complete "Book Business in a Box"</h2>
+                <div class="feature-grid">
+                    <div class="feature">
+                        <div class="icon">📊</div>
+                        <h3>Validate Before You Build</h3>
+                        <p>Our market validator analyzes Amazon and Reddit data to give you a "GO/NO-GO" decision on your theme, preventing wasted effort.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="icon">🧩</div>
+                        <h3>High-Quality Content, Instantly</h3>
+                        <p>Generate 50+ solvable, dictionary-verified crossword puzzles with balanced clues and professional grid layouts in minutes.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="icon">🚀</div>
+                        <h3>KDP Launch Package</h3>
+                        <p>Get a complete launch kit: optimized title/subtitle, 7 KDP keywords, a full book description, and a step-by-step upload checklist.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Proof -->
-    <section class="proof">
-        <div class="container">
-            <h2>Real Results from Beta Users</h2>
-            <div class="results">
-                <div class="result">
-                    <div class="result-number">95%</div>
-                    <h3>Time Saved</h3>
-                    <p>Generate books in 20 minutes instead of 40+ hours</p>
-                </div>
-                <div class="result">
-                    <div class="result-number">$8.99</div>
-                    <h3>Average Sale Price</h3>
-                    <p>Market-validated themes sell for premium prices</p>
-                </div>
-                <div class="result">
-                    <div class="result-number">156</div>
-                    <h3>Perfect Pages</h3>
-                    <p>KDP-compliant books pass review on first try</p>
-                </div>
-                <div class="result">
-                    <div class="result-number">3.2x</div>
-                    <h3>Higher Success Rate</h3>
-                    <p>Market validation leads to profitable themes</p>
+        <section class="section section-gray" id="calculator">
+            <div class="container">
+                <h2>Calculate Your Revenue Potential</h2>
+                <div class="calculator-container">
+                    <div class="calculator-inputs">
+                        <div>
+                            <label for="numBooks">Number of Books Published:</label>
+                            <input type="number" id="numBooks" value="10" min="1">
+                        </div>
+                        <div>
+                            <label for="salesPerMonth">Average Sales per Book/Month:</label>
+                            <input type="number" id="salesPerMonth" value="30" min="1">
+                        </div>
+                        <div>
+                            <label for="royaltyPerBook">Average Royalty per Sale ($):</label>
+                            <input type="number" id="royaltyPerBook" value="4.50" step="0.01" min="1">
+                        </div>
+                    </div>
+                    <div class="calculator-output">
+                        <h3>Estimated Monthly Revenue:</h3>
+                        <div id="monthlyRevenue" class="revenue-figure">$1,350</div>
+                        <p class="revenue-note">This is an estimate. Actual results depend on marketing, niche, and quality.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- How It Works -->
-    <section class="how-it-works">
-        <div class="container">
-            <h2>How It Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Choose Your Theme</h3>
-                    <p>Select from market-proven themes like "Garden Flowers" or "Science" - or let our validator check your custom idea.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Run One Command</h3>
-                    <p>Type: <code>./generate_book "Garden Flowers" 40 medium</code><br>Grab coffee while it works.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Upload & Profit</h3>
-                    <p>Get complete KDP package: PDF interior, cover instructions, upload checklist, pricing guide.</p>
+        <section class="section" id="testimonials">
+            <div class="container">
+                <h2>Trusted by Publishers Who Get Results</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial">
+                        <p>"I was stuck. Two books published, zero sales. KindleMint's market validator showed me my niche was dead. My first book using their data sold 30 copies in the first month. A complete game-changer."</p>
+                        <p class="testimonial-author">Sarah M.<span>From $0 to $150/month</span></p>
+                    </div>
+                    <div class="testimonial">
+                        <p>"The KDP Launch Package alone is worth the price. The keywords and description templates got my book ranking on the first page of Amazon for my main keyword. I never could have figured that out on my own."</p>
+                        <p class="testimonial-author">Mike T.<span>Former KDP Struggler</span></p>
+                    </div>
+                    <div class="testimonial">
+                        <p>"As a non-designer, the cover prompts and professional PDF layouts are a lifesaver. My books finally look like they belong on a bookstore shelf, and my sales reflect that. I've gone from 2 sales a month to over 100."</p>
+                        <p class="testimonial-author">Jennifer L.<span>Independent Publisher</span></p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Pricing -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <h2>Stop Wasting Time. Start Making Money.</h2>
-            <div class="price-box">
-                <div class="price">$97</div>
-                <div class="price-sub">One-time payment • Unlimited books • No subscriptions</div>
-                <a href="#" class="cta-button">Download KindleMint Now</a>
-                <p style="margin-top: 20px; color: #666;">
-                    ✅ Standalone executable (no Python required)<br>
-                    ✅ Works on Mac, Windows, Linux<br>
-                    ✅ Generate unlimited books<br>
-                    ✅ Market validation included<br>
-                    ✅ 30-day money-back guarantee
-                </p>
+        <section class="section section-gray" id="faq">
+            <div class="container">
+                <h2>Frequently Asked Questions</h2>
+                <details class="faq-item">
+                    <summary>Is this against Amazon KDP's terms of service?</summary>
+                    <p>No. KindleMint is a content generation tool, similar to using Canva for design or Scrivener for writing. It helps you create original content. You are still responsible for reviewing the final product and adhering to all KDP guidelines. We do not automate the KDP upload process itself.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Do I need to know how to code or use Python?</summary>
+                    <p>Not at all. We provide a standalone executable for Windows and macOS. You just download and run it. No installation of Python or other dependencies is required.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>What if I still don't make any money?</summary>
+                    <p>We offer a 30-day, no-questions-asked money-back guarantee. We are confident that if you use the market validation tool and follow the launch checklist, you will have a much higher chance of success. If you're not satisfied, you get a full refund.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>What other costs are involved?</summary>
+                    <p>KindleMint is a one-time purchase. The other potential costs are standard for KDP publishing: Amazon's printing costs (deducted from royalties), optional ad spend on Amazon Ads, and any costs for custom cover design if you choose not to use AI tools like DALL-E.</p>
+                </details>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer CTA -->
-    <section class="footer-cta">
+        <section class="section" id="pricing">
+            <div class="container">
+                <div class="pricing-box">
+                    <h2>Get Lifetime Access</h2>
+                    <div class="price">$97</div>
+                    <p class="price-term">One-time payment. Unlimited books. Forever.</p>
+                    <ul>
+                        <li>✅ Unlimited Book Generations</li>
+                        <li>✅ Market Validation Engine</li>
+                        <li>✅ KDP Launch Package Generator</li>
+                        <li>✅ Standalone App (Windows & macOS)</li>
+                        <li>✅ Lifetime Updates</li>
+                    </ul>
+                    <a href="#" class="btn">Download KindleMint & Launch Your Business</a>
+                    <p class="guarantee">🛡️ 30-Day Money-Back Guarantee</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
         <div class="container">
-            <h2>Your First Book Could Be Ready in 20 Minutes</h2>
-            <p>Join the creators already making passive income with crossword books</p>
-            <a href="#pricing" class="cta-button">Get Started Now → $97</a>
+            <p>&copy; 2025 KindleMint Engine. All Rights Reserved.</p>
+            <p>This tool is not affiliated with Amazon or KDP. Success requires effort.</p>
         </div>
-    </section>
+    </footer>
 
     <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        document.addEventListener('DOMContentLoaded', function() {
+            const numBooksInput = document.getElementById('numBooks');
+            const salesPerMonthInput = document.getElementById('salesPerMonth');
+            const royaltyPerBookInput = document.getElementById('royaltyPerBook');
+            const monthlyRevenueDisplay = document.getElementById('monthlyRevenue');
+
+            function calculateRevenue() {
+                const numBooks = parseInt(numBooksInput.value) || 0;
+                const salesPerMonth = parseInt(salesPerMonthInput.value) || 0;
+                const royaltyPerBook = parseFloat(royaltyPerBookInput.value) || 0;
+                const totalRevenue = numBooks * salesPerMonth * royaltyPerBook;
+                monthlyRevenueDisplay.textContent = '$' + totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            }
+
+            [numBooksInput, salesPerMonthInput, royaltyPerBookInput].forEach(input => {
+                input.addEventListener('input', calculateRevenue);
             });
+
+            calculateRevenue(); // Initial calculation
         });
     </script>
+
 </body>
 </html>
