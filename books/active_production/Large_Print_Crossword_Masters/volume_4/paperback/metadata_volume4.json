@@ -7,5 +7,10 @@
   "quality": "Professional with unique solutions for each puzzle",
   "generated": "2025-06-26 14:07:08.059509",
   "unique_puzzles": 50,
-  "solution_format": "One complete grid per puzzle"
+  "solution_format": "One complete grid per puzzle",
+  "categories": [
+    "Crafts, Hobbies & Home > Activity Books",
+    "Self-Help > Memory Improvement",
+    "Health, Fitness & Dieting > Aging"
+  ]
 }

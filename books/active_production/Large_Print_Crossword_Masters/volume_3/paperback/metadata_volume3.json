@@ -8,5 +8,10 @@
   "generated": "2025-06-25 16:41:16.367449",
   "unique_puzzles": 50,
   "solution_format": "One complete grid per puzzle",
-  "fixed_issues": "Black squares now render correctly"
+  "fixed_issues": "Black squares now render correctly",
+  "categories": [
+    "Crafts, Hobbies & Home > Activity Books",
+    "Self-Help > Memory Improvement",
+    "Health, Fitness & Dieting > Aging"
+  ]
 }
