@@ -41,5 +41,9 @@
   "thema_codes": [
     "WDK - Crosswords",
     "WDKX - Puzzles and quizzes"
-  ]
+  ],
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  }
 }

@@ -18,5 +18,9 @@
   "language": "English",
   "pages": 110,
   "dimensions": "6 x 9 inches",
-  "publication_date": "2025-06-25"
+  "publication_date": "2025-06-25",
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  }
 }

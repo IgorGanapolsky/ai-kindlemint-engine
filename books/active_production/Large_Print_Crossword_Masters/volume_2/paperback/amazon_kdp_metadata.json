@@ -24,5 +24,9 @@
   "price_range": "$9.99 - $14.99",
   "target_audience": "Adults 50+, Seniors, Puzzle enthusiasts",
   "publication_date": "2025-06-24",
-  "isbn": "9798289526212"
+  "isbn": "9798289526212",
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  }
 }

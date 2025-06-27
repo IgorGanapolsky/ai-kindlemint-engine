@@ -13,5 +13,9 @@
     "Crafts, Hobbies & Home > Crafts & Hobbies",
     "Self-Help > Memory Improvement",
     "Health, Fitness & Dieting > Aging"
-  ]
+  ],
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  }
 }

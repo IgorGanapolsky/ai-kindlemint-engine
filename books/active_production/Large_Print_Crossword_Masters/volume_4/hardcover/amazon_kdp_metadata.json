@@ -37,5 +37,9 @@
   "revenue_multiplier": "2-3x paperback profit",
   "market_position": "Premium offering in category",
   "gift_appeal": "High - premium hardcover presentation",
-  "season_relevance": "Year-round, especially holidays and gift occasions"
+  "season_relevance": "Year-round, especially holidays and gift occasions",
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  }
 }
