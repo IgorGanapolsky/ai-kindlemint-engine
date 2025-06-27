@@ -7,6 +7,8 @@ Tests grid generation, clue validity, and solution completeness
 import sys
 import unittest
 from pathlib import Path
+import shutil
+import tempfile
 
 # Add scripts directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
@@ -19,7 +21,13 @@ class TestCrosswordEngine(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures"""
-        self.engine = CrosswordEngineV2()
+        # Create a temporary output directory for generated assets
+        self.temp_dir = tempfile.mkdtemp()
+        self.engine = CrosswordEngineV2(output_dir=self.temp_dir)
+
+    def tearDown(self):
+        """Clean up temporary directory"""
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
     
     def test_grid_creation(self):
         """Test creation of crossword grid"""

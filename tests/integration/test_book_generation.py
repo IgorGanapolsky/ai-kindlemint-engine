@@ -204,7 +204,7 @@ class TestQualityAssurance(unittest.TestCase):
             
             for i in range(9):
                 for j in range(9):
-                    if grid[i][j] \!= 0:
+                    if grid[i][j] != 0:
                         self.assertEqual(grid[i][j], solution[i][j])
     
     def test_no_duplicate_puzzles(self):
