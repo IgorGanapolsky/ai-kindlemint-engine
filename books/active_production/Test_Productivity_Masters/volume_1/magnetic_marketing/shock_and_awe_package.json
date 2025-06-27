@@ -1,0 +1,74 @@
+{
+  "shock_and_awe_package": {
+    "kennedy_principle": "Overwhelm with value to eliminate price resistance",
+    "core_product": {
+      "item": "The 4-Hour CEO: How I Went From 80-Hour Weeks to $2M Revenue",
+      "value": "$24.99",
+      "description": "50 large-print crosswords with progressive difficulty"
+    },
+    "bonus_stack": [
+      {
+        "item": "The Crossword Master's Cheat Sheet",
+        "value": "$19.99",
+        "description": "200+ common answers that appear in 80% of all puzzles"
+      },
+      {
+        "item": "Large Print Solving Guide",
+        "value": "$14.99",
+        "description": "Step-by-step techniques for faster solving"
+      },
+      {
+        "item": "Printable Practice Grids",
+        "value": "$9.99",
+        "description": "Blank grids for creating your own puzzles"
+      },
+      {
+        "item": "60-Day Email Coaching Series",
+        "value": "$47.00",
+        "description": "Daily tips and encouragement delivered to inbox"
+      },
+      {
+        "item": "Private Facebook Group Access",
+        "value": "$27.00",
+        "description": "Connect with other crossword enthusiasts"
+      }
+    ],
+    "value_calculation": {
+      "core_value": "$24.99",
+      "bonus_value": "$118.97",
+      "total_value": "$143.96",
+      "your_investment": "$6.99",
+      "savings": "$136.97",
+      "value_multiplier": "20.6x"
+    }
+  },
+  "presentation_copy": "\n\ud83c\udf81 COMPLETE THE 4-HOUR CEO: HOW I WENT FROM 80-HOUR WEEKS TO $2M REVENUE PACKAGE\n\nWhen you order The 4-Hour CEO: How I Went From 80-Hour Weeks to $2M Revenue today, you don't just get the book...\n\n\u2705 The 4-Hour CEO: How I Went From 80-Hour Weeks to $2M Revenue ($24.99 value)\n50 large-print crosswords with progressive difficulty\n\nPLUS these exclusive bonuses:\n\n\u2705 The Crossword Master's Cheat Sheet ($19.99 value)\n200+ common answers that appear in 80% of all puzzles\n\n\u2705 Large Print Solving Guide ($14.99 value)\nStep-by-step techniques for faster solving\n\n\u2705 Printable Practice Grids ($9.99 value)\nBlank grids for creating your own puzzles\n\n\u2705 60-Day Email Coaching Series ($47.00 value)\nDaily tips and encouragement delivered to inbox\n\n\u2705 Private Facebook Group Access ($27.00 value)\nConnect with other crossword enthusiasts\n\n\nTOTAL VALUE: $143.96\nYOUR INVESTMENT TODAY: Just $6.99\n\nThat's a savings of $136.97 - but only if you order now!\n\nThis complete package normally sells for $143.96, but for a limited time, \nyou can get everything for just $6.99.\n\nWhy such a crazy deal? Because I know that once you experience the power of the \nTest_Productivity_Masters Method\u2122, you'll become a customer for life.\n\nClick \"Add to Cart\" now to claim your complete package...\n",
+  "delivery_sequence": {
+    "immediate": [
+      "Core book download",
+      "Bonus materials download",
+      "Welcome email with access instructions"
+    ],
+    "day_1": [
+      "Email coaching series begins",
+      "Facebook group invitation",
+      "Getting started guide"
+    ],
+    "day_7": [
+      "Check-in email with tips",
+      "Success stories from other users",
+      "Additional resources"
+    ],
+    "day_30": [
+      "Advanced techniques training",
+      "Invitation to VIP program",
+      "Satisfaction survey"
+    ]
+  },
+  "psychology_notes": [
+    "High perceived value reduces price sensitivity",
+    "Multiple bonuses create multiple reasons to buy",
+    "Immediate gratification with downloads",
+    "Future value with ongoing elements"
+  ]
+}

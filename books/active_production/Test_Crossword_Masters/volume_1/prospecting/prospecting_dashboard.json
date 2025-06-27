@@ -1,0 +1,39 @@
+{
+  "tracking_metrics": {
+    "daily_targets": {
+      "linkedin_posts": 1,
+      "linkedin_engagements": 10,
+      "facebook_group_posts": 3,
+      "podcast_pitches": 2,
+      "email_newsletter_content": 1
+    },
+    "weekly_targets": {
+      "new_email_subscribers": 20,
+      "linkedin_connections": 50,
+      "podcast_responses": 2,
+      "facebook_group_joins": 3,
+      "blog_posts": 1
+    },
+    "monthly_targets": {
+      "email_list_growth": 100,
+      "podcast_bookings": 4,
+      "linkedin_followers": 200,
+      "book_sales_from_prospecting": 50,
+      "speaking_opportunities": 1
+    }
+  },
+  "conversion_tracking": {
+    "linkedin_to_email": "5%",
+    "facebook_to_email": "3%",
+    "podcast_to_email": "20%",
+    "email_to_sale": "15%",
+    "referral_rate": "25%"
+  },
+  "roi_calculations": {
+    "time_investment_hours_per_week": 10,
+    "cost_per_subscriber": "$2.00",
+    "lifetime_value_per_subscriber": "$15.00",
+    "break_even_point": "4 months",
+    "projected_monthly_revenue": "$1,500"
+  }
+}

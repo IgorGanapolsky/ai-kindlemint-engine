@@ -1,0 +1,73 @@
+{
+  "avatar_profile": {
+    "avatar_name": "The Ideal The Reader",
+    "kennedy_methodology": "WHO before WHAT - hyper-specific targeting",
+    "demographics": "Startup founders aged 28-35 who've raised Series A funding",
+    "psychographics": "Working 80+ hour weeks, successful but burning out, marriage/relationships suffering",
+    "specific_pain_points": [
+      "Can't scale past 14-hour days without losing control of the business",
+      "Overwhelmed by generic options in the market",
+      "Frustrated by previous disappointing purchases",
+      "Time-conscious and value-focused"
+    ],
+    "specific_desires": [
+      "Work 40 hours a week while growing revenue 50% year-over-year",
+      "Feel confident in purchase decision",
+      "Get immediate value and satisfaction",
+      "Recommend to friends with pride"
+    ],
+    "objections_and_concerns": [
+      "Tried productivity methods before, skeptical of 'guru' advice from people who haven't built real businesses",
+      "Skeptical of bold claims",
+      "Worried about wasting money",
+      "Concerned about time investment"
+    ],
+    "buying_triggers": [
+      "Specific revenue/time metrics, case studies from similar companies, 90-day guarantee",
+      "Strong guarantee",
+      "Social proof from similar people",
+      "Urgency/scarcity elements"
+    ],
+    "media_consumption": [
+      "TechCrunch",
+      "Y Combinator forums",
+      "Founder Slack communities",
+      "Startup podcasts",
+      "AngelList",
+      "First Round Review",
+      "SaaStr events"
+    ],
+    "message_resonance": [
+      "Founder proven",
+      "Revenue per hour",
+      "Scale without burnout",
+      "VC recommended",
+      "Unicorn methods",
+      "Work-life integration"
+    ]
+  },
+  "message_matrix": {
+    "pain_agitation": [
+      "Are you tired of can't scale past 14-hour days without losing control of the business?",
+      "Sick of books that promise everything but deliver nothing?",
+      "Fed up with generic solutions that don't understand your specific situation?"
+    ],
+    "solution_promise": [
+      "Finally, a productivity book designed specifically for startup founders aged 28-35 who've raised series a funding",
+      "The exact system that helps startup founders aged 28-35 who've raised series a funding work 40 hours a week while growing revenue 50% year-over-year",
+      "Proven method used by hundreds of people just like you"
+    ],
+    "proof_elements": [
+      "Real case studies from actual readers",
+      "30-day money-back guarantee",
+      "Specifically tested with startup founders aged 28-35 who've raised series a funding"
+    ]
+  },
+  "kennedy_principle": "Know exactly WHO you want your customers to be BEFORE creating WHAT you're selling",
+  "implementation_notes": [
+    "Use avatar language in all copy",
+    "Target avatar's specific media channels",
+    "Address avatar's exact objections",
+    "Speak to avatar's precise desires"
+  ]
+}

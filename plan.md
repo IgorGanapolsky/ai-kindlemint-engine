@@ -122,4 +122,41 @@ _(no longer listed: “Quality assurance” – now complete)_
 
 ---
 
+## YC Publishing Startup Execution Roadmap (Q3 2025)
+
+KindleMint is adopting a YC-style “startup” mindset: rapid iteration, direct user contact, and growth-driven validation.  This roadmap translates the full playbook (see `YC_Publishing_Playbook.md`) into a concrete four-week execution plan.
+
+### 4-Week Checklist
+**Week 1 – Launch Something**  
+• Publish a 3-chapter MVP on Amazon (price \$0.99)  
+• Personally email 100 prospective readers  
+• Open a short feedback form (Google / Typeform)  
+  
+**Week 2 – Find Your Users**  
+• Identify buyers who finished the MVP  
+• Conduct at least 10 reader interviews  
+• Refine positioning based on pain points  
+  
+**Week 3 – Do Unscalable Things**  
+• Deliver custom bonus chapter or worksheet to every buyer  
+• Create a WhatsApp/Discord reader group  
+• Offer 1-on-1 coaching calls (30 min)  
+  
+**Week 4 – Measure & Decide**  
+• Track daily sales velocity and engagement  
+• Calculate week-over-week growth; aim for ≥ 5 %  
+• If growth < 5 %, pivot theme or marketing channel  
+• Double-down on any tactic driving > 50 % of new readers  
+
+### KPI Dashboard (Daily)
+| Metric            | Source / Tool              |
+|-------------------|----------------------------|
+| New Readers       | KDP Sales Report scraper   |
+| Completion Rate   | Kindle Edition “Page Reads”|
+| NPS Score         | Post-read survey           |
+| Referral Rate     | “How did you hear?” field  |
+| Revenue/Reader    | Net \$ / total readers     |
+
+*For the full methodology and rationale, read `YC_Publishing_Playbook.md`.*
+
 Last Updated: June 25 2025

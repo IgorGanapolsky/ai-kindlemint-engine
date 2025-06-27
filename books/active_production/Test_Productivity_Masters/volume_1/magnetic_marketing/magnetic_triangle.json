@@ -1,0 +1,74 @@
+{
+  "magnetic_triangle": {
+    "kennedy_principle": "Message \u2192 Market \u2192 Media (in that exact order)",
+    "message": {
+      "core_promise": "The ONLY productivity book designed specifically for Startup founders aged 28-35 who've raised Series A funding",
+      "unique_mechanism": "The Test_Productivity_Masters Method\u2122",
+      "proof_points": [
+        "Tested with 100+ Startup founders aged 28-35 who've raised Series A funding",
+        "Guaranteed results in 30 days or money back",
+        "Only book that addresses Can't scale past 14-hour days without losing control of the business"
+      ],
+      "irresistible_offer": "The 4-Hour CEO: How I Went From 80-Hour Weeks to $2M Revenue + Bonus Materials + 30-Day Guarantee + Limited-Time Pricing"
+    },
+    "market": {
+      "primary_avatar": "Startup founders aged 28-35 who've raised Series A funding",
+      "market_size": "Estimated 50,000+ perfect prospects",
+      "market_channels": [
+        "TechCrunch",
+        "Y Combinator forums",
+        "Founder Slack communities",
+        "Startup podcasts",
+        "AngelList",
+        "First Round Review",
+        "SaaStr events"
+      ],
+      "market_temperature": {
+        "hot": "Previous customers and email subscribers",
+        "warm": "People who've engaged with related content",
+        "cold": "Target avatar who hasn't heard of you yet"
+      }
+    },
+    "media": {
+      "primary_channels": [
+        "TechCrunch",
+        "Y Combinator forums",
+        "Founder Slack communities",
+        "Startup podcasts",
+        "AngelList",
+        "First Round Review",
+        "SaaStr events"
+      ],
+      "message_matching": "Each channel gets avatar-specific messaging",
+      "media_budget_allocation": {
+        "direct_response_ads": "40%",
+        "email_marketing": "30%",
+        "content_marketing": "20%",
+        "partnerships": "10%"
+      }
+    }
+  },
+  "implementation_roadmap": {
+    "week_1_message": [
+      "Finalize core promise and unique mechanism",
+      "Create irresistible offer structure",
+      "Write and test all copy variations"
+    ],
+    "week_2_market": [
+      "Validate avatar assumptions with surveys",
+      "Map customer journey from awareness to purchase",
+      "Identify market segments and prioritize"
+    ],
+    "week_3_media": [
+      "Launch paid campaigns to primary channels",
+      "Begin content marketing in target communities",
+      "Activate email sequences for different temperatures"
+    ],
+    "week_4_optimize": [
+      "Analyze conversion rates by channel",
+      "Double down on highest-performing media",
+      "Refine message based on market feedback"
+    ]
+  },
+  "kennedy_quote": "The foundation of any marketing is knowing exactly who you want your customers to be"
+}

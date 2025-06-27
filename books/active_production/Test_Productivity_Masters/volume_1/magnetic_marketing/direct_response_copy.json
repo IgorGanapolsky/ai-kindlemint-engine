@@ -1,0 +1,28 @@
+{
+  "magnetic_titles": [],
+  "magnetic_descriptions": [],
+  "ab_testing_framework": {
+    "title_variations": [],
+    "description_variations": [],
+    "testing_methodology": [
+      "Test 2 titles simultaneously",
+      "Measure click-through rates",
+      "Track conversion to sales",
+      "Winner becomes permanent"
+    ],
+    "kennedy_principle": "Test everything, assume nothing"
+  },
+  "kennedy_formulas": [
+    "How I [ACHIEVED RESULT] in [TIME PERIOD] [WITHOUT COMMON METHOD]",
+    "The [NUMBER] [THING] That [BENEFIT] (Even If [OBJECTION])",
+    "[TARGET PERSON]'s Guide to [SPECIFIC OUTCOME] Without [PAIN/SACRIFICE]",
+    "Why [COMMON BELIEF] is Wrong and What [TARGET] Should Do Instead",
+    "The [SECRET/SIMPLE] [SYSTEM/METHOD] [AUTHORITY FIGURE] Uses to [BENEFIT]"
+  ],
+  "implementation_notes": [
+    "Use specific numbers and timeframes",
+    "Address target avatar directly",
+    "Include social proof elements",
+    "Always end with clear call-to-action"
+  ]
+}
