@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-06-27T16:14:09.910536",
+  "total_series": 7,
+  "compliant_series": 7,
+  "violations": 0,
+  "compliance_rate": 100.0,
+  "compliant_list": [
+    "Complete_Marketing_Test",
+    "Large_Print_Crossword_Masters",
+    "Test_Series",
+    "Test_Magnetic_Crosswords",
+    "Test_Crossword_Masters",
+    "Test_Productivity_Masters",
+    "Large_Print_Sudoku_Masters"
+  ],
+  "violation_list": []
+}
