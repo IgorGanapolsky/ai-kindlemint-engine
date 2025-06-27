@@ -11,7 +11,7 @@ sentry-sdk==2.32.0
 
 # Social Media Marketing Integration Dependencies
 # Natural Language Processing for content atomization
-nltk==3.8.1
+nltk==3.9
 
 # API Framework for social media services (optional)
 fastapi==0.104.1
