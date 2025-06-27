@@ -11,7 +11,7 @@ from pathlib import Path
 # Add scripts directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
 
-from crossword_engine_v2 import CrosswordEngine
+from crossword_engine_v2 import CrosswordEngineV2
 
 
 class TestCrosswordEngine(unittest.TestCase):
@@ -19,7 +19,7 @@ class TestCrosswordEngine(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures"""
-        self.engine = CrosswordEngine()
+        self.engine = CrosswordEngineV2()
     
     def test_grid_creation(self):
         """Test creation of crossword grid"""
@@ -116,7 +116,7 @@ class TestCrosswordEngine(unittest.TestCase):
         for row in grid:
             word_length = 0
             for cell in row:
-                if cell \!= "#":
+                if cell != "#":
                     word_length += 1
                 else:
                     if word_length > 0 and word_length < 3:
@@ -130,7 +130,7 @@ class TestCrosswordEngine(unittest.TestCase):
         for col in range(15):
             word_length = 0
             for row in range(15):
-                if grid[row][col] \!= "#":
+                if grid[row][col] != "#":
                     word_length += 1
                 else:
                     if word_length > 0 and word_length < 3:
@@ -238,4 +238,3 @@ class TestCrosswordValidation(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-EOF < /dev/null

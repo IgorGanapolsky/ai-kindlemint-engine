@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
-from .base_agent import AgentCapability
+from .agent_types import AgentCapability
 
 
 class TaskStatus(Enum):
