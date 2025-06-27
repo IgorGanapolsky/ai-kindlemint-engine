@@ -20,5 +20,5 @@
 
 ### 📈 **Marketing Notes**
 - Include "Large Print" in keywords
-- Set primary category to Games & Puzzles
+- Set primary category to Crafts, Hobbies & Home
 - Enable Kindle Unlimited if possible

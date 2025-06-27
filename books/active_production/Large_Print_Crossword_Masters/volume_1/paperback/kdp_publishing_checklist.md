@@ -27,7 +27,7 @@
 ### 🎯 KDP UPLOAD REQUIREMENTS
 
 #### 1. Book Details
-- **Primary Category**: Games & Puzzles > Crosswords
+- **Primary Category**: Crafts, Hobbies & Home > Crosswords
 - **Secondary Category**: Health, Fitness & Dieting > Aging > Brain Health
 - **Language**: English
 - **Publication Date**: 2025-06-23

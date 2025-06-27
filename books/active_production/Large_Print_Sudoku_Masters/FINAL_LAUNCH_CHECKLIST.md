@@ -59,7 +59,7 @@ Copyright © 2025 Igor Ganapolsky
 - [ ] **Subtitle:** "100 Easy to Hard Puzzles for Hours of Brain Training"
 - [ ] **Author:** Igor Ganapolsky
 - [ ] **Categories:** 
-  - Games & Puzzles > Sudoku
+  - Crafts, Hobbies & Home > Sudoku
   - Self-Help > Memory Improvement
 - [ ] **Keywords:** large print sudoku, brain games, puzzle book, seniors
 - [ ] **Age Range:** All ages

@@ -18,15 +18,15 @@
 
 ---
 
-### 🎯 CATEGORIES (Choose 2)
+### 🎯 CATEGORIES (Choose 3 - KDP ALLOWS 3 CATEGORIES!)
 
-**Primary:** `Games, Puzzles & Trivia > Sudoku`
+**Primary:** `Crafts, Hobbies & Home > Games & Activities`
 
 **Secondary:** `Self-Help > Memory Improvement`
 
-**Alternative Options:**
-- `Health, Mind & Body > Aging > Brain Health`
-- `Crafts, Hobbies & Home > Games & Activities`
+**Third:** `Health, Fitness & Dieting > Aging`
+
+**IMPORTANT:** These are COMPLETE category paths with subcategories from the actual KDP interface!
 
 ---
 
