@@ -7,6 +7,7 @@ This is a production-quality generator that creates solvable puzzles
 import random
 import json
 from pathlib import Path
+from scripts.formatter import Formatter
 from reportlab.lib.pagesizes import inch
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
@@ -365,13 +366,28 @@ class RealCrosswordGenerator:
         
         return checks_passed
 
+class RealCrosswordFormatter(Formatter):
+    """
+    Formatter for REAL crossword book PDFs.
+    """
+    def __init__(self):
+        self.generator = RealCrosswordGenerator()
+
+    def create_pdf(self) -> Path:
+        """
+        Generate the complete REAL crossword book for paperback and hardcover.
+        Returns the path to the paperback PDF.
+        """
+        self.generator.create_complete_book()
+        return self.generator.paperback_dir / "crossword_book_volume_2_REAL_FINAL.pdf"
+
 def main():
-    print("🚀 Creating REAL Crossword Book with QA...")
-    generator = RealCrosswordGenerator()
-    generator.create_complete_book()
-    
+    print("🚀 Creating REAL Crossword Book with QA via Formatter...")
+    formatter = RealCrosswordFormatter()
+    pdf_path = formatter.create_pdf()
+    print(f"✅ PDF generated at: {pdf_path}")
     # Run QA
-    if generator.run_qa_check():
+    if formatter.generator.run_qa_check():
         print("\n✅ QA PASSED - Book is ready for production!")
     else:
         print("\n❌ QA FAILED - Fix issues before delivery!")

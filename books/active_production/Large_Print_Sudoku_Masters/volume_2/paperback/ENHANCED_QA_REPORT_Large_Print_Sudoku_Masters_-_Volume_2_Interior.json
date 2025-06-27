@@ -1,0 +1,216 @@
+{
+  "file_path": "books/active_production/Large_Print_Sudoku_Masters/volume_2/paperback/Large_Print_Sudoku_Masters_-_Volume_2_Interior.pdf",
+  "timestamp": "2025-06-27T10:31:02.413859",
+  "overall_score": 55,
+  "publish_ready": false,
+  "issues_found": [
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 1: Missing ISBN number."
+    },
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 2: Lack of puzzle solutions in the sample provided."
+    }
+  ],
+  "warnings": [
+    {
+      "type": "WARNING",
+      "code": "High duplication",
+      "description": "Content is 43.4% duplicate (threshold: 10.0%)"
+    },
+    {
+      "type": "WARNING",
+      "code": "Invalid clues",
+      "description": "Found 1 potentially invalid clue-answer pairs"
+    },
+    {
+      "type": "WARNING",
+      "code": "Excessive whitespace",
+      "description": "104 of 104 pages (100.0%) have excessive whitespace"
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 1: Repetitive listing of puzzle difficulties without variation."
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 2: Potential for duplicate content if puzzles are not unique."
+    },
+    {
+      "type": "WARNING",
+      "code": "KDP check error",
+      "description": "KDP compliance check failed: 'Document' object has no attribute 'pdf_version'"
+    }
+  ],
+  "info": [],
+  "checks": {
+    "file_properties": {
+      "file_exists": true,
+      "file_size_bytes": 5741630
+    },
+    "pdf_structure": {
+      "page_count": 104,
+      "not_encrypted": true,
+      "fonts": {
+        "all_embedded": true,
+        "fonts": [
+          {
+            "name": "Helvetica",
+            "embedded": true,
+            "page": 1
+          },
+          {
+            "name": "Helvetica-Bold",
+            "embedded": true,
+            "page": 1
+          }
+        ]
+      }
+    },
+    "content_quality": {
+      "total_characters": 4522,
+      "total_words": 629,
+      "duplicate_content_ratio": 0.4342105263157895
+    },
+    "visual_layout": {
+      "pages_analyzed": 104,
+      "pages_with_high_whitespace": 104,
+      "text_cutoff_instances": 0,
+      "whitespace_ratio_by_page": {
+        "1": 0.9669427114280056,
+        "2": 0.9845658381197597,
+        "3": 0.9500643691820162,
+        "4": 0.9552819865319865,
+        "5": 0.9551520102990692,
+        "6": 0.9551726414471513,
+        "7": 0.9551850201360005,
+        "8": 0.9551540734138774,
+        "9": 0.9551437578398363,
+        "10": 0.9552242193173566,
+        "11": 0.9551066217732884,
+        "12": 0.9551375684954116,
+        "13": 0.9549518881626725,
+        "14": 0.9550509176734667,
+        "15": 0.9549518881626725,
+        "16": 0.9549787086551792,
+        "17": 0.9549972766884531,
+        "18": 0.954976645540371,
+        "19": 0.9549622037367136,
+        "20": 0.9549869611144121,
+        "21": 0.9549456988182479,
+        "22": 0.9549580775070972,
+        "23": 0.954879679144385,
+        "24": 0.9549828348847956,
+        "25": 0.9548776160295768,
+        "26": 0.9549353832442068,
+        "27": 0.9549580775070972,
+        "28": 0.9548673004555357,
+        "29": 0.9549044365220836,
+        "30": 0.9549209414405493,
+        "31": 0.9548879316036178,
+        "32": 0.954859047996303,
+        "33": 0.9548384168482208,
+        "34": 0.9549890242292203,
+        "35": 0.9548961840628507,
+        "36": 0.9549003102924671,
+        "37": 0.95496632996633,
+        "38": 0.9548734897999603,
+        "39": 0.9548631742259194,
+        "40": 0.9548941209480425,
+        "41": 0.9548446061926454,
+        "42": 0.954859047996303,
+        "43": 0.9548734897999603,
+        "44": 0.9550034660328778,
+        "45": 0.9549044365220836,
+        "46": 0.9549126889813164,
+        "47": 0.9549188783257411,
+        "48": 0.9548920578332343,
+        "49": 0.9548879316036178,
+        "50": 0.9549560143922889,
+        "51": 0.9548714266851521,
+        "52": 0.9548384168482208,
+        "53": 0.9548549217666865,
+        "54": 0.954976645540371,
+        "55": 0.9548961840628507,
+        "56": 0.9548549217666865,
+        "57": 0.9548961840628507,
+        "58": 0.9548528586518783,
+        "59": 0.9548260381593715,
+        "60": 0.9549436357034397,
+        "61": 0.9548363537334126,
+        "62": 0.9548095332409058,
+        "63": 0.9548569848814947,
+        "64": 0.9549456988182479,
+        "65": 0.9548693635703439,
+        "66": 0.9548734897999603,
+        "67": 0.9549209414405493,
+        "68": 0.9548528586518783,
+        "69": 0.9548466693074537,
+        "70": 0.954937446359015,
+        "71": 0.9548095332409058,
+        "72": 0.9548136594705222,
+        "73": 0.9549209414405493,
+        "74": 0.9550261602957681,
+        "75": 0.954937446359015,
+        "76": 0.9549085627517,
+        "77": 0.9549456988182479,
+        "78": 0.9548734897999603,
+        "79": 0.9548879316036178,
+        "80": 0.9549704561959463,
+        "81": 0.9549064996368918,
+        "82": 0.9549168152109329,
+        "83": 0.9548301643889879,
+        "84": 0.9549539512774807,
+        "85": 0.9548466693074537,
+        "86": 0.9548673004555357,
+        "87": 0.954879679144385,
+        "88": 0.9549023734072754,
+        "89": 0.9547971545520565,
+        "90": 0.9548838053740014,
+        "91": 0.9548466693074537,
+        "92": 0.9548487324222619,
+        "93": 0.9548693635703439,
+        "94": 0.9549209414405493,
+        "95": 0.9548507955370701,
+        "96": 0.9548466693074537,
+        "97": 0.9549085627517,
+        "98": 0.9548074701260976,
+        "99": 0.9548507955370701,
+        "100": 0.9549064996368918,
+        "101": 0.9548239750445633,
+        "102": 0.954859047996303,
+        "103": 0.9547497029114677,
+        "104": 0.9987084901300588
+      },
+      "whitespace_compliance": 0.0
+    },
+    "llm_content_validation": {
+      "models_used": [
+        "gpt4o"
+      ],
+      "validation_results": {
+        "gpt4o": {
+          "quality_score": 78,
+          "issues": [
+            "Critical issue 1: Missing ISBN number.",
+            "Critical issue 2: Lack of puzzle solutions in the sample provided."
+          ],
+          "warnings": [
+            "Warning 1: Repetitive listing of puzzle difficulties without variation.",
+            "Warning 2: Potential for duplicate content if puzzles are not unique."
+          ],
+          "feedback": "The book sample provides a clear structure for a Sudoku puzzle book, but there are critical issues that need addressing before publication. The ISBN number is missing, which is essential for KDP compliance. Additionally, the sample does not include solutions to the puzzles, which is crucial for maintaining puzzle integrity and user satisfaction. The repetitive listing of puzzles with the same difficulty level could be improved by varying the difficulty or providing additional context or tips for solving. Ensure that all puzzles are unique to avoid duplicate content issues. Once these issues are addressed, the book will be more likely to meet the quality standards required for publication."
+        }
+      },
+      "consensus_score": 78
+    },
+    "kdp_compliance": {
+      "file_size_mb": 5.475645065307617
+    }
+  }
+}

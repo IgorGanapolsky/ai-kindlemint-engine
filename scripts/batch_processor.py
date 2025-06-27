@@ -548,8 +548,12 @@ class BatchProcessor:
     
     def _step_create_pdf(self, book_config: Dict, book_result: Dict) -> Dict:
         """Create PDF interior for the book"""
-        # Determine which script to use
-        script_path = Path("scripts/book_layout_bot.py")
+        # Determine which script to use based on puzzle type
+        puzzle_type = book_config.get("puzzle_type", "crossword")
+        if puzzle_type == "sudoku":
+            script_path = Path("scripts/sudoku_pdf_layout_v2.py")
+        else:
+            script_path = Path("scripts/book_layout_bot.py")
         
         if not script_path.exists():
             raise FileNotFoundError(f"PDF layout script not found: {script_path}")
@@ -569,6 +573,10 @@ class BatchProcessor:
             "--title", book_config.get("title", f"{series_name} Volume {volume}"),
             "--author", book_config.get("author", "Crossword Masters Publishing")
         ]
+        
+        # Add subtitle if present (for Sudoku books)
+        if "subtitle" in book_config:
+            cmd.extend(["--subtitle", book_config["subtitle"]])
         
         # Add any additional parameters from book config
         if "pdf_params" in book_config:

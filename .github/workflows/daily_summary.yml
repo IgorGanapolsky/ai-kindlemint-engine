@@ -26,7 +26,8 @@ jobs:
         python -m pip install --upgrade pip
         # Install full requirements if available
         if [ -f requirements.txt ]; then 
-          pip install -r requirements.txt || echo "Failed to install some requirements"
+          pip install -r requirements.txt
+          pip install -e . || echo "Failed to install some requirements"
         else
           # Fallback to core dependencies needed for scripts
           pip install requests pandas python-dotenv PyMuPDF PyPDF2 Pillow reportlab

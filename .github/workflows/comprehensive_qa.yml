@@ -52,8 +52,10 @@ jobs:
         # Install Python dependencies with locked versions
         if [ -f requirements-locked.txt ]; then
           pip install --require-hashes -r requirements-locked.txt
+          pip install -e .
         elif [ -f requirements.txt ]; then
           pip install -r requirements.txt
+          pip install -e .
         fi
         # Install test dependencies
         pip install pytest pytest-cov pytest-json-report
@@ -82,7 +84,7 @@ jobs:
         # Add project root to PYTHONPATH for local module imports
         export PYTHONPATH=$GITHUB_WORKSPACE
         if [ -d "tests" ]; then
-          python -m pytest tests/ -v --tb=short --cov=scripts --cov-report=xml
+          python -m pytest tests/ -v --tb=short --cov=src/kindlemint --cov-report=xml
         else
           echo "⚠️ No tests directory found, skipping unit tests."
         fi
@@ -116,8 +118,10 @@ jobs:
         # Install Python dependencies with locked versions
         if [ -f requirements-locked.txt ]; then
           pip install --require-hashes -r requirements-locked.txt
+          pip install -e .
         elif [ -f requirements.txt ]; then
           pip install -r requirements.txt
+          pip install -e .
         fi
         
     - name: 🧪 Test Generator Help
@@ -178,8 +182,10 @@ jobs:
         # Install Python dependencies with locked versions
         if [ -f requirements-locked.txt ]; then
           pip install --require-hashes -r requirements-locked.txt
+          pip install -e .
         elif [ -f requirements.txt ]; then
           pip install -r requirements.txt
+          pip install -e .
         fi
         
     - name: 🗂️ Find Book Directories

@@ -1,3 +1,11 @@
 assets/fonts/*.ttf filter=lfs diff=lfs merge=lfs -text
 assets/fonts/*.otf filter=lfs diff=lfs merge=lfs -text
 *.pdf filter=lfs diff=lfs merge=lfs -text
+
+# Published/Archived puzzle books
+books/published_archive/**/*.png filter=lfs diff=lfs merge=lfs -text
+books/published_archive/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+books/published_archive/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
+books/published_archive/**/*.epub filter=lfs diff=lfs merge=lfs -text
+
+# Keep active_production out of LFS for faster development access

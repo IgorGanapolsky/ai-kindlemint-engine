@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'scripts/**'
+      - 'src/**'
       - 'tests/**'
       - 'requirements*.txt'
       - '.github/workflows/tests.yml'
@@ -12,6 +13,7 @@ on:
     branches: [ main ]
     paths:
       - 'scripts/**'
+      - 'src/**'
       - 'tests/**'
       - 'requirements*.txt'
 
@@ -47,8 +49,10 @@ jobs:
         # Use locked requirements if available, otherwise fall back to regular
         if [ -f requirements-locked.txt ]; then
           pip install -r requirements-locked.txt
+          pip install -e .
         else
           pip install -r requirements.txt
+          pip install -e .
         fi
     
     - name: 🧪 Run unit tests
@@ -62,7 +66,7 @@ jobs:
     - name: 📊 Generate test report
       if: always()
       run: |
-        python -m pytest tests/ --junit-xml=test-results.xml --cov=scripts --cov-report=xml
+        python -m pytest tests/ --junit-xml=test-results.xml --cov=src/kindlemint --cov-report=xml
       continue-on-error: true
     
     - name: 📤 Upload test results

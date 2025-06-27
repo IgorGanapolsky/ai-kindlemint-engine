@@ -157,7 +157,9 @@
       "Bash(gh secret:*)",
       "Bash(curl:*)",
       "Bash(./claude-flow-costs:*)",
-      "WebFetch(domain:docs.cursor.com)"
+      "WebFetch(domain:docs.cursor.com)",
+      "Bash(pip uninstall:*)",
+      "Bash(git reset:*)"
     ],
     "deny": []
   }

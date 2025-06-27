@@ -30,6 +30,7 @@ jobs:
           # Install pinned runtime and development dependencies
           pip install --require-hashes -r requirements-locked.txt
           pip install -r requirements-dev.txt
+          pip install -e .
 
       - name: Install Playwright Browsers
         run: |
