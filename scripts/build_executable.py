@@ -22,9 +22,9 @@ Usage:
 """
 
 import os
-import sys
-import subprocess
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 # --- Configuration ---
@@ -36,28 +36,28 @@ SPEC_FILE = PROJECT_ROOT / "KindleMint.spec"
 ICON_PATH_MACOS = PROJECT_ROOT / "assets" / "icon.icns"
 ICON_PATH_WINDOWS = PROJECT_ROOT / "assets" / "icon.ico"
 
+
 def _run_command(command, description):
     """Executes a shell command and provides feedback."""
     logger.info(f"🚀 {description}...")
     try:
         result = subprocess.run(
-            command,
-            check=True,
-            capture_output=True,
-            text=True,
-            cwd=PROJECT_ROOT
+            command, check=True, capture_output=True, text=True, cwd=PROJECT_ROOT
         )
         logger.info(f"✅ {description} successful.")
         logger.debug(result.stdout)
         return True
     except FileNotFoundError:
-        logger.error(f"❌ Command not found: {command[0]}. Is it installed and in your PATH?")
+        logger.error(
+            f"❌ Command not found: {command[0]}. Is it installed and in your PATH?"
+        )
         return False
     except subprocess.CalledProcessError as e:
         logger.error(f"❌ {description} failed with exit code {e.returncode}.")
         logger.error(f"   --- STDERR ---\n{e.stderr}")
         logger.error(f"   --- STDOUT ---\n{e.stdout}")
         return False
+
 
 def _clean_up():
     """Removes temporary build files."""
@@ -68,12 +68,14 @@ def _clean_up():
         SPEC_FILE.unlink()
     logger.info("✅ Cleanup complete.")
 
+
 def install_pyinstaller():
     """Ensures PyInstaller is installed."""
     return _run_command(
         [sys.executable, "-m", "pip", "install", "pyinstaller"],
-        "Installing PyInstaller"
+        "Installing PyInstaller",
     )
+
 
 def create_spec_file():
     """
@@ -85,20 +87,29 @@ def create_spec_file():
     # Define all data files and directories to be bundled with the executable.
     # The format is ('source_path_on_disk', 'destination_path_in_bundle')
     data_to_bundle = [
-        ('config', 'config'),
-        ('scripts', 'scripts'),
-        ('templates', 'templates'),
-        ('resources', 'resources'), # Assuming a resources dir for wordlists, etc.
+        ("config", "config"),
+        ("scripts", "scripts"),
+        ("templates", "templates"),
+        ("resources", "resources"),  # Assuming a resources dir for wordlists, etc.
     ]
-    
+
     # Filter out directories that don't exist to prevent errors
-    datas_formatted = [f"('{src}', '{dest}')" for src, dest in data_to_bundle if (PROJECT_ROOT / src).exists()]
+    datas_formatted = [
+        f"('{src}', '{dest}')"
+        for src, dest in data_to_bundle
+        if (PROJECT_ROOT / src).exists()
+    ]
 
     # List of modules that PyInstaller might miss (hidden imports)
     hidden_imports = [
-        'reportlab', 'reportlab.pdfgen.canvas', 'reportlab.lib.pagesizes',
-        'reportlab.lib.units', 'reportlab.lib.colors', 'yaml', 'PIL',
-        'pkg_resources.py2_warn' # Common PyInstaller issue
+        "reportlab",
+        "reportlab.pdfgen.canvas",
+        "reportlab.lib.pagesizes",
+        "reportlab.lib.units",
+        "reportlab.lib.colors",
+        "yaml",
+        "PIL",
+        "pkg_resources.py2_warn",  # Common PyInstaller issue
     ]
 
     # Determine platform-specific icon
@@ -191,31 +202,45 @@ else:
     logger.info(f"✅ Spec file created at: {SPEC_FILE}")
     return True
 
+
 def build_executable():
     """Runs the PyInstaller build process using the generated spec file."""
     command = [
-        sys.executable, "-m", "PyInstaller",
+        sys.executable,
+        "-m",
+        "PyInstaller",
         "--noconfirm",  # Overwrite previous builds without asking
-        "--clean",      # Clean PyInstaller cache and remove temporary files
-        str(SPEC_FILE)
+        "--clean",  # Clean PyInstaller cache and remove temporary files
+        str(SPEC_FILE),
     ]
     return _run_command(command, "Building standalone executable")
+
 
 def create_distribution_package():
     """Assembles the final distributable package for end-users."""
     logger.info("📦 Assembling distribution package...")
-    
-    platform_name = "macOS" if sys.platform == "darwin" else "Windows" if sys.platform == "win32" else "Linux"
+
+    platform_name = (
+        "macOS"
+        if sys.platform == "darwin"
+        else "Windows" if sys.platform == "win32" else "Linux"
+    )
     dist_package_dir = DIST_DIR / f"KindleMint_Distribution_{platform_name}"
-    
+
     if dist_package_dir.exists():
         shutil.rmtree(dist_package_dir)
     dist_package_dir.mkdir(parents=True)
 
     # Find the built application/executable
-    built_app_path = DIST_DIR / "KindleMint.app" if sys.platform == "darwin" else DIST_DIR / "KindleMint"
+    built_app_path = (
+        DIST_DIR / "KindleMint.app"
+        if sys.platform == "darwin"
+        else DIST_DIR / "KindleMint"
+    )
     if not built_app_path.exists():
-        logger.error(f"❌ Build output not found at '{built_app_path}'. Cannot create package.")
+        logger.error(
+            f"❌ Build output not found at '{built_app_path}'. Cannot create package."
+        )
         return False
 
     # Copy the application bundle or folder
@@ -270,31 +295,37 @@ Happy publishing!
     # Create a zip archive for easy distribution
     archive_name = shutil.make_archive(
         base_name=f"KindleMint_{platform_name}",
-        format='zip',
+        format="zip",
         root_dir=DIST_DIR,
-        base_dir=dist_package_dir.name
+        base_dir=dist_package_dir.name,
     )
-    
+
     logger.info(f"✅ Distribution package created successfully!")
     logger.info(f"   Location: {dist_package_dir}")
     logger.info(f"   ZIP Archive: {archive_name}")
     return True
 
+
 def main():
     """Main function to orchestrate the build process."""
-    logger.info("="*60)
+    logger.info("=" * 60)
     logger.info("      KindleMint Engine - Standalone Executable Builder")
-    logger.info("="*60)
+    logger.info("=" * 60)
 
     try:
-        if not install_pyinstaller(): return
-        if not create_spec_file(): return
-        if not build_executable(): return
-        if not create_distribution_package(): return
+        if not install_pyinstaller():
+            return
+        if not create_spec_file():
+            return
+        if not build_executable():
+            return
+        if not create_distribution_package():
+            return
     finally:
         _clean_up()
 
     logger.info("\n🎉 Build process complete. Your distributable package is ready!")
+
 
 if __name__ == "__main__":
     main()

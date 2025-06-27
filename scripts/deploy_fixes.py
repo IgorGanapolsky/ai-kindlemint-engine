@@ -10,15 +10,15 @@ to the new, enhanced versions. It provides functionality to:
 4. Roll back to the previous versions if necessary.
 """
 
-import os
-import sys
-import json
 import argparse
-import subprocess
-import shutil
 import fileinput
-from pathlib import Path
+import json
+import os
+import shutil
+import subprocess
+import sys
 from datetime import datetime
+from pathlib import Path
 
 # --- Configuration ---
 # Define paths relative to the repository root
@@ -41,26 +41,25 @@ BOOK_QA_WORKFLOW = WORKFLOWS_DIR / "book_qa_validation.yml"
 
 # --- Helper Functions ---
 
+
 def print_header(title):
     """Prints a formatted header."""
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print(f"🚀 {title.upper()}")
-    print("="*70)
+    print("=" * 70)
+
 
 def print_subheader(title):
     """Prints a formatted subheader."""
     print(f"\n--- {title} ---")
+
 
 def run_command(command, cwd=None):
     """Runs a shell command and handles errors."""
     print(f"▶️  Running command: {' '.join(map(str, command))}")
     try:
         result = subprocess.run(
-            command,
-            capture_output=True,
-            text=True,
-            check=True,
-            cwd=cwd or ROOT_DIR
+            command, capture_output=True, text=True, check=True, cwd=cwd or ROOT_DIR
         )
         print("✅ Command successful.")
         return result
@@ -73,13 +72,16 @@ def run_command(command, cwd=None):
         print(f"❌ ERROR: Command not found: {command[0]}")
         return None
 
+
 def cleanup_temp_dirs():
     """Removes temporary directories."""
     if TEMP_DIR.exists():
         print(f"🗑️  Cleaning up temporary directory: {TEMP_DIR}")
         shutil.rmtree(TEMP_DIR)
 
+
 # --- Core Logic ---
+
 
 def test_systems():
     """
@@ -97,54 +99,77 @@ def test_systems():
 
     # 1. Run the old engine
     print_subheader("Generating puzzles with OLD engine (v2)")
-    run_command([
-        sys.executable, SCRIPTS_DIR / OLD_ENGINE,
-        "--output", old_output_dir,
-        "--count", "5"  # Small batch for testing
-    ])
+    run_command(
+        [
+            sys.executable,
+            SCRIPTS_DIR / OLD_ENGINE,
+            "--output",
+            old_output_dir,
+            "--count",
+            "5",  # Small batch for testing
+        ]
+    )
 
     # 2. Run the new engine
     print_subheader("Generating puzzles with NEW engine (v3)")
-    run_command([
-        sys.executable, SCRIPTS_DIR / NEW_ENGINE,
-        "--output", new_output_dir,
-        "--count", "5"
-    ])
+    run_command(
+        [
+            sys.executable,
+            SCRIPTS_DIR / NEW_ENGINE,
+            "--output",
+            new_output_dir,
+            "--count",
+            "5",
+        ]
+    )
 
     # 3. Run the NEW QA validator on both outputs
     print_subheader("Validating OLD engine output with NEW QA system")
-    run_command([
-        sys.executable, SCRIPTS_DIR / NEW_QA,
-        str(old_output_dir),
-        "--output-dir", str(old_output_dir)
-    ])
+    run_command(
+        [
+            sys.executable,
+            SCRIPTS_DIR / NEW_QA,
+            str(old_output_dir),
+            "--output-dir",
+            str(old_output_dir),
+        ]
+    )
 
     print_subheader("Validating NEW engine output with NEW QA system")
-    run_command([
-        sys.executable, SCRIPTS_DIR / NEW_QA,
-        str(new_output_dir),
-        "--output-dir", str(new_output_dir)
-    ])
+    run_command(
+        [
+            sys.executable,
+            SCRIPTS_DIR / NEW_QA,
+            str(new_output_dir),
+            "--output-dir",
+            str(new_output_dir),
+        ]
+    )
 
     print("\n✅ Test run complete. You can now generate a comparison report.")
     generate_comparison_report()
+
 
 def generate_comparison_report():
     """
     Generates a Markdown report comparing the results of the test run.
     """
     print_header("Generating Comparison Report")
-    
-    old_report_path = TEMP_DIR / "old_system_output" / "ENHANCED_QA_REPORT_old_system_output.json"
-    new_report_path = TEMP_DIR / "new_system_output" / "ENHANCED_QA_REPORT_new_system_output.json"
+
+    old_report_path = (
+        TEMP_DIR / "old_system_output" / "ENHANCED_QA_REPORT_old_system_output.json"
+    )
+    new_report_path = (
+        TEMP_DIR / "new_system_output" / "ENHANCED_QA_REPORT_new_system_output.json"
+    )
 
     if not old_report_path.exists() or not new_report_path.exists():
         print("❌ ERROR: QA reports not found. Please run the 'test' command first.")
         return
 
-    with open(old_report_path, 'r') as f:
+    with open(old_report_path, "r") as f:
         old_report = json.load(f)
-    with open(new_report_path, 'r') as f:
+    with open(new_report_path, "r") as f:
         new_report = json.load(f)
 
     old_summary = old_report.get("summary", {})
@@ -188,10 +213,11 @@ The new engine and QA system represent a **critical improvement** in quality and
 **Recommendation: Proceed with deployment.**
 """
     report_path = ROOT_DIR / "DEPLOYMENT_COMPARISON_REPORT.md"
-    with open(report_path, 'w') as f:
+    with open(report_path, "w") as f:
         f.write(report_content)
-    
+
     print(f"✅ Comparison report generated: {report_path}")
+
 
 def _backup_file(file_path):
     """Creates a backup of a file."""
@@ -204,6 +230,7 @@ def _backup_file(file_path):
         print(f"⚠️  Warning: File not found, cannot back up: {file_path}")
         return False
 
+
 def _restore_backup(file_path):
     """Restores a file from its backup."""
     backup_path = file_path.with_suffix(file_path.suffix + ".bak")
@@ -215,12 +242,14 @@ def _restore_backup(file_path):
         print(f"⚠️  Warning: Backup file not found, cannot restore: {backup_path}")
         return False
 
+
 def _update_file_content(file_path, old_str, new_str):
     """Performs in-place string replacement in a file."""
     print(f"✍️  Updating {file_path.name}: Replacing '{old_str}' with '{new_str}'")
     with fileinput.FileInput(file_path, inplace=True) as file:
         for line in file:
-            print(line.replace(old_str, new_str), end='')
+            print(line.replace(old_str, new_str), end="")
+
 
 def deploy_changes():
     """Deploys the new scripts by updating the batch processor and workflows."""
@@ -235,12 +264,15 @@ def deploy_changes():
     print_subheader("Updating GitHub Actions Workflows")
     if _backup_file(PRODUCTION_QA_WORKFLOW):
         _update_file_content(PRODUCTION_QA_WORKFLOW, OLD_QA_VALIDATOR, NEW_QA)
-    
+
     if _backup_file(BOOK_QA_WORKFLOW):
         _update_file_content(BOOK_QA_WORKFLOW, OLD_QA_CHECKER, NEW_QA)
 
-    print("\n✅ Deployment complete. The system will now use the new engine and QA validator.")
+    print(
+        "\n✅ Deployment complete. The system will now use the new engine and QA validator."
+    )
     print("   To revert these changes, run: python scripts/deploy_fixes.py rollback")
+
 
 def rollback_changes():
     """Rolls back the changes to the previous state."""
@@ -255,44 +287,42 @@ def rollback_changes():
 
     print("\n✅ Rollback complete. The system has been restored to its previous state.")
 
+
 # --- Main CLI ---
+
 
 def main():
     """Main entry point for the deployment script."""
     parser = argparse.ArgumentParser(
         description="Deployment script for KindleMint Engine quality fixes.",
-        formatter_class=argparse.RawTextHelpFormatter
+        formatter_class=argparse.RawTextHelpFormatter,
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     # Test command
     subparsers.add_parser(
         "test",
-        help="Run a sandboxed test of the old vs. new systems and generate a report."
+        help="Run a sandboxed test of the old vs. new systems and generate a report.",
     )
 
     # Report command
     subparsers.add_parser(
-        "report",
-        help="Generate the comparison report from the last test run."
+        "report", help="Generate the comparison report from the last test run."
     )
 
     # Deploy command
     subparsers.add_parser(
-        "deploy",
-        help="Update the main scripts and workflows to use the new systems."
+        "deploy", help="Update the main scripts and workflows to use the new systems."
     )
 
     # Rollback command
     subparsers.add_parser(
-        "rollback",
-        help="Revert the changes and restore the old systems."
+        "rollback", help="Revert the changes and restore the old systems."
     )
-    
+
     # Cleanup command
     subparsers.add_parser(
-        "cleanup",
-        help="Remove temporary directories created during testing."
+        "cleanup", help="Remove temporary directories created during testing."
     )
 
     args = parser.parse_args()
@@ -311,8 +341,10 @@ def main():
     except Exception as e:
         print(f"\n❌ An unexpected error occurred: {e}")
         import traceback
+
         traceback.print_exc()
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

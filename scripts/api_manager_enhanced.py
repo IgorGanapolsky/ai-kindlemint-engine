@@ -3,8 +3,8 @@ Compatibility wrapper for api_manager_enhanced during migration.
 This maintains backward compatibility while the code is migrated to the new structure.
 """
 
-import warnings
 import sys
+import warnings
 from pathlib import Path
 
 # Add src to path if needed
@@ -17,7 +17,7 @@ warnings.warn(
     "Importing from scripts.api_manager_enhanced is deprecated. "
     "Use 'from kindlemint.utils.api import EnhancedAPIManager' instead.",
     DeprecationWarning,
-    stacklevel=2
+    stacklevel=2,
 )
 
 # Import and re-export everything from new location

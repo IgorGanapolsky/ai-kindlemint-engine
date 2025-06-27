@@ -3,8 +3,8 @@ Compatibility wrapper for config_loader during migration.
 This maintains backward compatibility while the code is migrated to the new structure.
 """
 
-import warnings
 import sys
+import warnings
 from pathlib import Path
 
 # Add src to path if needed
@@ -17,11 +17,11 @@ warnings.warn(
     "Importing from scripts.config_loader is deprecated. "
     "Use 'from kindlemint.utils.config import config' instead.",
     DeprecationWarning,
-    stacklevel=2
+    stacklevel=2,
 )
 
 # Import and re-export the config instance from new location
-from kindlemint.utils.config import config, ConfigLoader
+from kindlemint.utils.config import ConfigLoader, config
 
 # Make sure all old imports continue to work
-__all__ = ['config', 'ConfigLoader']
+__all__ = ["config", "ConfigLoader"]

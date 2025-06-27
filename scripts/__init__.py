@@ -3,8 +3,8 @@ Compatibility layer for gradual migration to modular structure.
 This allows old imports to continue working while we migrate.
 """
 
-import warnings
 import sys
+import warnings
 from pathlib import Path
 
 # Add src to Python path for new imports
@@ -24,6 +24,7 @@ MIGRATION_MAP = {
     # "config_loader": "kindlemint.utils.config",
 }
 
+
 def __getattr__(name):
     """Handle imports of old module names with deprecation warnings."""
     if name in MIGRATION_MAP:
@@ -32,9 +33,10 @@ def __getattr__(name):
             f"Importing '{name}' from scripts is deprecated. "
             f"Use 'from {new_module} import ...' instead.",
             DeprecationWarning,
-            stacklevel=2
+            stacklevel=2,
         )
         # Import and return the new module
         import importlib
+
         return importlib.import_module(new_module)
     raise AttributeError(f"module 'scripts' has no attribute '{name}'")

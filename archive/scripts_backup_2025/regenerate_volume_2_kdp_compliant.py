@@ -6,38 +6,49 @@ Regenerate Volume 2 with KDP-compliant dimensions and margins
 - Proper margins for professional printing
 """
 
-import os
 import json
+import os
 from pathlib import Path
-from reportlab.lib.pagesizes import inch
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, PageBreak, Image, KeepTogether
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib import colors
-from reportlab.lib.units import inch
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
+
 from PIL import Image as PILImage
+from reportlab.lib import colors
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.lib.pagesizes import inch
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.platypus import (
+    Image,
+    KeepTogether,
+    PageBreak,
+    Paragraph,
+    SimpleDocTemplate,
+    Spacer,
+    Table,
+    TableStyle,
+)
 
 # KDP Requirements for 6x9 book with 128 pages
 PAGE_WIDTH = 6 * inch
 PAGE_HEIGHT = 9 * inch
 GUTTER_MARGIN = 0.375 * inch  # Inside margin (required minimum for 128 pages)
-OUTER_MARGIN = 0.5 * inch     # Outside margin
+OUTER_MARGIN = 0.5 * inch  # Outside margin
 TOP_MARGIN = 0.75 * inch
 BOTTOM_MARGIN = 0.75 * inch
 
+
 def create_kdp_compliant_pdf():
     """Create Volume 2 with proper KDP specifications"""
-    
+
     print("📚 Regenerating Volume 2 with KDP specifications...")
     print(f"   - Page size: 6×9 inches")
     print(f"   - Gutter margin: {GUTTER_MARGIN/inch:.3f} inches (for 128 pages)")
-    
+
     volume_dir = Path("books/active_production/Large_Print_Crossword_Masters/volume_2")
     output_pdf = volume_dir / "paperback" / "crossword_book_volume_2_FINAL_KDP.pdf"
-    
+
     # Ensure output directory exists
     output_pdf.parent.mkdir(parents=True, exist_ok=True)
-    
+
     # Create document with proper margins
     doc = SimpleDocTemplate(
         str(output_pdf),
@@ -47,53 +58,53 @@ def create_kdp_compliant_pdf():
         topMargin=TOP_MARGIN,
         bottomMargin=BOTTOM_MARGIN,
         title="Large Print Crossword Masters - Volume 2",
-        author="Crossword Masters Publishing"
+        author="Crossword Masters Publishing",
     )
-    
+
     # Create content
     story = []
     styles = getSampleStyleSheet()
-    
+
     # Custom styles
     title_style = ParagraphStyle(
-        'BookTitle',
-        parent=styles['Title'],
+        "BookTitle",
+        parent=styles["Title"],
         fontSize=36,
         leading=42,
         alignment=TA_CENTER,
-        spaceAfter=30
+        spaceAfter=30,
     )
-    
+
     subtitle_style = ParagraphStyle(
-        'Subtitle',
-        parent=styles['Heading1'],
+        "Subtitle",
+        parent=styles["Heading1"],
         fontSize=24,
         leading=28,
         alignment=TA_CENTER,
-        spaceAfter=20
+        spaceAfter=20,
     )
-    
+
     normal_style = ParagraphStyle(
-        'BookNormal',
-        parent=styles['Normal'],
+        "BookNormal",
+        parent=styles["Normal"],
         fontSize=12,
         leading=16,
-        alignment=TA_LEFT
+        alignment=TA_LEFT,
     )
-    
+
     # Title Page
-    story.append(Spacer(1, 2*inch))
+    story.append(Spacer(1, 2 * inch))
     story.append(Paragraph("LARGE PRINT", title_style))
     story.append(Paragraph("CROSSWORD", title_style))
     story.append(Paragraph("MASTERS", title_style))
-    story.append(Spacer(1, 0.5*inch))
+    story.append(Spacer(1, 0.5 * inch))
     story.append(Paragraph("VOLUME 2", subtitle_style))
-    story.append(Spacer(1, 1*inch))
+    story.append(Spacer(1, 1 * inch))
     story.append(Paragraph("50 New Puzzles - Easy to Challenging", normal_style))
     story.append(PageBreak())
-    
+
     # Copyright Page
-    story.append(Spacer(1, 3*inch))
+    story.append(Spacer(1, 3 * inch))
     copyright_text = """
     Copyright © 2025 Crossword Masters Publishing<br/>
     All rights reserved.<br/><br/>
@@ -107,10 +118,10 @@ def create_kdp_compliant_pdf():
     """
     story.append(Paragraph(copyright_text, normal_style))
     story.append(PageBreak())
-    
+
     # Instructions Page
     story.append(Paragraph("How to Solve", subtitle_style))
-    story.append(Spacer(1, 0.5*inch))
+    story.append(Spacer(1, 0.5 * inch))
     instructions = """
     Welcome to Large Print Crossword Masters Volume 2! This collection features 
     50 brand-new crossword puzzles designed with seniors in mind.<br/><br/>
@@ -130,28 +141,28 @@ def create_kdp_compliant_pdf():
     """
     story.append(Paragraph(instructions, normal_style))
     story.append(PageBreak())
-    
+
     # Sample puzzle pages (would be generated from actual puzzle data)
     for i in range(1, 4):  # Just 3 sample pages
         story.append(Paragraph(f"Puzzle {i}", subtitle_style))
-        story.append(Spacer(1, 0.5*inch))
+        story.append(Spacer(1, 0.5 * inch))
         story.append(Paragraph("[Crossword grid would appear here]", normal_style))
         story.append(PageBreak())
-        
+
         story.append(Paragraph(f"Puzzle {i} - Clues", subtitle_style))
-        story.append(Spacer(1, 0.3*inch))
+        story.append(Spacer(1, 0.3 * inch))
         story.append(Paragraph("<b>ACROSS</b>", normal_style))
         story.append(Paragraph("1. Sample clue", normal_style))
-        story.append(Spacer(1, 0.3*inch))
+        story.append(Spacer(1, 0.3 * inch))
         story.append(Paragraph("<b>DOWN</b>", normal_style))
         story.append(Paragraph("1. Sample clue", normal_style))
         story.append(PageBreak())
-    
+
     # Build the PDF
     doc.build(story)
-    
+
     print(f"✅ Created KDP-compliant PDF: {output_pdf}")
-    
+
     # Update metadata
     metadata = {
         "title": "Large Print Crossword Masters - Volume 2",
@@ -162,21 +173,22 @@ def create_kdp_compliant_pdf():
         "issues_fixed": [
             "Corrected trim size from 8.5x11 to 6x9",
             "Added required 0.375 inch gutter margin",
-            "Proper margin setup for professional printing"
-        ]
+            "Proper margin setup for professional printing",
+        ],
     }
-    
+
     metadata_path = volume_dir / "paperback" / "kdp_compliance_metadata.json"
-    with open(metadata_path, 'w') as f:
+    with open(metadata_path, "w") as f:
         json.dump(metadata, f, indent=2)
-    
+
     print("📋 Metadata saved")
     print("\n🎯 Next steps:")
     print("   1. Upload the new PDF to KDP Print Previewer")
     print("   2. Verify no errors appear")
     print("   3. Check print preview for proper margins")
-    
+
     return output_pdf
+
 
 if __name__ == "__main__":
     create_kdp_compliant_pdf()

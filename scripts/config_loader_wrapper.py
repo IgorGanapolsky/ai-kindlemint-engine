@@ -3,8 +3,8 @@ Temporary wrapper for config_loader.py during migration.
 This will replace the original config_loader.py to maintain compatibility.
 """
 
-import warnings
 import sys
+import warnings
 from pathlib import Path
 
 # Add src to path if needed
@@ -16,7 +16,7 @@ warnings.warn(
     "Importing from scripts.config_loader is deprecated. "
     "Use 'from kindlemint.utils.config import ...' instead.",
     DeprecationWarning,
-    stacklevel=2
+    stacklevel=2,
 )
 
 # Import and re-export everything from new location
@@ -24,7 +24,7 @@ from kindlemint.utils.config import *
 
 # Also explicitly import commonly used items
 try:
-    from kindlemint.utils.config import load_config, get_config, ConfigManager
+    from kindlemint.utils.config import ConfigManager, get_config, load_config
 except ImportError:
     # Fallback if specific exports aren't available
     pass

@@ -1,0 +1,89 @@
+{
+  "batch_name": "Logic Masters Method - Repositioned Series",
+  "description": "Authority-positioned Sudoku books targeting Silicon Valley professionals",
+  "delay_between_books": 60,
+  "books": [
+    {
+      "id": "logic_masters_foundation",
+      "title": "The Logic Masters Method: Foundation",
+      "subtitle": "How Silicon Valley Engineers Train Pattern Recognition in 15 Minutes Daily",
+      "series_name": "Logic_Masters_Method",
+      "volume": 1,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 100,
+      "difficulty": "easy",
+      "pages": 120,
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "description": "The exact pattern recognition training system used by engineers at Meta, Google, and Apple. This isn't just puzzle solving—it's cognitive enhancement for high-performance careers. Based on the logical thinking frameworks that power Silicon Valley's most innovative minds.",
+      "keywords": ["pattern recognition", "logical thinking", "Silicon Valley", "cognitive training", "professional development", "brain training"],
+      "categories": ["Business & Money", "Education & Reference", "Professional Development"],
+      "language": "en",
+      "target_audience": "Software engineers, tech professionals, career-focused individuals",
+      "create_epub": true,
+      "create_hardcover": true,
+      "kindle_price": 4.99,
+      "hardcover_price_min": 16.99,
+      "hardcover_price_max": 21.99,
+      "printing_cost_estimate": 6.00,
+      "royalty_min": 8.00,
+      "royalty_max": 12.00,
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "[ISBN TO BE ASSIGNED]"
+      },
+      "authority_positioning": {
+        "credibility_marker": "The exact system used at Meta, Google, and Apple",
+        "outcome_promise": "Develop the logical thinking that drives $100K+ careers",
+        "transformation_story": "How top engineers train their brains for complex problem solving",
+        "social_proof": "Used by 1000+ Silicon Valley professionals"
+      },
+      "back_cover_description": "The Logic Masters Method\nFoundation Level\n\nHow Silicon Valley Engineers Train Pattern Recognition\n\nThe cognitive training system behind tech's elite minds\nProfessional-grade brain training in 15 minutes daily"
+    },
+    {
+      "id": "logic_masters_advanced",
+      "title": "The Logic Masters Method: Advanced",
+      "subtitle": "Complex Problem-Solving Patterns from Tech's Elite Minds",
+      "series_name": "Logic_Masters_Method",
+      "volume": 2,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 100,
+      "difficulty": "medium",
+      "pages": 120,
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "description": "Advanced pattern recognition training for senior professionals and executives. These complex logical frameworks mirror the multi-variable thinking required for system architecture, strategic planning, and executive decision-making at Fortune 500 companies.",
+      "keywords": ["advanced logic", "executive thinking", "system architecture", "strategic planning", "senior professional", "cognitive enhancement"],
+      "categories": ["Business & Money", "Management & Leadership", "Professional Development"],
+      "language": "en",
+      "target_audience": "Senior engineers, executives, strategic planners, system architects",
+      "create_epub": true,
+      "create_hardcover": true,
+      "kindle_price": 6.99,
+      "hardcover_price_min": 18.99,
+      "hardcover_price_max": 24.99,
+      "printing_cost_estimate": 6.00,
+      "royalty_min": 10.00,
+      "royalty_max": 15.00,
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "[ISBN TO BE ASSIGNED]"
+      },
+      "authority_positioning": {
+        "credibility_marker": "Next-level thinking patterns from senior engineers",
+        "outcome_promise": "Master the complex reasoning behind executive-level decisions",
+        "transformation_story": "How tech leaders develop systems thinking for billion-dollar choices",
+        "social_proof": "The cognitive training behind unicorn startup decisions"
+      },
+      "back_cover_description": "The Logic Masters Method\nAdvanced Level\n\nComplex Problem-Solving Patterns from Tech's Elite\n\nExecutive-level logical reasoning development\nThe thinking systems behind billion-dollar decisions"
+    }
+  ]
+}

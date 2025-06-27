@@ -5,11 +5,13 @@ formatter.py: Defines a base Formatter interface for generating formatted manusc
 from abc import ABC, abstractmethod
 from pathlib import Path
 
+
 class Formatter(ABC):
     """
     Abstract base class for manuscript formatters.
     Concrete formatters should implement create_pdf().
     """
+
     @abstractmethod
     def create_pdf(self) -> Path:
         """

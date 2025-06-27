@@ -4,27 +4,26 @@ Generate cover generation checklists for all book volumes
 Using KDP official specifications and actual page counts
 """
 
+import argparse
 import os
 import sys
-import argparse
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 # Add the project root to the Python path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from scripts.kdp_cover_calculator import KDPCoverCalculator
 
+
 def generate_checklist(book_info, dimensions):
     """Generate a cover checklist from template with book-specific information"""
-    
+
     calculator = KDPCoverCalculator()
     dalle_prompt = calculator.generate_dall_e_prompt(
-        book_info['title'], 
-        book_info['volume'], 
-        dimensions
+        book_info["title"], book_info["volume"], dimensions
     )
-    
+
     template = """# {format_type} Cover Generation Checklist
 
 ## Book Information
@@ -151,30 +150,37 @@ _Add any specific notes about this cover generation below:_
 - [KDP Cover Guidelines](https://kdp.amazon.com/help/topic/G201953020)
 - [Cover Calculator](https://kdp.amazon.com/cover-calculator)
 - [Template Generator](https://kdp.amazon.com/template-generator)"""
-    
+
     return template.format(
-        format_type=book_info['format_type'],
-        title=book_info['title'],
-        volume=book_info['volume'],
-        trim_size=dimensions['trim_size'].replace('x', ' x '),
-        page_count=book_info['page_count'],
-        spine_width=dimensions['spine_width'],
-        special_feature=book_info.get('special_feature', 'LARGE PRINT'),
-        full_width=dimensions['full_width'],
-        full_height=dimensions['full_height'],
-        dalle_prompt=dalle_prompt
+        format_type=book_info["format_type"],
+        title=book_info["title"],
+        volume=book_info["volume"],
+        trim_size=dimensions["trim_size"].replace("x", " x "),
+        page_count=book_info["page_count"],
+        spine_width=dimensions["spine_width"],
+        special_feature=book_info.get("special_feature", "LARGE PRINT"),
+        full_width=dimensions["full_width"],
+        full_height=dimensions["full_height"],
+        dalle_prompt=dalle_prompt,
     )
+
 
 def main():
     """Generate cover checklists for all book volumes"""
-    
-    parser = argparse.ArgumentParser(description="Generate cover checklists for book volumes")
-    parser.add_argument("--force", "-f", action="store_true", 
-                        help="Force regeneration of existing checklists")
+
+    parser = argparse.ArgumentParser(
+        description="Generate cover checklists for book volumes"
+    )
+    parser.add_argument(
+        "--force",
+        "-f",
+        action="store_true",
+        help="Force regeneration of existing checklists",
+    )
     args = parser.parse_args()
-    
+
     calculator = KDPCoverCalculator()
-    
+
     # Define book series information with actual page counts
     book_series = {
         "Large_Print_Crossword_Masters": {
@@ -186,81 +192,80 @@ def main():
                 1: {"pages": 104},
                 2: {"pages": 112},
                 3: {"pages": 107},
-                4: {"pages": 156}
-            }
+                4: {"pages": 156},
+            },
         }
     }
-    
+
     generated_count = 0
-    
+
     for series_dir, series_info in book_series.items():
         series_path = Path(f"books/active_production/{series_dir}")
-        
+
         if not series_path.exists():
             print(f"⚠️  Series directory not found: {series_path}")
             continue
-            
+
         for volume_num, volume_info in series_info["volumes"].items():
             volume_path = series_path / f"volume_{volume_num}"
-            
+
             if not volume_path.exists():
                 print(f"⚠️  Volume directory not found: {volume_path}")
                 continue
-            
+
             # Generate for both hardcover and paperback
             for format_type in ["hardcover", "paperback"]:
                 format_path = volume_path / format_type
-                
+
                 if not format_path.exists():
                     print(f"⚠️  Format directory not found: {format_path}")
                     continue
-                
+
                 checklist_path = format_path / "cover_generation_checklist.md"
-                
+
                 # Skip if already exists (unless force flag is set)
                 if checklist_path.exists() and not args.force:
                     print(f"✓ Checklist already exists: {checklist_path}")
                     continue
-                
+
                 # Determine trim size based on format
                 if format_type == "paperback":
                     trim_size = series_info["paperback_trim"]
                 else:  # hardcover
                     trim_size = series_info["hardcover_trim"]
-                
+
                 # Calculate dimensions using KDP calculator
                 dimensions = calculator.calculate_full_cover_dimensions(
-                    trim_size, 
-                    volume_info["pages"], 
-                    format_type
+                    trim_size, volume_info["pages"], format_type
                 )
-                
+
                 # Prepare book information
                 book_info = {
                     "title": series_info["title"],
                     "volume": volume_num,
                     "format_type": format_type.capitalize(),
                     "page_count": volume_info["pages"],
-                    "special_feature": series_info["special_feature"]
+                    "special_feature": series_info["special_feature"],
                 }
-                
+
                 # Generate and save checklist
                 checklist_content = generate_checklist(book_info, dimensions)
-                
-                with open(checklist_path, 'w') as f:
+
+                with open(checklist_path, "w") as f:
                     f.write(checklist_content)
-                
+
                 print(f"✅ Generated: {checklist_path}")
                 generated_count += 1
-    
+
     print(f"\n📋 Generated {generated_count} cover checklists")
     print(f"📅 Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    
+
     if generated_count == 0 and not args.force:
         print("\n💡 Tip: Use --force flag to regenerate existing checklists")
     else:
         print("\n✅ All checklists now use correct KDP dimensions!")
         print("📐 Remember: Paperback = 8.5×11, Hardcover = 6×9")
+
 
 if __name__ == "__main__":
     main()

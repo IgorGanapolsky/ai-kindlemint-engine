@@ -3,8 +3,8 @@ Compatibility wrapper for claude_cost_tracker during migration.
 This maintains backward compatibility while the code is migrated to the new structure.
 """
 
-import warnings
 import sys
+import warnings
 from pathlib import Path
 
 # Add src to path if needed
@@ -17,7 +17,7 @@ warnings.warn(
     "Importing from scripts.claude_cost_tracker is deprecated. "
     "Use 'from kindlemint.utils.cost_tracker import ClaudeCostTracker' instead.",
     DeprecationWarning,
-    stacklevel=2
+    stacklevel=2,
 )
 
 # Import and re-export everything from new location

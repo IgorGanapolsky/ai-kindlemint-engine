@@ -5,14 +5,15 @@ Generates interactive QA reports for Claude Artifacts workspace
 """
 
 import json
-from pathlib import Path
-from typing import Dict, List, Optional
 import subprocess
 from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional
+
 
 class QAArtifactsInterface:
     """Generate Claude Artifacts-compatible QA visualizations"""
-    
+
     def __init__(self):
         self.artifact_template = """
 <!DOCTYPE html>
@@ -189,20 +190,20 @@ class QAArtifactsInterface:
 </body>
 </html>
 """
-    
+
     def generate_qa_artifact(self, qa_result: Dict, pdf_path: Path) -> str:
         """Generate HTML artifact for Claude interface"""
-        
+
         # Determine pass/fail status
         passed = qa_result.get("passed", False)
         score = qa_result.get("overall_score", 0)
-        
+
         # Generate criteria cards
         criteria_cards = []
         for criterion, details in qa_result.get("criteria", {}).items():
             status = "pass" if details.get("passed", False) else "fail"
             icon = "✅" if details.get("passed", False) else "❌"
-            
+
             card = f"""
             <div class="criterion-card {status}">
                 <h3>
@@ -220,14 +221,15 @@ class QAArtifactsInterface:
             </div>
             """
             criteria_cards.append(card)
-        
+
         # Generate issues section
         issues = qa_result.get("issues_found", [])
         issues_html = ""
         if issues:
             issue_items = []
             for issue in issues[:10]:  # Show top 10
-                issue_items.append(f"""
+                issue_items.append(
+                    f"""
                 <div class="issue-item">
                     <strong>{issue.get('type', 'Unknown')}:</strong>
                     {issue.get('message', str(issue))}
@@ -235,15 +237,16 @@ class QAArtifactsInterface:
                         🔧 Request Fix
                     </button>
                 </div>
-                """)
-            
+                """
+                )
+
             issues_html = f"""
             <div class="issues-section">
                 <h2>⚠️ Issues Found ({len(issues)})</h2>
                 {''.join(issue_items)}
             </div>
             """
-        
+
         # Generate recommendations
         recommendations = qa_result.get("recommendations", [])
         rec_html = ""
@@ -257,19 +260,21 @@ class QAArtifactsInterface:
                 </ul>
             </div>
             """
-        
+
         # Generate page previews (mock for now)
         page_previews = []
         for i in range(1, 11):  # Show first 10 pages
             has_issue = i in [3, 7]  # Mock pages with issues
             page_class = "issue" if has_issue else ""
-            page_previews.append(f"""
+            page_previews.append(
+                f"""
             <div class="page-thumb {page_class}" onclick="highlightIssue({i})">
                 <div>Page {i}</div>
                 {'⚠️' if has_issue else '✓'}
             </div>
-            """)
-        
+            """
+            )
+
         # Fill template
         html = self.artifact_template.format(
             title=pdf_path.name,
@@ -281,67 +286,69 @@ class QAArtifactsInterface:
             criteria_cards="\n".join(criteria_cards),
             issues_section=issues_html,
             recommendations_section=rec_html,
-            page_previews="\n".join(page_previews)
+            page_previews="\n".join(page_previews),
         )
-        
+
         return html
-    
+
     def _get_metric_class(self, details: Dict) -> str:
         """Determine color class for metric bar"""
         if details.get("passed", False):
             return "good"
         score = details.get("score", 0)
         threshold = details.get("threshold", 0)
-        
+
         # Calculate how far from threshold
         if threshold > 0:
             ratio = score / threshold
             if ratio > 0.8:
                 return "warning"
         return "bad"
-    
+
     def _get_metric_width(self, details: Dict) -> float:
         """Calculate metric bar width percentage"""
         score = details.get("score", 0)
         threshold = details.get("threshold", 100)
-        
+
         if threshold > 0:
             return min(100, (score / threshold) * 100)
         return 0
-    
+
     def save_artifact(self, html: str, output_path: Path):
         """Save HTML artifact to file"""
-        with open(output_path, 'w') as f:
+        with open(output_path, "w") as f:
             f.write(html)
         print(f"📄 QA Artifact saved to: {output_path}")
-    
+
     def generate_markdown_summary(self, qa_result: Dict) -> str:
         """Generate markdown summary for Claude chat"""
-        
+
         passed = qa_result.get("passed", False)
         score = qa_result.get("overall_score", 0)
-        
+
         summary = f"""## QA Validation Results
 
 **Overall Score:** {score}/100 {'✅ PASSED' if passed else '❌ FAILED'}
 
 ### Criteria Breakdown:
 """
-        
+
         for criterion, details in qa_result.get("criteria", {}).items():
             status = "✅" if details.get("passed", False) else "❌"
             summary += f"- {status} **{criterion}**: {details.get('score', 0)} (threshold: {details.get('threshold', 0)})\n"
-        
+
         if qa_result.get("issues_found"):
-            summary += f"\n### Issues Found ({len(qa_result.get('issues_found', []))}):\n"
+            summary += (
+                f"\n### Issues Found ({len(qa_result.get('issues_found', []))}):\n"
+            )
             for issue in qa_result.get("issues_found", [])[:5]:
                 summary += f"- {issue.get('type', 'Unknown')}: {issue.get('message', str(issue))}\n"
-        
+
         if qa_result.get("recommendations"):
             summary += "\n### Recommendations:\n"
             for rec in qa_result.get("recommendations", []):
                 summary += f"- {rec}\n"
-        
+
         return summary
 
 
@@ -356,30 +363,28 @@ def main():
             "text_cutoff": {"score": 0, "threshold": 0, "passed": True},
             "white_space_ratio": {"score": 89, "threshold": 92, "passed": True},
             "puzzle_integrity": {"score": 95, "threshold": 100, "passed": False},
-            "font_embedding": {"score": 100, "threshold": 100, "passed": True}
+            "font_embedding": {"score": 100, "threshold": 100, "passed": True},
         },
         "issues_found": [
             {"type": "duplicate_content", "message": "15% duplicate text found"},
-            {"type": "puzzle_integrity", "message": "5 puzzles missing answer keys"}
+            {"type": "puzzle_integrity", "message": "5 puzzles missing answer keys"},
         ],
         "recommendations": [
             "Remove duplicate clues in puzzles 12-18",
-            "Add missing answer keys for puzzles 45-50"
-        ]
+            "Add missing answer keys for puzzles 45-50",
+        ],
     }
-    
+
     interface = QAArtifactsInterface()
-    html = interface.generate_qa_artifact(
-        mock_result, 
-        Path("test_book.pdf")
-    )
-    
+    html = interface.generate_qa_artifact(mock_result, Path("test_book.pdf"))
+
     # Save test artifact
     output_path = Path("qa_artifact_test.html")
     interface.save_artifact(html, output_path)
-    
+
     # Print markdown summary
     print(interface.generate_markdown_summary(mock_result))
+
 
 if __name__ == "__main__":
     main()

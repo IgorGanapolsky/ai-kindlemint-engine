@@ -9,37 +9,43 @@ VOLUME_COVER_PROMPTS = {
         "color_scheme": "calming blues and soft whites",
         "theme": "fresh beginnings, morning sky",
         "accent": "light blue gradient",
-        "season": "spring-like freshness"
+        "season": "spring-like freshness",
     },
     2: {
         "color_scheme": "warm greens and earth tones",
         "theme": "growth and nature",
         "accent": "sage green gradient",
-        "season": "summer vibrancy"
+        "season": "summer vibrancy",
     },
     3: {
         "color_scheme": "gentle oranges and warm yellows",
         "theme": "autumn warmth",
         "accent": "sunset orange gradient",
-        "season": "fall comfort"
+        "season": "fall comfort",
     },
     4: {
         "color_scheme": "deep purples and royal blues",
         "theme": "wisdom and depth",
         "accent": "amethyst purple gradient",
-        "season": "winter elegance"
-    }
+        "season": "winter elegance",
+    },
 }
 
-def get_volume_prompt(volume_num, title="Large Print Crossword Masters", format_type="hardcover", spine_width=0.415):
+
+def get_volume_prompt(
+    volume_num,
+    title="Large Print Crossword Masters",
+    format_type="hardcover",
+    spine_width=0.415,
+):
     """
     Generate a volume-specific DALL-E prompt with unique color scheme
     """
     if volume_num not in VOLUME_COVER_PROMPTS:
         volume_num = 1  # Default to volume 1 style
-    
+
     style = VOLUME_COVER_PROMPTS[volume_num]
-    
+
     prompt = f"""Create a professional book cover for "{title} Volume {volume_num}" - a large print crossword puzzle book designed for seniors.
 
 Design specifications:
@@ -59,8 +65,9 @@ Design specifications:
 
 Style: Professional, clean, accessible, senior-friendly, {style['season']} themed
 Output: Print-ready book cover design"""
-    
+
     return prompt
+
 
 def get_series_consistency_guide():
     """
@@ -97,16 +104,17 @@ SERIES CONSISTENCY GUIDELINES:
    - Proper bleed margins (0.125")
 """
 
+
 if __name__ == "__main__":
     # Example usage
     print("DALL-E Cover Prompts for Large Print Crossword Masters Series\n")
     print("=" * 60)
-    
+
     for volume in range(1, 5):
         print(f"\nVOLUME {volume}:")
         print("-" * 60)
         print(get_volume_prompt(volume))
         print()
-    
+
     print("\n" + "=" * 60)
     print(get_series_consistency_guide())

@@ -1,0 +1,57 @@
+{
+  "batch_name": "15-Minute MBA Micro-Series",
+  "description": "High-converting micro-guides targeting business professionals",
+  "delay_between_books": 60,
+  "books": [
+    {
+      "id": "15min_mba_finance",
+      "title": "The 15-Minute MBA: Finance",
+      "subtitle": "What Every Non-Finance Professional Needs to Know",
+      "series_name": "15_Minute_MBA",
+      "volume": 1,
+      "puzzle_type": "content",
+      "page_count": 45,
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "description": "The essential finance principles that drive billion-dollar decisions, distilled into bite-sized insights any professional can master in 15 minutes.",
+      "keywords": ["finance", "MBA", "business", "15-minute guide", "professionals"],
+      "categories": ["Business & Money", "Education & Reference", "Finance"],
+      "language": "en",
+      "target_audience": "Non-finance professionals, entrepreneurs, managers",
+      "create_epub": true,
+      "create_hardcover": false,
+      "kindle_price": 0.99,
+      "content_params": {
+        "format": "micro_guide",
+        "reading_time": "15_minutes",
+        "authority_hook": "Former Silicon Valley CFO",
+        "outcome": "Make confident financial decisions"
+      }
+    },
+    {
+      "id": "15min_mba_marketing",
+      "title": "The 15-Minute MBA: Marketing",
+      "subtitle": "Zero-Budget Strategies That Actually Work",
+      "series_name": "15_Minute_MBA",
+      "volume": 2,
+      "puzzle_type": "content",
+      "page_count": 45,
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "description": "The guerrilla marketing tactics used by bootstrapped startups to compete with Fortune 500 companies - no ad budget required.",
+      "keywords": ["marketing", "zero budget", "MBA", "guerrilla marketing", "startups"],
+      "categories": ["Business & Money", "Marketing & Sales", "Entrepreneurship"],
+      "language": "en",
+      "target_audience": "Entrepreneurs, small business owners, marketers",
+      "create_epub": true,
+      "create_hardcover": false,
+      "kindle_price": 0.99,
+      "content_params": {
+        "format": "micro_guide",
+        "reading_time": "15_minutes",
+        "authority_hook": "Growth hacker behind 3 unicorn startups",
+        "outcome": "Generate leads without spending money"
+      }
+    }
+  ]
+}

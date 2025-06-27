@@ -4,18 +4,18 @@ Integration tests for complete book generation pipeline
 Tests the full workflow from puzzle generation to PDF creation
 """
 
-import unittest
-import tempfile
 import shutil
-from pathlib import Path
 import sys
+import tempfile
+import unittest
+from pathlib import Path
 
 # Add scripts directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
 
-from sudoku_generator import SudokuGenerator
-from crossword_engine_v2 import CrosswordEngine
 from book_layout_bot import BookLayoutEngine
+from crossword_engine_v2 import CrosswordEngine
+from sudoku_generator import SudokuGenerator
 
 
 class TestBookGenerationPipeline(unittest.TestCase):

@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 """Fix single-word clues by adding descriptive context"""
 
+
 def fix_single_word_clue(clue: str) -> str:
     """Convert single-word clues to multi-word clues"""
-    
+
     # Common patterns for different types of clues
     conversions = {
         # Emotions/feelings
         "Happy": "Feel happy",
-        "Sad": "Feel sad", 
+        "Sad": "Feel sad",
         "Angry": "Feel angry",
         "Hurt": "Feel pain",
         "Pain": "Physical hurt",
         "Ache": "Dull pain",
         "Yearn": "Long for",
-        
         # Actions
         "Run": "Move quickly",
-        "Walk": "Go slowly", 
+        "Walk": "Go slowly",
         "Jump": "Leap up",
         "Fly": "Travel airborne",
         "Swim": "Move underwater",
@@ -29,7 +29,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Help": "Give aid",
         "Aid": "Provide help",
         "Assist": "Give support",
-        
         # Descriptors
         "Large": "Big size",
         "Small": "Little size",
@@ -47,7 +46,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Wrong": "Not right",
         "True": "Not false",
         "False": "Not true",
-        
         # Nouns
         "Person": "Human being",
         "Place": "Specific location",
@@ -59,7 +57,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Fire": "Hot flames",
         "Earth": "Our planet",
         "Air": "Breathable gas",
-        
         # Relationships
         "Parent": "Mom or dad",
         "Child": "Young person",
@@ -67,7 +64,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Enemy": "Hostile person",
         "Partner": "Close associate",
         "Spouse": "Marriage partner",
-        
         # Time
         "Today": "This day",
         "Tomorrow": "Next day",
@@ -76,7 +72,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Then": "That time",
         "Always": "Every time",
         "Never": "No time",
-        
         # Directions/positions
         "Up": "Toward sky",
         "Down": "Toward ground",
@@ -92,7 +87,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Below": "Lower than",
         "Near": "Close by",
         "Far": "Distant from",
-        
         # Common adjectives
         "Beautiful": "Very pretty",
         "Ugly": "Not attractive",
@@ -106,7 +100,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Dirty": "Not clean",
         "Wet": "Contains water",
         "Dry": "No moisture",
-        
         # Common verbs
         "Go": "Move away",
         "Come": "Move toward",
@@ -126,7 +119,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Like": "Enjoy something",
         "Love": "Adore deeply",
         "Hate": "Dislike strongly",
-        
         # Abstract concepts
         "Truth": "Accurate fact",
         "Lie": "False statement",
@@ -138,7 +130,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Death": "Life's end",
         "Peace": "No conflict",
         "War": "Armed conflict",
-        
         # Common single-word answers
         "Yes": "Positive response",
         "No": "Negative response",
@@ -146,7 +137,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Okay": "Agreement word",
         "Sure": "Certain agreement",
         "Fine": "Acceptable state",
-        
         # Job/role descriptors
         "Doctor": "Medical professional",
         "Teacher": "Education provider",
@@ -154,7 +144,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Worker": "Employee person",
         "Boss": "Company leader",
         "Leader": "Group head",
-        
         # Quality descriptors
         "Capable": "Having ability",
         "Competent": "Well qualified",
@@ -162,7 +151,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Expert": "Highly skilled",
         "Amateur": "Not professional",
         "Professional": "Paid expert",
-        
         # Quantity
         "All": "Every one",
         "None": "Not any",
@@ -171,7 +159,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Few": "Small number",
         "More": "Greater amount",
         "Less": "Smaller amount",
-        
         # States of being
         "Alive": "Not dead",
         "Dead": "Not alive",
@@ -181,7 +168,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Closed": "Not open",
         "Broken": "Not working",
         "Fixed": "Working properly",
-        
         # Colors (if not already multi-word)
         "Red": "Rose color",
         "Blue": "Sky color",
@@ -193,7 +179,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Orange": "Citrus color",
         "Purple": "Royal color",
         "Pink": "Light red",
-        
         # Materials
         "Wood": "Tree material",
         "Metal": "Hard material",
@@ -201,7 +186,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Plastic": "Synthetic material",
         "Stone": "Rock material",
         "Paper": "Writing material",
-        
         # Weather
         "Rain": "Water drops",
         "Snow": "Frozen precipitation",
@@ -209,13 +193,11 @@ def fix_single_word_clue(clue: str) -> str:
         "Storm": "Bad weather",
         "Cloud": "Sky formation",
         "Sun": "Day star",
-        
         # Basic needs
         "Eat": "Consume food",
         "Drink": "Consume liquid",
         "Sleep": "Rest state",
         "Breathe": "Take air",
-        
         # Common adverbs that might appear
         "Quickly": "With speed",
         "Slowly": "Without haste",
@@ -223,7 +205,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Roughly": "Without care",
         "Quietly": "Without noise",
         "Loudly": "With noise",
-        
         # Geography
         "Mountain": "Tall landform",
         "Valley": "Low area",
@@ -233,7 +214,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Forest": "Tree area",
         "City": "Urban area",
         "Country": "Rural area",
-        
         # Body parts
         "Head": "Top part",
         "Hand": "Arm end",
@@ -242,7 +222,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Ear": "Hearing organ",
         "Mouth": "Eating organ",
         "Nose": "Smelling organ",
-        
         # Time periods
         "Day": "24 hours",
         "Night": "Dark hours",
@@ -251,7 +230,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Year": "Twelve months",
         "Hour": "Sixty minutes",
         "Minute": "Sixty seconds",
-        
         # Common prepositions that might need fixing
         "With": "Along with",
         "Without": "Lacking something",
@@ -271,7 +249,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Inside": "Within something",
         "Outside": "Not within",
         "Toward": "In direction",
-        
         # Abstract/miscellaneous
         "Freedom": "Being free",
         "Justice": "Fair treatment",
@@ -284,7 +261,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Defeat": "Losing result",
         "Success": "Good outcome",
         "Failure": "Bad outcome",
-        
         # Common problem words from crosswords
         "Level": "Flat surface",
         "Plane": "Flat surface",
@@ -298,41 +274,51 @@ def fix_single_word_clue(clue: str) -> str:
         "Misuse": "Use wrongly",
         "Insult": "Verbal attack",
         "Top-notch": "First rate",
-        "Throb": "Beat rhythmically"
+        "Throb": "Beat rhythmically",
     }
-    
+
     # If we have a specific conversion, use it
     if clue in conversions:
         return conversions[clue]
-    
+
     # Generic patterns for common endings
     if clue.endswith("ly"):
         return f"In {clue.lower()[:-2]} manner"
-    
+
     if clue.endswith("ing"):
         return f"Act of {clue.lower()}"
-    
+
     if clue.endswith("ed"):
         return f"Past tense action"
-    
+
     if clue.endswith("er"):
         return f"One who {clue.lower()[:-2]}s"
-    
+
     if clue.endswith("est"):
         return f"Most {clue.lower()[:-3]}"
-    
+
     if clue.endswith("ness"):
         return f"State of being"
-    
+
     # Default fallback - add context
     first_letter = clue[0].lower()
-    if first_letter in 'aeiou':
+    if first_letter in "aeiou":
         return f"An {clue.lower()}"
     else:
         return f"A {clue.lower()}"
 
+
 if __name__ == "__main__":
     # Test some examples
-    test_clues = ["Happy", "Run", "Beautiful", "Quickly", "Level", "Function", "Support", "Approximately"]
+    test_clues = [
+        "Happy",
+        "Run",
+        "Beautiful",
+        "Quickly",
+        "Level",
+        "Function",
+        "Support",
+        "Approximately",
+    ]
     for clue in test_clues:
         print(f"{clue} -> {fix_single_word_clue(clue)}")

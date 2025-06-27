@@ -5,24 +5,29 @@ Implements all readability and navigation improvements
 """
 
 import os
-import zipfile
-from pathlib import Path
-from datetime import datetime
 import uuid
+import zipfile
+from datetime import datetime
+from pathlib import Path
+
 from PIL import Image, ImageDraw, ImageFont
+
 from scripts.formatter import Formatter
+
 
 class EnhancedKindleEpubGenerator:
     """Generate high-converting EPUB with all improvements"""
-    
+
     def __init__(self):
-        self.output_dir = Path("books/active_production/Large_Print_Crossword_Masters/volume_1")
+        self.output_dir = Path(
+            "books/active_production/Large_Print_Crossword_Masters/volume_1"
+        )
         self.epub_dir = self.output_dir / "epub_enhanced_build"
         self.epub_dir.mkdir(parents=True, exist_ok=True)
-        
+
     def create_enhanced_epub(self):
         """Create enhanced EPUB with all improvements"""
-        
+
         print("📱 ENHANCED KINDLE EPUB GENERATOR")
         print("=" * 50)
         print("🎯 Creating high-converting edition with:")
@@ -32,16 +37,16 @@ class EnhancedKindleEpubGenerator:
         print("✅ Marketing back-matter")
         print("✅ New high-contrast cover")
         print("=" * 50)
-        
+
         # Clear previous build
         self.clear_build_dir()
-        
+
         # Create EPUB structure
         self.create_epub_structure()
-        
+
         # Generate crossword grid images at 1200px
         self.generate_grid_images()
-        
+
         # Create enhanced content files
         self.create_mimetype()
         self.create_container_xml()
@@ -50,21 +55,23 @@ class EnhancedKindleEpubGenerator:
         self.create_enhanced_content()
         self.create_enhanced_css()
         self.copy_new_cover()
-        
+
         # Package EPUB
         epub_file = self.package_enhanced_epub()
-        
+
         print(f"\n🎉 SUCCESS: Enhanced EPUB created!")
         print(f"📁 Location: {epub_file}")
         print(f"✅ High-converting features implemented")
         print(f"📱 Optimized for sales conversion")
-        
+
         return epub_file
-    
+
+
 class EnhancedEpubFormatter(Formatter):
     """
     Formatter for enhanced EPUB generation.
     """
+
     def __init__(self, output_dir=None):
         self.generator = EnhancedKindleEpubGenerator()
         if output_dir:
@@ -73,14 +80,15 @@ class EnhancedEpubFormatter(Formatter):
     def create_pdf(self) -> Path:
         # Create and return path to the generated EPUB file
         return self.generator.create_enhanced_epub()
-    
+
     def clear_build_dir(self):
         """Clear previous build"""
         import shutil
+
         if self.epub_dir.exists():
             shutil.rmtree(self.epub_dir)
         self.epub_dir.mkdir(parents=True, exist_ok=True)
-    
+
     def create_epub_structure(self):
         """Create enhanced EPUB structure"""
         (self.epub_dir / "META-INF").mkdir()
@@ -89,75 +97,85 @@ class EnhancedEpubFormatter(Formatter):
         (self.epub_dir / "OEBPS" / "grids").mkdir()  # For crossword grids
         (self.epub_dir / "OEBPS" / "styles").mkdir()
         (self.epub_dir / "OEBPS" / "text").mkdir()
-    
+
     def generate_grid_images(self):
         """Generate 1200px crossword grid images"""
-        
+
         print("🔢 Generating high-resolution crossword grids...")
-        
+
         for puzzle_num in range(1, 6):  # Sample first 5 puzzles
-            grid_img = Image.new('RGB', (1200, 1200), 'white')
+            grid_img = Image.new("RGB", (1200, 1200), "white")
             draw = ImageDraw.Draw(grid_img)
-            
+
             # Draw 15x15 grid
             cell_size = 80  # 1200 / 15
-            
+
             try:
                 font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 24)
             except:
                 font = ImageFont.load_default()
-            
+
             for row in range(15):
                 for col in range(15):
                     x = col * cell_size
                     y = row * cell_size
-                    
+
                     # Black square pattern
                     if (row + col) % 4 == 0:
-                        draw.rectangle([x, y, x + cell_size, y + cell_size], 
-                                     fill='black', outline='black', width=2)
+                        draw.rectangle(
+                            [x, y, x + cell_size, y + cell_size],
+                            fill="black",
+                            outline="black",
+                            width=2,
+                        )
                     else:
-                        draw.rectangle([x, y, x + cell_size, y + cell_size], 
-                                     fill='white', outline='black', width=2)
-                        
+                        draw.rectangle(
+                            [x, y, x + cell_size, y + cell_size],
+                            fill="white",
+                            outline="black",
+                            width=2,
+                        )
+
                         # Add number
-                        if (row % 3 == 0 and col % 3 == 0) or (row == 0 and col % 4 == 1):
+                        if (row % 3 == 0 and col % 3 == 0) or (
+                            row == 0 and col % 4 == 1
+                        ):
                             num = ((row * 2 + col) % 25) + 1
-                            draw.text((x + 8, y + 8), str(num), fill='black', font=font)
-            
+                            draw.text((x + 8, y + 8), str(num), fill="black", font=font)
+
             # Save grid image
             grid_path = self.epub_dir / "OEBPS" / "grids" / f"grid_{puzzle_num}.png"
             grid_img.save(grid_path, "PNG")
-        
+
         print(f"✅ Generated {5} high-resolution grid images")
-    
+
     def create_mimetype(self):
         """Create mimetype file"""
-        with open(self.epub_dir / "mimetype", 'w') as f:
+        with open(self.epub_dir / "mimetype", "w") as f:
             f.write("application/epub+zip")
-    
+
     def create_container_xml(self):
         """Create META-INF/container.xml"""
-        container_xml = '''<?xml version="1.0" encoding="UTF-8"?>
+        container_xml = """<?xml version="1.0" encoding="UTF-8"?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
     <rootfiles>
         <rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/>
     </rootfiles>
-</container>'''
-        
-        with open(self.epub_dir / "META-INF" / "container.xml", 'w') as f:
+</container>"""
+
+        with open(self.epub_dir / "META-INF" / "container.xml", "w") as f:
             f.write(container_xml)
-    
+
     def create_enhanced_content_opf(self):
         """Create enhanced OPF with all resources"""
         book_id = str(uuid.uuid4())
-        
+
         # Generate manifest items for grid images
         grid_items = ""
         for i in range(1, 6):
             grid_items += f'        <item id="grid{i}" href="grids/grid_{i}.png" media-type="image/png"/>\n'
-        
-        content_opf = f'''<?xml version="1.0" encoding="UTF-8"?>
+
+        content_opf = f"""<?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="BookID">
     <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
         <dc:identifier id="BookID">{book_id}</dc:identifier>
@@ -200,16 +218,16 @@ class EnhancedEpubFormatter(Formatter):
         <reference type="toc" title="Table of Contents" href="text/nav.xhtml"/>
         <reference type="text" title="Beginning" href="text/title.xhtml"/>
     </guide>
-</package>'''
-        
-        with open(self.epub_dir / "OEBPS" / "content.opf", 'w') as f:
+</package>"""
+
+        with open(self.epub_dir / "OEBPS" / "content.opf", "w") as f:
             f.write(content_opf)
-    
+
     def create_enhanced_navigation(self):
         """Create enhanced navigation with full TOC"""
-        
+
         # Enhanced nav.xhtml with all puzzles
-        nav_xhtml = '''<?xml version="1.0" encoding="UTF-8"?>
+        nav_xhtml = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
 <head>
@@ -223,23 +241,38 @@ class EnhancedEpubFormatter(Formatter):
             <li><a href="title.xhtml">Title Page</a></li>
             <li><a href="introduction.xhtml">Welcome & Instructions</a></li>
             <li><a href="puzzles.xhtml#puzzle-index">50 Crossword Puzzles</a>
-                <ol>'''
-        
+                <ol>"""
+
         # Add all 50 puzzles to TOC
         puzzle_themes = [
-            "Kitchen Essentials", "Garden Paradise", "Travel Adventures", "Sports & Recreation",
-            "Arts & Crafts", "Science & Nature", "Home & Family", "Music & Entertainment",
-            "Food Around the World", "Weather & Seasons", "Technology Today", "History & Culture",
-            "Health & Wellness", "Transportation", "Animals & Pets", "Books & Learning",
-            "Fashion & Style", "Money & Business", "Holidays & Celebrations", "Ocean & Marine Life"
+            "Kitchen Essentials",
+            "Garden Paradise",
+            "Travel Adventures",
+            "Sports & Recreation",
+            "Arts & Crafts",
+            "Science & Nature",
+            "Home & Family",
+            "Music & Entertainment",
+            "Food Around the World",
+            "Weather & Seasons",
+            "Technology Today",
+            "History & Culture",
+            "Health & Wellness",
+            "Transportation",
+            "Animals & Pets",
+            "Books & Learning",
+            "Fashion & Style",
+            "Money & Business",
+            "Holidays & Celebrations",
+            "Ocean & Marine Life",
         ]
-        
+
         for i in range(50):
             puzzle_num = i + 1
             theme = puzzle_themes[i % len(puzzle_themes)]
             nav_xhtml += f'\n                    <li><a href="puzzles.xhtml#puzzle{puzzle_num}">Puzzle {puzzle_num}: {theme}</a></li>'
-        
-        nav_xhtml += '''
+
+        nav_xhtml += """
                 </ol>
             </li>
             <li><a href="solutions.xhtml#solutions-index">Complete Solutions</a></li>
@@ -247,13 +280,13 @@ class EnhancedEpubFormatter(Formatter):
         </ol>
     </nav>
 </body>
-</html>'''
-        
-        with open(self.epub_dir / "OEBPS" / "text" / "nav.xhtml", 'w') as f:
+</html>"""
+
+        with open(self.epub_dir / "OEBPS" / "text" / "nav.xhtml", "w") as f:
             f.write(nav_xhtml)
-        
+
         # Create NCX file for older Kindle compatibility
-        ncx_content = f'''<?xml version="1.0" encoding="UTF-8"?>
+        ncx_content = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
 <ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
     <head>
@@ -287,35 +320,35 @@ class EnhancedEpubFormatter(Formatter):
             <content src="marketing.xhtml"/>
         </navPoint>
     </navMap>
-</ncx>'''
-        
-        with open(self.epub_dir / "OEBPS" / "text" / "toc.ncx", 'w') as f:
+</ncx>"""
+
+        with open(self.epub_dir / "OEBPS" / "text" / "toc.ncx", "w") as f:
             f.write(ncx_content)
-    
+
     def create_enhanced_content(self):
         """Create enhanced content with improved navigation"""
-        
+
         # Enhanced title page
         self.create_enhanced_title_page()
-        
+
         # Enhanced introduction
         self.create_enhanced_intro_page()
-        
+
         # Enhanced puzzles with grid images and navigation
         self.create_enhanced_puzzles()
-        
+
         # Enhanced solutions with navigation
         self.create_enhanced_solutions()
-        
+
         # Marketing back-matter
         self.create_marketing_backmatter()
-        
+
         # Enhanced cover page
         self.create_enhanced_cover_page()
-    
+
     def create_enhanced_title_page(self):
         """Create enhanced title page"""
-        title_html = '''<?xml version="1.0" encoding="UTF-8"?>
+        title_html = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -343,14 +376,14 @@ class EnhancedEpubFormatter(Formatter):
         </div>
     </div>
 </body>
-</html>'''
-        
-        with open(self.epub_dir / "OEBPS" / "text" / "title.xhtml", 'w') as f:
+</html>"""
+
+        with open(self.epub_dir / "OEBPS" / "text" / "title.xhtml", "w") as f:
             f.write(title_html)
-    
+
     def create_enhanced_intro_page(self):
         """Create enhanced introduction page"""
-        intro_html = '''<?xml version="1.0" encoding="UTF-8"?>
+        intro_html = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -390,15 +423,15 @@ class EnhancedEpubFormatter(Formatter):
         <p><a href="nav.xhtml">← Table of Contents</a></p>
     </div>
 </body>
-</html>'''
-        
-        with open(self.epub_dir / "OEBPS" / "text" / "introduction.xhtml", 'w') as f:
+</html>"""
+
+        with open(self.epub_dir / "OEBPS" / "text" / "introduction.xhtml", "w") as f:
             f.write(intro_html)
-    
+
     def create_enhanced_puzzles(self):
         """Create enhanced puzzles with high-res grids and navigation"""
-        
-        puzzles_html = '''<?xml version="1.0" encoding="UTF-8"?>
+
+        puzzles_html = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -412,23 +445,32 @@ class EnhancedEpubFormatter(Formatter):
         <p><a href="solutions.xhtml#solutions-index">Jump to Solutions →</a></p>
         <p><a href="nav.xhtml">← Table of Contents</a></p>
     </div>
-'''
-        
+"""
+
         puzzle_themes = [
-            "Kitchen Essentials", "Garden Paradise", "Travel Adventures", "Sports & Recreation",
-            "Arts & Crafts", "Science & Nature", "Home & Family", "Music & Entertainment",
-            "Food Around the World", "Weather & Seasons"
+            "Kitchen Essentials",
+            "Garden Paradise",
+            "Travel Adventures",
+            "Sports & Recreation",
+            "Arts & Crafts",
+            "Science & Nature",
+            "Home & Family",
+            "Music & Entertainment",
+            "Food Around the World",
+            "Weather & Seasons",
         ]
-        
+
         for i in range(50):
             puzzle_num = i + 1
             theme = puzzle_themes[i % len(puzzle_themes)]
-            difficulty = "EASY" if puzzle_num <= 20 else "MEDIUM" if puzzle_num <= 40 else "HARD"
-            
+            difficulty = (
+                "EASY" if puzzle_num <= 20 else "MEDIUM" if puzzle_num <= 40 else "HARD"
+            )
+
             # Use high-res grid image for first 5 puzzles, placeholder for others
-            grid_img = f'../grids/grid_{min(puzzle_num, 5)}.png'
-            
-            puzzles_html += f'''
+            grid_img = f"../grids/grid_{min(puzzle_num, 5)}.png"
+
+            puzzles_html += f"""
     <div class="puzzle-container">
         <h2 id="puzzle{puzzle_num}">PUZZLE #{puzzle_num}</h2>
         <h3 class="puzzle-title">{theme} Challenge</h3>
@@ -477,19 +519,19 @@ class EnhancedEpubFormatter(Formatter):
             <p><a href="nav.xhtml">← Table of Contents</a></p>
         </div>
     </div>
-'''
-        
-        puzzles_html += '''
+"""
+
+        puzzles_html += """
 </body>
-</html>'''
-        
-        with open(self.epub_dir / "OEBPS" / "text" / "puzzles.xhtml", 'w') as f:
+</html>"""
+
+        with open(self.epub_dir / "OEBPS" / "text" / "puzzles.xhtml", "w") as f:
             f.write(puzzles_html)
-    
+
     def create_enhanced_solutions(self):
         """Create enhanced solutions with navigation"""
-        
-        solutions_html = '''<?xml version="1.0" encoding="UTF-8"?>
+
+        solutions_html = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -505,11 +547,11 @@ class EnhancedEpubFormatter(Formatter):
     </div>
     
     <p class="solutions-intro"><em>Answer keys for all 50 puzzles - tap any puzzle number to return to the puzzle</em></p>
-'''
-        
+"""
+
         for i in range(50):
             puzzle_num = i + 1
-            solutions_html += f'''
+            solutions_html += f"""
     <div class="solution-container">
         <h2 id="solution{puzzle_num}">Solution #{puzzle_num}</h2>
         <div class="solution-content-enhanced">
@@ -548,19 +590,19 @@ class EnhancedEpubFormatter(Formatter):
             <p><a href="nav.xhtml">← Table of Contents</a></p>
         </div>
     </div>
-'''
-        
-        solutions_html += '''
+"""
+
+        solutions_html += """
 </body>
-</html>'''
-        
-        with open(self.epub_dir / "OEBPS" / "text" / "solutions.xhtml", 'w') as f:
+</html>"""
+
+        with open(self.epub_dir / "OEBPS" / "text" / "solutions.xhtml", "w") as f:
             f.write(solutions_html)
-    
+
     def create_marketing_backmatter(self):
         """Create marketing back-matter section"""
-        
-        marketing_html = '''<?xml version="1.0" encoding="UTF-8"?>
+
+        marketing_html = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -626,14 +668,14 @@ class EnhancedEpubFormatter(Formatter):
         </div>
     </div>
 </body>
-</html>'''
-        
-        with open(self.epub_dir / "OEBPS" / "text" / "marketing.xhtml", 'w') as f:
+</html>"""
+
+        with open(self.epub_dir / "OEBPS" / "text" / "marketing.xhtml", "w") as f:
             f.write(marketing_html)
-    
+
     def create_enhanced_cover_page(self):
         """Create enhanced cover page"""
-        cover_html = '''<?xml version="1.0" encoding="UTF-8"?>
+        cover_html = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -645,15 +687,15 @@ class EnhancedEpubFormatter(Formatter):
         <img src="../images/cover_v1b.jpg" alt="Large Print Crossword Masters - Volume 1"/>
     </div>
 </body>
-</html>'''
-        
-        with open(self.epub_dir / "OEBPS" / "text" / "cover.xhtml", 'w') as f:
+</html>"""
+
+        with open(self.epub_dir / "OEBPS" / "text" / "cover.xhtml", "w") as f:
             f.write(cover_html)
-    
+
     def create_enhanced_css(self):
         """Create enhanced CSS with 115% font size and improved readability"""
-        
-        css_content = '''/* Enhanced Kindle CSS - High Converting Edition */
+
+        css_content = """/* Enhanced Kindle CSS - High Converting Edition */
 
 /* Base styles with 115% font size */
 body {
@@ -938,36 +980,38 @@ h4 {
     .navigation-links {
         display: none;
     }
-}'''
-        
-        with open(self.epub_dir / "OEBPS" / "styles" / "enhanced.css", 'w') as f:
+}"""
+
+        with open(self.epub_dir / "OEBPS" / "styles" / "enhanced.css", "w") as f:
             f.write(css_content)
-    
+
     def copy_new_cover(self):
         """Copy the new high-contrast cover"""
         import shutil
-        
+
         cover_source = self.output_dir / "cover_v1b.jpg"
         cover_dest = self.epub_dir / "OEBPS" / "images" / "cover_v1b.jpg"
-        
+
         if cover_source.exists():
             shutil.copy2(cover_source, cover_dest)
             print("✅ Copied new high-contrast cover")
         else:
             print("⚠️ New cover not found, using placeholder")
             # Create placeholder if needed
-            placeholder = Image.new('RGB', (2560, 1600), '#2c3e50')
+            placeholder = Image.new("RGB", (2560, 1600), "#2c3e50")
             placeholder.save(cover_dest, "JPEG")
-    
+
     def package_enhanced_epub(self):
         """Package the enhanced EPUB"""
-        
+
         epub_file = self.output_dir / "CrosswordMasters_V1_Enhanced.epub"
-        
-        with zipfile.ZipFile(epub_file, 'w', zipfile.ZIP_DEFLATED) as epub_zip:
+
+        with zipfile.ZipFile(epub_file, "w", zipfile.ZIP_DEFLATED) as epub_zip:
             # Add mimetype first (uncompressed)
-            epub_zip.write(self.epub_dir / "mimetype", "mimetype", compress_type=zipfile.ZIP_STORED)
-            
+            epub_zip.write(
+                self.epub_dir / "mimetype", "mimetype", compress_type=zipfile.ZIP_STORED
+            )
+
             # Add all other files
             for root, dirs, files in os.walk(self.epub_dir):
                 for file in files:
@@ -976,12 +1020,14 @@ h4 {
                     file_path = Path(root) / file
                     archive_path = file_path.relative_to(self.epub_dir)
                     epub_zip.write(file_path, archive_path)
-        
+
         # Clean up build directory
         import shutil
+
         shutil.rmtree(self.epub_dir)
-        
+
         return epub_file
+
 
 def main():
     """Generate enhanced EPUB via Formatter interface"""
@@ -989,6 +1035,7 @@ def main():
     formatter = EnhancedEpubFormatter()
     epub_file = formatter.create_pdf()
     print(f"✅ Enhanced EPUB generated at: {epub_file}")
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,139 @@
+{
+  "batch_name": "Fanatical Publishing System Demo",
+  "description": "Example batch configuration with Jeb Blount's prospecting automation enabled",
+  "delay_between_books": 300,
+  "books": [
+    {
+      "id": "crossword_masters_v5",
+      "title": "Large Print Crossword Masters - Volume 5",
+      "subtitle": "50 Brain-Boosting Puzzles for Mental Fitness",
+      "author": "Crossword Masters Publishing",
+      "series_name": "Large_Print_Crossword_Masters",
+      "volume": 5,
+      "puzzle_type": "crossword",
+      "puzzle_count": 50,
+      "difficulty": "mixed",
+      "create_epub": true,
+      "create_hardcover": true,
+      "generate_prospecting": true,
+      "puzzle_params": {
+        "theme_variety": "high",
+        "grid_size": "15x15",
+        "symmetry": "rotational"
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "font_size": 14,
+        "include_solutions": true
+      },
+      "prospecting_config": {
+        "target_audience": "puzzle_enthusiasts",
+        "linkedin_focus": "brain_training",
+        "podcast_categories": ["health", "senior_lifestyle", "business"],
+        "facebook_groups": ["puzzle_solving", "brain_training", "senior_activities"],
+        "email_capture_incentive": "free_preview_plus_tips",
+        "authority_positioning": "puzzle_expert_and_accessibility_advocate"
+      },
+      "hardcover_price_min": 14.99,
+      "hardcover_price_max": 19.99,
+      "kindle_price": 4.99,
+      "printing_cost_estimate": 6.50,
+      "description": "Challenge your mind with Volume 5 of our bestselling Large Print Crossword Masters series! This collection features 50 carefully crafted crossword puzzles designed specifically for puzzle enthusiasts who appreciate larger, easier-to-read print.",
+      "keywords": [
+        "large print crossword puzzles",
+        "crossword puzzle books for adults", 
+        "large print puzzle books",
+        "crossword volume 5",
+        "brain games large print",
+        "mental exercise puzzles"
+      ],
+      "categories": [
+        "Books > Humor & Entertainment > Puzzles & Games > Crosswords",
+        "Books > Health, Fitness & Dieting > Aging > Exercise & Fitness"
+      ]
+    },
+    {
+      "id": "sudoku_masters_v3",
+      "title": "Large Print Sudoku Masters - Volume 3", 
+      "subtitle": "50 Number Puzzles for Logic Training",
+      "author": "Sudoku Masters Publishing",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 3,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 50,
+      "difficulty": "progressive",
+      "create_epub": true,
+      "create_hardcover": true,
+      "generate_prospecting": true,
+      "puzzle_params": {
+        "difficulty_distribution": {
+          "easy": 15,
+          "medium": 25, 
+          "hard": 10
+        },
+        "grid_style": "classic"
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "font_size": 16,
+        "include_solutions": true
+      },
+      "prospecting_config": {
+        "target_audience": "logic_puzzle_fans",
+        "linkedin_focus": "problem_solving_skills",
+        "podcast_categories": ["education", "brain_training", "mathematics"],
+        "facebook_groups": ["sudoku_solvers", "logic_puzzles", "number_games"],
+        "email_capture_incentive": "sudoku_solving_masterclass",
+        "authority_positioning": "logic_puzzle_expert_and_educator"
+      },
+      "hardcover_price_min": 13.99,
+      "hardcover_price_max": 18.99,
+      "kindle_price": 3.99,
+      "printing_cost_estimate": 5.50,
+      "description": "Sharpen your logical thinking with Volume 3 of Large Print Sudoku Masters! Features 50 progressively challenging number puzzles with large, clear grids perfect for comfortable solving.",
+      "keywords": [
+        "large print sudoku",
+        "sudoku puzzle books",
+        "logic puzzles for adults",
+        "number games",
+        "brain training sudoku"
+      ]
+    }
+  ],
+  "global_prospecting_settings": {
+    "daily_prospecting_targets": {
+      "linkedin_posts": 1,
+      "linkedin_engagements": 10,
+      "facebook_group_posts": 3,
+      "podcast_pitches": 2,
+      "email_content_pieces": 1
+    },
+    "monthly_goals": {
+      "email_subscribers": 100,
+      "podcast_bookings": 4,
+      "linkedin_followers": 200,
+      "book_sales_from_prospecting": 50
+    },
+    "blount_methodology": {
+      "thirty_day_rule_enabled": true,
+      "multi_channel_approach": true,
+      "familiarity_law_application": true,
+      "rejection_proof_system": true,
+      "consistency_over_intensity": true
+    },
+    "automation_preferences": {
+      "generate_linkedin_calendar": true,
+      "create_email_sequences": true,
+      "build_podcast_pitches": true,
+      "setup_facebook_content": true,
+      "create_authority_materials": true,
+      "build_metrics_dashboard": true
+    }
+  },
+  "notification_settings": {
+    "slack_enabled": true,
+    "notify_on_book_complete": true,
+    "notify_on_prospecting_complete": true,
+    "include_prospecting_metrics": true
+  }
+}

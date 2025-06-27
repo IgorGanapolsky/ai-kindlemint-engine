@@ -4,13 +4,14 @@ Create Volume 3 with simple, working crosswords
 Uses predefined puzzle templates that are guaranteed to work
 """
 
-import random
 import json
+import random
+from datetime import datetime
 from pathlib import Path
+
+from reportlab.lib import colors
 from reportlab.lib.pagesizes import inch
 from reportlab.pdfgen import canvas
-from reportlab.lib import colors
-from datetime import datetime
 
 # 6×9 book dimensions
 PAGE_WIDTH = 6 * inch
@@ -44,7 +45,7 @@ PUZZLE_TEMPLATES = [
             "ALONG#STEP#IDEA",
             "STORE#TALL#NEST",
             "SIDES#ELSE#GREW",
-            "YEARS#DEAR#SALE"
+            "YEARS#DEAR#SALE",
         ],
         "across_clues": {
             1: "Place with animals and crops",
@@ -83,7 +84,7 @@ PUZZLE_TEMPLATES = [
             62: "Became larger",
             63: "Time periods",
             64: "Beloved",
-            65: "Bargain event"
+            65: "Bargain event",
         },
         "down_clues": {
             1: "Quick",
@@ -118,8 +119,8 @@ PUZZLE_TEMPLATES = [
             51: "Ancient",
             52: "Borders",
             55: "Also",
-            56: "Assistant"
-        }
+            56: "Assistant",
+        },
     },
     # Puzzle 2
     {
@@ -138,7 +139,7 @@ PUZZLE_TEMPLATES = [
             "SPELL#OPENS#SET",
             "HELLO#LEG#ORDER",
             "ENTER#EGG#UNDER",
-            "DOORS#RED#PARKS"
+            "DOORS#RED#PARKS",
         ],
         "across_clues": {
             1: "Dish",
@@ -179,7 +180,7 @@ PUZZLE_TEMPLATES = [
             68: "Below",
             69: "Entrances",
             70: "Color",
-            71: "Recreation areas"
+            71: "Recreation areas",
         },
         "down_clues": {
             1: "Locations",
@@ -218,26 +219,29 @@ PUZZLE_TEMPLATES = [
             58: "Writing tools",
             59: "Concludes",
             60: "Not many",
-            63: "Crimson"
-        }
-    }
+            63: "Crimson",
+        },
+    },
 ]
+
 
 class SimpleCrosswordGenerator:
     def __init__(self):
-        self.output_dir = Path("books/active_production/Large_Print_Crossword_Masters/volume_3")
+        self.output_dir = Path(
+            "books/active_production/Large_Print_Crossword_Masters/volume_3"
+        )
         self.paperback_dir = self.output_dir / "paperback"
         self.hardcover_dir = self.output_dir / "hardcover"
 
     def generate_puzzle_variations(self, base_puzzle, puzzle_num):
         """Generate variations of base puzzles"""
         random.seed(puzzle_num * 1000)
-        
+
         # Create variations by modifying the base puzzles
         grid = []
         for row in base_puzzle["grid"]:
             grid.append(list(row))
-        
+
         # Apply some transformations for variety
         if puzzle_num % 5 == 0:
             # Reverse rows
@@ -249,12 +253,14 @@ class SimpleCrosswordGenerator:
         elif puzzle_num % 5 == 2:
             # Transpose (if square)
             if len(grid) == len(grid[0]):
-                grid = [[grid[j][i] for j in range(len(grid))] for i in range(len(grid[0]))]
-        
+                grid = [
+                    [grid[j][i] for j in range(len(grid))] for i in range(len(grid[0]))
+                ]
+
         return {
             "grid": grid,
             "across_clues": base_puzzle["across_clues"],
-            "down_clues": base_puzzle["down_clues"]
+            "down_clues": base_puzzle["down_clues"],
         }
 
     def parse_grid(self, grid_strings):
@@ -268,34 +274,40 @@ class SimpleCrosswordGenerator:
         """Assign numbers to grid squares"""
         numbers = {}
         num = 1
-        
+
         for r in range(GRID_SIZE):
             for c in range(GRID_SIZE):
-                if grid[r][c] != '#':
+                if grid[r][c] != "#":
                     # Check if starts across
-                    starts_across = (c == 0 or grid[r][c-1] == '#') and \
-                                   c < GRID_SIZE-1 and grid[r][c+1] != '#'
-                    
+                    starts_across = (
+                        (c == 0 or grid[r][c - 1] == "#")
+                        and c < GRID_SIZE - 1
+                        and grid[r][c + 1] != "#"
+                    )
+
                     # Check if starts down
-                    starts_down = (r == 0 or grid[r-1][c] == '#') and \
-                                 r < GRID_SIZE-1 and grid[r+1][c] != '#'
-                    
+                    starts_down = (
+                        (r == 0 or grid[r - 1][c] == "#")
+                        and r < GRID_SIZE - 1
+                        and grid[r + 1][c] != "#"
+                    )
+
                     if starts_across or starts_down:
                         numbers[(r, c)] = num
                         num += 1
-        
+
         return numbers
 
     def draw_grid(self, c, x_offset, y_offset, grid, numbers):
         """Draw the puzzle grid"""
         c.setLineWidth(1.5)
-        
+
         for row in range(GRID_SIZE):
             for col in range(GRID_SIZE):
                 x = x_offset + (col * CELL_SIZE)
                 y = y_offset - (row * CELL_SIZE)
-                
-                if grid[row][col] == '#':
+
+                if grid[row][col] == "#":
                     # Black square
                     c.setFillColor(colors.black)
                     c.rect(x, y, CELL_SIZE, CELL_SIZE, fill=1, stroke=0)
@@ -304,7 +316,7 @@ class SimpleCrosswordGenerator:
                     c.setFillColor(colors.white)
                     c.setStrokeColor(colors.black)
                     c.rect(x, y, CELL_SIZE, CELL_SIZE, fill=1, stroke=1)
-                    
+
                     # Add number if needed
                     if (row, col) in numbers:
                         c.setFillColor(colors.black)
@@ -316,13 +328,13 @@ class SimpleCrosswordGenerator:
         if cell_size is None:
             cell_size = 0.24 * inch
         c.setLineWidth(0.5)
-        
+
         for row in range(GRID_SIZE):
             for col in range(GRID_SIZE):
                 x = x_offset + (col * cell_size)
                 y = y_offset - (row * cell_size)
-                
-                if grid[row][col] == '#':
+
+                if grid[row][col] == "#":
                     # Black square
                     c.setFillColor(colors.black)
                     c.rect(x, y, cell_size, cell_size, fill=1, stroke=0)
@@ -331,79 +343,95 @@ class SimpleCrosswordGenerator:
                     c.setFillColor(colors.white)
                     c.setStrokeColor(colors.black)
                     c.rect(x, y, cell_size, cell_size, fill=1, stroke=1)
-                    
+
                     # Draw the solution letter
                     c.setFillColor(colors.black)
                     c.setFont("Helvetica-Bold", 10)
-                    c.drawCentredString(x + cell_size/2, y + cell_size/2 - 3, 
-                                      grid[row][col])
+                    c.drawCentredString(
+                        x + cell_size / 2, y + cell_size / 2 - 3, grid[row][col]
+                    )
 
     def create_complete_book(self):
         """Create the complete Volume 3 book"""
-        for format_name, output_dir in [("paperback", self.paperback_dir), 
-                                        ("hardcover", self.hardcover_dir)]:
+        for format_name, output_dir in [
+            ("paperback", self.paperback_dir),
+            ("hardcover", self.hardcover_dir),
+        ]:
             output_dir.mkdir(parents=True, exist_ok=True)
             pdf_path = output_dir / "crossword_book_volume_3.pdf"
-            
+
             print(f"\n📖 Creating {format_name} edition...")
-            
+
             c = canvas.Canvas(str(pdf_path), pagesize=(PAGE_WIDTH, PAGE_HEIGHT))
-            
+
             # Title page
             c.setFont("Helvetica-Bold", 32)
-            c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - 2*inch, "LARGE PRINT")
-            c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - 2.6*inch, "CROSSWORD")
-            c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - 3.2*inch, "MASTERS")
-            
+            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2 * inch, "LARGE PRINT")
+            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2.6 * inch, "CROSSWORD")
+            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 3.2 * inch, "MASTERS")
+
             c.setFont("Helvetica-Bold", 24)
-            c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - 4.2*inch, "VOLUME 3")
-            
+            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 4.2 * inch, "VOLUME 3")
+
             c.setFont("Helvetica", 16)
-            c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - 5.2*inch, "50 Easy Crossword Puzzles")
-            c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - 5.7*inch, "for Seniors")
-            
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 5.2 * inch, "50 Easy Crossword Puzzles"
+            )
+            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 5.7 * inch, "for Seniors")
+
             c.setFont("Helvetica", 14)
-            c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - 7*inch, "Published by KindleMint Press")
-            
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 7 * inch, "Published by KindleMint Press"
+            )
+
             c.showPage()
-            
+
             # Copyright page
             c.setFont("Helvetica", 10)
-            c.drawString(GUTTER, PAGE_HEIGHT - TOP_MARGIN - 1*inch, 
-                        "Copyright © 2025 KindleMint Press")
-            c.drawString(GUTTER, PAGE_HEIGHT - TOP_MARGIN - 1.3*inch, 
-                        "All rights reserved.")
-            c.drawString(GUTTER, PAGE_HEIGHT - TOP_MARGIN - 1.8*inch, 
-                        "ISBN: 9798289681881")
+            c.drawString(
+                GUTTER,
+                PAGE_HEIGHT - TOP_MARGIN - 1 * inch,
+                "Copyright © 2025 KindleMint Press",
+            )
+            c.drawString(
+                GUTTER, PAGE_HEIGHT - TOP_MARGIN - 1.3 * inch, "All rights reserved."
+            )
+            c.drawString(
+                GUTTER, PAGE_HEIGHT - TOP_MARGIN - 1.8 * inch, "ISBN: 9798289681881"
+            )
             c.showPage()
-            
+
             # Table of Contents
             c.setFont("Helvetica-Bold", 18)
-            c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - TOP_MARGIN - 1*inch, "Table of Contents")
-            
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - TOP_MARGIN - 1 * inch, "Table of Contents"
+            )
+
             c.setFont("Helvetica", 12)
-            y_pos = PAGE_HEIGHT - TOP_MARGIN - 2*inch
+            y_pos = PAGE_HEIGHT - TOP_MARGIN - 2 * inch
             toc_items = [
                 ("Introduction", "4"),
                 ("How to Solve", "5"),
                 ("Puzzles 1-50", "6-105"),
                 ("Solutions", "106-155"),
-                ("About", "156")
+                ("About", "156"),
             ]
-            
+
             for item, pages in toc_items:
-                c.drawString(GUTTER + 0.5*inch, y_pos, item)
-                c.drawRightString(PAGE_WIDTH - OUTER_MARGIN - 0.5*inch, y_pos, pages)
-                y_pos -= 0.4*inch
-            
+                c.drawString(GUTTER + 0.5 * inch, y_pos, item)
+                c.drawRightString(PAGE_WIDTH - OUTER_MARGIN - 0.5 * inch, y_pos, pages)
+                y_pos -= 0.4 * inch
+
             c.showPage()
-            
+
             # Introduction page
             c.setFont("Helvetica-Bold", 18)
-            c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - TOP_MARGIN - 1*inch, "Introduction")
-            
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - TOP_MARGIN - 1 * inch, "Introduction"
+            )
+
             c.setFont("Helvetica", 11)
-            y_pos = PAGE_HEIGHT - TOP_MARGIN - 2*inch
+            y_pos = PAGE_HEIGHT - TOP_MARGIN - 2 * inch
             intro_text = [
                 "Welcome to Large Print Crossword Masters Volume 3!",
                 "",
@@ -411,156 +439,183 @@ class SimpleCrosswordGenerator:
                 "• Extra-large print",
                 "• Simple words",
                 "• Clear clues",
-                "• Complete solutions"
+                "• Complete solutions",
             ]
-            
+
             for line in intro_text:
                 if line.startswith("•"):
-                    c.drawString(GUTTER + 0.3*inch, y_pos, line)
+                    c.drawString(GUTTER + 0.3 * inch, y_pos, line)
                 else:
                     c.drawString(GUTTER, y_pos, line)
-                y_pos -= 0.3*inch
-            
+                y_pos -= 0.3 * inch
+
             c.showPage()
-            
+
             # How to Solve page
             c.setFont("Helvetica-Bold", 18)
-            c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - TOP_MARGIN - 1*inch, "How to Solve")
-            
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - TOP_MARGIN - 1 * inch, "How to Solve"
+            )
+
             c.setFont("Helvetica", 11)
-            y_pos = PAGE_HEIGHT - TOP_MARGIN - 2*inch
+            y_pos = PAGE_HEIGHT - TOP_MARGIN - 2 * inch
             howto_text = [
                 "1. Read the clues",
                 "2. Count the squares",
                 "3. Fill in what you know",
                 "4. Use crossing words",
-                "5. Check your answers"
+                "5. Check your answers",
             ]
-            
+
             for line in howto_text:
                 c.drawString(GUTTER, y_pos, line)
-                y_pos -= 0.3*inch
-            
+                y_pos -= 0.3 * inch
+
             c.showPage()
-            
+
             # Generate 50 puzzles
             all_puzzles = []
-            
+
             for puzzle_num in range(1, 51):
                 print(f"  Creating Puzzle {puzzle_num}...")
-                
+
                 # Use template puzzles, cycling through them
                 template_idx = (puzzle_num - 1) % len(PUZZLE_TEMPLATES)
                 template = PUZZLE_TEMPLATES[template_idx]
-                
+
                 # Generate variation
                 puzzle_data = self.generate_puzzle_variations(template, puzzle_num)
                 grid = puzzle_data["grid"]
-                
+
                 # Assign numbers
                 numbers = self.assign_numbers(grid)
-                
+
                 # Store puzzle
-                all_puzzles.append({
-                    'num': puzzle_num,
-                    'grid': grid,
-                    'numbers': numbers,
-                    'across_clues': puzzle_data["across_clues"],
-                    'down_clues': puzzle_data["down_clues"]
-                })
-                
+                all_puzzles.append(
+                    {
+                        "num": puzzle_num,
+                        "grid": grid,
+                        "numbers": numbers,
+                        "across_clues": puzzle_data["across_clues"],
+                        "down_clues": puzzle_data["down_clues"],
+                    }
+                )
+
                 # Puzzle page
                 c.setFont("Helvetica-Bold", 16)
-                c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - TOP_MARGIN - 0.4*inch, 
-                                  f"Puzzle {puzzle_num}")
-                
+                c.drawCentredString(
+                    PAGE_WIDTH / 2,
+                    PAGE_HEIGHT - TOP_MARGIN - 0.4 * inch,
+                    f"Puzzle {puzzle_num}",
+                )
+
                 # Draw empty grid
-                empty_grid = [[grid[r][c] if grid[r][c] == '#' else '.' 
-                             for c in range(GRID_SIZE)] for r in range(GRID_SIZE)]
-                
+                empty_grid = [
+                    [grid[r][c] if grid[r][c] == "#" else "." for c in range(GRID_SIZE)]
+                    for r in range(GRID_SIZE)
+                ]
+
                 grid_x = (PAGE_WIDTH - GRID_TOTAL_SIZE) / 2
-                grid_y = PAGE_HEIGHT - TOP_MARGIN - 1.2*inch
+                grid_y = PAGE_HEIGHT - TOP_MARGIN - 1.2 * inch
                 self.draw_grid(c, grid_x, grid_y, empty_grid, numbers)
-                
+
                 c.showPage()
-                
+
                 # Clues page
                 c.setFont("Helvetica-Bold", 16)
-                c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - TOP_MARGIN - 0.4*inch, 
-                                  f"Puzzle {puzzle_num} - Clues")
-                
+                c.drawCentredString(
+                    PAGE_WIDTH / 2,
+                    PAGE_HEIGHT - TOP_MARGIN - 0.4 * inch,
+                    f"Puzzle {puzzle_num} - Clues",
+                )
+
                 # ACROSS clues
                 c.setFont("Helvetica-Bold", 12)
-                c.drawString(GUTTER, PAGE_HEIGHT - TOP_MARGIN - 1*inch, "ACROSS")
-                
+                c.drawString(GUTTER, PAGE_HEIGHT - TOP_MARGIN - 1 * inch, "ACROSS")
+
                 c.setFont("Helvetica", 10)
-                y_pos = PAGE_HEIGHT - TOP_MARGIN - 1.3*inch
-                
+                y_pos = PAGE_HEIGHT - TOP_MARGIN - 1.3 * inch
+
                 for num, clue in sorted(puzzle_data["across_clues"].items()):
-                    if y_pos > BOTTOM_MARGIN + 0.5*inch:
+                    if y_pos > BOTTOM_MARGIN + 0.5 * inch:
                         c.drawString(GUTTER, y_pos, f"{num}. {clue}")
-                        y_pos -= 0.25*inch
-                
+                        y_pos -= 0.25 * inch
+
                 # DOWN clues
                 c.setFont("Helvetica-Bold", 12)
-                c.drawString(PAGE_WIDTH/2 + 0.1*inch, PAGE_HEIGHT - TOP_MARGIN - 1*inch, "DOWN")
-                
+                c.drawString(
+                    PAGE_WIDTH / 2 + 0.1 * inch,
+                    PAGE_HEIGHT - TOP_MARGIN - 1 * inch,
+                    "DOWN",
+                )
+
                 c.setFont("Helvetica", 10)
-                y_pos = PAGE_HEIGHT - TOP_MARGIN - 1.3*inch
-                
+                y_pos = PAGE_HEIGHT - TOP_MARGIN - 1.3 * inch
+
                 for num, clue in sorted(puzzle_data["down_clues"].items()):
-                    if y_pos > BOTTOM_MARGIN + 0.5*inch:
-                        c.drawString(PAGE_WIDTH/2 + 0.1*inch, y_pos, f"{num}. {clue}")
-                        y_pos -= 0.25*inch
-                
+                    if y_pos > BOTTOM_MARGIN + 0.5 * inch:
+                        c.drawString(
+                            PAGE_WIDTH / 2 + 0.1 * inch, y_pos, f"{num}. {clue}"
+                        )
+                        y_pos -= 0.25 * inch
+
                 c.showPage()
-            
+
             # Solutions (1 per page)
             for puzzle in all_puzzles:
                 c.setFont("Helvetica-Bold", 14)
-                c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - TOP_MARGIN - 0.5*inch, 
-                                  f"Puzzle {puzzle['num']} - Solution")
-                
+                c.drawCentredString(
+                    PAGE_WIDTH / 2,
+                    PAGE_HEIGHT - TOP_MARGIN - 0.5 * inch,
+                    f"Puzzle {puzzle['num']} - Solution",
+                )
+
                 # Center the solution grid
                 cell_size = 0.24 * inch
                 grid_x = (PAGE_WIDTH - (GRID_SIZE * cell_size)) / 2
                 grid_y = (PAGE_HEIGHT - (GRID_SIZE * cell_size)) / 2
-                
-                self.draw_solution_grid(c, grid_x, grid_y, puzzle['grid'], cell_size)
-                
+
+                self.draw_solution_grid(c, grid_x, grid_y, puzzle["grid"], cell_size)
+
                 c.showPage()
-            
+
             # About page
             c.setFont("Helvetica-Bold", 16)
-            c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT - TOP_MARGIN - 1*inch, "About KindleMint Press")
-            
+            c.drawCentredString(
+                PAGE_WIDTH / 2,
+                PAGE_HEIGHT - TOP_MARGIN - 1 * inch,
+                "About KindleMint Press",
+            )
+
             c.setFont("Helvetica", 11)
-            y_pos = PAGE_HEIGHT - TOP_MARGIN - 2*inch
+            y_pos = PAGE_HEIGHT - TOP_MARGIN - 2 * inch
             about_text = [
                 "Thank you for choosing our puzzles!",
                 "",
-                "Visit: www.kindlemintpress.com"
+                "Visit: www.kindlemintpress.com",
             ]
-            
+
             for line in about_text:
                 c.drawString(GUTTER, y_pos, line)
-                y_pos -= 0.3*inch
-            
+                y_pos -= 0.3 * inch
+
             c.showPage()
-            
+
             # Save
             c.save()
             print(f"✅ Created {format_name} PDF: {pdf_path}")
 
+
 def main():
     print("🚀 Creating Volume 3 with SIMPLE working crosswords")
     print("Using pre-tested puzzle templates")
-    
+
     generator = SimpleCrosswordGenerator()
     generator.create_complete_book()
-    
+
     print("\n✅ Volume 3 generation complete!")
     print("All puzzles use real words only!")
+
 
 if __name__ == "__main__":
     main()

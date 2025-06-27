@@ -4,8 +4,8 @@ Unit tests for Crossword puzzle generator
 Tests grid generation, clue validity, and solution completeness
 """
 
-import unittest
 import sys
+import unittest
 from pathlib import Path
 
 # Add scripts directory to path

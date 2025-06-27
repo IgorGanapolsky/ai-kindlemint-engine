@@ -6,17 +6,17 @@ Calculates exact cover dimensions based on KDP specifications.
 
 import json
 from pathlib import Path
-from typing import Dict, Tuple, Optional
+from typing import Dict, Optional, Tuple
 
 
 class KDPCoverCalculator:
     """Calculate KDP book cover dimensions."""
-    
+
     # Constants from KDP specifications
     BLEED = 0.125  # inches on all sides
     PAPERBACK_PAPER_THICKNESS = 0.0025  # inches per page
     HARDCOVER_ADDITIONAL_SPINE = 0.06  # additional spine width for hardcover
-    
+
     def __init__(self):
         """Initialize the calculator."""
         self.supported_trim_sizes = {
@@ -31,54 +31,53 @@ class KDPCoverCalculator:
             "8x10": (8.0, 10.0),
             "8.25x11": (8.25, 11.0),
             "8.5x11": (8.5, 11.0),
-            "8.5x8.5": (8.5, 8.5)
+            "8.5x8.5": (8.5, 8.5),
         }
-    
-    def calculate_spine_width(self, page_count: int, binding_type: str = "paperback") -> float:
+
+    def calculate_spine_width(
+        self, page_count: int, binding_type: str = "paperback"
+    ) -> float:
         """
         Calculate spine width based on page count and binding type.
-        
+
         Args:
             page_count: Number of pages in the book
             binding_type: "paperback" or "hardcover"
-            
+
         Returns:
             Spine width in inches
         """
         base_spine = page_count * self.PAPERBACK_PAPER_THICKNESS
-        
+
         if binding_type.lower() == "hardcover":
             return round(base_spine + self.HARDCOVER_ADDITIONAL_SPINE, 3)
         else:
             return round(base_spine, 3)
-    
+
     def calculate_full_cover_dimensions(
-        self, 
-        trim_size: str, 
-        page_count: int, 
-        binding_type: str = "paperback"
+        self, trim_size: str, page_count: int, binding_type: str = "paperback"
     ) -> Dict[str, float]:
         """
         Calculate full wraparound cover dimensions.
-        
+
         Args:
             trim_size: Book trim size (e.g., "8.5x11", "6x9")
             page_count: Number of pages
             binding_type: "paperback" or "hardcover"
-            
+
         Returns:
             Dictionary with dimension details
         """
         if trim_size not in self.supported_trim_sizes:
             raise ValueError(f"Unsupported trim size: {trim_size}")
-        
+
         width, height = self.supported_trim_sizes[trim_size]
         spine_width = self.calculate_spine_width(page_count, binding_type)
-        
+
         # Calculate full dimensions
         full_width = (width * 2) + spine_width + (self.BLEED * 2)
         full_height = height + (self.BLEED * 2)
-        
+
         return {
             "trim_size": trim_size,
             "page_count": page_count,
@@ -92,29 +91,26 @@ class KDPCoverCalculator:
             "barcode_area": {
                 "width": 2.0,
                 "height": 1.2,
-                "position": "back_cover_bottom_right"
-            }
+                "position": "back_cover_bottom_right",
+            },
         }
-    
+
     def generate_dall_e_prompt(
-        self, 
-        title: str, 
-        volume: int, 
-        dimensions: Dict[str, float]
+        self, title: str, volume: int, dimensions: Dict[str, float]
     ) -> str:
         """
         Generate a complete DALL-E prompt with correct dimensions.
-        
+
         Args:
             title: Book title
             volume: Volume number
             dimensions: Dimension dictionary from calculate_full_cover_dimensions
-            
+
         Returns:
             Complete DALL-E prompt
         """
         binding = dimensions["binding_type"].title()
-        
+
         prompt = f"""Create a professional FULL WRAPAROUND book cover for "{title} Volume {volume}" - a large print crossword puzzle book.
 
 CRITICAL: This is a complete wraparound cover (back + spine + front) for {binding.lower()} binding.
@@ -136,17 +132,13 @@ Visual elements:
 
 Style: Professional, clean, accessible, senior-friendly
 Format: Full wraparound cover ready for KDP printing"""
-        
+
         return prompt
-    
-    def save_dimensions_report(
-        self, 
-        output_path: str, 
-        dimensions_list: list
-    ) -> None:
+
+    def save_dimensions_report(self, output_path: str, dimensions_list: list) -> None:
         """
         Save a dimensions report to a JSON file.
-        
+
         Args:
             output_path: Path to save the report
             dimensions_list: List of dimension dictionaries
@@ -156,21 +148,21 @@ Format: Full wraparound cover ready for KDP printing"""
             "specifications": {
                 "bleed": self.BLEED,
                 "paperback_paper_thickness": self.PAPERBACK_PAPER_THICKNESS,
-                "hardcover_additional_spine": self.HARDCOVER_ADDITIONAL_SPINE
+                "hardcover_additional_spine": self.HARDCOVER_ADDITIONAL_SPINE,
             },
-            "dimensions": dimensions_list
+            "dimensions": dimensions_list,
         }
-        
-        with open(output_path, 'w') as f:
+
+        with open(output_path, "w") as f:
             json.dump(report, f, indent=2)
-    
+
     def validate_page_count(self, page_count: int) -> bool:
         """
         Validate page count is within KDP limits.
-        
+
         Args:
             page_count: Number of pages
-            
+
         Returns:
             True if valid, False otherwise
         """
@@ -185,24 +177,44 @@ Format: Full wraparound cover ready for KDP printing"""
 def main():
     """Example usage and tests."""
     calculator = KDPCoverCalculator()
-    
+
     # Test data for Large Print Crossword Masters series
     books = [
-        {"volume": 1, "pages": 104, "paperback_trim": "8.5x11", "hardcover_trim": "6x9"},
-        {"volume": 2, "pages": 112, "paperback_trim": "8.5x11", "hardcover_trim": "6x9"},
-        {"volume": 3, "pages": 107, "paperback_trim": "8.5x11", "hardcover_trim": "6x9"},
-        {"volume": 4, "pages": 156, "paperback_trim": "8.5x11", "hardcover_trim": "6x9"},
+        {
+            "volume": 1,
+            "pages": 104,
+            "paperback_trim": "8.5x11",
+            "hardcover_trim": "6x9",
+        },
+        {
+            "volume": 2,
+            "pages": 112,
+            "paperback_trim": "8.5x11",
+            "hardcover_trim": "6x9",
+        },
+        {
+            "volume": 3,
+            "pages": 107,
+            "paperback_trim": "8.5x11",
+            "hardcover_trim": "6x9",
+        },
+        {
+            "volume": 4,
+            "pages": 156,
+            "paperback_trim": "8.5x11",
+            "hardcover_trim": "6x9",
+        },
     ]
-    
+
     print("KDP Cover Dimension Calculator")
     print("=" * 60)
-    
+
     all_dimensions = []
-    
+
     for book in books:
         print(f"\nVolume {book['volume']} ({book['pages']} pages):")
         print("-" * 40)
-        
+
         # Calculate paperback dimensions
         pb_dims = calculator.calculate_full_cover_dimensions(
             book["paperback_trim"], book["pages"], "paperback"
@@ -210,7 +222,7 @@ def main():
         print(f"Paperback ({book['paperback_trim']}):")
         print(f"  Spine: {pb_dims['spine_width']}\"")
         print(f"  Full Cover: {pb_dims['full_width']}\" × {pb_dims['full_height']}\"")
-        
+
         # Calculate hardcover dimensions
         hc_dims = calculator.calculate_full_cover_dimensions(
             book["hardcover_trim"], book["pages"], "hardcover"
@@ -218,14 +230,14 @@ def main():
         print(f"Hardcover ({book['hardcover_trim']}):")
         print(f"  Spine: {hc_dims['spine_width']}\"")
         print(f"  Full Cover: {hc_dims['full_width']}\" × {hc_dims['full_height']}\"")
-        
+
         all_dimensions.extend([pb_dims, hc_dims])
-    
+
     # Save report
     output_path = "kdp_cover_dimensions_report.json"
     calculator.save_dimensions_report(output_path, all_dimensions)
     print(f"\nDimensions report saved to: {output_path}")
-    
+
     # Example DALL-E prompt
     print("\n" + "=" * 60)
     print("Example DALL-E Prompt for Volume 1 Hardcover:")

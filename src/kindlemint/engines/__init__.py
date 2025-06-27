@@ -12,13 +12,15 @@ __all__ = []
 
 try:
     from .sudoku import SudokuGenerator
-    __all__.append('SudokuGenerator')
+
+    __all__.append("SudokuGenerator")
 except ImportError:
     pass
 
 try:
     from .wordsearch import WordSearchGenerator
-    __all__.append('WordSearchGenerator')
+
+    __all__.append("WordSearchGenerator")
 except ImportError:
     pass
 

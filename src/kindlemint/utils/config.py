@@ -37,13 +37,15 @@ wordlist = config.get_path("file_paths.word_list_path")
 kdp_specs = config.get_kdp_spec("paperback")
 """
 
-import os
-import yaml
-from pathlib import Path
 import logging
+import os
+from pathlib import Path
+
+import yaml
 
 # Configure logging
 logger = logging.getLogger(__name__)
+
 
 class ConfigLoader:
     _instance = None
@@ -57,29 +59,33 @@ class ConfigLoader:
     def __init__(self):
         if self._initialized:
             return
-        
+
         # Find the project root (contains src/, scripts/, config/ directories)
         current_path = Path(__file__).resolve()
         # Go up from src/kindlemint/utils/config.py to project root
         self.project_root = current_path.parent.parent.parent.parent
         self.config_path = self.project_root / "config" / "config.yaml"
-        
+
         self._config = self._load_yaml()
         self._apply_env_overrides()
         self._validate_config()
-        
+
         self._initialized = True
         logger.info("Configuration loaded and validated successfully.")
 
     def _load_yaml(self):
         """Loads the configuration from the YAML file."""
         try:
-            with open(self.config_path, 'r') as f:
+            with open(self.config_path, "r") as f:
                 config_data = yaml.safe_load(f)
-                logger.info(f"Successfully loaded configuration from {self.config_path}")
+                logger.info(
+                    f"Successfully loaded configuration from {self.config_path}"
+                )
                 return config_data or {}
         except FileNotFoundError:
-            logger.warning(f"Configuration file not found at {self.config_path}. Proceeding with defaults and environment variables.")
+            logger.warning(
+                f"Configuration file not found at {self.config_path}. Proceeding with defaults and environment variables."
+            )
             return {}
         except yaml.YAMLError as e:
             logger.error(f"Error parsing YAML file {self.config_path}: {e}")
@@ -91,17 +97,17 @@ class ConfigLoader:
         for key, value in os.environ.items():
             if key.startswith(prefix):
                 # Remove prefix and split by double underscore
-                path = key[len(prefix):].lower().split('__')
-                
+                path = key[len(prefix) :].lower().split("__")
+
                 # Navigate the config dictionary and set the value
                 current_level = self._config
                 for part in path[:-1]:
                     current_level = current_level.setdefault(part, {})
-                
+
                 final_key = path[-1]
                 # Attempt to cast value to a more specific type
-                if value.lower() in ['true', 'false']:
-                    current_level[final_key] = value.lower() == 'true'
+                if value.lower() in ["true", "false"]:
+                    current_level[final_key] = value.lower() == "true"
                 elif value.isdigit():
                     current_level[final_key] = int(value)
                 else:
@@ -109,32 +115,36 @@ class ConfigLoader:
                         current_level[final_key] = float(value)
                     except ValueError:
                         current_level[final_key] = value
-                
-                logger.info(f"Overrode config '{'.'.join(path)}' with value from environment variable.")
+
+                logger.info(
+                    f"Overrode config '{'.'.join(path)}' with value from environment variable."
+                )
 
     def _validate_config(self):
         """Validates that essential configuration keys are present."""
         required_keys = [
             "kdp_specifications.paperback.page_width_in",
             "puzzle_generation.default_puzzle_count",
-            "file_paths.base_output_dir"
+            "file_paths.base_output_dir",
         ]
         for key in required_keys:
             if self.get(key) is None:
-                raise ValueError(f"Missing critical configuration key: '{key}'. Please define it in config/config.yaml or as an environment variable.")
+                raise ValueError(
+                    f"Missing critical configuration key: '{key}'. Please define it in config/config.yaml or as an environment variable."
+                )
 
     def get(self, key_path, default=None):
         """
         Retrieves a value from the configuration using a dot-separated path.
-        
+
         Args:
             key_path (str): The dot-separated path to the key (e.g., "api_settings.sentry.enabled").
             default: The value to return if the key is not found.
-            
+
         Returns:
             The configuration value or the default.
         """
-        keys = key_path.split('.')
+        keys = key_path.split(".")
         value = self._config
         try:
             for key in keys:
@@ -146,7 +156,7 @@ class ConfigLoader:
     def get_path(self, key_path, default=None):
         """
         Retrieves a file path from the configuration and resolves it relative to the project root.
-        
+
         Returns:
             A pathlib.Path object or the default.
         """
@@ -158,11 +168,11 @@ class ConfigLoader:
     def get_kdp_spec(self, book_type, key=None):
         """
         Retrieves KDP specifications for a given book type.
-        
+
         Args:
             book_type (str): "paperback" or "hardcover".
             key (str, optional): A specific key within the book type's spec.
-        
+
         Returns:
             A dictionary of specs or a single value if a key is provided.
         """
@@ -187,6 +197,7 @@ class ConfigLoader:
         """Retrieves a QA validation threshold or rule."""
         return self.get(f"qa_validation.{key}")
 
+
 # Create a single, shared instance of the configuration loader.
 # Other modules can import this object directly.
 config = ConfigLoader()
@@ -195,23 +206,27 @@ config = ConfigLoader()
 if __name__ == "__main__":
     print("--- AI KindleMint Engine Configuration ---")
     print(f"Project Root: {config.project_root}")
-    
+
     print("\n--- KDP Specifications ---")
-    print(f"Paperback Width: {config.get_kdp_spec('paperback', 'page_width_in')} inches")
+    print(
+        f"Paperback Width: {config.get_kdp_spec('paperback', 'page_width_in')} inches"
+    )
     print(f"Hardcover Margin: {config.get_kdp_spec('hardcover', 'margin_in')} inches")
-    
+
     print("\n--- Puzzle Generation ---")
-    print(f"Default Puzzle Count: {config.get('puzzle_generation.default_puzzle_count')}")
+    print(
+        f"Default Puzzle Count: {config.get('puzzle_generation.default_puzzle_count')}"
+    )
     print(f"Crossword Grid Size: {config.get_puzzle_setting('crossword', 'grid_size')}")
-    
+
     print("\n--- File Paths ---")
     print(f"Base Output Dir: {config.get_path('file_paths.base_output_dir')}")
     print(f"Word List Path: {config.get_path('file_paths.word_list_path')}")
-    
+
     print("\n--- API Settings ---")
     print(f"Sentry Enabled: {config.get_api_setting('sentry', 'enabled')}")
     print(f"Slack Channel: {config.get_api_setting('slack', 'default_channel')}")
-    
+
     print("\n--- QA Validation ---")
     print(f"Min Passing Score: {config.get_qa_threshold('min_passing_score')}")
 
