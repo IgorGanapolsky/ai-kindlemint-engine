@@ -1,5 +1,5 @@
 {
-  "total_cost": 61.62371550000001,
+  "total_cost": 71.37438000000002,
   "commits": [
     {
       "hash": "c08cdbab",
@@ -81,8 +81,17 @@
       "tokens": 385597,
       "files_changed": 3,
       "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "67d6a63c",
+      "timestamp": "2025-06-26T23:24:34.940636",
+      "message": "Scaffold KdpPublisher in scripts/kdp_publisher.py and wire up sentry_kdp_automation to use it",
+      "cost": 9.750664500000001,
+      "tokens": 382379,
+      "files_changed": 1,
+      "model": "claude-3-sonnet"
     }
   ],
   "first_tracked": "2025-06-26T16:52:19.989559",
-  "last_updated": "2025-06-26T23:24:32.904040"
+  "last_updated": "2025-06-26T23:24:34.940652"
 }
