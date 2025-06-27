@@ -30,6 +30,7 @@ setuptools.setup(
         "google-auth-oauthlib>=1.1.0",
         "sentry-sdk>=1.40.0",
         "click>=8.0.0",
+        "schedule>=1.2.0",  # Scheduler for daily automated tasks
     ],
     extras_require={
         "dev": [

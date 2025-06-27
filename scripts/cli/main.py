@@ -10,6 +10,7 @@ from scripts.create_professional_crossword_pdf import ProfessionalCrosswordForma
 from scripts.create_real_crossword_book import RealCrosswordFormatter
 from scripts.enhanced_epub_generator import EnhancedEpubFormatter
 from scripts.book_layout_bot import BookLayoutFormatter
+from scripts.daily_tasks import run_daily_tasks
 
 # Registry of available formatters
 FORMATTERS = {
@@ -60,6 +61,15 @@ def list_formatters():  # noqa: D103
     click.echo("Available formatters:")
     for name in FORMATTERS:
         click.echo(f"  - {name}")
+    click.echo("")
+    click.echo("Use 'kindlemint publish --metadata <file>' to upload to KDP")
+
+@cli.command("daily-tasks")
+def daily_tasks():  # noqa: D103
+    """
+    Run the daily AI publishing task scheduler.
+    """
+    run_daily_tasks()
 
 
 if __name__ == "__main__":
