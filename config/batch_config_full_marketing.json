@@ -1,0 +1,207 @@
+{
+  "batch_name": "Complete Marketing Automation Demo",
+  "description": "Full implementation of Jeb Blount's prospecting + Dan Kennedy's magnetic marketing",
+  "delay_between_books": 300,
+  "books": [
+    {
+      "id": "magnetic_crossword_masters_v1",
+      "title": "The 15-Minute Crossword Secret That Retirement Homes Don't Want You to Know",
+      "subtitle": "How I Solved My Daily Crossword in 15 Minutes Without Cheating (And You Can Too)",
+      "author": "Margaret Thompson, Retired Educator",
+      "series_name": "Magnetic_Crossword_Masters",
+      "volume": 1,
+      "puzzle_type": "crossword",
+      "puzzle_count": 50,
+      "difficulty": "progressive",
+      "create_epub": true,
+      "create_hardcover": true,
+      "generate_prospecting": true,
+      "generate_magnetic_marketing": true,
+      "target_audience": "retired_professionals",
+      "puzzle_params": {
+        "theme_variety": "high",
+        "grid_size": "15x15",
+        "symmetry": "rotational",
+        "large_print_optimized": true
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "font_size": 16,
+        "include_solutions": true
+      },
+      "magnetic_marketing_config": {
+        "avatar_focus": "retired_educators_managers",
+        "price_positioning": "premium",
+        "backend_focus": true,
+        "social_proof_emphasis": "testimonials_from_peers",
+        "urgency_strategy": "limited_edition_printing"
+      },
+      "prospecting_config": {
+        "target_audience": "senior_puzzle_enthusiasts",
+        "linkedin_focus": "brain_health_advocacy",
+        "podcast_categories": ["senior_lifestyle", "brain_health", "retirement"],
+        "facebook_groups": ["senior_activities", "retirement_life", "brain_games"],
+        "email_capture_incentive": "retirement_brain_fitness_guide",
+        "authority_positioning": "retired_educator_turned_puzzle_expert"
+      },
+      "kennedy_pricing_strategy": {
+        "frontend_price": "$6.99",
+        "value_anchor": "$24.99",
+        "backend_offers": {
+          "crossword_mastery_course": "$47",
+          "monthly_puzzle_club": "$19.97",
+          "vip_coaching": "$197"
+        },
+        "launch_sequence": {
+          "day_1": "$0.99",
+          "day_2": "$2.99", 
+          "day_3_7": "$4.99",
+          "final": "$6.99"
+        }
+      },
+      "hardcover_price_min": 16.99,
+      "hardcover_price_max": 22.99,
+      "kindle_price": 4.99,
+      "printing_cost_estimate": 7.50,
+      "description": "Finally, a crossword book designed specifically for retired professionals who want mental stimulation without frustration. Using the proven Corner-Start Method™, you'll solve puzzles 50% faster while keeping your mind razor-sharp.",
+      "keywords": [
+        "retirement crossword puzzles",
+        "large print brain games",
+        "senior mental fitness",
+        "crossword for educators",
+        "brain health puzzles",
+        "cognitive maintenance"
+      ],
+      "categories": [
+        "Books > Humor & Entertainment > Puzzles & Games > Crosswords",
+        "Books > Health, Fitness & Dieting > Aging > Mental Health"
+      ]
+    },
+    {
+      "id": "magnetic_productivity_system_v1",
+      "title": "The 4-Hour CEO: How I Went From 80-Hour Weeks to $2M Revenue Working Part-Time",
+      "subtitle": "The Exact System Burned-Out Founders Use to Scale Without Losing Their Marriage",
+      "author": "David Chen, Former Startup CEO",
+      "series_name": "Magnetic_Productivity_Masters",
+      "volume": 1,
+      "puzzle_type": "productivity",
+      "puzzle_count": 25,
+      "difficulty": "advanced",
+      "create_epub": true,
+      "create_hardcover": true,
+      "generate_prospecting": true,
+      "generate_magnetic_marketing": true,
+      "target_audience": "burned_out_startup_founders",
+      "magnetic_marketing_config": {
+        "avatar_focus": "series_a_founders_working_80_hours",
+        "price_positioning": "ultra_premium",
+        "backend_focus": true,
+        "social_proof_emphasis": "revenue_and_time_metrics",
+        "urgency_strategy": "founding_member_pricing"
+      },
+      "prospecting_config": {
+        "target_audience": "startup_founders",
+        "linkedin_focus": "founder_productivity_and_scaling",
+        "podcast_categories": ["startup", "entrepreneurship", "productivity"],
+        "facebook_groups": ["startup_founders", "entrepreneur_life", "saas_founders"],
+        "email_capture_incentive": "4_hour_ceo_blueprint",
+        "authority_positioning": "serial_entrepreneur_and_scaling_expert"
+      },
+      "kennedy_pricing_strategy": {
+        "frontend_price": "$97",
+        "value_anchor": "$497",
+        "backend_offers": {
+          "scaling_mastermind": "$497",
+          "monthly_ceo_coaching": "$297",
+          "done_for_you_systems": "$2997"
+        },
+        "launch_sequence": {
+          "day_1": "$47",
+          "day_2": "$67",
+          "day_3_7": "$77",
+          "final": "$97"
+        }
+      },
+      "hardcover_price_min": 29.99,
+      "hardcover_price_max": 39.99,
+      "kindle_price": 9.99,
+      "printing_cost_estimate": 12.50,
+      "description": "If you're a startup founder working 80+ hour weeks and your marriage is suffering, this book reveals the exact 4-hour CEO system I used to scale my company to $2M revenue while working part-time. Includes the Revenue-Per-Hour calculator that changed everything.",
+      "keywords": [
+        "startup founder productivity",
+        "ceo time management",
+        "scaling without burnout",
+        "entrepreneur work life balance",
+        "startup systems",
+        "founder mental health"
+      ],
+      "categories": [
+        "Books > Business & Money > Entrepreneurship",
+        "Books > Business & Money > Management & Leadership"
+      ]
+    }
+  ],
+  "global_marketing_settings": {
+    "kennedy_principles": {
+      "who_before_what": true,
+      "direct_response_only": true,
+      "premium_positioning": true,
+      "backend_focus": true,
+      "deadline_driven": true,
+      "social_proof_heavy": true
+    },
+    "blount_principles": {
+      "thirty_day_rule_enabled": true,
+      "multi_channel_approach": true,
+      "familiarity_law_application": true,
+      "rejection_proof_system": true,
+      "consistency_over_intensity": true
+    },
+    "combined_strategy": {
+      "attraction_and_prospecting": "Use Kennedy's magnetic marketing to attract ideal prospects, then Blount's systematic prospecting to convert them",
+      "frontend_backend_optimization": "Books are lead magnets, prospecting builds relationships, backend creates profit",
+      "authority_positioning": "Combine Kennedy's expert positioning with Blount's consistent visibility",
+      "social_proof_amplification": "Use prospecting to generate testimonials, Kennedy's system to display them powerfully"
+    },
+    "automation_preferences": {
+      "generate_customer_avatars": true,
+      "create_direct_response_copy": true,
+      "build_lead_magnet_funnels": true,
+      "design_backend_systems": true,
+      "create_deadline_funnels": true,
+      "generate_linkedin_calendars": true,
+      "create_email_sequences": true,
+      "build_podcast_pitches": true,
+      "setup_social_proof_systems": true,
+      "create_media_domination_plans": true
+    }
+  },
+  "revenue_projections": {
+    "traditional_kdp_approach": {
+      "monthly_revenue_per_book": "$20-50",
+      "annual_revenue_10_books": "$2,400-6,000"
+    },
+    "blount_prospecting_only": {
+      "monthly_revenue_per_book": "$100-300", 
+      "annual_revenue_10_books": "$12,000-36,000"
+    },
+    "kennedy_magnetic_only": {
+      "monthly_revenue_per_book": "$200-500",
+      "annual_revenue_10_books": "$24,000-60,000"
+    },
+    "combined_blount_kennedy_system": {
+      "monthly_revenue_per_book": "$500-2000",
+      "annual_revenue_10_books": "$60,000-240,000",
+      "backend_multiplier": "10x frontend revenue",
+      "target_daily_revenue": "$300-800"
+    }
+  },
+  "notification_settings": {
+    "slack_enabled": true,
+    "notify_on_book_complete": true,
+    "notify_on_prospecting_complete": true,
+    "notify_on_magnetic_marketing_complete": true,
+    "include_revenue_projections": true,
+    "include_implementation_priorities": true
+  }
+}

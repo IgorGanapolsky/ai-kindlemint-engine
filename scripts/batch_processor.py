@@ -405,6 +405,19 @@ class BatchProcessor:
                     book_result=book_result,
                 )
 
+            # Step 7: Generate magnetic marketing system (if enabled)
+            if (
+                book_config.get("generate_magnetic_marketing", True)
+                and "generate_magnetic_marketing" not in book_result["steps_completed"]
+            ):
+                self._run_step(
+                    step_name="generate_magnetic_marketing",
+                    display_name="Creating magnetic marketing system",
+                    emoji="🧲",
+                    book_config=book_config,
+                    book_result=book_result,
+                )
+
             # All steps completed successfully
             book_result["status"] = "complete"
             logger.info(f"Book {book_id} processed successfully")
@@ -1071,6 +1084,101 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
             logger.error(f"Prospecting materials generation failed: {e}")
             logger.error(traceback.format_exc())
             raise RuntimeError(f"Prospecting materials generation failed: {str(e)}")
+
+    def _step_generate_magnetic_marketing(self, book_config: Dict, book_result: Dict) -> Dict:
+        """Generate magnetic marketing system following Dan Kennedy's methodology"""
+        try:
+            # Import the magnetic marketing module
+            magnetic_module_path = "scripts/magnetic_marketing.py"
+            magnetic_module = self._import_module_from_path(
+                magnetic_module_path, "magnetic_marketing"
+            )
+
+            if not magnetic_module:
+                raise ImportError(
+                    f"Could not import magnetic marketing from {magnetic_module_path}"
+                )
+
+            # Create magnetic marketing engine instance
+            engine = magnetic_module.MagneticMarketingEngine(book_config, book_result["artifacts"])
+            
+            # Generate complete magnetic marketing system
+            marketing_assets = engine.create_magnetic_marketing_system()
+            
+            # Create implementation summary
+            series_name = book_config.get("series_name", "Default_Series")
+            volume = book_config.get("volume", 1)
+            
+            implementation_summary = f"""# Magnetic Marketing System Generated - {book_config.get("title", f"{series_name} Volume {volume}")}
+
+## 🧲 Dan Kennedy's Magnetic Marketing Implementation
+
+### Core Components Created:
+{chr(10).join(f'• **{asset_type.replace("_", " ").title()}**: Complete system ready for implementation' for asset_type in marketing_assets.keys())}
+
+### The Magnetic Triangle:
+- **MESSAGE**: Hyper-specific avatar + direct response copy
+- **MARKET**: Ideal customer identification + pain/desire mapping  
+- **MEDIA**: Multi-channel domination strategy
+
+### Revenue Optimization:
+- **Frontend**: Book priced for maximum conversions
+- **Backend**: Continuity programs for recurring revenue
+- **Upsells**: Systematic ascension ladder
+- **Social Proof**: Testimonial collection systems
+
+### Kennedy's Key Principles Applied:
+1. **WHO Before WHAT**: Created hyper-specific customer avatar
+2. **Direct Response Only**: All copy designed to sell NOW
+3. **Premium Positioning**: Never compete on price
+4. **Backend Focus**: Books break even, backend creates profit
+5. **Deadline Driven**: Everything has urgency/scarcity
+6. **Social Proof Heavy**: Testimonials eliminate skepticism
+
+### Implementation Priority:
+1. Launch with new direct response titles/descriptions
+2. Implement lead magnet funnel for list building
+3. Create backend offers for existing customers
+4. Deploy deadline funnels for urgency
+5. Begin social proof collection immediately
+
+### Revenue Projection:
+- **Traditional Approach**: $20-50/month per book
+- **Kennedy Approach**: $500-2,000/month per book
+- **Backend Multiplier**: 10x book sales revenue
+
+### Remember Kennedy's Bottom Line:
+*"Marketing is everything. Everything is marketing."*
+
+Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+"""
+
+            # Save implementation summary
+            summary_file = engine.output_dir / "magnetic_marketing_summary.md"
+            with open(summary_file, 'w') as f:
+                f.write(implementation_summary)
+
+            marketing_assets["implementation_summary"] = str(summary_file)
+
+            logger.info(f"Magnetic marketing system generated: {len(marketing_assets)} components created")
+            
+            # Return artifacts
+            return {
+                "magnetic_marketing_dir": str(engine.output_dir),
+                "marketing_assets": marketing_assets,
+                "customer_avatar": marketing_assets.get("customer_avatar"),
+                "magnetic_triangle": marketing_assets.get("magnetic_triangle"),
+                "direct_response_copy": marketing_assets.get("direct_response_copy"),
+                "lead_magnet_funnel": marketing_assets.get("lead_magnet_funnel"),
+                "premium_positioning": marketing_assets.get("premium_positioning"),
+                "backend_systems": marketing_assets.get("backend_systems"),
+                "implementation_summary": str(summary_file)
+            }
+
+        except Exception as e:
+            logger.error(f"Magnetic marketing generation failed: {e}")
+            logger.error(traceback.format_exc())
+            raise RuntimeError(f"Magnetic marketing generation failed: {str(e)}")
 
     def generate_batch_report(self) -> str:
         """Generate a comprehensive batch report"""
