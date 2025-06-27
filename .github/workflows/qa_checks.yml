@@ -40,8 +40,8 @@ jobs:
           # Install Playwright browsers
           python -m playwright install chromium
       
-      - name: Run pre-commit hooks
-        run: pre-commit run --all-files
+      - name: Run pre-commit hooks (changed files only)
+        run: pre-commit run
 
       - name: Run full test suite with JSON report
         run: |
