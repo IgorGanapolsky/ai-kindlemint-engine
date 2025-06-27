@@ -6,6 +6,7 @@ Tests grid generation, clue validity, and solution completeness
 
 import sys
 import unittest
+import tempfile
 from pathlib import Path
 
 # Add scripts directory to path
@@ -19,7 +20,13 @@ class TestCrosswordEngine(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures"""
-        self.engine = CrosswordEngine()
+        self.temp_dir = tempfile.mkdtemp()
+        self.engine = CrosswordEngine(output_dir=self.temp_dir)
+    
+    def tearDown(self):
+        """Clean up test fixtures"""
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
     
     def test_grid_creation(self):
         """Test creation of crossword grid"""

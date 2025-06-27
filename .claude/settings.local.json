@@ -159,7 +159,8 @@
       "Bash(./claude-flow-costs:*)",
       "WebFetch(domain:docs.cursor.com)",
       "Bash(pip uninstall:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(echo:*)"
     ],
     "deny": []
   }

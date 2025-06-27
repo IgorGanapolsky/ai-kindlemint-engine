@@ -13,9 +13,9 @@ from pathlib import Path
 # Add scripts directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
 
-from book_layout_bot import BookLayoutEngine
-from crossword_engine_v2 import CrosswordEngine
-from sudoku_generator import SudokuGenerator
+from scripts.book_layout_bot import BookLayoutBot as BookLayoutEngine
+from scripts.crossword_engine_v2 import CrosswordEngineV2 as CrosswordEngine
+from scripts.sudoku_generator import SudokuGenerator
 
 
 class TestBookGenerationPipeline(unittest.TestCase):
@@ -204,7 +204,7 @@ class TestQualityAssurance(unittest.TestCase):
             
             for i in range(9):
                 for j in range(9):
-                    if grid[i][j] \!= 0:
+                    if grid[i][j] != 0:
                         self.assertEqual(grid[i][j], solution[i][j])
     
     def test_no_duplicate_puzzles(self):
@@ -235,4 +235,3 @@ class TestQualityAssurance(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-EOF < /dev/null

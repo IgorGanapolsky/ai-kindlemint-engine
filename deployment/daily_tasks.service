@@ -1,0 +1,15 @@
+[Unit]
+Description=KindleMint Daily AI Publishing Task Scheduler
+After=network.target
+
+[Service]
+Type=simple
+# Replace 'kindlemint' with the appropriate system user
+User=kindlemint
+WorkingDirectory=/opt/ai-kindlemint-engine
+ExecStart=/usr/bin/python3 /opt/ai-kindlemint-engine/scripts/daily_tasks.py
+Restart=on-failure
+RestartSec=60s
+
+[Install]
+WantedBy=multi-user.target
