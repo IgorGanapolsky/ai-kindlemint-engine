@@ -20,5 +20,12 @@
   "kdp_book_types": {
     "low_content_book": true,
     "large_print_book": true
+  },
+  "cover_design": {
+    "dalle_prompt": "Create a Professional book cover design, clean modern layout, high contrast typography. Title: 'Large Print Sudoku Masters - Volume 1'. Include sudoku puzzle grids in background, mathematical symbols, number patterns. Use deep blue and white color scheme with gold accents. Feature extra large, bold, easy-to-read fonts, senior-friendly design. The cover should be designed for kindle ebook format, eye-catching for Amazon KDP marketplace, appealing to puzzle enthusiasts and seniors. Include subtle brain/mind imagery to suggest cognitive benefits. Ensure text is highly readable and professional appearance suitable for bookstore shelves.",
+    "style": "professional puzzle book cover",
+    "target_audience": "puzzle enthusiasts, seniors, brain training seekers",
+    "format_optimized": "kindle ebook",
+    "created_date": "2025-06-27"
   }
 }

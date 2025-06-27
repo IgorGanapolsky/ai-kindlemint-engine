@@ -270,3 +270,11 @@ NEVER proactively create documentation files (*.md) or README files. Only create
 **CRITICAL: KDP BOOK TYPE CLASSIFICATIONS - Always specify for every book metadata:**
 - Low-content book: true (for puzzle books, journals, notebooks, planners)
 - Large-print book: true (for books with 16-point font or greater, especially "Large Print" series)
+**CRITICAL: BOOK TRIM SIZES - Never use wrong sizes for puzzle books:**
+- Paperback puzzle books: ALWAYS 8.5x11 inches (enough space for large print puzzles)
+- Hardcover puzzle books: 6x9 inches is acceptable
+- NEVER use 6x9 for paperback puzzle books - too cramped for puzzle solving
+**CRITICAL: COVER DESIGN PROMPTS - Every book MUST have DALL-E cover prompts:**
+- Add cover_design.dalle_prompt field to all metadata files
+- Include detailed, professional prompts for book cover generation
+- Specify style, colors, typography, and puzzle theme elements
