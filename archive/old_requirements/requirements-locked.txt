@@ -881,9 +881,9 @@ s3transfer==0.10.4 \
     --hash=sha256:244a76a24355363a68164241438de1b72f8781664920260c48465896b712a41e \
     --hash=sha256:29edc09801743c21eb5ecbc617a152df41d3c287f67b615f73e5f750583666a7
     # via boto3
-sentry-sdk==2.6.0 \
-    --hash=sha256:422b91cb49378b97e7e8d0e8d5a1069df23689d45262b86f54988a7db264e874 \
-    --hash=sha256:65cc07e9c6995c5e316109f138570b32da3bd7ff8d0d0ee4aaf2628c3dd8127d
+sentry-sdk==2.32.0 \
+    --hash=sha256:6cf51521b099562d7ce3606da928c473643abe99b00ce4cb5626ea735f4ec345 \
+    --hash=sha256:9016c75d9316b0f6921ac14c8cd4fb938f26002430ac5be9945ab280f78bec6b
     # via ai_kindlemint_engine (setup.py)
 six==1.17.0 \
     --hash=sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274 \
@@ -923,9 +923,9 @@ uritemplate==4.2.0 \
     --hash=sha256:480c2ed180878955863323eea31b0ede668795de182617fef9c6ca09e6ec9d0e \
     --hash=sha256:962201ba1c4edcab02e60f9a0d3821e82dfc5d2d6662a21abd533879bdb8a686
     # via google-api-python-client
-urllib3==2.2.2 \
-    --hash=sha256:a448b2f64d686155468037e1ace9f2d2199776e17f0a46610480d311f73e3472 \
-    --hash=sha256:dd505485549a7a552833da5e6063639d0d177c04f23bc3864e41e5dc5f612168
+urllib3==2.5.0 \
+    --hash=sha256:3fc47733c7e419d4bc3f6b3dc2b4f890bb743906a30d56ba4a5bfa4bbff92760 \
+    --hash=sha256:e6b01673c0fa6a13e374b50871808eb3bf7046c4b125b216f6bf1cc604cff0dc
     # via
     #   botocore
     #   requests
