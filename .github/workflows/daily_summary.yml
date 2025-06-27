@@ -133,8 +133,16 @@ else:
         )
         
     - name: Send Slack notification
-      if: ${{ secrets.SLACK_WEBHOOK_URL }}
+      if: always()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       run: |
+        # Check if webhook is configured
+        if [ -z "$SLACK_WEBHOOK_URL" ]; then
+          echo "No Slack webhook configured, skipping notification"
+          exit 0
+        fi
+        
         # Extract key metrics
         if [ -f "reports/daily-summaries/latest.json" ]; then
           BOOKS=$(jq -r '.production.total_books' reports/daily-summaries/latest.json)

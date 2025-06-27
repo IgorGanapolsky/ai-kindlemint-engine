@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    paths:
+      - 'scripts/market_research*.py'
+      - '.github/workflows/debug_market_research.yml'
 
 jobs:
   debug:

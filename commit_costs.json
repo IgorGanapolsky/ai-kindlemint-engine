@@ -1,5 +1,5 @@
 {
-  "total_cost": 41.96469450000001,
+  "total_cost": 51.79099200000001,
   "commits": [
     {
       "hash": "c08cdbab",
@@ -63,8 +63,17 @@
       "tokens": 385670,
       "files_changed": 3,
       "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "880080ca",
+      "timestamp": "2025-06-26T23:21:03.134319",
+      "message": "feat: Add schedule dependency for Claude cost notifications",
+      "cost": 9.8262975,
+      "tokens": 385345,
+      "files_changed": 2,
+      "model": "claude-3-sonnet"
     }
   ],
   "first_tracked": "2025-06-26T16:52:19.989559",
-  "last_updated": "2025-06-26T23:08:22.713897"
+  "last_updated": "2025-06-26T23:21:03.134344"
 }
