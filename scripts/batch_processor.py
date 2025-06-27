@@ -15,7 +15,6 @@ import sys
 import time
 import traceback
 from datetime import datetime
-
 # Make Path alias available *before* load_dotenv so it's usable in the path expression
 from pathlib import Path
 from pathlib import Path as _PathForSentry
@@ -916,11 +915,9 @@ class BatchProcessor:
             qa_results = checker.run_enhanced_qa(interior_pdf)
             # Domain-aware puzzle validation
             try:
-                from scripts.puzzle_validators import (
-                    validate_crossword,
-                    validate_sudoku,
-                    validate_word_search,
-                )
+                from scripts.puzzle_validators import (validate_crossword,
+                                                       validate_sudoku,
+                                                       validate_word_search)
 
                 puzzle_type = book_config.get("puzzle_type", "").lower()
                 puzzles_dir = Path(book_result["artifacts"].get("puzzles_dir", ""))
@@ -1013,15 +1010,17 @@ class BatchProcessor:
                 )
 
             # Create prospecting automation instance
-            automation = prospecting_module.ProspectingAutomation(book_config, book_result["artifacts"])
-            
+            automation = prospecting_module.ProspectingAutomation(
+                book_config, book_result["artifacts"]
+            )
+
             # Generate all prospecting materials
             prospecting_assets = automation.generate_prospecting_materials()
-            
+
             # Create summary report of generated materials
             series_name = book_config.get("series_name", "Default_Series")
             volume = book_config.get("volume", 1)
-            
+
             summary_report = f"""# Prospecting Materials Generated - {book_config.get("title", f"{series_name} Volume {volume}")}
 
 ## 🎯 Jeb Blount's Fanatical Publishing System Implementation
@@ -1049,13 +1048,15 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
             # Save summary report
             summary_file = automation.output_dir / "prospecting_summary.md"
-            with open(summary_file, 'w') as f:
+            with open(summary_file, "w") as f:
                 f.write(summary_report)
 
             prospecting_assets["summary_report"] = str(summary_file)
 
-            logger.info(f"Prospecting materials generated: {len(prospecting_assets)} assets created")
-            
+            logger.info(
+                f"Prospecting materials generated: {len(prospecting_assets)} assets created"
+            )
+
             # Return artifacts
             return {
                 "prospecting_dir": str(automation.output_dir),
@@ -1063,7 +1064,7 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
                 "linkedin_calendar": prospecting_assets.get("linkedin_calendar_json"),
                 "email_capture": prospecting_assets.get("email_capture_page"),
                 "podcast_pitches": prospecting_assets.get("podcast_pitches"),
-                "dashboard": prospecting_assets.get("dashboard_html")
+                "dashboard": prospecting_assets.get("dashboard_html"),
             }
 
         except Exception as e:

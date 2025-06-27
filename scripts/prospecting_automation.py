@@ -14,6 +14,7 @@ from typing import Dict, List, Optional, Tuple
 
 try:
     import openai
+
     OPENAI_AVAILABLE = True
 except ImportError:
     OPENAI_AVAILABLE = False
@@ -24,106 +25,110 @@ class ProspectingAutomation:
     Implements Jeb Blount's Fanatical Publishing System
     Automates content extraction and prospecting material generation
     """
-    
+
     def __init__(self, book_config: Dict, book_artifacts: Dict):
         """Initialize prospecting automation with book data"""
         self.book_config = book_config
         self.book_artifacts = book_artifacts
         self.series_name = book_config.get("series_name", "Default_Series")
         self.volume = book_config.get("volume", 1)
-        self.title = book_config.get("title", f"{self.series_name} Volume {self.volume}")
+        self.title = book_config.get(
+            "title", f"{self.series_name} Volume {self.volume}"
+        )
         self.author = book_config.get("author", "Crossword Masters Publishing")
-        
+
         # Create prospecting output directory
-        self.output_dir = Path(f"books/active_production/{self.series_name}/volume_{self.volume}/prospecting")
+        self.output_dir = Path(
+            f"books/active_production/{self.series_name}/volume_{self.volume}/prospecting"
+        )
         self.output_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Initialize OpenAI if available
         self.openai_client = None
         if OPENAI_AVAILABLE and os.getenv("OPENAI_API_KEY"):
             openai.api_key = os.getenv("OPENAI_API_KEY")
             self.openai_client = openai
-    
+
     def generate_prospecting_materials(self) -> Dict:
         """
         Generate all prospecting materials following Blount's methodology
         Returns dictionary of created assets
         """
         print("🎯 Generating prospecting materials...")
-        
+
         assets = {}
-        
+
         # 1. Extract quotable content from puzzles
         assets.update(self._extract_quotable_content())
-        
+
         # 2. Generate LinkedIn content calendar (30 days)
         assets.update(self._generate_linkedin_calendar())
-        
+
         # 3. Create email capture page content
         assets.update(self._create_email_capture_content())
-        
+
         # 4. Build podcast pitch templates
         assets.update(self._create_podcast_pitch_templates())
-        
+
         # 5. Generate Facebook group engagement content
         assets.update(self._create_facebook_group_content())
-        
+
         # 6. Create prospecting metrics dashboard
         assets.update(self._create_prospecting_dashboard())
-        
+
         # 7. Build author authority positioning
         assets.update(self._create_authority_positioning())
-        
+
         return assets
-    
+
     def _extract_quotable_content(self) -> Dict:
         """Extract quotable excerpts and insights from puzzle themes"""
         print("  📝 Extracting quotable content...")
-        
+
         quotables = []
-        
+
         # Load puzzle metadata to extract themes and insights
         puzzles_dir = Path(self.book_artifacts.get("puzzles_dir", ""))
         metadata_dir = puzzles_dir.parent / "metadata"
-        
+
         if metadata_dir.exists():
             # Load collection metadata
             collection_file = metadata_dir / "collection.json"
             if collection_file.exists():
-                with open(collection_file, 'r') as f:
+                with open(collection_file, "r") as f:
                     collection_data = json.load(f)
-                
+
                 # Extract themes and create quotable insights
                 puzzle_themes = []
                 for puzzle_file in metadata_dir.glob("puzzle_*.json"):
                     try:
-                        with open(puzzle_file, 'r') as f:
+                        with open(puzzle_file, "r") as f:
                             puzzle_data = json.load(f)
                             theme = puzzle_data.get("theme", "")
                             if theme:
                                 puzzle_themes.append(theme)
                     except:
                         continue
-                
+
                 # Generate insights based on puzzle themes
                 if puzzle_themes:
                     quotables = self._generate_insights_from_themes(puzzle_themes)
-        
+
         # Fallback: Create generic puzzle wisdom quotes
         if not quotables:
             quotables = self._generate_generic_puzzle_quotes()
-        
+
         # Save quotable content
         quotables_file = self.output_dir / "quotable_content.json"
-        with open(quotables_file, 'w') as f:
+        with open(quotables_file, "w") as f:
             json.dump(quotables, f, indent=2)
-        
+
         return {"quotable_content": str(quotables_file)}
-    
+
     def _generate_insights_from_themes(self, themes: List[str]) -> List[Dict]:
         """Generate insights and quotes from puzzle themes"""
         insights = []
-        
+
         # Theme-based insights for puzzle books
         theme_insights = {
             "general": "Mental agility comes from consistent practice, just like physical fitness.",
@@ -135,9 +140,9 @@ class ProspectingAutomation:
             "travel": "Exploring new places and solving puzzles both expand our mental horizons.",
             "music": "Musical harmony and word puzzles both create beauty through structure.",
             "literature": "Great books and great puzzles both reward careful attention to detail.",
-            "art": "Artistic creation and puzzle solving both require seeing patterns others miss."
+            "art": "Artistic creation and puzzle solving both require seeing patterns others miss.",
         }
-        
+
         for i, theme in enumerate(themes[:20]):  # Limit to 20 themes
             # Match theme to insight category
             insight_key = "general"
@@ -145,18 +150,20 @@ class ProspectingAutomation:
                 if key.lower() in theme.lower():
                     insight_key = key
                     break
-            
-            insights.append({
-                "id": i + 1,
-                "theme": theme,
-                "insight": theme_insights[insight_key],
-                "hashtags": ["#PuzzleWisdom", "#BrainTraining", "#MentalFitness"],
-                "linkedin_ready": True,
-                "tweet_ready": len(theme_insights[insight_key]) <= 240
-            })
-        
+
+            insights.append(
+                {
+                    "id": i + 1,
+                    "theme": theme,
+                    "insight": theme_insights[insight_key],
+                    "hashtags": ["#PuzzleWisdom", "#BrainTraining", "#MentalFitness"],
+                    "linkedin_ready": True,
+                    "tweet_ready": len(theme_insights[insight_key]) <= 240,
+                }
+            )
+
         return insights
-    
+
     def _generate_generic_puzzle_quotes(self) -> List[Dict]:
         """Generate generic puzzle wisdom quotes"""
         quotes = [
@@ -165,49 +172,54 @@ class ProspectingAutomation:
                 "insight": "The best puzzles aren't just solved - they're savored.",
                 "hashtags": ["#PuzzleWisdom", "#Crosswords", "#BrainGames"],
                 "linkedin_ready": True,
-                "tweet_ready": True
+                "tweet_ready": True,
             },
             {
                 "id": 2,
                 "insight": "Every crossword teaches patience. Every solution builds confidence.",
                 "hashtags": ["#PuzzleLife", "#PersonalGrowth", "#MentalFitness"],
                 "linkedin_ready": True,
-                "tweet_ready": True
+                "tweet_ready": True,
             },
             {
                 "id": 3,
                 "insight": "In puzzles, as in life, the most obvious answer isn't always correct.",
                 "hashtags": ["#PuzzlePhilosophy", "#CriticalThinking", "#LifeLessons"],
                 "linkedin_ready": True,
-                "tweet_ready": True
-            }
+                "tweet_ready": True,
+            },
         ]
         return quotes
-    
+
     def _generate_linkedin_calendar(self) -> Dict:
         """Generate 30-day LinkedIn content calendar following Blount's daily prospecting"""
         print("  📅 Creating LinkedIn content calendar...")
-        
+
         calendar = []
         start_date = datetime.now()
-        
+
         # Load quotable content
         quotables_file = self.output_dir / "quotable_content.json"
         quotables = []
         if quotables_file.exists():
-            with open(quotables_file, 'r') as f:
+            with open(quotables_file, "r") as f:
                 quotables = json.load(f)
-        
+
         # Generate 30 days of content (Blount's 30-day rule)
         post_templates = [
-            "Insight", "Question", "Story", "Tip", "Challenge", 
-            "Behind-the-scenes", "Community"
+            "Insight",
+            "Question",
+            "Story",
+            "Tip",
+            "Challenge",
+            "Behind-the-scenes",
+            "Community",
         ]
-        
+
         for day in range(30):
             post_date = start_date + timedelta(days=day)
             template_type = post_templates[day % len(post_templates)]
-            
+
             # Use quotable content if available, otherwise generic
             if quotables and day < len(quotables):
                 content_base = quotables[day]["insight"]
@@ -215,39 +227,45 @@ class ProspectingAutomation:
             else:
                 content_base = f"Day {day + 1} of our puzzle journey with {self.title}"
                 hashtags = ["#PuzzleChallenge", "#BrainTraining", "#NewBook"]
-            
-            post = self._create_linkedin_post(template_type, content_base, hashtags, day + 1)
-            
-            calendar.append({
-                "date": post_date.strftime("%Y-%m-%d"),
-                "day": day + 1,
-                "type": template_type,
-                "content": post,
-                "hashtags": hashtags,
-                "optimal_time": "9:00 AM" if day % 2 == 0 else "3:00 PM",
-                "engagement_goal": "10 comments, 50 likes"
-            })
-        
+
+            post = self._create_linkedin_post(
+                template_type, content_base, hashtags, day + 1
+            )
+
+            calendar.append(
+                {
+                    "date": post_date.strftime("%Y-%m-%d"),
+                    "day": day + 1,
+                    "type": template_type,
+                    "content": post,
+                    "hashtags": hashtags,
+                    "optimal_time": "9:00 AM" if day % 2 == 0 else "3:00 PM",
+                    "engagement_goal": "10 comments, 50 likes",
+                }
+            )
+
         # Save calendar
         calendar_file = self.output_dir / "linkedin_calendar_30days.json"
-        with open(calendar_file, 'w') as f:
+        with open(calendar_file, "w") as f:
             json.dump(calendar, f, indent=2)
-        
+
         # Create readable markdown version
         markdown_calendar = self._create_markdown_calendar(calendar)
         markdown_file = self.output_dir / "linkedin_calendar_30days.md"
-        with open(markdown_file, 'w') as f:
+        with open(markdown_file, "w") as f:
             f.write(markdown_calendar)
-        
+
         return {
             "linkedin_calendar_json": str(calendar_file),
-            "linkedin_calendar_md": str(markdown_file)
+            "linkedin_calendar_md": str(markdown_file),
         }
-    
-    def _create_linkedin_post(self, post_type: str, content_base: str, hashtags: List[str], day: int) -> str:
+
+    def _create_linkedin_post(
+        self, post_type: str, content_base: str, hashtags: List[str], day: int
+    ) -> str:
         """Create specific LinkedIn post based on type"""
         hashtag_str = " ".join(hashtags)
-        
+
         if post_type == "Insight":
             return f"""💡 Puzzle Insight #{day}
 
@@ -324,7 +342,7 @@ This is exactly why I created {self.title} - to bring puzzle lovers together!
 Who's ready to join our puzzle community?
 
 {hashtag_str}"""
-    
+
     def _create_markdown_calendar(self, calendar: List[Dict]) -> str:
         """Create readable markdown version of calendar"""
         markdown = f"""# LinkedIn Content Calendar - {self.title}
@@ -343,7 +361,7 @@ Following Jeb Blount's methodology: "The prospecting you do in this 30-day perio
 ## Daily Content Schedule
 
 """
-        
+
         for day_content in calendar:
             markdown += f"""### Day {day_content['day']} - {day_content['date']} ({day_content['type']})
 **Optimal Post Time**: {day_content['optimal_time']}
@@ -356,7 +374,7 @@ Following Jeb Blount's methodology: "The prospecting you do in this 30-day perio
 ---
 
 """
-        
+
         markdown += f"""## Engagement Strategy
 
 **Daily Actions** (Blount's Non-Negotiables):
@@ -378,13 +396,13 @@ Following Jeb Blount's methodology: "The prospecting you do in this 30-day perio
 - Hashtags optimized for puzzle community discovery
 - Content builds authority as puzzle expert
 """
-        
+
         return markdown
-    
+
     def _create_email_capture_content(self) -> Dict:
         """Create email capture page content for book launch"""
         print("  📧 Creating email capture content...")
-        
+
         # Main capture page content
         capture_content = f"""# Get {self.title} FREE Preview + Bonus Content!
 
@@ -419,7 +437,7 @@ Enter your email below to join our community of puzzle lovers who never miss a n
 ---
 **Privacy Promise**: Your email stays private. Unsubscribe anytime with one click.
 """
-        
+
         # Email sequences for automation
         email_sequences = {
             "welcome_sequence": [
@@ -440,10 +458,10 @@ Tomorrow, I'll share the #1 mistake most puzzle solvers make (and how to avoid i
 Happy puzzling!
 {self.author}
 
-P.S. Have questions about any puzzle? Just reply - I read every email!"""
+P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 },
                 {
-                    "day": 1, 
+                    "day": 1,
                     "subject": "The #1 crossword mistake (avoid this!) 🚫",
                     "content": f"""Yesterday I shared your preview of {self.title}.
 
@@ -463,11 +481,11 @@ Try it on your next puzzle and notice the difference!
 
 {self.author}
 
-P.S. Ready for the full book? Get {self.title} here: [BOOK LINK]"""
+P.S. Ready for the full book? Get {self.title} here: [BOOK LINK]""",
                 },
                 {
                     "day": 3,
-                    "subject": "Behind the scenes: How I create your puzzles 🔍", 
+                    "subject": "Behind the scenes: How I create your puzzles 🔍",
                     "content": f"""Creating {self.title} took 3 months of careful work.
 
 Here's my process:
@@ -483,7 +501,7 @@ Quality over quantity, always.
 
 {self.author}
 
-P.S. Curious about a specific puzzle? Reply and ask - I love sharing creation stories!"""
+P.S. Curious about a specific puzzle? Reply and ask - I love sharing creation stories!""",
                 },
                 {
                     "day": 7,
@@ -509,39 +527,39 @@ You're not just having fun - you're building mental resilience.
 Keep puzzling!
 {self.author}
 
-P.S. Ready for your next challenge? {self.title} has 50 fresh puzzles waiting: [BOOK LINK]"""
-                }
+P.S. Ready for your next challenge? {self.title} has 50 fresh puzzles waiting: [BOOK LINK]""",
+                },
             ]
         }
-        
+
         # Save capture content
         capture_file = self.output_dir / "email_capture_page.md"
-        with open(capture_file, 'w') as f:
+        with open(capture_file, "w") as f:
             f.write(capture_content)
-        
+
         # Save email sequences
         sequences_file = self.output_dir / "email_sequences.json"
-        with open(sequences_file, 'w') as f:
+        with open(sequences_file, "w") as f:
             json.dump(email_sequences, f, indent=2)
-        
+
         return {
             "email_capture_page": str(capture_file),
-            "email_sequences": str(sequences_file)
+            "email_sequences": str(sequences_file),
         }
-    
+
     def _create_podcast_pitch_templates(self) -> Dict:
         """Create podcast pitch templates for author authority"""
         print("  🎙️ Creating podcast pitch templates...")
-        
+
         # Authority positioning
         authority_points = [
             f"Author of {self.title} and the {self.series_name} series",
             "Expert in puzzle design and cognitive benefits",
             "Specialist in large-print accessibility for seniors",
-            "Published researcher on puzzles and brain health", 
-            "Creator of systematic puzzle generation methods"
+            "Published researcher on puzzles and brain health",
+            "Creator of systematic puzzle generation methods",
         ]
-        
+
         # Pitch templates for different podcast types
         pitches = {
             "business_podcasts": {
@@ -577,9 +595,8 @@ Would this angle work for your show? I have great audio setup and can record any
 Best regards,
 {self.author}
 
-P.S. Happy to send you a free copy of {self.title} to sample my work!"""
+P.S. Happy to send you a free copy of {self.title} to sample my work!""",
             },
-            
             "health_wellness_podcasts": {
                 "subject": f"Brain Health Expert - Puzzle Benefits Research - {self.author}",
                 "template": f"""Hello [HOST NAME],
@@ -617,9 +634,8 @@ Would this be valuable for your listeners?
 Best,
 {self.author}
 
-P.S. I'd love to send you {self.title} - it's specifically designed with brain health principles in mind."""
+P.S. I'd love to send you {self.title} - it's specifically designed with brain health principles in mind.""",
             },
-            
             "senior_lifestyle_podcasts": {
                 "subject": f"Large Print Puzzle Expert - Senior Accessibility - {self.author}",
                 "template": f"""Dear [HOST NAME],
@@ -658,10 +674,10 @@ Would this topic serve your audience?
 Warm regards,
 {self.author}
 
-P.S. I'd be honored to send copies of {self.title} for you and your team!"""
-            }
+P.S. I'd be honored to send copies of {self.title} for you and your team!""",
+            },
         }
-        
+
         # Follow-up templates
         follow_ups = {
             "first_followup": """Hi [HOST NAME],
@@ -676,7 +692,6 @@ No pressure - just want to make your decision easier!
 
 Best,
 {self.author}""",
-            
             "second_followup": """Hi [HOST NAME],
 
 Last follow-up on the puzzle expert interview opportunity.
@@ -688,9 +703,9 @@ If the timing isn't right now, I understand completely.
 Mind if I follow up in 6 months when my next book launches?
 
 Thanks for your time,
-{self.author}"""
+{self.author}""",
         }
-        
+
         # Research templates for finding podcasts
         research_template = f"""# Podcast Research Template
 
@@ -729,30 +744,27 @@ Thanks for your time,
 - LinkedIn (host research)
 - Google Podcasts (episode research)
 """
-        
+
         # Save all templates
         pitch_data = {
             "authority_points": authority_points,
             "pitch_templates": pitches,
             "follow_up_templates": follow_ups,
-            "research_process": research_template
+            "research_process": research_template,
         }
-        
+
         pitches_file = self.output_dir / "podcast_pitch_templates.json"
-        with open(pitches_file, 'w') as f:
+        with open(pitches_file, "w") as f:
             json.dump(pitch_data, f, indent=2)
-        
+
         # Create markdown guide
         markdown_guide = self._create_podcast_guide(pitch_data)
         guide_file = self.output_dir / "podcast_pitching_guide.md"
-        with open(guide_file, 'w') as f:
+        with open(guide_file, "w") as f:
             f.write(markdown_guide)
-        
-        return {
-            "podcast_pitches": str(pitches_file),
-            "podcast_guide": str(guide_file)
-        }
-    
+
+        return {"podcast_pitches": str(pitches_file), "podcast_guide": str(guide_file)}
+
     def _create_podcast_guide(self, pitch_data: Dict) -> str:
         """Create comprehensive podcast pitching guide"""
         return f"""# Podcast Pitching Guide - {self.title}
@@ -814,11 +826,11 @@ Before sending ANY pitch:
 
 **Remember**: You're not asking for favors. You're offering value to their audience. Position yourself as the solution to their content needs, not as someone seeking exposure.
 """
-    
+
     def _create_facebook_group_content(self) -> Dict:
         """Create Facebook group engagement content"""
         print("  👥 Creating Facebook group content...")
-        
+
         # Value-first content for groups
         group_content = {
             "puzzle_solving_groups": [
@@ -831,7 +843,7 @@ Instead of struggling with long answers, look for 3-4 letter words that cross mu
 Try it on your next puzzle and see the difference!
 
 (This is one of 47 strategies I cover in {self.title})""",
-                    "engagement_hook": "What's your go-to strategy when stuck on a puzzle?"
+                    "engagement_hook": "What's your go-to strategy when stuck on a puzzle?",
                 },
                 {
                     "type": "question",
@@ -840,7 +852,7 @@ Try it on your next puzzle and see the difference!
 For me, it's that moment when a tough clue suddenly clicks and three other answers fall into place.
 
 There's something magical about those "aha!" moments.""",
-                    "engagement_hook": "Share your favorite puzzle moment below!"
+                    "engagement_hook": "Share your favorite puzzle moment below!",
                 },
                 {
                     "type": "resource",
@@ -851,13 +863,12 @@ I just compiled my top 5 strategies that took me from struggling with Tuesday pu
 Would this be helpful? If so, I'll drop the link in comments.
 
 (These are techniques I teach in {self.title})""",
-                    "engagement_hook": "Comment 'YES' if you want the strategies!"
-                }
+                    "engagement_hook": "Comment 'YES' if you want the strategies!",
+                },
             ],
-            
             "senior_groups": [
                 {
-                    "type": "encouragement", 
+                    "type": "encouragement",
                     "content": """👓 Fellow large-print puzzle lovers:
 
 Age is just a number when it comes to mental sharpness!
@@ -865,7 +876,7 @@ Age is just a number when it comes to mental sharpness!
 I've seen 85-year-olds solve puzzles that stump college students. Experience and wisdom are powerful puzzle-solving tools.
 
 Never let anyone tell you puzzles are "too hard" as you get older. Your brain is capable of amazing things at any age!""",
-                    "engagement_hook": "What's the hardest puzzle you've conquered recently?"
+                    "engagement_hook": "What's the hardest puzzle you've conquered recently?",
                 },
                 {
                     "type": "accessibility",
@@ -880,10 +891,9 @@ Large print isn't just about font size. It's about:
 These details matter for anyone with vision changes, arthritis, or hand mobility issues.
 
 (This is why I designed {self.title} with these principles in mind)""",
-                    "engagement_hook": "What accessibility features matter most to you?"
-                }
+                    "engagement_hook": "What accessibility features matter most to you?",
+                },
             ],
-            
             "brain_training_groups": [
                 {
                     "type": "science",
@@ -898,36 +908,36 @@ Why? Crosswords require:
 • Persistence (not giving up on tough clues)
 
 Apps often train narrow skills. Crosswords train whole-brain thinking!""",
-                    "engagement_hook": "Have you noticed cognitive benefits from puzzles?"
+                    "engagement_hook": "Have you noticed cognitive benefits from puzzles?",
                 }
-            ]
+            ],
         }
-        
+
         # Engagement strategies
         engagement_strategies = {
             "daily_activities": [
                 "Share one valuable tip",
-                "Ask an engaging question", 
+                "Ask an engaging question",
                 "Offer free resource",
                 "Celebrate community wins",
-                "Provide encouragement"
+                "Provide encouragement",
             ],
             "weekly_goals": [
                 "Join 3 new groups",
                 "Make 25 valuable comments",
                 "Share 5 pieces of content",
                 "Connect with 10 active members",
-                "Get 50+ engagement points"
+                "Get 50+ engagement points",
             ],
             "monthly_targets": [
                 "Become recognized expert in 5 groups",
                 "Build relationships with 100+ members",
                 "Generate 20+ email subscribers",
                 "Establish thought leadership",
-                "Create referral partnerships"
-            ]
+                "Create referral partnerships",
+            ],
         }
-        
+
         # Save group content
         groups_file = self.output_dir / "facebook_group_content.json"
         group_data = {
@@ -935,24 +945,24 @@ Apps often train narrow skills. Crosswords train whole-brain thinking!""",
             "engagement_strategies": engagement_strategies,
             "posting_schedule": {
                 "monday": "Share weekend puzzle success stories",
-                "tuesday": "Technical tip Tuesday", 
+                "tuesday": "Technical tip Tuesday",
                 "wednesday": "Wisdom Wednesday (inspirational)",
                 "thursday": "Throwback Thursday (classic puzzles)",
                 "friday": "Free resource Friday",
                 "saturday": "Saturday challenge",
-                "sunday": "Sunday reflection/community appreciation"
-            }
+                "sunday": "Sunday reflection/community appreciation",
+            },
         }
-        
-        with open(groups_file, 'w') as f:
+
+        with open(groups_file, "w") as f:
             json.dump(group_data, f, indent=2)
-        
+
         return {"facebook_group_content": str(groups_file)}
-    
+
     def _create_prospecting_dashboard(self) -> Dict:
         """Create prospecting metrics dashboard"""
         print("  📊 Creating prospecting dashboard...")
-        
+
         # Dashboard structure
         dashboard = {
             "tracking_metrics": {
@@ -961,41 +971,39 @@ Apps often train narrow skills. Crosswords train whole-brain thinking!""",
                     "linkedin_engagements": 10,
                     "facebook_group_posts": 3,
                     "podcast_pitches": 2,
-                    "email_newsletter_content": 1
+                    "email_newsletter_content": 1,
                 },
                 "weekly_targets": {
                     "new_email_subscribers": 20,
                     "linkedin_connections": 50,
                     "podcast_responses": 2,
                     "facebook_group_joins": 3,
-                    "blog_posts": 1
+                    "blog_posts": 1,
                 },
                 "monthly_targets": {
                     "email_list_growth": 100,
                     "podcast_bookings": 4,
                     "linkedin_followers": 200,
                     "book_sales_from_prospecting": 50,
-                    "speaking_opportunities": 1
-                }
+                    "speaking_opportunities": 1,
+                },
             },
-            
             "conversion_tracking": {
                 "linkedin_to_email": "5%",
-                "facebook_to_email": "3%", 
+                "facebook_to_email": "3%",
                 "podcast_to_email": "20%",
                 "email_to_sale": "15%",
-                "referral_rate": "25%"
+                "referral_rate": "25%",
             },
-            
             "roi_calculations": {
                 "time_investment_hours_per_week": 10,
                 "cost_per_subscriber": "$2.00",
                 "lifetime_value_per_subscriber": "$15.00",
                 "break_even_point": "4 months",
-                "projected_monthly_revenue": "$1,500"
-            }
+                "projected_monthly_revenue": "$1,500",
+            },
         }
-        
+
         # Create HTML dashboard template
         dashboard_html = f"""<!DOCTYPE html>
 <html>
@@ -1097,31 +1105,26 @@ Apps often train narrow skills. Crosswords train whole-brain thinking!""",
     </script>
 </body>
 </html>"""
-        
+
         # Save dashboard files
         dashboard_file = self.output_dir / "prospecting_dashboard.json"
-        with open(dashboard_file, 'w') as f:
+        with open(dashboard_file, "w") as f:
             json.dump(dashboard, f, indent=2)
-        
+
         html_file = self.output_dir / "prospecting_dashboard.html"
-        with open(html_file, 'w') as f:
+        with open(html_file, "w") as f:
             f.write(dashboard_html)
-        
-        return {
-            "dashboard_data": str(dashboard_file),
-            "dashboard_html": str(html_file)
-        }
-    
+
+        return {"dashboard_data": str(dashboard_file), "dashboard_html": str(html_file)}
+
     def _create_authority_positioning(self) -> Dict:
         """Create author authority positioning materials"""
         print("  🎯 Creating authority positioning...")
-        
+
         # Bio variations for different contexts
         bios = {
             "short_bio": f"{self.author} is the author of {self.title} and creator of the innovative KindleMint publishing system. Specializing in accessible puzzle design, they have helped thousands discover the joy of mental challenges through carefully crafted crosswords.",
-            
             "medium_bio": f"{self.author} is a puzzle expert and author of the bestselling {self.series_name} series, including {self.title}. As creator of the KindleMint Method™, they have revolutionized systematic puzzle publishing, combining traditional craftsmanship with modern efficiency. Their work focuses on accessibility, ensuring quality puzzles are available to solvers of all ages and abilities.",
-            
             "long_bio": f"""{self.author} is a leading authority in puzzle design and publishing innovation. As the creator of {self.title} and the complete {self.series_name} collection, they have established new standards for accessible, high-quality crossword puzzles.
 
 Their groundbreaking KindleMint Method™ combines traditional puzzle craftsmanship with AI-enhanced systematic production, enabling the creation of engaging, fair puzzles at unprecedented scale. This methodology has been adopted by puzzle creators worldwide.
@@ -1129,12 +1132,10 @@ Their groundbreaking KindleMint Method™ combines traditional puzzle craftsmans
 Beyond creation, {self.author} is passionate about puzzle accessibility. Their large-print formats and carefully considered design elements ensure that cognitive challenges remain available to seniors, individuals with visual impairments, and anyone who values clear, comfortable puzzle-solving experiences.
 
 Their work has been featured in puzzle publications and they regularly speak about the intersection of technology and traditional puzzles. With thousands of satisfied solvers and a growing community of puzzle enthusiasts, {self.author} continues to innovate in the timeless art of crossword creation.""",
-            
             "academic_bio": f"Dr. {self.author} (PhD in Cognitive Psychology) researches the intersection of puzzle-solving and brain health. Author of {self.title} and creator of the empirically-based KindleMint Method™ for systematic puzzle generation. Their work bridges entertainment and cognitive therapy, with particular focus on accessibility design for aging populations.",
-            
-            "business_bio": f"{self.author}, CEO of KindleMint Publishing, has built a six-figure puzzle book business using systematic content creation and strategic marketing. Creator of {self.title} and pioneer of the KindleMint Method™, they help entrepreneurs understand the untapped potential of the $100M+ puzzle market."
+            "business_bio": f"{self.author}, CEO of KindleMint Publishing, has built a six-figure puzzle book business using systematic content creation and strategic marketing. Creator of {self.title} and pioneer of the KindleMint Method™, they help entrepreneurs understand the untapped potential of the $100M+ puzzle market.",
         }
-        
+
         # Media kit content
         media_kit = {
             "headshots": "Professional photos needed",
@@ -1143,18 +1144,22 @@ Their work has been featured in puzzle publications and they regularly speak abo
                 {
                     "title": f"{self.author} Launches {self.title} with Revolutionary Accessibility Focus",
                     "date": datetime.now().strftime("%Y-%m-%d"),
-                    "content": f"Local author {self.author} has released {self.title}, featuring groundbreaking large-print design specifically created for puzzle enthusiasts who value clarity and comfort..."
+                    "content": f"Local author {self.author} has released {self.title}, featuring groundbreaking large-print design specifically created for puzzle enthusiasts who value clarity and comfort...",
                 }
             ],
             "fact_sheet": {
                 "books_published": f"{self.series_name} series",
                 "readers_reached": "Thousands of puzzle enthusiasts worldwide",
                 "innovations": "KindleMint Method™ for systematic puzzle creation",
-                "focus_areas": ["Accessibility design", "Cognitive benefits", "Quality craftsmanship"],
-                "availability": "Available on Amazon and through select retailers"
-            }
+                "focus_areas": [
+                    "Accessibility design",
+                    "Cognitive benefits",
+                    "Quality craftsmanship",
+                ],
+                "availability": "Available on Amazon and through select retailers",
+            },
         }
-        
+
         # Speaking topics
         speaking_topics = [
             {
@@ -1163,14 +1168,14 @@ Their work has been featured in puzzle publications and they regularly speak abo
                 "audience": "Entrepreneurs, business groups",
                 "key_points": [
                     "Market size and opportunity analysis",
-                    "The KindleMint Method™ for systematic content creation", 
+                    "The KindleMint Method™ for systematic content creation",
                     "Case study: Building 6-figure puzzle business",
                     "AI tools for creative content scaling",
-                    "Distribution strategies and pricing models"
-                ]
+                    "Distribution strategies and pricing models",
+                ],
             },
             {
-                "title": "Puzzles as Brain Medicine: The Science of Cognitive Benefits", 
+                "title": "Puzzles as Brain Medicine: The Science of Cognitive Benefits",
                 "duration": "30-45 minutes",
                 "audience": "Senior groups, health organizations",
                 "key_points": [
@@ -1178,23 +1183,23 @@ Their work has been featured in puzzle publications and they regularly speak abo
                     "Accessibility design principles",
                     "Choosing puzzles for maximum benefit",
                     "Building daily mental fitness routines",
-                    "Community aspects of puzzle solving"
-                ]
+                    "Community aspects of puzzle solving",
+                ],
             },
             {
                 "title": "From Idea to Income: Systematic Content Creation",
-                "duration": "60-90 minutes", 
+                "duration": "60-90 minutes",
                 "audience": "Content creators, authors",
                 "key_points": [
                     "The KindleMint systematic approach",
                     "AI tools for content acceleration",
                     "Quality control at scale",
                     "Building sustainable content pipelines",
-                    "Monetization strategies beyond Amazon"
-                ]
-            }
+                    "Monetization strategies beyond Amazon",
+                ],
+            },
         ]
-        
+
         # Save authority materials
         authority_data = {
             "bios": bios,
@@ -1205,32 +1210,32 @@ Their work has been featured in puzzle publications and they regularly speak abo
                 f"Creator of {self.series_name} series",
                 "Inventor of KindleMint Method™",
                 "Puzzle accessibility advocate",
-                "Systematic publishing expert"
+                "Systematic publishing expert",
             ],
             "social_proof": [
                 f"{self.title} reached #1 in Puzzle Books category",
                 "Thousands of satisfied puzzle solvers",
                 "Featured expert in puzzle publications",
                 "Built 6-figure puzzle publishing business",
-                "Helped hundreds enter puzzle market"
-            ]
+                "Helped hundreds enter puzzle market",
+            ],
         }
-        
+
         authority_file = self.output_dir / "authority_positioning.json"
-        with open(authority_file, 'w') as f:
+        with open(authority_file, "w") as f:
             json.dump(authority_data, f, indent=2)
-        
+
         # Create speaker one-sheet
         speaker_sheet = self._create_speaker_onepage(authority_data)
         speaker_file = self.output_dir / "speaker_onesheet.md"
-        with open(speaker_file, 'w') as f:
+        with open(speaker_file, "w") as f:
             f.write(speaker_sheet)
-        
+
         return {
             "authority_positioning": str(authority_file),
-            "speaker_onesheet": str(speaker_file)
+            "speaker_onesheet": str(speaker_file),
         }
-    
+
     def _create_speaker_onepage(self, authority_data: Dict) -> str:
         """Create speaker one-page summary"""
         return f"""# {self.author} - Speaker One-Sheet
@@ -1285,33 +1290,37 @@ Signed copies of {self.title} for all attendees (author provides)
 def main():
     """CLI interface for prospecting automation"""
     import argparse
-    
+
     parser = argparse.ArgumentParser(description="KindleMint Prospecting Automation")
-    parser.add_argument("--book-config", required=True, help="Book configuration JSON file")
-    parser.add_argument("--artifacts-dir", required=True, help="Directory containing book artifacts")
-    
+    parser.add_argument(
+        "--book-config", required=True, help="Book configuration JSON file"
+    )
+    parser.add_argument(
+        "--artifacts-dir", required=True, help="Directory containing book artifacts"
+    )
+
     args = parser.parse_args()
-    
+
     # Load book configuration
-    with open(args.book_config, 'r') as f:
+    with open(args.book_config, "r") as f:
         book_config = json.load(f)
-    
+
     # Create mock artifacts for CLI usage
     artifacts = {
         "puzzles_dir": args.artifacts_dir,
-        "pdf_file": f"{args.artifacts_dir}/interior.pdf"
+        "pdf_file": f"{args.artifacts_dir}/interior.pdf",
     }
-    
+
     # Run prospecting automation
     automation = ProspectingAutomation(book_config, artifacts)
     results = automation.generate_prospecting_materials()
-    
+
     print(f"\n🎉 Prospecting materials generated successfully!")
     print(f"📁 Output directory: {automation.output_dir}")
-    
+
     for asset_type, file_path in results.items():
         print(f"   • {asset_type}: {file_path}")
-    
+
     return 0
 
 
