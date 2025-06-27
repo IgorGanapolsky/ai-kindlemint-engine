@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 
 import sentry_sdk
-from kdp_publisher import KdpPublisher
+# Remove circular import - KdpPublisher is defined in kdp_publisher.py which imports from this module
 from sentry_config import (
     SentryKDPOperation,
     add_breadcrumb,

@@ -47,12 +47,12 @@ class TestCrosswordValidators(unittest.TestCase):
         if valid_clues:
             if has_answers:
                 clues["across"] = [
-                    [1, "Test clue 1", "ANSWER"],
-                    [5, "Test clue 2", "WORD"],
+                    [1, "Test clue 1", "ANT"],  # 3 letters
+                    [5, "Test clue 2", "NEW"],  # 3 letters
                 ]
                 clues["down"] = [
-                    [1, "Test clue 3", "ANT"],
-                    [2, "Test clue 4", "NEW"],
+                    [1, "Test clue 3", "AND"],  # 3 letters
+                    [2, "Test clue 4", "NT"],  # 2 letters
                 ]
             else:
                 clues["across"] = [
@@ -69,12 +69,22 @@ class TestCrosswordValidators(unittest.TestCase):
             "theme": "Test Theme",
             "difficulty": "EASY",
             "clues": clues,
-            "clue_positions": {"0,0": 1, "0,5": 5, "1,0": 2},
+            "clue_positions": {"0,0": 1, "0,5": 5, "1,0": 2, "2,0": 3},
             "word_count": {
                 "across": len(clues["across"]),
                 "down": len(clues["down"]),
                 "total": len(clues["across"]) + len(clues["down"]),
             },
+            "grid_pattern": [
+                [".", ".", ".", "#", "#", ".", ".", "."],
+                [".", ".", ".", "#", "#", ".", ".", "."],
+                [".", ".", ".", ".", ".", ".", ".", "."],
+                ["#", "#", ".", ".", ".", ".", "#", "#"],
+                ["#", "#", ".", ".", ".", ".", "#", "#"],
+                [".", ".", ".", ".", ".", ".", ".", "."],
+                [".", ".", ".", "#", "#", ".", ".", "."],
+                [".", ".", ".", "#", "#", ".", ".", "."],
+            ],
         }
 
         puzzle_file = self.metadata_dir / f"puzzle_{puzzle_id:02d}.json"
@@ -90,6 +100,8 @@ class TestCrosswordValidators(unittest.TestCase):
         issues = validate_crossword(self.metadata_dir)
 
         # Should have no issues for valid puzzle
+        if issues:
+            print("Issues found:", issues)
         self.assertEqual(len(issues), 0)
 
     def test_validate_crossword_with_empty_answers(self):
@@ -117,6 +129,12 @@ class TestCrosswordValidators(unittest.TestCase):
                 "down": [[1, "Test clue", "123"]],  # Numbers
             },
             "clue_positions": {"0,0": 1},
+            "grid_pattern": [
+                [".", ".", ".", "#", "#", ".", ".", "."],
+                [".", ".", ".", "#", "#", ".", ".", "."],
+                [".", ".", ".", ".", ".", ".", ".", "."],
+                ["#", "#", ".", ".", ".", ".", "#", "#"],
+            ],
         }
 
         puzzle_file = self.metadata_dir / "puzzle_01.json"

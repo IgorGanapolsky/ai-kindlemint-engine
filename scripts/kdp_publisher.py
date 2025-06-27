@@ -1,20 +1,17 @@
 #!/usr/bin/env python3
 """
 KDP Publisher: Unified interface for KDP automation.
-Wraps the existing Sentry-monitored KDP logic in a consolidated class.
+Provides a standalone KDP publisher implementation.
 """
 
-from sentry_kdp_automation import SentryKDPPublisher
 
-
-class KdpPublisher(SentryKDPPublisher):
+class KdpPublisher:
     """
     Consolidated publisher class for Kindle Direct Publishing.
-    Inherits monitoring and error-handling from SentryKDPPublisher.
     """
 
     def __init__(self):
-        super().__init__()
+        self.operations_log = []
 
     def upload_book(self, book_metadata: dict) -> dict:
         """
