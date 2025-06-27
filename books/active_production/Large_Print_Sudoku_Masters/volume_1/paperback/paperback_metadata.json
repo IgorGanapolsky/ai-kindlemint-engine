@@ -1,0 +1,63 @@
+{
+  "title": "Large Print Sudoku Masters - Volume 1",
+  "subtitle": "100 Easy to Hard Puzzles for Hours of Brain Training",
+  "author": "Igor Ganapolsky",
+  "publisher": "Crossword Masters Publishing",
+  "series": {
+    "name": "Large Print Sudoku Masters",
+    "number": 1,
+    "total_volumes": 12
+  },
+  "format": {
+    "type": "paperback",
+    "trim_size": "6x9 inches",
+    "page_count": 104,
+    "interior": "black_and_white",
+    "paper_type": "white"
+  },
+  "pricing": {
+    "list_price": 9.97,
+    "currency": "USD",
+    "royalty_rate": 0.60
+  },
+  "categories": [
+    "Games, Puzzles & Trivia > Sudoku",
+    "Self-Help > Memory Improvement"
+  ],
+  "keywords": [
+    "large print sudoku",
+    "brain games seniors", 
+    "puzzle book adults",
+    "sudoku large print",
+    "brain training puzzles",
+    "senior activity book",
+    "logic puzzles easy"
+  ],
+  "description": "Give your brain the workout it deserves with Large Print Sudoku Masters Volume 1!\n\nPerfect for puzzle lovers of all ages, this collection features 100 carefully crafted Sudoku puzzles ranging from easy warm-ups to challenging brain-busters. The large print format ensures comfortable solving sessions without eye strain.\n\n✅ WHAT'S INSIDE:\n• 100 unique Sudoku puzzles with verified solutions\n• Progressive difficulty levels from easy to hard\n• Large, clear 6x9 format perfect for seniors\n• High-contrast grids for maximum readability\n• Complete solution section for every puzzle\n• Professional binding that lays flat\n\n✅ PERFECT FOR:\n• Seniors who love mental exercise\n• Anyone wanting to improve focus and memory\n• Puzzle enthusiasts seeking quality challenges\n• Gift-givers looking for engaging brain games\n\nEach puzzle has been thoroughly tested to ensure a single, logical solution. No guessing required - just pure logical thinking!\n\nWhether you're new to Sudoku or a seasoned solver, this book provides hours of engaging entertainment while keeping your mind sharp.\n\nStart your brain training journey today - your mind will thank you!\n\nVolume 2 coming soon with 100 all-new challenges!",
+  "target_audience": {
+    "primary": "Adults 45-75",
+    "secondary": "Puzzle enthusiasts, seniors, caregivers",
+    "age_range": "18 and up"
+  },
+  "copyright": {
+    "year": 2025,
+    "holder": "Crossword Masters Publishing",
+    "isbn": "978-1-XXXXXXX-XX-X"
+  },
+  "distribution": {
+    "territories": "worldwide",
+    "expanded_distribution": true,
+    "libraries_bookstores": true
+  },
+  "publication_status": {
+    "status": "ready_for_upload",
+    "created_date": "2025-06-27",
+    "last_updated": "2025-06-27",
+    "version": "1.0"
+  },
+  "files": {
+    "interior_pdf": "Large_Print_Sudoku_Masters_V1_COMPLETE.pdf",
+    "cover_pdf": null,
+    "qa_report": "ENHANCED_QA_REPORT_Large_Print_Sudoku_Masters_-_Volume_1_Interior.json"
+  }
+}
