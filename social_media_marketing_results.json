@@ -1,0 +1,215 @@
+{
+  "author": "John Expert",
+  "expertise_area": "Business Growth",
+  "processing_date": "2025-06-27T15:16:59.716403",
+  "content_library": [
+    {
+      "type": "tip",
+      "text": "Always start with your customer's biggest pain point",
+      "engagement_score": 0.8,
+      "keywords": [
+        "biggest",
+        "with",
+        "your",
+        "point",
+        "start"
+      ],
+      "hashtags": [
+        "#tips",
+        "#advice",
+        "#growth"
+      ]
+    },
+    {
+      "type": "quote",
+      "text": "The key to success is simplicity,",
+      "engagement_score": 0.75,
+      "keywords": [
+        "success",
+        "simplicity"
+      ],
+      "hashtags": [
+        "#quotes",
+        "#inspiration",
+        "#wisdom"
+      ]
+    },
+    {
+      "type": "quote",
+      "text": "The key to success is simplicity,",
+      "engagement_score": 0.75,
+      "keywords": [
+        "success",
+        "simplicity"
+      ],
+      "hashtags": [
+        "#quotes",
+        "#inspiration",
+        "#wisdom"
+      ]
+    },
+    {
+      "type": "question",
+      "text": "What would happen if we delighted every single customer?",
+      "engagement_score": 0.65,
+      "keywords": [
+        "would",
+        "what",
+        "happen",
+        "single",
+        "delighted"
+      ],
+      "hashtags": [
+        "#question",
+        "#discuss",
+        "#thoughts"
+      ]
+    }
+  ],
+  "optimized_posts": [
+    {
+      "platform": "linkedin",
+      "content": "💡 Insight:\n\nAlways start with your customer's biggest pain point\n\nWhat's your experience with this?",
+      "hashtags": [
+        "#tips",
+        "#advice",
+        "#growth"
+      ],
+      "cta": "What's your experience with this approach?",
+      "estimated_reach": 800,
+      "best_time": "8:00 AM"
+    },
+    {
+      "platform": "twitter",
+      "content": "🔥 Always start with your customer's biggest pain point",
+      "hashtags": [
+        "#tips",
+        "#advice",
+        "#growth"
+      ],
+      "cta": "What's your experience with this approach?",
+      "estimated_reach": 400,
+      "best_time": "9:00 AM"
+    },
+    {
+      "platform": "instagram",
+      "content": "✨ Always start with your customer's biggest pain point\n\n💫 Save this post for later!",
+      "hashtags": [
+        "#tips",
+        "#advice",
+        "#growth"
+      ],
+      "cta": "What's your experience with this approach?",
+      "estimated_reach": 640,
+      "best_time": "11:00 AM"
+    },
+    {
+      "platform": "linkedin",
+      "content": "💡 Insight:\n\nThe key to success is simplicity,\n\nWhat's your experience with this?",
+      "hashtags": [
+        "#quotes",
+        "#inspiration",
+        "#wisdom"
+      ],
+      "cta": "Does this resonate with you?",
+      "estimated_reach": 750,
+      "best_time": "8:00 AM"
+    },
+    {
+      "platform": "twitter",
+      "content": "🔥 The key to success is simplicity,",
+      "hashtags": [
+        "#quotes",
+        "#inspiration",
+        "#wisdom"
+      ],
+      "cta": "Does this resonate with you?",
+      "estimated_reach": 375,
+      "best_time": "9:00 AM"
+    },
+    {
+      "platform": "instagram",
+      "content": "✨ The key to success is simplicity,\n\n💫 Save this post for later!",
+      "hashtags": [
+        "#quotes",
+        "#inspiration",
+        "#wisdom"
+      ],
+      "cta": "Does this resonate with you?",
+      "estimated_reach": 600,
+      "best_time": "11:00 AM"
+    },
+    {
+      "platform": "linkedin",
+      "content": "💡 Insight:\n\nThe key to success is simplicity,\n\nWhat's your experience with this?",
+      "hashtags": [
+        "#quotes",
+        "#inspiration",
+        "#wisdom"
+      ],
+      "cta": "Does this resonate with you?",
+      "estimated_reach": 750,
+      "best_time": "8:00 AM"
+    },
+    {
+      "platform": "twitter",
+      "content": "🔥 The key to success is simplicity,",
+      "hashtags": [
+        "#quotes",
+        "#inspiration",
+        "#wisdom"
+      ],
+      "cta": "Does this resonate with you?",
+      "estimated_reach": 375,
+      "best_time": "9:00 AM"
+    },
+    {
+      "platform": "instagram",
+      "content": "✨ The key to success is simplicity,\n\n💫 Save this post for later!",
+      "hashtags": [
+        "#quotes",
+        "#inspiration",
+        "#wisdom"
+      ],
+      "cta": "Does this resonate with you?",
+      "estimated_reach": 600,
+      "best_time": "11:00 AM"
+    },
+    {
+      "platform": "linkedin",
+      "content": "💡 Insight:\n\nWhat would happen if we delighted every single customer?\n\nWhat's your experience with this?",
+      "hashtags": [
+        "#question",
+        "#discuss",
+        "#thoughts"
+      ],
+      "cta": "Share your thoughts in the comments!",
+      "estimated_reach": 650,
+      "best_time": "8:00 AM"
+    },
+    {
+      "platform": "twitter",
+      "content": "🔥 What would happen if we delighted every single customer?",
+      "hashtags": [
+        "#question",
+        "#discuss",
+        "#thoughts"
+      ],
+      "cta": "Share your thoughts in the comments!",
+      "estimated_reach": 325,
+      "best_time": "9:00 AM"
+    },
+    {
+      "platform": "instagram",
+      "content": "✨ What would happen if we delighted every single customer?\n\n💫 Save this post for later!",
+      "hashtags": [
+        "#question",
+        "#discuss",
+        "#thoughts"
+      ],
+      "cta": "Share your thoughts in the comments!",
+      "estimated_reach": 520,
+      "best_time": "11:00 AM"
+    }
+  ]
+}
