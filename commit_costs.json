@@ -1,5 +1,5 @@
 {
-  "total_cost": 101.65480500000002,
+  "total_cost": 133.98532499999988,
   "commits": [
     {
       "hash": "c08cdbab",
@@ -198,8 +198,26 @@
       "tokens": 204010,
       "files_changed": 48,
       "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "2bf65be9",
+      "timestamp": "2025-06-27T10:17:18.357824",
+      "message": "fix: Restore critical scripts to fix CI failures",
+      "cost": 0.009129,
+      "tokens": 358,
+      "files_changed": 1,
+      "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "2bf65be9",
+      "timestamp": "2025-06-27T10:28:05.321939",
+      "message": "Introduce Formatter interface and migrate create_professional_crossword_pdf to use it",
+      "cost": 32.32139099999986,
+      "tokens": 1266262,
+      "files_changed": 412,
+      "model": "claude-3-sonnet"
     }
   ],
   "first_tracked": "2025-06-26T16:52:19.989559",
-  "last_updated": "2025-06-27T10:13:44.726585"
+  "last_updated": "2025-06-27T10:28:05.321969"
 }
