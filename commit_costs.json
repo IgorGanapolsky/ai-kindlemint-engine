@@ -1,5 +1,5 @@
 {
-  "total_cost": 71.37438000000002,
+  "total_cost": 84.08529300000002,
   "commits": [
     {
       "hash": "c08cdbab",
@@ -90,8 +90,17 @@
       "tokens": 382379,
       "files_changed": 1,
       "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "09b0df1e",
+      "timestamp": "2025-06-26T23:40:23.872473",
+      "message": "fix: Fix Playwright installation on Ubuntu 24.04",
+      "cost": 12.710913,
+      "tokens": 487286,
+      "files_changed": 29,
+      "model": "claude-3-sonnet"
     }
   ],
   "first_tracked": "2025-06-26T16:52:19.989559",
-  "last_updated": "2025-06-26T23:24:34.940652"
+  "last_updated": "2025-06-26T23:40:23.872496"
 }
