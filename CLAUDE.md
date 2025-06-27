@@ -251,4 +251,18 @@ Task("Backend Team", "Implement APIs according to Memory specifications");
 - **Monitor progress** with TodoRead during long-running operations
 - **Enable parallel execution** with --parallel flags for maximum efficiency
 
+## CRITICAL FILE MANAGEMENT RULE
+- **ALWAYS DELETE OUTDATED FILES** before commit and push
+- **Never keep obsolete versions** that could cause confusion
+- **Replace outdated reports/files** with current versions
+- **Clean up deprecated content** to maintain repository hygiene
+- **This is MANDATORY** for all file operations and QA processes
+
 This configuration ensures optimal use of Claude Code's batch tools for swarm orchestration and parallel task execution with full Claude-Flow capabilities.
+
+# important-instruction-reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+**CRITICAL: ALWAYS DELETE OUTDATED FILES before commit and push - Never keep obsolete versions that could cause confusion**
