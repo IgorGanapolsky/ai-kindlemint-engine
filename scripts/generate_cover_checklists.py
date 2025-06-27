@@ -39,18 +39,24 @@ def generate_checklist(book_info):
 
 ### Suggested Prompt Template
 ```
-Create a professional book cover for "{title} Volume {volume}" - a large print crossword puzzle book. 
+Create a professional FULL WRAP book cover for "{title} Volume {volume}" - a large print crossword puzzle book. 
+CRITICAL: This is a FULL COVER (front + spine + back) for {format_type} binding.
+Full cover dimensions: {full_width}" wide x {full_height}" tall (includes 0.125" bleed)
+- Front cover area: 8.5" x 11" (right side)
+- Spine area: {spine_width}" wide (center)
+- Back cover area: 8.5" x 11" (left side)
+
 Design elements:
 - Clean, modern design suitable for seniors
-- Large, bold title text reading "{title}"
-- Prominent "Volume {volume}" indicator
-- "LARGE PRINT" badge or banner
+- Large, bold title text reading "{title}" on FRONT cover
+- Prominent "Volume {volume}" indicator on FRONT cover
+- "LARGE PRINT" badge or banner on FRONT cover
+- Spine text: Title and Volume number (rotated for bookshelf display)
+- Back cover: Book description area and barcode space (2" x 1.2" white box)
 - Subtle crossword grid pattern in background
 - Color scheme: [Suggest calming blues, greens, or warm colors]
 - Professional typography with high contrast
 - Minimalist style that prints well
-- Dimensions: 8.5 x 11 inches
-- Leave space for spine text ({spine_width} inches)
 Style: Professional, clean, accessible, senior-friendly
 ```
 

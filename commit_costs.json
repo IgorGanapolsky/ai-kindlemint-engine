@@ -1,5 +1,5 @@
 {
-  "total_cost": 84.44724000000002,
+  "total_cost": 84.86740350000002,
   "commits": [
     {
       "hash": "c08cdbab",
@@ -108,8 +108,26 @@
       "tokens": 14194,
       "files_changed": 14,
       "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "927c5cba",
+      "timestamp": "2025-06-26T23:51:47.596970",
+      "message": "feat: Add DALL-E prompt sections to all cover generation checklists",
+      "cost": 0.085731,
+      "tokens": 3362,
+      "files_changed": 2,
+      "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "927c5cba",
+      "timestamp": "2025-06-26T23:53:24.728333",
+      "message": "\ud83d\udd27 TECH DEBT: Script Consolidation Phase 1 Complete",
+      "cost": 0.3344325,
+      "tokens": 13115,
+      "files_changed": 11,
+      "model": "claude-3-sonnet"
     }
   ],
   "first_tracked": "2025-06-26T16:52:19.989559",
-  "last_updated": "2025-06-26T23:46:23.964358"
+  "last_updated": "2025-06-26T23:53:24.728362"
 }
