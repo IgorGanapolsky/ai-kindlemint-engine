@@ -9,12 +9,14 @@ from pathlib import Path
 from scripts.create_professional_crossword_pdf import ProfessionalCrosswordFormatter
 from scripts.create_real_crossword_book import RealCrosswordFormatter
 from scripts.enhanced_epub_generator import EnhancedEpubFormatter
+from scripts.book_layout_bot import BookLayoutFormatter
 
 # Registry of available formatters
 FORMATTERS = {
     "professional-crossword": ProfessionalCrosswordFormatter,
     "real-crossword": RealCrosswordFormatter,
     "enhanced-epub": EnhancedEpubFormatter,
+    "book-layout": BookLayoutFormatter,
 }
 
 

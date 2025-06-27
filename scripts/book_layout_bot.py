@@ -11,6 +11,7 @@ import re
 import sys
 from datetime import datetime
 from pathlib import Path
+from scripts.formatter import Formatter
 
 try:
     from PIL import Image
@@ -182,6 +183,50 @@ class BookLayoutBot:
         self._create_metadata_files(pdf_path)
 
         return pdf_path
+
+
+class BookLayoutFormatter(Formatter):
+    """
+    Formatter for PDF book interiors using BookLayoutBot.
+    """
+    def __init__(
+        self,
+        input_dir: str = None,
+        output_dir: str = None,
+        title: str = None,
+        author: str = None,
+        subtitle: str = None,
+        page_size: str = "letter",
+        font_size: int = 14,
+        include_solutions: bool = True,
+    ):
+        # Defaults for input/output directories
+        if input_dir is None:
+            input_dir = Path("books/active_production/Large_Print_Crossword_Masters/volume_1")
+        if output_dir is None:
+            output_dir = input_dir
+        # Defaults for metadata
+        if title is None:
+            title = "Crossword Book"
+        if author is None:
+            author = "Crossword Masters Publishing"
+        # Initialize underlying layout bot
+        self.bot = BookLayoutBot(
+            input_dir,
+            output_dir,
+            title,
+            author,
+            subtitle,
+            page_size,
+            font_size,
+            include_solutions,
+        )
+
+    def create_pdf(self) -> Path:
+        """
+        Generate the PDF interior using BookLayoutBot.
+        """
+        return self.bot.create_pdf_interior()
 
     def _create_title_page(self, c):
         """Create the title page"""
