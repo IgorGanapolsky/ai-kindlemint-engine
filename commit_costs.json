@@ -1,5 +1,5 @@
 {
-  "total_cost": 87.59769000000003,
+  "total_cost": 95.05135950000002,
   "commits": [
     {
       "hash": "c08cdbab",
@@ -162,8 +162,26 @@
       "tokens": 0,
       "files_changed": 0,
       "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "6c7be57d",
+      "timestamp": "2025-06-27T00:29:38.440306",
+      "message": "fix: Fix GitHub Actions workflow failures",
+      "cost": 0.1594485,
+      "tokens": 3937,
+      "files_changed": 1,
+      "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "6c7be57d",
+      "timestamp": "2025-06-27T00:37:39.707098",
+      "message": "Add unit tests for KdpPublisher and enhance CI to run full test suite with JSON report",
+      "cost": 7.294221,
+      "tokens": 283292,
+      "files_changed": 6,
+      "model": "claude-3-sonnet"
     }
   ],
   "first_tracked": "2025-06-26T16:52:19.989559",
-  "last_updated": "2025-06-27T00:26:40.896644"
+  "last_updated": "2025-06-27T00:37:39.707114"
 }

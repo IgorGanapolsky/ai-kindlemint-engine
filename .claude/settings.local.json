@@ -156,7 +156,8 @@
       "Bash(pdftotext:*)",
       "Bash(gh secret:*)",
       "Bash(curl:*)",
-      "Bash(./claude-flow-costs:*)"
+      "Bash(./claude-flow-costs:*)",
+      "WebFetch(domain:docs.cursor.com)"
     ],
     "deny": []
   }
