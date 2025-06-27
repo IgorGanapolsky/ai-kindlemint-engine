@@ -12,7 +12,7 @@ from pathlib import Path
 # Verified categories from actual KDP interface screenshots
 CORRECT_CATEGORIES = {
     "puzzle_books": [
-        "Crafts, Hobbies & Home > Activity Books",
+        "Crafts, Hobbies & Home > Crafts & Hobbies",
         "Self-Help > Memory Improvement", 
         "Health, Fitness & Dieting > Aging"
     ]
@@ -36,11 +36,12 @@ def fix_metadata_file(file_path):
             current = data['categories']
             print(f"  - Current categories: {current}")
             
-            # Fix incomplete categories (missing subcategories)
+            # Fix incomplete categories (missing subcategories) or wrong subcategories
             modified = False
             if (len(current) != 3 or 
                 any('>' not in cat for cat in current) or
-                any('Games, Puzzles' in cat for cat in current)):  # Hallucinated category
+                any('Games, Puzzles' in cat for cat in current) or  # Hallucinated category
+                any('Activity Books' in cat for cat in current)):   # Wrong subcategory
                 
                 print(f"  - Fixing categories")
                 data['categories'] = CORRECT_CATEGORIES["puzzle_books"]
