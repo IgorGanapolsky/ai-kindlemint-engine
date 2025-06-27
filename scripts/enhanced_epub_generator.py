@@ -10,6 +10,7 @@ from pathlib import Path
 from datetime import datetime
 import uuid
 from PIL import Image, ImageDraw, ImageFont
+from scripts.formatter import Formatter
 
 class EnhancedKindleEpubGenerator:
     """Generate high-converting EPUB with all improvements"""
@@ -59,6 +60,19 @@ class EnhancedKindleEpubGenerator:
         print(f"📱 Optimized for sales conversion")
         
         return epub_file
+    
+class EnhancedEpubFormatter(Formatter):
+    """
+    Formatter for enhanced EPUB generation.
+    """
+    def __init__(self, output_dir=None):
+        self.generator = EnhancedKindleEpubGenerator()
+        if output_dir:
+            self.generator.output_dir = Path(output_dir)
+
+    def create_pdf(self) -> Path:
+        # Create and return path to the generated EPUB file
+        return self.generator.create_enhanced_epub()
     
     def clear_build_dir(self):
         """Clear previous build"""
@@ -970,15 +984,11 @@ h4 {
         return epub_file
 
 def main():
-    """Generate enhanced EPUB for high conversion"""
-    
-    generator = EnhancedKindleEpubGenerator()
-    epub_file = generator.create_enhanced_epub()
-    
-    print(f"\n🚀 ENHANCED EPUB GENERATION COMPLETE")
-    print(f"📱 High-converting Kindle eBook ready")
-    print(f"✅ All improvements implemented")
-    print(f"🎯 Optimized for sales conversion and readability")
+    """Generate enhanced EPUB via Formatter interface"""
+    print("🚀 Enhanced EPUB Generation via Formatter...")
+    formatter = EnhancedEpubFormatter()
+    epub_file = formatter.create_pdf()
+    print(f"✅ Enhanced EPUB generated at: {epub_file}")
 
 if __name__ == "__main__":
     main()
