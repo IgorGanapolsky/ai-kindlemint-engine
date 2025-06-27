@@ -203,9 +203,12 @@ output/KDP_READY/
 output_backup_*/
 
 # Test and diagnostic files
+# Test and diagnostic files
 *_test_*.json
 test_*.py
 diagnose_*.py
+# Exceptions: keep test files under tests/ (they are part of the codebase)
+!tests/**
 response.json
 *_response.json
 system_integration_test_report.json

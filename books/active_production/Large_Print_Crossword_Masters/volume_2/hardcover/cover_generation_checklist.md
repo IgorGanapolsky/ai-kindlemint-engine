@@ -3,12 +3,12 @@
 ## Book Information
 - **Title**: Large Print Crossword Masters
 - **Volume**: 2
-- **Format**: Hardcover (8.5 x 11)
-- **Page Count**: 120 pages
-- **Spine Width**: 0.46 inches (calculated)
+- **Format**: Hardcover (6 x 9)
+- **Page Count**: 112 pages
+- **Spine Width**: 0.34 inches (calculated)
 
 ## Pre-Generation Requirements
-- [ ] Verify book dimensions (8.5 x 11)
+- [ ] Verify book dimensions (6 x 9)
 - [ ] Confirm page count for spine width calculation
 - [ ] Check KDP template requirements for Hardcover
 - [ ] Ensure all fonts are embedded or outlined
@@ -18,18 +18,24 @@
 
 ### Suggested Prompt Template
 ```
-Create a professional book cover for "Large Print Crossword Masters Volume 2" - a large print crossword puzzle book. 
-Design elements:
+Create a professional FULL WRAPAROUND book cover for "Large Print Crossword Masters Volume 2" - a large print crossword puzzle book.
+
+CRITICAL: This is a complete wraparound cover (back + spine + front) for hardcover binding.
+Full cover dimensions: 12.59" wide × 9.25" tall (includes 0.125" bleed on all edges)
+Spine width: 0.34" (centered in the design)
+Book format: 6 x 9 inches hardcover
+
+Design requirements:
+- Back cover (left side): Book description area, barcode space (2" × 1.2")
+- Spine (center, 0.34" wide): Title and volume number readable when shelved
+- Front cover (right side): Main design with title "Large Print Crossword Masters", "Volume 2", and "LARGE PRINT" badge
+
+Visual elements:
 - Clean, modern design suitable for seniors
-- Large, bold title text reading "Large Print Crossword Masters"
-- Prominent "Volume 2" indicator
-- "LARGE PRINT" badge or banner
+- Large, bold typography with high contrast
 - Subtle crossword grid pattern in background
-- Color scheme: [Suggest calming blues, greens, or warm colors]
-- Professional typography with high contrast
-- Minimalist style that prints well
-- Dimensions: 8.5 x 11 inches
-- Leave space for spine text (0.46 inches)
+- Professional color scheme (blues, greens, or warm colors)
+- Minimalist style that prints well at 300 DPI
 Style: Professional, clean, accessible, senior-friendly
 ```
 
@@ -67,7 +73,7 @@ Style: Professional, clean, accessible, senior-friendly
 - [ ] Font size appropriate for spine width
 
 ## Technical Specifications
-- [ ] Full cover dimensions: 17.71" x 11.25" (includes bleed)
+- [ ] Full cover dimensions: 12.59" x 9.25" (includes bleed)
 - [ ] Bleed: 0.125" on all sides
 - [ ] Safe zone: 0.25" from trim edge
 - [ ] File format: PDF (PDF/X-1a:2001 preferred)

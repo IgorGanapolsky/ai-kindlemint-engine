@@ -4,8 +4,8 @@
 - **Title**: Large Print Crossword Masters
 - **Volume**: 3
 - **Format**: Paperback (8.5 x 11)
-- **Page Count**: 105 pages
-- **Spine Width**: 0.263 inches (calculated)
+- **Page Count**: 107 pages
+- **Spine Width**: 0.2675 inches (calculated)
 
 ## Pre-Generation Requirements
 - [ ] Verify book dimensions (8.5 x 11)
@@ -18,18 +18,23 @@
 
 ### Suggested Prompt Template
 ```
-Create a professional book cover for "Large Print Crossword Masters Volume 3" - a large print crossword puzzle book. 
-Design elements:
+Create a professional FULL WRAPAROUND book cover for "Large Print Crossword Masters Volume 3" - a large print crossword puzzle book.
+
+CRITICAL: This is a complete wraparound cover (back + spine + front) for paperback binding.
+Full cover dimensions: 17.5175" wide × 11.25" tall (includes 0.125" bleed on all edges)
+Spine width: 0.2675" (centered in the design)
+
+Design requirements:
+- Back cover (left side): Book description area, barcode space (2" × 1.2")
+- Spine (center, 0.2675" wide): Title and volume number readable when shelved
+- Front cover (right side): Main design with title "Large Print Crossword Masters", "Volume 3", and "LARGE PRINT" badge
+
+Visual elements:
 - Clean, modern design suitable for seniors
-- Large, bold title text reading "Large Print Crossword Masters"
-- Prominent "Volume 3" indicator
-- "LARGE PRINT" badge or banner
+- Large, bold typography with high contrast
 - Subtle crossword grid pattern in background
-- Color scheme: [Suggest calming blues, greens, or warm colors]
-- Professional typography with high contrast
-- Minimalist style that prints well
-- Dimensions: 8.5 x 11 inches
-- Leave space for spine text (0.263 inches)
+- Professional color scheme (blues, greens, or warm colors)
+- Minimalist style that prints well at 300 DPI
 Style: Professional, clean, accessible, senior-friendly
 ```
 
@@ -67,7 +72,7 @@ Style: Professional, clean, accessible, senior-friendly
 - [ ] Font size appropriate for spine width
 
 ## Technical Specifications
-- [ ] Full cover dimensions: 17.513" x 11.25" (includes bleed)
+- [ ] Full cover dimensions: 17.5175" x 11.25" (includes bleed)
 - [ ] Bleed: 0.125" on all sides
 - [ ] Safe zone: 0.25" from trim edge
 - [ ] File format: PDF (PDF/X-1a:2001 preferred)

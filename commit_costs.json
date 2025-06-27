@@ -1,5 +1,5 @@
 {
-  "total_cost": 85.14364500000002,
+  "total_cost": 87.59769000000003,
   "commits": [
     {
       "hash": "c08cdbab",
@@ -135,8 +135,26 @@
       "tokens": 10833,
       "files_changed": 9,
       "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "de5838a9",
+      "timestamp": "2025-06-27T00:11:39.813097",
+      "message": "\ud83d\udd27 TECH DEBT: Script Consolidation Phase 1 Complete",
+      "cost": 0.3067395,
+      "tokens": 12029,
+      "files_changed": 10,
+      "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "de5838a9",
+      "timestamp": "2025-06-27T00:24:04.631696",
+      "message": "\ud83d\udd27 TECH DEBT: Script Consolidation (Phase 1)",
+      "cost": 2.1473055000000003,
+      "tokens": 74421,
+      "files_changed": 42,
+      "model": "claude-3-sonnet"
     }
   ],
   "first_tracked": "2025-06-26T16:52:19.989559",
-  "last_updated": "2025-06-26T23:54:32.458076"
+  "last_updated": "2025-06-27T00:24:04.631730"
 }

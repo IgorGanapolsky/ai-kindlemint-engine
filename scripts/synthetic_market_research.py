@@ -156,7 +156,7 @@ class PersonaFactory:
                 name="Robert Thompson",
                 type=PersonaType.RETIREE,
                 age=68,
-                occupation=
+                occupation="Retired Engineer",
                 interests=["reading", "gardening", "history", "mental fitness"],
                 pain_points=["cognitive health concerns", "filling time meaningfully", "vision issues"],
                 buying_behavior={

@@ -1,35 +1,41 @@
 #!/usr/bin/env python3
 """
 Generate cover generation checklists for all book volumes
+Using KDP official specifications and actual page counts
 """
 
 import os
+import sys
+import argparse
 from pathlib import Path
 from datetime import datetime
 
-def calculate_spine_width(page_count, format_type="hardcover"):
-    """Calculate spine width based on page count and format"""
-    if format_type == "hardcover":
-        # Hardcover uses thicker paper, approximately 0.003" per page
-        return round(page_count * 0.003 + 0.1, 3)  # 0.1" for board thickness
-    else:
-        # Paperback uses thinner paper, approximately 0.0025" per page
-        return round(page_count * 0.0025, 3)
+# Add the project root to the Python path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-def generate_checklist(book_info):
+from scripts.kdp_cover_calculator import KDPCoverCalculator
+
+def generate_checklist(book_info, dimensions):
     """Generate a cover checklist from template with book-specific information"""
+    
+    calculator = KDPCoverCalculator()
+    dalle_prompt = calculator.generate_dall_e_prompt(
+        book_info['title'], 
+        book_info['volume'], 
+        dimensions
+    )
     
     template = """# {format_type} Cover Generation Checklist
 
 ## Book Information
 - **Title**: {title}
 - **Volume**: {volume}
-- **Format**: {format_type} ({dimensions})
+- **Format**: {format_type} ({trim_size})
 - **Page Count**: {page_count} pages
 - **Spine Width**: {spine_width} inches (calculated)
 
 ## Pre-Generation Requirements
-- [ ] Verify book dimensions ({dimensions})
+- [ ] Verify book dimensions ({trim_size})
 - [ ] Confirm page count for spine width calculation
 - [ ] Check KDP template requirements for {format_type}
 - [ ] Ensure all fonts are embedded or outlined
@@ -39,25 +45,7 @@ def generate_checklist(book_info):
 
 ### Suggested Prompt Template
 ```
-Create a professional FULL WRAP book cover for "{title} Volume {volume}" - a large print crossword puzzle book. 
-CRITICAL: This is a FULL COVER (front + spine + back) for {format_type} binding.
-Full cover dimensions: {full_width}" wide x {full_height}" tall (includes 0.125" bleed)
-- Front cover area: 8.5" x 11" (right side)
-- Spine area: {spine_width}" wide (center)
-- Back cover area: 8.5" x 11" (left side)
-
-Design elements:
-- Clean, modern design suitable for seniors
-- Large, bold title text reading "{title}" on FRONT cover
-- Prominent "Volume {volume}" indicator on FRONT cover
-- "LARGE PRINT" badge or banner on FRONT cover
-- Spine text: Title and Volume number (rotated for bookshelf display)
-- Back cover: Book description area and barcode space (2" x 1.2" white box)
-- Subtle crossword grid pattern in background
-- Color scheme: [Suggest calming blues, greens, or warm colors]
-- Professional typography with high contrast
-- Minimalist style that prints well
-Style: Professional, clean, accessible, senior-friendly
+{dalle_prompt}
 ```
 
 ### Prompt Customization Notes
@@ -164,37 +152,41 @@ _Add any specific notes about this cover generation below:_
 - [Cover Calculator](https://kdp.amazon.com/cover-calculator)
 - [Template Generator](https://kdp.amazon.com/template-generator)"""
     
-    # Calculate full cover dimensions (includes spine and bleed)
-    width, height = map(float, book_info['dimensions'].replace('"', '').split(' x '))
-    full_width = round((width * 2) + book_info['spine_width'] + 0.25, 3)  # Front + back + spine + bleed
-    full_height = round(height + 0.25, 3)  # Height + bleed
-    
     return template.format(
         format_type=book_info['format_type'],
         title=book_info['title'],
         volume=book_info['volume'],
-        dimensions=book_info['dimensions'],
+        trim_size=dimensions['trim_size'].replace('x', ' x '),
         page_count=book_info['page_count'],
-        spine_width=book_info['spine_width'],
+        spine_width=dimensions['spine_width'],
         special_feature=book_info.get('special_feature', 'LARGE PRINT'),
-        full_width=full_width,
-        full_height=full_height
+        full_width=dimensions['full_width'],
+        full_height=dimensions['full_height'],
+        dalle_prompt=dalle_prompt
     )
 
 def main():
     """Generate cover checklists for all book volumes"""
     
-    # Define book series information
+    parser = argparse.ArgumentParser(description="Generate cover checklists for book volumes")
+    parser.add_argument("--force", "-f", action="store_true", 
+                        help="Force regeneration of existing checklists")
+    args = parser.parse_args()
+    
+    calculator = KDPCoverCalculator()
+    
+    # Define book series information with actual page counts
     book_series = {
         "Large_Print_Crossword_Masters": {
             "title": "Large Print Crossword Masters",
             "special_feature": "LARGE PRINT",
-            "dimensions": "8.5 x 11",
+            "paperback_trim": "8.5x11",
+            "hardcover_trim": "6x9",
             "volumes": {
-                1: {"pages": 105},
-                2: {"pages": 120},
-                3: {"pages": 105},
-                4: {"pages": 110}
+                1: {"pages": 104},
+                2: {"pages": 112},
+                3: {"pages": 107},
+                4: {"pages": 156}
             }
         }
     }
@@ -225,24 +217,35 @@ def main():
                 
                 checklist_path = format_path / "cover_generation_checklist.md"
                 
-                # Skip if already exists
-                if checklist_path.exists():
+                # Skip if already exists (unless force flag is set)
+                if checklist_path.exists() and not args.force:
                     print(f"✓ Checklist already exists: {checklist_path}")
                     continue
+                
+                # Determine trim size based on format
+                if format_type == "paperback":
+                    trim_size = series_info["paperback_trim"]
+                else:  # hardcover
+                    trim_size = series_info["hardcover_trim"]
+                
+                # Calculate dimensions using KDP calculator
+                dimensions = calculator.calculate_full_cover_dimensions(
+                    trim_size, 
+                    volume_info["pages"], 
+                    format_type
+                )
                 
                 # Prepare book information
                 book_info = {
                     "title": series_info["title"],
                     "volume": volume_num,
                     "format_type": format_type.capitalize(),
-                    "dimensions": series_info["dimensions"],
                     "page_count": volume_info["pages"],
-                    "spine_width": calculate_spine_width(volume_info["pages"], format_type),
                     "special_feature": series_info["special_feature"]
                 }
                 
                 # Generate and save checklist
-                checklist_content = generate_checklist(book_info)
+                checklist_content = generate_checklist(book_info, dimensions)
                 
                 with open(checklist_path, 'w') as f:
                     f.write(checklist_content)
@@ -252,6 +255,12 @@ def main():
     
     print(f"\n📋 Generated {generated_count} cover checklists")
     print(f"📅 Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    
+    if generated_count == 0 and not args.force:
+        print("\n💡 Tip: Use --force flag to regenerate existing checklists")
+    else:
+        print("\n✅ All checklists now use correct KDP dimensions!")
+        print("📐 Remember: Paperback = 8.5×11, Hardcover = 6×9")
 
 if __name__ == "__main__":
     main()

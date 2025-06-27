@@ -42,8 +42,11 @@ jobs:
       - name: Run pre-commit hooks
         run: pre-commit run --all-files
 
-      - name: Run end-to-end pipeline tests
-        run: pytest tests/test_end_to_end_pipeline.py
+      - name: Run full test suite with JSON report
+        run: |
+          # Run all tests and generate JSON report for further analysis
+          pytest --maxfail=1 --disable-warnings --json-report \
+                 --json-report-file=system_integration_test_report.json
 
       - name: Upload system integration test report
         if: always()
