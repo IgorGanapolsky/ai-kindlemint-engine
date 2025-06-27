@@ -1,5 +1,9 @@
 import setuptools
 
+"""
+setup.py: Defines package metadata and dependencies for the ai_kindlemint_engine project.
+"""
+
 setuptools.setup(
     name="ai_kindlemint_engine",
     version="0.1.0",
@@ -14,7 +18,6 @@ setuptools.setup(
         "playwright>=1.40.0",
         "nova-act>=0.1.0",
         "boto3>=1.34.0",
-        # Selenium and webdriver-manager removed. Using Playwright for browser automation.
         "openai>=1.3.0",
         "nltk>=3.6.5",
         "markdown2>=2.4.3",
@@ -26,13 +29,13 @@ setuptools.setup(
         "google-auth-httplib2>=0.2.0",
         "google-auth-oauthlib>=1.1.0",
         "sentry-sdk>=1.40.0",
-        "schedule>=1.2.0",
     ],
     extras_require={
         "dev": [
             "pytest>=6.2.5",
             "pytest-cov>=3.0.0",
             "pytest-mock>=3.10.0",
+            "pytest-json-report>=1.4.0",
             "black>=22.1.0",
             "flake8>=4.0.1",
             "isort>=5.10.1",
