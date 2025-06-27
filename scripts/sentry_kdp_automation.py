@@ -9,6 +9,7 @@ import json
 import time
 from datetime import datetime
 from sentry_config import init_sentry, SentryKDPOperation, add_breadcrumb, capture_kdp_error
+from kdp_publisher import KdpPublisher
 import sentry_sdk
 
 class SentryKDPPublisher:
@@ -175,7 +176,7 @@ def run_sentry_kdp_automation():
     print("🤖 Seer AI: Zero-touch debugging for browser automation")
     print("=" * 60)
     
-    publisher = SentryKDPPublisher()
+    publisher = KdpPublisher()
     
     # Test book metadata
     test_book = {
@@ -198,7 +199,7 @@ def run_sentry_kdp_automation():
                      })
         
         # Execute KDP upload with full monitoring
-        result = publisher.simulate_kdp_upload_process(test_book)
+        result = publisher.upload_book(test_book)
         
         # Save automation results for Seer AI analysis
         os.makedirs('automation_logs/kdp_results', exist_ok=True)
