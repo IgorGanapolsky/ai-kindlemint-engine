@@ -4,7 +4,7 @@
 This document tracks the status of cover generation checklists across all active book productions.
 
 **Last Updated**: 2025-06-26
-**Latest Update**: Added DALL-E prompt sections to all checklists
+**Latest Update**: CRITICAL FIX - Corrected all DALL-E prompts to use FULL COVER dimensions
 
 ## Checklist Coverage
 
@@ -20,9 +20,11 @@ This document tracks the status of cover generation checklists across all active
 
 ## Key Features
 
-### DALL-E Prompt Integration
+### DALL-E Prompt Integration ⚠️ CRITICAL UPDATE
 All checklists now include:
-- **Prompt Template**: Ready-to-use DALL-E prompts with volume-specific details
+- **Prompt Template**: CORRECTED to specify FULL WRAP cover dimensions (not single page!)
+- **Full Cover Dimensions**: Properly calculated as (8.5" × 2) + spine + 0.25" bleed
+- **Layout Specification**: Clear "Back | Spine | Front" layout in prompts
 - **Spine Width**: Automatically calculated and included in prompts
 - **Customization Notes**: Guidelines for differentiating volumes
 - **Color Schemes**: Volume-specific color recommendations in `scripts/volume_specific_cover_prompts.py`
@@ -49,9 +51,13 @@ All checklists now include:
 | 110 pages | 0.43" | 0.275" |
 | 120 pages | 0.46" | 0.3" |
 
-### Full Cover Dimensions (with bleed)
-- **Hardcover**: 17.665" - 17.71" x 11.25" (varies by spine width)
-- **Paperback**: 17.275" - 17.35" x 11.25" (varies by spine width)
+### Full Cover Dimensions (with bleed) - CORRECTED
+| Format | Volume 1 | Volume 2 | Volume 3 | Volume 4 |
+|--------|----------|----------|----------|----------|
+| **Hardcover** | 17.665" × 11.25" | 17.71" × 11.25" | 17.665" × 11.25" | 17.68" × 11.25" |
+| **Paperback** | 17.513" × 11.25" | 17.55" × 11.25" | 17.513" × 11.25" | 17.525" × 11.25" |
+
+**Critical**: These are FULL WRAP dimensions (back + spine + front), NOT single page dimensions!
 
 ## Quality Assurance
 
@@ -103,6 +109,7 @@ find books/active_production -name "cover.pdf" -o -name "cover.png" | sort
 - [Spine Width Calculator](https://kdp.amazon.com/cover-calculator)
 - [Print Quality Guidelines](https://kdp.amazon.com/help/topic/G201953020)
 - Cover Checklist Template: `/templates/cover_generation_checklist_template.md`
+- **Full Cover Dimensions Reference**: `/books/active_production/FULL_COVER_DIMENSIONS_REFERENCE.md`
 
 ---
 
