@@ -1,0 +1,35 @@
+name: Test MoA Pipeline
+
+on:
+  push:
+    branches: [main, droid/**]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-moa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+
+      - name: Run unit tests
+        run: |
+          pytest tests/unit/test_publishing_moa.py
+
+      - name: Upload test logs
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: moa-test-logs
+          path: tests/unit/__pycache__/
