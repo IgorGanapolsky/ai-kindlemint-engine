@@ -1,5 +1,5 @@
 {
-  "total_cost": 32.1301095,
+  "total_cost": 41.96469450000001,
   "commits": [
     {
       "hash": "c08cdbab",
@@ -54,8 +54,17 @@
       "tokens": 430144,
       "files_changed": 10,
       "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "5345353c",
+      "timestamp": "2025-06-26T23:08:22.713874",
+      "message": "\ud83d\udd27 Fix remaining CI workflows: Add PYTHONPATH and dependencies",
+      "cost": 9.834585,
+      "tokens": 385670,
+      "files_changed": 3,
+      "model": "claude-3-sonnet"
     }
   ],
   "first_tracked": "2025-06-26T16:52:19.989559",
-  "last_updated": "2025-06-26T17:14:54.625269"
+  "last_updated": "2025-06-26T23:08:22.713897"
 }

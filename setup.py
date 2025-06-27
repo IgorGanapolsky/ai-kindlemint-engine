@@ -26,6 +26,7 @@ setuptools.setup(
         "google-auth-httplib2>=0.2.0",
         "google-auth-oauthlib>=1.1.0",
         "sentry-sdk>=1.40.0",
+        "schedule>=1.2.0",
     ],
     extras_require={
         "dev": [
