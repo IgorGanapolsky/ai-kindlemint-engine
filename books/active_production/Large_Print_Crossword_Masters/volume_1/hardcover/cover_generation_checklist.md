@@ -3,16 +3,42 @@
 ## Book Information
 - **Title**: Large Print Crossword Masters
 - **Volume**: 1
-- **Format**: Hardcover (8.5" x 11")
+- **Format**: Hardcover (8.5 x 11)
 - **Page Count**: 105 pages
-- **Spine Width**: 0.316 inches (calculated)
+- **Spine Width**: 0.415 inches (calculated)
 
 ## Pre-Generation Requirements
-- [ ] Verify book dimensions (8.5" x 11")
+- [ ] Verify book dimensions (8.5 x 11)
 - [ ] Confirm page count for spine width calculation
-- [ ] Check KDP template requirements for hardcover
+- [ ] Check KDP template requirements for Hardcover
 - [ ] Ensure all fonts are embedded or outlined
 - [ ] Verify color profile (CMYK for print)
+
+## DALL-E Prompt for Cover
+
+### Suggested Prompt Template
+```
+Create a professional book cover for "Large Print Crossword Masters Volume 1" - a large print crossword puzzle book. 
+Design elements:
+- Clean, modern design suitable for seniors
+- Large, bold title text reading "Large Print Crossword Masters"
+- Prominent "Volume 1" indicator
+- "LARGE PRINT" badge or banner
+- Subtle crossword grid pattern in background
+- Color scheme: [Suggest calming blues, greens, or warm colors]
+- Professional typography with high contrast
+- Minimalist style that prints well
+- Dimensions: 8.5 x 11 inches
+- Leave space for spine text (0.415 inches)
+Style: Professional, clean, accessible, senior-friendly
+```
+
+### Prompt Customization Notes
+- [ ] Adjust color scheme for each volume to differentiate
+- [ ] Consider seasonal themes if applicable
+- [ ] Ensure high contrast for visibility
+- [ ] Avoid overly complex backgrounds
+- [ ] Test prompt variations for best results
 
 ## Cover Design Elements
 
@@ -41,7 +67,7 @@
 - [ ] Font size appropriate for spine width
 
 ## Technical Specifications
-- [ ] Full cover dimensions: 17.316" x 11.25" (includes bleed)
+- [ ] Full cover dimensions: 17.665" x 11.25" (includes bleed)
 - [ ] Bleed: 0.125" on all sides
 - [ ] Safe zone: 0.25" from trim edge
 - [ ] File format: PDF (PDF/X-1a:2001 preferred)

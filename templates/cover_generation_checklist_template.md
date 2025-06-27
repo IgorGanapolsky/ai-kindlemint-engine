@@ -14,6 +14,32 @@
 - [ ] Ensure all fonts are embedded or outlined
 - [ ] Verify color profile (CMYK for print)
 
+## DALL-E Prompt for Cover
+
+### Suggested Prompt Template
+```
+Create a professional book cover for "[BOOK TITLE] Volume [VOLUME NUMBER]" - [BOOK DESCRIPTION]. 
+Design elements:
+- Clean, modern design suitable for target audience
+- Large, bold title text reading "[BOOK TITLE]"
+- Prominent "Volume [VOLUME NUMBER]" indicator
+- [SPECIAL FEATURES] badge or banner
+- [THEME-SPECIFIC BACKGROUND]
+- Color scheme: [SUGGESTED COLORS]
+- Professional typography with high contrast
+- Minimalist style that prints well
+- Dimensions: [WIDTH] x [HEIGHT] inches
+- Leave space for spine text ([SPINE WIDTH] inches)
+Style: Professional, clean, accessible, [TARGET AUDIENCE]-friendly
+```
+
+### Prompt Customization Notes
+- [ ] Adjust color scheme for each volume to differentiate
+- [ ] Consider seasonal themes if applicable
+- [ ] Ensure high contrast for visibility
+- [ ] Avoid overly complex backgrounds
+- [ ] Test prompt variations for best results
+
 ## Cover Design Elements
 
 ### Front Cover

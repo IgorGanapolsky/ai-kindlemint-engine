@@ -1,11 +1,11 @@
 {
-  "last_analysis": "2025-06-26T23:40:23.934327",
-  "full_repo_cost": 9.118422,
-  "worktree_cost": 12.710913,
-  "savings_potential": -3.592490999999999,
+  "last_analysis": "2025-06-26T23:46:24.081059",
+  "full_repo_cost": 9.17127,
+  "worktree_cost": 0.361947,
+  "savings_potential": 8.809323,
   "commit_details": {
-    "files_analyzed": 29,
-    "total_tokens": 487286,
+    "files_analyzed": 14,
+    "total_tokens": 14194,
     "model_used": "claude-3-sonnet"
   }
 }

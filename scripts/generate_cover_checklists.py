@@ -35,6 +35,32 @@ def generate_checklist(book_info):
 - [ ] Ensure all fonts are embedded or outlined
 - [ ] Verify color profile (CMYK for print)
 
+## DALL-E Prompt for Cover
+
+### Suggested Prompt Template
+```
+Create a professional book cover for "{title} Volume {volume}" - a large print crossword puzzle book. 
+Design elements:
+- Clean, modern design suitable for seniors
+- Large, bold title text reading "{title}"
+- Prominent "Volume {volume}" indicator
+- "LARGE PRINT" badge or banner
+- Subtle crossword grid pattern in background
+- Color scheme: [Suggest calming blues, greens, or warm colors]
+- Professional typography with high contrast
+- Minimalist style that prints well
+- Dimensions: 8.5 x 11 inches
+- Leave space for spine text ({spine_width} inches)
+Style: Professional, clean, accessible, senior-friendly
+```
+
+### Prompt Customization Notes
+- [ ] Adjust color scheme for each volume to differentiate
+- [ ] Consider seasonal themes if applicable
+- [ ] Ensure high contrast for visibility
+- [ ] Avoid overly complex backgrounds
+- [ ] Test prompt variations for best results
+
 ## Cover Design Elements
 
 ### Front Cover

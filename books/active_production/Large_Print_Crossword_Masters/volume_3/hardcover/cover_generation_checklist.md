@@ -14,6 +14,32 @@
 - [ ] Ensure all fonts are embedded or outlined
 - [ ] Verify color profile (CMYK for print)
 
+## DALL-E Prompt for Cover
+
+### Suggested Prompt Template
+```
+Create a professional book cover for "Large Print Crossword Masters Volume 3" - a large print crossword puzzle book. 
+Design elements:
+- Clean, modern design suitable for seniors
+- Large, bold title text reading "Large Print Crossword Masters"
+- Prominent "Volume 3" indicator
+- "LARGE PRINT" badge or banner
+- Subtle crossword grid pattern in background
+- Color scheme: [Suggest calming blues, greens, or warm colors]
+- Professional typography with high contrast
+- Minimalist style that prints well
+- Dimensions: 8.5 x 11 inches
+- Leave space for spine text (0.415 inches)
+Style: Professional, clean, accessible, senior-friendly
+```
+
+### Prompt Customization Notes
+- [ ] Adjust color scheme for each volume to differentiate
+- [ ] Consider seasonal themes if applicable
+- [ ] Ensure high contrast for visibility
+- [ ] Avoid overly complex backgrounds
+- [ ] Test prompt variations for best results
+
 ## Cover Design Elements
 
 ### Front Cover

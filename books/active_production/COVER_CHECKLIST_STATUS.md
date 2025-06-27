@@ -4,6 +4,7 @@
 This document tracks the status of cover generation checklists across all active book productions.
 
 **Last Updated**: 2025-06-26
+**Latest Update**: Added DALL-E prompt sections to all checklists
 
 ## Checklist Coverage
 
@@ -16,6 +17,23 @@ This document tracks the status of cover generation checklists across all active
 | Volume 4 | ✅ | ✅ | 110 pages |
 
 **Total Checklists**: 8/8 (100% coverage)
+
+## Key Features
+
+### DALL-E Prompt Integration
+All checklists now include:
+- **Prompt Template**: Ready-to-use DALL-E prompts with volume-specific details
+- **Spine Width**: Automatically calculated and included in prompts
+- **Customization Notes**: Guidelines for differentiating volumes
+- **Color Schemes**: Volume-specific color recommendations in `scripts/volume_specific_cover_prompts.py`
+
+### Volume Color Themes
+| Volume | Primary Colors | Theme |
+|--------|----------------|--------|
+| Volume 1 | Blues & Whites | Fresh beginnings, morning sky |
+| Volume 2 | Greens & Earth tones | Growth and nature |
+| Volume 3 | Oranges & Yellows | Autumn warmth |
+| Volume 4 | Purples & Royal Blues | Wisdom and depth |
 
 ## Key Information
 
@@ -55,6 +73,11 @@ This document tracks the status of cover generation checklists across all active
 ### Generate Missing Checklists
 ```bash
 python3 scripts/generate_cover_checklists.py
+```
+
+### Generate Volume-Specific Cover Prompts
+```bash
+python3 scripts/volume_specific_cover_prompts.py
 ```
 
 ### Verify All Checklists
