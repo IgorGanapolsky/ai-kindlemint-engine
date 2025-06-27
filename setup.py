@@ -5,10 +5,11 @@ setup.py: Defines package metadata and dependencies for the ai_kindlemint_engine
 """
 
 setuptools.setup(
-    name="ai_kindlemint_engine",
+    name="kindlemint",
     version="0.1.0",
     description="AI KindleMint Engine for automated content generation and formatting",
-    packages=setuptools.find_packages(exclude=["tests", "scripts", "docs", "assets"]),
+    packages=setuptools.find_packages(where="src"),
+    package_dir={"": "src"},
     install_requires=[
         "python-dotenv>=1.0.0",
         "requests>=2.31.0",

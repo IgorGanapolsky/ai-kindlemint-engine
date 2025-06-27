@@ -58,7 +58,10 @@ class ConfigLoader:
         if self._initialized:
             return
         
-        self.project_root = Path(__file__).parent.parent.resolve()
+        # Find the project root (contains src/, scripts/, config/ directories)
+        current_path = Path(__file__).resolve()
+        # Go up from src/kindlemint/utils/config.py to project root
+        self.project_root = current_path.parent.parent.parent.parent
         self.config_path = self.project_root / "config" / "config.yaml"
         
         self._config = self._load_yaml()
