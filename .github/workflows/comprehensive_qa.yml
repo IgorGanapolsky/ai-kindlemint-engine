@@ -49,9 +49,14 @@ jobs:
         python -m pip install --upgrade pip
         # Install system dependencies for downstream jobs
         sudo apt-get update && sudo apt-get install -y jq
-        # Install Python dependencies
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install pytest pytest-cov
+        # Install Python dependencies with locked versions
+        if [ -f requirements-locked.txt ]; then
+          pip install --require-hashes -r requirements-locked.txt
+        elif [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        fi
+        # Install test dependencies
+        pip install pytest pytest-cov pytest-json-report
         
     - name: 🎯 Set Test Scope
       id: set-scope
@@ -108,7 +113,12 @@ jobs:
     - name: 📦 Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        # Install Python dependencies with locked versions
+        if [ -f requirements-locked.txt ]; then
+          pip install --require-hashes -r requirements-locked.txt
+        elif [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        fi
         
     - name: 🧪 Test Generator Help
       run: |
@@ -165,7 +175,12 @@ jobs:
     - name: 📦 Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        # Install Python dependencies with locked versions
+        if [ -f requirements-locked.txt ]; then
+          pip install --require-hashes -r requirements-locked.txt
+        elif [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        fi
         
     - name: 🗂️ Find Book Directories
       id: find-books
