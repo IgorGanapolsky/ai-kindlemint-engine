@@ -1,0 +1,242 @@
+# Botpress Integration Configuration for KindleMint
+# This file configures the Botpress integration with KindleMint's publishing platform
+# to create a conversational publishing ecosystem
+
+# Environment Configuration
+environment:
+  default: development
+  environments:
+    development:
+      base_url: https://api.botpress.cloud/v1
+      timeout: 30
+      track_costs: true
+      webhook_base_url: http://localhost:5000/api/webhooks/botpress
+    staging:
+      base_url: https://api.botpress.cloud/v1
+      timeout: 30
+      track_costs: true
+      webhook_base_url: https://staging.kindlemint.com/api/webhooks/botpress
+    production:
+      base_url: https://api.botpress.cloud/v1
+      timeout: 45
+      track_costs: true
+      webhook_base_url: https://api.kindlemint.com/api/webhooks/botpress
+
+# API Configuration
+api:
+  # These values should be set in environment variables, not hardcoded
+  # BOTPRESS_API_KEY and BOTPRESS_WORKSPACE_ID must be set
+  env_vars:
+    api_key: BOTPRESS_API_KEY
+    workspace_id: BOTPRESS_WORKSPACE_ID
+    base_url: BOTPRESS_BASE_URL
+    timeout: BOTPRESS_TIMEOUT
+    track_costs: BOTPRESS_TRACK_COSTS
+    webhook_secret: BOTPRESS_WEBHOOK_SECRET
+
+# Bot Configurations
+bots:
+  author_interview_bot:
+    name: KindleMint Author Interview
+    type: author_interview
+    description: Conducts structured interviews to extract book content
+    functions:
+      - ask_probing_questions
+      - capture_voice_and_tone
+      - auto-structure_chapters
+    flows:
+      - name: author_interview
+        path: flows/author_interview.json
+      - name: book_structure
+        path: flows/book_structure.json
+    webhooks:
+      - event: conversation.completed
+        endpoint: /author/interview/completed
+        description: Triggered when author interview is complete
+      - event: conversation.updated
+        endpoint: /author/interview/updated
+        description: Triggered when author interview is updated
+
+  reader_feedback_bot:
+    name: KindleMint Reader Feedback
+    type: reader_feedback
+    description: Collects reader insights and feedback
+    functions:
+      - run_in-chat_surveys
+      - summarize_sentiment
+      - generate_improvement_recs
+    flows:
+      - name: reader_feedback
+        path: flows/reader_feedback.json
+      - name: satisfaction_survey
+        path: flows/satisfaction_survey.json
+    webhooks:
+      - event: conversation.completed
+        endpoint: /reader/feedback/completed
+        description: Triggered when reader feedback is complete
+      - event: feedback.submitted
+        endpoint: /reader/feedback/submitted
+        description: Triggered when specific feedback is submitted
+
+  writing_coach_bot:
+    name: KindleMint Writing Coach
+    type: writing_coach
+    description: Real-time stylistic feedback & motivation
+    functions:
+      - suggest_style_edits
+      - overcome_writers_block
+      - set_daily_word_goals
+    flows:
+      - name: writing_coach
+        path: flows/writing_coach.json
+      - name: style_analysis
+        path: flows/style_analysis.json
+      - name: goal_setting
+        path: flows/goal_setting.json
+    webhooks:
+      - event: conversation.completed
+        endpoint: /writing/coach/completed
+        description: Triggered when coaching session is complete
+      - event: goal.created
+        endpoint: /writing/goal/created
+        description: Triggered when a writing goal is set
+
+  marketing_bot:
+    name: KindleMint Marketing Assistant
+    type: marketing
+    description: Multi-channel customer engagement
+    functions:
+      - lead_qualification
+      - book_recommendation
+      - upsell_conversation
+      - webinar_registration
+    flows:
+      - name: marketing_assistant
+        path: flows/marketing_assistant.json
+      - name: lead_qualification
+        path: flows/lead_qualification.json
+      - name: premium_promotion
+        path: flows/premium_promotion.json
+      - name: webinar_registration
+        path: flows/webinar_registration.json
+    webhooks:
+      - event: conversation.completed
+        endpoint: /marketing/conversation/completed
+        description: Triggered when marketing conversation is complete
+      - event: lead.qualified
+        endpoint: /marketing/lead/qualified
+        description: Triggered when a lead is qualified
+      - event: webinar.registered
+        endpoint: /marketing/webinar/registered
+        description: Triggered when a user registers for a webinar
+
+# Webhook Configuration
+webhooks:
+  global:
+    secret_env_var: BOTPRESS_WEBHOOK_SECRET
+    headers:
+      Content-Type: application/json
+      User-Agent: Botpress-KindleMint-Integration
+    retry:
+      max_attempts: 3
+      initial_delay: 2000  # milliseconds
+      max_delay: 10000     # milliseconds
+      backoff_factor: 2
+  
+  events:
+    - name: conversation.started
+      description: Triggered when a new conversation starts
+      handler: handle_conversation_started
+    - name: conversation.completed
+      description: Triggered when a conversation is completed
+      handler: handle_conversation_completed
+    - name: message.created
+      description: Triggered when a new message is created
+      handler: handle_message_created
+    - name: message.received
+      description: Triggered when a message is received from a user
+      handler: handle_message_received
+
+# Integration with KindleMint MoA (Mixture of Agents)
+moa_integration:
+  endpoints:
+    conversation_to_content: /api/v1/conversation_to_content
+    content_to_book: /api/v1/content_to_book
+    feedback_to_insights: /api/v1/feedback_to_insights
+  timeout: 60  # seconds
+  retry:
+    enabled: true
+    max_attempts: 3
+    delay: 5  # seconds
+
+# Cost Tracking
+cost_tracking:
+  enabled: true
+  service_name: botpress
+  daily_limit: 50.00  # USD
+  alert_threshold: 0.8  # 80% of daily limit
+  notifications:
+    email: alerts@kindlemint.com
+    slack_webhook_env_var: BOTPRESS_COST_SLACK_WEBHOOK
+
+# Implementation Phases
+phases:
+  - id: 1
+    name: MVP Author Bot
+    timeline: Weeks 1-2
+    bots:
+      - author_interview_bot
+    endpoints:
+      - /api/v1/conversation_to_content
+    status: planned
+  
+  - id: 2
+    name: Reader Engagement Bots
+    timeline: Weeks 3-4
+    bots:
+      - reader_feedback_bot
+    endpoints:
+      - /api/v1/feedback_to_insights
+    status: planned
+  
+  - id: 3
+    name: Conversational Ecosystem
+    timeline: Q+1
+    bots:
+      - writing_coach_bot
+      - marketing_bot
+    endpoints:
+      - /api/v1/content_to_book
+      - /api/v1/marketing_automation
+    status: planned
+  
+  - id: 4
+    name: AI-Powered Community Management
+    timeline: Q+2
+    bots:
+      - community_bot
+    endpoints:
+      - /api/v1/community_insights
+    status: planned
+
+# KPIs and Metrics
+metrics:
+  - name: author_onboarding_time
+    description: Time to complete author onboarding process
+    target: -50%  # 50% reduction
+    source: conversation_duration
+  
+  - name: reader_completion_rate
+    description: Percentage of readers who finish the book
+    target: +20%  # 20% increase
+    source: kindle_page_reads
+  
+  - name: net_promoter_score
+    description: NPS from reader feedback
+    target: ">= 60"
+    source: feedback_surveys
+  
+  - name: weekly_revenue_growth
+    description: Week-over-week revenue growth
+    target: "5-7%"  # YC benchmark
+    source: sales_analytics

@@ -159,4 +159,32 @@ KindleMint is adopting a YC-style “startup” mindset: rapid iteration, direct
 
 *For the full methodology and rationale, read `YC_Publishing_Playbook.md`.*
 
-Last Updated: June 25 2025
+---
+
+## Botpress Conversational AI Integration (Q3 – Q4 2025)
+
+KindleMint will integrate Botpress to add a conversational layer across the entire publishing journey—turning static workflows into interactive, dialogue-driven experiences.
+
+### Core Bot Line-up
+1. **Author Interview Bot** – extracts book content through structured conversation  
+2. **Reader Feedback Bot** – collects post-read insights & sentiment  
+3. **Writing Coach Bot** – offers real-time style suggestions & motivation  
+4. **Marketing/Engagement Bot** – qualifies leads, recommends books, drives upsells  
+
+### Four-Phase Roll-out
+| Phase | Timeline | Scope |
+|-------|----------|-------|
+| **1. MVP Author Bot** | Weeks 1-2 | Deploy interview bot, connect to MoA |
+| **2. Reader Bots** | Weeks 3-4 | Launch feedback bot on web/e-mail |
+| **3. Conversational Ecosystem** | Q + 1 | Add coach + marketing bots, unify analytics |
+| **4. AI Community Management** | Q + 2 | Auto-moderation & gamified reader groups |
+
+### Competitive Advantages
+• Conversation-first creation & editing  
+• Dialogue-driven reader engagement and retention  
+• Community built on real-time interaction, not broadcasts  
+• Scalable revenue via automated yet personal conversations  
+
+*Full details in `BOTPRESS_INTEGRATION_STRATEGY.md`.*
+
+Last Updated: June 27 2025
