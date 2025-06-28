@@ -219,13 +219,18 @@ class CompleteSudokuBookGenerator:
             solution_image_path = self.puzzles_dir / "puzzles" / f"sudoku_solution_{i:03d}.png"
             if solution_image_path.exists():
                 try:
-                    img = Image(str(solution_image_path), width=6*inch, height=6*inch)
+                    abs_path = solution_image_path.resolve()
+                    print(f"Loading SOLUTION image: {abs_path}")
+                    img = Image(str(abs_path), width=6*inch, height=6*inch)
                     story.append(img)
+                    print(f"✅ Successfully loaded solution image {i}")
                 except Exception as e:
-                    print(f"Could not load solution image {i}: {e}")
+                    print(f"❌ Could not load solution image {i}: {e}")
+                    print(f"📄 Falling back to text representation")
                     # Fallback: create text representation
                     self.add_text_solution(story, puzzle)
             else:
+                print(f"❌ Solution image not found: {solution_image_path}")
                 self.add_text_solution(story, puzzle)
             
             story.append(PageBreak())
@@ -259,7 +264,9 @@ class CompleteSudokuBookGenerator:
 
     def generate_complete_book(self):
         """Generate the complete book with all elements"""
-        output_file = self.output_dir / "Large_Print_Sudoku_Masters_V1_COMPLETE.pdf"
+        from datetime import datetime
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_file = self.output_dir / f"Large_Print_Sudoku_Masters_V1_VERIFIED_{timestamp}.pdf"
         
         print(f"🚀 Generating complete Sudoku book...")
         print(f"📁 Output: {output_file}")

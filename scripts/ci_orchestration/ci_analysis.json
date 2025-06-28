@@ -1,0 +1,584 @@
+{
+  "timestamp": "2025-06-28T21:19:23.431839",
+  "repository": "igorganapolsky/ai-kindlemint-engine",
+  "total_failures": 15,
+  "analyzed_failures": [
+    {
+      "failure_info": {
+        "job_name": "\ud83e\uddea Setup & Unit Tests",
+        "job_id": 44985000052,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83e\uddea Run Unit Tests",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
+        "workflow_id": 15948265368,
+        "branch": "main",
+        "commit_sha": "8f29aa8fadcffde4fed3339f21e5e93b756ea688",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948265368",
+        "created_at": "2025-06-28T21:17:28Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "\ud83d\udccb Generate Final Report",
+        "job_id": 44985010121,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83c\udfaf Final Status Check",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
+        "workflow_id": 15948265368,
+        "branch": "main",
+        "commit_sha": "8f29aa8fadcffde4fed3339f21e5e93b756ea688",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948265368",
+        "created_at": "2025-06-28T21:17:28Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "\ud83d\udcda Book Quality Validation",
+        "job_id": 44985000126,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83d\udd0d Run Enhanced QA Validator v2",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Book QA Validation",
+        "workflow_id": 15948265359,
+        "branch": "main",
+        "commit_sha": "8f29aa8fadcffde4fed3339f21e5e93b756ea688",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948265359",
+        "created_at": "2025-06-28T21:17:28Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Run QA Checks",
+        "job_id": 44985000228,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Run full test suite with JSON report",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "QA Checks",
+        "workflow_id": 15948265367,
+        "branch": "main",
+        "commit_sha": "8f29aa8fadcffde4fed3339f21e5e93b756ea688",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948265367",
+        "created_at": "2025-06-28T21:17:28Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Test Python 3.11",
+        "job_id": 44985000054,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83e\uddea Run unit tests",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Tests",
+        "workflow_id": 15948265356,
+        "branch": "main",
+        "commit_sha": "8f29aa8fadcffde4fed3339f21e5e93b756ea688",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948265356",
+        "created_at": "2025-06-28T21:17:28Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "\ud83e\uddea Setup & Unit Tests",
+        "job_id": 44984952663,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83e\uddea Run Unit Tests",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
+        "workflow_id": 15948242670,
+        "branch": "main",
+        "commit_sha": "978e3958e7b8be8db26bd562538997b299555558",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242670",
+        "created_at": "2025-06-28T21:14:37Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "\ud83d\udccb Generate Final Report",
+        "job_id": 44984966305,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83c\udfaf Final Status Check",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
+        "workflow_id": 15948242670,
+        "branch": "main",
+        "commit_sha": "978e3958e7b8be8db26bd562538997b299555558",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242670",
+        "created_at": "2025-06-28T21:14:37Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "\ud83d\udcda Book Quality Validation",
+        "job_id": 44984952682,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83d\udd0d Run Enhanced QA Validator v2",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Book QA Validation",
+        "workflow_id": 15948242680,
+        "branch": "main",
+        "commit_sha": "978e3958e7b8be8db26bd562538997b299555558",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242680",
+        "created_at": "2025-06-28T21:14:37Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Run QA Checks",
+        "job_id": 44984952668,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Run full test suite with JSON report",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "QA Checks",
+        "workflow_id": 15948242678,
+        "branch": "main",
+        "commit_sha": "978e3958e7b8be8db26bd562538997b299555558",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242678",
+        "created_at": "2025-06-28T21:14:37Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Test Python 3.12",
+        "job_id": 44984952670,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83e\uddea Run unit tests",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Tests",
+        "workflow_id": 15948242669,
+        "branch": "main",
+        "commit_sha": "978e3958e7b8be8db26bd562538997b299555558",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242669",
+        "created_at": "2025-06-28T21:14:37Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Test Python 3.12",
+        "job_id": 44984927842,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83e\uddea Run unit tests",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Tests",
+        "workflow_id": 15948229789,
+        "branch": "main",
+        "commit_sha": "8609993b4404442b2a1c590f1d6e3e9c2e0f3e67",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948229789",
+        "created_at": "2025-06-28T21:13:02Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "\ud83d\udcda Book Quality Validation",
+        "job_id": 44984927848,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83d\udd0d Run Enhanced QA Validator v2",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Book QA Validation",
+        "workflow_id": 15948229800,
+        "branch": "main",
+        "commit_sha": "8609993b4404442b2a1c590f1d6e3e9c2e0f3e67",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948229800",
+        "created_at": "2025-06-28T21:13:02Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "\ud83e\uddea Setup & Unit Tests",
+        "job_id": 44984927866,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83e\uddea Run Unit Tests",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
+        "workflow_id": 15948229803,
+        "branch": "main",
+        "commit_sha": "8609993b4404442b2a1c590f1d6e3e9c2e0f3e67",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948229803",
+        "created_at": "2025-06-28T21:13:02Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "\ud83d\udccb Generate Final Report",
+        "job_id": 44984937495,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "\ud83c\udfaf Final Status Check",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
+        "workflow_id": 15948229803,
+        "branch": "main",
+        "commit_sha": "8609993b4404442b2a1c590f1d6e3e9c2e0f3e67",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948229803",
+        "created_at": "2025-06-28T21:13:02Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Run QA Checks",
+        "job_id": 44984927864,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Run full test suite with JSON report",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "QA Checks",
+        "workflow_id": 15948229793,
+        "branch": "main",
+        "commit_sha": "8609993b4404442b2a1c590f1d6e3e9c2e0f3e67",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948229793",
+        "created_at": "2025-06-28T21:13:02Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    }
+  ],
+  "summary": {
+    "auto_fixable": 0,
+    "manual_review": 15,
+    "by_strategy_type": {
+      "manual_review": 15
+    }
+  }
+}

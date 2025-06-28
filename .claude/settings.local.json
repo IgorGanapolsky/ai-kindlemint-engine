@@ -171,7 +171,9 @@
       "Bash(./claude-flow --help)",
       "Bash(./claude-flow memory get sudoku_analysis_findings)",
       "Bash(./claude-flow:*)",
-      "Bash(./claude-flow:*)"
+      "Bash(./claude-flow:*)",
+      "Bash(/dev/null)",
+      "Bash(pkill:*)"
     ],
     "deny": []
   }

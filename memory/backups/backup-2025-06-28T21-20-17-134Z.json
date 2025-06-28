@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-06-28T21:08:54.734Z",
+  "timestamp": "2025-06-28T21:20:17.134Z",
   "version": "1.0",
   "entries": [
     {
@@ -237,23 +237,83 @@
       "checksum": "bb377e0ccff7762ac14a02d5338f10656edbed6ca25e1b979dd251a92a0f6738",
       "references": [],
       "dependencies": []
+    },
+    {
+      "id": "entry_mcgqhh8r_3wdn0yj3p",
+      "key": "sudoku_test_coverage",
+      "value": "\"Sudoku validation system test coverage analysis:\\n\\n## Current Test Coverage:\\n### Existing Tests (tests/test_puzzle_validators.py):\\n1. test_validate_sudoku_valid - Valid 4x4 Sudoku grid\\n2. test_validate_sudoku_duplicate - Row duplicate detection\\n3. test_validate_sudoku_multiple_solutions - Empty grid with multiple solutions\\n\\n### Coverage Gaps Identified:\\n1. **Column duplicate detection** - Missing test\\n2. **3x3 box duplicate detection** - Missing test\\n3. **Invalid grid structure** - Missing test (wrong dimensions, non-integer values)\\n4. **Solution validation** - Missing test for grid-solution mismatch\\n5. **Difficulty validation** - Missing test for clue count validation\\n6. **Empty row/column detection** - Missing test\\n7. **Solvability edge cases** - Missing test for unsolvable puzzles\\n\\n### Test File Issues:\\n- Tests import from scripts.puzzle_validators instead of src.kindlemint.validators\\n- Tests use 4x4 grids instead of proper 9x9 Sudoku grids\\n- No integration tests for PDF and book validation\\n- No performance tests for large batches\\n\\n### PDF Validator Testing:\\n- No tests exist for sudoku_pdf_image_validator.py\\n- Need tests for image quality validation\\n- Need tests for text fallback detection\\n\\n### Book QA Validator Testing:\\n- No tests exist for sudoku_book_qa.py\\n- Need tests for complete book validation flow\\n- Need tests for puzzle directory validation\\n\\n## Recommended Test Additions:\\n1. Fix import paths to use proper validator modules\\n2. Convert tests to use 9x9 grids for realistic scenarios\\n3. Add comprehensive validation rule tests\\n4. Add PDF validation tests with mock PDF files\\n5. Add book QA tests with sample puzzle directories\\n6. Add performance benchmarks\\n7. Add error handling tests\\n\\n## Integration Testing Needs:\\n1. End-to-end validation pipeline tests\\n2. Batch processing tests\\n3. CI/CD integration verification\\n4. Memory usage tests for large datasets\\n\\n## Suggested Test Structure:\\n\"",
+      "type": "string",
+      "namespace": "default",
+      "tags": [],
+      "metadata": {},
+      "owner": "system",
+      "accessLevel": "shared",
+      "createdAt": "2025-06-28T21:09:02.475Z",
+      "updatedAt": "2025-06-28T21:09:02.475Z",
+      "lastAccessedAt": "2025-06-28T21:09:02.475Z",
+      "version": 1,
+      "size": 2051,
+      "compressed": true,
+      "checksum": "d58548659f12c6fdee5a007fb314dd29753fcfc1afd956b3cd50e0135a09a2c9",
+      "references": [],
+      "dependencies": []
+    },
+    {
+      "id": "entry_mcgqqfj2_4ukmpkfla",
+      "key": "github_actions_status",
+      "value": "\"Initial GitHub Actions Status (2025-06-28 21:15:27):\\n==================================================\\n\\nIN PROGRESS WORKFLOWS:\\n1. Book QA Validation (Run ID: 15948242680)\\n   - Status: in_progress\\n   - URL: https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242680\\n   - Started: 2025-06-28T21:14:37Z\\n\\n2. QA Checks (Run ID: 15948242678)\\n   - Status: in_progress\\n   - URL: https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242678\\n   - Started: 2025-06-28T21:14:37Z\\n\\n3. Tests (Run ID: 15948242669)\\n   - Status: in_progress\\n   - URL: https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242669\\n   - Started: 2025-06-28T21:14:37Z\\n\\n4. CodeQL - Push on main (Run ID: 15948242262)\\n   - Status: in_progress\\n   - URL: https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242262\\n   - Started: 2025-06-28T21:14:35Z\\n\\nRECENTLY COMPLETED:\\n- 🔍 Comprehensive QA & Testing: FAILED\\n- .github/workflows/qa_validation.yml: FAILED\\n\\nMonitoring started - checking every 30 seconds...\"",
+      "type": "string",
+      "namespace": "default",
+      "tags": [],
+      "metadata": {},
+      "owner": "system",
+      "accessLevel": "shared",
+      "createdAt": "2025-06-28T21:16:00.158Z",
+      "updatedAt": "2025-06-28T21:16:00.158Z",
+      "lastAccessedAt": "2025-06-28T21:16:00.158Z",
+      "version": 1,
+      "size": 1135,
+      "compressed": true,
+      "checksum": "d2a28d3a2f4d5c82dfbbd573bc4d91d5731aebbda7ce842af4b01a397f3c8d7f",
+      "references": [],
+      "dependencies": []
+    },
+    {
+      "id": "entry_mcgqs4j8_cj4jgctbz",
+      "key": "github_actions_status",
+      "value": "\"FINAL GitHub Actions Status Update (2025-06-28 21:16:40):\\n========================================================\\n\\nALL WORKFLOWS COMPLETED:\\n\\n✅ PASSED:\\n- CodeQL (Push on main): SUCCESS\\n  - Run ID: 15948242262\\n  - URL: https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242262\\n\\n❌ FAILED:\\n- Book QA Validation: FAILURE\\n  - Run ID: 15948242680\\n  - URL: https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242680\\n\\n- QA Checks: FAILURE\\n  - Run ID: 15948242678\\n  - URL: https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242678\\n\\n- 🔍 Comprehensive QA & Testing: FAILURE\\n  - Run ID: 15948242670\\n  - URL: https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242670\\n\\n- Tests: FAILURE\\n  - Run ID: 15948242669\\n  - URL: https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15948242669\\n\\nSUMMARY:\\n- Total workflows: 5\\n- Passed: 1 (CodeQL security scan)\\n- Failed: 4 (All test suites)\\n- Monitoring completed at: 2025-06-28 21:16:40\\n\\nNOTE: The workflows completed very quickly (within ~2 minutes), likely due to early failure detection.\"",
+      "type": "string",
+      "namespace": "default",
+      "tags": [],
+      "metadata": {},
+      "owner": "system",
+      "accessLevel": "shared",
+      "createdAt": "2025-06-28T21:17:19.220Z",
+      "updatedAt": "2025-06-28T21:17:19.220Z",
+      "lastAccessedAt": "2025-06-28T21:17:19.220Z",
+      "version": 1,
+      "size": 1219,
+      "compressed": true,
+      "checksum": "dad6e90b26a3af987d0cd64c2fe1b7cf4ea08f016285900d907e4a065e89886b",
+      "references": [],
+      "dependencies": []
     }
   ],
   "statistics": {
     "overview": {
-      "totalEntries": 4,
-      "totalSize": 12299,
-      "compressedEntries": 4,
+      "totalEntries": 7,
+      "totalSize": 16704,
+      "compressedEntries": 7,
       "compressionRatio": 0,
-      "indexSize": 200,
-      "memoryUsage": 8597496,
+      "indexSize": 350,
+      "memoryUsage": 7761648,
       "diskUsage": 0
     },
     "distribution": {
       "byNamespace": {
         "default": {
-          "count": 4,
-          "size": 12299
+          "count": 7,
+          "size": 16704
         }
       },
       "byType": {
@@ -262,51 +322,51 @@
           "size": 9851
         },
         "string": {
-          "count": 1,
-          "size": 2448
+          "count": 4,
+          "size": 6853
         }
       },
       "byOwner": {
         "system": {
-          "count": 4,
-          "size": 12299
+          "count": 7,
+          "size": 16704
         }
       },
       "byAccessLevel": {
         "shared": {
-          "count": 4,
-          "size": 12299
+          "count": 7,
+          "size": 16704
         }
       }
     },
     "temporal": {
-      "entriesCreatedLast24h": 4,
-      "entriesUpdatedLast24h": 4,
-      "entriesAccessedLast24h": 4,
+      "entriesCreatedLast24h": 7,
+      "entriesUpdatedLast24h": 7,
+      "entriesAccessedLast24h": 7,
       "oldestEntry": "2025-06-28T21:04:49.161Z",
-      "newestEntry": "2025-06-28T21:08:54.732Z"
+      "newestEntry": "2025-06-28T21:17:19.220Z"
     },
     "performance": {
       "averageQueryTime": 0,
-      "averageWriteTime": 1,
+      "averageWriteTime": 0,
       "cacheHitRatio": 0,
       "indexEfficiency": 0.95
     },
     "health": {
       "expiredEntries": 0,
       "orphanedReferences": 0,
-      "duplicateKeys": 1,
+      "duplicateKeys": 3,
       "corruptedEntries": 0,
       "recommendedCleanup": false
     },
     "optimization": {
       "suggestions": [
-        "1 duplicate keys found"
+        "3 duplicate keys found"
       ],
       "potentialSavings": {
         "compression": 0,
         "cleanup": 0,
-        "deduplication": 2448
+        "deduplication": 5718
       },
       "indexOptimization": [
         "Consider periodic index rebuilding for optimal performance"

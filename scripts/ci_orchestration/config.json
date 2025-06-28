@@ -1,0 +1,66 @@
+{
+  "monitoring": {
+    "lookback_minutes": 60,
+    "check_interval_seconds": 300,
+    "max_failures_per_run": 20,
+    "workflow_filters": [
+      "Tests",
+      "QA Validation Pipeline",
+      "Comprehensive QA",
+      "Book QA Validation",
+      "Puzzle Book QA"
+    ]
+  },
+  "analysis": {
+    "confidence_threshold": 0.7,
+    "max_strategies_per_failure": 3,
+    "priority_failure_types": [
+      "import_error",
+      "syntax_error",
+      "linting_error"
+    ]
+  },
+  "fixing": {
+    "max_fixes_per_run": 10,
+    "auto_fix_confidence_threshold": 0.8,
+    "enable_auto_commit": false,
+    "enable_auto_pr": false,
+    "safe_fix_types": [
+      "run_black",
+      "run_isort",
+      "fix_flake8",
+      "install_package",
+      "create_directory"
+    ],
+    "manual_review_types": [
+      "fix_test_assertion",
+      "update_test_data",
+      "fix_type_annotation"
+    ]
+  },
+  "validation": {
+    "run_tests_after_fix": true,
+    "run_linting_after_fix": true,
+    "max_validation_time_seconds": 300,
+    "rollback_on_failure": true
+  },
+  "notifications": {
+    "slack_webhook": null,
+    "email_recipients": [],
+    "notify_on_success": true,
+    "notify_on_failure": true,
+    "notify_on_manual_review": true
+  },
+  "git": {
+    "commit_message_template": "fix: Auto-fix {fix_count} CI failures\n\n{fix_details}\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\nCo-Authored-By: Claude <noreply@anthropic.com>",
+    "branch_name_template": "ci-autofix-{timestamp}",
+    "pr_title_template": "ci: Auto-fix {fix_count} CI failures",
+    "pr_body_template": "## Summary\n- Automatically detected and fixed {fix_count} CI failures\n- Fixed files: {file_count}\n\n## Test plan\n- [x] All fixes have been validated\n- [x] Tests pass locally\n- [x] Lint checks pass\n\n{fix_details}\n\n🤖 Generated with [Claude Code](https://claude.ai/code)"
+  },
+  "logging": {
+    "level": "INFO",
+    "log_file": "ci_orchestration.log",
+    "max_log_size_mb": 10,
+    "backup_count": 5
+  }
+}
