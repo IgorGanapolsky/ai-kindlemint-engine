@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-06-28T21:05:07.889Z",
+  "timestamp": "2025-06-28T21:08:36.632Z",
   "version": "1.0",
   "entries": [
     {
@@ -170,57 +170,101 @@
       "accessLevel": "shared",
       "createdAt": "2025-06-28T21:04:49.161Z",
       "updatedAt": "2025-06-28T21:04:49.161Z",
-      "lastAccessedAt": "2025-06-28T21:05:07.878Z",
+      "lastAccessedAt": "2025-06-28T21:06:51.305Z",
       "version": 1,
       "size": 5506,
       "compressed": true,
       "checksum": "5d30ccbb1be6b815fdbeb4009f6b0707d61ac399b6ed4649ca89f14202712bb1",
       "references": [],
       "dependencies": []
+    },
+    {
+      "id": "entry_mcgqdcpl_qeg7ftgz9",
+      "key": "sudoku_test_coverage",
+      "value": "{\"existing_tests\":{\"test_puzzle_validators.py\":{\"location\":\"/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/tests/test_puzzle_validators.py\",\"tests\":[\"test_validate_sudoku_valid - Tests valid 4x4 Sudoku\",\"test_validate_sudoku_duplicate - Tests duplicate detection in rows\",\"test_validate_sudoku_multiple_solutions - Tests multiple solution detection\"],\"coverage\":\"Basic validation only, 4x4 grid tests\"}},\"coverage_gaps\":[{\"category\":\"Grid Structure Tests\",\"missing\":[\"9x9 grid validation (only 4x4 tested)\",\"Malformed grid tests (non-list, wrong dimensions)\",\"Invalid cell values (non-integers, out of range)\",\"Empty grid handling\",\"Null/undefined grid handling\"]},{\"category\":\"Duplicate Detection\",\"missing\":[\"Column duplicate detection tests\",\"3x3 box duplicate detection tests\",\"Multiple duplicates in same row/column/box\",\"Edge cases with zeros (empty cells)\"]},{\"category\":\"Solution Validation\",\"missing\":[\"Solution completeness tests\",\"Solution validity tests\",\"Mismatch between grid and solution tests\",\"Invalid solution format tests\"]},{\"category\":\"Difficulty Validation\",\"missing\":[\"Clue count validation for each difficulty level\",\"Invalid difficulty level handling\",\"Edge cases (minimum 17 clues rule)\",\"Too many/too few clues for difficulty\"]},{\"category\":\"Solvability Tests\",\"missing\":[\"No solution puzzle tests\",\"Performance tests for solution counting\",\"Backtracking algorithm edge cases\",\"Complex puzzle solvability\"]},{\"category\":\"Edge Cases\",\"missing\":[\"Empty rows/columns detection\",\"Boundary condition tests\",\"Large number of empty cells\",\"Stress tests with invalid data\",\"Unicode/special character handling\"]},{\"category\":\"Integration Tests\",\"missing\":[\"Full puzzle validation workflow\",\"Batch validation tests\",\"Directory validation tests\",\"Error aggregation tests\"]}],\"recommendations\":[\"Upgrade tests from 4x4 to standard 9x9 Sudoku grids\",\"Add comprehensive duplicate detection tests for all constraints\",\"Implement solution validation tests\",\"Add difficulty-based clue count validation\",\"Create edge case tests for robustness\",\"Add performance benchmarks for solvability checks\",\"Implement integration tests for full validation workflow\"],\"critical_gaps\":[\"No 9x9 grid tests (only 4x4)\",\"No solution validation tests\",\"No difficulty validation tests\",\"Missing column and box duplicate detection\"],\"test_quality_score\":\"25%\",\"notes\":\"Current tests are minimal and only cover basic 4x4 grid validation. Production-ready Sudoku validator needs comprehensive 9x9 grid testing.\"}",
+      "type": "object",
+      "namespace": "default",
+      "tags": [],
+      "metadata": {},
+      "owner": "system",
+      "accessLevel": "shared",
+      "createdAt": "2025-06-28T21:05:49.977Z",
+      "updatedAt": "2025-06-28T21:05:49.977Z",
+      "lastAccessedAt": "2025-06-28T21:06:41.447Z",
+      "version": 1,
+      "size": 2701,
+      "compressed": true,
+      "checksum": "2fc6e9663313d8099c254399e4fec8b40d203b75480611d5a327af5288030213",
+      "references": [],
+      "dependencies": []
+    },
+    {
+      "id": "entry_mcgqgxav_25li7roms",
+      "key": "sudoku_validator_analysis",
+      "value": "\"Comprehensive analysis of Sudoku validation system documentation improvements:\\n\\n## Files Analyzed:\\n1. src/kindlemint/validators/sudoku_validator.py - Main validation logic\\n2. src/kindlemint/validators/sudoku_pdf_image_validator.py - PDF image validation\\n3. src/kindlemint/validators/sudoku_book_qa.py - Complete book QA validation\\n4. src/kindlemint/validators/base_validator.py - Base classes and interfaces\\n5. src/kindlemint/validators/__init__.py - Package exports and utilities\\n\\n## Documentation Improvements Made:\\n1. Created comprehensive README.md for validators directory\\n2. Added Args/Returns sections to all missing method docstrings\\n3. Improved docstring clarity with detailed parameter descriptions\\n4. Documented all validation rules and their purposes\\n\\n## Validation Rules Documented:\\n### Structure Validation:\\n- Required fields validation (grid, solution, difficulty)\\n- Grid format validation (9x9, integer values 0-9)\\n- Solution format validation (9x9, integer values 1-9)\\n- Difficulty level validation (easy/medium/hard/expert)\\n\\n### Content Validation:\\n- No duplicates in rows, columns, or 3x3 boxes\\n- Solution completeness (all digits 1-9 in each row/column/box)\\n- Grid-solution consistency\\n- Difficulty-appropriate clue counts\\n- No empty rows/columns validation\\n\\n### Solvability Validation:\\n- Unique solution verification\\n- Solution computation and comparison\\n- Backtracking algorithm implementation\\n\\n### PDF/Book Validation:\\n- Page count verification\\n- Image presence and quality checks\\n- Text fallback detection\\n- Puzzle vs solution page validation\\n\\n## Test Coverage Analysis:\\n- Basic validation tests exist in tests/test_puzzle_validators.py\\n- Tests cover valid puzzles, duplicates, and multiple solutions\\n- Missing tests for edge cases and error conditions\\n- Need integration tests for complete validation flow\\n\\n## Integration Points:\\n- Base validator provides common interface\\n- Package exports allow easy import of validators\\n- Batch validation support for multiple puzzles\\n- CI/CD integration with GitHub Actions\\n\\n## Recommendations for Future Improvements:\\n1. Add more comprehensive test coverage\\n2. Implement performance benchmarks\\n3. Add configuration options for validation strictness\\n4. Create visual validation reports\\n5. Add metrics collection for validation performance\"",
+      "type": "string",
+      "namespace": "default",
+      "tags": [],
+      "metadata": {},
+      "owner": "system",
+      "accessLevel": "shared",
+      "createdAt": "2025-06-28T21:08:36.631Z",
+      "updatedAt": "2025-06-28T21:08:36.631Z",
+      "lastAccessedAt": "2025-06-28T21:08:36.631Z",
+      "version": 1,
+      "size": 2448,
+      "compressed": true,
+      "checksum": "4d86962e28fd0dbd12f871ebd10dc7ab569148515fdb5a0bd608d3aaa40a206f",
+      "references": [],
+      "dependencies": []
     }
   ],
   "statistics": {
     "overview": {
-      "totalEntries": 1,
-      "totalSize": 5506,
-      "compressedEntries": 1,
+      "totalEntries": 3,
+      "totalSize": 10655,
+      "compressedEntries": 3,
       "compressionRatio": 0,
-      "indexSize": 50,
-      "memoryUsage": 8339056,
+      "indexSize": 150,
+      "memoryUsage": 8513152,
       "diskUsage": 0
     },
     "distribution": {
       "byNamespace": {
         "default": {
-          "count": 1,
-          "size": 5506
+          "count": 3,
+          "size": 10655
         }
       },
       "byType": {
         "object": {
+          "count": 2,
+          "size": 8207
+        },
+        "string": {
           "count": 1,
-          "size": 5506
+          "size": 2448
         }
       },
       "byOwner": {
         "system": {
-          "count": 1,
-          "size": 5506
+          "count": 3,
+          "size": 10655
         }
       },
       "byAccessLevel": {
         "shared": {
-          "count": 1,
-          "size": 5506
+          "count": 3,
+          "size": 10655
         }
       }
     },
     "temporal": {
-      "entriesCreatedLast24h": 1,
-      "entriesUpdatedLast24h": 1,
-      "entriesAccessedLast24h": 1,
+      "entriesCreatedLast24h": 3,
+      "entriesUpdatedLast24h": 3,
+      "entriesAccessedLast24h": 3,
       "oldestEntry": "2025-06-28T21:04:49.161Z",
-      "newestEntry": "2025-06-28T21:04:49.161Z"
+      "newestEntry": "2025-06-28T21:08:36.631Z"
     },
     "performance": {
       "averageQueryTime": 0,
@@ -231,16 +275,18 @@
     "health": {
       "expiredEntries": 0,
       "orphanedReferences": 0,
-      "duplicateKeys": 0,
+      "duplicateKeys": 1,
       "corruptedEntries": 0,
       "recommendedCleanup": false
     },
     "optimization": {
-      "suggestions": [],
+      "suggestions": [
+        "1 duplicate keys found"
+      ],
       "potentialSavings": {
         "compression": 0,
         "cleanup": 0,
-        "deduplication": 0
+        "deduplication": 2448
       },
       "indexOptimization": [
         "Consider periodic index rebuilding for optimal performance"

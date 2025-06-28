@@ -459,16 +459,17 @@ class SudokuValidator(PuzzleValidator):
     
     def _is_valid(self, grid: List[List[int]], row: int, col: int, num: int) -> bool:
         """
-        Check if placing num at grid[row][col] is valid.
+        Check if placing num at grid[row][col] is valid according to Sudoku rules.
         
         Args:
-            grid: The Sudoku grid
-            row: Row index
-            col: Column index
-            num: Number to check
+            grid: The Sudoku grid (9x9 list of lists)
+            row: Row index (0-8)
+            col: Column index (0-8)
+            num: Number to check (1-9)
             
         Returns:
-            True if the placement is valid, False otherwise
+            True if the placement is valid (no conflicts in row, column, or 3x3 box),
+            False otherwise
         """
         # Check row
         for x in range(9):
@@ -492,13 +493,17 @@ class SudokuValidator(PuzzleValidator):
     
     def _solve_grid(self, grid: List[List[int]]) -> bool:
         """
-        Solve a Sudoku grid using backtracking.
+        Solve a Sudoku grid using backtracking algorithm.
         
         Args:
-            grid: The Sudoku grid to solve
+            grid: The Sudoku grid to solve (modified in-place)
             
         Returns:
-            True if the grid was solved, False otherwise
+            True if the grid was successfully solved, False if no solution exists
+            
+        Note:
+            This method modifies the input grid in-place. The grid will contain
+            the solution if the method returns True.
         """
         # Find an empty cell
         for i in range(9):
@@ -527,11 +532,14 @@ class SudokuValidator(PuzzleValidator):
         Count the number of solutions for a Sudoku puzzle.
         
         Args:
-            grid: The Sudoku grid
-            limit: Maximum number of solutions to find before stopping
+            grid: The Sudoku grid to analyze
+            limit: Maximum number of solutions to find before stopping (default: 2)
             
         Returns:
-            Number of solutions found (up to limit)
+            Number of solutions found (up to limit). Common return values:
+                - 0: No solution exists (invalid puzzle)
+                - 1: Unique solution (valid puzzle)
+                - 2+: Multiple solutions (invalid puzzle)
         """
         solutions = [0]
         

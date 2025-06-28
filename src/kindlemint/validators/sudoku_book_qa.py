@@ -24,7 +24,22 @@ class SudokuBookQAValidator:
         self.passed_checks = []
         
     def validate_book(self, book_path: Path) -> Dict:
-        """Run all QA checks on a Sudoku book"""
+        """Run all QA checks on a Sudoku book.
+        
+        Args:
+            book_path: Path to the book file (PDF) to validate
+            
+        Returns:
+            Dictionary containing validation report with:
+                - status: 'PASS' or 'FAIL'
+                - total_checks: Total number of checks performed
+                - passed: Number of passed checks
+                - warnings: Number of warnings
+                - errors: Number of errors
+                - error_details: List of error messages
+                - warning_details: List of warning messages
+                - passed_details: List of passed check messages
+        """
         print(f"🔍 Running QA validation on: {book_path}")
         
         # Reset results
@@ -45,7 +60,17 @@ class SudokuBookQAValidator:
         return self._generate_report()
     
     def _validate_pdf(self, pdf_path: Path):
-        """Validate PDF content"""
+        """Validate PDF content.
+        
+        Args:
+            pdf_path: Path to the PDF file to validate
+            
+        Note:
+            - Checks page count (expects 200+ pages)
+            - Extracts text from sample pages
+            - Ensures puzzles show blanks, not complete solutions
+            - Updates self.errors, self.warnings, and self.passed_checks
+        """
         try:
             with open(pdf_path, 'rb') as file:
                 pdf_reader = PyPDF2.PdfReader(file)
@@ -72,7 +97,18 @@ class SudokuBookQAValidator:
             self.errors.append(f"Failed to read PDF: {str(e)}")
     
     def _validate_puzzle_directory(self, puzzle_dir: Path):
-        """Validate puzzle files and metadata"""
+        """Validate puzzle files and metadata.
+        
+        Args:
+            puzzle_dir: Path to directory containing puzzle files
+            
+        Note:
+            - Checks metadata JSON files exist
+            - Validates initial grids have blank cells
+            - Checks clue counts are within valid range (17-50)
+            - Verifies puzzle image files exist
+            - Analyzes puzzle images for blank cells
+        """
         metadata_dir = puzzle_dir / "metadata"
         puzzles_dir = puzzle_dir / "puzzles"
         
@@ -132,7 +168,18 @@ class SudokuBookQAValidator:
             self.errors.append("Metadata directory not found")
     
     def _validate_puzzle_image(self, image_path: Path, puzzle_id: int):
-        """Analyze puzzle image to ensure it has blank cells"""
+        """Analyze puzzle image to ensure it has blank cells.
+        
+        Args:
+            image_path: Path to the puzzle image file
+            puzzle_id: ID of the puzzle being validated
+            
+        Note:
+            - Converts image to grayscale
+            - Analyzes white space ratio
+            - Detects if puzzle appears completely filled
+            - Adds errors if white ratio < 50%
+        """
         try:
             img = Image.open(image_path)
             
@@ -160,7 +207,15 @@ class SudokuBookQAValidator:
             self.warnings.append(f"Could not analyze image {puzzle_id}: {str(e)}")
     
     def _is_complete_grid_in_text(self, text: str) -> bool:
-        """Check if extracted text looks like a complete sudoku grid"""
+        """Check if extracted text looks like a complete sudoku grid.
+        
+        Args:
+            text: Extracted text from PDF page
+            
+        Returns:
+            True if text appears to contain a complete grid (>75 digits),
+            False if it appears to be a puzzle with blanks
+        """
         # Count digits in the text
         digit_count = sum(1 for char in text if char.isdigit())
         
@@ -169,7 +224,19 @@ class SudokuBookQAValidator:
         return digit_count > 75
     
     def _generate_report(self) -> Dict:
-        """Generate QA report"""
+        """Generate QA report.
+        
+        Returns:
+            Dictionary containing:
+                - status: 'PASS' if no errors, 'FAIL' otherwise
+                - total_checks: Total number of checks performed
+                - passed: Number of passed checks
+                - warnings: Number of warnings
+                - errors: Number of errors
+                - error_details: List of error messages
+                - warning_details: List of warning messages
+                - passed_details: List of passed check messages
+        """
         total_checks = len(self.errors) + len(self.warnings) + len(self.passed_checks)
         
         report = {
@@ -221,7 +288,18 @@ class SudokuBookQAValidator:
 
 
 def validate_sudoku_book(book_path: str) -> bool:
-    """Main entry point for QA validation"""
+    """Main entry point for QA validation.
+    
+    Args:
+        book_path: Path to the book file (PDF) to validate
+        
+    Returns:
+        True if validation passed (no errors), False otherwise
+        
+    Side Effects:
+        - Creates qa_report.json in the same directory as the book
+        - Prints validation summary to console
+    """
     validator = SudokuBookQAValidator()
     report = validator.validate_book(Path(book_path))
     
