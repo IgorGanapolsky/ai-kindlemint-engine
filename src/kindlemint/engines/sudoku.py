@@ -280,7 +280,7 @@ class SudokuGenerator:
             "clue_count": clue_count,
         }
 
-    def create_grid_image(self, grid: List[List[int]], puzzle_id: int) -> Path:
+    def create_grid_image(self, grid: List[List[int]], puzzle_id: int, is_solution: bool = False) -> Path:
         """Create high-quality Large Print Sudoku grid image."""
         cell_size = 60
         margin = 40
@@ -335,7 +335,9 @@ class SudokuGenerator:
 
                     draw.text((x, y), text, fill="black", font=font)
 
-        img_path = self.puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}.png"
+        # Use appropriate filename based on whether it's a solution or puzzle
+        filename = f"sudoku_{'solution' if is_solution else 'puzzle'}_{puzzle_id:03d}.png"
+        img_path = self.puzzles_dir / filename
         img.save(img_path, "PNG", dpi=(300, 300))
 
         return img_path
@@ -363,12 +365,11 @@ class SudokuGenerator:
             # Generate puzzle
             puzzle_data = self.generate_puzzle(difficulty)
 
-            # Create grid image
-            grid_path = self.create_grid_image(puzzle_data["grid"], puzzle_id)
+            # Create grid image (puzzle with blanks)
+            grid_path = self.create_grid_image(puzzle_data["grid"], puzzle_id, is_solution=False)
 
-            # Create solution image
-            solution_path = self.puzzles_dir / f"sudoku_solution_{puzzle_id:03d}.png"
-            self.create_grid_image(puzzle_data["solution"], puzzle_id)
+            # Create solution image (complete grid)
+            solution_path = self.create_grid_image(puzzle_data["solution"], puzzle_id, is_solution=True)
 
             # Store puzzle data
             full_puzzle_data = {

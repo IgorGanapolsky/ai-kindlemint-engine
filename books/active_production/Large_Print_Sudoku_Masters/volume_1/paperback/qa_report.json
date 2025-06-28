@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "total_checks": 3,
+  "passed": 3,
+  "warnings": 0,
+  "errors": 0,
+  "error_details": [],
+  "warning_details": [],
+  "passed_details": [
+    "\u2713 PDF has correct page count: 204",
+    "\u2713 Puzzle pages appear to have blanks (not complete solutions)",
+    "\u2713 All checked puzzles have blank cells"
+  ]
+}

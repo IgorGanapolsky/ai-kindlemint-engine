@@ -161,7 +161,9 @@
       "Bash(pip uninstall:*)",
       "Bash(git reset:*)",
       "Bash(./claude-code --help)",
-      "Bash(./claude-code:*)"
+      "Bash(./claude-code:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)"
     ],
     "deny": []
   }
