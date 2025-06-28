@@ -70,7 +70,7 @@ jobs:
         config = {
           'github': {
             'owner': '${{ github.repository_owner }}',
-            'repo': '${{ github.event.repository.name }}',
+            'repo': 'ai-kindlemint-engine',
             'token': '***'
           },
           'monitoring': {
