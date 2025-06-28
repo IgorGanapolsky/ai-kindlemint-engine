@@ -1,0 +1,27 @@
+{
+  "title": "Large Print Crossword Masters - Volume 4",
+  "subtitle": "50 Challenging Puzzles for Word Enthusiasts",
+  "author": "Crossword Masters Publishing",
+  "pages": 156,
+  "format": "6 x 9 inches",
+  "quality": "Professional with unique solutions for each puzzle",
+  "generated": "2025-06-26 14:07:08.059509",
+  "unique_puzzles": 50,
+  "solution_format": "One complete grid per puzzle",
+  "categories": [
+    "Crafts, Hobbies & Home > Crafts & Hobbies",
+    "Self-Help > Memory Improvement",
+    "Health, Fitness & Dieting > Aging"
+  ],
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  },
+  "cover_design": {
+    "dalle_prompt": "Create a Professional book cover design, clean modern layout, high contrast typography. Title: 'Large Print Crossword Masters - Volume 4'. Include crossword puzzle grids in background, letter tiles, word patterns. Use elegant green and cream color scheme with silver accents. Feature extra large, bold, easy-to-read fonts, senior-friendly design. The cover should be designed for paperback format, eye-catching for Amazon KDP marketplace, appealing to puzzle enthusiasts and seniors. Include subtle brain/mind imagery to suggest cognitive benefits. Ensure text is highly readable and professional appearance suitable for bookstore shelves.",
+    "style": "professional puzzle book cover",
+    "target_audience": "puzzle enthusiasts, seniors, brain training seekers",
+    "format_optimized": "paperback",
+    "created_date": "2025-06-27"
+  }
+}

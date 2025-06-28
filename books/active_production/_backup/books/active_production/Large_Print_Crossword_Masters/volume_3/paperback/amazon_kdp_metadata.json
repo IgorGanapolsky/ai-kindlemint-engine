@@ -23,9 +23,7 @@
   "dimensions": "8.5 x 11 inches",
   "price_range": "$9.99 - $14.99",
   "target_audience": "Adults 50+, Seniors, Puzzle enthusiasts",
-  "publication_date": "2025-06-25",
-  "cover_design": {
-    "back_cover_dalle_prompt": "Create a professional book back cover design for 'Large Print Crossword Masters' by Crossword Masters Publishing.\n\nDesign specifications:\n- Clean, elegant layout with ample white space\n- Professional typography matching front cover style\n- Subtle background pattern or texture (matching front cover theme)\n- Clear hierarchy of information\n\nInclude these elements:\n1. Book title at top in large, readable font\n2. Author name below title\n3. Brief compelling description (2-3 sentences)\n4. 3-4 bullet points highlighting key features\n5. Small author bio section at bottom\n6. Barcode placeholder area (bottom right)\n7. Publisher logo placeholder (bottom left)\n\nColor scheme: Professional and calming, matching front cover\nStyle: Clean, modern, accessible\nTarget audience: Seniors and adults who prefer large print\n\nSpecific content to feature:\n- Emphasize large print format\n- Highlight brain training benefits\n- Include testimonial placeholder: \"★★★★★ 'Perfect for...' - Reader Review\"\n\nNO text should be generated - only design placeholders.\nProfessional publishing quality suitable for print.",
-    "dalle_prompt": "Professional book cover for 'Large Print Crossword Masters' - NEEDS PROPER PROMPT"
-  }
+  "publication_date": "2025-06-25"
 }
+
+ISBN: 9798289681881

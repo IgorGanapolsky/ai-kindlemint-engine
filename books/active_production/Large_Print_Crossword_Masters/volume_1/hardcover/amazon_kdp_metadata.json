@@ -2,7 +2,7 @@
   "title": "Large Print Crossword Masters",
   "subtitle": "50 Easy, Relaxing Crossword Puzzles for Seniors - Volume 1",
   "author": "Crossword Masters Publishing",
-  "description": "Rediscover the joy of crossword puzzles with Large Print Crossword Masters \u2013 Volume 1, specially designed for seniors and anyone who loves clear, readable puzzles!\\n\\nTired of squinting at tiny puzzle grids? This thoughtfully crafted collection features 50 brand-new crossword puzzles in crisp, large print format that's easy on your eyes and gentle on your mind.\\n\\nEvery puzzle uses everyday vocabulary you know and love \u2013 no obscure words or confusing references. Just pure, satisfying wordplay that challenges without frustrating.",
+  "description": "Rediscover the joy of crossword puzzles with Large Print Crossword Masters – Volume 1, specially designed for seniors and anyone who loves clear, readable puzzles!\\n\\nTired of squinting at tiny puzzle grids? This thoughtfully crafted collection features 50 brand-new crossword puzzles in crisp, large print format that's easy on your eyes and gentle on your mind.\\n\\nEvery puzzle uses everyday vocabulary you know and love – no obscure words or confusing references. Just pure, satisfying wordplay that challenges without frustrating.",
   "keywords": [
     "large print crossword puzzles",
     "senior crossword book",
@@ -16,10 +16,14 @@
     "gift"
   ],
   "categories": [
-    "Humor & Entertainment",
-    "Health, Fitness & Dieting",
-    "Self-Help"
+    "Crafts, Hobbies & Home > Crafts & Hobbies",
+    "Self-Help > Memory Improvement",
+    "Health, Fitness & Dieting > Aging"
   ],
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  },
   "language": "English",
   "pages": 103,
   "format": "Hardcover",
@@ -37,7 +41,9 @@
   "revenue_multiplier": "2-3x paperback profit",
   "market_position": "Premium offering in category",
   "gift_appeal": "High - premium hardcover presentation",
-  "season_relevance": "Year-round, especially holidays and gift occasions"
+  "season_relevance": "Year-round, especially holidays and gift occasions",
+  "cover_design": {
+    "back_cover_dalle_prompt": "Create a professional book back cover design for 'Large Print Crossword Masters' by Crossword Masters Publishing.\n\nDesign specifications:\n- Clean, elegant layout with ample white space\n- Professional typography matching front cover style\n- Subtle background pattern or texture (matching front cover theme)\n- Clear hierarchy of information\n\nInclude these elements:\n1. Book title at top in large, readable font\n2. Author name below title\n3. Brief compelling description (2-3 sentences)\n4. 3-4 bullet points highlighting key features\n5. Small author bio section at bottom\n6. Barcode placeholder area (bottom right)\n7. Publisher logo placeholder (bottom left)\n\nColor scheme: Professional and calming, matching front cover\nStyle: Clean, modern, accessible\nTarget audience: Seniors and adults who prefer large print\n\nSpecific content to feature:\n- Emphasize large print format\n- Highlight brain training benefits\n- Include testimonial placeholder: \"★★★★★ 'Perfect for...' - Reader Review\"\n\nNO text should be generated - only design placeholders.\nProfessional publishing quality suitable for print.",
+    "dalle_prompt": "Professional book cover for 'Large Print Crossword Masters' - NEEDS PROPER PROMPT"
+  }
 }
-
-ISBN: 9798289436702

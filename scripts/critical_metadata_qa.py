@@ -42,12 +42,26 @@ class CriticalMetadataQA:
     
     def validate_trim_size(self, data: Dict, file_path: str) -> None:
         """Validate trim sizes for puzzle books"""
+        # Handle both nested and flat format structures
         format_info = data.get("format", {})
+        if isinstance(format_info, str):
+            # Flat structure - format is a string
+            book_type = format_info.lower()
+            trim_size = data.get("trim_size")
+            dimensions = data.get("dimensions")
+        else:
+            # Nested structure
+            trim_size = format_info.get("trim_size")
+            dimensions = data.get("dimensions")
+            book_type = format_info.get("type", "").lower()
         
-        # Check for trim_size field
-        trim_size = format_info.get("trim_size")
-        dimensions = data.get("dimensions")
-        book_type = format_info.get("type", "").lower()
+        # Also check binding field for book type
+        if not book_type and data.get("binding"):
+            binding = data.get("binding", "").lower()
+            if "paperback" in binding or "perfect" in binding:
+                book_type = "paperback"
+            elif "hardcover" in binding or "case" in binding:
+                book_type = "hardcover"
         
         size_value = trim_size or dimensions
         
@@ -108,6 +122,21 @@ class CriticalMetadataQA:
         """Validate DALL-E cover creation prompts"""
         cover_design = data.get("cover_design")
         
+        # Handle both nested and flat format structures
+        format_info = data.get("format", {})
+        if isinstance(format_info, str):
+            format_type = format_info.lower()
+        else:
+            format_type = format_info.get("type", "").lower()
+            
+        # Also check binding field for book type
+        if not format_type and data.get("binding"):
+            binding = data.get("binding", "").lower()
+            if "paperback" in binding or "perfect" in binding:
+                format_type = "paperback"
+            elif "hardcover" in binding or "case" in binding:
+                format_type = "hardcover"
+        
         if not cover_design:
             self.critical_errors.append({
                 "file": file_path,
@@ -116,6 +145,7 @@ class CriticalMetadataQA:
             })
             return
         
+        # Check front cover
         dalle_prompt = cover_design.get("dalle_prompt")
         if not dalle_prompt:
             self.critical_errors.append({
@@ -128,6 +158,22 @@ class CriticalMetadataQA:
                 "file": file_path,
                 "warning": "DALL-E prompt too short - should be detailed for quality covers"
             })
+        
+        # Check back cover for physical books
+        if format_type in ["paperback", "hardcover"]:
+            back_cover_prompt = cover_design.get("back_cover_dalle_prompt")
+            if not back_cover_prompt:
+                self.critical_errors.append({
+                    "file": file_path,
+                    "error": f"CRITICAL: Missing back cover prompt for {format_type} book!",
+                    "fix": f"Add 'back_cover_dalle_prompt' - {format_type} books need both front AND back covers",
+                    "current_format": format_type
+                })
+            elif len(back_cover_prompt) < 50:
+                self.warnings.append({
+                    "file": file_path,
+                    "warning": f"Back cover DALL-E prompt too short for {format_type} - needs detailed description"
+                })
 
     def validate_kdp_book_types(self, data: Dict, file_path: str) -> None:
         """Validate KDP book type classifications"""
@@ -187,6 +233,10 @@ class CriticalMetadataQA:
             with open(file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
+            # If loaded data is not a dict, wrap it into a dict
+            if not isinstance(data, dict):
+                data = {'raw': data}
+            
             self.validated_files += 1
             
             # Run all critical validations
@@ -226,11 +276,14 @@ class CriticalMetadataQA:
             files = glob.glob(os.path.join(self.base_dir, pattern), recursive=True)
             all_files.update(files)
         
-        print(f"📁 Found {len(all_files)} metadata files to validate")
+        # Filter out files under any _backup directory
+        filtered_files = [f for f in all_files if "_backup" not in Path(f).parts]
+
+        print(f"📁 Found {len(filtered_files)} metadata files to validate")
         print()
         
         # Validate each file
-        for file_path in sorted(all_files):
+        for file_path in sorted(filtered_files):
             rel_path = os.path.relpath(file_path, self.base_dir)
             print(f"Checking: {rel_path}")
             self.validate_file(file_path)
