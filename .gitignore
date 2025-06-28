@@ -228,3 +228,7 @@ debug_kdp_*.png
 *_session_cookies.json
 .pytest_tmp/
 research/
+# CI Orchestration cycle reports
+scripts/ci_orchestration/ci_orchestration_cycle_*.json
+scripts/ci_orchestration/ci_orchestration_results.json
+scripts/ci_orchestration/*.log
