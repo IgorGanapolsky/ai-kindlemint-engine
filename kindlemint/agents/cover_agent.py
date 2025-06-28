@@ -1,30 +1,28 @@
 """Automated cover generation agent using DALL-E 3 API."""
 import logging
-import os
-import requests
-import base64
+import requests # Retain for downloading image from URL
+# import os # Removed: API key handled by APIManager
+# import base64 # Seems unused, will remove if confirmed
 from typing import List, Dict, Optional, Tuple
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 import io
-from openai import OpenAI
+# from openai import OpenAI # Removed: Client handled by APIManager
+from ..utils.api_manager import get_api_manager # Added
 
 logger = logging.getLogger(__name__)
 
 class CoverAgent:
     """Generates professional book covers using DALL-E 3 API with quality analysis."""
     
-    def __init__(self, api_key: Optional[str] = None):
-        """Initialize the cover generation agent.
+    def __init__(self): # Removed api_key parameter
+        """Initialize the cover generation agent."""
+        # self.api_key = api_key or os.getenv("OPENAI_API_KEY") # Removed
+        # if not self.api_key: # Removed
+        #     raise ValueError("OpenAI API key not provided and OPENAI_API_KEY environment variable not set") # Removed
         
-        Args:
-            api_key: OpenAI API key. If not provided, will look for OPENAI_API_KEY in environment.
-        """
-        self.api_key = api_key or os.getenv("OPENAI_API_KEY")
-        if not self.api_key:
-            raise ValueError("OpenAI API key not provided and OPENAI_API_KEY environment variable not set")
-        
-        self.client = OpenAI(api_key=self.api_key)
+        # self.client = OpenAI(api_key=self.api_key) # Removed
+        self.api_manager = get_api_manager() # Added
         self.cover_cache = {}
     
     def generate_professional_cover(
@@ -54,9 +52,10 @@ class CoverAgent:
             
             # Generate multiple cover options
             cover_options = []
-            for i in range(min(num_options, 4)):  # DALL-E 3 rate limits
+            for i in range(min(num_options, 4)):  # DALL-E 3 rate limits (assuming APIManager handles this)
                 try:
                     prompt = self._create_cover_prompt(book_title, subtitle, niche, variation=i)
+                    # _generate_single_cover now uses APIManager
                     cover_data = self._generate_single_cover(prompt, f"option_{i+1}")
                     
                     if cover_data:
@@ -180,19 +179,17 @@ class CoverAgent:
         return prompt
     
     def _generate_single_cover(self, prompt: str, option_name: str) -> Optional[Dict[str, any]]:
-        """Generate a single cover using DALL-E 3."""
+        """Generate a single cover using DALL-E 3 (via APIManager)."""
         try:
-            response = self.client.images.generate(
-                model="dall-e-3",
-                prompt=prompt,
-                size="1024x1024",  # DALL-E 3 default, we'll resize for 6x9
-                quality="hd",
-                style="natural",  # More realistic/professional than "vivid"
-                n=1
-            )
+            # APIManager.generate_image handles model, quality, style internally for DALL-E
+            # Default size in APIManager.generate_image is "1024x1024"
+            image_url = self.api_manager.generate_image(prompt=prompt)
             
+            if image_url is None:
+                logger.warning(f"APIManager failed to return an image URL for option: {option_name}")
+                return None
+
             # Download the image
-            image_url = response.data[0].url
             image_response = requests.get(image_url, timeout=30)
             image_response.raise_for_status()
             
@@ -209,7 +206,7 @@ class CoverAgent:
             }
             
         except Exception as e:
-            logger.error(f"Error generating single cover: {str(e)}")
+            logger.error(f"Error generating single cover for option {option_name}: {str(e)}")
             return None
     
     def _resize_to_book_cover(self, image: Image.Image) -> Image.Image:
@@ -251,11 +248,11 @@ class CoverAgent:
                 quality_score += 5
             
             # Color analysis (max 20 points)
-            colors = image.getcolors(maxcolors=256*256*256)
+            colors = image.getcolors(maxcolors=1000000) # Increased maxcolors for safety
             if colors:
                 # Check for good color diversity (not too few, not too many)
                 unique_colors = len(colors)
-                if 50 <= unique_colors <= 500:
+                if 50 <= unique_colors <= 500: # Original range, might need adjustment
                     quality_score += 20
                 elif 20 <= unique_colors <= 1000:
                     quality_score += 15
@@ -270,7 +267,7 @@ class CoverAgent:
             dark_pixels = sum(histogram[:85])   # 0-85 (dark)
             mid_pixels = sum(histogram[85:170])  # 85-170 (mid)
             bright_pixels = sum(histogram[170:]) # 170-255 (bright)
-            total_pixels = sum(histogram)
+            total_pixels = sum(histogram) if sum(histogram) > 0 else 1 # Avoid division by zero
             
             # Good covers have a mix of dark and bright areas
             if dark_pixels > 0 and bright_pixels > 0:
@@ -284,11 +281,11 @@ class CoverAgent:
             
             # Text readability proxy (max 20 points)
             # Look for high contrast areas that could indicate readable text
-            edges = grayscale.filter(Image.EDGE_ENHANCE)
+            edges = grayscale.filter(Image.EDGE_ENHANCE) # Consider ImageFilter.FIND_EDGES for more distinct edges
             edge_histogram = edges.histogram()
             edge_strength = sum(i * count for i, count in enumerate(edge_histogram)) / total_pixels
             
-            if edge_strength > 50:
+            if edge_strength > 50: # Threshold might need tuning
                 quality_score += 20
             elif edge_strength > 25:
                 quality_score += 15
@@ -306,24 +303,34 @@ class CoverAgent:
         """Save cover image to specified path."""
         try:
             # Ensure output directory exists
-            output_path = os.path.abspath(output_path)
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            output_dir = Path(output_path).parent
+            output_dir.mkdir(parents=True, exist_ok=True)
             
             # Ensure .jpg extension
-            if not output_path.lower().endswith(('.jpg', '.jpeg')):
-                output_path = os.path.splitext(output_path)[0] + '.jpg'
+            final_output_path = Path(output_dir) / (Path(output_path).stem + '.jpg')
             
             # Convert to RGB if necessary (for JPEG)
             if image.mode in ('RGBA', 'LA', 'P'):
-                rgb_image = Image.new('RGB', image.size, (255, 255, 255))
-                rgb_image.paste(image, mask=image.split()[-1] if image.mode in ('RGBA', 'LA') else None)
-                image = rgb_image
-            
+                # Create a white background image
+                background = Image.new('RGB', image.size, (255, 255, 255))
+                # Paste the image using its alpha channel as mask if available
+                if image.mode == 'RGBA':
+                    background.paste(image, (0, 0), image)
+                elif image.mode == 'LA': # Luminance-Alpha
+                    # Convert LA to RGBA first for consistent pasting
+                    rgba_image = image.convert('RGBA')
+                    background.paste(rgba_image, (0,0), rgba_image)
+                else: # For 'P' (Palette) mode, just convert and paste
+                    background.paste(image.convert('RGB'), (0,0))
+                image = background
+            elif image.mode != 'RGB': # Ensure it's RGB for JPEG saving
+                 image = image.convert('RGB')
+
             # Save with high quality
-            image.save(output_path, 'JPEG', quality=95, optimize=True)
-            logger.info(f"Cover saved to: {output_path}")
+            image.save(str(final_output_path), 'JPEG', quality=95, optimize=True)
+            logger.info(f"Cover saved to: {final_output_path}")
             
-            return output_path
+            return str(final_output_path)
             
         except Exception as e:
             logger.error(f"Error saving cover image: {str(e)}")

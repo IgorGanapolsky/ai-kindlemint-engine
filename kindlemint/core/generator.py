@@ -1,14 +1,13 @@
 """Content generation using AI."""
 import logging
-import os
 import json
 import uuid
 from typing import List, Dict, Optional, Union
-from openai import OpenAI
 from pathlib import Path
 
 from ..utils.text_processing import clean_text
 from ..memory import KDPMemory
+from ..utils.api_manager import get_api_manager # Added
 
 logger = logging.getLogger(__name__)
 
@@ -17,32 +16,31 @@ class ContentGenerator:
     
     def __init__(
         self,
-        api_key: Optional[str] = None,
-        model: str = "gpt-4",
-        temperature: float = 0.7,
-        max_tokens: int = 2000,
+        # api_key: Optional[str] = None, # Removed: Handled by APIManager
+        # model: str = "gpt-4", # Removed: Handled by APIManager
+        temperature: float = 0.7, # Retained: May be used for specific task types or passed via kwargs if APIManager supports
+        max_tokens: int = 2000, # Retained: Passed to APIManager
         enable_memory: bool = True,
     ):
         """Initialize the content generator.
         
         Args:
-            api_key: OpenAI API key. If not provided, will look for OPENAI_API_KEY in environment.
-            model: The OpenAI model to use for generation.
-            temperature: Controls randomness in generation (0-1).
+            temperature: Controls randomness in generation (0-1). Used if APIManager supports it.
             max_tokens: Maximum number of tokens to generate per request.
             enable_memory: Whether to use memory-driven topic selection.
         """
-        self.api_key = api_key or os.getenv("OPENAI_API_KEY")
-        if not self.api_key:
-            raise ValueError(
-                "OpenAI API key not provided and OPENAI_API_KEY environment variable not set"
-            )
+        # self.api_key = api_key or os.getenv("OPENAI_API_KEY") # Removed
+        # if not self.api_key: # Removed
+        #     raise ValueError( # Removed
+        #         "OpenAI API key not provided and OPENAI_API_KEY environment variable not set" # Removed
+        #     ) # Removed
         
-        self.model = model
-        self.temperature = temperature
+        # self.model = model # Removed
+        self.temperature = temperature # Retained for now, though APIManager doesn't directly use it in generate_text
         self.max_tokens = max_tokens
         self.enable_memory = enable_memory
-        self.client = OpenAI(api_key=self.api_key)
+        # self.client = OpenAI(api_key=self.api_key) # Removed
+        self.api_manager = get_api_manager() # Added
         
         # Initialize memory system if enabled
         if self.enable_memory:
@@ -52,14 +50,16 @@ class ContentGenerator:
             except Exception as e:
                 logger.warning(f"Failed to initialize memory system: {e}")
                 self.enable_memory = False
-    
+        else: # Added
+            self.memory = None # Ensure self.memory exists even if disabled
+
     def generate_chapter(
         self,
         title: str,
         outline: str = "",
         style: str = "professional",
         word_count: int = 1500,
-        **kwargs
+        **kwargs # Retained for flexibility, though APIManager may not use all
     ) -> Dict[str, str]:
         """Generate a book chapter.
         
@@ -68,7 +68,7 @@ class ContentGenerator:
             outline: Chapter outline or key points to cover
             style: Writing style (e.g., professional, conversational, academic)
             word_count: Target word count for the chapter
-            **kwargs: Additional parameters to pass to the API
+            **kwargs: Additional parameters (currently not directly passed to APIManager.generate_text)
             
         Returns:
             Dict with 'title' and 'content' keys
@@ -76,15 +76,18 @@ class ContentGenerator:
         prompt = self._build_chapter_prompt(title, outline, style, word_count)
         
         try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=self.temperature,
-                max_tokens=self.max_tokens,
-                **kwargs
+            # APIManager.generate_text uses internal temperature settings
+            # model selection is handled by APIManager based on priority/task_type
+            content = self.api_manager.generate_text(
+                prompt=prompt,
+                max_tokens=self.max_tokens, # Use instance max_tokens
+                task_type='text_generation', # Default task type
+                priority='quality' # Assuming chapters need quality
             )
             
-            content = response.choices[0].message.content
+            if content is None:
+                raise Exception("API Manager failed to generate chapter content.")
+
             return {
                 "title": title,
                 "content": clean_text(content)
@@ -99,7 +102,7 @@ class ContentGenerator:
         topic: str,
         num_chapters: int = 10,
         style: str = "professional",
-        **kwargs
+        **kwargs # Retained for flexibility
     ) -> List[Dict[str, str]]:
         """Generate a book outline with chapter titles and summaries.
         
@@ -107,7 +110,7 @@ class ContentGenerator:
             topic: Book topic or title
             num_chapters: Number of chapters to generate
             style: Writing style
-            **kwargs: Additional parameters to pass to the API
+            **kwargs: Additional parameters
             
         Returns:
             List of chapter dicts with 'title' and 'summary' keys
@@ -121,15 +124,16 @@ class ContentGenerator:
         )
         
         try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=self.temperature * 0.8,  # Slightly less random for outlines
+            # Temperature for outlines might be desired to be lower, APIManager internal logic applies
+            content = self.api_manager.generate_text(
+                prompt=prompt,
                 max_tokens=self.max_tokens,
-                **kwargs
+                task_type='text_generation',
+                priority='quality' # Outlines benefit from quality
             )
-            
-            content = response.choices[0].message.content
+
+            if content is None:
+                raise Exception("API Manager failed to generate book outline.")
             # Try to parse JSON from the response
             try:
                 # Sometimes the response might include markdown code blocks
@@ -164,10 +168,10 @@ class ContentGenerator:
                 if current_chapter:
                     chapters.append(current_chapter)
                 current_chapter = {'title': line, 'summary': ''}
-            elif current_chapter and 'title' in current_chapter:
+            elif current_chapter and 'title' in current_chapter: # Ensure current_chapter is initialized
                 current_chapter['summary'] += ' ' + line
         
-        if current_chapter:
+        if current_chapter and 'title' in current_chapter: # Ensure current_chapter is initialized before appending
             chapters.append(current_chapter)
         
         return chapters
@@ -207,7 +211,7 @@ class ContentGenerator:
         """
         book_id = str(uuid.uuid4())
         
-        if self.enable_memory and hasattr(self, 'memory'):
+        if self.enable_memory and self.memory is not None:
             try:
                 # Get top performing niches from memory
                 top_niches = self.memory.get_top_performing_niches(limit=3)
@@ -219,14 +223,16 @@ class ContentGenerator:
                     logger.info(f"Targeting profitable niche: {target_niche} (ROI: {niche_performance:.2f})")
                 else:
                     # No historical data, use fallback or generate new niche
-                    target_niche = fallback_niche or self._generate_trending_niche()
+                    # _generate_trending_niche will now use APIManager
+                    generated_niche = self._generate_trending_niche()
+                    target_niche = fallback_niche or generated_niche
                     logger.info(f"No historical data, using niche: {target_niche}")
             except Exception as e:
                 logger.warning(f"Memory system error, using fallback: {e}")
-                target_niche = fallback_niche or "productivity"
+                target_niche = fallback_niche or self._generate_trending_niche() # Ensure generation if fallback_niche is None
         else:
-            target_niche = fallback_niche or "productivity"
-        
+            target_niche = fallback_niche or self._generate_trending_niche() # Ensure generation if fallback_niche is None
+
         # Generate topic within the profitable niche
         topic_prompt = (
             f"Generate a compelling book topic in the '{target_niche}' niche that would appeal to "
@@ -240,17 +246,20 @@ class ContentGenerator:
         )
         
         try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[{"role": "user", "content": topic_prompt}],
-                temperature=0.8,
-                max_tokens=100
+            topic = self.api_manager.generate_text(
+                prompt=topic_prompt,
+                max_tokens=100, # Original max_tokens
+                task_type='text_generation',
+                priority='quality' # For creative topic generation
             )
+
+            if topic is None:
+                raise Exception("API Manager failed to generate book topic.")
             
-            topic = response.choices[0].message.content.strip().strip('"')
+            topic = topic.strip().strip('"')
             
             # Store the new book record in memory
-            if self.enable_memory and hasattr(self, 'memory'):
+            if self.enable_memory and self.memory is not None:
                 try:
                     self.memory.store_book_record(
                         book_id=book_id,
@@ -266,7 +275,7 @@ class ContentGenerator:
                 'book_id': book_id,
                 'topic': topic,
                 'niche': target_niche,
-                'reasoning': f"Selected based on niche performance analysis"
+                'reasoning': f"Selected based on niche performance analysis or generation"
             }
             
         except Exception as e:
@@ -282,18 +291,20 @@ class ContentGenerator:
         )
         
         try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[{"role": "user", "content": niche_prompt}],
-                temperature=0.7,
-                max_tokens=50
+            niche = self.api_manager.generate_text(
+                prompt=niche_prompt,
+                max_tokens=50, # Original max_tokens
+                task_type='text_generation',
+                priority='balanced' # For niche generation
             )
-            
-            return response.choices[0].message.content.strip().lower()
+            if niche is None:
+                logger.warning("API Manager failed to generate trending niche, using fallback.")
+                return "personal development" # Fallback
+            return niche.strip().lower()
             
         except Exception as e:
-            logger.warning(f"Failed to generate trending niche: {e}")
-            return "personal development"
+            logger.warning(f"Failed to generate trending niche: {e}, using fallback.")
+            return "personal development" # Fallback
     
     def generate_cover_prompt(
         self,
@@ -301,7 +312,7 @@ class ContentGenerator:
         book_description: str,
         genre: str,
         style: str = "professional",
-        **kwargs
+        **kwargs # Retained for flexibility
     ) -> str:
         """Generate a prompt for creating a book cover.
         
@@ -310,7 +321,7 @@ class ContentGenerator:
             book_description: Brief description of the book
             genre: Book genre
             style: Style of the cover (e.g., minimalist, photorealistic, illustrated)
-            **kwargs: Additional parameters to pass to the API
+            **kwargs: Additional parameters
             
         Returns:
             A detailed prompt for generating a book cover
@@ -327,15 +338,15 @@ class ContentGenerator:
         )
         
         try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.7,
-                max_tokens=500,
-                **kwargs
+            cover_prompt_text = self.api_manager.generate_text(
+                prompt=prompt,
+                max_tokens=500, # Original max_tokens
+                task_type='text_generation',
+                priority='quality' # Detailed prompt needs quality
             )
-            
-            return response.choices[0].message.content.strip()
+            if cover_prompt_text is None:
+                raise Exception("API Manager failed to generate cover prompt.")
+            return cover_prompt_text.strip()
             
         except Exception as e:
             logger.error(f"Error generating cover prompt: {str(e)}")
@@ -347,7 +358,7 @@ class ContentGenerator:
         book_content: str,
         niche: str,
         target_audience: str = "professionals and entrepreneurs",
-        **kwargs
+        **kwargs # Retained for flexibility
     ) -> str:
         """Generate a compelling 500-word KDP book description for maximum sales conversion.
         
@@ -356,12 +367,12 @@ class ContentGenerator:
             book_content: Brief overview or chapter outline of the book content
             niche: The book's niche (e.g., productivity, finance, health)
             target_audience: Primary target audience
-            **kwargs: Additional parameters to pass to the API
+            **kwargs: Additional parameters
             
         Returns:
             A compelling 500-word KDP description with emotional hooks and clear benefits
         """
-        description_prompt = (
+        description_prompt_text = (
             f"Write a compelling 500-word Amazon KDP book description for '{book_title}' in the {niche} niche.\n\n"
             f"Book Content Overview: {book_content[:500]}...\n"
             f"Target Audience: {target_audience}\n\n"
@@ -386,17 +397,17 @@ class ContentGenerator:
         )
         
         try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[{"role": "user", "content": description_prompt}],
-                temperature=0.8,  # Higher creativity for compelling copy
-                max_tokens=800,   # Increased for longer descriptions
-                **kwargs
+            description = self.api_manager.generate_text(
+                prompt=description_prompt_text,
+                max_tokens=800, # Original max_tokens
+                task_type='text_generation',
+                priority='quality' # Compelling copy needs quality
             )
+            if description is None:
+                raise Exception("API Manager failed to generate KDP description.")
             
-            description = response.choices[0].message.content.strip()
             logger.info(f"Generated KDP description ({len(description)} characters)")
-            return description
+            return description.strip()
             
         except Exception as e:
             logger.error(f"Error generating KDP description: {str(e)}")
