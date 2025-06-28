@@ -1,0 +1,434 @@
+{
+  "timestamp": "2025-06-28T19:15:03.980971",
+  "files_removed": [
+    "__pycache__",
+    "tests/__pycache__",
+    "scripts/__pycache__",
+    "tests/integration/__pycache__",
+    "scripts/ci_orchestration/__pycache__",
+    "scripts/cli/__pycache__",
+    "venv/lib/python3.13/site-packages/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/__pycache__",
+    "venv/lib/python3.13/site-packages/psutil/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/network/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/utils/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/models/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/cli/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/operations/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/req/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/resolution/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/vcs/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/locations/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/index/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/commands/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/metadata/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/distributions/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/operations/install/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/operations/build/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/resolution/resolvelib/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_internal/metadata/importlib/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/packaging/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/truststore/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/msgpack/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/dependency_groups/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/pygments/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/distlib/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/cachecontrol/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/idna/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/requests/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/certifi/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/rich/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/urllib3/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/resolvelib/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/platformdirs/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/pygments/filters/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/pygments/lexers/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/pygments/styles/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/cachecontrol/caches/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/urllib3/util/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/urllib3/contrib/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/__pycache__",
+    "venv/lib/python3.13/site-packages/pip/_vendor/resolvelib/resolvers/__pycache__",
+    "venv/lib/python3.13/site-packages/psutil/tests/__pycache__",
+    "src/kindlemint/__pycache__",
+    "src/kindlemint/agents/__pycache__",
+    "src/kindlemint/utils/__pycache__",
+    "src/kindlemint/cli/__pycache__",
+    "src/kindlemint/social/__pycache__",
+    "src/kindlemint/engines/__pycache__",
+    "src/kindlemint/validators/__pycache__",
+    "src/kindlemint/orchestrator/__pycache__",
+    ".pytest_cache",
+    ".DS_Store",
+    "templates/.DS_Store",
+    "books/active_production/Large_Print_Crossword_Masters/.DS_Store",
+    "books/active_production/Large_Print_Crossword_Masters/volume_2/.DS_Store",
+    "books/active_production/Large_Print_Crossword_Masters/volume_1/.DS_Store",
+    "books/active_production/Large_Print_Sudoku_Masters/volume_1/.DS_Store",
+    "templates/hardcover/.DS_Store",
+    "batch_processor.log",
+    "scripts/ci_orchestration/ci_orchestration.log",
+    "books/active_production/_backup/books/active_production/Large_Print_Crossword_Masters/volume_4/paperback/",
+    "books/active_production/Large_Print_Crossword_Masters/volume_4/paperback/metadata/",
+    "books/active_production/Large_Print_Crossword_Masters/volume_4/hardcover/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_sudoku_duplicate0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_word_search_not_0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_crossword_mismat0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_crossword_valid0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_sudoku_multiple_0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_word_search_vali0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_sudoku_valid0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_sudoku_duplicate0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_word_search_not_0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_crossword_mismat0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_crossword_valid0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_sudoku_multiple_0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_word_search_vali0/metadata/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_sudoku_valid0/metadata/",
+    "books/active_production/Large_Print_Crossword_Masters/volume_2/kindle/",
+    "books/active_production/Large_Print_Crossword_Masters/volume_4/kindle/",
+    "books/active_production/Large_Print_Crossword_Masters/volume_1/epub_enhanced_build/",
+    "books/active_production/Test_Series/volume_1/magnetic_marketing/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_sudoku_duplicate0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_word_search_not_0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_crossword_mismat0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_crossword_valid0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_sudoku_multiple_0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_word_search_vali0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_sudoku_valid0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_sudoku_duplicate0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_word_search_not_0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_crossword_mismat0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_crossword_valid0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_sudoku_multiple_0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_word_search_vali0/",
+    ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_sudoku_valid0/",
+    "tests/unit/.pytest_tmp/",
+    ".git/lfs/tmp/",
+    "src/kindlemint/cli/",
+    "memory/archive/",
+    "memory/index/",
+    "archive/scripts_backup_2025/",
+    ".claude_code/templates/",
+    "tests/unit_tests/",
+    "tests/integration_tests/",
+    "tests/.pytest_tmp/",
+    "tests/fixtures/",
+    "books/published_archive/",
+    "batch_reports/20250627_145708/",
+    "batch_reports/20250627_144453/",
+    "batch_reports/20250627_131904/",
+    "batch_reports/20250627_131149/",
+    "hardcover/"
+  ],
+  "duplicates_removed": [
+    {
+      "removed": "archive/old_requirements/requirements-pinned.txt",
+      "kept": "requirements-pinned.txt",
+      "size": 744
+    },
+    {
+      "removed": "archive/old_requirements/requirements-dev.txt",
+      "kept": "requirements-dev.txt",
+      "size": 210
+    },
+    {
+      "removed": "archive/old_requirements/requirements-production.txt",
+      "kept": "requirements-production.txt",
+      "size": 404
+    },
+    {
+      "removed": "archive/old_requirements/requirements-locked.txt",
+      "kept": "requirements-locked.txt",
+      "size": 68123
+    },
+    {
+      "removed": "archive/scripts_backup_2025/enhanced_qa_validator_v2.py",
+      "kept": "scripts/enhanced_qa_validator_v2.py",
+      "size": 42367
+    },
+    {
+      "removed": "archive/obsolete_scripts_backup/create_volume_3_unique_solutions.py",
+      "kept": "scripts/create_volume_3_unique_solutions.py",
+      "size": 43948
+    },
+    {
+      "removed": "archive/scripts_backup_2025/create_volume_3_unique_solutions.py",
+      "kept": "scripts/create_volume_3_unique_solutions.py",
+      "size": 43948
+    },
+    {
+      "removed": "archive/scripts_backup_2025/volume_specific_cover_prompts.py",
+      "kept": "scripts/volume_specific_cover_prompts.py",
+      "size": 3552
+    },
+    {
+      "removed": "archive/scripts_backup_2025/enhanced_qa_validator.py",
+      "kept": "scripts/enhanced_qa_validator.py",
+      "size": 40277
+    },
+    {
+      "removed": "archive/scripts_backup_2025/enhanced_qa_validator_v3.py",
+      "kept": "scripts/enhanced_qa_validator_v3.py",
+      "size": 43121
+    },
+    {
+      "removed": "archive/scripts_backup_2025/generate_volume_4.py",
+      "kept": "scripts/generate_volume_4.py",
+      "size": 10504
+    },
+    {
+      "removed": "archive/scripts_backup_2025/generate_volume_4_final.py",
+      "kept": "scripts/generate_volume_4_final.py",
+      "size": 44062
+    },
+    {
+      "removed": "archive/scripts_backup_2025/unified_volume_generator.py",
+      "kept": "scripts/unified_volume_generator.py",
+      "size": 20266
+    },
+    {
+      "removed": "archive/obsolete_scripts_backup/create_volume_3_production_ready.py",
+      "kept": "scripts/create_volume_3_production_ready.py",
+      "size": 44445
+    },
+    {
+      "removed": "archive/scripts_backup_2025/create_volume_3_production_ready.py",
+      "kept": "scripts/create_volume_3_production_ready.py",
+      "size": 44445
+    },
+    {
+      "removed": "archive/scripts_backup_2025/generate_crossword_volume_2_fixed.py",
+      "kept": "scripts/generate_crossword_volume_2_fixed.py",
+      "size": 29789
+    },
+    {
+      "removed": "archive/obsolete_scripts_backup/create_volume_2_cover.py",
+      "kept": "scripts/create_volume_2_cover.py",
+      "size": 2489
+    },
+    {
+      "removed": "archive/scripts_backup_2025/create_volume_2_cover.py",
+      "kept": "scripts/create_volume_2_cover.py",
+      "size": 2489
+    },
+    {
+      "removed": "archive/obsolete_scripts_backup/create_volume_3_cover.py",
+      "kept": "scripts/create_volume_3_cover.py",
+      "size": 2661
+    },
+    {
+      "removed": "archive/scripts_backup_2025/create_volume_3_cover.py",
+      "kept": "scripts/create_volume_3_cover.py",
+      "size": 2661
+    },
+    {
+      "removed": "archive/obsolete_scripts_backup/create_volume_3_final.py",
+      "kept": "scripts/create_volume_3_final.py",
+      "size": 42583
+    },
+    {
+      "removed": "archive/scripts_backup_2025/create_volume_3_final.py",
+      "kept": "scripts/create_volume_3_final.py",
+      "size": 42583
+    },
+    {
+      "removed": "archive/obsolete_scripts_backup/create_volume_3_mini_puzzles_fixed.py",
+      "kept": "scripts/create_volume_3_mini_puzzles_fixed.py",
+      "size": 13709
+    },
+    {
+      "removed": "archive/scripts_backup_2025/create_volume_3_mini_puzzles_fixed.py",
+      "kept": "scripts/create_volume_3_mini_puzzles_fixed.py",
+      "size": 13709
+    },
+    {
+      "removed": "archive/scripts_backup_2025/crossword_engine_v3_fixed.py",
+      "kept": "scripts/crossword_engine_v3_fixed.py",
+      "size": 78613
+    },
+    {
+      "removed": "archive/scripts_backup_2025/crossword_engine_v2.py",
+      "kept": "scripts/crossword_engine_v2.py",
+      "size": 17622
+    },
+    {
+      "removed": "archive/scripts_backup_2025/generate_crossword_volume.py",
+      "kept": "scripts/generate_crossword_volume.py",
+      "size": 20388
+    },
+    {
+      "removed": "archive/scripts_backup_2025/volume_4_clue_generator.py",
+      "kept": "scripts/volume_4_clue_generator.py",
+      "size": 59315
+    },
+    {
+      "removed": "archive/scripts_backup_2025/generate_crossword_volume_2_professional.py",
+      "kept": "scripts/generate_crossword_volume_2_professional.py",
+      "size": 19081
+    },
+    {
+      "removed": "archive/scripts_backup_2025/api_manager.py",
+      "kept": "scripts/api_manager.py",
+      "size": 10919
+    },
+    {
+      "removed": "archive/obsolete_scripts_backup/create_volume_3_real_crosswords.py",
+      "kept": "scripts/create_volume_3_real_crosswords.py",
+      "size": 77331
+    },
+    {
+      "removed": "archive/scripts_backup_2025/create_volume_3_real_crosswords.py",
+      "kept": "scripts/create_volume_3_real_crosswords.py",
+      "size": 77331
+    },
+    {
+      "removed": "archive/obsolete_scripts_backup/create_volume_3_validated.py",
+      "kept": "scripts/create_volume_3_validated.py",
+      "size": 29028
+    },
+    {
+      "removed": "archive/scripts_backup_2025/create_volume_3_validated.py",
+      "kept": "scripts/create_volume_3_validated.py",
+      "size": 29028
+    },
+    {
+      "removed": "archive/obsolete_scripts_backup/create_volume_3_unique_puzzles.py",
+      "kept": "scripts/create_volume_3_unique_puzzles.py",
+      "size": 27482
+    },
+    {
+      "removed": "archive/scripts_backup_2025/create_volume_3_unique_puzzles.py",
+      "kept": "scripts/create_volume_3_unique_puzzles.py",
+      "size": 27482
+    },
+    {
+      "removed": "archive/obsolete_scripts_backup/create_volume_3_final_unique.py",
+      "kept": "scripts/create_volume_3_final_unique.py",
+      "size": 22937
+    },
+    {
+      "removed": "archive/scripts_backup_2025/create_volume_3_final_unique.py",
+      "kept": "scripts/create_volume_3_final_unique.py",
+      "size": 22937
+    },
+    {
+      "removed": "archive/scripts_backup_2025/regenerate_volume_2_kdp_compliant.py",
+      "kept": "scripts/regenerate_volume_2_kdp_compliant.py",
+      "size": 6426
+    },
+    {
+      "removed": "archive/scripts_backup_2025/fix_volume_2_dimensions.py",
+      "kept": "scripts/fix_volume_2_dimensions.py",
+      "size": 2275
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_words_file_option0/words.txt",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_words_file_option0/words.txt",
+      "size": 18
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_sudoku_duplicate0/metadata/sudoku_puzzle_02.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_sudoku_duplicate0/metadata/sudoku_puzzle_02.json",
+      "size": 158
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_sudoku_duplicate0/metadata/sudoku_puzzle_02.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_sudoku_duplicate0/metadata/sudoku_puzzle_02.json",
+      "size": 158
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_word_search_not_0/metadata/word_search_puzzle_02.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_word_search_not_0/metadata/word_search_puzzle_02.json",
+      "size": 62
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_word_search_not_0/metadata/word_search_puzzle_02.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_word_search_not_0/metadata/word_search_puzzle_02.json",
+      "size": 62
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_crossword_mismat0/metadata/puzzle_02.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_crossword_mismat0/metadata/puzzle_02.json",
+      "size": 112
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_crossword_mismat0/metadata/puzzle_02.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_crossword_mismat0/metadata/puzzle_02.json",
+      "size": 112
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_crossword_valid0/metadata/puzzle_01.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_crossword_valid0/metadata/puzzle_01.json",
+      "size": 125
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_crossword_valid0/metadata/puzzle_01.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_crossword_valid0/metadata/puzzle_01.json",
+      "size": 125
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_sudoku_multiple_0/metadata/sudoku_puzzle_03.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_sudoku_multiple_0/metadata/sudoku_puzzle_03.json",
+      "size": 158
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_sudoku_multiple_0/metadata/sudoku_puzzle_03.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_sudoku_multiple_0/metadata/sudoku_puzzle_03.json",
+      "size": 158
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_word_search_vali0/metadata/word_search_puzzle_01.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_word_search_vali0/metadata/word_search_puzzle_01.json",
+      "size": 126
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_word_search_vali0/metadata/word_search_puzzle_01.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_word_search_vali0/metadata/word_search_puzzle_01.json",
+      "size": 126
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-3/test_validate_sudoku_valid0/metadata/sudoku_puzzle_01.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_sudoku_valid0/metadata/sudoku_puzzle_01.json",
+      "size": 158
+    },
+    {
+      "removed": ".pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_validate_sudoku_valid0/metadata/sudoku_puzzle_01.json",
+      "kept": ".pytest_tmp/pytest-of-igorganapolsky/pytest-2/test_validate_sudoku_valid0/metadata/sudoku_puzzle_01.json",
+      "size": 158
+    },
+    {
+      "removed": "books/active_production/_backup/books/active_production/Large_Print_Crossword_Masters/volume_2/paperback/metadata_professional.json",
+      "kept": "books/active_production/Large_Print_Crossword_Masters/volume_2/paperback/metadata_professional.json",
+      "size": 1411
+    },
+    {
+      "removed": "books/active_production/_backup/books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/metadata_volume3.json",
+      "kept": "books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/metadata_volume3.json",
+      "size": 1572
+    },
+    {
+      "removed": "books/active_production/_backup/books/active_production/Large_Print_Crossword_Masters/volume_4/paperback/metadata_volume4.json",
+      "kept": "books/active_production/Large_Print_Crossword_Masters/volume_4/paperback/metadata_volume4.json",
+      "size": 1514
+    },
+    {
+      "removed": "books/active_production/_backup/books/active_production/Large_Print_Crossword_Masters/volume_4/hardcover/metadata_volume4.json",
+      "kept": "books/active_production/Large_Print_Crossword_Masters/volume_4/hardcover/metadata_volume4.json",
+      "size": 1514
+    }
+  ],
+  "bytes_saved": 7641643,
+  "directories_cleaned": [],
+  "summary": {
+    "total_files_removed": 123,
+    "total_duplicates_removed": 59,
+    "total_bytes_saved": 7641643,
+    "total_directories_cleaned": 0,
+    "mb_saved": 7.29
+  }
+}

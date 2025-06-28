@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-06-28T19:14:54.872302",
+  "files_removed": [
+    "logs/",
+    "reports/"
+  ],
+  "duplicates_removed": [],
+  "bytes_saved": 0,
+  "directories_cleaned": [],
+  "summary": {
+    "total_files_removed": 2,
+    "total_duplicates_removed": 0,
+    "total_bytes_saved": 0,
+    "total_directories_cleaned": 0,
+    "mb_saved": 0.0
+  }
+}
