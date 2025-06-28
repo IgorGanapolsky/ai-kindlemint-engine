@@ -10,12 +10,16 @@ import tempfile
 import unittest
 from pathlib import Path
 
-# Add scripts directory to path
+# Prefer new package code under `src`. Legacy `scripts` modules remain for
+# backward-compatibility but should be migrated and removed in future cleanup.
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
+# TODO: remove reliance on legacy `scripts` path once all engines are migrated.
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
 
 from book_layout_bot import BookLayoutEngine
 from crossword_engine_v2 import CrosswordEngine
-from sudoku_generator import SudokuGenerator
+# Use the modern Sudoku engine implementation
+from kindlemint.engines.sudoku import SudokuGenerator
 
 
 class TestBookGenerationPipeline(unittest.TestCase):
@@ -235,4 +239,3 @@ class TestQualityAssurance(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-EOF < /dev/null
