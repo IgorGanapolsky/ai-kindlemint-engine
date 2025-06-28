@@ -13,6 +13,7 @@ from enum import Enum
 
 from ..agents.base_agent import BaseAgent
 from ..agents.task_coordinator import TaskCoordinator
+from ..agents.agent_registry import AgentRegistry
 
 
 class TaskType(Enum):
@@ -60,7 +61,9 @@ class ClaudeCodeOrchestrator:
             'maintenance_cost': 1.0,
             'innovation_rate': 1.0
         }
-        self.task_coordinator = TaskCoordinator()
+        # Initialize agent registry and task coordinator
+        self.agent_registry = AgentRegistry()
+        self.task_coordinator = TaskCoordinator(self.agent_registry)
         
     async def initialize(self):
         """Initialize the orchestration system"""
