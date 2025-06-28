@@ -1,6 +1,5 @@
 """Automated cover generation agent using DALL-E 3 API."""
 import logging
-import requests # Retain for downloading image from URL
 # import os # Removed: API key handled by APIManager
 # import base64 # Seems unused, will remove if confirmed
 from typing import List, Dict, Optional, Tuple
@@ -9,6 +8,7 @@ from PIL import Image, ImageDraw, ImageFont
 import io
 # from openai import OpenAI # Removed: Client handled by APIManager
 from ..utils.api_manager import get_api_manager # Added
+from security import safe_requests
 
 logger = logging.getLogger(__name__)
 
@@ -190,7 +190,7 @@ class CoverAgent:
                 return None
 
             # Download the image
-            image_response = requests.get(image_url, timeout=30)
+            image_response = safe_requests.get(image_url, timeout=30)
             image_response.raise_for_status()
             
             # Convert to PIL Image
