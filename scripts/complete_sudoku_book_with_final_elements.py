@@ -169,9 +169,9 @@ class CompleteSudokuBookGenerator:
 
     def add_text_puzzle(self, story, puzzle):
         """Add a text-based puzzle representation"""
-        if 'grid' in puzzle:
+        if 'initial_grid' in puzzle:
             grid_text = ""
-            for row in puzzle['grid']:
+            for row in puzzle['initial_grid']:
                 row_text = " ".join([str(cell) if cell != 0 else "." for cell in row])
                 grid_text += f"<font name='Courier'>{row_text}</font><br/>"
             
@@ -179,6 +179,20 @@ class CompleteSudokuBookGenerator:
             story.append(grid_para)
         else:
             placeholder = Paragraph("[ Sudoku Grid ]", self.styles['Normal'])
+            story.append(placeholder)
+
+    def add_text_solution(self, story, puzzle):
+        """Add a text-based solution representation"""
+        if 'solution_grid' in puzzle:
+            solution_text = ""
+            for row in puzzle['solution_grid']:
+                row_text = " ".join([str(cell) for cell in row])
+                solution_text += f"<font name='Courier'>{row_text}</font><br/>"
+            
+            solution_para = Paragraph(solution_text, self.styles['Normal'])
+            story.append(solution_para)
+        else:
+            placeholder = Paragraph("[ Solution Grid ]", self.styles['Normal'])
             story.append(placeholder)
 
     def add_solutions_section(self, story, puzzles):
@@ -196,18 +210,18 @@ class CompleteSudokuBookGenerator:
             story.append(solution_header)
             story.append(Spacer(1, 20))
             
-            # Add solution
-            if 'solution' in puzzle:
-                solution_text = ""
-                for row in puzzle['solution']:
-                    row_text = " ".join([str(cell) for cell in row])
-                    solution_text += f"<font name='Courier'>{row_text}</font><br/>"
-                
-                solution_para = Paragraph(solution_text, self.styles['Normal'])
-                story.append(solution_para)
+            # Add solution image if available
+            solution_image_path = self.puzzles_dir / "puzzles" / f"sudoku_solution_{i:03d}.png"
+            if solution_image_path.exists():
+                try:
+                    img = Image(str(solution_image_path), width=6*inch, height=6*inch)
+                    story.append(img)
+                except Exception as e:
+                    print(f"Could not load solution image {i}: {e}")
+                    # Fallback: create text representation
+                    self.add_text_solution(story, puzzle)
             else:
-                placeholder = Paragraph("[ Solution Grid ]", self.styles['Normal'])
-                story.append(placeholder)
+                self.add_text_solution(story, puzzle)
             
             story.append(PageBreak())
 
