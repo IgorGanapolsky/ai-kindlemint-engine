@@ -139,10 +139,26 @@ class SudokuBookQAValidator:
                 if blank_count == 0:
                     issues['all_filled'] += 1
                 
-                # Check clue count
+                # Check clue count with strict validation
                 clue_count = data.get('clue_count', 0)
-                if clue_count < 17 or clue_count > 50:
+                difficulty = data.get('difficulty', 'medium').lower()
+                
+                # Use proper difficulty-based clue validation
+                clue_ranges = {
+                    "easy": {"min": 32, "max": 48},
+                    "medium": {"min": 25, "max": 36}, 
+                    "hard": {"min": 20, "max": 28},
+                    "expert": {"min": 17, "max": 26}
+                }
+                
+                expected_range = clue_ranges.get(difficulty, clue_ranges["medium"])
+                
+                if clue_count < expected_range["min"]:
                     issues['wrong_clues'] += 1
+                    self.errors.append(f"❌ CRITICAL: Puzzle {puzzle_id} has too few clues: {clue_count} (min: {expected_range['min']} for {difficulty})")
+                elif clue_count > expected_range["max"]:
+                    issues['wrong_clues'] += 1
+                    self.warnings.append(f"⚠️ Puzzle {puzzle_id} has many clues: {clue_count} (max: {expected_range['max']} for {difficulty})")
                 
                 # Check puzzle image exists
                 puzzle_id = data.get('id', 0)
@@ -159,11 +175,15 @@ class SudokuBookQAValidator:
             else:
                 self.passed_checks.append("✓ All checked puzzles have blank cells")
                 
-            if issues['wrong_clues'] > 0:
-                self.warnings.append(f"⚠️ {issues['wrong_clues']} puzzles have unusual clue counts")
+            # wrong_clues issues are now reported individually as errors/warnings above
+            # No need for aggregate reporting here since specific errors were added
                 
             if issues['missing_images'] > 0:
                 self.errors.append(f"❌ {issues['missing_images']} puzzle images are missing")
+            
+            # Add summary for clue validation
+            if issues['wrong_clues'] == 0:
+                self.passed_checks.append("✓ All checked puzzles have appropriate clue counts for their difficulty")
         else:
             self.errors.append("Metadata directory not found")
     
