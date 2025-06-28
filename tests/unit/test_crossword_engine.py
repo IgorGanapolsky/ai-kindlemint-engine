@@ -32,7 +32,7 @@ class TestCrosswordEngine(unittest.TestCase):
     def test_grid_creation(self):
         """Test creation of crossword grid"""
         size = 15
-        grid = self.engine.create_grid(size)
+        grid = self.engine.generate_grid_with_content("test_puzzle_1")
         
         # Check dimensions
         self.assertEqual(len(grid), size)
@@ -42,12 +42,12 @@ class TestCrosswordEngine(unittest.TestCase):
         # Check all cells are either empty or blocked
         for row in grid:
             for cell in row:
-                self.assertIn(cell, ["", "#"])
+                self.assertIn(cell, [" ", "#"])
     
     def test_grid_symmetry(self):
         """Test that grids have rotational symmetry"""
         size = 15
-        grid = self.engine.create_grid(size)
+        grid = self.engine.generate_grid_with_content("test_puzzle_2")
         
         # Check 180-degree rotational symmetry
         for i in range(size):
@@ -58,7 +58,7 @@ class TestCrosswordEngine(unittest.TestCase):
     
     def test_word_placement(self):
         """Test placing words in the grid"""
-        grid = [["" for _ in range(15)] for _ in range(15)]
+        grid = [[" " for _ in range(15)] for _ in range(15)]
         
         # Place a horizontal word
         word = "HELLO"
@@ -104,7 +104,7 @@ class TestCrosswordEngine(unittest.TestCase):
     
     def test_grid_connectivity(self):
         """Test that crossword grids are properly connected"""
-        grid = self.engine.create_grid(15)
+        grid = self.engine.generate_grid_with_content("test_puzzle_3")
         
         # Count black squares
         black_count = sum(1 for row in grid for cell in row if cell == "#")
@@ -118,7 +118,7 @@ class TestCrosswordEngine(unittest.TestCase):
     
     def test_minimum_word_length(self):
         """Test that all word slots meet minimum length"""
-        grid = self.engine.create_grid(15)
+        grid = self.engine.generate_grid_with_content("test_puzzle_4")
         
         # Check horizontal words
         for row in grid:
@@ -152,9 +152,9 @@ class TestCrosswordEngine(unittest.TestCase):
         """Test different difficulty levels"""
         difficulties = ["easy", "medium", "hard"]
         
-        for difficulty in difficulties:
-            self.engine.difficulty = difficulty
-            grid = self.engine.create_grid(15)
+        for i, difficulty in enumerate(difficulties):
+            self.engine.difficulty_mode = difficulty
+            grid = self.engine.generate_grid_with_content(f"test_puzzle_difficulty_{i}")
             
             # Grid should be created successfully
             self.assertEqual(len(grid), 15)
@@ -165,10 +165,10 @@ class TestCrosswordEngine(unittest.TestCase):
         themes = ["Animals", "Geography", "Science", "History"]
         
         for theme in themes:
-            self.engine.theme = theme
-            # In a real test, we'd verify themed words are used
-            # For now, just verify the theme is set
-            self.assertEqual(self.engine.theme, theme)
+            # Theme would be passed to generate_clues method in real usage
+            # For now, just verify the method exists and can be called
+            clues = self.engine.generate_clues("test_puzzle", theme, "medium")
+            self.assertIsInstance(clues, dict)
     
     def test_puzzle_metadata(self):
         """Test that puzzles include proper metadata"""
