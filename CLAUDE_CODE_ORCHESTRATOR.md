@@ -11,7 +11,7 @@ Generate complete AI agents with specified capabilities:
 ```bash
 claude-code create-agent \
   --type "publishing-specialist" \
-  --capabilities "content-generation" "market-analysis" "seo-optimization"
+  --capabilities "content-generation" --capabilities "market-analysis" --capabilities "seo-optimization"
 ```
 
 ### 2. **Real-Time Feature Implementation**
@@ -37,7 +37,7 @@ claude-code integrate "KDP Publishing API" --type api
 Generate unit, integration, load, and security tests:
 ```bash
 claude-code generate-tests \
-  --types unit_tests integration_tests security_tests \
+  --types unit_tests --types integration_tests --types security_tests \
   --coverage 0.9
 ```
 
@@ -73,14 +73,14 @@ export PATH=$PATH:/path/to/kindlemint
 claude-code init kindlemint \
   --architecture microservices \
   --stack python-fastapi-react \
-  --features ai-agents voice-input multi-channel-publishing
+  --features ai-agents --features voice-input --features multi-channel-publishing
 ```
 
 ### Create Mixture of Agents (MoA)
 
 ```bash
 claude-code create moa \
-  --agents content marketing revenue analytics \
+  --agents content --agents marketing --agents revenue --agents analytics \
   --orchestration parallel-with-aggregation \
   --monitoring weights-and-biases
 ```
@@ -93,7 +93,7 @@ claude-code create moa \
 claude-code generate-specialist \
   --industry healthcare \
   --book-type medical-guide \
-  --monetization course-upsell affiliate-medical-equipment \
+  --monetization course-upsell --monetization affiliate-medical-equipment \
   --compliance HIPAA-compliant
 ```
 

@@ -89,7 +89,7 @@ chmod +x claude-code
 # Create your first AI agent
 ./claude-code create-agent \
   --type "content-specialist" \
-  --capabilities "writing" "seo" "marketing"
+  --capabilities "writing" --capabilities "seo" --capabilities "marketing"
 
 # Generate a complete book
 python scripts/quick_start.py --type crossword --volume 1
@@ -298,7 +298,7 @@ Built with:
 **🚀 Ready to revolutionize your publishing journey?**
 
 ```bash
-./claude-code init kindlemint --features all
+./claude-code init kindlemint --features ai-agents --features voice-input --features multi-channel-publishing
 ```
 
 Join the AI publishing revolution where books write themselves, tests generate automatically, and code improves daily!
