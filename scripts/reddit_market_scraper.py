@@ -9,8 +9,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List
-
-import requests
+from security import safe_requests
 
 
 class RedditMarketScraper:
@@ -25,7 +24,7 @@ class RedditMarketScraper:
         url = f"{self.base_url}/r/{subreddit}/hot.json?limit={limit}"
 
         try:
-            response = requests.get(url, headers=self.headers)
+            response = safe_requests.get(url, headers=self.headers)
             if response.status_code == 200:
                 data = response.json()
                 posts = []

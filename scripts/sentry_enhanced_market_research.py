@@ -14,6 +14,7 @@ from sentry_config import (
     capture_kdp_error,
     init_sentry,
 )
+from security import safe_requests
 
 
 def run_sentry_enhanced_research():
@@ -59,7 +60,7 @@ def run_sentry_enhanced_research():
                     "Making SerpApi request", category="api", data={"params": params}
                 )
 
-                response = requests.get(
+                response = safe_requests.get(
                     "https://serpapi.com/search", params=params, timeout=30
                 )
 

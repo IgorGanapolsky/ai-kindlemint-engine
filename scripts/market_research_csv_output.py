@@ -11,8 +11,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
-
-import requests
+from security import safe_requests
 
 # Import Sentry if available
 try:
@@ -92,7 +91,7 @@ class MarketResearchEngine:
             }
 
             add_breadcrumb(f"Fetching SerpAPI data for: {keyword}", category="api")
-            response = requests.get(
+            response = safe_requests.get(
                 "https://serpapi.com/search", params=params, timeout=30
             )
 
