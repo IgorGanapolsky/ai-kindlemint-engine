@@ -156,13 +156,18 @@ class CompleteSudokuBookGenerator:
             puzzle_image_path = self.puzzles_dir / "puzzles" / f"sudoku_puzzle_{i:03d}.png"
             if puzzle_image_path.exists():
                 try:
-                    img = Image(str(puzzle_image_path), width=6*inch, height=6*inch)
+                    abs_path = puzzle_image_path.resolve()
+                    print(f"Loading puzzle image: {abs_path}")
+                    img = Image(str(abs_path), width=6*inch, height=6*inch)
                     story.append(img)
+                    print(f"✅ Successfully loaded puzzle image {i}")
                 except Exception as e:
-                    print(f"Could not load puzzle image {i}: {e}")
+                    print(f"❌ Could not load puzzle image {i}: {e}")
+                    print(f"📄 Falling back to text representation")
                     # Fallback: create text representation
                     self.add_text_puzzle(story, puzzle)
             else:
+                print(f"❌ Puzzle image not found: {puzzle_image_path}")
                 self.add_text_puzzle(story, puzzle)
             
             story.append(PageBreak())
