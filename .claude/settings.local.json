@@ -163,7 +163,15 @@
       "Bash(./claude-code --help)",
       "Bash(./claude-code:*)",
       "Bash(gh issue list:*)",
-      "Bash(gh issue view:*)"
+      "Bash(gh issue view:*)",
+      "Bash(./claude-flow status)",
+      "Bash(./claude-flow memory get sudoku_validator_analysis)",
+      "Bash(./claude-flow memory get sudoku_test_coverage)",
+      "Bash(./claude-flow status)",
+      "Bash(./claude-flow --help)",
+      "Bash(./claude-flow memory get sudoku_analysis_findings)",
+      "Bash(./claude-flow:*)",
+      "Bash(./claude-flow:*)"
     ],
     "deny": []
   }

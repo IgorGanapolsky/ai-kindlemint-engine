@@ -20,7 +20,22 @@ class SudokuPDFImageValidator:
         self.passed_checks = []
         
     def validate_pdf_images(self, pdf_path: Path) -> Dict:
-        """Validate that PDF contains actual puzzle images"""
+        """Validate that PDF contains actual puzzle images.
+        
+        Args:
+            pdf_path: Path to the PDF file to validate
+            
+        Returns:
+            Dictionary containing validation report with:
+                - status: 'PASS' or 'FAIL'
+                - total_checks: Total number of checks performed
+                - passed: Number of passed checks
+                - warnings: Number of warnings
+                - errors: Number of errors
+                - error_details: List of error messages
+                - warning_details: List of warning messages
+                - passed_details: List of passed check messages (first 10)
+        """
         print(f"🔍 Validating PDF images: {pdf_path}")
         
         try:
@@ -104,7 +119,16 @@ class SudokuPDFImageValidator:
         return self._generate_report()
     
     def _check_image_quality(self, doc):
-        """Check that images are high resolution"""
+        """Check that images are high resolution.
+        
+        Args:
+            doc: PyMuPDF document object to analyze
+            
+        Note:
+            - Checks image dimensions (minimum 300x300)
+            - Checks file size (minimum 10KB)
+            - Adds warnings for low quality images
+        """
         min_expected_size = 10000  # 10KB minimum for a decent puzzle image
         
         try:
@@ -135,7 +159,19 @@ class SudokuPDFImageValidator:
             self.warnings.append(f"⚠️ Could not check image quality: {str(e)}")
     
     def _generate_report(self) -> Dict:
-        """Generate validation report"""
+        """Generate validation report.
+        
+        Returns:
+            Dictionary containing:
+                - status: 'PASS' if no errors, 'FAIL' otherwise
+                - total_checks: Total number of checks performed
+                - passed: Number of passed checks
+                - warnings: Number of warnings
+                - errors: Number of errors
+                - error_details: List of error messages
+                - warning_details: List of warning messages
+                - passed_details: First 10 passed check messages
+        """
         total_checks = len(self.errors) + len(self.warnings) + len(self.passed_checks)
         
         report = {
@@ -177,7 +213,19 @@ class SudokuPDFImageValidator:
 
 
 def validate_sudoku_pdf(pdf_path: str) -> bool:
-    """Main entry point for PDF image validation"""
+    """Main entry point for PDF image validation.
+    
+    Args:
+        pdf_path: Path to the PDF file to validate
+        
+    Returns:
+        True if validation passed (no errors), False otherwise
+        
+    Side Effects:
+        - Creates pdf_image_validation_report.json in the same directory
+        - Installs PyMuPDF if not already installed
+        - Prints validation summary to console
+    """
     try:
         # Install PyMuPDF if needed
         import fitz
