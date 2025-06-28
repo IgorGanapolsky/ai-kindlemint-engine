@@ -1,8 +1,13 @@
 {
-  "timestamp": "2025-06-28T22:48:34.057229",
-  "cycle_duration": 0.673155,
-  "failures_detected": 0,
+  "timestamp": "2025-06-28T23:43:11.047456",
+  "cycle_duration": 14.831162,
+  "failures_detected": 9,
   "fixes_applied": 0,
   "errors": [],
-  "summary": "No failures detected"
+  "summary": "Detected 9 CI failures - manual review needed (cycle: 0.0s)",
+  "notifications": {
+    "slack_sent": false,
+    "email_sent": false,
+    "errors": []
+  }
 }
