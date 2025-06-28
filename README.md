@@ -3,20 +3,15 @@
 <!-- AGENT_DASHBOARD_START -->
 ## 🤖 Live Agent Orchestration Dashboard
 
-![System Status](https://img.shields.io/badge/System-Partially%20Running%0A%F0%9F%A4%96%20Agents%3A%200%20active%0A%F0%9F%93%8B%20Tasks%3A%200%20in%20queue%0A%F0%9F%92%BE%20Memory%3A%200%20entries%0A%F0%9F%96%A5%EF%B8%8F%20%20Terminal%20Pool%3A%20Stopped%0A%F0%9F%8C%90%20MCP%20Server%3A%20Stopped-brightgreen?style=flat-square)
+![System Status](https://img.shields.io/badge/System-Unknown-blue?style=flat-square)
 ![Active Agents](https://img.shields.io/badge/Active%20Agents-0-lightgrey?style=flat-square)
 ![Memory](https://img.shields.io/badge/Memory%20Entries-0-lightgrey?style=flat-square)
 ![Task Queue](https://img.shields.io/badge/Task%20Queue-Idle-lightgrey?style=flat-square)
 ![Health](https://img.shields.io/badge/Orchestration-%F0%9F%94%B4%20Offline-red?style=flat-square)
-![Last Updated](https://img.shields.io/badge/Last%20Updated-17%3A20%3A29%20UTC-informational?style=flat-square)
+![Last Updated](https://img.shields.io/badge/Last%20Updated-21%3A22%3A49%20UTC-informational?style=flat-square)
 
 ### Current Status
-- **System:** Partially Running
-🤖 Agents: 0 active
-📋 Tasks: 0 in queue
-💾 Memory: 0 entries
-🖥️  Terminal Pool: Stopped
-🌐 MCP Server: Stopped
+- **System:** Unknown
 - **Active Agents:** 0
 - **Memory Entries:** 0
 - **Tasks:** 0 pending, 0 running

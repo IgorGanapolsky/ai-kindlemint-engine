@@ -1,41 +1,29 @@
 {
-  "timestamp": "2025-06-28T17:20:23.808733",
+  "timestamp": "2025-06-28T21:22:44.690512",
   "status": {
-    "timestamp": "2025-06-28T17:20:12.093308",
+    "timestamp": "2025-06-28T21:22:35.151867",
     "claude_flow": {
-      "system_status": "Partially Running\n\ud83e\udd16 Agents: 0 active\n\ud83d\udccb Tasks: 0 in queue\n\ud83d\udcbe Memory: 0 entries\n\ud83d\udda5\ufe0f  Terminal Pool: Stopped\n\ud83c\udf10 MCP Server: Stopped",
-      "active_agents": 0,
-      "queued_tasks": 0,
-      "memory_entries": 0,
-      "terminal_pool": "unknown",
-      "mcp_server": "unknown"
+      "error": "claude-flow status failed: npm warn exec The following package was not found and will be installed: claude-flow@1.0.72\nnpm error code ENOTEMPTY\nnpm error syscall rename\nnpm error path /home/runner/.npm/_npx/314032b4cf2cd736/node_modules/mime\nnpm error dest /home/runner/.npm/_npx/314032b4cf2cd736/node_modules/.mime-l2BjelJd\nnpm error errno -39\nnpm error ENOTEMPTY: directory not empty, rename '/home/runner/.npm/_npx/314032b4cf2cd736/node_modules/mime' -> '/home/runner/.npm/_npx/314032b4cf2cd736/node_modules/.mime-l2BjelJd'\nnpm error A complete log of this run can be found in: /home/runner/.npm/_logs/2025-06-28T21_22_35_207Z-debug-0.log\n"
     },
     "active_agents": [],
     "memory": {
       "total_entries": 0,
-      "size_mb": 0
+      "error": "Could not get memory stats"
     },
     "task_queue": {
       "pending": 0,
       "in_progress": 0,
       "completed": 0
     },
-    "processes": [
-      {
-        "pid": "PID",
-        "cpu": "%CPU",
-        "memory": "%MEM",
-        "command": "COMMAND root 319 19.4 0.1 427106432 47232 ?? Ss 13Jun25 96:37.86 /usr/libexec/logd _windowserver 392..."
-      }
-    ]
+    "processes": []
   },
   "badges": {
-    "system_status": "https://img.shields.io/badge/System-Partially%20Running%0A%F0%9F%A4%96%20Agents%3A%200%20active%0A%F0%9F%93%8B%20Tasks%3A%200%20in%20queue%0A%F0%9F%92%BE%20Memory%3A%200%20entries%0A%F0%9F%96%A5%EF%B8%8F%20%20Terminal%20Pool%3A%20Stopped%0A%F0%9F%8C%90%20MCP%20Server%3A%20Stopped-brightgreen?style=flat-square",
+    "system_status": "https://img.shields.io/badge/System-Unknown-blue?style=flat-square",
     "active_agents": "https://img.shields.io/badge/Active%20Agents-0-lightgrey?style=flat-square",
     "memory": "https://img.shields.io/badge/Memory%20Entries-0-lightgrey?style=flat-square",
     "task_queue": "https://img.shields.io/badge/Task%20Queue-Idle-lightgrey?style=flat-square",
-    "last_updated": "https://img.shields.io/badge/Last%20Updated-17%3A20%3A23%20UTC-informational?style=flat-square",
+    "last_updated": "https://img.shields.io/badge/Last%20Updated-21%3A22%3A44%20UTC-informational?style=flat-square",
     "health": "https://img.shields.io/badge/Orchestration-%F0%9F%94%B4%20Offline-red?style=flat-square"
   },
-  "dashboard_markdown": "## \ud83e\udd16 Live Agent Orchestration Dashboard\n\n![System Status](https://img.shields.io/badge/System-Partially%20Running%0A%F0%9F%A4%96%20Agents%3A%200%20active%0A%F0%9F%93%8B%20Tasks%3A%200%20in%20queue%0A%F0%9F%92%BE%20Memory%3A%200%20entries%0A%F0%9F%96%A5%EF%B8%8F%20%20Terminal%20Pool%3A%20Stopped%0A%F0%9F%8C%90%20MCP%20Server%3A%20Stopped-brightgreen?style=flat-square)\n![Active Agents](https://img.shields.io/badge/Active%20Agents-0-lightgrey?style=flat-square)\n![Memory](https://img.shields.io/badge/Memory%20Entries-0-lightgrey?style=flat-square)\n![Task Queue](https://img.shields.io/badge/Task%20Queue-Idle-lightgrey?style=flat-square)\n![Health](https://img.shields.io/badge/Orchestration-%F0%9F%94%B4%20Offline-red?style=flat-square)\n![Last Updated](https://img.shields.io/badge/Last%20Updated-17%3A20%3A29%20UTC-informational?style=flat-square)\n\n### Current Status\n- **System:** Partially Running\n\ud83e\udd16 Agents: 0 active\n\ud83d\udccb Tasks: 0 in queue\n\ud83d\udcbe Memory: 0 entries\n\ud83d\udda5\ufe0f  Terminal Pool: Stopped\n\ud83c\udf10 MCP Server: Stopped\n- **Active Agents:** 0\n- **Memory Entries:** 0\n- **Tasks:** 0 pending, 0 running\n\n### Quick Commands\n```bash\n# Monitor agents live\npython scripts/agent_monitor.py --continuous\n\n# Start orchestration\n./claude-flow start --ui --port 3000\n\n# Spawn agents\n./claude-flow sparc \"task description\" --mode orchestrator\n./claude-flow swarm \"complex task\" --strategy development --parallel\n```\n\n### Agent Types Available\n- \ud83d\udd0d **Research Agents** - Market analysis, data gathering\n- \ud83d\udcbb **Code Agents** - Development, testing, debugging  \n- \ud83d\udcca **QA Agents** - Quality validation, testing\n- \ud83c\udfaf **Orchestrator Agents** - Multi-agent coordination\n- \ud83e\udde0 **Memory Agents** - Data storage and retrieval\n\n---\n*Dashboard auto-updates every 5 minutes via GitHub Actions*\n"
+  "dashboard_markdown": "## \ud83e\udd16 Live Agent Orchestration Dashboard\n\n![System Status](https://img.shields.io/badge/System-Unknown-blue?style=flat-square)\n![Active Agents](https://img.shields.io/badge/Active%20Agents-0-lightgrey?style=flat-square)\n![Memory](https://img.shields.io/badge/Memory%20Entries-0-lightgrey?style=flat-square)\n![Task Queue](https://img.shields.io/badge/Task%20Queue-Idle-lightgrey?style=flat-square)\n![Health](https://img.shields.io/badge/Orchestration-%F0%9F%94%B4%20Offline-red?style=flat-square)\n![Last Updated](https://img.shields.io/badge/Last%20Updated-21%3A22%3A49%20UTC-informational?style=flat-square)\n\n### Current Status\n- **System:** Unknown\n- **Active Agents:** 0\n- **Memory Entries:** 0\n- **Tasks:** 0 pending, 0 running\n\n### Quick Commands\n```bash\n# Monitor agents live\npython scripts/agent_monitor.py --continuous\n\n# Start orchestration\n./claude-flow start --ui --port 3000\n\n# Spawn agents\n./claude-flow sparc \"task description\" --mode orchestrator\n./claude-flow swarm \"complex task\" --strategy development --parallel\n```\n\n### Agent Types Available\n- \ud83d\udd0d **Research Agents** - Market analysis, data gathering\n- \ud83d\udcbb **Code Agents** - Development, testing, debugging  \n- \ud83d\udcca **QA Agents** - Quality validation, testing\n- \ud83c\udfaf **Orchestrator Agents** - Multi-agent coordination\n- \ud83e\udde0 **Memory Agents** - Data storage and retrieval\n\n---\n*Dashboard auto-updates every 5 minutes via GitHub Actions*\n"
 }
