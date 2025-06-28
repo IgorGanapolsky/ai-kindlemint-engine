@@ -17,8 +17,10 @@
 - **GitHub Actions Pipeline** - Automated QA on every push/PR
 - **Pre-commit Hooks** - Code quality enforcement (black, isort, flake8, mypy)
 - **Critical Metadata QA** - Catches trim sizes, categories, cover prompts
+- **QA Validation Pipeline (`qa_validation.yml`)** – Runs `scripts/critical_metadata_qa.py` on every push/PR
 - **Git LFS** - Asset management for fonts and templates
 - **Essential Assets** - All fonts and .dotx templates in place
+ - **Manual KDP Uploads** – All publishing to Amazon KDP is performed manually to remain fully compliant with ToS (no Playwright automation)
 
 ### ✅ **Production Features** - COMPLETE
 - **Multi-Agent Architecture** - Content, marketing, revenue, analytics agents
@@ -56,14 +58,12 @@
 - 14 corrupted JSON files identified by QA
 - Need to implement Stripe payment integration
 - Community platform features partial
-
 ## 🚀 Next Sprint (July 2025)
 
 ### Week 1: Production Cleanup
 | Task | Owner | Priority |
 |------|-------|----------|
 | Fix 14 corrupted JSON files | Team | Critical |
-| Consolidate KDP publishers | Team | High |
 | Clean up dependencies | Team | Medium |
 | Document all workflows | Team | Medium |
 

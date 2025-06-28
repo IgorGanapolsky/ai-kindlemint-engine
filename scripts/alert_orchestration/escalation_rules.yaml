@@ -1,0 +1,403 @@
+# Escalation Rules Configuration
+# Defines when and how alerts should be escalated through different levels
+
+version: "1.0.0"
+last_updated: "2025-06-28T00:00:00Z"
+description: "Comprehensive escalation rules for autonomous alert handling"
+
+# Global escalation settings
+global_settings:
+  escalation_enabled: true
+  max_escalation_level: 3
+  escalation_cooldown_minutes: 15  # minimum time between escalations for same issue
+  auto_escalation_timeout_minutes: 30  # auto-escalate if no response
+  
+# Escalation levels definition
+escalation_levels:
+  level_0:
+    name: "Automated Resolution"
+    description: "Attempt automated resolution first"
+    timeout_minutes: 10
+    actions:
+      - type: "auto_resolve"
+        confidence_threshold: 0.7
+      - type: "slack_notification"
+        channels: ["#alerts"]
+        severity: "info"
+    
+  level_1:
+    name: "Team Alert"
+    description: "Notify development team"
+    timeout_minutes: 15
+    actions:
+      - type: "slack_notification"
+        channels: ["#alerts", "#dev-team"]
+        severity: "warning"
+        include_actions: true
+      - type: "email_notification"
+        recipients: ["dev-team@kindlemint.com"]
+        
+  level_2:
+    name: "On-Call Engineer"
+    description: "Escalate to on-call engineer"
+    timeout_minutes: 20
+    actions:
+      - type: "slack_notification"
+        channels: ["#oncall", "#alerts"]
+        severity: "high"
+        mention_oncall: true
+      - type: "pagerduty_alert"
+        service_key: "oncall_service"
+      - type: "phone_call"
+        recipients: ["oncall_engineer"]
+        
+  level_3:
+    name: "Management Escalation"
+    description: "Escalate to senior management"
+    timeout_minutes: 30
+    actions:
+      - type: "slack_notification"
+        channels: ["#management", "#oncall", "#alerts"]
+        severity: "critical"
+        mention_management: true
+      - type: "email_notification"
+        recipients: ["management@kindlemint.com", "cto@kindlemint.com"]
+      - type: "incident_creation"
+        priority: "P1"
+
+# Escalation triggers
+triggers:
+  # Error severity-based triggers
+  error_severity:
+    critical:
+      immediate_level: 2
+      conditions:
+        - "error.level == 'fatal'"
+        - "error.level == 'critical'"
+        - "business_impact == 'critical'"
+      
+    high:
+      immediate_level: 1
+      conditions:
+        - "error.level == 'error'"
+        - "business_impact == 'high'"
+        - "error.count > 50"
+        
+    medium:
+      immediate_level: 0
+      conditions:
+        - "error.level == 'warning'"
+        - "business_impact == 'medium'"
+        - "error.count > 10"
+        
+  # Time-based escalation
+  time_based:
+    unresolved_duration:
+      15_minutes:
+        escalate_to_level: 1
+        conditions:
+          - "resolution_attempts >= 2"
+          - "status == 'unresolved'"
+          
+      30_minutes:
+        escalate_to_level: 2
+        conditions:
+          - "status == 'unresolved'"
+          - "severity in ['high', 'critical']"
+          
+      60_minutes:
+        escalate_to_level: 3
+        conditions:
+          - "status == 'unresolved'"
+          - "business_impact in ['high', 'critical']"
+          
+  # Frequency-based escalation
+  frequency_based:
+    error_rate:
+      high_frequency:
+        threshold: 20  # errors per hour
+        escalate_to_level: 1
+        window_minutes: 60
+        
+      critical_frequency:
+        threshold: 50  # errors per hour
+        escalate_to_level: 2
+        window_minutes: 60
+        
+    resolution_failure_rate:
+      high_failure_rate:
+        threshold: 5  # failed resolutions per hour
+        escalate_to_level: 1
+        window_minutes: 60
+        
+      critical_failure_rate:
+        threshold: 10  # failed resolutions per hour
+        escalate_to_level: 2
+        window_minutes: 60
+
+# Category-specific escalation rules
+category_rules:
+  database:
+    priority: "high"
+    escalation_speed: "fast"  # faster escalation for DB issues
+    rules:
+      - condition: "error.message.contains('connection')"
+        immediate_level: 1
+        reason: "Database connectivity issues require immediate attention"
+        
+      - condition: "error.message.contains('deadlock')"
+        immediate_level: 1
+        reason: "Database deadlocks can indicate serious performance issues"
+        
+      - condition: "error.environment == 'production' and error.count > 5"
+        immediate_level: 2
+        reason: "Production database errors with high frequency"
+        
+  performance:
+    priority: "medium"
+    escalation_speed: "normal"
+    rules:
+      - condition: "error.message.contains('memory') and error.count > 10"
+        immediate_level: 1
+        reason: "Memory issues can lead to service degradation"
+        
+      - condition: "error.message.contains('timeout') and error.count > 20"
+        immediate_level: 1
+        reason: "High frequency timeout errors indicate system stress"
+        
+  security:
+    priority: "critical"
+    escalation_speed: "immediate"
+    rules:
+      - condition: "error.category == 'security'"
+        immediate_level: 2
+        reason: "All security issues require immediate escalation"
+        
+      - condition: "error.message.contains('unauthorized') and error.count > 5"
+        immediate_level: 2
+        reason: "Potential security breach attempt"
+        
+  authentication:
+    priority: "medium"
+    escalation_speed: "normal"
+    rules:
+      - condition: "error.message.contains('token') and error.count > 15"
+        immediate_level: 1
+        reason: "Widespread authentication issues affect user experience"
+        
+  infrastructure:
+    priority: "high"
+    escalation_speed: "fast"
+    rules:
+      - condition: "error.environment == 'production'"
+        immediate_level: 1
+        reason: "Production infrastructure issues require quick response"
+        
+      - condition: "error.message.contains('disk') and error.message.contains('full')"
+        immediate_level: 2
+        reason: "Disk space issues can cause system-wide failures"
+        
+  application:
+    priority: "medium"
+    escalation_speed: "normal"
+    rules:
+      - condition: "error.message.contains('import') and error.environment == 'production'"
+        immediate_level: 1
+        reason: "Import errors in production indicate deployment issues"
+
+# Environment-specific rules
+environment_rules:
+  production:
+    escalation_multiplier: 1.5  # escalate 50% faster
+    minimum_level: 1  # all production errors start at level 1
+    special_conditions:
+      - condition: "business_hours"
+        escalation_speed: "fast"
+      - condition: "after_hours"
+        escalation_speed: "normal"
+        
+  staging:
+    escalation_multiplier: 0.8  # escalate 20% slower
+    minimum_level: 0
+    special_conditions:
+      - condition: "deployment_in_progress"
+        escalation_speed: "slow"
+        
+  development:
+    escalation_multiplier: 0.5  # escalate 50% slower
+    minimum_level: 0
+    max_level: 1  # don't escalate beyond level 1 for dev
+
+# Business impact escalation
+business_impact_rules:
+  critical:
+    description: "System down, data loss, security breach"
+    immediate_level: 3
+    revenue_impact_per_hour: 50000  # $50,000/hour
+    affected_users_threshold: 10000
+    
+  high:
+    description: "Major feature down, significant performance degradation"
+    immediate_level: 2
+    revenue_impact_per_hour: 10000  # $10,000/hour
+    affected_users_threshold: 1000
+    
+  medium:
+    description: "Minor feature issues, some user impact"
+    immediate_level: 1
+    revenue_impact_per_hour: 1000  # $1,000/hour
+    affected_users_threshold: 100
+    
+  low:
+    description: "Cosmetic issues, minimal user impact"
+    immediate_level: 0
+    revenue_impact_per_hour: 100  # $100/hour
+    affected_users_threshold: 10
+
+# Special escalation scenarios
+special_scenarios:
+  cascade_failure:
+    description: "Multiple related errors occurring simultaneously"
+    trigger_conditions:
+      - "related_errors_count >= 3"
+      - "timespan_minutes <= 10"
+    escalate_to_level: 2
+    actions:
+      - "create_incident"
+      - "notify_sre_team"
+      
+  recurring_issue:
+    description: "Same error pattern repeating frequently"
+    trigger_conditions:
+      - "pattern_matches >= 5"
+      - "timespan_hours <= 24"
+      - "resolution_success_rate < 50%"
+    escalate_to_level: 1
+    actions:
+      - "create_task"
+      - "assign_to_team"
+      
+  deployment_related:
+    description: "Errors occurring after recent deployment"
+    trigger_conditions:
+      - "deployment_age_minutes <= 30"
+      - "error_count_increase >= 200%"
+    escalate_to_level: 2
+    actions:
+      - "notify_deployment_team"
+      - "consider_rollback"
+      
+  external_dependency:
+    description: "Third-party service causing errors"
+    trigger_conditions:
+      - "error.category == 'network'"
+      - "error.message.contains('external')"
+      - "error.count >= 10"
+    escalate_to_level: 1
+    actions:
+      - "check_service_status"
+      - "enable_fallback"
+
+# Escalation prevention rules
+prevention_rules:
+  noise_reduction:
+    duplicate_suppression:
+      enabled: true
+      time_window_minutes: 10
+      similarity_threshold: 0.8
+      
+    known_issues:
+      enabled: true
+      suppress_known_patterns: true
+      maintenance_mode_suppression: true
+      
+  rate_limiting:
+    max_escalations_per_hour: 20
+    max_escalations_per_day: 100
+    cooldown_between_escalations: 300  # seconds
+    
+# Escalation effectiveness tracking
+tracking:
+  metrics:
+    - "escalation_response_time"
+    - "escalation_resolution_time"
+    - "false_positive_rate"
+    - "escalation_satisfaction_score"
+    
+  feedback_loop:
+    enabled: true
+    adjust_thresholds_based_on_outcomes: true
+    learning_period_days: 30
+    
+# Notification templates for escalations
+notification_templates:
+  level_1:
+    slack:
+      title: "⚠️ Alert Escalation - Team Attention Required"
+      format: |
+        *Alert Escalated to Level 1*
+        
+        *Issue:* {error_title}
+        *Environment:* {environment}
+        *Frequency:* {error_count} occurrences
+        *Business Impact:* {business_impact}
+        
+        *Automated Resolution:* {auto_resolution_status}
+        *Time Since First Occurrence:* {duration}
+        
+        Please investigate and take appropriate action.
+        
+  level_2:
+    slack:
+      title: "🚨 Critical Escalation - On-Call Required"
+      format: |
+        *CRITICAL: Alert Escalated to Level 2*
+        
+        @oncall-engineer immediate attention required
+        
+        *Issue:* {error_title}
+        *Environment:* {environment}
+        *Severity:* {severity}
+        *Business Impact:* {business_impact}
+        *Revenue Impact:* ${revenue_impact}/hour
+        
+        *Previous Actions Taken:*
+        {previous_actions}
+        
+        *Suggested Next Steps:*
+        {suggested_actions}
+        
+  level_3:
+    slack:
+      title: "🔥 MANAGEMENT ESCALATION - Critical System Issue"
+      format: |
+        *MANAGEMENT ESCALATION: Critical System Issue*
+        
+        @management @cto immediate attention required
+        
+        *Critical Issue:* {error_title}
+        *Environment:* {environment}
+        *Duration:* {total_duration}
+        *Business Impact:* {business_impact}
+        *Estimated Revenue Loss:* ${total_revenue_impact}
+        *Affected Users:* {affected_users}
+        
+        *Resolution Attempts:*
+        {all_resolution_attempts}
+        
+        *Current Status:* {current_status}
+        *Incident ID:* {incident_id}
+
+# De-escalation rules
+de_escalation:
+  automatic_de_escalation:
+    enabled: true
+    conditions:
+      - "error_resolved == true"
+      - "error_frequency_decreased >= 80%"
+      - "business_impact_resolved == true"
+      
+  manual_de_escalation:
+    enabled: true
+    requires_approval: true
+    approval_roles: ["oncall_engineer", "team_lead"]

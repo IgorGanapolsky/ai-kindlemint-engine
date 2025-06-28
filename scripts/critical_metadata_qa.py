@@ -273,7 +273,7 @@ class CriticalMetadataQA:
         
         all_files = set()
         for pattern in patterns:
-            files = glob.glob(os.path.join(self.base_dir, pattern), recursive=True)
+            files = glob.glob(os.path.join(str(self.base_dir), pattern), recursive=True)
             all_files.update(files)
         
         # Filter out files under any _backup directory
@@ -284,7 +284,7 @@ class CriticalMetadataQA:
         
         # Validate each file
         for file_path in sorted(filtered_files):
-            rel_path = os.path.relpath(file_path, self.base_dir)
+            rel_path = os.path.relpath(file_path, str(self.base_dir))
             print(f"Checking: {rel_path}")
             self.validate_file(file_path)
         

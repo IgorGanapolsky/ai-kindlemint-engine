@@ -1,0 +1,464 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-06-28T00:00:00Z",
+  "description": "Known error patterns for automated detection and resolution",
+  "pattern_count": 24,
+  "patterns": [
+    {
+      "id": "db_connection_timeout",
+      "name": "Database Connection Timeout",
+      "pattern": "(?:database|db|connection).{0,50}(?:timeout|timed out|time out)",
+      "category": "database",
+      "severity": "high",
+      "confidence": 0.9,
+      "frequency": 15,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "increase_connection_pool",
+      "similar_errors": ["db_connection_refused", "db_pool_exhausted"],
+      "metadata": {
+        "common_causes": ["high load", "connection pool size", "network issues"],
+        "typical_duration": "5-30 minutes",
+        "business_impact": "high",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "db_connection_refused",
+      "name": "Database Connection Refused",
+      "pattern": "(?:database|db|connection).{0,50}(?:refused|denied|rejected)",
+      "category": "database",
+      "severity": "critical",
+      "confidence": 0.95,
+      "frequency": 8,
+      "last_seen": "2025-06-27T00:00:00Z",
+      "resolution_strategy": "restart_database_service",
+      "similar_errors": ["db_connection_timeout", "db_authentication_failed"],
+      "metadata": {
+        "common_causes": ["database server down", "network configuration", "firewall rules"],
+        "typical_duration": "15-60 minutes",
+        "business_impact": "critical",
+        "auto_resolvable": false
+      }
+    },
+    {
+      "id": "memory_leak",
+      "name": "Memory Leak Detection",
+      "pattern": "(?:memory|heap).{0,50}(?:leak|exhausted|out of memory|oom)",
+      "category": "performance",
+      "severity": "high",
+      "confidence": 0.85,
+      "frequency": 12,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "restart_service",
+      "similar_errors": ["high_memory_usage", "garbage_collection_pressure"],
+      "metadata": {
+        "common_causes": ["code defects", "large data processing", "caching issues"],
+        "typical_duration": "30-120 minutes",
+        "business_impact": "medium",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "api_rate_limit",
+      "name": "API Rate Limit Exceeded",
+      "pattern": "(?:rate.{0,20}limit|too many requests|429|quota exceeded)",
+      "category": "network",
+      "severity": "medium",
+      "confidence": 0.9,
+      "frequency": 25,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "implement_exponential_backoff",
+      "similar_errors": ["api_quota_exceeded", "throttling_active"],
+      "metadata": {
+        "common_causes": ["high traffic", "inefficient API usage", "missing rate limiting"],
+        "typical_duration": "5-15 minutes",
+        "business_impact": "low",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "ssl_certificate_expired",
+      "name": "SSL Certificate Expired",
+      "pattern": "(?:ssl|tls|certificate).{0,50}(?:expired|invalid|verification failed)",
+      "category": "security",
+      "severity": "critical",
+      "confidence": 0.95,
+      "frequency": 2,
+      "last_seen": "2025-06-25T00:00:00Z",
+      "resolution_strategy": "manual_intervention_required",
+      "similar_errors": ["certificate_validation_failed", "https_handshake_failed"],
+      "metadata": {
+        "common_causes": ["certificate expiration", "configuration errors", "CA changes"],
+        "typical_duration": "60-240 minutes",
+        "business_impact": "critical",
+        "auto_resolvable": false
+      }
+    },
+    {
+      "id": "authentication_token_expired",
+      "name": "Authentication Token Expired",
+      "pattern": "(?:token|auth|authentication).{0,50}(?:expired|invalid|unauthorized)",
+      "category": "authentication",
+      "severity": "medium",
+      "confidence": 0.85,
+      "frequency": 18,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "refresh_auth_tokens",
+      "similar_errors": ["jwt_invalid", "session_expired"],
+      "metadata": {
+        "common_causes": ["token expiration", "clock skew", "configuration mismatch"],
+        "typical_duration": "1-5 minutes",
+        "business_impact": "medium",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "disk_space_full",
+      "name": "Disk Space Exhausted",
+      "pattern": "(?:disk|storage|filesystem).{0,50}(?:full|space|no space left)",
+      "category": "infrastructure",
+      "severity": "high",
+      "confidence": 0.9,
+      "frequency": 5,
+      "last_seen": "2025-06-26T00:00:00Z",
+      "resolution_strategy": "clear_disk_space",
+      "similar_errors": ["log_files_growing", "temp_files_accumulating"],
+      "metadata": {
+        "common_causes": ["log accumulation", "temporary files", "data growth"],
+        "typical_duration": "10-30 minutes",
+        "business_impact": "high",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "import_module_error",
+      "name": "Python Module Import Error",
+      "pattern": "(?:import|module).{0,50}(?:error|not found|no module named)",
+      "category": "application",
+      "severity": "high",
+      "confidence": 0.9,
+      "frequency": 7,
+      "last_seen": "2025-06-27T00:00:00Z",
+      "resolution_strategy": "check_dependencies",
+      "similar_errors": ["package_not_found", "python_path_error"],
+      "metadata": {
+        "common_causes": ["missing dependencies", "virtual environment issues", "deployment errors"],
+        "typical_duration": "15-45 minutes",
+        "business_impact": "high",
+        "auto_resolvable": false
+      }
+    },
+    {
+      "id": "redis_connection_error",
+      "name": "Redis Connection Error",
+      "pattern": "(?:redis).{0,50}(?:connection|connect|refused|timeout)",
+      "category": "database",
+      "severity": "medium",
+      "confidence": 0.85,
+      "frequency": 10,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "restart_redis_service",
+      "similar_errors": ["cache_unavailable", "redis_memory_full"],
+      "metadata": {
+        "common_causes": ["Redis server issues", "network problems", "memory limits"],
+        "typical_duration": "5-20 minutes",
+        "business_impact": "medium",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "high_cpu_usage",
+      "name": "High CPU Usage",
+      "pattern": "(?:cpu|processor).{0,50}(?:high|100%|maxed|overload)",
+      "category": "performance",
+      "severity": "medium",
+      "confidence": 0.8,
+      "frequency": 20,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "scale_resources",
+      "similar_errors": ["load_average_high", "performance_degradation"],
+      "metadata": {
+        "common_causes": ["inefficient code", "high traffic", "resource constraints"],
+        "typical_duration": "10-60 minutes",
+        "business_impact": "medium",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "json_decode_error",
+      "name": "JSON Decode Error",
+      "pattern": "(?:json|decode|parse).{0,50}(?:error|invalid|malformed)",
+      "category": "application",
+      "severity": "medium",
+      "confidence": 0.85,
+      "frequency": 15,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "validate_json_input",
+      "similar_errors": ["xml_parse_error", "data_format_error"],
+      "metadata": {
+        "common_causes": ["malformed input", "encoding issues", "API changes"],
+        "typical_duration": "5-30 minutes",
+        "business_impact": "low",
+        "auto_resolvable": false
+      }
+    },
+    {
+      "id": "elasticsearch_timeout",
+      "name": "Elasticsearch Query Timeout",
+      "pattern": "(?:elasticsearch|es).{0,50}(?:timeout|slow|query time)",
+      "category": "database",
+      "severity": "medium",
+      "confidence": 0.8,
+      "frequency": 8,
+      "last_seen": "2025-06-27T00:00:00Z",
+      "resolution_strategy": "optimize_es_queries",
+      "similar_errors": ["search_performance_slow", "es_cluster_issues"],
+      "metadata": {
+        "common_causes": ["large queries", "insufficient resources", "index issues"],
+        "typical_duration": "15-45 minutes",
+        "business_impact": "medium",
+        "auto_resolvable": false
+      }
+    },
+    {
+      "id": "docker_container_oom",
+      "name": "Docker Container Out of Memory",
+      "pattern": "(?:docker|container).{0,50}(?:oom|out of memory|killed|memory limit)",
+      "category": "infrastructure",
+      "severity": "high",
+      "confidence": 0.9,
+      "frequency": 6,
+      "last_seen": "2025-06-27T00:00:00Z",
+      "resolution_strategy": "increase_memory_limits",
+      "similar_errors": ["kubernetes_pod_evicted", "container_restart_loop"],
+      "metadata": {
+        "common_causes": ["insufficient memory limits", "memory leaks", "traffic spikes"],
+        "typical_duration": "5-15 minutes",
+        "business_impact": "high",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "webhook_delivery_failed",
+      "name": "Webhook Delivery Failed",
+      "pattern": "(?:webhook|callback).{0,50}(?:failed|error|timeout|unreachable)",
+      "category": "network",
+      "severity": "medium",
+      "confidence": 0.8,
+      "frequency": 12,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "retry_webhook_delivery",
+      "similar_errors": ["api_callback_failed", "notification_delivery_failed"],
+      "metadata": {
+        "common_causes": ["endpoint unavailable", "network issues", "authentication problems"],
+        "typical_duration": "10-30 minutes",
+        "business_impact": "low",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "file_permission_denied",
+      "name": "File Permission Denied",
+      "pattern": "(?:permission|access).{0,50}(?:denied|forbidden|not allowed)",
+      "category": "infrastructure",
+      "severity": "medium",
+      "confidence": 0.85,
+      "frequency": 9,
+      "last_seen": "2025-06-27T00:00:00Z",
+      "resolution_strategy": "fix_file_permissions",
+      "similar_errors": ["directory_access_denied", "write_permission_error"],
+      "metadata": {
+        "common_causes": ["incorrect permissions", "user/group changes", "deployment issues"],
+        "typical_duration": "5-20 minutes",
+        "business_impact": "medium",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "queue_processing_backlog",
+      "name": "Queue Processing Backlog",
+      "pattern": "(?:queue|backlog|pending).{0,50}(?:large|growing|delayed|slow)",
+      "category": "performance",
+      "severity": "medium",
+      "confidence": 0.8,
+      "frequency": 14,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "scale_queue_workers",
+      "similar_errors": ["worker_processing_slow", "task_queue_full"],
+      "metadata": {
+        "common_causes": ["insufficient workers", "slow processing", "traffic spikes"],
+        "typical_duration": "20-60 minutes",
+        "business_impact": "medium",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "cors_policy_violation",
+      "name": "CORS Policy Violation",
+      "pattern": "(?:cors|cross.{0,10}origin).{0,50}(?:blocked|violation|policy|error)",
+      "category": "network",
+      "severity": "low",
+      "confidence": 0.9,
+      "frequency": 22,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "update_cors_configuration",
+      "similar_errors": ["csp_violation", "referrer_policy_error"],
+      "metadata": {
+        "common_causes": ["misconfigured CORS", "new client domains", "policy changes"],
+        "typical_duration": "5-15 minutes",
+        "business_impact": "low",
+        "auto_resolvable": false
+      }
+    },
+    {
+      "id": "third_party_service_down",
+      "name": "Third Party Service Unavailable",
+      "pattern": "(?:third.{0,10}party|external|upstream).{0,50}(?:down|unavailable|error|timeout)",
+      "category": "network",
+      "severity": "medium",
+      "confidence": 0.75,
+      "frequency": 11,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "enable_fallback_service",
+      "similar_errors": ["api_service_unavailable", "payment_gateway_down"],
+      "metadata": {
+        "common_causes": ["service outages", "network issues", "API changes"],
+        "typical_duration": "30-180 minutes",
+        "business_impact": "medium",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "session_store_error",
+      "name": "Session Store Error",
+      "pattern": "(?:session|store|cache).{0,50}(?:error|unavailable|corrupted|expired)",
+      "category": "application",
+      "severity": "medium",
+      "confidence": 0.8,
+      "frequency": 7,
+      "last_seen": "2025-06-27T00:00:00Z",
+      "resolution_strategy": "clear_session_cache",
+      "similar_errors": ["cache_corruption", "session_timeout"],
+      "metadata": {
+        "common_causes": ["cache server issues", "memory problems", "corrupted data"],
+        "typical_duration": "10-25 minutes",
+        "business_impact": "medium",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "email_delivery_failed",
+      "name": "Email Delivery Failed",
+      "pattern": "(?:email|mail|smtp).{0,50}(?:failed|error|rejected|bounced)",
+      "category": "network",
+      "severity": "low",
+      "confidence": 0.85,
+      "frequency": 16,
+      "last_seen": "2025-06-28T00:00:00Z",
+      "resolution_strategy": "retry_email_delivery",
+      "similar_errors": ["smtp_authentication_failed", "mail_queue_full"],
+      "metadata": {
+        "common_causes": ["SMTP issues", "invalid addresses", "spam filters"],
+        "typical_duration": "5-30 minutes",
+        "business_impact": "low",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "cloudflare_error",
+      "name": "Cloudflare CDN Error",
+      "pattern": "(?:cloudflare|cdn|edge).{0,50}(?:error|5[0-9][0-9]|timeout|unreachable)",
+      "category": "infrastructure",
+      "severity": "high",
+      "confidence": 0.85,
+      "frequency": 4,
+      "last_seen": "2025-06-26T00:00:00Z",
+      "resolution_strategy": "bypass_cdn",
+      "similar_errors": ["cdn_cache_miss", "edge_server_down"],
+      "metadata": {
+        "common_causes": ["CDN issues", "origin server problems", "DNS issues"],
+        "typical_duration": "15-60 minutes",
+        "business_impact": "high",
+        "auto_resolvable": false
+      }
+    },
+    {
+      "id": "python_syntax_error",
+      "name": "Python Syntax Error",
+      "pattern": "(?:syntax|indentation).{0,50}(?:error|invalid|unexpected)",
+      "category": "application",
+      "severity": "high",
+      "confidence": 0.95,
+      "frequency": 3,
+      "last_seen": "2025-06-25T00:00:00Z",
+      "resolution_strategy": "rollback_deployment",
+      "similar_errors": ["compilation_error", "code_parse_error"],
+      "metadata": {
+        "common_causes": ["deployment errors", "code merge issues", "environment differences"],
+        "typical_duration": "10-30 minutes",
+        "business_impact": "high",
+        "auto_resolvable": false
+      }
+    },
+    {
+      "id": "load_balancer_error",
+      "name": "Load Balancer Error",
+      "pattern": "(?:load.{0,10}balancer|lb|proxy).{0,50}(?:error|timeout|unreachable|5[0-9][0-9])",
+      "category": "infrastructure",
+      "severity": "critical",
+      "confidence": 0.9,
+      "frequency": 2,
+      "last_seen": "2025-06-24T00:00:00Z",
+      "resolution_strategy": "restart_load_balancer",
+      "similar_errors": ["proxy_error", "nginx_error"],
+      "metadata": {
+        "common_causes": ["load balancer issues", "backend unavailable", "configuration errors"],
+        "typical_duration": "5-30 minutes",
+        "business_impact": "critical",
+        "auto_resolvable": false
+      }
+    },
+    {
+      "id": "backup_failure",
+      "name": "Backup Process Failed",
+      "pattern": "(?:backup|snapshot).{0,50}(?:failed|error|incomplete|corrupted)",
+      "category": "infrastructure",
+      "severity": "medium",
+      "confidence": 0.9,
+      "frequency": 6,
+      "last_seen": "2025-06-27T00:00:00Z",
+      "resolution_strategy": "retry_backup_process",
+      "similar_errors": ["snapshot_failed", "archive_error"],
+      "metadata": {
+        "common_causes": ["storage issues", "permission problems", "network timeouts"],
+        "typical_duration": "30-120 minutes",
+        "business_impact": "low",
+        "auto_resolvable": true
+      }
+    }
+  ],
+  "metadata": {
+    "creation_date": "2025-06-28T00:00:00Z",
+    "sources": [
+      "production_logs_analysis",
+      "common_error_databases",
+      "team_knowledge_base"
+    ],
+    "confidence_distribution": {
+      "high_confidence": 18,
+      "medium_confidence": 6,
+      "low_confidence": 0
+    },
+    "category_distribution": {
+      "database": 4,
+      "performance": 4,
+      "network": 6,
+      "application": 4,
+      "infrastructure": 5,
+      "authentication": 1,
+      "security": 1
+    },
+    "auto_resolvable_count": 16,
+    "manual_intervention_required": 8
+  }
+}

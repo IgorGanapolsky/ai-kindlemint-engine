@@ -1,0 +1,152 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'KDP Report Ingestor Lambda - Memory-Driven Publishing Engine V2.0'
+
+Parameters:
+  DynamoDBTableName:
+    Type: String
+    Default: 'KDP_Business_Memory'
+    Description: 'Name of the DynamoDB table for storing book performance data'
+  
+  S3BucketName:
+    Type: String
+    Default: 'kindlemint-reports'
+    Description: 'S3 bucket name for storing KDP reports'
+  
+  ScheduleExpression:
+    Type: String
+    Default: 'rate(7 days)'
+    Description: 'Schedule for automatic report processing (e.g., rate(7 days) or cron(0 10 ? * MON *))'
+
+Resources:
+  # S3 Bucket for KDP Reports
+  KDPReportsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref S3BucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  # IAM Role for Lambda Function
+  KDPIngestorRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: 'KDPReportIngestor-ExecutionRole'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: 'DynamoDBAccess'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:Scan
+                  - dynamodb:Query
+                Resource: !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${DynamoDBTableName}'
+        - PolicyName: 'S3Access'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:ListBucket
+                Resource:
+                  - !Sub 'arn:aws:s3:::${KDPReportsBucket}/*'
+                  - !Sub 'arn:aws:s3:::${KDPReportsBucket}'
+
+  # Lambda Function
+  KDPReportIngestorFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: 'KDP-Report-Ingestor'
+      Description: 'Ingests KDP sales reports into DynamoDB memory for profit-seeking intelligence'
+      Runtime: python3.9
+      Handler: kdp_report_ingestor.lambda_handler
+      Role: !GetAtt KDPIngestorRole.Arn
+      Timeout: 300
+      MemorySize: 512
+      Environment:
+        Variables:
+          DYNAMODB_TABLE_NAME: !Ref DynamoDBTableName
+          S3_BUCKET_NAME: !Ref S3BucketName
+      Code:
+        ZipFile: |
+          # Placeholder - replace with actual deployment package
+          def lambda_handler(event, context):
+              return {"statusCode": 200, "body": "Deploy actual code"}
+
+  # S3 Invoke Permission for Lambda
+  S3InvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref KDPReportIngestorFunction
+      Principal: s3.amazonaws.com
+      SourceAccount: !Ref 'AWS::AccountId'
+      SourceArn: !Sub '${KDPReportsBucket}/*'
+
+  # EventBridge Rule for Scheduled Execution
+  KDPIngestorScheduleRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: 'KDP-Report-Ingestor-Schedule'
+      Description: 'Trigger KDP Report Ingestor on schedule for automated processing'
+      ScheduleExpression: !Ref ScheduleExpression
+      State: ENABLED
+      Targets:
+        - Arn: !GetAtt KDPReportIngestorFunction.Arn
+          Id: 'KDPIngestorTarget'
+          Input: !Sub |
+            {
+              "source": "scheduled",
+              "report_date": "${AWS::StackName}"
+            }
+
+  # EventBridge Invoke Permission for Lambda
+  EventBridgeInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref KDPReportIngestorFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt KDPIngestorScheduleRule.Arn
+
+  # CloudWatch Log Group
+  KDPIngestorLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: '/aws/lambda/KDP-Report-Ingestor'
+      RetentionInDays: 30
+
+Outputs:
+  LambdaFunctionArn:
+    Description: 'ARN of the KDP Report Ingestor Lambda function'
+    Value: !GetAtt KDPReportIngestorFunction.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-LambdaArn'
+  
+  S3BucketName:
+    Description: 'Name of the S3 bucket for KDP reports'
+    Value: !Ref KDPReportsBucket
+    Export:
+      Name: !Sub '${AWS::StackName}-S3Bucket'
+  
+  ScheduleRuleArn:
+    Description: 'ARN of the EventBridge schedule rule'
+    Value: !GetAtt KDPIngestorScheduleRule.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-ScheduleRule'

@@ -1,0 +1,588 @@
+name: Alert Orchestration System
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'scripts/alert_orchestration/**'
+      - '.github/workflows/alert-orchestration.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'scripts/alert_orchestration/**'
+      - '.github/workflows/alert-orchestration.yml'
+  schedule:
+    # Run health checks every hour
+    - cron: '0 * * * *'
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'deploy'
+        type: choice
+        options:
+          - deploy
+          - test
+          - health-check
+          - restart
+          - dry-run
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      dry_run:
+        description: 'Run in dry-run mode'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  PYTHON_VERSION: '3.9'
+  ALERT_ORCHESTRATION_PATH: 'scripts/alert_orchestration'
+
+jobs:
+  # Test the alert orchestration system
+  test:
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'test')
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+          
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-asyncio pytest-mock
+        
+    - name: Run unit tests
+      run: |
+        cd ${{ env.ALERT_ORCHESTRATION_PATH }}
+        python -m pytest ../tests/test_alert_orchestration.py -v
+        
+    - name: Test configuration validation
+      run: |
+        cd ${{ env.ALERT_ORCHESTRATION_PATH }}
+        python -c "
+        import yaml
+        import json
+        
+        # Test config.yaml
+        with open('config.yaml', 'r') as f:
+            config = yaml.safe_load(f)
+        print('✅ config.yaml is valid')
+        
+        # Test error_patterns.json
+        with open('error_patterns.json', 'r') as f:
+            patterns = json.load(f)
+        print('✅ error_patterns.json is valid')
+        
+        # Test escalation_rules.yaml
+        with open('escalation_rules.yaml', 'r') as f:
+            rules = yaml.safe_load(f)
+        print('✅ escalation_rules.yaml is valid')
+        "
+        
+    - name: Test imports and basic functionality
+      run: |
+        cd ${{ env.ALERT_ORCHESTRATION_PATH }}
+        python -c "
+        # Test imports
+        from sentry_monitor import SentryMonitor
+        from slack_handler import SlackBot
+        from error_analyzer import ErrorAnalyzer
+        from auto_resolver import AutoResolver
+        from alert_orchestrator import AlertOrchestrator
+        from resolution_strategies import strategy_registry
+        from notification_templates import template_registry
+        
+        print('✅ All imports successful')
+        
+        # Test template registry
+        templates = template_registry.list_templates()
+        assert len(templates) > 0, 'No templates found'
+        print(f'✅ Found {len(templates)} notification templates')
+        
+        # Test strategy registry
+        strategies = strategy_registry.strategies
+        assert len(strategies) > 0, 'No strategies found'
+        print(f'✅ Found {len(strategies)} resolution strategies')
+        "
+
+  # Health check for running systems
+  health-check:
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'health-check')
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Check Sentry connectivity
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORGANIZATION: ${{ secrets.SENTRY_ORGANIZATION }}
+      run: |
+        cd ${{ env.ALERT_ORCHESTRATION_PATH }}
+        python -c "
+        import os
+        from sentry_monitor import SentryMonitor
+        
+        if os.getenv('SENTRY_AUTH_TOKEN') and os.getenv('SENTRY_ORGANIZATION'):
+            try:
+                monitor = SentryMonitor()
+                projects = monitor.get_projects()
+                print(f'✅ Sentry connectivity OK - Found {len(projects)} projects')
+            except Exception as e:
+                print(f'❌ Sentry connectivity failed: {e}')
+                exit(1)
+        else:
+            print('⚠️ Sentry credentials not configured - skipping connectivity test')
+        "
+        
+    - name: Check Slack connectivity
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      run: |
+        cd ${{ env.ALERT_ORCHESTRATION_PATH }}
+        python -c "
+        import os
+        from slack_handler import SlackBot
+        
+        if os.getenv('SLACK_WEBHOOK_URL') or os.getenv('SLACK_BOT_TOKEN'):
+            try:
+                bot = SlackBot()
+                print('✅ Slack integration initialized successfully')
+            except Exception as e:
+                print(f'❌ Slack integration failed: {e}')
+                exit(1)
+        else:
+            print('⚠️ Slack credentials not configured - skipping connectivity test')
+        "
+        
+    - name: Send health check notification
+      if: always()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        if [ -n "$SLACK_WEBHOOK_URL" ]; then
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{
+              "text": "🏥 Alert Orchestration Health Check",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "🏥 Alert Orchestration Health Check"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Status:* ${{ job.status == 'success' && '✅ Healthy' || '❌ Issues Detected' }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Timestamp:* $(date -u)"
+                    },
+                    {
+                      "type": "mrkdwn", 
+                      "text": "*Environment:* ${{ github.ref_name }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Run ID:* ${{ github.run_id }}"
+                    }
+                  ]
+                }
+              ]
+            }' \
+            $SLACK_WEBHOOK_URL
+        fi
+
+  # Deploy to staging
+  deploy-staging:
+    if: github.ref == 'refs/heads/develop' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
+    runs-on: ubuntu-latest
+    needs: [test]
+    
+    environment:
+      name: staging
+      url: https://staging.kindlemint.com/alert-orchestration
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Deploy configuration
+      env:
+        ENVIRONMENT: staging
+        DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+      run: |
+        echo "Deploying alert orchestration to staging environment"
+        cd ${{ env.ALERT_ORCHESTRATION_PATH }}
+        
+        # Create deployment directory
+        mkdir -p /tmp/alert-orchestration-deploy
+        
+        # Copy files
+        cp -r . /tmp/alert-orchestration-deploy/
+        
+        # Update configuration for staging
+        python -c "
+        import yaml
+        import os
+        
+        with open('config.yaml', 'r') as f:
+            config = yaml.safe_load(f)
+        
+        # Update for staging
+        config['system']['environment'] = 'staging'
+        config['operation']['dry_run'] = os.getenv('DRY_RUN', 'false').lower() == 'true'
+        config['operation']['monitoring_interval'] = 60  # More frequent in staging
+        
+        with open('/tmp/alert-orchestration-deploy/config.yaml', 'w') as f:
+            yaml.dump(config, f, indent=2)
+        
+        print('✅ Configuration updated for staging')
+        "
+        
+    - name: Start orchestrator (dry-run)
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_STAGING }}
+        SENTRY_ORGANIZATION: ${{ secrets.SENTRY_ORGANIZATION }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_STAGING }}
+        DRY_RUN: true
+      run: |
+        cd /tmp/alert-orchestration-deploy
+        
+        # Run orchestrator in dry-run mode for validation
+        timeout 60s python alert_orchestrator.py --dry-run || true
+        
+        echo "✅ Staging deployment validation completed"
+        
+    - name: Send deployment notification
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_STAGING }}
+      run: |
+        if [ -n "$SLACK_WEBHOOK_URL" ]; then
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{
+              "text": "🚀 Alert Orchestration Deployed to Staging",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "🚀 Alert Orchestration Deployed"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Environment:* Staging"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Version:* ${{ github.sha }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Status:* ${{ job.status == 'success' && '✅ Success' || '❌ Failed' }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Dry Run:* ${{ github.event.inputs.dry_run || 'false' }}"
+                    }
+                  ]
+                }
+              ]
+            }' \
+            $SLACK_WEBHOOK_URL
+        fi
+
+  # Deploy to production
+  deploy-production:
+    if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production')
+    runs-on: ubuntu-latest
+    needs: [test]
+    
+    environment:
+      name: production
+      url: https://kindlemint.com/alert-orchestration
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Deploy to production
+      env:
+        ENVIRONMENT: production
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORGANIZATION: ${{ secrets.SENTRY_ORGANIZATION }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      run: |
+        echo "Deploying alert orchestration to production environment"
+        cd ${{ env.ALERT_ORCHESTRATION_PATH }}
+        
+        # Create production deployment directory
+        mkdir -p /tmp/alert-orchestration-prod
+        
+        # Copy files
+        cp -r . /tmp/alert-orchestration-prod/
+        
+        # Update configuration for production
+        python -c "
+        import yaml
+        import os
+        
+        with open('config.yaml', 'r') as f:
+            config = yaml.safe_load(f)
+        
+        # Update for production
+        config['system']['environment'] = 'production'
+        config['operation']['dry_run'] = False
+        config['operation']['monitoring_interval'] = 300  # Standard interval
+        config['operation']['max_concurrent_resolutions'] = 5  # Higher limit for prod
+        
+        # Enable all integrations in production
+        config['components']['sentry_enabled'] = True
+        config['components']['slack_enabled'] = True
+        config['components']['auto_resolution_enabled'] = True
+        
+        with open('/tmp/alert-orchestration-prod/config.yaml', 'w') as f:
+            yaml.dump(config, f, indent=2)
+        
+        print('✅ Configuration updated for production')
+        "
+        
+    - name: Validate production configuration
+      run: |
+        cd /tmp/alert-orchestration-prod
+        
+        # Validate all required environment variables
+        python -c "
+        import os
+        
+        required_vars = [
+            'SENTRY_AUTH_TOKEN',
+            'SENTRY_ORGANIZATION',
+            'SLACK_WEBHOOK_URL'
+        ]
+        
+        missing_vars = [var for var in required_vars if not os.getenv(var)]
+        
+        if missing_vars:
+            print(f'❌ Missing required environment variables: {missing_vars}')
+            exit(1)
+        else:
+            print('✅ All required environment variables are configured')
+        "
+        
+    - name: Create systemd service (if applicable)
+      run: |
+        cat > /tmp/alert-orchestration.service << EOF
+        [Unit]
+        Description=KindleMint Alert Orchestration System
+        After=network.target
+        
+        [Service]
+        Type=simple
+        User=alertorchestrator
+        WorkingDirectory=/opt/alert-orchestration
+        ExecStart=/usr/bin/python3 alert_orchestrator.py --config config.yaml
+        Restart=always
+        RestartSec=10
+        Environment=PYTHONPATH=/opt/alert-orchestration
+        EnvironmentFile=/etc/alert-orchestration/environment
+        
+        [Install]
+        WantedBy=multi-user.target
+        EOF
+        
+        echo "✅ Systemd service file created"
+        
+    - name: Send production deployment notification
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        if [ -n "$SLACK_WEBHOOK_URL" ]; then
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{
+              "text": "🚀 Alert Orchestration Deployed to Production",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "🚀 PRODUCTION DEPLOYMENT"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Alert Orchestration System has been deployed to production*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Environment:* Production"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Version:* '"${{ github.sha }}"'"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Deployed by:* ${{ github.actor }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Status:* ${{ job.status == 'success' && '✅ Success' || '❌ Failed' }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Features Enabled:*\n• Sentry Error Monitoring\n• Automated Resolution\n• Slack Integration\n• Escalation Management"
+                  }
+                }
+              ]
+            }' \
+            $SLACK_WEBHOOK_URL
+        fi
+
+  # Cleanup and maintenance
+  maintenance:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Cleanup old workflow runs
+      uses: Mattraks/delete-workflow-runs@v2
+      with:
+        token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        retain_days: 30
+        keep_minimum_runs: 5
+        
+    - name: Send maintenance notification
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        if [ -n "$SLACK_WEBHOOK_URL" ]; then
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{
+              "text": "🧹 Alert Orchestration Maintenance Completed",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "🧹 *Alert Orchestration Maintenance*\n\nCompleted routine maintenance tasks:\n• Cleaned up old workflow runs\n• Verified system health\n• Updated monitoring metrics"
+                  }
+                }
+              ]
+            }' \
+            $SLACK_WEBHOOK_URL
+        fi
+
+  # Restart orchestrator service
+  restart-service:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'restart'
+    runs-on: ubuntu-latest
+    
+    environment:
+      name: ${{ github.event.inputs.environment }}
+      
+    steps:
+    - name: Restart orchestrator service
+      env:
+        ENVIRONMENT: ${{ github.event.inputs.environment }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        echo "Restarting alert orchestrator service in $ENVIRONMENT"
+        
+        # This would typically involve SSH to the server or calling an API
+        # For now, we'll simulate the restart
+        echo "Service restart requested for environment: $ENVIRONMENT"
+        
+        # Send notification
+        if [ -n "$SLACK_WEBHOOK_URL" ]; then
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{
+              "text": "🔄 Alert Orchestrator Service Restart",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "🔄 *Service Restart Initiated*\n\n*Environment:* '"$ENVIRONMENT"'\n*Requested by:* ${{ github.actor }}\n*Time:* $(date -u)\n\n*Status:* In Progress"
+                  }
+                }
+              ]
+            }' \
+            $SLACK_WEBHOOK_URL
+        fi

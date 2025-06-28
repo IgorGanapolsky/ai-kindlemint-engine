@@ -300,6 +300,7 @@ ai-kindlemint-engine/
    - KDP printing and distribution
    - Marketing and advertising
    - Time investment
+5. **Manual KDP Upload Only**: KindleMint does *not* include automated Playwright publishing. All KDP uploads are performed manually to stay fully compliant with Amazon ToS.
 
 4. **Technical Requirements**:
    - Python 3.11+
