@@ -267,9 +267,9 @@ def kindlemint(architecture, stack, features):
         
         click.echo("\n✅ KindleMint initialized successfully!")
         click.echo("\nNext steps:")
-        click.echo("  1. cd src/kindlemint")
-        click.echo("  2. claude-code create-agent --type marketing-specialist --capabilities market-analysis")
-        click.echo("  3. claude-code develop-feature affiliate_integration")
+        click.echo("  1. ./claude-code create-agent --type marketing-specialist --capabilities market-analysis")
+        click.echo("  2. ./claude-code develop-feature affiliate_integration")
+        click.echo("  3. ./claude-code optimize --type all")
     
     def _create_structure(base_path, structure):
         for name, content in structure.items():
