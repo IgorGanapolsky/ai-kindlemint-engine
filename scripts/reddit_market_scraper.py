@@ -25,7 +25,7 @@ class RedditMarketScraper:
         url = f"{self.base_url}/r/{subreddit}/hot.json?limit={limit}"
 
         try:
-            response = requests.get(url, headers=self.headers)
+            response = requests.get(url, headers=self.headers, timeout=30)
             if response.status_code == 200:
                 data = response.json()
                 posts = []
