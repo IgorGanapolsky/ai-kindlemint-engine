@@ -353,7 +353,7 @@ class SudokuValidator(PuzzleValidator):
                 
                 if clue_count < expected_range["min"]:
                     issues.append(self.create_issue(
-                        severity=IssueSeverity.WARNING,
+                        severity=IssueSeverity.ERROR,
                         description=f"Too few clues for {difficulty} difficulty: {clue_count} (min: {expected_range['min']})",
                         puzzle_id=puzzle_id,
                         recommendation=f"Add more clues or change difficulty level"
@@ -364,6 +364,30 @@ class SudokuValidator(PuzzleValidator):
                         description=f"Too many clues for {difficulty} difficulty: {clue_count} (max: {expected_range['max']})",
                         puzzle_id=puzzle_id,
                         recommendation=f"Remove some clues or change difficulty level"
+                    ))
+        
+        # Check for empty rows/columns (CRITICAL issue)
+        if len(grid) == 9 and all(len(row) == 9 for row in grid):
+            # Check for empty rows
+            for i, row in enumerate(grid):
+                if all(cell == 0 for cell in row):
+                    issues.append(self.create_issue(
+                        severity=IssueSeverity.ERROR,
+                        description=f"Empty row {i + 1} found - puzzle may be invalid",
+                        puzzle_id=puzzle_id,
+                        location=f"grid[{i}]",
+                        recommendation="Every row must have at least one clue"
+                    ))
+            
+            # Check for empty columns
+            for j in range(9):
+                if all(grid[i][j] == 0 for i in range(9)):
+                    issues.append(self.create_issue(
+                        severity=IssueSeverity.ERROR,
+                        description=f"Empty column {j + 1} found - puzzle may be invalid",
+                        puzzle_id=puzzle_id,
+                        location=f"grid[:][{j}]",
+                        recommendation="Every column must have at least one clue"
                     ))
         
         return issues
