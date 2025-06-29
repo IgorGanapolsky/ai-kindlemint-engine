@@ -2,9 +2,9 @@
 
 **Transform expertise into profitable books at 10x speed using AI orchestration, voice-to-book technology, and automated publishing workflows.**
 
-[![GitHub Actions](https://github.com/IgorGanapolsky/ai-kindlemint-engine/workflows/Tests/badge.svg)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions)
-[![Coverage](https://img.shields.io/badge/Coverage-Generated%20by%20Tests-green)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/tests.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
+[![Tests](https://github.com/IgorGanapolsky/ai-kindlemint-engine/workflows/Tests/badge.svg)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/tests.yml)
+[![Test Coverage](https://img.shields.io/badge/Coverage-Generated%20by%20Tests-success)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/tests.yml)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-SonarCloud%20Ready-blue)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/sonarcloud.yml)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Enabled-blue)](CLAUDE_CODE_ORCHESTRATOR.md)
 [![Sentry](https://img.shields.io/badge/Sentry-Monitoring-362D59)](https://sentry.io)
 
