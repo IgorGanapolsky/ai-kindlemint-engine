@@ -236,7 +236,11 @@ class AutonomousCodeCleaner:
                     # For PDFs and books: Remove if filename suggests it's intermediate/draft
                     elif remove_file.suffix == '.pdf':
                         name_lower = remove_file.stem.lower()
-                        if any(x in name_lower for x in ['interior', 'draft', 'old', 'temp', 'backup']):
+                        # Extended list of indicators for intermediate/test files
+                        removal_indicators = ['interior', 'draft', 'old', 'temp', 'backup', 
+                                            'canvas', 'test', 'fixed', 'render', 'direct',
+                                            'broken', 'bad', 'copy', 'dup', 'duplicate']
+                        if any(x in name_lower for x in removal_indicators):
                             # But keep if it's the only PDF in the directory
                             pdf_count = len(list(remove_file.parent.glob('*.pdf')))
                             if pdf_count > 1:
