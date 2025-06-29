@@ -1,18 +1,18 @@
-# QA ENHANCEMENT STRATEGY 2025  
+# QA ENHANCEMENT STRATEGY 2025
 _AI KindleMint Engine_
 
 ---
 
-## 1. Executive Summary  
+## 1. Executive Summary
 The current single-model workflow (Claude Code → PDF/EPUB) produces books with >40 critical defects per volume (duplicate clues, page-cut text, mis-aligned grids). Rejections and negative reviews threaten brand credibility and stall revenue. A 2025-grade QA program is required to:
 
-* Drive reject rate < 2 %  
-* Lift average review rating > 4.4 stars  
+* Drive reject rate < 2 %
+* Lift average review rating > 4.4 stars
 * Enable scale to 5 books / week without line-by-line human edits
 
 ---
 
-## 2. Research-Backed Solutions  
+## 2. Research-Backed Solutions
 | Pillar | Key Findings (2025 papers & industry benchmarks) | Improvement vs single-model |
 |--------|--------------------------------------------------|-----------------------------|
 | **Multi-LLM Ensemble** (“LLM-as-a-Judge”, Weaver 2025, Patronus AI) | 70-85 % error reduction through majority-vote & weighted verifier ensembles | ★★★ |
@@ -21,7 +21,7 @@ The current single-model workflow (Claude Code → PDF/EPUB) produces books with
 
 ---
 
-## 3. Implementation Options  
+## 3. Implementation Options
 
 | Option | Architecture | Quality Gain | Monthly Cost* | When to Choose |
 |--------|--------------|--------------|---------------|----------------|
@@ -120,10 +120,10 @@ Keys isolated per role -> blast-radius limited, easier cost attribution.
 
 ## 9. Testing & Validation Approach
 
-1. **Unit Tests** – Parse PDF, check puzzle counts, font subsets  
-2. **Synthetic Golden Set** – 10 gold-standard interiors compared by hash  
-3. **LLM-as-Judge Regression** – Weekly eval dataset (100 pages) scored; alert if <90 % agreement  
-4. **Sandbox Publish Test** – Upload to KDP previewer (CLI) and scrape validation warnings  
+1. **Unit Tests** – Parse PDF, check puzzle counts, font subsets
+2. **Synthetic Golden Set** – 10 gold-standard interiors compared by hash
+3. **LLM-as-Judge Regression** – Weekly eval dataset (100 pages) scored; alert if <90 % agreement
+4. **Sandbox Publish Test** – Upload to KDP previewer (CLI) and scrape validation warnings
 5. **Human Spot-Check** – 1 in 5 books manual skim until reject rate < 2 %
 
 ---
@@ -146,4 +146,4 @@ Weekly Slack digest + Grafana dashboard tracks all KPIs.
 
 ### 🌟 **Recommended Path**
 
-Start with **Option B** (Hybrid Artifacts) for fastest ROI, then graduate to **Option A** once profit funds increased model spend. This roadmap delivers **executive-level quality assurance** while preserving scalability and profit growth.  
+Start with **Option B** (Hybrid Artifacts) for fastest ROI, then graduate to **Option A** once profit funds increased model spend. This roadmap delivers **executive-level quality assurance** while preserving scalability and profit growth.

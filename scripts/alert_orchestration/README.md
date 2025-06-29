@@ -96,13 +96,13 @@ Edit `config.yaml` to match your environment:
 # Basic settings
 system:
   environment: "production"  # or "staging", "development"
-  
+
 # Component enablement
 components:
   sentry_enabled: true
   slack_enabled: true
   auto_resolution_enabled: true
-  
+
 # Operational settings
 operation:
   dry_run: false  # Set to true for testing
@@ -190,11 +190,11 @@ class CustomDatabaseStrategy(ResolutionStrategy):
             confidence=0.8,
             safety_level="safe"
         )
-    
+
     async def execute(self, error_context):
         # Custom resolution logic
         return StrategyResult(success=True, message="Fixed!")
-    
+
     async def validate(self, error_context):
         return "database" in error_context.get("message", "").lower()
 
@@ -348,7 +348,7 @@ Enable debug logging for troubleshooting:
 # In config.yaml
 system:
   log_level: "DEBUG"
-  
+
 development:
   debug_mode: true
   verbose_logging: true
@@ -447,11 +447,11 @@ Extend functionality with custom plugins:
 class CustomIntegration:
     def __init__(self, config):
         self.config = config
-    
+
     async def send_notification(self, alert_data):
         # Custom notification logic
         pass
-    
+
     async def handle_escalation(self, escalation_data):
         # Custom escalation logic
         pass
@@ -470,12 +470,12 @@ orchestrator.register_integration("custom", CustomIntegration(config))
 operation:
   monitoring_interval: 60  # More frequent monitoring
   max_concurrent_resolutions: 10  # Higher concurrency
-  
+
 # Database optimization
 database:
   connection_pool_size: 20
   query_timeout: 30
-  
+
 # Cache configuration
 cache:
   enabled: true

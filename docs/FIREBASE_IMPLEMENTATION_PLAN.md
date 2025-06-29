@@ -17,27 +17,27 @@ from firebase_genkit import genkit
 @https_fn.on_request()
 def suggest_keywords(req: https_fn.Request) -> https_fn.Response:
     genre = req.args.get('genre', 'crossword')
-    
+
     # Use Genkit for prompt orchestration
     keywords = genkit.generate({
         "model": "gemini-pro",
         "prompt": f"Generate 20 high-traffic keywords for {genre} books on Amazon KDP",
         "temperature": 0.7
     })
-    
+
     # Log to Firestore
     db.collection('keyword_research').add({
         'genre': genre,
         'keywords': keywords,
         'timestamp': firestore.SERVER_TIMESTAMP
     })
-    
+
     return https_fn.Response(json.dumps(keywords))
 ```
 
 #### 2. Simple AI-Powered Tasks
 - [ ] Title generation: `/api/generate-title`
-- [ ] Blurb creation: `/api/generate-blurb`  
+- [ ] Blurb creation: `/api/generate-blurb`
 - [ ] Cover prompt generation: `/api/generate-cover-prompt`
 
 ### Phase 2: Monitoring & Reliability (Week 2-3)
@@ -50,10 +50,10 @@ from firebase_admin import analytics
 class MonitoredAIManager(EnhancedAPIManager):
     def generate_text(self, **kwargs):
         start_time = time.time()
-        
+
         try:
             result = super().generate_text(**kwargs)
-            
+
             # Log to Firebase Analytics
             analytics.log_event('ai_generation_success', {
                 'task_type': kwargs.get('task_name'),
@@ -61,9 +61,9 @@ class MonitoredAIManager(EnhancedAPIManager):
                 'tokens': result.get('usage', {}).get('total_tokens', 0),
                 'latency_ms': (time.time() - start_time) * 1000
             })
-            
+
             return result
-            
+
         except Exception as e:
             analytics.log_event('ai_generation_failure', {
                 'task_type': kwargs.get('task_name'),
@@ -99,12 +99,12 @@ Dashboard Screens:
      - Active books in production
      - Revenue metrics (mock data initially)
      - System health indicators
-  
+
   2. Content Pipeline:
      - Queue status
      - Generation progress
      - Error logs with retry options
-  
+
   3. Market Analysis:
      - Trending keywords
      - Competition analysis
@@ -115,7 +115,7 @@ Dashboard Screens:
 1. Create Figma design for dashboard
 2. Use Firebase Studio to generate:
    ```
-   "Create a dashboard with authentication, showing book production status, 
+   "Create a dashboard with authentication, showing book production status,
    AI generation logs, and market analysis data from Firestore"
    ```
 3. Connect to existing Firestore collections
@@ -130,13 +130,13 @@ const dailyMarketAnalysis = functions.pubsub
   .onRun(async (context) => {
     // Scrape Reddit for trends
     const trends = await scrapeRedditTrends();
-    
+
     // Analyze with AI
     const analysis = await genkit.generate({
       model: "gemini-pro",
       prompt: `Analyze these Reddit discussions for KDP opportunities: ${trends}`
     });
-    
+
     // Store results
     await db.collection('market_analysis').add({
       date: new Date(),
@@ -144,7 +144,7 @@ const dailyMarketAnalysis = functions.pubsub
       analysis: analysis,
       opportunities: analysis.opportunities
     });
-    
+
     // Notify via Slack
     await notifySlack('Daily market analysis complete', analysis.summary);
   });
@@ -159,7 +159,7 @@ graph TD
     D --> E[Build & Package]
     E --> F[S3 Upload]
     F --> G[KDP Publishing]
-    
+
     C -->|Failed| H[Retry with Fixes]
     H --> B
 ```

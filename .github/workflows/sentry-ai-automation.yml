@@ -19,11 +19,11 @@ jobs:
     if: |
       github.event.pull_request.draft == false &&
       !contains(github.event.pull_request.title, '[skip-sentry]')
-    
+
     steps:
     - name: Wait for initial checks
       run: sleep 10
-    
+
     - name: Trigger Sentry AI Review
       uses: actions/github-script@v6
       with:
@@ -32,7 +32,7 @@ jobs:
           const prNumber = context.issue.number;
           const owner = context.repo.owner;
           const repo = context.repo.repo;
-          
+
           // Add label to track Sentry AI processing
           await github.rest.issues.addLabels({
             owner,
@@ -40,7 +40,7 @@ jobs:
             issue_number: prNumber,
             labels: ['sentry-ai-processing']
           });
-          
+
           // Trigger AI review
           await github.rest.issues.createComment({
             owner,
@@ -48,10 +48,10 @@ jobs:
             issue_number: prNumber,
             body: '@sentry review'
           });
-          
+
           // Wait before triggering test generation
           await new Promise(resolve => setTimeout(resolve, 5000));
-          
+
           // Trigger test generation for new code
           await github.rest.issues.createComment({
             owner,
@@ -59,9 +59,9 @@ jobs:
             issue_number: prNumber,
             body: '@sentry generate-test'
           });
-          
+
           console.log(`Triggered Sentry AI for PR #${prNumber}`);
-    
+
     - name: Update PR Status
       if: always()
       uses: actions/github-script@v6
@@ -71,7 +71,7 @@ jobs:
           const prNumber = context.issue.number;
           const owner = context.repo.owner;
           const repo = context.repo.repo;
-          
+
           // Remove processing label and add completed label
           try {
             await github.rest.issues.removeLabel({
@@ -83,7 +83,7 @@ jobs:
           } catch (e) {
             console.log('Processing label not found');
           }
-          
+
           await github.rest.issues.addLabels({
             owner,
             repo,
@@ -96,7 +96,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: sentry-ai-review
     if: success()
-    
+
     steps:
     - name: Check for Sentry Response
       uses: actions/github-script@v6
@@ -106,11 +106,11 @@ jobs:
           const prNumber = context.issue.number;
           const owner = context.repo.owner;
           const repo = context.repo.repo;
-          
+
           // Wait for Sentry to process (up to 2 minutes)
           let sentryResponded = false;
           const maxAttempts = 24; // 2 minutes with 5 second intervals
-          
+
           for (let i = 0; i < maxAttempts; i++) {
             const comments = await github.rest.issues.listComments({
               owner,
@@ -118,17 +118,17 @@ jobs:
               issue_number: prNumber,
               per_page: 100
             });
-            
+
             // Check if Sentry bot has responded
-            const sentryComments = comments.data.filter(comment => 
-              comment.user.type === 'Bot' && 
+            const sentryComments = comments.data.filter(comment =>
+              comment.user.type === 'Bot' &&
               (comment.user.login.includes('sentry') || comment.user.login.includes('getsentry'))
             );
-            
+
             if (sentryComments.length > 0) {
               sentryResponded = true;
               console.log('Sentry AI has responded!');
-              
+
               // Add success label
               await github.rest.issues.addLabels({
                 owner,
@@ -136,14 +136,14 @@ jobs:
                 issue_number: prNumber,
                 labels: ['sentry-ai-reviewed']
               });
-              
+
               break;
             }
-            
+
             // Wait 5 seconds before next check
             await new Promise(resolve => setTimeout(resolve, 5000));
           }
-          
+
           if (!sentryResponded) {
             console.log('Sentry AI did not respond within timeout period');
           }

@@ -192,13 +192,13 @@ class PromptChainLibrary:
                 Target audience: {target_audience}
                 Difficulty: {difficulty}
                 Theme: {theme}
-                
+
                 Requirements:
                 - Titles should be clear and appealing
                 - Include the puzzle type
                 - Convey the difficulty/audience
                 - Be unique and memorable
-                
+
                 Format: Return as a JSON list of strings.""",
                 input_keys=["puzzle_type", "target_audience", "difficulty", "theme"],
                 output_key="title_options",
@@ -209,14 +209,14 @@ class PromptChainLibrary:
                 step_type=ChainStep.EVALUATE,
                 prompt_template="""Evaluate these book titles for market appeal:
                 {title_options}
-                
+
                 Target audience: {target_audience}
-                
+
                 For each title, provide:
                 1. Market appeal score (0-100)
                 2. Strengths
                 3. Potential concerns
-                
+
                 Format: Return as JSON with scores and feedback.""",
                 input_keys=["title_options", "target_audience"],
                 output_key="title_evaluation",
@@ -227,9 +227,9 @@ class PromptChainLibrary:
                 step_type=ChainStep.SELECT,
                 prompt_template="""Based on these evaluations:
                 {title_evaluation}
-                
+
                 Select the best title from: {title_options}
-                
+
                 Return the selected title as a string.""",
                 input_keys=["title_evaluation", "title_options"],
                 output_key="selected_title",
@@ -241,12 +241,12 @@ class PromptChainLibrary:
                 prompt_template="""Create a compelling subtitle for this book:
                 Title: {selected_title}
                 Type: {puzzle_type}
-                
+
                 The subtitle should:
                 - Highlight the value proposition
                 - Mention the number of puzzles
                 - Appeal to {target_audience}
-                
+
                 Return as a single string.""",
                 input_keys=["selected_title", "puzzle_type", "target_audience"],
                 output_key="subtitle",
@@ -260,13 +260,13 @@ class PromptChainLibrary:
                 Subtitle: {subtitle}
                 Type: {puzzle_type}
                 Difficulty: {difficulty}
-                
+
                 Requirements:
                 - 150-200 words
                 - Highlight benefits
                 - Include features
                 - Call to action
-                
+
                 Return as formatted text.""",
                 input_keys=["selected_title", "subtitle", "puzzle_type", "difficulty"],
                 output_key="description",
@@ -278,12 +278,12 @@ class PromptChainLibrary:
                 prompt_template="""Generate 7 relevant keywords for:
                 Title: {selected_title}
                 Description: {description}
-                
+
                 Keywords should be:
                 - Relevant for Amazon KDP
                 - Mix of broad and specific
                 - Include puzzle type variations
-                
+
                 Return as JSON list.""",
                 input_keys=["selected_title", "description"],
                 output_key="keywords",
@@ -303,12 +303,12 @@ class PromptChainLibrary:
                 prompt_template="""Generate 10 unique theme ideas for {puzzle_type} puzzles.
                 Target audience: {target_audience}
                 Season/Occasion: {season}
-                
+
                 Themes should be:
                 - Engaging and relevant
                 - Appropriate for the audience
                 - Feasible for puzzle creation
-                
+
                 Return as JSON list with theme name and brief description.""",
                 input_keys=["puzzle_type", "target_audience", "season"],
                 output_key="theme_ideas",
@@ -319,13 +319,13 @@ class PromptChainLibrary:
                 step_type=ChainStep.EVALUATE,
                 prompt_template="""Evaluate these puzzle themes:
                 {theme_ideas}
-                
+
                 Criteria:
                 - Market appeal
                 - Content availability
                 - Uniqueness
                 - Target audience fit
-                
+
                 Return evaluation scores and feedback as JSON.""",
                 input_keys=["theme_ideas"],
                 output_key="theme_evaluation",
@@ -336,10 +336,10 @@ class PromptChainLibrary:
                 step_type=ChainStep.REFINE,
                 prompt_template="""Based on evaluation:
                 {theme_evaluation}
-                
+
                 Select and refine the best theme.
                 Add specific subcategories and content ideas.
-                
+
                 Return as detailed theme specification.""",
                 input_keys=["theme_evaluation"],
                 output_key="refined_theme",
@@ -358,12 +358,12 @@ class PromptChainLibrary:
                 step_type=ChainStep.EVALUATE,
                 prompt_template="""Analyze these QA issues:
                 {qa_issues}
-                
+
                 Categorize by:
                 - Severity
                 - Fix complexity
                 - Root cause
-                
+
                 Return analysis as structured JSON.""",
                 input_keys=["qa_issues"],
                 output_key="issue_analysis",
@@ -374,13 +374,13 @@ class PromptChainLibrary:
                 step_type=ChainStep.GENERATE,
                 prompt_template="""Based on analysis:
                 {issue_analysis}
-                
+
                 Generate specific fixes for each issue.
                 Include:
                 - Action steps
                 - Expected outcome
                 - Implementation priority
-                
+
                 Return as actionable fix list.""",
                 input_keys=["issue_analysis"],
                 output_key="fix_proposals",
@@ -391,12 +391,12 @@ class PromptChainLibrary:
                 step_type=ChainStep.VALIDATE,
                 prompt_template="""Validate proposed fixes:
                 {fix_proposals}
-                
+
                 Check for:
                 - Completeness
                 - Feasibility
                 - Side effects
-                
+
                 Return validation results.""",
                 input_keys=["fix_proposals"],
                 output_key="validated_fixes",

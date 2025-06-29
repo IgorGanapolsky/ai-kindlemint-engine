@@ -494,7 +494,7 @@ def generate_qa_report_html(report: QAReport) -> str:
             <div class="score">Score: {report.score}/100</div>
             <div>Status: {report.status}</div>
         </div>
-        
+
         <h2>Issues Found ({len(report.issues)})</h2>
     """
 

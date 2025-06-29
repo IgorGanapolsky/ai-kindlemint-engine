@@ -4,8 +4,8 @@ MultiChannelPublisher - Implementation for multi channel publisher
 
 import asyncio
 import logging
-from typing import Dict, List, Optional
 from datetime import datetime
+from typing import Dict, List, Optional
 
 
 class MultiChannelPublisher:
@@ -16,7 +16,7 @@ class MultiChannelPublisher:
     def __init__(self, config: Optional[Dict] = None):
         self.config = config or {}
         self.logger = logging.getLogger(__name__)
-        self.requirements = {'channels': ['kdp', 'social', 'email']}
+        self.requirements = {"channels": ["kdp", "social", "email"]}
 
     async def initialize(self) -> bool:
         """
@@ -43,7 +43,7 @@ class MultiChannelPublisher:
                 "status": "success",
                 "feature": "multi_channel_publisher",
                 "result": result,
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
             }
 
         except Exception as e:
@@ -51,7 +51,7 @@ class MultiChannelPublisher:
             return {
                 "status": "error",
                 "feature": "multi_channel_publisher",
-                "error": str(e)
+                "error": str(e),
             }
 
     async def _setup_components(self):
@@ -66,7 +66,4 @@ class MultiChannelPublisher:
         Process the feature request
         """
         # Main processing logic
-        return {
-            "processed": True,
-            "params": params
-        }
+        return {"processed": True, "params": params}

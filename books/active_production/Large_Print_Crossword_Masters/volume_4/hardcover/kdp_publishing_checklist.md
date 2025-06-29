@@ -17,7 +17,7 @@
 
 ## KDP Upload Steps
 1. [ ] Log into KDP account
-2. [ ] Click "Create New Title" 
+2. [ ] Click "Create New Title"
 3. [ ] Select "Paperback"
 4. [ ] Enter book details:
    - Title: Large Print Crossword Masters - Volume 4
@@ -27,7 +27,7 @@
 5. [ ] Enter description (from amazon_kdp_metadata.json)
 6. [ ] Select categories (3 maximum):
    - Books > Humor & Entertainment > Crafts, Hobbies & Home > Crosswords
-   - Books > Humor & Entertainment > Crafts, Hobbies & Home > Logic & Brain Teasers  
+   - Books > Humor & Entertainment > Crafts, Hobbies & Home > Logic & Brain Teasers
    - Books > Health, Fitness & Dieting > Aging > Exercise & Fitness
 7. [ ] Enter keywords (7 maximum)
 8. [ ] Upload interior PDF: interior.pdf

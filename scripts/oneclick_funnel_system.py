@@ -5,20 +5,21 @@ Implements Marketing School's "One-Click Simplification" principle
 "Remove friction at every step of the customer journey" - Neil Patel & Eric Siu
 """
 
+import hashlib
 import json
 import os
 import re
 import sys
 import time
+import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
-import uuid
-import hashlib
 
 try:
     import jinja2
     from jinja2 import Template
+
     JINJA2_AVAILABLE = True
 except ImportError:
     JINJA2_AVAILABLE = False
@@ -29,81 +30,85 @@ class OneClickFunnelSystem:
     Creates complete one-click funnel automation system
     Removes friction and automates customer journey
     """
-    
+
     def __init__(self, book_config: Dict, book_artifacts: Dict):
         """Initialize the One-Click Funnel System"""
         self.book_config = book_config
         self.book_artifacts = book_artifacts
         self.series_name = book_config.get("series_name", "Default_Series")
         self.volume = book_config.get("volume", 1)
-        self.title = book_config.get("title", f"{self.series_name} Volume {self.volume}")
+        self.title = book_config.get(
+            "title", f"{self.series_name} Volume {self.volume}"
+        )
         self.author = book_config.get("author", "OneClick Publishing")
-        
+
         # Create funnel output directory
-        self.output_dir = Path(f"books/active_production/{self.series_name}/volume_{self.volume}/oneclick_funnel")
+        self.output_dir = Path(
+            f"books/active_production/{self.series_name}/volume_{self.volume}/oneclick_funnel"
+        )
         self.output_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Marketing School funnel principles
         self.funnel_principles = {
             "one_click_rule": "Every action should require only one click",
             "friction_elimination": "Remove every unnecessary step",
             "instant_gratification": "Deliver value immediately",
             "progressive_commitment": "Small yes leads to bigger yes",
-            "automation_first": "Automate everything possible"
+            "automation_first": "Automate everything possible",
         }
-    
+
     def build_complete_funnel(self) -> Dict:
         """
         Build complete one-click funnel system
         Returns dictionary of all funnel components
         """
         print("🖱️ Building Complete One-Click Funnel System...")
-        
+
         assets = {}
-        
+
         # 1. Create Landing Page System
         assets.update(self._create_landing_pages())
-        
+
         # 2. Build Email Capture Automation
         assets.update(self._build_email_capture())
-        
+
         # 3. Design Purchase Funnel
         assets.update(self._design_purchase_funnel())
-        
+
         # 4. Create Automated Sequences
         assets.update(self._create_automated_sequences())
-        
+
         # 5. Build Upsell Automation
         assets.update(self._build_upsell_automation())
-        
+
         # 6. Implement Conversion Tracking
         assets.update(self._implement_conversion_tracking())
-        
+
         # 7. Create A/B Testing Framework
         assets.update(self._create_ab_testing())
-        
+
         # 8. Build Analytics Dashboard
         assets.update(self._build_analytics_dashboard())
-        
+
         # 9. Create Mobile Optimization
         assets.update(self._create_mobile_optimization())
-        
+
         return assets
-    
+
     def _create_landing_pages(self) -> Dict:
         """Create optimized landing pages"""
         print("  📄 Creating Landing Pages...")
-        
+
         # Landing Page Strategy
         landing_strategy = {
             "core_principle": "Single focus, clear value, one action",
             "conversion_targets": {
                 "email_capture": "25% of visitors",
                 "direct_purchase": "5% of visitors",
-                "total_engagement": "30% of visitors"
-            }
+                "total_engagement": "30% of visitors",
+            },
         }
-        
+
         # Landing Page Templates
         landing_templates = {
             "lead_magnet_page": {
@@ -112,18 +117,18 @@ class OneClickFunnelSystem:
                 "subheadline": "Discover why thousands of puzzle lovers call this the most accessible crossword book ever created",
                 "value_points": [
                     "✅ Large 14-point font - easy on the eyes",
-                    "✅ Progressive difficulty - builds confidence", 
+                    "✅ Progressive difficulty - builds confidence",
                     "✅ Tested by 100+ seniors - proven effective",
-                    "✅ Instant download - start solving today"
+                    "✅ Instant download - start solving today",
                 ],
                 "social_proof": [
                     "★★★★★ 'Finally, crosswords I can actually see!' - Margaret, 72",
                     "★★★★★ 'Perfect difficulty progression' - Robert, 68",
-                    "★★★★★ 'Best puzzle book I've found' - Helen, 75"
+                    "★★★★★ 'Best puzzle book I've found' - Helen, 75",
                 ],
                 "cta": "Get Your Free Chapter Now",
                 "form_fields": ["email_only"],
-                "delivery": "Instant PDF download + email course"
+                "delivery": "Instant PDF download + email course",
             },
             "direct_purchase_page": {
                 "purpose": "Direct book sales from ads",
@@ -134,16 +139,16 @@ class OneClickFunnelSystem:
                     "✅ Solving Strategies Guide - Bonus PDF ($19.99 value)",
                     "✅ Large Print Guarantee - Perfect for aging eyes",
                     "✅ 30-Day Money Back Guarantee - Zero risk",
-                    "✅ Instant Digital Access - Start solving today"
+                    "✅ Instant Digital Access - Start solving today",
                 ],
                 "urgency": "Limited Time: 70% Off Launch Price",
                 "price_display": {
                     "original": "$44.98",
                     "your_price": "$6.99",
-                    "savings": "Save $37.99"
+                    "savings": "Save $37.99",
                 },
                 "cta": "Get Your Copy Now - Just $6.99",
-                "guarantee": "30-day money-back guarantee"
+                "guarantee": "30-day money-back guarantee",
             },
             "upsell_page": {
                 "purpose": "Workbook upsell after book purchase",
@@ -153,54 +158,56 @@ class OneClickFunnelSystem:
                     "✅ Complete solutions to every puzzle in your book",
                     "✅ Advanced solving techniques not in the main book",
                     "✅ 25 bonus practice puzzles with solutions",
-                    "✅ Speed solving methods and timing strategies"
+                    "✅ Speed solving methods and timing strategies",
                 ],
                 "special_pricing": {
                     "regular_price": "$19.99",
                     "special_price": "$9.99",
-                    "condition": "Available only to book purchasers"
+                    "condition": "Available only to book purchasers",
                 },
                 "cta": "Yes, Add the Workbook - Just $9.99",
-                "timer": "This offer expires in 15 minutes"
-            }
+                "timer": "This offer expires in 15 minutes",
+            },
         }
-        
+
         # HTML Templates Generation
         html_templates = {}
         for page_type, page_data in landing_templates.items():
-            html_templates[page_type] = self._generate_html_template(page_type, page_data)
-        
+            html_templates[page_type] = self._generate_html_template(
+                page_type, page_data
+            )
+
         # Mobile Optimization
         mobile_optimization = {
             "responsive_design": "Mobile-first approach",
             "touch_targets": "Minimum 44px for easy tapping",
             "load_speed": "Under 3 seconds on 3G",
             "form_optimization": "Large input fields, minimal typing",
-            "cta_placement": "Always visible, thumb-friendly"
+            "cta_placement": "Always visible, thumb-friendly",
         }
-        
+
         # Conversion Elements
         conversion_elements = {
             "trust_signals": [
                 "SSL certificate badge",
                 "Money-back guarantee seal",
                 "Customer testimonials with photos",
-                "Author credentials and photo"
+                "Author credentials and photo",
             ],
             "urgency_elements": [
                 "Countdown timer for special offers",
                 "Limited quantity messaging",
                 "Social proof notifications (X people bought today)",
-                "Price increase warnings"
+                "Price increase warnings",
             ],
             "social_proof": [
                 "Customer review widgets",
                 "Social media mentions",
-                "Sales counter displays", 
-                "Press mention badges"
-            ]
+                "Sales counter displays",
+                "Press mention badges",
+            ],
         }
-        
+
         # Save landing pages
         landing_file = self.output_dir / "landing_pages.json"
         landing_data = {
@@ -214,21 +221,21 @@ class OneClickFunnelSystem:
                 "Test on mobile devices",
                 "Test form submissions",
                 "Test payment processing",
-                "Test load speed optimization"
-            ]
+                "Test load speed optimization",
+            ],
         }
-        
-        with open(landing_file, 'w') as f:
+
+        with open(landing_file, "w") as f:
             json.dump(landing_data, f, indent=2)
-        
+
         # Create actual HTML files
         self._create_html_files(html_templates)
-        
+
         return {"landing_pages": str(landing_file)}
-    
+
     def _generate_html_template(self, page_type: str, page_data: Dict) -> str:
         """Generate HTML template for landing page"""
-        
+
         base_template = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -247,9 +254,9 @@ class OneClickFunnelSystem:
         .social-proof {{ background: #f8f9fa; padding: 20px; margin: 30px 0; border-radius: 10px; }}
         .testimonial {{ margin: 15px 0; font-style: italic; }}
         .cta-section {{ text-align: center; margin: 40px 0; }}
-        .cta-button {{ 
-            background: #e74c3c; color: white; padding: 20px 40px; 
-            font-size: 1.5em; border: none; border-radius: 10px; 
+        .cta-button {{
+            background: #e74c3c; color: white; padding: 20px 40px;
+            font-size: 1.5em; border: none; border-radius: 10px;
             cursor: pointer; text-decoration: none; display: inline-block;
             transition: background 0.3s;
         }}
@@ -281,18 +288,18 @@ class OneClickFunnelSystem:
                 {''.join([f'<li>{point}</li>' for point in page_data.get('value_points', [])])}
             </ul>
         </div>
-        
+
         <div class="social-proof">
             {''.join([f'<div class="testimonial">{proof}</div>' for proof in page_data.get('social_proof', [])])}
         </div>
-        
+
         <div class="cta-section">
             <form class="form-section" action="/capture-email" method="POST">
                 <input type="email" class="form-input" placeholder="Enter your email address" name="email" required>
                 <button type="submit" class="cta-button">{page_data.get('cta', 'Get Free Chapter')}</button>
             </form>
         </div>
-        
+
         <div class="guarantee">
             <p>✅ Instant download • No spam ever • Unsubscribe anytime</p>
         </div>
@@ -305,7 +312,7 @@ class OneClickFunnelSystem:
                 {''.join([f'<li>{point}</li>' for point in page_data.get('value_stack', [])])}
             </ul>
         </div>
-        
+
         <div class="price-section" style="text-align: center; margin: 30px 0;">
             <div style="font-size: 1.5em;">
                 <span style="text-decoration: line-through; color: #7f8c8d;">${page_data.get('price_display', {}).get('original', '44.98')}</span>
@@ -313,11 +320,11 @@ class OneClickFunnelSystem:
             </div>
             <p style="color: #27ae60; font-weight: bold;">{page_data.get('price_display', {}).get('savings', 'Save $37.99')}</p>
         </div>
-        
+
         <div class="cta-section">
             <a href="/purchase" class="cta-button">{page_data.get('cta', 'Get Your Copy Now')}</a>
         </div>
-        
+
         <div class="guarantee">
             <p>🛡️ {page_data.get('guarantee', '30-day money-back guarantee')}</p>
         </div>
@@ -330,11 +337,11 @@ class OneClickFunnelSystem:
                 {''.join([f'<li>{point}</li>' for point in page_data.get('offer_details', [])])}
             </ul>
         </div>
-        
+
         <div class="timer">
             ⏰ This exclusive offer expires in <span id="countdown">15:00</span>
         </div>
-        
+
         <div class="price-section" style="text-align: center; margin: 30px 0;">
             <div style="font-size: 1.5em;">
                 <span style="text-decoration: line-through; color: #7f8c8d;">${page_data.get('special_pricing', {}).get('regular_price', '19.99')}</span>
@@ -342,23 +349,23 @@ class OneClickFunnelSystem:
             </div>
             <p style="color: #27ae60; font-weight: bold;">Special Price for Book Buyers Only!</p>
         </div>
-        
+
         <div class="cta-section">
             <a href="/upsell-purchase" class="cta-button">{page_data.get('cta', 'Yes, Add the Workbook')}</a>
             <br><br>
             <a href="/no-thanks" style="color: #7f8c8d; text-decoration: underline;">No thanks, I'll pass on this offer</a>
         </div>
-        
+
         <script>
             // Countdown timer
             let timeLeft = 15 * 60; // 15 minutes in seconds
             const countdown = document.getElementById('countdown');
-            
+
             function updateTimer() {{
                 const minutes = Math.floor(timeLeft / 60);
                 const seconds = timeLeft % 60;
                 countdown.textContent = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-                
+
                 if (timeLeft > 0) {{
                     timeLeft--;
                     setTimeout(updateTimer, 1000);
@@ -377,37 +384,37 @@ class OneClickFunnelSystem:
 </html>"""
 
         return base_template
-    
+
     def _create_html_files(self, html_templates: Dict) -> None:
         """Create actual HTML files from templates"""
         html_dir = self.output_dir / "html_pages"
         html_dir.mkdir(exist_ok=True)
-        
+
         for page_type, html_content in html_templates.items():
             html_file = html_dir / f"{page_type}.html"
-            with open(html_file, 'w') as f:
+            with open(html_file, "w") as f:
                 f.write(html_content)
-    
+
     def _build_email_capture(self) -> Dict:
         """Build email capture automation"""
         print("  📧 Building Email Capture Automation...")
-        
+
         # Email Capture Strategy
         capture_strategy = {
             "lead_magnets": [
                 "Free chapter download",
                 "Solving tips email course",
                 "Bonus puzzle pack",
-                "Advanced strategies guide"
+                "Advanced strategies guide",
             ],
             "capture_points": [
                 "Landing page primary form",
                 "Exit-intent popup",
                 "Scroll-triggered sidebar",
-                "Content upgrade boxes"
-            ]
+                "Content upgrade boxes",
+            ],
         }
-        
+
         # Lead Magnet Creation
         lead_magnets = {
             "free_chapter": {
@@ -415,24 +422,24 @@ class OneClickFunnelSystem:
                 "description": "Get the first 10 pages plus bonus solving tips",
                 "file_format": "PDF download",
                 "delivery_method": "Instant email delivery",
-                "follow_up": "7-day email course"
+                "follow_up": "7-day email course",
             },
             "solving_course": {
                 "title": "7-Day Crossword Mastery Email Course",
                 "description": "Daily tips to improve your solving skills",
                 "format": "Email series",
                 "delivery_method": "Daily emails for 7 days",
-                "follow_up": "Weekly newsletter"
+                "follow_up": "Weekly newsletter",
             },
             "bonus_puzzles": {
                 "title": "Exclusive Bonus Puzzle Pack",
                 "description": "5 additional large-print puzzles with solutions",
                 "file_format": "PDF download",
                 "delivery_method": "Instant email delivery",
-                "follow_up": "Monthly puzzle updates"
-            }
+                "follow_up": "Monthly puzzle updates",
+            },
         }
-        
+
         # Email Automation Sequences
         automation_sequences = {
             "welcome_sequence": [
@@ -441,29 +448,29 @@ class OneClickFunnelSystem:
                     "delay": "Immediate",
                     "subject": f"Your free chapter from '{self.title}' is here!",
                     "content": "Welcome + deliver lead magnet + soft introduction to book",
-                    "cta": "Read your free chapter"
+                    "cta": "Read your free chapter",
                 },
                 {
                     "trigger": "Previous email",
                     "delay": "24 hours",
                     "subject": "Did you enjoy your free chapter?",
                     "content": "Value-first email with solving tip + book mention",
-                    "cta": "Get the complete book"
+                    "cta": "Get the complete book",
                 },
                 {
                     "trigger": "Previous email",
-                    "delay": "48 hours", 
+                    "delay": "48 hours",
                     "subject": "The #1 mistake most crossword solvers make",
                     "content": "Educational content + social proof + book offer",
-                    "cta": "Avoid this mistake - get the book"
+                    "cta": "Avoid this mistake - get the book",
                 },
                 {
                     "trigger": "Previous email",
                     "delay": "72 hours",
                     "subject": "Last chance for launch pricing",
                     "content": "Urgency + scarcity + final book offer",
-                    "cta": "Get your copy before price increase"
-                }
+                    "cta": "Get your copy before price increase",
+                },
             ],
             "nurture_sequence": [
                 {
@@ -473,28 +480,28 @@ class OneClickFunnelSystem:
                         "Educational content about puzzle solving",
                         "Behind-the-scenes author content",
                         "Reader success stories",
-                        "New puzzle releases and updates"
-                    ]
+                        "New puzzle releases and updates",
+                    ],
                 }
-            ]
+            ],
         }
-        
+
         # Segmentation Strategy
         segmentation_strategy = {
             "subscriber_segments": {
                 "new_subscribers": "Recently joined, not purchased",
                 "book_buyers": "Purchased core book",
                 "ecosystem_members": "Purchased multiple products",
-                "inactive_subscribers": "Low engagement, no purchases"
+                "inactive_subscribers": "Low engagement, no purchases",
             },
             "personalization_rules": {
                 "content_preferences": "Track which email topics get highest engagement",
                 "purchase_behavior": "Recommend products based on previous purchases",
                 "engagement_level": "Adjust email frequency based on engagement",
-                "demographic_data": "Customize content for age and skill level"
-            }
+                "demographic_data": "Customize content for age and skill level",
+            },
         }
-        
+
         # Email Templates
         email_templates = {
             "welcome_email": {
@@ -509,7 +516,7 @@ As promised, here's your FREE chapter from '{self.title}':
 
 I created this book specifically for people who love crosswords but struggle with:
 • Print that's too small to see comfortably
-• Clues that are unfairly difficult or obscure  
+• Clues that are unfairly difficult or obscure
 • Inconsistent difficulty that jumps around
 
 This book solves all three problems.
@@ -520,10 +527,10 @@ Happy puzzling!
 {self.author}
 
 P.S. Have questions about any puzzle? Just reply - I read every email!""",
-                "cta": "Download Your Free Chapter"
+                "cta": "Download Your Free Chapter",
             }
         }
-        
+
         # Save email capture system
         capture_file = self.output_dir / "email_capture_system.json"
         capture_data = {
@@ -537,115 +544,115 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Landing page form connections",
                 "Automatic PDF delivery setup",
                 "Segmentation rules configuration",
-                "Analytics tracking implementation"
-            ]
+                "Analytics tracking implementation",
+            ],
         }
-        
-        with open(capture_file, 'w') as f:
+
+        with open(capture_file, "w") as f:
             json.dump(capture_data, f, indent=2)
-        
+
         return {"email_capture_system": str(capture_file)}
-    
+
     def _design_purchase_funnel(self) -> Dict:
         """Design optimized purchase funnel"""
         print("  💳 Designing Purchase Funnel...")
-        
+
         # Purchase Funnel Strategy
         funnel_strategy = {
             "core_principle": "Minimize clicks from interest to purchase",
             "conversion_targets": {
                 "landing_to_cart": "15%",
                 "cart_to_purchase": "85%",
-                "overall_conversion": "12.75%"
-            }
+                "overall_conversion": "12.75%",
+            },
         }
-        
+
         # Funnel Flow Design
         funnel_flow = {
             "step_1_awareness": {
                 "source": "Facebook ad, LinkedIn post, email link",
                 "destination": "Product landing page",
                 "goal": "Generate interest and desire",
-                "conversion_metric": "Click-through rate"
+                "conversion_metric": "Click-through rate",
             },
             "step_2_interest": {
                 "source": "Landing page",
                 "destination": "Checkout page",
                 "goal": "Convert interest to purchase intent",
-                "conversion_metric": "Add to cart rate"
+                "conversion_metric": "Add to cart rate",
             },
             "step_3_purchase": {
-                "source": "Checkout page", 
+                "source": "Checkout page",
                 "destination": "Thank you page",
                 "goal": "Complete transaction",
-                "conversion_metric": "Purchase completion rate"
+                "conversion_metric": "Purchase completion rate",
             },
             "step_4_fulfillment": {
                 "source": "Thank you page",
                 "destination": "Product delivery + upsell",
                 "goal": "Deliver product and present upsell",
-                "conversion_metric": "Upsell acceptance rate"
-            }
+                "conversion_metric": "Upsell acceptance rate",
+            },
         }
-        
+
         # Checkout Optimization
         checkout_optimization = {
             "page_elements": {
                 "product_summary": "Clear display of what they're buying",
                 "trust_signals": "SSL badges, guarantee, testimonials",
                 "social_proof": "Recent purchases, customer count",
-                "urgency_elements": "Limited time offers, countdown timers"
+                "urgency_elements": "Limited time offers, countdown timers",
             },
             "form_optimization": {
                 "guest_checkout": "Allow purchase without account creation",
                 "minimal_fields": "Only essential information required",
                 "autofill_support": "Browser autofill compatibility",
-                "payment_options": "Credit card, PayPal, Apple Pay"
+                "payment_options": "Credit card, PayPal, Apple Pay",
             },
             "mobile_optimization": {
                 "thumb_friendly_buttons": "Large, easy-to-tap elements",
                 "simplified_layout": "Single column on mobile",
                 "fast_loading": "Optimized images and code",
-                "keyboard_friendly": "Proper input types for mobile keyboards"
-            }
+                "keyboard_friendly": "Proper input types for mobile keyboards",
+            },
         }
-        
+
         # Cart Abandonment Recovery
         abandonment_recovery = {
             "exit_intent_popup": {
                 "trigger": "Mouse moves toward browser close button",
                 "offer": "10% discount to complete purchase",
                 "headline": "Wait! Don't leave empty-handed",
-                "cta": "Get 10% off - Complete Your Order"
+                "cta": "Get 10% off - Complete Your Order",
             },
             "email_recovery_sequence": [
                 {
                     "delay": "1 hour",
                     "subject": "You left something in your cart...",
                     "content": "Gentle reminder with product benefits",
-                    "offer": "Free bonus guide with purchase"
+                    "offer": "Free bonus guide with purchase",
                 },
                 {
                     "delay": "24 hours",
                     "subject": "Still thinking about [PRODUCT]?",
                     "content": "Address common objections + testimonials",
-                    "offer": "15% discount code"
+                    "offer": "15% discount code",
                 },
                 {
                     "delay": "72 hours",
                     "subject": "Last chance for your reserved copy",
                     "content": "Final urgency + scarcity messaging",
-                    "offer": "20% discount - expires in 24 hours"
-                }
+                    "offer": "20% discount - expires in 24 hours",
+                },
             ],
             "retargeting_ads": {
                 "platform": "Facebook and Google",
                 "audience": "Cart abandoners last 7 days",
                 "creative": "Dynamic product ads with discount offers",
-                "budget": "20% of total ad spend"
-            }
+                "budget": "20% of total ad spend",
+            },
         }
-        
+
         # Payment Processing
         payment_processing = {
             "primary_processor": "Stripe for reliability and features",
@@ -654,16 +661,16 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Credit/debit cards (Visa, MC, Amex)",
                 "PayPal account",
                 "Apple Pay",
-                "Google Pay"
+                "Google Pay",
             ],
             "security_features": [
                 "SSL encryption",
                 "PCI compliance",
                 "Fraud detection",
-                "3D secure authentication"
-            ]
+                "3D secure authentication",
+            ],
         }
-        
+
         # Save purchase funnel
         funnel_file = self.output_dir / "purchase_funnel.json"
         funnel_data = {
@@ -677,19 +684,19 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Test different payment button colors",
                 "Test various urgency messages",
                 "Test mobile vs desktop flows",
-                "Test guest vs account checkout"
-            ]
+                "Test guest vs account checkout",
+            ],
         }
-        
-        with open(funnel_file, 'w') as f:
+
+        with open(funnel_file, "w") as f:
             json.dump(funnel_data, f, indent=2)
-        
+
         return {"purchase_funnel": str(funnel_file)}
-    
+
     def _create_automated_sequences(self) -> Dict:
         """Create comprehensive automated sequences"""
         print("  🤖 Creating Automated Sequences...")
-        
+
         # Automation Strategy
         automation_strategy = {
             "core_principle": "Right message, right person, right time",
@@ -697,10 +704,10 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Welcome and onboarding",
                 "Purchase confirmation and delivery",
                 "Upsell and cross-sell",
-                "Re-engagement and win-back"
-            ]
+                "Re-engagement and win-back",
+            ],
         }
-        
+
         # Post-Purchase Sequences
         post_purchase_sequences = {
             "immediate_confirmation": {
@@ -712,9 +719,9 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Download links for all purchased items",
                     "Getting started guide and tips",
                     "Introduction to customer community",
-                    "Soft mention of complementary products"
+                    "Soft mention of complementary products",
                 ],
-                "attachments": ["PDF download", "bonus_materials.pdf"]
+                "attachments": ["PDF download", "bonus_materials.pdf"],
             },
             "day_3_check_in": {
                 "trigger": "3 days after purchase",
@@ -723,9 +730,9 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Check on customer satisfaction",
                     "Provide additional solving tips",
                     "Address common questions",
-                    "Invite to share feedback or questions"
+                    "Invite to share feedback or questions",
                 ],
-                "goal": "Ensure customer success and satisfaction"
+                "goal": "Ensure customer success and satisfaction",
             },
             "day_7_upsell": {
                 "trigger": "7 days after purchase",
@@ -734,13 +741,13 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Celebrate their progress so far",
                     "Introduce workbook companion",
                     "Share success stories from workbook users",
-                    "Limited-time special pricing offer"
+                    "Limited-time special pricing offer",
                 ],
                 "offer": "Workbook companion at 50% off",
-                "goal": "Convert to ecosystem second purchase"
-            }
+                "goal": "Convert to ecosystem second purchase",
+            },
         }
-        
+
         # Engagement-Based Sequences
         engagement_sequences = {
             "high_engagement": {
@@ -749,8 +756,8 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "VIP recognition and appreciation",
                     "Exclusive early access to new products",
                     "Invitation to beta test programs",
-                    "Personal note from author"
-                ]
+                    "Personal note from author",
+                ],
             },
             "medium_engagement": {
                 "trigger": "Opens 40-80% of emails",
@@ -758,8 +765,8 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Continued value delivery",
                     "Personal success stories",
                     "Community highlights",
-                    "Gentle product recommendations"
-                ]
+                    "Gentle product recommendations",
+                ],
             },
             "low_engagement": {
                 "trigger": "Opens <40% of emails",
@@ -767,50 +774,50 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Re-engagement campaign with best content",
                     "Survey to understand preferences",
                     "Exclusive re-engagement offer",
-                    "Final 'we'll miss you' email with unsubscribe"
-                ]
-            }
+                    "Final 'we'll miss you' email with unsubscribe",
+                ],
+            },
         }
-        
+
         # Behavioral Triggers
         behavioral_triggers = {
             "email_link_clicks": {
                 "trigger": "Clicks specific product links in emails",
                 "action": "Add to targeted product sequence",
-                "timing": "Next email in sequence"
+                "timing": "Next email in sequence",
             },
             "website_behavior": {
                 "trigger": "Visits pricing page multiple times",
                 "action": "Send targeted offer email",
-                "timing": "Within 2 hours of visit"
+                "timing": "Within 2 hours of visit",
             },
             "social_engagement": {
                 "trigger": "Shares content on social media",
                 "action": "Thank you email + exclusive bonus",
-                "timing": "Within 24 hours"
+                "timing": "Within 24 hours",
             },
             "support_contact": {
                 "trigger": "Contacts customer support",
                 "action": "Follow-up satisfaction sequence",
-                "timing": "24 hours after resolution"
-            }
+                "timing": "24 hours after resolution",
+            },
         }
-        
+
         # Seasonal Sequences
         seasonal_sequences = {
             "holiday_campaigns": {
                 "thanksgiving": "Gratitude-focused content + special offers",
                 "christmas": "Gift guide for puzzle lovers + gift certificates",
                 "new_year": "New year resolution support + goal setting",
-                "valentines": "Puzzles for couples + romantic themes"
+                "valentines": "Puzzles for couples + romantic themes",
             },
             "personal_milestones": {
                 "birthday": "Personal birthday message + special discount",
                 "anniversary": "Subscription anniversary celebration",
-                "achievement": "Completion of course or program milestone"
-            }
+                "achievement": "Completion of course or program milestone",
+            },
         }
-        
+
         # Save automated sequences
         sequences_file = self.output_dir / "automated_sequences.json"
         sequences_data = {
@@ -824,30 +831,30 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Website tracking and tagging system",
                 "Email template library",
                 "A/B testing capabilities",
-                "Analytics and reporting dashboard"
-            ]
+                "Analytics and reporting dashboard",
+            ],
         }
-        
-        with open(sequences_file, 'w') as f:
+
+        with open(sequences_file, "w") as f:
             json.dump(sequences_data, f, indent=2)
-        
+
         return {"automated_sequences": str(sequences_file)}
-    
+
     def _build_upsell_automation(self) -> Dict:
         """Build upsell automation system"""
         print("  📈 Building Upsell Automation...")
-        
+
         # Upsell Strategy
         upsell_strategy = {
             "core_principle": "Natural progression through value ladder",
             "timing_rules": [
                 "Immediate post-purchase for impulse offers",
-                "7-day mark for relationship-based offers", 
+                "7-day mark for relationship-based offers",
                 "30-day mark for advanced products",
-                "Quarterly for premium programs"
-            ]
+                "Quarterly for premium programs",
+            ],
         }
-        
+
         # Upsell Flows
         upsell_flows = {
             "immediate_upsell": {
@@ -856,7 +863,7 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "product": "Workbook companion",
                 "pricing": "50% off regular price",
                 "urgency": "Limited time offer expires in 15 minutes",
-                "conversion_target": "30% of book buyers"
+                "conversion_target": "30% of book buyers",
             },
             "email_upsell_sequence": {
                 "trigger": "7 days after book purchase",
@@ -866,38 +873,38 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                         "day": 7,
                         "subject": "Ready for the next level?",
                         "content": "Introduction to audio course + preview",
-                        "offer": "Early bird pricing"
+                        "offer": "Early bird pricing",
                     },
                     {
                         "day": 10,
                         "subject": "Listen to what others are saying...",
                         "content": "Success stories and testimonials",
-                        "offer": "Social proof reinforcement"
+                        "offer": "Social proof reinforcement",
                     },
                     {
                         "day": 14,
                         "subject": "Last chance for special pricing",
                         "content": "Final offer with urgency",
-                        "offer": "Price increases tomorrow"
-                    }
-                ]
+                        "offer": "Price increases tomorrow",
+                    },
+                ],
             },
             "behavioral_upsells": {
                 "high_engagement": {
                     "trigger": "High email engagement + website visits",
                     "product": "Video series",
                     "approach": "Personal invitation from author",
-                    "timing": "30 days after previous purchase"
+                    "timing": "30 days after previous purchase",
                 },
                 "course_completion": {
                     "trigger": "Audio course completion",
                     "product": "Coaching program application",
                     "approach": "Achievement-based invitation",
-                    "timing": "Within 7 days of completion"
-                }
-            }
+                    "timing": "Within 7 days of completion",
+                },
+            },
         }
-        
+
         # Cross-Sell Opportunities
         crosssell_opportunities = {
             "complementary_products": {
@@ -905,49 +912,49 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Large print journal for notes",
                     "Puzzle solving timer",
                     "Magnifying glass with light",
-                    "Ergonomic book stand"
+                    "Ergonomic book stand",
                 ],
                 "course_students": [
                     "Advanced puzzle collections",
                     "Competition preparation guides",
                     "Teaching materials for sharing skills",
-                    "Puzzle creation software"
-                ]
+                    "Puzzle creation software",
+                ],
             },
             "seasonal_offers": {
                 "back_to_school": "Study skills and brain training bundles",
                 "holidays": "Gift sets for puzzle lovers",
                 "new_year": "Self-improvement and goal setting packages",
-                "summer": "Travel-friendly puzzle collections"
-            }
+                "summer": "Travel-friendly puzzle collections",
+            },
         }
-        
+
         # Personalization Rules
         personalization_rules = {
             "customer_segments": {
                 "price_sensitive": {
                     "approach": "Emphasize value and savings",
                     "offers": "Bundle discounts and payment plans",
-                    "timing": "Longer consideration periods"
+                    "timing": "Longer consideration periods",
                 },
                 "quality_focused": {
                     "approach": "Emphasize premium features and benefits",
                     "offers": "Exclusive access and personalization",
-                    "timing": "Immediate availability"
+                    "timing": "Immediate availability",
                 },
                 "community_oriented": {
                     "approach": "Emphasize social aspects and connections",
                     "offers": "Group programs and community access",
-                    "timing": "Based on community engagement"
-                }
+                    "timing": "Based on community engagement",
+                },
             },
             "purchase_history": {
                 "single_purchase": "Focus on building relationship and trust",
                 "multiple_purchases": "Offer premium and advanced options",
-                "high_value": "VIP treatment and exclusive access"
-            }
+                "high_value": "VIP treatment and exclusive access",
+            },
         }
-        
+
         # Upsell Page Templates
         upsell_templates = {
             "one_time_offer": {
@@ -957,24 +964,24 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Countdown timer for urgency",
                     "Value stack with crossed-out prices",
                     "Risk reversal with guarantee",
-                    "Social proof from other customers"
-                ]
+                    "Social proof from other customers",
+                ],
             },
             "email_based": {
                 "subject_lines": [
                     "Your next step is ready...",
                     "Join 500+ students who have already upgraded",
-                    "Last chance for early bird pricing"
+                    "Last chance for early bird pricing",
                 ],
                 "content_structure": [
                     "Congratulate on previous purchase",
                     "Share relevant success story",
                     "Present logical next step",
-                    "Include limited-time incentive"
-                ]
-            }
+                    "Include limited-time incentive",
+                ],
+            },
         }
-        
+
         # Save upsell automation
         upsell_file = self.output_dir / "upsell_automation.json"
         upsell_data = {
@@ -987,26 +994,26 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Immediate upsell conversion: 30%",
                 "Email upsell conversion: 15%",
                 "Customer lifetime value: $150+",
-                "Ecosystem completion rate: 40%"
-            ]
+                "Ecosystem completion rate: 40%",
+            ],
         }
-        
-        with open(upsell_file, 'w') as f:
+
+        with open(upsell_file, "w") as f:
             json.dump(upsell_data, f, indent=2)
-        
+
         return {"upsell_automation": str(upsell_file)}
-    
+
     def _implement_conversion_tracking(self) -> Dict:
         """Implement comprehensive conversion tracking"""
         print("  📊 Implementing Conversion Tracking...")
-        
+
         # Tracking Strategy
         tracking_strategy = {
             "core_principle": "Track every step of the customer journey",
             "attribution_model": "Multi-touch attribution with time decay",
-            "data_privacy": "GDPR and CCPA compliant tracking"
+            "data_privacy": "GDPR and CCPA compliant tracking",
         }
-        
+
         # Tracking Implementation
         tracking_implementation = {
             "google_analytics": {
@@ -1015,30 +1022,30 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Email signup (micro-conversion)",
                     "Book purchase (macro-conversion)",
                     "Upsell purchase (secondary conversion)",
-                    "High-value page views (engagement)"
+                    "High-value page views (engagement)",
                 ],
                 "custom_events": [
                     "PDF download",
                     "Video play completion",
                     "Email link clicks",
-                    "Upsell page visits"
-                ]
+                    "Upsell page visits",
+                ],
             },
             "facebook_pixel": {
                 "standard_events": [
                     "ViewContent (landing page)",
                     "AddToCart (checkout initiation)",
                     "Purchase (transaction completion)",
-                    "Lead (email signup)"
+                    "Lead (email signup)",
                 ],
                 "custom_events": [
                     "DownloadLead (lead magnet download)",
                     "UpsellView (upsell page visit)",
-                    "CourseSignup (program enrollment)"
-                ]
-            }
+                    "CourseSignup (program enrollment)",
+                ],
+            },
         }
-        
+
         # UTM Parameter System
         utm_system = {
             "parameter_structure": {
@@ -1046,75 +1053,79 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "utm_medium": ["cpc", "social", "email", "referral", "organic"],
                 "utm_campaign": ["book_launch", "lead_magnet", "upsell", "retargeting"],
                 "utm_content": ["ad_variant", "email_position", "page_element"],
-                "utm_term": ["keyword", "audience_segment", "demographic"]
+                "utm_term": ["keyword", "audience_segment", "demographic"],
             },
             "tracking_urls": {
                 "facebook_ads": "utm_source=facebook&utm_medium=cpc&utm_campaign=book_launch&utm_content=video_ad",
                 "email_links": "utm_source=email&utm_medium=email&utm_campaign=newsletter&utm_content=cta_button",
-                "linkedin_posts": "utm_source=linkedin&utm_medium=social&utm_campaign=organic_post&utm_content=carousel"
-            }
+                "linkedin_posts": "utm_source=linkedin&utm_medium=social&utm_campaign=organic_post&utm_content=carousel",
+            },
         }
-        
+
         # Conversion Funnel Tracking
         funnel_tracking = {
             "awareness_stage": {
                 "metrics": ["Impressions", "Reach", "Click-through rate"],
                 "sources": ["Social media", "Google Ads", "Organic search"],
-                "tracking": "UTM parameters and referrer data"
+                "tracking": "UTM parameters and referrer data",
             },
             "interest_stage": {
                 "metrics": ["Landing page views", "Time on page", "Scroll depth"],
                 "actions": ["Email signup", "Lead magnet download"],
-                "tracking": "Google Analytics events and goals"
+                "tracking": "Google Analytics events and goals",
             },
             "consideration_stage": {
                 "metrics": ["Product page views", "Pricing page visits", "FAQ views"],
                 "actions": ["Add to cart", "Checkout initiation"],
-                "tracking": "Enhanced ecommerce events"
+                "tracking": "Enhanced ecommerce events",
             },
             "purchase_stage": {
                 "metrics": ["Conversion rate", "Average order value", "Revenue"],
                 "actions": ["Transaction completion", "Thank you page view"],
-                "tracking": "Purchase events with transaction IDs"
+                "tracking": "Purchase events with transaction IDs",
             },
             "retention_stage": {
-                "metrics": ["Upsell conversion", "Email engagement", "Repeat purchases"],
+                "metrics": [
+                    "Upsell conversion",
+                    "Email engagement",
+                    "Repeat purchases",
+                ],
                 "actions": ["Additional purchases", "Referrals", "Reviews"],
-                "tracking": "Customer lifetime value analysis"
-            }
+                "tracking": "Customer lifetime value analysis",
+            },
         }
-        
+
         # Attribution Modeling
         attribution_modeling = {
             "first_touch": "Credit the first interaction for awareness generation",
             "last_touch": "Credit the final interaction before conversion",
             "linear": "Equal credit to all touchpoints in the journey",
             "time_decay": "More credit to recent interactions",
-            "position_based": "40% to first and last, 20% distributed among middle"
+            "position_based": "40% to first and last, 20% distributed among middle",
         }
-        
+
         # Reporting Dashboard
         reporting_dashboard = {
             "daily_metrics": [
                 "Traffic sources and quality",
                 "Conversion rates by channel",
                 "Revenue and average order value",
-                "Email signup and engagement rates"
+                "Email signup and engagement rates",
             ],
             "weekly_analysis": [
                 "Customer journey path analysis",
                 "Attribution model comparisons",
                 "A/B test results and significance",
-                "Customer lifetime value trends"
+                "Customer lifetime value trends",
             ],
             "monthly_reviews": [
                 "Channel performance and ROI",
                 "Customer acquisition cost trends",
                 "Funnel optimization opportunities",
-                "Predictive analytics and forecasting"
-            ]
+                "Predictive analytics and forecasting",
+            ],
         }
-        
+
         # Save conversion tracking
         tracking_file = self.output_dir / "conversion_tracking.json"
         tracking_data = {
@@ -1128,19 +1139,19 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Cookie consent implementation",
                 "GDPR data processing agreements",
                 "CCPA opt-out mechanisms",
-                "Data retention policies"
-            ]
+                "Data retention policies",
+            ],
         }
-        
-        with open(tracking_file, 'w') as f:
+
+        with open(tracking_file, "w") as f:
             json.dump(tracking_data, f, indent=2)
-        
+
         return {"conversion_tracking": str(tracking_file)}
-    
+
     def _create_ab_testing(self) -> Dict:
         """Create A/B testing framework"""
         print("  🧪 Creating A/B Testing Framework...")
-        
+
         # Testing Strategy
         testing_strategy = {
             "core_principle": "Test everything, assume nothing",
@@ -1148,10 +1159,10 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "High-impact, low-effort tests first",
                 "One test at a time per funnel stage",
                 "Statistical significance before decisions",
-                "Long-term value over short-term gains"
-            ]
+                "Long-term value over short-term gains",
+            ],
         }
-        
+
         # Test Categories
         test_categories = {
             "landing_page_tests": [
@@ -1159,31 +1170,31 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Call-to-action button text and color",
                 "Social proof placement and format",
                 "Form field requirements and layout",
-                "Trust signals and guarantee prominence"
+                "Trust signals and guarantee prominence",
             ],
             "email_tests": [
                 "Subject line variations",
                 "Send time optimization",
                 "Content length and format",
                 "Personalization levels",
-                "Call-to-action placement"
+                "Call-to-action placement",
             ],
             "checkout_tests": [
                 "Page layout and element order",
                 "Payment options and prominence",
                 "Trust badges and security messaging",
                 "Pricing display and formatting",
-                "Guest vs. account checkout"
+                "Guest vs. account checkout",
             ],
             "upsell_tests": [
                 "Offer timing and placement",
                 "Pricing and discount strategies",
                 "Product bundling options",
                 "Urgency and scarcity elements",
-                "Value proposition messaging"
-            ]
+                "Value proposition messaging",
+            ],
         }
-        
+
         # Priority Test Queue
         test_queue = {
             "high_priority_tests": [
@@ -1192,18 +1203,18 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "hypothesis": "Benefit-focused headline will outperform feature-focused",
                     "variants": [
                         "Finally, Crosswords You Can Actually See and Solve",
-                        "Large Print Crossword Book with Progressive Difficulty"
+                        "Large Print Crossword Book with Progressive Difficulty",
                     ],
                     "metric": "Email signup conversion rate",
-                    "estimated_impact": "15-25% improvement"
+                    "estimated_impact": "15-25% improvement",
                 },
                 {
                     "test_name": "CTA Button Color",
                     "hypothesis": "Red button will outperform blue for urgency",
                     "variants": ["Red (#e74c3c)", "Blue (#3498db)"],
                     "metric": "Click-through rate",
-                    "estimated_impact": "5-10% improvement"
-                }
+                    "estimated_impact": "5-10% improvement",
+                },
             ],
             "medium_priority_tests": [
                 {
@@ -1211,23 +1222,23 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "hypothesis": "Curiosity-driven subjects outperform direct benefit",
                     "variants": [
                         "The puzzle mistake 90% of people make",
-                        "Improve your crossword solving today"
+                        "Improve your crossword solving today",
                     ],
                     "metric": "Email open rate",
-                    "estimated_impact": "10-15% improvement"
+                    "estimated_impact": "10-15% improvement",
                 }
-            ]
+            ],
         }
-        
+
         # Testing Methodology
         testing_methodology = {
             "sample_size_calculation": "Use statistical power calculator for 95% confidence",
             "test_duration": "Minimum 1 week, maximum 4 weeks",
             "significance_threshold": "95% confidence level",
             "minimum_sample": "100 conversions per variant",
-            "traffic_split": "50/50 for most tests, 90/10 for high-risk tests"
+            "traffic_split": "50/50 for most tests, 90/10 for high-risk tests",
         }
-        
+
         # Test Documentation
         test_documentation = {
             "test_planning_template": {
@@ -1236,26 +1247,26 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "success_metrics": "Primary and secondary KPIs",
                 "sample_size": "Required visitors for statistical significance",
                 "duration": "Planned test length in days",
-                "risk_assessment": "Potential downside if variant loses"
+                "risk_assessment": "Potential downside if variant loses",
             },
             "results_analysis_template": {
                 "statistical_significance": "P-value and confidence interval",
                 "practical_significance": "Business impact of observed difference",
                 "segment_analysis": "Performance by traffic source/device",
                 "learnings": "Key insights for future tests",
-                "implementation": "Winner implementation timeline"
-            }
+                "implementation": "Winner implementation timeline",
+            },
         }
-        
+
         # Testing Tools
         testing_tools = {
             "landing_pages": "Unbounce or Leadpages built-in testing",
             "website_elements": "Google Optimize or VWO",
             "email_campaigns": "ConvertKit or ActiveCampaign A/B features",
             "ad_creative": "Facebook Ads Manager split testing",
-            "statistical_analysis": "Google Analytics Intelligence or custom calculators"
+            "statistical_analysis": "Google Analytics Intelligence or custom calculators",
         }
-        
+
         # Save A/B testing framework
         testing_file = self.output_dir / "ab_testing_framework.json"
         testing_data = {
@@ -1270,54 +1281,54 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Run tests for full business cycles",
                 "Document all tests and results",
                 "Share learnings across team",
-                "Never stop testing and optimizing"
-            ]
+                "Never stop testing and optimizing",
+            ],
         }
-        
-        with open(testing_file, 'w') as f:
+
+        with open(testing_file, "w") as f:
             json.dump(testing_data, f, indent=2)
-        
+
         return {"ab_testing_framework": str(testing_file)}
-    
+
     def _build_analytics_dashboard(self) -> Dict:
         """Build comprehensive analytics dashboard"""
         print("  📈 Building Analytics Dashboard...")
-        
+
         # Dashboard Strategy
         dashboard_strategy = {
             "purpose": "Real-time visibility into funnel performance",
             "user_types": ["Author/owner", "Marketing team", "Technical team"],
-            "update_frequency": "Real-time with daily summaries"
+            "update_frequency": "Real-time with daily summaries",
         }
-        
+
         # Key Metrics
         key_metrics = {
             "traffic_metrics": [
                 "Unique visitors by source",
                 "Page views and session duration",
                 "Bounce rate by landing page",
-                "Mobile vs desktop performance"
+                "Mobile vs desktop performance",
             ],
             "conversion_metrics": [
                 "Email signup conversion rate",
                 "Purchase conversion rate",
                 "Upsell conversion rate",
-                "Customer lifetime value"
+                "Customer lifetime value",
             ],
             "revenue_metrics": [
                 "Daily revenue and trends",
                 "Average order value",
                 "Revenue per visitor",
-                "Monthly recurring revenue"
+                "Monthly recurring revenue",
             ],
             "engagement_metrics": [
                 "Email open and click rates",
                 "Content consumption patterns",
                 "Community participation",
-                "Customer satisfaction scores"
-            ]
+                "Customer satisfaction scores",
+            ],
         }
-        
+
         # Dashboard Layouts
         dashboard_layouts = {
             "executive_summary": {
@@ -1326,8 +1337,8 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Revenue today vs. yesterday/last week",
                     "Conversion funnel with current rates",
                     "Top traffic sources and their quality",
-                    "Key alerts and action items"
-                ]
+                    "Key alerts and action items",
+                ],
             },
             "marketing_performance": {
                 "purpose": "Detailed marketing metrics for optimization",
@@ -1335,8 +1346,8 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Channel performance and ROI",
                     "Campaign attribution analysis",
                     "A/B test results and significance",
-                    "Customer acquisition cost trends"
-                ]
+                    "Customer acquisition cost trends",
+                ],
             },
             "customer_journey": {
                 "purpose": "Understanding customer behavior and paths",
@@ -1344,33 +1355,33 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Funnel visualization with drop-off points",
                     "Customer segment performance",
                     "Lifetime value by acquisition source",
-                    "Retention and churn analysis"
-                ]
-            }
+                    "Retention and churn analysis",
+                ],
+            },
         }
-        
+
         # Automated Alerts
         automated_alerts = {
             "performance_alerts": [
                 "Conversion rate drops below 10%",
                 "Daily revenue drops 20% vs. 7-day average",
                 "Email deliverability issues detected",
-                "Website downtime or slow loading"
+                "Website downtime or slow loading",
             ],
             "opportunity_alerts": [
                 "High-converting traffic source identified",
                 "A/B test reaches statistical significance",
                 "Seasonal trend pattern detected",
-                "New customer segment emerging"
+                "New customer segment emerging",
             ],
             "system_alerts": [
                 "Tracking code errors detected",
                 "Form submission failures",
                 "Payment processing issues",
-                "Email automation failures"
-            ]
+                "Email automation failures",
+            ],
         }
-        
+
         # Custom Reports
         custom_reports = {
             "weekly_performance": {
@@ -1379,8 +1390,8 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Traffic and conversion summary",
                     "Revenue and customer acquisition",
                     "Top performing content and campaigns",
-                    "Action items for next week"
-                ]
+                    "Action items for next week",
+                ],
             },
             "monthly_analysis": {
                 "recipients": ["Management", "Stakeholders"],
@@ -1388,8 +1399,8 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Monthly growth metrics and trends",
                     "Customer lifetime value analysis",
                     "Channel ROI and budget recommendations",
-                    "Strategic insights and opportunities"
-                ]
+                    "Strategic insights and opportunities",
+                ],
             },
             "campaign_reports": {
                 "recipients": ["Campaign managers"],
@@ -1397,11 +1408,11 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                     "Campaign performance vs. goals",
                     "Audience insights and behavior",
                     "Creative performance analysis",
-                    "Optimization recommendations"
-                ]
-            }
+                    "Optimization recommendations",
+                ],
+            },
         }
-        
+
         # Technical Implementation
         technical_implementation = {
             "data_sources": [
@@ -1409,14 +1420,14 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Facebook Ads Manager API",
                 "Email platform APIs (ConvertKit)",
                 "Payment processor APIs (Stripe)",
-                "Custom database queries"
+                "Custom database queries",
             ],
             "dashboard_platform": "Google Data Studio or Tableau",
             "data_refresh": "Hourly for real-time metrics, daily for reports",
             "access_control": "Role-based permissions by team function",
-            "backup_systems": "Automated data backups and redundancy"
+            "backup_systems": "Automated data backups and redundancy",
         }
-        
+
         # Save analytics dashboard
         dashboard_file = self.output_dir / "analytics_dashboard.json"
         dashboard_data = {
@@ -1430,26 +1441,26 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "All stakeholders can find needed metrics in <30 seconds",
                 "Alerts catch issues before significant impact",
                 "Data accuracy >99% across all sources",
-                "Dashboard loads in <5 seconds"
-            ]
+                "Dashboard loads in <5 seconds",
+            ],
         }
-        
-        with open(dashboard_file, 'w') as f:
+
+        with open(dashboard_file, "w") as f:
             json.dump(dashboard_data, f, indent=2)
-        
+
         return {"analytics_dashboard": str(dashboard_file)}
-    
+
     def _create_mobile_optimization(self) -> Dict:
         """Create mobile optimization system"""
         print("  📱 Creating Mobile Optimization...")
-        
+
         # Mobile Strategy
         mobile_strategy = {
             "core_principle": "Mobile-first design and optimization",
             "target_performance": "3-second load time on 3G networks",
-            "user_experience": "Thumb-friendly navigation and interactions"
+            "user_experience": "Thumb-friendly navigation and interactions",
         }
-        
+
         # Mobile Conversion Optimization
         mobile_optimization = {
             "design_principles": [
@@ -1457,24 +1468,24 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Large touch targets (minimum 44px)",
                 "Readable fonts without zooming (16px+)",
                 "Minimal form fields and inputs",
-                "Fast-loading images and graphics"
+                "Fast-loading images and graphics",
             ],
             "checkout_optimization": [
                 "Auto-detect and format phone numbers",
                 "One-page checkout process",
                 "Mobile payment options (Apple Pay, Google Pay)",
                 "Address autocomplete functionality",
-                "Large, prominent CTA buttons"
+                "Large, prominent CTA buttons",
             ],
             "form_optimization": [
                 "Email input with proper keyboard",
                 "Phone number input with numeric pad",
                 "Autofill support for faster completion",
                 "Clear error messages and validation",
-                "Progress indicators for multi-step forms"
-            ]
+                "Progress indicators for multi-step forms",
+            ],
         }
-        
+
         # Performance Optimization
         performance_optimization = {
             "page_speed": [
@@ -1482,55 +1493,55 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Minimize CSS and JavaScript",
                 "Use CDN for faster content delivery",
                 "Implement lazy loading for images",
-                "Enable browser caching"
+                "Enable browser caching",
             ],
             "technical_requirements": [
                 "Responsive design that scales to any screen",
                 "AMP pages for ultra-fast loading",
                 "Progressive Web App features",
                 "Offline functionality where appropriate",
-                "Touch gesture support"
-            ]
+                "Touch gesture support",
+            ],
         }
-        
+
         # Mobile-Specific Features
         mobile_features = {
             "native_app_integration": [
                 "Smart app banners for relevant apps",
                 "Deep linking to app content",
                 "App download prompts where beneficial",
-                "Cross-platform experience consistency"
+                "Cross-platform experience consistency",
             ],
             "device_capabilities": [
                 "Location services for local offers",
                 "Camera access for QR code scanning",
                 "Push notifications for engagement",
-                "Device orientation optimization"
-            ]
+                "Device orientation optimization",
+            ],
         }
-        
+
         # Testing and Analytics
         mobile_testing = {
             "device_testing": [
                 "iPhone (various models and iOS versions)",
                 "Android (Samsung, Google, others)",
                 "Tablet experiences (iPad, Android tablets)",
-                "Different screen sizes and resolutions"
+                "Different screen sizes and resolutions",
             ],
             "performance_monitoring": [
                 "Page load speed by device type",
                 "Conversion rates mobile vs desktop",
                 "Form completion rates on mobile",
-                "User behavior flow analysis"
+                "User behavior flow analysis",
             ],
             "usability_testing": [
                 "Finger-friendly touch targets",
                 "Easy navigation without zooming",
                 "Readable text and clear CTAs",
-                "Smooth scrolling and interactions"
-            ]
+                "Smooth scrolling and interactions",
+            ],
         }
-        
+
         # Save mobile optimization
         mobile_file = self.output_dir / "mobile_optimization.json"
         mobile_data = {
@@ -1544,46 +1555,52 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
                 "Optimize all images for mobile",
                 "Test checkout flow on multiple devices",
                 "Set up mobile-specific analytics",
-                "Configure mobile payment options"
-            ]
+                "Configure mobile payment options",
+            ],
         }
-        
-        with open(mobile_file, 'w') as f:
+
+        with open(mobile_file, "w") as f:
             json.dump(mobile_data, f, indent=2)
-        
+
         return {"mobile_optimization": str(mobile_file)}
 
 
 def main():
     """CLI interface for one-click funnel system"""
     import argparse
-    
-    parser = argparse.ArgumentParser(description="One-Click Funnel System for KindleMint")
-    parser.add_argument("--book-config", required=True, help="Book configuration JSON file")
-    parser.add_argument("--artifacts-dir", required=True, help="Directory containing book artifacts")
-    
+
+    parser = argparse.ArgumentParser(
+        description="One-Click Funnel System for KindleMint"
+    )
+    parser.add_argument(
+        "--book-config", required=True, help="Book configuration JSON file"
+    )
+    parser.add_argument(
+        "--artifacts-dir", required=True, help="Directory containing book artifacts"
+    )
+
     args = parser.parse_args()
-    
+
     # Load book configuration
-    with open(args.book_config, 'r') as f:
+    with open(args.book_config, "r") as f:
         book_config = json.load(f)
-    
+
     # Create mock artifacts for CLI usage
     artifacts = {
         "puzzles_dir": args.artifacts_dir,
-        "pdf_file": f"{args.artifacts_dir}/interior.pdf"
+        "pdf_file": f"{args.artifacts_dir}/interior.pdf",
     }
-    
+
     # Run one-click funnel system
     funnel_system = OneClickFunnelSystem(book_config, artifacts)
     results = funnel_system.build_complete_funnel()
-    
+
     print(f"\n🖱️ One-Click Funnel System built successfully!")
     print(f"📁 Output directory: {funnel_system.output_dir}")
-    
+
     for asset_type, file_path in results.items():
         print(f"   • {asset_type}: {file_path}")
-    
+
     return 0
 
 

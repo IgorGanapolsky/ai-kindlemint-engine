@@ -80,23 +80,23 @@ SERIES CONSISTENCY GUIDELINES:
    - Same font family across all volumes
    - Consistent title placement and size
    - Volume number in same position (recommend top right or bottom)
-   
+
 2. Layout:
    - Identical grid structure
    - Same "LARGE PRINT" badge style and placement
    - Consistent spine text formatting
-   
+
 3. Branding:
    - Series logo or emblem (if applicable)
    - Publisher information in same location
    - Consistent border or frame style
-   
+
 4. Differentiation:
    - ONLY color scheme changes between volumes
    - Subtle seasonal themes
    - Background gradient variations
    - Keep core design elements identical
-   
+
 5. Quality Standards:
    - 300 DPI resolution
    - CMYK color space

@@ -5,19 +5,20 @@ Claude Code Orchestrator - Main orchestration system for AI-accelerated developm
 import asyncio
 import json
 import logging
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Any
 from dataclasses import dataclass, field
+from datetime import datetime
 from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
+from ..agents.agent_registry import AgentRegistry
 from ..agents.base_agent import BaseAgent
 from ..agents.task_coordinator import TaskCoordinator
-from ..agents.agent_registry import AgentRegistry
 
 
 class TaskType(Enum):
     """Types of tasks the orchestrator can handle"""
+
     AGENT_GENERATION = "agent_generation"
     FEATURE_DEVELOPMENT = "feature_development"
     CODE_OPTIMIZATION = "code_optimization"
@@ -31,6 +32,7 @@ class TaskType(Enum):
 @dataclass
 class OrchestrationTask:
     """Represents a task for the orchestrator"""
+
     id: str
     type: TaskType
     description: str
@@ -47,7 +49,7 @@ class ClaudeCodeOrchestrator:
     """
     Main orchestrator for Claude Code - manages AI-accelerated development
     """
-    
+
     def __init__(self, base_path: Path = None):
         self.base_path = base_path or Path.cwd()
         self.logger = logging.getLogger(__name__)
@@ -55,33 +57,38 @@ class ClaudeCodeOrchestrator:
         self.completed_tasks: List[OrchestrationTask] = []
         self.active_agents: Dict[str, BaseAgent] = {}
         self.optimization_metrics = {
-            'development_speed': 1.0,
-            'code_quality': 0.95,
-            'feature_velocity': 1.0,
-            'maintenance_cost': 1.0,
-            'innovation_rate': 1.0
+            "development_speed": 1.0,
+            "code_quality": 0.95,
+            "feature_velocity": 1.0,
+            "maintenance_cost": 1.0,
+            "innovation_rate": 1.0,
         }
         # Initialize agent registry and task coordinator
         self.agent_registry = AgentRegistry()
         self.task_coordinator = TaskCoordinator(self.agent_registry)
-        
+
     async def initialize(self):
         """Initialize the orchestration system"""
         self.logger.info("Initializing Claude Code Orchestrator")
-        
+
         # Set up monitoring
         await self._setup_monitoring()
-        
+
         # Load existing workflows
         await self._load_workflows()
-        
+
         # Start optimization loop
         asyncio.create_task(self._continuous_optimization_loop())
-        
+
         self.logger.info("Claude Code Orchestrator initialized successfully")
-    
-    async def create_agent(self, agent_type: str, capabilities: List[str], 
-                          framework: str = "langchain", output_path: str = None) -> Dict:
+
+    async def create_agent(
+        self,
+        agent_type: str,
+        capabilities: List[str],
+        framework: str = "langchain",
+        output_path: str = None,
+    ) -> Dict:
         """
         Generate a new AI agent with specified capabilities
         """
@@ -93,12 +100,12 @@ class ClaudeCodeOrchestrator:
                 "agent_type": agent_type,
                 "capabilities": capabilities,
                 "framework": framework,
-                "output_path": output_path or f"./agents/{agent_type}_agent.py"
-            }
+                "output_path": output_path or f"./agents/{agent_type}_agent.py",
+            },
         )
-        
+
         return await self._execute_task(task)
-    
+
     async def develop_feature(self, feature_name: str, requirements: Dict) -> Dict:
         """
         Develop a complete feature with tests and documentation
@@ -111,46 +118,50 @@ class ClaudeCodeOrchestrator:
                 "feature_name": feature_name,
                 "requirements": requirements,
                 "include_tests": True,
-                "include_docs": True
+                "include_docs": True,
             },
-            priority=8
+            priority=8,
         )
-        
+
         return await self._execute_task(task)
-    
+
     async def optimize_codebase(self, optimization_type: str = "all") -> Dict:
         """
         Analyze and optimize the codebase
         """
         optimization_tasks = {
-            'performance': 'Analyze bottlenecks and optimize',
-            'security': 'Audit code for vulnerabilities',
-            'scalability': 'Refactor for horizontal scaling',
-            'maintainability': 'Improve code documentation'
+            "performance": "Analyze bottlenecks and optimize",
+            "security": "Audit code for vulnerabilities",
+            "scalability": "Refactor for horizontal scaling",
+            "maintainability": "Improve code documentation",
         }
-        
+
         if optimization_type == "all":
             tasks_to_run = optimization_tasks
         else:
-            tasks_to_run = {optimization_type: optimization_tasks.get(optimization_type)}
-        
+            tasks_to_run = {
+                optimization_type: optimization_tasks.get(optimization_type)
+            }
+
         results = {}
         for opt_type, description in tasks_to_run.items():
             task = OrchestrationTask(
                 id=f"optimize_{opt_type}_{datetime.now().timestamp()}",
                 type=TaskType.CODE_OPTIMIZATION,
                 description=description,
-                parameters={
-                    "optimization_type": opt_type,
-                    "auto_implement": True
-                }
+                parameters={"optimization_type": opt_type, "auto_implement": True},
             )
             results[opt_type] = await self._execute_task(task)
-        
+
         return results
-    
-    async def generate_specialist(self, industry: str, book_type: str, 
-                                 monetization: List[str], compliance: str = None) -> Dict:
+
+    async def generate_specialist(
+        self,
+        industry: str,
+        book_type: str,
+        monetization: List[str],
+        compliance: str = None,
+    ) -> Dict:
         """
         Generate a specialized agent for specific industry/use case
         """
@@ -163,13 +174,13 @@ class ClaudeCodeOrchestrator:
                 "book_type": book_type,
                 "monetization": monetization,
                 "compliance": compliance,
-                "specialized": True
+                "specialized": True,
             },
-            priority=7
+            priority=7,
         )
-        
+
         return await self._execute_task(task)
-    
+
     async def integrate_service(self, service_name: str, integration_type: str) -> Dict:
         """
         Create integration with external service
@@ -182,13 +193,15 @@ class ClaudeCodeOrchestrator:
                 "service_name": service_name,
                 "integration_type": integration_type,
                 "include_error_handling": True,
-                "include_tests": True
-            }
+                "include_tests": True,
+            },
         )
-        
+
         return await self._execute_task(task)
-    
-    async def generate_tests(self, test_types: List[str], target_coverage: float = 0.9) -> Dict:
+
+    async def generate_tests(
+        self, test_types: List[str], target_coverage: float = 0.9
+    ) -> Dict:
         """
         Generate comprehensive test suite
         """
@@ -200,152 +213,153 @@ class ClaudeCodeOrchestrator:
                 "test_types": test_types,
                 "target_coverage": target_coverage,
                 "include_edge_cases": True,
-                "include_load_tests": "load_tests" in test_types
-            }
+                "include_load_tests": "load_tests" in test_types,
+            },
         )
-        
+
         return await self._execute_task(task)
-    
+
     async def _execute_task(self, task: OrchestrationTask) -> Dict:
         """Execute a single orchestration task"""
         self.logger.info(f"Executing task: {task.id} - {task.description}")
         task.status = "in_progress"
         self.task_queue.append(task)
-        
+
         try:
             # Route task to appropriate handler
             if task.type == TaskType.AGENT_GENERATION:
                 from .agent_generator import AgentGenerator
+
                 generator = AgentGenerator()
                 result = await generator.generate(**task.parameters)
-            
+
             elif task.type == TaskType.FEATURE_DEVELOPMENT:
                 from .feature_developer import FeatureDeveloper
+
                 developer = FeatureDeveloper()
                 result = await developer.develop(**task.parameters)
-            
+
             elif task.type == TaskType.CODE_OPTIMIZATION:
                 from .code_optimizer import CodeOptimizer
+
                 optimizer = CodeOptimizer()
                 result = await optimizer.optimize(**task.parameters)
-            
+
             elif task.type == TaskType.INTEGRATION:
                 from .integration_automator import IntegrationAutomator
+
                 automator = IntegrationAutomator()
                 result = await automator.integrate(**task.parameters)
-            
+
             elif task.type == TaskType.TEST_GENERATION:
                 from .test_generator import TestGenerator
+
                 generator = TestGenerator()
                 result = await generator.generate(**task.parameters)
-            
+
             else:
                 raise ValueError(f"Unknown task type: {task.type}")
-            
+
             # Update task status
             task.status = "completed"
             task.completed_at = datetime.now()
             task.result = result
-            
+
             # Update metrics
             await self._update_metrics(task)
-            
+
             return {
                 "status": "success",
                 "task_id": task.id,
                 "result": result,
-                "execution_time": (task.completed_at - task.created_at).total_seconds()
+                "execution_time": (task.completed_at - task.created_at).total_seconds(),
             }
-            
+
         except Exception as e:
             task.status = "failed"
             task.error = str(e)
             self.logger.error(f"Task {task.id} failed: {e}")
-            
-            return {
-                "status": "error",
-                "task_id": task.id,
-                "error": str(e)
-            }
-        
+
+            return {"status": "error", "task_id": task.id, "error": str(e)}
+
         finally:
             self.completed_tasks.append(task)
             self.task_queue.remove(task)
-    
+
     async def _continuous_optimization_loop(self):
         """Continuous optimization of the codebase"""
         while True:
             try:
                 # Run daily optimization
                 await asyncio.sleep(86400)  # 24 hours
-                
+
                 self.logger.info("Running daily optimization")
-                
+
                 # Analyze production metrics
                 metrics = await self._analyze_production_metrics()
-                
+
                 # Identify improvement opportunities
                 improvements = await self._identify_improvements(metrics)
-                
+
                 # Generate optimization tasks
                 for improvement in improvements:
                     await self.optimize_codebase(improvement)
-                
+
             except Exception as e:
                 self.logger.error(f"Optimization loop error: {e}")
-    
+
     async def _setup_monitoring(self):
         """Set up monitoring systems"""
         self.logger.info("Setting up monitoring systems")
         # Implementation for monitoring setup
         pass
-    
+
     async def _load_workflows(self):
         """Load existing workflows"""
         workflow_dir = self.base_path / ".claude_code" / "workflows"
         if workflow_dir.exists():
             for workflow_file in workflow_dir.glob("*.json"):
-                with open(workflow_file, 'r') as f:
+                with open(workflow_file, "r") as f:
                     workflow = json.load(f)
                     # Process workflow
                     self.logger.info(f"Loaded workflow: {workflow_file.name}")
-    
+
     async def _update_metrics(self, task: OrchestrationTask):
         """Update optimization metrics based on task completion"""
         if task.status == "completed":
             # Increase development speed metric
-            self.optimization_metrics['development_speed'] *= 1.01
-            
+            self.optimization_metrics["development_speed"] *= 1.01
+
             # Update other metrics based on task type
             if task.type == TaskType.CODE_OPTIMIZATION:
-                self.optimization_metrics['code_quality'] *= 1.02
+                self.optimization_metrics["code_quality"] *= 1.02
             elif task.type == TaskType.FEATURE_DEVELOPMENT:
-                self.optimization_metrics['feature_velocity'] *= 1.03
-    
+                self.optimization_metrics["feature_velocity"] *= 1.03
+
     async def _analyze_production_metrics(self) -> Dict:
         """Analyze production metrics for optimization opportunities"""
         return {
             "error_rate": 0.02,
             "response_time": 150,
             "resource_usage": 0.65,
-            "user_satisfaction": 0.88
+            "user_satisfaction": 0.88,
         }
-    
+
     async def _identify_improvements(self, metrics: Dict) -> List[str]:
         """Identify improvement opportunities based on metrics"""
         improvements = []
-        
+
         if metrics["error_rate"] > 0.01:
             improvements.append("security")
-        
+
         if metrics["response_time"] > 100:
             improvements.append("performance")
-        
+
         if metrics["resource_usage"] > 0.7:
             improvements.append("scalability")
-        
+
         return improvements
-    
+
     async def get_status(self) -> Dict:
         """Get current orchestrator status"""
         return {
@@ -353,17 +367,17 @@ class ClaudeCodeOrchestrator:
             "completed_tasks": len(self.completed_tasks),
             "active_agents": len(self.active_agents),
             "optimization_metrics": self.optimization_metrics,
-            "system_health": "healthy"
+            "system_health": "healthy",
         }
-    
+
     async def analyze_usage(self, identify: str = "friction-points") -> List[Dict]:
         """Analyze usage patterns and identify improvements"""
         # Placeholder for usage analysis
         return [
             {"type": "friction-point", "location": "onboarding", "severity": "high"},
-            {"type": "friction-point", "location": "checkout", "severity": "medium"}
+            {"type": "friction-point", "location": "checkout", "severity": "medium"},
         ]
-    
+
     async def generate_solutions(self, problems: List[Dict]) -> List[Dict]:
         """Generate solutions for identified problems"""
         solutions = []
@@ -372,7 +386,7 @@ class ClaudeCodeOrchestrator:
                 "problem": problem,
                 "proposed_solution": f"Optimize {problem['location']} flow",
                 "implementation_time": "2 hours",
-                "impact": "high"
+                "impact": "high",
             }
             solutions.append(solution)
         return solutions

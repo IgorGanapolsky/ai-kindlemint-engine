@@ -10,16 +10,16 @@ on:
 jobs:
   test-orchestration:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: 🔄 Checkout repository
       uses: actions/checkout@v4
-    
+
     - name: 🐍 Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    
+
     - name: ✅ Test GitHub Token
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -29,7 +29,7 @@ jobs:
              -H "Accept: application/vnd.github.v3+json" \
              "https://api.github.com/repos/${{ github.repository }}" \
              | jq '.name'
-    
+
     - name: ✅ Test Slack Notification
       if: secrets.SLACK_WEBHOOK_URL
       env:
@@ -39,7 +39,7 @@ jobs:
         curl -X POST -H 'Content-type: application/json' \
           --data '{"text": "🧪 Test notification from autonomous orchestration system - secrets are working!"}' \
           "$SLACK_WEBHOOK_URL"
-    
+
     - name: ✅ Test Sentry Connection
       if: secrets.SENTRY_AUTH_TOKEN
       env:
@@ -49,7 +49,7 @@ jobs:
         curl -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
              "https://sentry.io/api/0/organizations/" \
              | head -c 200
-    
+
     - name: 🧹 Test Code Cleanup
       run: |
         echo "Testing autonomous code cleanup..."
@@ -58,7 +58,7 @@ jobs:
         else
           echo "Cleanup script not found"
         fi
-    
+
     - name: 🎉 Success Report
       run: |
         echo "🎉 AUTONOMOUS ORCHESTRATION TEST SUCCESSFUL!"

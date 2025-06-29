@@ -7,21 +7,21 @@ system:
   version: "1.0.0"
   environment: "production"  # production, staging, development
   log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
-  
+
 # Component enablement
 components:
   sentry_enabled: true
   slack_enabled: true
   auto_resolution_enabled: true
   error_analysis_enabled: true
-  
+
 # Operational settings
 operation:
   dry_run: false  # Set to true for testing without making actual changes
   monitoring_interval: 300  # seconds between Sentry polling cycles
   max_concurrent_resolutions: 3  # maximum simultaneous auto-resolution attempts
   resolution_timeout: 600  # seconds before resolution attempt times out
-  
+
 # Sentry configuration
 sentry:
   # Environment variables: SENTRY_AUTH_TOKEN, SENTRY_ORGANIZATION
@@ -29,36 +29,36 @@ sentry:
     - "ai-kindlemint-engine"
     - "kindlemint-api"
     - "kindlemint-worker"
-  
+
   fetch_settings:
     default_limit: 100  # errors to fetch per cycle
     lookback_hours: 24  # how far back to look for errors
     include_resolved: false  # include already resolved errors
-    
+
   error_filters:
     min_severity: "warning"  # minimum error level to process
     exclude_environments: []  # environments to ignore
     exclude_releases: []  # releases to ignore
-    
-# Slack configuration  
+
+# Slack configuration
 slack:
   # Environment variables: SLACK_BOT_TOKEN, SLACK_WEBHOOK_URL
-  
+
   notification_channels:
     alerts: "#alerts"  # general alerts
     resolutions: "#devops"  # auto-resolution notifications
     escalations: "#oncall"  # critical escalations
     metrics: "#monitoring"  # metrics and reports
-    
+
   message_settings:
     include_actions: true  # include interactive action buttons
     thread_responses: true  # use threads for follow-up messages
     mention_oncall: true  # mention on-call engineer for critical issues
-    
+
   rate_limiting:
     max_messages_per_hour: 50  # prevent spam
     cooldown_seconds: 60  # minimum time between identical alerts
-    
+
 # Error analysis configuration
 error_analysis:
   confidence_threshold: 0.6  # minimum confidence for categorization
@@ -66,13 +66,13 @@ error_analysis:
   pattern_matching:
     enable_regex: true
     enable_ml_classification: false  # requires additional dependencies
-    
+
   categorization:
     # Weights for different classification methods
     message_weight: 0.4
     context_weight: 0.3
     pattern_weight: 0.3
-    
+
 # Auto-resolution configuration
 auto_resolution:
   safety_settings:
@@ -82,28 +82,28 @@ auto_resolution:
       max_config_changes: 2
       max_dependency_updates: 1
       cooldown_period_minutes: 30
-      
+
     forbidden_actions:
       - "delete_database"
-      - "drop_table" 
+      - "drop_table"
       - "remove_user_data"
       - "modify_security_config"
-      
+
     approval_required:
       - "infrastructure_changes"
       - "network_modifications"
       - "security_updates"
-      
+
   confidence_thresholds:
     safe_actions: 0.7  # minimum confidence for safe actions
     medium_risk_actions: 0.8  # minimum confidence for medium risk actions
     high_risk_actions: 0.9  # minimum confidence for high risk actions
-    
+
   rollback_settings:
     enable_automatic_rollback: true
     rollback_timeout: 300  # seconds
     keep_rollback_data_days: 7
-    
+
 # Escalation rules
 escalation:
   thresholds:
@@ -111,7 +111,7 @@ escalation:
     failed_resolutions_per_hour: 5
     error_rate_increase_percent: 50
     unresolved_critical_age_minutes: 30
-    
+
   escalation_levels:
     level_1:
       name: "Team Lead"
@@ -119,7 +119,7 @@ escalation:
       conditions:
         - "error_count > 5"
         - "resolution_failed"
-        
+
     level_2:
       name: "On-Call Engineer"
       channels: ["#oncall"]
@@ -127,7 +127,7 @@ escalation:
         - "critical_error"
         - "production_impact"
         - "escalation_level_1_timeout"
-        
+
     level_3:
       name: "Senior Management"
       channels: ["#management", "#oncall"]
@@ -135,7 +135,7 @@ escalation:
         - "system_down"
         - "data_loss_risk"
         - "security_incident"
-        
+
 # Business impact assessment
 business_impact:
   # Revenue impact thresholds (per hour)
@@ -144,43 +144,43 @@ business_impact:
     medium: 1000  # $1000/hour
     high: 10000   # $10,000/hour
     critical: 50000  # $50,000/hour
-    
+
   # User impact thresholds
   user_impact_thresholds:
     low: 10       # affected users
     medium: 100
     high: 1000
     critical: 10000
-    
+
   # Service criticality mapping
   service_criticality:
     "kindlemint-api": "critical"
     "kindlemint-worker": "high"
     "kindlemint-analytics": "medium"
     "kindlemint-dev": "low"
-    
+
 # Monitoring and metrics
 monitoring:
   metrics_collection:
     enabled: true
     interval_minutes: 15
     retention_days: 30
-    
+
   health_checks:
     enabled: true
     interval_seconds: 60
     timeout_seconds: 30
-    
+
   performance_tracking:
     track_resolution_times: true
     track_alert_response_times: true
     track_escalation_frequency: true
-    
+
   reporting:
     daily_summary: true
     weekly_analysis: true
     monthly_trends: true
-    
+
 # Integration settings
 integrations:
   github:
@@ -188,47 +188,47 @@ integrations:
     # Environment variable: GITHUB_TOKEN
     repository: "igorganapolsky/ai-kindlemint-engine"
     issue_labels: ["bug", "auto-generated"]
-    
+
   jira:
     enabled: false  # create JIRA tickets
     # Environment variables: JIRA_URL, JIRA_TOKEN
     project_key: "KM"
-    
+
   pagerduty:
     enabled: false  # PagerDuty integration for critical alerts
     # Environment variable: PAGERDUTY_API_KEY
     service_key: ""
-    
+
   datadog:
     enabled: false  # send metrics to Datadog
     # Environment variable: DATADOG_API_KEY
-    
+
 # Security settings
 security:
   api_keys:
     # All API keys should be provided via environment variables
     encryption_enabled: true
     key_rotation_days: 90
-    
+
   audit_logging:
     enabled: true
     log_file: "/var/log/alert-orchestrator/audit.log"
     retention_days: 365
-    
+
   access_control:
     require_authentication: true
     allowed_users: []  # empty list means all authenticated users
     admin_users: []
-    
+
 # Storage settings
 storage:
   data_directory: "./data"
-  
+
   persistence:
     error_patterns: true
     resolution_history: true
     metrics_history: true
-    
+
   cleanup:
     auto_cleanup_enabled: true
     cleanup_interval_hours: 24
@@ -236,7 +236,7 @@ storage:
       error_data_days: 30
       resolution_history_days: 90
       metrics_data_days: 365
-      
+
 # Notification templates
 notification_templates:
   alert_formats:
@@ -245,50 +245,50 @@ notification_templates:
       high: "⚠️ *HIGH PRIORITY* ⚠️\n{title}\n{description}"
       medium: "⚡ *ALERT* ⚡\n{title}\n{description}"
       low: "ℹ️ *INFO* ℹ️\n{title}\n{description}"
-      
+
   resolution_formats:
     success: "✅ *Auto-Resolution Successful*\n{action}\nTime: {duration}s"
     failure: "❌ *Auto-Resolution Failed*\n{error}\nNext: Manual review required"
-    
+
 # Advanced features
 advanced:
   machine_learning:
     enabled: false  # requires additional ML dependencies
     model_training: false
     prediction_confidence_threshold: 0.8
-    
+
   clustering:
     enable_error_clustering: true
     similarity_threshold: 0.7
     max_cluster_size: 20
-    
+
   anomaly_detection:
     enabled: true
     baseline_days: 7
     sensitivity: 0.8  # 0.0 to 1.0
-    
+
 # Development and testing
 development:
   debug_mode: false
   verbose_logging: false
   test_mode: false
-  
+
   mock_services:
     mock_sentry: false
     mock_slack: false
     mock_resolutions: false
-    
+
   testing:
     run_integration_tests: false
     test_data_directory: "./test_data"
-    
+
 # Maintenance
 maintenance:
   scheduled_maintenance:
     enabled: true
     daily_cleanup_hour: 2  # 2 AM
     weekly_report_day: "sunday"
-    
+
   updates:
     auto_update_patterns: true
     check_for_updates: true

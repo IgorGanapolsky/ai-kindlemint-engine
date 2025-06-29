@@ -198,15 +198,15 @@ class SudokuPDFLayout:
         """Create the copyright page."""
         copyright_text = f"""
         © {datetime.now().year} {self.author}. All rights reserved.
-        
+
         No part of this book may be reproduced in any form or by any electronic or mechanical means,
         including information storage and retrieval systems, without written permission from the author,
         except for the use of brief quotations in a book review.
-        
+
         First Edition: {datetime.now().strftime('%B %Y')}
-        
+
         ISBN: [To be assigned]
-        
+
         Printed in the United States of America
         """
 

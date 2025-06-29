@@ -33,7 +33,9 @@ def run_simple_research():
                 "api_key": serpapi_key,
             }
 
-            response = requests.get("https://serpapi.com/search", params=params, timeout=30)
+            response = requests.get(
+                "https://serpapi.com/search", params=params, timeout=30
+            )
             if response.status_code == 200:
                 data = response.json()
                 if "organic_results" in data:

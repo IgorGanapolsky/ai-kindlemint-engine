@@ -1,5 +1,7 @@
 import unittest
+
 from kindlemint.agents.publishing_moa import PublishingMoA
+
 
 class TestPublishingMoA(unittest.TestCase):
     def test_create_book_pipeline(self):
@@ -10,6 +12,7 @@ class TestPublishingMoA(unittest.TestCase):
         self.assertIn("Dialogue written for characters", result)
         self.assertIn("Stylistically refined content", result)
         self.assertIn("Market-optimized content", result)
+
 
 if __name__ == "__main__":
     unittest.main()

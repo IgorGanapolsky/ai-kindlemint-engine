@@ -106,7 +106,7 @@ class HardcoverProducer:
 - [ ] Single-page PDF, no crop marks
 - [ ] File: `hardcover_interior.pdf`
 
-#### ✅ **Cover Wrap PDF**  
+#### ✅ **Cover Wrap PDF**
 - [ ] Use KDP template for 6×9, {self.config['pages']} pages, white paper, B/W
 - [ ] Create wrap design with front/spine/back
 - [ ] Export as PDF/X-1a with CMYK and outlined fonts
@@ -120,11 +120,11 @@ class HardcoverProducer:
 
 #### **Design Requirements**
 1. **Canvas**: Exact template dimensions ({self.template_width} × {self.template_height} pixels)
-2. **Template Layer**: 30% opacity for alignment 
+2. **Template Layer**: 30% opacity for alignment
 3. **Front Cover**: Right side, scale to fit, maintain aspect ratio
 4. **Background**: Extend gradient/pattern to spine & back
 5. **Back Cover**: Book description + barcode placeholder (2×1.2 in)
-6. **Spine**: 
+6. **Spine**:
    - Title (stacked) centered, 0.125 in from edges
    - Publisher: "{self.config['publisher']}" at bottom
 

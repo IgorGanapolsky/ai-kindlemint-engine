@@ -9,7 +9,7 @@ The cleanup orchestration failed to remove `Large_Print_Sudoku_Masters_V1_CANVAS
 ### Root Cause
 The cleanup orchestration only recognized specific keywords for removal:
 - `interior`
-- `draft` 
+- `draft`
 - `old`
 - `temp`
 - `backup`

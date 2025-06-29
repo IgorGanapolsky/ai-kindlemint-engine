@@ -2,15 +2,17 @@
 """
 CLI entrypoint for KindleMint Engine.
 """
-import click
 from pathlib import Path
+
+import click
+
+from scripts.book_layout_bot import BookLayoutFormatter
 
 # Import formatter classes
 from scripts.create_professional_crossword_pdf import ProfessionalCrosswordFormatter
 from scripts.create_real_crossword_book import RealCrosswordFormatter
-from scripts.enhanced_epub_generator import EnhancedEpubFormatter
-from scripts.book_layout_bot import BookLayoutFormatter
 from scripts.daily_tasks import run_daily_tasks
+from scripts.enhanced_epub_generator import EnhancedEpubFormatter
 
 # Registry of available formatters
 FORMATTERS = {
@@ -63,6 +65,7 @@ def list_formatters():  # noqa: D103
         click.echo(f"  - {name}")
     click.echo("")
     click.echo("Use 'kindlemint publish --metadata <file>' to upload to KDP")
+
 
 @cli.command("daily-tasks")
 def daily_tasks():  # noqa: D103

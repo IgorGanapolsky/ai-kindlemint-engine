@@ -31,11 +31,11 @@ case $COMMAND in
     setup)
         bash "$SCRIPT_DIR/scripts/setup_claude_cost_notifications.sh"
         ;;
-    
+
     daily|weekly|efficiency)
         python3 "$SCRIPT_DIR/scripts/claude_cost_slack_notifier.py" "$COMMAND" "$@"
         ;;
-    
+
     budget)
         # Default budget if not specified
         if [ "$#" -eq 0 ]; then
@@ -44,31 +44,31 @@ case $COMMAND in
             python3 "$SCRIPT_DIR/scripts/claude_cost_slack_notifier.py" budget "$@"
         fi
         ;;
-    
+
     test)
         echo "🧪 Testing all Claude cost notifications..."
         echo ""
-        
+
         # Test each notification type
         for type in daily weekly efficiency; do
             echo "Testing $type notification..."
             python3 "$SCRIPT_DIR/scripts/claude_cost_slack_notifier.py" "$type"
             sleep 2  # Avoid rate limiting
         done
-        
+
         echo ""
         echo "Testing budget alert..."
         python3 "$SCRIPT_DIR/scripts/claude_cost_slack_notifier.py" budget --budget-limit 0.01 --budget-period daily
-        
+
         echo ""
         echo "✅ Test complete!"
         ;;
-    
+
     scheduler)
         # Run the continuous scheduler
         python3 "$SCRIPT_DIR/scripts/claude_cost_scheduler.py" run "$@"
         ;;
-    
+
     *)
         echo "Unknown command: $COMMAND"
         echo "Run 'claude-flow-costs-notify' for usage information"

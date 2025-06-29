@@ -6,11 +6,12 @@ import asyncio
 import logging
 from pathlib import Path
 from typing import Dict, Optional
+
 import whisper
 from pydub import AudioSegment
 
-from ..context.voice_processing import VoiceProcessor
 from ..context.author_context import AuthorContext
+from ..context.voice_processing import VoiceProcessor
 from ..engines.content_generator import ContentGenerator
 
 
@@ -44,9 +45,7 @@ class VoiceToBookPipeline:
 
         # Generate book content
         book_content = await self.content_generator.generate_from_voice(
-            transcript=transcript,
-            intent=intent,
-            context=context
+            transcript=transcript, intent=intent, context=context
         )
 
         return {
@@ -56,11 +55,13 @@ class VoiceToBookPipeline:
             "metadata": {
                 "duration": len(audio) / 1000,  # seconds
                 "word_count": len(transcript.split()),
-                "detected_language": result.get("language", "en")
-            }
+                "detected_language": result.get("language", "en"),
+            },
         }
 
-    async def _build_author_context(self, transcript: str, intent: Dict) -> AuthorContext:
+    async def _build_author_context(
+        self, transcript: str, intent: Dict
+    ) -> AuthorContext:
         """
         Build author context from transcript and intent
         """
@@ -68,7 +69,7 @@ class VoiceToBookPipeline:
             expertise=intent.get("expertise", []),
             tone=intent.get("tone", "professional"),
             target_audience=intent.get("audience", "general"),
-            goals=intent.get("goals", [])
+            goals=intent.get("goals", []),
         )
 
     async def create_book(self, voice_data: Dict, book_type: str = "guide") -> Dict:
@@ -84,7 +85,7 @@ class VoiceToBookPipeline:
             "subtitle": voice_data["intent"].get("subtitle", ""),
             "author": voice_data["intent"].get("author", "Anonymous"),
             "chapters": chapters,
-            "metadata": voice_data["metadata"]
+            "metadata": voice_data["metadata"],
         }
 
         return book
@@ -106,7 +107,7 @@ class VoiceToBookPipeline:
                 "number": i + 1,
                 "title": section.get("title", f"Chapter {i + 1}"),
                 "content": section["content"],
-                "word_count": len(section["content"].split())
+                "word_count": len(section["content"].split()),
             }
             chapters.append(chapter)
 

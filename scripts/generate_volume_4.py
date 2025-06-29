@@ -234,7 +234,7 @@ def generate_volume_4():
 
 ## Pricing Strategy
 - Paperback: $12.99 (printing cost ~$3.50)
-- Hardcover: $19.99 (printing cost ~$6.50)  
+- Hardcover: $19.99 (printing cost ~$6.50)
 - Kindle: $6.99 (70% royalty tier)
 
 ## Post-Publishing

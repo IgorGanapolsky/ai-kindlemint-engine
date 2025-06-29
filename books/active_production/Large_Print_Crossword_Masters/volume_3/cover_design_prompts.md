@@ -14,7 +14,7 @@ Design a book cover for "Large Print Crossword Masters Volume 3". Professional p
 
 ### DALL-E Prompt:
 ```
-Create a full hardcover book wrap for "Large Print Crossword Masters Volume 3". Dimensions 13.996" × 10.417". Three-panel design with back cover, spine, and front cover. 
+Create a full hardcover book wrap for "Large Print Crossword Masters Volume 3". Dimensions 13.996" × 10.417". Three-panel design with back cover, spine, and front cover.
 
 FRONT COVER (right panel): Same design as paperback - crossword grid with deep blue background, title "LARGE PRINT CROSSWORD MASTERS", "VOLUME 3", author "KindleMint Publications".
 

@@ -2,10 +2,10 @@
 
 ## 📚 SERIES OVERVIEW
 
-**Series Name:** Large Print Crossword Masters  
-**Target:** 10 volumes over 15 months  
-**Market:** Word puzzle enthusiasts, seniors, educators  
-**Unique Positioning:** Themed crosswords with large print accessibility  
+**Series Name:** Large Print Crossword Masters
+**Target:** 10 volumes over 15 months
+**Market:** Word puzzle enthusiasts, seniors, educators
+**Unique Positioning:** Themed crosswords with large print accessibility
 
 ---
 
@@ -42,7 +42,7 @@ Join thousands of solvers who've made Large Print Crossword Masters their go-to 
 - **Target:** Establish series credibility
 - **Launch Price:** $10.97
 
-### Volume 2: Movie & TV Crosswords  
+### Volume 2: Movie & TV Crosswords
 - **Theme:** Entertainment industry focus
 - **Puzzles:** 50 themed crosswords
 - **Features:** Celebrity clues, show titles, movie quotes

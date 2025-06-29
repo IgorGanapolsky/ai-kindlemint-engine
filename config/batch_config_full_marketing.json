@@ -54,7 +54,7 @@
         },
         "launch_sequence": {
           "day_1": "$0.99",
-          "day_2": "$2.99", 
+          "day_2": "$2.99",
           "day_3_7": "$4.99",
           "final": "$6.99"
         }
@@ -182,7 +182,7 @@
       "annual_revenue_10_books": "$2,400-6,000"
     },
     "blount_prospecting_only": {
-      "monthly_revenue_per_book": "$100-300", 
+      "monthly_revenue_per_book": "$100-300",
       "annual_revenue_10_books": "$12,000-36,000"
     },
     "kennedy_magnetic_only": {

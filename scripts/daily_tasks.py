@@ -4,7 +4,9 @@ Daily AI Publishing Task Scheduler
 This script schedules and runs routine AI-powered publishing tasks.
 """
 import time
+
 import schedule
+
 
 def check_sales():
     """Check overnight book sales"""
@@ -22,6 +24,7 @@ def check_sales():
     except Exception as e:
         print(f"Error during sales check: {e}")
 
+
 def generate_social_posts():
     """Generate social media posts from top-selling book"""
     print("[09:00] Generating 3 social media posts from top book...")
@@ -38,20 +41,20 @@ def generate_social_posts():
     except Exception as e:
         print(f"Error generating social posts: {e}")
 
+
 def research_trending_topics():
     """Research trending topics in the niche"""
     print("[10:00] Researching trending topics in niche...")
     try:
         from scripts.api_manager import APIManager, APIProvider
 
-        prompt = (
-            "List the top five trending topics in the puzzle book niche on Amazon and social media."
-        )
+        prompt = "List the top five trending topics in the puzzle book niche on Amazon and social media."
         ai = APIManager()
         trends = ai.generate_text(prompt, provider=APIProvider.OPENAI)
         print(trends)
     except Exception as e:
         print(f"Error researching trending topics: {e}")
+
 
 def create_chapter_outline():
     """Create chapter outline for next book"""
@@ -69,6 +72,7 @@ def create_chapter_outline():
     except Exception as e:
         print(f"Error creating chapter outline: {e}")
 
+
 def analyze_competitors():
     """Analyze competitor new releases"""
     print("[16:00] Analyzing competitor new releases...")
@@ -85,6 +89,7 @@ def analyze_competitors():
     except Exception as e:
         print(f"Error analyzing competitors: {e}")
 
+
 def schedule_marketing():
     """Schedule next day's marketing tasks"""
     print("[18:00] Scheduling next day's marketing tasks...")
@@ -100,6 +105,7 @@ def schedule_marketing():
         print(schedule_plan)
     except Exception as e:
         print(f"Error scheduling marketing tasks: {e}")
+
 
 def run_daily_tasks():
     """Configure and run the daily task scheduler"""
@@ -118,5 +124,6 @@ def run_daily_tasks():
     except KeyboardInterrupt:
         print("Daily task scheduler stopped.")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     run_daily_tasks()

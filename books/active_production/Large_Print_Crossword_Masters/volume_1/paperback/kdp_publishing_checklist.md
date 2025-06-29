@@ -34,7 +34,7 @@
 
 #### 2. Keywords (7 maximum)
 1. large print crossword puzzles
-2. senior crossword book  
+2. senior crossword book
 3. easy crossword puzzles
 4. crossword puzzles for adults
 5. brain games for seniors
@@ -58,7 +58,7 @@
 - [ ] Create book cover design
 - [ ] Set title and subtitle
 - [ ] Add book description
-- [ ] Set categories and keywords  
+- [ ] Set categories and keywords
 - [ ] Set pricing
 - [ ] Preview and approve
 - [ ] Publish to KDP
@@ -71,5 +71,5 @@
 - [ ] Expand to Kindle format
 
 ---
-**Generated**: 2025-06-23  
+**Generated**: 2025-06-23
 **Status**: Ready for immediate KDP upload

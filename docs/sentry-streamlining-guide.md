@@ -31,7 +31,7 @@ Your project already has:
 
 1. **Focus on Critical Paths**: Use test generation for:
    - New puzzle generation algorithms
-   - PDF generation logic  
+   - PDF generation logic
    - KDP metadata processing
    - Error handling code
 
@@ -80,28 +80,28 @@ Update `scripts/sentry_config.py`:
 # Add Seer AI optimization flags
 def init_sentry(script_name: str = "kindlemint-script"):
     """Initialize Sentry with Seer AI-optimized configuration"""
-    
+
     sentry_sdk.init(
         dsn=sentry_dsn,
         environment=os.getenv("ENVIRONMENT", "production"),
         release=f"kindlemint@{os.getenv('GITHUB_SHA', 'local')[:8]}",
-        
+
         # Enhanced for Seer AI
         traces_sample_rate=1.0,
         profiles_sample_rate=1.0,
-        
+
         # Add code context for better AI analysis
         include_source_context=True,
-        
+
         # Enable session tracking for better error correlation
         auto_session_tracking=True,
-        
+
         # Seer AI optimization
         _experiments={
             "profiles_sample_rate": 1.0,
             "enable_metrics": True,  # New metrics API
         },
-        
+
         # Add beforeSend hook for PII scrubbing
         before_send=scrub_sensitive_data,
     )
@@ -110,7 +110,7 @@ def scrub_sensitive_data(event, hint):
     """Remove sensitive KDP data before sending to Sentry"""
     # Scrub KDP credentials
     if 'extra' in event:
-        event['extra'] = {k: v for k, v in event['extra'].items() 
+        event['extra'] = {k: v for k, v in event['extra'].items()
                          if 'password' not in k.lower() and 'key' not in k.lower()}
     return event
 ```

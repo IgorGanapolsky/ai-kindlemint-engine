@@ -200,7 +200,7 @@ class TestSolutionValidation(unittest.TestCase):
         # Test with sample solution text
         sample_solution_good = """
         Solution for Puzzle 1
-        
+
         A B C D E F G H I J K L M N O
         P Q R S T U V W X Y Z A B C D
         E F G H I J K L M N O P Q R S
@@ -227,12 +227,12 @@ class TestSolutionValidation(unittest.TestCase):
         # Test with empty solution
         sample_solution_bad = """
         Solution for Puzzle 2
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
         """
 
         letter_count_bad = len(re.findall(r"[A-Z]", sample_solution_bad))

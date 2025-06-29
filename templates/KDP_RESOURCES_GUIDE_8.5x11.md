@@ -57,34 +57,34 @@ Spine Width = (Page Count × 0.0025") + 0.06"
 ## Pre-Calculated Dimensions for Large Print Crossword Masters
 
 ### Volume 1 (105 pages)
-- **Paperback**: 
+- **Paperback**:
   - Spine: 0.263"
   - Full Cover: 17.513" × 11.25"
-- **Hardcover**: 
+- **Hardcover**:
   - Spine: 0.323" (0.263" + 0.06")
   - Full Cover: 17.573" × 11.25"
 
 ### Volume 2 (120 pages)
-- **Paperback**: 
+- **Paperback**:
   - Spine: 0.3"
   - Full Cover: 17.55" × 11.25"
-- **Hardcover**: 
+- **Hardcover**:
   - Spine: 0.36" (0.3" + 0.06")
   - Full Cover: 17.61" × 11.25"
 
 ### Volume 3 (105 pages)
-- **Paperback**: 
+- **Paperback**:
   - Spine: 0.263"
   - Full Cover: 17.513" × 11.25"
-- **Hardcover**: 
+- **Hardcover**:
   - Spine: 0.323" (0.263" + 0.06")
   - Full Cover: 17.573" × 11.25"
 
 ### Volume 4 (110 pages)
-- **Paperback**: 
+- **Paperback**:
   - Spine: 0.275"
   - Full Cover: 17.525" × 11.25"
-- **Hardcover**: 
+- **Hardcover**:
   - Spine: 0.335" (0.275" + 0.06")
   - Full Cover: 17.585" × 11.25"
 
@@ -96,7 +96,7 @@ Navigate to: https://kdp.amazon.com/cover-calculator
 ### 2. Enter Book Specifications
 - **Binding Type**: Select "Paperback" or "Hardcover"
 - **Interior Type**: "Black & White"
-- **Paper Type**: 
+- **Paper Type**:
   - Paperback: "White"
   - Hardcover: N/A (Case Laminate)
 - **Page Count**: Enter exact page count
@@ -203,17 +203,17 @@ def calculate_cover_dimensions(page_count, binding_type="paperback"):
     trim_width = 8.5
     trim_height = 11.0
     bleed = 0.125
-    
+
     # Calculate spine width
     if binding_type == "paperback":
         spine_width = page_count * 0.0025
     else:  # hardcover
         spine_width = (page_count * 0.0025) + 0.06
-    
+
     # Calculate full dimensions
     full_width = (trim_width * 2) + spine_width + (bleed * 2)
     full_height = trim_height + (bleed * 2)
-    
+
     return {
         "spine_width": round(spine_width, 3),
         "full_width": round(full_width, 3),

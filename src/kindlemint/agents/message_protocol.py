@@ -15,43 +15,43 @@ from typing import Any, Dict, Optional
 
 class MessageType(Enum):
     """Types of messages that can be sent between agents"""
-    
+
     # Task-related messages
     TASK_REQUEST = "task_request"
-    TASK_RESPONSE = "task_response" 
+    TASK_RESPONSE = "task_response"
     TASK_ASSIGNMENT = "task_assignment"
     TASK_STATUS_UPDATE = "task_status_update"
     TASK_COMPLETION = "task_completion"
     TASK_FAILURE = "task_failure"
-    
+
     # Coordination messages
     COORDINATION_REQUEST = "coordination_request"
     COORDINATION_RESPONSE = "coordination_response"
     RESOURCE_REQUEST = "resource_request"
     RESOURCE_ALLOCATION = "resource_allocation"
-    
+
     # Health and monitoring
     HEALTH_CHECK = "health_check"
     HEALTH_RESPONSE = "health_response"
     HEARTBEAT = "heartbeat"
     STATUS_UPDATE = "status_update"
-    
+
     # Data and intelligence
     DATA_REQUEST = "data_request"
     DATA_RESPONSE = "data_response"
     INTELLIGENCE_SHARING = "intelligence_sharing"
     MARKET_UPDATE = "market_update"
-    
+
     # Error handling
     ERROR_NOTIFICATION = "error_notification"
     RECOVERY_REQUEST = "recovery_request"
     FAILOVER_NOTIFICATION = "failover_notification"
-    
+
     # System control
     SHUTDOWN_REQUEST = "shutdown_request"
     RESTART_REQUEST = "restart_request"
     CONFIG_UPDATE = "config_update"
-    
+
     # General communication
     NOTIFICATION = "notification"
     BROADCAST = "broadcast"
@@ -60,10 +60,11 @@ class MessageType(Enum):
 
 class Priority(Enum):
     """Message priority levels"""
-    CRITICAL = "critical"    # System-critical messages (failures, security)
-    HIGH = "high"           # Important operational messages
-    NORMAL = "normal"       # Standard communication
-    LOW = "low"            # Background/informational messages
+
+    CRITICAL = "critical"  # System-critical messages (failures, security)
+    HIGH = "high"  # Important operational messages
+    NORMAL = "normal"  # Standard communication
+    LOW = "low"  # Background/informational messages
 
 
 @dataclass
@@ -71,55 +72,57 @@ class AgentMessage:
     """
     Standard message structure for inter-agent communication
     """
-    
+
     # Message identification
     message_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     sender_id: str = ""
     recipient_id: str = ""  # Can be specific agent ID or "broadcast"
-    
+
     # Message metadata
     message_type: MessageType = MessageType.NOTIFICATION
     priority: Priority = Priority.NORMAL
     timestamp: datetime = field(default_factory=datetime.now)
     correlation_id: Optional[str] = None  # For request/response correlation
-    
+
     # Message content
     subject: str = ""
     payload: Dict[str, Any] = field(default_factory=dict)
-    
+
     # Delivery metadata
     ttl_seconds: int = 300  # Time to live in seconds
     retry_count: int = 0
     max_retries: int = 3
     requires_acknowledgment: bool = False
-    
+
     # Routing information
     routing_key: Optional[str] = None
-    target_capabilities: Optional[list] = None  # Route to agents with these capabilities
-    
+    target_capabilities: Optional[list] = (
+        None  # Route to agents with these capabilities
+    )
+
     def __post_init__(self):
         """Validate message after initialization"""
         if not self.sender_id:
             raise ValueError("sender_id is required")
-        
+
         if not self.recipient_id:
             raise ValueError("recipient_id is required")
-    
+
     @property
     def is_expired(self) -> bool:
         """Check if message has exceeded its TTL"""
         age = (datetime.now() - self.timestamp).total_seconds()
         return age > self.ttl_seconds
-    
+
     @property
     def can_retry(self) -> bool:
         """Check if message can be retried"""
         return self.retry_count < self.max_retries
-    
+
     def increment_retry(self) -> None:
         """Increment retry counter"""
         self.retry_count += 1
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert message to dictionary for serialization"""
         return {
@@ -139,17 +142,17 @@ class AgentMessage:
             "routing_key": self.routing_key,
             "target_capabilities": self.target_capabilities,
         }
-    
+
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'AgentMessage':
+    def from_dict(cls, data: Dict[str, Any]) -> "AgentMessage":
         """Create message from dictionary"""
         # Convert string timestamp back to datetime
         timestamp = datetime.fromisoformat(data["timestamp"])
-        
+
         # Convert enum strings back to enums
         message_type = MessageType(data["message_type"])
         priority = Priority(data["priority"])
-        
+
         return cls(
             message_id=data["message_id"],
             sender_id=data["sender_id"],
@@ -167,13 +170,13 @@ class AgentMessage:
             routing_key=data.get("routing_key"),
             target_capabilities=data.get("target_capabilities"),
         )
-    
+
     def create_reply(
-        self, 
-        sender_id: str, 
+        self,
+        sender_id: str,
         message_type: MessageType = MessageType.REPLY,
-        payload: Optional[Dict[str, Any]] = None
-    ) -> 'AgentMessage':
+        payload: Optional[Dict[str, Any]] = None,
+    ) -> "AgentMessage":
         """Create a reply message to this message"""
         return AgentMessage(
             sender_id=sender_id,
@@ -185,8 +188,8 @@ class AgentMessage:
             payload=payload or {},
             requires_acknowledgment=False,
         )
-    
-    def create_acknowledgment(self, sender_id: str) -> 'AgentMessage':
+
+    def create_acknowledgment(self, sender_id: str) -> "AgentMessage":
         """Create an acknowledgment message"""
         return AgentMessage(
             sender_id=sender_id,
@@ -198,7 +201,7 @@ class AgentMessage:
             payload={"acknowledged": True, "original_message_id": self.message_id},
             requires_acknowledgment=False,
         )
-    
+
     def __repr__(self) -> str:
         return (
             f"AgentMessage(id={self.message_id[:8]}, "
@@ -209,11 +212,12 @@ class AgentMessage:
 
 # Utility functions for creating common message types
 
+
 def create_task_request(
     sender_id: str,
     recipient_id: str,
     task_data: Dict[str, Any],
-    priority: Priority = Priority.NORMAL
+    priority: Priority = Priority.NORMAL,
 ) -> AgentMessage:
     """Create a task request message"""
     return AgentMessage(
@@ -232,7 +236,7 @@ def create_task_completion(
     recipient_id: str,
     task_id: str,
     result_data: Dict[str, Any],
-    correlation_id: Optional[str] = None
+    correlation_id: Optional[str] = None,
 ) -> AgentMessage:
     """Create a task completion message"""
     return AgentMessage(
@@ -252,7 +256,7 @@ def create_error_notification(
     recipient_id: str,
     error_message: str,
     error_data: Optional[Dict[str, Any]] = None,
-    priority: Priority = Priority.CRITICAL
+    priority: Priority = Priority.CRITICAL,
 ) -> AgentMessage:
     """Create an error notification message"""
     return AgentMessage(
@@ -285,7 +289,7 @@ def create_broadcast(
     subject: str,
     payload: Dict[str, Any],
     priority: Priority = Priority.NORMAL,
-    target_capabilities: Optional[list] = None
+    target_capabilities: Optional[list] = None,
 ) -> AgentMessage:
     """Create a broadcast message"""
     return AgentMessage(

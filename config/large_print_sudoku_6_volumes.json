@@ -1,0 +1,331 @@
+{
+  "batch_name": "Large Print Sudoku Masters - Complete 6 Volume Series",
+  "description": "Authority-positioned cognitive wellness series for seniors and accessibility market",
+  "delay_between_books": 30,
+  "books": [
+    {
+      "id": "sudoku_masters_v1",
+      "title": "Large Print Sudoku Masters: Volume 1",
+      "subtitle": "Beginner-Friendly Brain Training for Seniors and Visual Wellness",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 1,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 100,
+      "difficulty": "easy",
+      "pages": 120,
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "description": "Start your cognitive wellness journey with 100 carefully crafted large print Sudoku puzzles designed specifically for seniors and anyone who values visual accessibility. Each puzzle is printed in 16-point font with generous spacing, making it easy on the eyes while providing the perfect mental workout to keep your brain sharp and engaged.",
+      "keywords": ["large print sudoku", "sudoku for seniors", "brain training", "cognitive wellness", "accessibility puzzles", "mental fitness"],
+      "categories": [
+        "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku", 
+        "Health, Fitness & Dieting > Mental Health > Dementia", 
+        "Self-Help > Aging"
+      ],
+      "language": "en",
+      "target_audience": "Seniors, vision-impaired adults, cognitive wellness enthusiasts",
+      "create_epub": true,
+      "create_hardcover": true,
+      "generate_prospecting": true,
+      "generate_magnetic_marketing": true,
+      "kindle_price": 4.99,
+      "paperback_price": 9.99,
+      "hardcover_price_min": 18.99,
+      "hardcover_price_max": 22.99,
+      "printing_cost_estimate": 4.50,
+      "royalty_min": 3.50,
+      "royalty_max": 6.50,
+      "low_content_book": true,
+      "large_print_book": true,
+      "trim_size": "8.5x11",
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "[ISBN TO BE ASSIGNED]"
+      },
+      "authority_positioning": {
+        "credibility_marker": "The cognitive wellness system trusted by senior centers nationwide",
+        "outcome_promise": "Maintain mental sharpness with vision-friendly brain training",
+        "transformation_story": "How daily Sudoku practice keeps minds active and engaged",
+        "social_proof": "Used by 1000+ seniors for proven cognitive benefits"
+      },
+      "back_cover_description": "Large Print Sudoku Masters\nVolume 1: Beginner Level\n\n100 Vision-Friendly Brain Training Puzzles\n16-Point Font • Senior-Tested Design\nPerfect for Cognitive Wellness",
+      "cover_design": {
+        "dalle_prompt": "Professional book cover for large print sudoku puzzle book for seniors. Clean, medical wellness aesthetic with calming blue and white colors. Show a partially completed sudoku grid with large, clear numbers. Include subtle brain/wellness imagery. Text should be large and readable. Premium, trustworthy design that appeals to seniors and caregivers."
+      }
+    },
+    {
+      "id": "sudoku_masters_v2",
+      "title": "Large Print Sudoku Masters: Volume 2",
+      "subtitle": "Gentle Progress - Building Confidence with Easy-Medium Puzzles",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 2,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 100,
+      "difficulty": "easy-medium",
+      "pages": 120,
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "description": "Take the next step in your cognitive wellness journey with 100 progressively challenging large print Sudoku puzzles. This volume bridges beginner and intermediate levels, helping you build confidence and mental agility while maintaining the visual accessibility features that make puzzle-solving a pleasure, not a strain.",
+      "keywords": ["large print sudoku", "intermediate sudoku", "brain training progression", "cognitive development", "visual accessibility", "senior puzzles"],
+      "categories": [
+        "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku", 
+        "Health, Fitness & Dieting > Mental Health > Dementia", 
+        "Self-Help > Aging"
+      ],
+      "language": "en",
+      "target_audience": "Seniors, vision-impaired adults, intermediate puzzle solvers",
+      "create_epub": true,
+      "create_hardcover": true,
+      "generate_prospecting": true,
+      "generate_magnetic_marketing": true,
+      "kindle_price": 5.99,
+      "paperback_price": 10.99,
+      "hardcover_price_min": 19.99,
+      "hardcover_price_max": 23.99,
+      "printing_cost_estimate": 4.50,
+      "royalty_min": 4.50,
+      "royalty_max": 7.50,
+      "low_content_book": true,
+      "large_print_book": true,
+      "trim_size": "8.5x11",
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "[ISBN TO BE ASSIGNED]"
+      },
+      "authority_positioning": {
+        "credibility_marker": "Progressive difficulty system used in cognitive therapy programs",
+        "outcome_promise": "Build mental confidence through structured puzzle progression",
+        "transformation_story": "How gentle challenge progression enhances cognitive resilience",
+        "social_proof": "Recommended by occupational therapists for cognitive maintenance"
+      },
+      "back_cover_description": "Large Print Sudoku Masters\nVolume 2: Gentle Progress\n\n100 Confidence-Building Puzzles\nProgressive Difficulty • Vision-Friendly\nCognitive Development Series",
+      "cover_design": {
+        "dalle_prompt": "Professional book cover for large print sudoku volume 2. Similar wellness aesthetic to volume 1 but with subtle green accents to show progression. Show a sudoku grid with some advanced solving techniques highlighted. Include small upward arrow or progress indicator. Maintain premium, medical wellness look that builds on series branding."
+      }
+    },
+    {
+      "id": "sudoku_masters_v3",
+      "title": "Large Print Sudoku Masters: Volume 3",
+      "subtitle": "Building Confidence - Medium Difficulty Mental Challenges",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 3,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 100,
+      "difficulty": "medium",
+      "pages": 120,
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "description": "Achieve mental confidence with 100 medium-difficulty large print Sudoku puzzles designed to challenge without overwhelming. This volume represents the sweet spot of cognitive engagement - complex enough to stimulate growth, accessible enough to maintain the joy of puzzle-solving. Perfect for maintaining mental acuity and building problem-solving skills.",
+      "keywords": ["medium sudoku puzzles", "cognitive challenge", "mental acuity", "brain fitness", "large print puzzles", "senior brain training"],
+      "categories": [
+        "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku", 
+        "Health, Fitness & Dieting > Mental Health > Dementia", 
+        "Self-Help > Aging"
+      ],
+      "language": "en",
+      "target_audience": "Intermediate puzzle solvers, seniors seeking mental challenge, cognitive wellness practitioners",
+      "create_epub": true,
+      "create_hardcover": true,
+      "generate_prospecting": true,
+      "generate_magnetic_marketing": true,
+      "kindle_price": 5.99,
+      "paperback_price": 11.99,
+      "hardcover_price_min": 20.99,
+      "hardcover_price_max": 24.99,
+      "printing_cost_estimate": 4.50,
+      "royalty_min": 5.50,
+      "royalty_max": 8.50,
+      "low_content_book": true,
+      "large_print_book": true,
+      "trim_size": "8.5x11",
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "[ISBN TO BE ASSIGNED]"
+      },
+      "authority_positioning": {
+        "credibility_marker": "Optimal cognitive challenge level validated by neuroscience research",
+        "outcome_promise": "Achieve the perfect balance of mental stimulation and accomplishment",
+        "transformation_story": "How medium-difficulty puzzles maximize cognitive benefits",
+        "social_proof": "The challenge level preferred by puzzle therapy professionals"
+      },
+      "back_cover_description": "Large Print Sudoku Masters\nVolume 3: Building Confidence\n\n100 Perfectly Balanced Mental Challenges\nOptimal Cognitive Engagement\nNeuroscience-Backed Difficulty",
+      "cover_design": {
+        "dalle_prompt": "Professional book cover for large print sudoku volume 3. Evolution of the series design with confident orange/amber accents. Show a sudoku grid with strategic solving highlights, suggesting mastery and skill. Include subtle brain synapses or neural network imagery. Maintain medical wellness aesthetic while showing increased sophistication."
+      }
+    },
+    {
+      "id": "sudoku_masters_v4",
+      "title": "Large Print Sudoku Masters: Volume 4",
+      "subtitle": "Mental Challenge - Advanced Puzzles for Cognitive Excellence",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 4,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 100,
+      "difficulty": "medium-hard",
+      "pages": 120,
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "description": "Elevate your mental performance with 100 advanced large print Sudoku puzzles that push the boundaries of cognitive challenge while maintaining visual accessibility. This volume is designed for puzzle enthusiasts ready to tackle complex logical scenarios that stimulate advanced problem-solving skills and strategic thinking.",
+      "keywords": ["advanced sudoku", "cognitive excellence", "strategic thinking", "mental performance", "challenging puzzles", "brain optimization"],
+      "categories": [
+        "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku", 
+        "Health, Fitness & Dieting > Mental Health > Dementia", 
+        "Self-Help > Aging"
+      ],
+      "language": "en",
+      "target_audience": "Advanced puzzle solvers, cognitive performance enthusiasts, mental fitness practitioners",
+      "create_epub": true,
+      "create_hardcover": true,
+      "generate_prospecting": true,
+      "generate_magnetic_marketing": true,
+      "kindle_price": 6.99,
+      "paperback_price": 12.99,
+      "hardcover_price_min": 21.99,
+      "hardcover_price_max": 25.99,
+      "printing_cost_estimate": 4.50,
+      "royalty_min": 6.50,
+      "royalty_max": 9.50,
+      "low_content_book": true,
+      "large_print_book": true,
+      "trim_size": "8.5x11",
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "[ISBN TO BE ASSIGNED]"
+      },
+      "authority_positioning": {
+        "credibility_marker": "Advanced cognitive training used by executive wellness programs",
+        "outcome_promise": "Achieve peak mental performance through strategic puzzle mastery",
+        "transformation_story": "How challenging puzzles build executive function and mental resilience",
+        "social_proof": "The training system used by cognitive performance coaches"
+      },
+      "back_cover_description": "Large Print Sudoku Masters\nVolume 4: Mental Challenge\n\n100 Advanced Strategic Puzzles\nExecutive Cognitive Training\nPeak Mental Performance System",
+      "cover_design": {
+        "dalle_prompt": "Professional book cover for large print sudoku volume 4. Sophisticated design with deep purple/violet accents suggesting advanced mental challenge. Show complex sudoku grid with advanced solving techniques like X-wing or swordfish patterns subtly highlighted. Include geometric brain enhancement imagery. Premium executive wellness aesthetic."
+      }
+    },
+    {
+      "id": "sudoku_masters_v5",
+      "title": "Large Print Sudoku Masters: Volume 5",
+      "subtitle": "Expert Level - Elite Puzzles for Cognitive Mastery",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 5,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 100,
+      "difficulty": "hard",
+      "pages": 120,
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "description": "Master the art of logical reasoning with 100 expert-level large print Sudoku puzzles that represent the pinnacle of cognitive challenge. These elite puzzles are crafted for serious enthusiasts who demand the highest level of mental stimulation while maintaining the visual clarity that makes extended solving sessions comfortable and enjoyable.",
+      "keywords": ["expert sudoku", "cognitive mastery", "elite puzzles", "logical reasoning", "mental excellence", "sudoku mastery"],
+      "categories": [
+        "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku", 
+        "Health, Fitness & Dieting > Mental Health > Dementia", 
+        "Self-Help > Aging"
+      ],
+      "language": "en",
+      "target_audience": "Expert puzzle solvers, cognitive mastery seekers, competitive puzzle enthusiasts",
+      "create_epub": true,
+      "create_hardcover": true,
+      "generate_prospecting": true,
+      "generate_magnetic_marketing": true,
+      "kindle_price": 7.99,
+      "paperback_price": 13.99,
+      "hardcover_price_min": 22.99,
+      "hardcover_price_max": 26.99,
+      "printing_cost_estimate": 4.50,
+      "royalty_min": 7.50,
+      "royalty_max": 10.50,
+      "low_content_book": true,
+      "large_print_book": true,
+      "trim_size": "8.5x11",
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "[ISBN TO BE ASSIGNED]"
+      },
+      "authority_positioning": {
+        "credibility_marker": "Elite cognitive challenges used by championship puzzle competitors",
+        "outcome_promise": "Achieve cognitive mastery through expert-level logical reasoning",
+        "transformation_story": "How elite puzzles develop championship-level mental capabilities",
+        "social_proof": "The training standard for competitive puzzle solving"
+      },
+      "back_cover_description": "Large Print Sudoku Masters\nVolume 5: Expert Level\n\n100 Elite Cognitive Challenges\nChampionship-Level Training\nCognitive Mastery System",
+      "cover_design": {
+        "dalle_prompt": "Professional book cover for large print sudoku volume 5. Prestigious design with rich gold/bronze accents indicating expert mastery level. Show highly complex sudoku grid with advanced solving patterns and techniques. Include championship trophy or medal imagery subtly integrated. Convey elite status and cognitive achievement."
+      }
+    },
+    {
+      "id": "sudoku_masters_v6",
+      "title": "Large Print Sudoku Masters: Volume 6",
+      "subtitle": "Master Collection - The Ultimate Cognitive Wellness Experience",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 6,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 120,
+      "difficulty": "mixed",
+      "pages": 140,
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "description": "Complete your cognitive wellness journey with 120 premium large print Sudoku puzzles spanning all difficulty levels. This master collection represents the ultimate puzzle experience, featuring the best challenges from the entire series plus exclusive bonus puzzles. Perfect as a comprehensive brain training resource or as the crown jewel of any puzzle library.",
+      "keywords": ["sudoku collection", "cognitive wellness", "premium puzzles", "complete series", "brain training library", "puzzle mastery"],
+      "categories": [
+        "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku", 
+        "Health, Fitness & Dieting > Mental Health > Dementia", 
+        "Self-Help > Aging"
+      ],
+      "language": "en",
+      "target_audience": "Complete series collectors, cognitive wellness enthusiasts, premium puzzle gift buyers",
+      "create_epub": true,
+      "create_hardcover": true,
+      "generate_prospecting": true,
+      "generate_magnetic_marketing": true,
+      "kindle_price": 9.99,
+      "paperback_price": 15.99,
+      "hardcover_price_min": 24.99,
+      "hardcover_price_max": 29.99,
+      "printing_cost_estimate": 5.50,
+      "royalty_min": 8.50,
+      "royalty_max": 12.50,
+      "low_content_book": true,
+      "large_print_book": true,
+      "trim_size": "8.5x11",
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "[ISBN TO BE ASSIGNED]"
+      },
+      "authority_positioning": {
+        "credibility_marker": "The complete cognitive wellness system trusted by thousands",
+        "outcome_promise": "Master every level of cognitive challenge with the ultimate collection",
+        "transformation_story": "How the complete series creates lasting cognitive benefits",
+        "social_proof": "The definitive large print Sudoku collection for cognitive wellness"
+      },
+      "back_cover_description": "Large Print Sudoku Masters\nVolume 6: Master Collection\n\n120 Premium Multi-Level Puzzles\nComplete Cognitive Wellness System\nThe Ultimate Puzzle Experience",
+      "cover_design": {
+        "dalle_prompt": "Premium book cover for large print sudoku master collection volume 6. Luxurious design with platinum/silver accents and subtle rainbow gradient indicating complete spectrum. Show artistic arrangement of multiple sudoku grids at different completion stages. Include crown or mastery symbol. Convey prestige, completion, and ultimate achievement in cognitive wellness."
+      }
+    }
+  ]
+}

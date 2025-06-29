@@ -63,7 +63,7 @@ hc_dims = calculator.calculate_full_cover_dimensions("6x9", 104, "hardcover")
 ```python
 # Generate accurate DALL-E prompt
 prompt = calculator.generate_dall_e_prompt(
-    "Large Print Crossword Masters", 
+    "Large Print Crossword Masters",
     1,  # volume number
     dims
 )

@@ -30,7 +30,7 @@ class LinkedInContentEngine:
             Unpopular opinion: {contrarian_statement}
 
             Everyone tells you to {common_advice}
-            
+
             But after {credibility_marker}, I've learned:
             {counter_insight}
 

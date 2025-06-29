@@ -74,7 +74,7 @@ context = AgentContext(
 # Start monitoring
 with monitor.start_agent(context) as transaction:
     # Your AI workflow here
-    
+
     # Track prompts
     transaction.track_prompt(
         prompt="Generate clues...",
@@ -82,7 +82,7 @@ with monitor.start_agent(context) as transaction:
         tokens=150,
         latency_ms=523.4
     )
-    
+
     # Track tool usage
     monitor.track_tool_call(
         agent_id=context.agent_id,
@@ -103,7 +103,7 @@ from scripts.api_manager_enhanced import with_ai_monitoring
 def generate_crossword_puzzle(words, **kwargs):
     # kwargs will include an EnhancedAPIManager instance
     api_manager = kwargs['api_manager']
-    
+
     # Your puzzle generation logic
     return puzzle
 ```
@@ -238,7 +238,7 @@ from scripts.sentry_agent_monitoring import get_agent_monitor, AgentContext
 def generate_crossword_with_monitoring():
     api_manager = EnhancedAPIManager()
     monitor = get_agent_monitor()
-    
+
     # Define workflow context
     context = AgentContext(
         agent_id=f"crossword_{int(time.time())}",
@@ -250,14 +250,14 @@ def generate_crossword_with_monitoring():
             "word_count": 50
         }
     )
-    
+
     with monitor.start_agent(context) as transaction:
         # Step 1: Generate word list
         words_result = api_manager.generate_text(
             prompt="Generate 50 common crossword words",
             task_name="word_generation"
         )
-        
+
         # Step 2: Generate clues for each word
         clues = []
         for word in words_result['text'].split('\n'):
@@ -269,7 +269,7 @@ def generate_crossword_with_monitoring():
                 "word": word,
                 "clue": clue_result['text']
             })
-        
+
         # Step 3: Validate puzzle
         monitor.track_tool_call(
             agent_id=context.agent_id,
@@ -277,7 +277,7 @@ def generate_crossword_with_monitoring():
             tool_input={"clues": clues},
             tool_output={"valid": True, "score": 0.95}
         )
-        
+
         return {"words": words, "clues": clues}
 ```
 

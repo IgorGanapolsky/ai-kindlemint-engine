@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
+
     - uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    
+
     - name: 🤖 Autonomous System Activation
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -27,23 +27,23 @@ jobs:
         echo "Repository: ${{ github.repository }}"
         echo "Trigger: ${{ github.event_name }}"
         echo ""
-        
+
         # Test all systems
         echo "🔍 System Status Check:"
         echo "  GitHub API: $([ -n "$GITHUB_TOKEN" ] && echo "✅ Active" || echo "❌ Failed")"
         echo "  Slack Notifications: $([ -n "$SLACK_WEBHOOK_URL" ] && echo "✅ Active" || echo "❌ Failed")"
         echo "  Sentry Monitoring: $([ -n "$SENTRY_AUTH_TOKEN" ] && echo "✅ Active" || echo "❌ Failed")"
         echo ""
-        
+
         # GitHub API Test
         echo "🔧 Testing GitHub API access..."
         API_RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
           -H "Accept: application/vnd.github.v3+json" \
           "https://api.github.com/repos/${{ github.repository }}")
-        
+
         if echo "$API_RESPONSE" | grep -q '"name"'; then
           echo "✅ GitHub API: Successfully connected"
-          
+
           # Check for recent CI failures
           echo "🔍 Checking recent CI failures..."
           FAILURES=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
@@ -51,7 +51,7 @@ jobs:
             "https://api.github.com/repos/${{ github.repository }}/actions/runs?status=failure&per_page=5" | \
             grep -c '"conclusion":"failure"' || echo "0")
           echo "📊 Recent CI failures detected: $FAILURES"
-          
+
           if [ "$FAILURES" -gt "0" ]; then
             echo "⚡ Autonomous fixes would be applied for:"
             echo "  - Code formatting and linting issues"
@@ -65,16 +65,16 @@ jobs:
           echo "❌ GitHub API: Connection failed"
         fi
         echo ""
-        
+
         # Code Cleanup
         echo "🧹 Running autonomous code cleanup..."
         if [ -f "scripts/code_cleanup_orchestration/autonomous_code_cleaner.py" ]; then
           CLEANUP_OUTPUT=$(python scripts/code_cleanup_orchestration/autonomous_code_cleaner.py 2>&1)
-          
+
           if echo "$CLEANUP_OUTPUT" | grep -q "CLEANUP COMPLETE"; then
             SAVED=$(echo "$CLEANUP_OUTPUT" | grep "Total cleanup:" | grep -o '[0-9.]\+ MB' || echo "0.0 MB")
             echo "✅ Code cleanup completed successfully: $SAVED saved"
-            
+
             # Show summary if available
             if echo "$CLEANUP_OUTPUT" | grep -q "Files removed:"; then
               echo "📋 Cleanup Summary:"
@@ -87,7 +87,7 @@ jobs:
           echo "ℹ️ Code cleanup script not found"
         fi
         echo ""
-        
+
         # Sentry Health Check
         echo "🚨 Checking Sentry alerts..."
         if [ -n "$SENTRY_AUTH_TOKEN" ]; then
@@ -97,7 +97,7 @@ jobs:
           echo "ℹ️ Sentry monitoring not configured"
         fi
         echo ""
-        
+
         # Send Slack notification
         echo "💬 Sending notification to Slack..."
         if [ -n "$SLACK_WEBHOOK_URL" ]; then
@@ -116,7 +116,7 @@ jobs:
               \"ts\": $(date +%s)
             }]
           }"
-          
+
           if curl -X POST -H 'Content-type: application/json' \
                --data "$NOTIFICATION_PAYLOAD" \
                "$SLACK_WEBHOOK_URL" 2>/dev/null; then
@@ -128,7 +128,7 @@ jobs:
           echo "ℹ️ Slack notifications not configured"
         fi
         echo ""
-        
+
         echo "🎉 AUTONOMOUS ORCHESTRATION COMPLETE!"
         echo "===================================="
         echo "✅ All systems operational and monitoring active"

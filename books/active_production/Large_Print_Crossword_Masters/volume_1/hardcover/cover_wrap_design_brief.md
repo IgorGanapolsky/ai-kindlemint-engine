@@ -18,7 +18,7 @@
 
 #### **Spine (Center)**
 - **Title**: "LARGE PRINT CROSSWORD MASTERS" (stacked vertically)
-- **Subtitle**: "VOLUME 1" 
+- **Subtitle**: "VOLUME 1"
 - **Publisher**: "CROSSWORD MASTERS PUBLISHING" (bottom, small caps)
 - **Margins**: 0.125 inches from top/bottom edges
 - **Font**: Bold, readable at spine width
@@ -31,24 +31,24 @@
 
 ### 📝 **Book Description for Back Cover**
 ```
-Rediscover the joy of crossword puzzles with Large Print 
-Crossword Masters – Volume 1, specially designed for seniors 
+Rediscover the joy of crossword puzzles with Large Print
+Crossword Masters – Volume 1, specially designed for seniors
 and anyone who loves clear, readable puzzles!
 
-This thoughtfully crafted collection features 50 brand-new 
-crossword puzzles in crisp, large print format that's easy 
+This thoughtfully crafted collection features 50 brand-new
+crossword puzzles in crisp, large print format that's easy
 on your eyes and gentle on your mind.
 
 • 50 completely unique crossword puzzles
-• Extra-large print for comfortable reading  
+• Extra-large print for comfortable reading
 • Everyday vocabulary that's familiar
 • Complete answer key included
 • Premium hardcover edition
 
-Perfect for morning coffee, evening relaxation, or as a 
+Perfect for morning coffee, evening relaxation, or as a
 thoughtful gift for puzzle-loving friends and family.
 
-Transform your puzzle time into quality time with this 
+Transform your puzzle time into quality time with this
 premium hardcover collection.
 ```
 

@@ -4,7 +4,7 @@
 
 **Status**: Already existed and properly configured!
 - **`/assets/`** at repository root ✅
-- **`assets/fonts/`** with complete font collection + `font_config.json` ✅  
+- **`assets/fonts/`** with complete font collection + `font_config.json` ✅
 - **`assets/templates/`** with all .dotx template files ✅
 - **Git LFS** already configured for font files ✅
 
@@ -44,7 +44,7 @@ The new `scripts/critical_metadata_qa.py` is **successfully catching errors**:
 - 14 critical errors found in existing metadata files
 - Validates trim sizes (catches 6x9 paperback errors)
 - Validates KDP categories (catches hallucinations)
-- Validates book type classifications  
+- Validates book type classifications
 - Validates DALL-E cover prompts
 
 **Note**: QA script correctly identified pre-existing corrupted JSON files that need cleanup.
@@ -71,7 +71,7 @@ Fix the 14 corrupted JSON files identified by QA:
 
 **✅ FOUNDATION COMPLETE**
 - Essential assets available
-- CI pipeline active  
+- CI pipeline active
 - Quality gates enforced
 - Automated testing enabled
 

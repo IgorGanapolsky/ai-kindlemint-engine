@@ -14,6 +14,7 @@ from typing import Any, Dict, List, Optional, Union
 
 class Intent(Enum):
     """User intent classifications for voice input"""
+
     CREATE_BOOK = "create_book"
     EDIT_CONTENT = "edit_content"
     ADD_CHAPTER = "add_chapter"
@@ -28,6 +29,7 @@ class Intent(Enum):
 
 class CreativeMood(Enum):
     """Creative mood classifications"""
+
     INSPIRED = "inspired"
     FOCUSED = "focused"
     EXPLORATORY = "exploratory"
@@ -42,6 +44,7 @@ class CreativeMood(Enum):
 
 class BookGenre(Enum):
     """Book genre classifications"""
+
     MYSTERY = "mystery"
     ROMANCE = "romance"
     FANTASY = "fantasy"
@@ -65,6 +68,7 @@ class BookGenre(Enum):
 @dataclass
 class VoiceCharacteristics:
     """Characteristics extracted from voice patterns"""
+
     tone: str = ""  # warm, energetic, calm, etc.
     pace: float = 1.0  # speaking pace relative to normal
     emphasis_patterns: List[str] = field(default_factory=list)
@@ -77,6 +81,7 @@ class VoiceCharacteristics:
 @dataclass
 class EmotionProfile:
     """Emotional context extracted from voice and content"""
+
     primary_emotion: str = "neutral"
     intensity: float = 0.5  # 0.0 to 1.0
     secondary_emotions: List[str] = field(default_factory=list)
@@ -90,13 +95,16 @@ class EmotionProfile:
 @dataclass
 class VoiceInput:
     """Processed voice input with rich metadata"""
+
     session_id: str
     input_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     text: str = ""
     confidence: float = 0.0
     emotions: EmotionProfile = field(default_factory=EmotionProfile)
     intent: Intent = Intent.EXPLORE_IDEAS
-    voice_characteristics: VoiceCharacteristics = field(default_factory=VoiceCharacteristics)
+    voice_characteristics: VoiceCharacteristics = field(
+        default_factory=VoiceCharacteristics
+    )
     timestamp: datetime = field(default_factory=datetime.now)
     raw_audio_path: Optional[str] = None
     processing_metadata: Dict[str, Any] = field(default_factory=dict)
@@ -105,6 +113,7 @@ class VoiceInput:
 @dataclass
 class WritingStyleProfile:
     """Author's writing style characteristics"""
+
     tone: str = "conversational"  # formal, casual, conversational, etc.
     complexity: float = 0.5  # 0.0 simple to 1.0 complex
     sentence_length_preference: str = "medium"  # short, medium, long, varied
@@ -120,6 +129,7 @@ class WritingStyleProfile:
 @dataclass
 class UserPreferences:
     """User preferences for content creation"""
+
     preferred_length: str = "medium"  # short, medium, long
     target_audience: str = "general"  # children, ya, adult, academic
     content_rating: str = "pg"  # g, pg, pg13, r
@@ -133,6 +143,7 @@ class UserPreferences:
 @dataclass
 class WorkProfile:
     """Profile of a past work"""
+
     title: str
     genre: BookGenre
     length: int  # word count
@@ -145,6 +156,7 @@ class WorkProfile:
 @dataclass
 class SuccessPatterns:
     """Patterns that lead to success for this author"""
+
     effective_genres: List[BookGenre] = field(default_factory=list)
     successful_themes: List[str] = field(default_factory=list)
     optimal_writing_times: List[str] = field(default_factory=list)
@@ -156,6 +168,7 @@ class SuccessPatterns:
 @dataclass
 class AuthorContext:
     """Comprehensive author context"""
+
     user_id: str
     writing_style: WritingStyleProfile = field(default_factory=WritingStyleProfile)
     preferences: UserPreferences = field(default_factory=UserPreferences)
@@ -172,6 +185,7 @@ class AuthorContext:
 @dataclass
 class MarketTrend:
     """Market trend information"""
+
     trend_id: str
     category: str
     popularity_score: float
@@ -185,6 +199,7 @@ class MarketTrend:
 @dataclass
 class MarketContext:
     """Market intelligence context"""
+
     current_trends: List[MarketTrend] = field(default_factory=list)
     target_keywords: List[str] = field(default_factory=list)
     competition_analysis: Dict[str, Any] = field(default_factory=dict)
@@ -198,6 +213,7 @@ class MarketContext:
 @dataclass
 class CreativePattern:
     """Creative writing pattern"""
+
     pattern_id: str
     name: str
     genre: BookGenre
@@ -212,6 +228,7 @@ class CreativePattern:
 @dataclass
 class CreativeContext:
     """Creative writing context and patterns"""
+
     relevant_patterns: List[CreativePattern] = field(default_factory=list)
     genre_conventions: Dict[str, Any] = field(default_factory=dict)
     story_structures: Dict[str, Any] = field(default_factory=dict)
@@ -225,6 +242,7 @@ class CreativeContext:
 @dataclass
 class PublishingFormat:
     """Publishing format specification"""
+
     format_type: str  # ebook, paperback, hardcover, audio
     platform: str  # kdp, ingramspark, etc.
     specifications: Dict[str, Any] = field(default_factory=dict)
@@ -235,6 +253,7 @@ class PublishingFormat:
 @dataclass
 class PublishingContext:
     """Publishing platform context"""
+
     target_formats: List[PublishingFormat] = field(default_factory=list)
     platform_requirements: Dict[str, Any] = field(default_factory=dict)
     seo_optimizations: Dict[str, Any] = field(default_factory=dict)
@@ -247,14 +266,20 @@ class PublishingContext:
 @dataclass
 class ContextSynthesisWeights:
     """Weights for context synthesis attention mechanism"""
+
     author_weight: float = 0.4
     market_weight: float = 0.2
     creative_weight: float = 0.3
     publishing_weight: float = 0.1
-    
+
     def normalize(self):
         """Normalize weights to sum to 1.0"""
-        total = self.author_weight + self.market_weight + self.creative_weight + self.publishing_weight
+        total = (
+            self.author_weight
+            + self.market_weight
+            + self.creative_weight
+            + self.publishing_weight
+        )
         if total > 0:
             self.author_weight /= total
             self.market_weight /= total
@@ -265,33 +290,39 @@ class ContextSynthesisWeights:
 @dataclass
 class SynthesizedContext:
     """Synthesized multi-layer context for content generation"""
+
     session_id: str
     author: AuthorContext
     market: MarketContext
     creative: CreativeContext
     publishing: PublishingContext
-    synthesis_weights: ContextSynthesisWeights = field(default_factory=ContextSynthesisWeights)
+    synthesis_weights: ContextSynthesisWeights = field(
+        default_factory=ContextSynthesisWeights
+    )
     synthesis_timestamp: datetime = field(default_factory=datetime.now)
     quality_score: float = 0.0
     coherence_score: float = 0.0
     optimization_suggestions: List[str] = field(default_factory=list)
-    
+
     def get_primary_context_summary(self) -> Dict[str, Any]:
         """Get a summary of the primary context elements"""
         return {
             "author_mood": self.author.current_mood.value,
             "writing_style": self.author.writing_style.tone,
-            "genre_preferences": [g.value for g in self.author.writing_style.genre_preferences],
+            "genre_preferences": [
+                g.value for g in self.author.writing_style.genre_preferences
+            ],
             "market_trends": [t.category for t in self.market.current_trends[:3]],
             "creative_patterns": [p.name for p in self.creative.relevant_patterns[:3]],
             "target_formats": [f.format_type for f in self.publishing.target_formats],
-            "synthesis_quality": self.quality_score
+            "synthesis_quality": self.quality_score,
         }
 
 
 @dataclass
 class VibecodeSession:
     """A complete vibecoding session"""
+
     session_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     user_id: str = ""
     start_time: datetime = field(default_factory=datetime.now)
@@ -303,19 +334,19 @@ class VibecodeSession:
     session_metadata: Dict[str, Any] = field(default_factory=dict)
     target_book_metadata: Dict[str, Any] = field(default_factory=dict)
     session_status: str = "active"  # active, paused, completed, abandoned
-    
+
     @property
     def session_duration(self) -> Optional[float]:
         """Get session duration in minutes"""
         if self.end_time:
             return (self.end_time - self.start_time).total_seconds() / 60
         return (datetime.now() - self.start_time).total_seconds() / 60
-    
+
     @property
     def total_input_words(self) -> int:
         """Get total words in voice inputs"""
         return sum(len(vi.text.split()) for vi in self.voice_inputs)
-    
+
     @property
     def latest_context(self) -> Optional[SynthesizedContext]:
         """Get the most recent context"""

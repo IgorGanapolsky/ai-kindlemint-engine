@@ -3,8 +3,8 @@
 **Transform expertise into profitable books at 10x speed using AI orchestration, voice-to-book technology, and automated publishing workflows.**
 
 [![Tests](https://github.com/IgorGanapolsky/ai-kindlemint-engine/workflows/Tests/badge.svg)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/tests.yml)
-[![Test Coverage](https://img.shields.io/badge/Coverage-Generated%20by%20Tests-success)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/tests.yml)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-SonarCloud%20Ready-blue)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/sonarcloud.yml)
+[![codecov](https://codecov.io/gh/IgorGanapolsky/ai-kindlemint-engine/branch/main/graph/badge.svg)](https://codecov.io/gh/IgorGanapolsky/ai-kindlemint-engine)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Enabled-blue)](CLAUDE_CODE_ORCHESTRATOR.md)
 [![Sentry](https://img.shields.io/badge/Sentry-Error%20Monitoring-362D59)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions)
 
@@ -72,11 +72,11 @@ Our comprehensive validation system ensures every puzzle book meets professional
 
 ### 🧩 Puzzle Content Validation
 - **Structure Validation**: Grid dimensions, data types, required fields
-- **Logic Validation**: Sudoku rules compliance, solution uniqueness  
+- **Logic Validation**: Sudoku rules compliance, solution uniqueness
 - **Difficulty Validation**: Appropriate clue counts for each difficulty level
 - **Solvability Validation**: Ensures puzzles have exactly one solution
 
-### 📄 PDF Quality Validation  
+### 📄 PDF Quality Validation
 - **Image Rendering**: Verifies puzzles are rendered as images, not text fallbacks
 - **Resolution Quality**: Minimum 300x300 pixel images for clear printing
 - **Page Structure**: Correct page count and layout validation
@@ -93,7 +93,7 @@ Our comprehensive validation system ensures every puzzle book meets professional
 # Validate puzzle content
 python -m kindlemint.validators validate_puzzle_batch --dir ./puzzles --type sudoku
 
-# Validate PDF quality  
+# Validate PDF quality
 python scripts/sudoku_pdf_image_validator.py book.pdf
 
 # Complete book QA validation
@@ -235,7 +235,7 @@ ai-kindlemint-engine/
 │   └── validators/           # QA validators
 ├── books/active_production/  # Books in production
 ├── features/                 # Generated features
-├── integrations/            # Service integrations  
+├── integrations/            # Service integrations
 ├── scripts/                 # Utility scripts
 ├── tests/                   # Test suites
 ├── .github/workflows/       # CI/CD pipelines

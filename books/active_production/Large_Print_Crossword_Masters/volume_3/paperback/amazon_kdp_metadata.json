@@ -13,9 +13,13 @@
     "crossword puzzle book"
   ],
   "categories": [
-    "Humor & Entertainment",
-    "Health, Fitness & Dieting",
-    "Self-Help"
+    "Humor & Entertainment > Puzzles",
+    "Health, Fitness & Dieting > Brain Games",
+    "Self-Help > Self-Improvement"
+  ],
+  "kdp_book_types": [
+    "low_content_book",
+    "large_print_book"
   ],
   "language": "English",
   "pages": 156,

@@ -29,7 +29,7 @@ python scripts/production_qa_validator.py books/active_production/[SERIES]/[VOLU
 
 ### 4. Common Issues to Check
 - [ ] **Empty Solution Grids**: Most common issue - solutions MUST show letters
-- [ ] **All White Puzzles**: Grids must have black squares for word separation  
+- [ ] **All White Puzzles**: Grids must have black squares for word separation
 - [ ] **Missing Clue Numbers**: Every clue needs a number
 - [ ] **Duplicate Content**: Each puzzle must be unique
 - [ ] **File Size**: Should be 0.2-10 MB (not too small, not too large)
@@ -41,7 +41,7 @@ python scripts/production_qa_validator.py books/active_production/[SERIES]/[VOLU
 
 ### 6. Final Delivery Checklist
 - [ ] Paperback PDF ready and QA passed
-- [ ] Hardcover PDF ready and QA passed  
+- [ ] Hardcover PDF ready and QA passed
 - [ ] Metadata JSON files updated (no "Test")
 - [ ] Categories match Volume 1
 - [ ] All files committed and pushed

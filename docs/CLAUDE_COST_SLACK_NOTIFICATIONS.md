@@ -6,7 +6,7 @@ Automated Slack notifications for Claude API cost tracking, providing real-time 
 
 The Claude Cost Slack Notification system provides:
 - 📊 Daily and weekly cost summaries
-- 🚨 Budget alerts when thresholds are exceeded  
+- 🚨 Budget alerts when thresholds are exceeded
 - ⚡ Efficiency reports with optimization recommendations
 - 💰 Per-commit cost notifications
 - 📈 Trend analysis and insights
@@ -272,7 +272,7 @@ Add to GitHub Actions:
     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   run: |
     ./claude-flow-costs-notify daily
-    
+
 - name: Check Claude Budget
   env:
     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

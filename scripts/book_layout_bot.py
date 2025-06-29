@@ -11,6 +11,7 @@ import re
 import sys
 from datetime import datetime
 from pathlib import Path
+
 from scripts.formatter import Formatter
 
 try:
@@ -189,6 +190,7 @@ class BookLayoutFormatter(Formatter):
     """
     Formatter for PDF book interiors using BookLayoutBot.
     """
+
     def __init__(
         self,
         input_dir: str = None,
@@ -202,7 +204,9 @@ class BookLayoutFormatter(Formatter):
     ):
         # Defaults for input/output directories
         if input_dir is None:
-            input_dir = Path("books/active_production/Large_Print_Crossword_Masters/volume_1")
+            input_dir = Path(
+                "books/active_production/Large_Print_Crossword_Masters/volume_1"
+            )
         if output_dir is None:
             output_dir = input_dir
         # Defaults for metadata

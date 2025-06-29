@@ -45,7 +45,7 @@ def detect_puzzle_duplication(puzzles):
             'word_list': sorted(puzzle.get_all_words())
         }
         puzzle_signatures.append(signature)
-    
+
     # Compare signatures for duplicates
     return find_duplicates(puzzle_signatures)
 ```
@@ -94,7 +94,7 @@ class CrosswordPuzzle:
         self.clues: Dict[str, List[Tuple[int, str]]]
         self.solution: List[List[str]]
         self.metadata: Dict[str, Any]
-    
+
     def validate(self) -> ValidationResult:
         # Domain-specific validation logic
         pass
@@ -131,16 +131,16 @@ class CrosswordQAValidator:
             self._validate_symmetry(puzzle)
         ]
         return ValidationResult(checks)
-    
+
     def _validate_unique_solution(self, puzzle):
         # Check solution differs from all previous puzzles
         solution_hash = hashlib.sha256(
             json.dumps(puzzle.solution).encode()
         ).hexdigest()
-        
+
         if solution_hash in self.seen_solutions:
             return Failure("Duplicate solution detected")
-        
+
         self.seen_solutions.add(solution_hash)
         return Success()
 ```
@@ -155,7 +155,7 @@ class PuzzleBookQAPipeline:
         AmazonKDPComplianceQA(),   # Validate KDP requirements
         RegressionQA()             # Compare against known good
     ]
-    
+
     def run(self, book_data):
         for stage in self.stages:
             result = stage.validate(book_data)
@@ -182,17 +182,17 @@ def test_volume_generation():
     """End-to-end test for puzzle generation"""
     # Generate test volume
     puzzles = generate_volume(num_puzzles=50)
-    
+
     # Assert no duplicates
     fingerprints = [generate_puzzle_fingerprint(p) for p in puzzles]
     assert len(fingerprints) == len(set(fingerprints))
-    
+
     # Assert all puzzles solvable
     for puzzle in puzzles:
         assert puzzle.is_solvable()
         assert len(puzzle.across_clues) >= 10
         assert len(puzzle.down_clues) >= 10
-    
+
     # Generate PDF and validate
     pdf = create_pdf(puzzles)
     qa_result = run_full_qa(pdf)
@@ -206,7 +206,7 @@ class HardcoverCoverGenerator:
         """Dynamically space text based on content"""
         total_height = sum(self.get_text_height(line) for line in text_lines)
         spacing = (spine_height - total_height) / (len(text_lines) + 1)
-        
+
         y_position = spine_top - spacing
         for line in text_lines:
             text_height = self.get_text_height(line)

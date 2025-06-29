@@ -5,26 +5,25 @@ This module provides sophisticated context management for voice-driven book crea
 implementing advanced context engineering concepts from The AI Daily Brief.
 """
 
+from .author_context import AuthorContextBuilder
+from .context_memory import ContextMemoryStore
 from .models import (
     AuthorContext,
-    MarketContext,
     CreativeContext,
+    EmotionProfile,
+    Intent,
+    MarketContext,
     PublishingContext,
     SynthesizedContext,
-    VoiceInput,
-    EmotionProfile,
     VoiceCharacteristics,
-    Intent,
+    VoiceInput,
 )
-
-from .author_context import AuthorContextBuilder
 from .synthesis import ContextSynthesisEngine
 from .voice_processing import VoiceInputProcessor
-from .context_memory import ContextMemoryStore
 
 __all__ = [
     "AuthorContext",
-    "MarketContext", 
+    "MarketContext",
     "CreativeContext",
     "PublishingContext",
     "SynthesizedContext",

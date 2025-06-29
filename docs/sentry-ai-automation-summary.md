@@ -15,7 +15,7 @@
   - `sentry_ai_orchestrator.py` - Core Sentry AI functionality
   - `SentryAIAgent` - Agent for task processing
   - PR monitoring loop in main orchestrator
-  
+
 - **Features**:
   - Automatic PR quality checks every 10 minutes
   - Slack notifications for critical issues
@@ -31,8 +31,8 @@
 
 1. **Automatic PR Processing**:
    ```
-   Developer opens PR → GitHub Action triggers → @sentry commands posted → 
-   Sentry AI analyzes → Results posted as comments → Orchestrator monitors → 
+   Developer opens PR → GitHub Action triggers → @sentry commands posted →
+   Sentry AI analyzes → Results posted as comments → Orchestrator monitors →
    Slack notifications sent if issues found
    ```
 

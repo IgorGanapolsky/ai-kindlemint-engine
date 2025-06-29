@@ -6,12 +6,12 @@ Parameters:
     Type: String
     Default: 'KDP_Business_Memory'
     Description: 'Name of the DynamoDB table for storing book performance data'
-  
+
   S3BucketName:
     Type: String
     Default: 'kindlemint-reports'
     Description: 'S3 bucket name for storing KDP reports'
-  
+
   ScheduleExpression:
     Type: String
     Default: 'rate(7 days)'
@@ -138,13 +138,13 @@ Outputs:
     Value: !GetAtt KDPReportIngestorFunction.Arn
     Export:
       Name: !Sub '${AWS::StackName}-LambdaArn'
-  
+
   S3BucketName:
     Description: 'Name of the S3 bucket for KDP reports'
     Value: !Ref KDPReportsBucket
     Export:
       Name: !Sub '${AWS::StackName}-S3Bucket'
-  
+
   ScheduleRuleArn:
     Description: 'ARN of the EventBridge schedule rule'
     Value: !GetAtt KDPIngestorScheduleRule.Arn

@@ -248,6 +248,6 @@ Comprehensive series strategies are the foundation of publishing success. By ens
 - **Example Strategies:** All `SERIES_STRATEGY_COMPLETE.md` files in series directories
 - **Development Guidelines:** `CLAUDE.md` project instructions
 
-**Last Updated:** {datetime.now().strftime('%Y-%m-%d')}  
-**Version:** 1.0  
+**Last Updated:** {datetime.now().strftime('%Y-%m-%d')}
+**Version:** 1.0
 **Owner:** Publishing Operations Team

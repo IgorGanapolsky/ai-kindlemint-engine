@@ -160,28 +160,28 @@ class QAArtifactsInterface:
                 {status_message}
             </p>
         </div>
-        
+
         <div class="criteria-grid">
             {criteria_cards}
         </div>
-        
+
         {issues_section}
-        
+
         {recommendations_section}
-        
+
         <div class="page-preview">
             <h2>📄 Page Analysis</h2>
             {page_previews}
         </div>
     </div>
-    
+
     <script>
         // Interactive features for Claude Artifacts
         function highlightIssue(pageNum) {{
             console.log('Highlighting issues on page', pageNum);
             // This would connect to Claude's interface
         }}
-        
+
         function requestFix(issueType) {{
             console.log('Requesting fix for', issueType);
             // This would trigger Claude to suggest fixes
@@ -215,7 +215,7 @@ class QAArtifactsInterface:
                     <span>Threshold: {details.get('threshold', 0)}</span>
                 </div>
                 <div class="metric-bar">
-                    <div class="metric-fill {self._get_metric_class(details)}" 
+                    <div class="metric-fill {self._get_metric_class(details)}"
                          style="width: {self._get_metric_width(details)}%"></div>
                 </div>
             </div>

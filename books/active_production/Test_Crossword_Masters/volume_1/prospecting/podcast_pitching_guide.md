@@ -13,13 +13,13 @@
 ### Touch 1: Initial Pitch (Day 1)
 Choose template based on podcast category:
 - Business shows → Business template
-- Health shows → Health template  
+- Health shows → Health template
 - Senior shows → Senior template
 
 ### Touch 2: Value Add (Day 7)
 Send relevant article/resource mentioned in show
 
-### Touch 3: Social Proof (Day 14)  
+### Touch 3: Social Proof (Day 14)
 Share recent wins or press mentions
 
 ### Touch 4: Audio Sample (Day 21)
@@ -31,7 +31,7 @@ Graceful exit with future follow-up permission
 ## Weekly Goals (Blount's Numbers Game)
 - **Monday**: Research 10 new podcasts
 - **Tuesday**: Send 10 initial pitches
-- **Wednesday**: Follow up on last week's pitches  
+- **Wednesday**: Follow up on last week's pitches
 - **Thursday**: Record any booked interviews
 - **Friday**: Send thank you notes and ask for referrals
 
@@ -56,12 +56,12 @@ Before sending ANY pitch:
   "second_followup": "Hi [HOST NAME],\n\nLast follow-up on the puzzle expert interview opportunity.\n\nSince I pitched, {self.title} hit #1 in its category and I've had 3 other podcast bookings.\n\nIf the timing isn't right now, I understand completely. \n\nMind if I follow up in 6 months when my next book launches?\n\nThanks for your time,\n{self.author}"
 }
 
-## Research Process  
+## Research Process
 # Podcast Research Template
 
 ## Target Categories:
 1. **Business/Entrepreneurship** (angle: puzzle business model)
-2. **Health/Wellness** (angle: cognitive benefits) 
+2. **Health/Wellness** (angle: cognitive benefits)
 3. **Senior Lifestyle** (angle: accessibility)
 4. **Self-Help/Personal Development** (angle: mental challenges)
 5. **Education** (angle: learning through puzzles)
@@ -69,7 +69,7 @@ Before sending ANY pitch:
 ## Research Checklist Per Podcast:
 - [ ] Host name and background
 - [ ] Recent episode topics (listen to 2-3)
-- [ ] Guest format preferences  
+- [ ] Guest format preferences
 - [ ] Audience size and demographics
 - [ ] Contact information (email preferred)
 - [ ] Social media presence
@@ -90,7 +90,7 @@ Before sending ANY pitch:
 
 ## Tools:
 - Listen Notes (podcast search)
-- Podmatch (guest matching)  
+- Podmatch (guest matching)
 - LinkedIn (host research)
 - Google Podcasts (episode research)
 

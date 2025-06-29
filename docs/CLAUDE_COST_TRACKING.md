@@ -66,7 +66,7 @@ If you need to manually track changes:
 The system estimates costs based on:
 
 1. **File Content Analysis**: Counts tokens in changed files
-2. **Complexity Assessment**: 
+2. **Complexity Assessment**:
    - Low: Simple files (1.5x output multiplier)
    - Medium: Moderate complexity (2.5x output multiplier)
    - High: Complex code files (4.0x output multiplier)
@@ -111,7 +111,7 @@ Repository Analysis:
 
 1. **Batch Changes**: Group related changes into single commits
 2. **Focus on Modified Files**: The system only analyzes changed files
-3. **Use Appropriate Models**: 
+3. **Use Appropriate Models**:
    - Haiku for simple tasks
    - Sonnet for general development
    - Opus for complex analysis

@@ -6,11 +6,11 @@ on:
     - cron: '*/5 8-18 * * 1-5'   # Every 5 min, 8-6 PM, Mon-Fri UTC
     - cron: '*/15 18-8 * * 1-5'  # Every 15 min, off-hours weekdays
     - cron: '*/30 * * 0,6'       # Every 30 min on weekends
-  
+
   # Webhook triggers for external alerts
   repository_dispatch:
     types: [sentry-alert, slack-alert, external-alert]
-  
+
   # Manual trigger
   workflow_dispatch:
     inputs:
@@ -44,31 +44,31 @@ on:
 jobs:
   alert-orchestration:
     runs-on: ubuntu-latest
-    
+
     permissions:
       contents: write
       issues: write
       pull-requests: write
       actions: read
-    
+
     steps:
     - name: 🔄 Checkout repository
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
         token: ${{ secrets.GITHUB_TOKEN }}
-    
+
     - name: 🐍 Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
         cache: 'pip'
-    
+
     - name: 📦 Install dependencies
       run: |
         cd scripts/alert_orchestration
         pip install -r requirements.txt || pip install requests pyyaml python-dateutil
-    
+
     - name: 🔧 Configure alert orchestration
       env:
         SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
@@ -77,12 +77,12 @@ jobs:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       run: |
         cd scripts/alert_orchestration
-        
+
         # Create runtime config
         python -c "
         import yaml
         import os
-        
+
         config = {
           'sentry': {
             'dsn': os.getenv('SENTRY_DSN', ''),
@@ -111,67 +111,67 @@ jobs:
             'max_concurrent_resolutions': 3
           }
         }
-        
+
         with open('runtime_config.yaml', 'w') as f:
           yaml.dump(config, f, default_flow_style=False)
         "
-    
+
     - name: 🔍 Monitor Sentry Alerts
       id: sentry-monitor
       if: ${{ secrets.SENTRY_AUTH_TOKEN }}
       run: |
         cd scripts/alert_orchestration
-        
+
         python -c "
         import os, json, requests, yaml
         from datetime import datetime, timedelta
-        
+
         # Load config
         with open('runtime_config.yaml', 'r') as f:
           config = yaml.safe_load(f)
-        
+
         sentry_config = config['sentry']
         if not sentry_config.get('auth_token'):
           print('No Sentry token configured')
           exit(0)
-        
+
         # Fetch recent issues
         headers = {'Authorization': f'Bearer {sentry_config[\"auth_token\"]}'}
         url = f'https://sentry.io/api/0/projects/{sentry_config[\"organization\"]}/{sentry_config[\"project\"]}/issues/'
-        
+
         params = {
           'statsPeriod': '1h',
           'query': 'is:unresolved',
           'sort': 'freq'
         }
-        
+
         try:
           response = requests.get(url, headers=headers, params=params, timeout=30)
           if response.status_code == 200:
             issues = response.json()
             print(f'Found {len(issues)} Sentry issues')
-            
+
             # Save issues for processing
             with open('sentry_issues.json', 'w') as f:
               json.dump(issues, f, indent=2)
-            
+
             print(f'sentry_issues={len(issues)}' >> os.environ['GITHUB_OUTPUT'])
           else:
             print(f'Sentry API error: {response.status_code}')
         except Exception as e:
           print(f'Error fetching Sentry issues: {e}')
         "
-    
+
     - name: 🚨 Process Alerts
       id: process-alerts
       run: |
         cd scripts/alert_orchestration
-        
+
         # Run alert orchestrator
         python -c "
         import os, json, yaml, subprocess
         from datetime import datetime
-        
+
         results = {
           'timestamp': datetime.now().isoformat(),
           'alerts_processed': 0,
@@ -179,44 +179,44 @@ jobs:
           'escalations_created': 0,
           'status': 'completed'
         }
-        
+
         try:
           # Process Sentry issues if available
           if os.path.exists('sentry_issues.json'):
             with open('sentry_issues.json', 'r') as f:
               issues = json.load(f)
-            
+
             for issue in issues[:5]:  # Process top 5 issues
               print(f'Processing issue: {issue.get(\"title\", \"Unknown\")}')
-              
+
               # Analyze error pattern
               error_type = issue.get('type', 'unknown')
               level = issue.get('level', 'info')
-              
+
               results['alerts_processed'] += 1
-              
+
               # Apply automated resolution if applicable
               if level in ['error', 'fatal'] and error_type in ['error']:
                 print(f'Applying automated resolution for {error_type}')
                 results['resolutions_applied'] += 1
-        
+
         except Exception as e:
           print(f'Error processing alerts: {e}')
           results['status'] = 'error'
-        
+
         # Save results
         with open('alert_results.json', 'w') as f:
           json.dump(results, f, indent=2)
-        
+
         print(f'alerts_processed={results[\"alerts_processed\"]}' >> os.environ['GITHUB_OUTPUT'])
         print(f'resolutions_applied={results[\"resolutions_applied\"]}' >> os.environ['GITHUB_OUTPUT'])
         "
-    
+
     - name: 💬 Slack Notification
       if: always() && secrets.SLACK_WEBHOOK_URL
       run: |
         cd scripts/alert_orchestration
-        
+
         # Get results
         ALERTS_PROCESSED="0"
         RESOLUTIONS="0"
@@ -224,7 +224,7 @@ jobs:
           ALERTS_PROCESSED=$(cat alert_results.json | jq -r '.alerts_processed // 0')
           RESOLUTIONS=$(cat alert_results.json | jq -r '.resolutions_applied // 0')
         fi
-        
+
         # Determine status
         if [ "${{ job.status }}" == "success" ]; then
           COLOR="good"
@@ -235,7 +235,7 @@ jobs:
           EMOJI="⚠️"
           STATUS="Monitoring completed with issues"
         fi
-        
+
         # Send notification only if there's activity
         if [ "$ALERTS_PROCESSED" != "0" ] || [ "$RESOLUTIONS" != "0" ]; then
           curl -X POST -H 'Content-type: application/json' \
@@ -271,17 +271,17 @@ jobs:
             }" \
             "${{ secrets.SLACK_WEBHOOK_URL }}"
         fi
-    
+
     - name: 📊 Update Monitoring Dashboard
       if: always()
       run: |
         cd scripts/alert_orchestration
-        
+
         # Update dashboard data
         python -c "
         import json, os
         from datetime import datetime
-        
+
         # Load or create dashboard data
         dashboard_file = 'monitoring_data.json'
         if os.path.exists(dashboard_file):
@@ -289,7 +289,7 @@ jobs:
             data = json.load(f)
         else:
           data = {'runs': [], 'metrics': {}}
-        
+
         # Add current run data
         run_data = {
           'timestamp': datetime.now().isoformat(),
@@ -298,17 +298,17 @@ jobs:
           'alerts_processed': 0,
           'resolutions_applied': 0
         }
-        
+
         if os.path.exists('alert_results.json'):
           with open('alert_results.json', 'r') as f:
             results = json.load(f)
             run_data.update(results)
-        
+
         data['runs'].append(run_data)
-        
+
         # Keep only last 100 runs
         data['runs'] = data['runs'][-100:]
-        
+
         # Update metrics
         data['metrics'] = {
           'total_runs': len(data['runs']),
@@ -317,13 +317,13 @@ jobs:
           'total_resolutions': sum(r.get('resolutions_applied', 0) for r in data['runs']),
           'last_run': datetime.now().isoformat()
         }
-        
+
         with open(dashboard_file, 'w') as f:
           json.dump(data, f, indent=2)
-        
+
         print('Dashboard updated')
         "
-    
+
     - name: 🧹 Cleanup
       if: always()
       run: |

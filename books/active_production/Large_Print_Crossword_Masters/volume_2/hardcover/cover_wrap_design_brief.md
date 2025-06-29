@@ -36,7 +36,7 @@ Create a sophisticated book cover for "Large Print Crossword Masters - Volume 2"
 
 #### **Spine (Center - 0.3350 inches)**
 - **Title**: "LARGE PRINT CROSSWORD MASTERS" (vertical)
-- **Volume**: "VOLUME 2" 
+- **Volume**: "VOLUME 2"
 - **Author**: "CROSSWORD MASTERS PUBLISHING" (bottom)
 - **Background**: Matching forest green color
 - **Text Color**: White or silver for contrast
@@ -52,13 +52,13 @@ Create a sophisticated book cover for "Large Print Crossword Masters - Volume 2"
 ```
 Continue Your Puzzle Journey with Large Print Crossword Masters – Volume 2
 
-Building on the success of Volume 1, this second collection 
-offers 50 all-new MEDIUM difficulty crossword puzzles perfect 
-for solvers ready for a bit more challenge while still enjoying 
+Building on the success of Volume 1, this second collection
+offers 50 all-new MEDIUM difficulty crossword puzzles perfect
+for solvers ready for a bit more challenge while still enjoying
 our signature large print format.
 
-Each puzzle has been carefully crafted to provide just the 
-right level of difficulty – not too easy, not too hard – 
+Each puzzle has been carefully crafted to provide just the
+right level of difficulty – not too easy, not too hard –
 making this the perfect next step in your crossword journey.
 
 WHAT'S INSIDE:
@@ -68,11 +68,11 @@ WHAT'S INSIDE:
 • Complete answer key in the back
 • Premium hardcover binding for durability
 
-Whether you've completed Volume 1 or are starting fresh, 
-these puzzles offer hours of satisfying entertainment. The 
+Whether you've completed Volume 1 or are starting fresh,
+these puzzles offer hours of satisfying entertainment. The
 medium difficulty level keeps your mind sharp without frustration.
 
-Part of the Large Print Crossword Masters series – collect 
+Part of the Large Print Crossword Masters series – collect
 all volumes for endless puzzle enjoyment!
 
 Crossword Masters Publishing

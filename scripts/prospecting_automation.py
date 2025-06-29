@@ -315,7 +315,7 @@ Solve one puzzle today while thinking about this:
 
 {content_base}
 
-Tag someone who needs this reminder! 
+Tag someone who needs this reminder!
 
 {hashtag_str}"""
 
@@ -353,7 +353,7 @@ Following Jeb Blount's methodology: "The prospecting you do in this 30-day perio
 
 **Goal**: Build relationships with 300+ puzzle enthusiasts
 **Strategy**: Daily value-first content → Email subscribers → Book sales
-**Success Metrics**: 
+**Success Metrics**:
 - 50+ comments per post
 - 100+ new followers
 - 30+ email subscribers per week
@@ -408,7 +408,7 @@ Following Jeb Blount's methodology: "The prospecting you do in this 30-day perio
 
 ## What You'll Get:
 ✅ **FREE 10-page preview** of {self.title}
-✅ **Exclusive solving tips** from puzzle experts  
+✅ **Exclusive solving tips** from puzzle experts
 ✅ **Early access** to new volumes (before Amazon)
 ✅ **Monthly puzzle newsletter** with brain training tips
 ✅ **Behind-the-scenes** content creation insights
@@ -490,7 +490,7 @@ P.S. Ready for the full book? Get {self.title} here: [BOOK LINK]""",
 
 Here's my process:
 1. **Theme Research** (2 weeks) - Finding fresh, engaging topics
-2. **Grid Design** (3 weeks) - Ensuring symmetry and flow  
+2. **Grid Design** (3 weeks) - Ensuring symmetry and flow
 3. **Clue Writing** (4 weeks) - Balancing challenge with fairness
 4. **Testing** (2 weeks) - Real puzzlers solve and give feedback
 5. **Refinement** (1 week) - Polish until perfect
@@ -518,7 +518,7 @@ That's not common. That's powerful.
 
 Research shows people who regularly solve puzzles have:
 - Better memory retention
-- Improved problem-solving skills  
+- Improved problem-solving skills
 - Lower stress levels
 - Higher confidence
 
@@ -575,7 +575,7 @@ I'm {self.author}, author of the bestselling {self.series_name} puzzle book seri
 Here's what I could share on your show:
 
 🧩 How I built a 6-figure puzzle business using AI and systematic processes
-🧠 The psychology of puzzle addiction (and how to ethically leverage it)  
+🧠 The psychology of puzzle addiction (and how to ethically leverage it)
 📈 Why puzzle books outsell most business books on Amazon
 🎯 The "KindleMint Method" - my systematic approach to content creation
 ⚡ Case study: $300/day from puzzle books (with proof)
@@ -587,7 +587,7 @@ My background:
 
 Recent results:
 • {self.title} hit #1 in Puzzle Books category
-• Built email list of 3,000+ puzzle enthusiasts  
+• Built email list of 3,000+ puzzle enthusiasts
 • Featured in [PUBLICATION] for innovative puzzle design
 
 Would this angle work for your show? I have great audio setup and can record any time that works for you.
@@ -649,7 +649,7 @@ I'm {self.author}, creator of the {self.series_name} large-print puzzle series. 
 Here's what I could discuss:
 
 👓 Why large print matters (beyond just vision)
-🧩 Puzzle selection for different skill levels  
+🧩 Puzzle selection for different skill levels
 💡 How to maintain mental sharpness through structured play
 ❤️ The social benefits of puzzle sharing
 🎯 Adaptive strategies for arthritis or limited mobility
@@ -698,7 +698,7 @@ Last follow-up on the puzzle expert interview opportunity.
 
 Since I pitched, {self.title} hit #1 in its category and I've had 3 other podcast bookings.
 
-If the timing isn't right now, I understand completely. 
+If the timing isn't right now, I understand completely.
 
 Mind if I follow up in 6 months when my next book launches?
 
@@ -711,7 +711,7 @@ Thanks for your time,
 
 ## Target Categories:
 1. **Business/Entrepreneurship** (angle: puzzle business model)
-2. **Health/Wellness** (angle: cognitive benefits) 
+2. **Health/Wellness** (angle: cognitive benefits)
 3. **Senior Lifestyle** (angle: accessibility)
 4. **Self-Help/Personal Development** (angle: mental challenges)
 5. **Education** (angle: learning through puzzles)
@@ -719,7 +719,7 @@ Thanks for your time,
 ## Research Checklist Per Podcast:
 - [ ] Host name and background
 - [ ] Recent episode topics (listen to 2-3)
-- [ ] Guest format preferences  
+- [ ] Guest format preferences
 - [ ] Audience size and demographics
 - [ ] Contact information (email preferred)
 - [ ] Social media presence
@@ -740,7 +740,7 @@ Thanks for your time,
 
 ## Tools:
 - Listen Notes (podcast search)
-- Podmatch (guest matching)  
+- Podmatch (guest matching)
 - LinkedIn (host research)
 - Google Podcasts (episode research)
 """
@@ -778,13 +778,13 @@ Thanks for your time,
 ### Touch 1: Initial Pitch (Day 1)
 Choose template based on podcast category:
 - Business shows → Business template
-- Health shows → Health template  
+- Health shows → Health template
 - Senior shows → Senior template
 
 ### Touch 2: Value Add (Day 7)
 Send relevant article/resource mentioned in show
 
-### Touch 3: Social Proof (Day 14)  
+### Touch 3: Social Proof (Day 14)
 Share recent wins or press mentions
 
 ### Touch 4: Audio Sample (Day 21)
@@ -796,7 +796,7 @@ Graceful exit with future follow-up permission
 ## Weekly Goals (Blount's Numbers Game)
 - **Monday**: Research 10 new podcasts
 - **Tuesday**: Send 10 initial pitches
-- **Wednesday**: Follow up on last week's pitches  
+- **Wednesday**: Follow up on last week's pitches
 - **Thursday**: Record any booked interviews
 - **Friday**: Send thank you notes and ask for referrals
 
@@ -818,7 +818,7 @@ Before sending ANY pitch:
 ## Follow-Up Templates
 {json.dumps(pitch_data['follow_up_templates'], indent=2)}
 
-## Research Process  
+## Research Process
 {pitch_data['research_process']}
 
 ---
@@ -884,7 +884,7 @@ Never let anyone tell you puzzles are "too hard" as you get older. Your brain is
 
 Large print isn't just about font size. It's about:
 • Clear, high-contrast grids
-• Spacious number placement  
+• Spacious number placement
 • Quality paper that doesn't tear
 • Comfortable binding that stays open
 
@@ -1023,7 +1023,7 @@ Apps often train narrow skills. Crosswords train whole-brain thinking!""",
 <body>
     <h1>📊 Prospecting Dashboard - {self.title}</h1>
     <p>Following Jeb Blount's Fanatical Publishing System</p>
-    
+
     <h2>Daily Targets</h2>
     <div class="grid">
         <div class="metric-card target">
@@ -1031,20 +1031,20 @@ Apps often train narrow skills. Crosswords train whole-brain thinking!""",
             <p>Posts: 1/1 ✅</p>
             <p>Engagements: 0/10 ⏳</p>
         </div>
-        
+
         <div class="metric-card target">
             <h3>Facebook Groups</h3>
             <p>Posts: 0/3 ⏳</p>
             <p>Comments: 0/15 ⏳</p>
         </div>
-        
+
         <div class="metric-card target">
             <h3>Podcast Outreach</h3>
             <p>Pitches Sent: 0/2 ⏳</p>
             <p>Follow-ups: 0/3 ⏳</p>
         </div>
     </div>
-    
+
     <h2>Weekly Progress</h2>
     <div class="grid">
         <div class="metric-card achieved">
@@ -1053,7 +1053,7 @@ Apps often train narrow skills. Crosswords train whole-brain thinking!""",
             <p>Actual: 0 subscribers</p>
             <p>Progress: 0%</p>
         </div>
-        
+
         <div class="metric-card achieved">
             <h3>Content Creation</h3>
             <p>LinkedIn Posts: 0/7</p>
@@ -1061,7 +1061,7 @@ Apps often train narrow skills. Crosswords train whole-brain thinking!""",
             <p>Email Content: 0/2</p>
         </div>
     </div>
-    
+
     <h2>30-60-90 Day Pipeline</h2>
     <div class="grid">
         <div class="metric-card">
@@ -1071,7 +1071,7 @@ Apps often train narrow skills. Crosswords train whole-brain thinking!""",
             <p>⏳ Content calendar created</p>
             <p>⏳ First 500 subscribers</p>
         </div>
-        
+
         <div class="metric-card">
             <h3>Days 31-60: Momentum</h3>
             <p>⏳ 1,000 subscribers</p>
@@ -1079,7 +1079,7 @@ Apps often train narrow skills. Crosswords train whole-brain thinking!""",
             <p>⏳ Facebook group authority</p>
             <p>⏳ First bulk orders</p>
         </div>
-        
+
         <div class="metric-card">
             <h3>Days 61-90: Scale</h3>
             <p>⏳ 2,000 subscribers</p>
@@ -1088,7 +1088,7 @@ Apps often train narrow skills. Crosswords train whole-brain thinking!""",
             <p>⏳ $300/day revenue</p>
         </div>
     </div>
-    
+
     <h2>ROI Tracking</h2>
     <div class="metric-card">
         <h3>Investment vs Returns</h3>
@@ -1098,7 +1098,7 @@ Apps often train narrow skills. Crosswords train whole-brain thinking!""",
         <p>Break-even: 4 months</p>
         <p>Projected Revenue: $1,500/month by month 6</p>
     </div>
-    
+
     <script>
         // Add any interactive features here
         console.log("Prospecting Dashboard Loaded");
@@ -1245,7 +1245,7 @@ Their work has been featured in puzzle publications and they regularly speak abo
 *For: Business groups, entrepreneur meetups*
 **Key Insight**: While everyone chases tech startups, the traditional puzzle market offers stable, profitable opportunities with proven demand.
 
-### 🧠 Puzzles as Brain Medicine: The Science of Cognitive Benefits  
+### 🧠 Puzzles as Brain Medicine: The Science of Cognitive Benefits
 *For: Senior organizations, health & wellness groups*
 **Key Insight**: Research proves crosswords provide better cognitive benefits than expensive brain training apps.
 
@@ -1278,7 +1278,7 @@ Signed copies of {self.title} for all attendees (author provides)
 
 ## Contact
 **Email**: [AUTHOR EMAIL]
-**Phone**: [AUTHOR PHONE]  
+**Phone**: [AUTHOR PHONE]
 **Website**: [AUTHOR WEBSITE]
 **LinkedIn**: [LINKEDIN PROFILE]
 

@@ -11,28 +11,28 @@ on:
 jobs:
   debug:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: 🔄 Checkout
       uses: actions/checkout@v4
-      
+
     - name: 🐍 Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-        
+
     - name: 📦 Install dependencies
       run: |
         python -m pip install --upgrade pip
         # Install full requirements if available
-        if [ -f requirements.txt ]; then 
+        if [ -f requirements.txt ]; then
           pip install -r requirements.txt
           pip install -e . || echo "Failed to install some requirements"
         else
           # Fallback to minimal dependencies
           pip install requests pandas python-dotenv PyMuPDF PyPDF2 Pillow reportlab
         fi
-        
+
     - name: 🔍 Check if script exists
       run: |
         echo "Checking for market research script..."
@@ -43,7 +43,7 @@ jobs:
           echo "❌ Script not found!"
           exit 1
         fi
-        
+
     - name: 🧪 Test script import
       run: |
         export PYTHONPATH=$GITHUB_WORKSPACE:$PYTHONPATH
@@ -63,7 +63,7 @@ jobs:
             # Don't fail the workflow, just report the error
             print('Continuing with workflow...')
         EOF
-        
+
     - name: 📊 Run minimal test
       run: |
         export PYTHONPATH=$GITHUB_WORKSPACE:$PYTHONPATH
@@ -76,23 +76,23 @@ jobs:
         else
           echo "⚠️ market_research_csv_output.py not found, skipping test"
         fi
-        
+
     - name: 📁 Check output
       id: output_check
       run: |
         echo "Checking research directory..."
         ls -la research/ || echo "No research directory"
-        
+
         # Count CSV files
         csv_count=$(find research -type f -name "*.csv" 2>/dev/null | wc -l || echo "0")
         echo "csv_count=$csv_count" >> $GITHUB_OUTPUT
-        
+
         # Get file list with details
         csv_files=$(find research -type f -name "*.csv" 2>/dev/null || echo "")
         echo "csv_files<<EOF" >> $GITHUB_OUTPUT
         echo "$csv_files" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
-        
+
         # Get all generated files with sizes
         all_files=$(find research -type f 2>/dev/null | while read f; do
           size=$(ls -lh "$f" | awk '{print $5}')
@@ -101,7 +101,7 @@ jobs:
         echo "all_files<<EOF" >> $GITHUB_OUTPUT
         echo "$all_files" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
-        
+
     - name: 📤 Upload Research Artifacts
       if: success() && steps.output_check.outputs.csv_count != '0'
       uses: actions/upload-artifact@v4
@@ -109,7 +109,7 @@ jobs:
         name: market-research-${{ github.run_number }}
         path: research/
         retention-days: 7
-        
+
     - name: 💬 Send Slack Notification
       if: always()
       env:
@@ -119,7 +119,7 @@ jobs:
           echo "No Slack webhook configured"
           exit 0
         fi
-        
+
         # Determine status
         if [ "${{ job.status }}" == "success" ]; then
           COLOR="good"
@@ -130,11 +130,11 @@ jobs:
           EMOJI="❌"
           STATUS="Failed"
         fi
-        
+
         # Build detailed message
         CSV_COUNT="${{ steps.output_check.outputs.csv_count }}"
         ALL_FILES="${{ steps.output_check.outputs.all_files }}"
-        
+
         # Create files section if files were generated
         FILES_SECTION=""
         if [ "$CSV_COUNT" -gt 0 ]; then
@@ -149,7 +149,7 @@ jobs:
 SECTION
           )
         fi
-        
+
         PAYLOAD=$(cat <<EOF
         {
           "attachments": [{
@@ -195,7 +195,7 @@ SECTION
         }
         EOF
         )
-        
+
         curl -X POST -H 'Content-type: application/json' \
           --data "$PAYLOAD" \
           "$SLACK_WEBHOOK_URL"

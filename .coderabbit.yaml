@@ -15,29 +15,29 @@ reviews:
     - "!**/node_modules/**"
     - "!**/venv/**"
     - "!**/.env*"
-  
+
   # Review settings
   auto_review:
     enabled: true
     ignore_title_keywords:
       - "WIP"
       - "DO NOT MERGE"
-  
+
   # Review tools
   tools:
     github-checks:
       enabled: true
-    
+
   # Review profile
   profile: "assertive"  # Options: chill, assertive, brutal
-  
+
   # High-level summary
   high_level_summary: true
-  
+
   # Enable poem and review stats
   poem: false
   review_status: true
-  
+
 # Path settings to prevent timeout issues
 path_instructions:
   - path: "research/**"

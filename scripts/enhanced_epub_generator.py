@@ -190,7 +190,7 @@ class EnhancedEpubFormatter(Formatter):
         <dc:subject>Seniors</dc:subject>
         <meta name="cover" content="cover-image"/>
     </metadata>
-    
+
     <manifest>
         <item id="cover" href="text/cover.xhtml" media-type="application/xhtml+xml"/>
         <item id="nav" href="text/nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
@@ -203,7 +203,7 @@ class EnhancedEpubFormatter(Formatter):
         <item id="stylesheet" href="styles/enhanced.css" media-type="text/css"/>
         <item id="cover-image" href="images/cover_v1b.jpg" media-type="image/jpeg" properties="cover-image"/>
 {grid_items}    </manifest>
-    
+
     <spine toc="ncx">
         <itemref idref="cover"/>
         <itemref idref="title-page"/>
@@ -212,7 +212,7 @@ class EnhancedEpubFormatter(Formatter):
         <itemref idref="solutions"/>
         <itemref idref="marketing"/>
     </spine>
-    
+
     <guide>
         <reference type="cover" title="Cover" href="text/cover.xhtml"/>
         <reference type="toc" title="Table of Contents" href="text/nav.xhtml"/>
@@ -360,7 +360,7 @@ class EnhancedEpubFormatter(Formatter):
         <h1 class="main-title">LARGE PRINT<br/>CROSSWORD MASTERS</h1>
         <h2 class="volume">Volume 1</h2>
         <h3 class="subtitle">50 Easy, Relaxing Crossword Puzzles for Seniors</h3>
-        
+
         <div class="features">
             <p>• 50 Unique Themed Puzzles</p>
             <p>• Large Print Format for Easy Reading</p>
@@ -368,9 +368,9 @@ class EnhancedEpubFormatter(Formatter):
             <p>• Complete Answer Keys Included</p>
             <p>• High-Resolution Grids for Kindle</p>
         </div>
-        
+
         <p class="publisher">Crossword Masters Publishing</p>
-        
+
         <div class="navigation-links">
             <p><a href="introduction.xhtml">Start Reading →</a></p>
         </div>
@@ -392,9 +392,9 @@ class EnhancedEpubFormatter(Formatter):
 </head>
 <body>
     <h1 id="introduction">Welcome to Your Digital Puzzle Adventure!</h1>
-    
+
     <p>Welcome to Volume 1 of Large Print Crossword Masters, enhanced for your Kindle device! These 50 unique, themed puzzles feature high-resolution grids and improved navigation for the best possible solving experience.</p>
-    
+
     <h2>Perfect for Kindle Reading:</h2>
     <ul>
         <li>High-resolution puzzle grids that scale perfectly</li>
@@ -402,7 +402,7 @@ class EnhancedEpubFormatter(Formatter):
         <li>Optimized font sizes for comfortable reading</li>
         <li>Bookmark your favorite puzzles with ease</li>
     </ul>
-    
+
     <h2>How to Use This Enhanced eBook:</h2>
     <ul>
         <li>Tap any puzzle title to jump directly to that puzzle</li>
@@ -410,14 +410,14 @@ class EnhancedEpubFormatter(Formatter):
         <li>Adjust your Kindle's text size for optimal comfort</li>
         <li>Access solutions quickly with direct links</li>
     </ul>
-    
+
     <h2>Difficulty Levels:</h2>
     <ul>
         <li><strong>Puzzles 1-20: EASY</strong> (Perfect for beginners)</li>
         <li><strong>Puzzles 21-40: MEDIUM</strong> (Building your skills)</li>
         <li><strong>Puzzles 41-50: HARD</strong> (For experienced solvers)</li>
     </ul>
-    
+
     <div class="navigation-links">
         <p><a href="puzzles.xhtml#puzzle-index">Start with Puzzle 1 →</a></p>
         <p><a href="nav.xhtml">← Table of Contents</a></p>
@@ -440,7 +440,7 @@ class EnhancedEpubFormatter(Formatter):
 </head>
 <body>
     <h1 id="puzzle-index">50 Crossword Puzzles</h1>
-    
+
     <div class="navigation-links">
         <p><a href="solutions.xhtml#solutions-index">Jump to Solutions →</a></p>
         <p><a href="nav.xhtml">← Table of Contents</a></p>
@@ -475,12 +475,12 @@ class EnhancedEpubFormatter(Formatter):
         <h2 id="puzzle{puzzle_num}">PUZZLE #{puzzle_num}</h2>
         <h3 class="puzzle-title">{theme} Challenge</h3>
         <p class="puzzle-info"><strong>Theme:</strong> {theme} • <strong>Difficulty:</strong> {difficulty}</p>
-        
+
         <div class="crossword-grid-enhanced">
             <h4>15×15 Crossword Grid</h4>
             <img src="{grid_img}" alt="Crossword Grid {puzzle_num}" class="grid-image"/>
         </div>
-        
+
         <div class="clues-container-enhanced">
             <div class="clues-across">
                 <h4>ACROSS</h4>
@@ -495,7 +495,7 @@ class EnhancedEpubFormatter(Formatter):
                     <li>Musical instrument (5)</li>
                 </ol>
             </div>
-            
+
             <div class="clues-down">
                 <h4>DOWN</h4>
                 <ol class="clue-list-enhanced">
@@ -510,9 +510,9 @@ class EnhancedEpubFormatter(Formatter):
                 </ol>
             </div>
         </div>
-        
+
         <p class="solving-tip"><strong>Solving Tip:</strong> Start with the shorter words and use crossing letters to help solve longer answers!</p>
-        
+
         <div class="enhanced-navigation">
             <p><a href="solutions.xhtml#solution{puzzle_num}">View Solution →</a></p>
             <p><a href="#puzzle-index">← Back to Puzzle List</a></p>
@@ -540,12 +540,12 @@ class EnhancedEpubFormatter(Formatter):
 </head>
 <body>
     <h1 id="solutions-index">Complete Solutions</h1>
-    
+
     <div class="navigation-links">
         <p><a href="puzzles.xhtml#puzzle-index">← Back to Puzzles</a></p>
         <p><a href="nav.xhtml">← Table of Contents</a></p>
     </div>
-    
+
     <p class="solutions-intro"><em>Answer keys for all 50 puzzles - tap any puzzle number to return to the puzzle</em></p>
 """
 
@@ -568,7 +568,7 @@ class EnhancedEpubFormatter(Formatter):
                     <li>PIANO</li>
                 </ol>
             </div>
-            
+
             <div class="solution-down">
                 <h3>DOWN ANSWERS:</h3>
                 <ol class="solution-list">
@@ -583,7 +583,7 @@ class EnhancedEpubFormatter(Formatter):
                 </ol>
             </div>
         </div>
-        
+
         <div class="enhanced-navigation">
             <p><a href="puzzles.xhtml#puzzle{puzzle_num}">← Back to Puzzle {puzzle_num}</a></p>
             <p><a href="#solutions-index">↑ Solutions Index</a></p>
@@ -612,18 +612,18 @@ class EnhancedEpubFormatter(Formatter):
 <body>
     <div class="marketing-section">
         <h1>Continue Your Puzzle Journey</h1>
-        
+
         <div class="cta-section">
             <h2>Enjoyed Volume 1?</h2>
             <p class="cta-text">Leave an honest review – it keeps us creating!</p>
-            
+
             <div class="review-stars">
                 <p>⭐⭐⭐⭐⭐</p>
             </div>
-            
+
             <p class="review-help">Your review helps other puzzle lovers discover our books and encourages us to create more high-quality crossword collections.</p>
         </div>
-        
+
         <div class="volume2-section">
             <h2>Ready for More Challenges?</h2>
             <div class="button-style">
@@ -631,7 +631,7 @@ class EnhancedEpubFormatter(Formatter):
             </div>
             <p><em>50 brand new puzzles with fresh themes and exciting challenges!</em></p>
         </div>
-        
+
         <div class="email-signup">
             <h2>Free Bonus Puzzles!</h2>
             <p>Join our email list for exclusive bonus puzzles and early access to new volumes:</p>
@@ -639,7 +639,7 @@ class EnhancedEpubFormatter(Formatter):
                 <a href="#MAILLISTLINK#">🎁 Get Free Bonus Puzzles →</a>
             </div>
         </div>
-        
+
         <div class="series-info">
             <h2>About the Large Print Crossword Masters Series</h2>
             <p>Each volume in our series features:</p>
@@ -651,16 +651,16 @@ class EnhancedEpubFormatter(Formatter):
                 <li>Complete solutions for every puzzle</li>
             </ul>
         </div>
-        
+
         <div class="author-section">
             <h2>About Crossword Masters Publishing</h2>
             <p>We're dedicated to creating the highest quality crossword puzzles for solvers of all ages. Our team of puzzle experts ensures every clue is fair, every grid is professionally constructed, and every book meets our exacting standards.</p>
         </div>
-        
+
         <div class="copyright-section">
             <p class="copyright">© 2025 Crossword Masters Publishing. All rights reserved.</p>
         </div>
-        
+
         <div class="navigation-links">
             <p><a href="solutions.xhtml#solutions-index">← Back to Solutions</a></p>
             <p><a href="puzzles.xhtml#puzzle-index">← Back to Puzzles</a></p>
@@ -955,7 +955,7 @@ h4 {
     .grid-image {
         max-width: 500px;
     }
-    
+
     .clue-list-enhanced {
         font-size: 1.1em;
     }
@@ -966,7 +966,7 @@ h4 {
         background-color: transparent;
         border: 1px solid #ccc;
     }
-    
+
     .button-style a {
         background-color: transparent;
         color: #2980b9;

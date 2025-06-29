@@ -66,18 +66,18 @@ firebase deploy --only functions
 def daily_automation():
     # 1. Get market data
     keywords = requests.get('https://your-project.web.app/keywords/crossword').json()
-    
+
     # 2. Generate content with trending keywords
     content = generate_with_keywords(keywords[:5])
-    
+
     # 3. Validate
     if validate_content(content):
         # 4. Push to GitHub
         commit_to_github(content)
-        
+
         # 5. Notify
         send_slack_notification("✅ Daily content generated")
-    
+
 if __name__ == "__main__":
     daily_automation()
 ```
@@ -89,7 +89,7 @@ if __name__ == "__main__":
 - ✅ Firebase endpoint returns real keywords
 - ✅ First automated book published
 
-### Week 1  
+### Week 1
 - 📈 5 new volumes generated
 - 🎯 Keywords driving 30% more visibility
 - 💰 Revenue increase measurable
@@ -122,7 +122,7 @@ Every line of code should either:
 # 1. Update your repo
 git pull origin main
 
-# 2. Install monitoring 
+# 2. Install monitoring
 pip install sentry-sdk[openai]
 
 # 3. Set up Firebase

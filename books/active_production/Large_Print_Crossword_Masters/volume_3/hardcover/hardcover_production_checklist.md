@@ -17,7 +17,7 @@
 - [ ] Single-page PDF, no crop marks
 - [ ] File: `hardcover_interior.pdf`
 
-#### ✅ **Cover Wrap PDF**  
+#### ✅ **Cover Wrap PDF**
 - [ ] Use KDP template for 6×9, 156 pages, white paper, B/W
 - [ ] Create wrap design with front/spine/back
 - [ ] Export as PDF/X-1a with CMYK and outlined fonts
@@ -31,11 +31,11 @@
 
 #### **Design Requirements**
 1. **Canvas**: Exact template dimensions (3846 × 2850 pixels)
-2. **Template Layer**: 30% opacity for alignment 
+2. **Template Layer**: 30% opacity for alignment
 3. **Front Cover**: Right side, scale to fit, maintain aspect ratio
 4. **Background**: Extend gradient/pattern to spine & back
 5. **Back Cover**: Book description + barcode placeholder (2×1.2 in)
-6. **Spine**: 
+6. **Spine**:
    - Title (stacked) centered, 0.125 in from edges
    - Publisher: "Crossword Masters Publishing" at bottom
 

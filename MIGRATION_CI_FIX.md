@@ -9,7 +9,7 @@ We started archiving scripts but CI/CD workflows depend on specific script locat
 ## Immediate Fix (Completed)
 ✅ Restored critical scripts:
 - enhanced_qa_validator.py
-- enhanced_qa_validator_v2.py  
+- enhanced_qa_validator_v2.py
 - enhanced_qa_validator_v3.py
 - crossword_engine_v3_fixed.py
 

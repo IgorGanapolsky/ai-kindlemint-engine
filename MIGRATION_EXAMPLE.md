@@ -65,7 +65,7 @@ from kindlemint.utils.config import load_config
 
 ### Phase 1: Low Risk (No CI Dependencies)
 - [ ] config_loader.py → utils/config.py
-- [ ] api_manager_enhanced.py → utils/api.py  
+- [ ] api_manager_enhanced.py → utils/api.py
 - [ ] claude_cost_tracker.py → utils/cost_tracker.py
 
 ### Phase 2: Medium Risk (Test Dependencies)
@@ -73,7 +73,7 @@ from kindlemint.utils.config import load_config
 - [ ] word_search_generator.py → engines/wordsearch.py
 - [ ] puzzle_validators.py → validators/puzzle.py
 
-### Phase 3: High Risk (CI Dependencies)  
+### Phase 3: High Risk (CI Dependencies)
 - [ ] enhanced_qa_validator_v3.py → validators/qa.py
 - [ ] crossword_engine_v3_fixed.py → engines/crossword.py
 - [ ] book_layout_bot.py → generators/pdf.py

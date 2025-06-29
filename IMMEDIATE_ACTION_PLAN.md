@@ -24,22 +24,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
-      
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          
+
       - name: Get previous volume feedback
         id: feedback
         run: |
           # Pull sales data and reviews from S3/API
           python scripts/get_volume_feedback.py --volume ${{ github.event.inputs.volume_number || '5' }}
-          
+
       - name: Generate next volume with Claude
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -48,24 +48,24 @@ jobs:
             --volume ${{ github.event.inputs.volume_number || '5' }} \
             --feedback "${{ steps.feedback.outputs.feedback }}" \
             --market-data "${{ steps.feedback.outputs.market_trends }}"
-            
+
       - name: Validate generated content
         run: |
           python scripts/enhanced_qa_validator.py \
             books/active_production/Large_Print_Crossword_Masters/volume_${{ github.event.inputs.volume_number || '5' }}/
-            
+
       - name: Create PR with new volume
         uses: peter-evans/create-pull-request@v5
         with:
           title: "🤖 Auto-generated Volume ${{ github.event.inputs.volume_number || '5' }}"
           body: |
             ## Auto-generated crossword volume
-            
+
             Based on:
             - Previous volume sales data
             - Customer feedback analysis
             - Current market trends
-            
+
             Please review before merging.
           branch: auto-gen-volume-${{ github.event.inputs.volume_number || '5' }}
 ```
@@ -78,31 +78,31 @@ from api_manager_enhanced import EnhancedAPIManager
 
 def generate_next_volume(volume_num, feedback_data, market_data):
     api_manager = EnhancedAPIManager()
-    
+
     # Analyze what worked in previous volumes
     prompt = f"""
     Generate Volume {volume_num} of Large Print Crossword Masters.
-    
+
     Previous volume feedback:
     {feedback_data}
-    
+
     Current market trends:
     {market_data}
-    
+
     Requirements:
     - 50 unique crossword puzzles
     - Incorporate popular themes from feedback
     - Avoid themes with negative reviews
     - Target difficulty based on customer preferences
     """
-    
+
     result = api_manager.generate_text(
         prompt=prompt,
         task_name=f"generate_volume_{volume_num}",
         model="gpt-4",
         max_tokens=8000
     )
-    
+
     # Generate actual puzzles
     generate_puzzles_from_outline(result['text'], volume_num)
 ```
@@ -124,11 +124,11 @@ const ai = genkit({
 
 exports.getMarketKeywords = onRequest(async (request, response) => {
   const { niche = "crossword puzzle books" } = request.query;
-  
+
   // Real-time scraping logic
   const redditTrends = await scrapeReddit(niche);
   const amazonBestsellers = await scrapeAmazonBestsellers(niche);
-  
+
   // AI analysis
   const analysis = await ai.generate({
     prompt: `
@@ -136,13 +136,13 @@ exports.getMarketKeywords = onRequest(async (request, response) => {
       1. Top 20 keywords for ${niche}
       2. Emerging sub-niches
       3. Content gaps in the market
-      
+
       Reddit trends: ${redditTrends}
       Amazon bestsellers: ${amazonBestsellers}
     `,
     model: "gemini-pro"
   });
-  
+
   // Store in Firestore
   await db.collection('market_research').add({
     niche,
@@ -150,7 +150,7 @@ exports.getMarketKeywords = onRequest(async (request, response) => {
     opportunities: analysis.opportunities,
     timestamp: new Date()
   });
-  
+
   response.json(analysis);
 });
 ```
@@ -181,15 +181,15 @@ const { logger } = require("firebase-functions");
 exports.dailyBookRegeneration = onSchedule("every day 06:00", async (event) => {
   const formats = ['paperback', 'kindle', 'hardcover'];
   const results = [];
-  
+
   for (const format of formats) {
     try {
       // Get latest market data
       const marketData = await getLatestMarketTrends();
-      
+
       // Generate optimized content
       const content = await generateOptimizedContent(format, marketData);
-      
+
       // Store in Firestore
       const docRef = await db.collection('daily_generations').add({
         format,
@@ -198,15 +198,15 @@ exports.dailyBookRegeneration = onSchedule("every day 06:00", async (event) => {
         timestamp: new Date(),
         status: 'generated'
       });
-      
+
       results.push({
         format,
         success: true,
         docId: docRef.id
       });
-      
+
       logger.info(`Generated ${format} successfully`, { docId: docRef.id });
-      
+
     } catch (error) {
       logger.error(`Failed to generate ${format}`, error);
       results.push({
@@ -216,7 +216,7 @@ exports.dailyBookRegeneration = onSchedule("every day 06:00", async (event) => {
       });
     }
   }
-  
+
   // Send summary to Slack
   await notifySlack('Daily generation complete', results);
 });
@@ -234,29 +234,29 @@ class AutomatedKeywordRanker:
     def __init__(self):
         self.bookbolt = bookbolt_api.Client()
         self.kdp_extractor = KDPKeywordExtractor()
-        
+
     def get_trending_keywords(self, category="crossword puzzles"):
         # Get data from multiple sources
         bookbolt_keywords = self.bookbolt.get_keywords(category)
         kdp_keywords = self.kdp_extractor.extract_bestseller_keywords(category)
-        
+
         # Combine and rank
         all_keywords = self.merge_and_rank(bookbolt_keywords, kdp_keywords)
-        
+
         # Store for Claude prompts
         self.update_prompt_templates(all_keywords[:20])
-        
+
         return all_keywords
-    
+
     def update_prompt_templates(self, top_keywords):
         # Update system prompts with trending keywords
         prompt_template = f"""
         Generate content optimized for these trending keywords:
         {', '.join(top_keywords)}
-        
+
         Focus on the top 5 for maximum visibility.
         """
-        
+
         # Save to config
         with open('config/prompt_templates.json', 'w') as f:
             json.dump({

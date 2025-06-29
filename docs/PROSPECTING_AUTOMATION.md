@@ -79,7 +79,7 @@ python scripts/prospecting_automation.py \
 
 ### Daily Non-Negotiables
 - 1 LinkedIn post (from generated calendar)
-- 10 LinkedIn engagements 
+- 10 LinkedIn engagements
 - 3 Facebook group posts/comments
 - 2 podcast pitches sent
 - 1 email newsletter piece

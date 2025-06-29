@@ -4,8 +4,8 @@ Marketing Millennials Strategy Launcher
 Automates the 30-day transformation from book generator to media company
 """
 
-import sys
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
 

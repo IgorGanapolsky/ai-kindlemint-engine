@@ -18,7 +18,7 @@
 
 ### Suggested Prompt Template
 ```
-Create a professional book cover for "[BOOK TITLE] Volume [VOLUME NUMBER]" - [BOOK DESCRIPTION]. 
+Create a professional book cover for "[BOOK TITLE] Volume [VOLUME NUMBER]" - [BOOK DESCRIPTION].
 Design elements:
 - Clean, modern design suitable for target audience
 - Large, bold title text reading "[BOOK TITLE]"

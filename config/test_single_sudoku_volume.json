@@ -1,0 +1,45 @@
+{
+  "batch_name": "Test Single Volume - Large Print Sudoku Masters V1",
+  "description": "Test generation of single volume to validate pipeline",
+  "delay_between_books": 0,
+  "books": [
+    {
+      "id": "sudoku_masters_v1_test",
+      "title": "Large Print Sudoku Masters: Volume 1",
+      "subtitle": "Beginner-Friendly Brain Training for Seniors and Visual Wellness",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 1,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 5,
+      "difficulty": "easy",
+      "pages": 20,
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "description": "Test volume with 5 puzzles for pipeline validation",
+      "keywords": ["large print sudoku", "test"],
+      "categories": [
+        "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku", 
+        "Health, Fitness & Dieting > Mental Health > Dementia", 
+        "Self-Help > Aging"
+      ],
+      "language": "en",
+      "target_audience": "Test users",
+      "create_epub": false,
+      "create_hardcover": false,
+      "generate_prospecting": false,
+      "generate_magnetic_marketing": false,
+      "kindle_price": 4.99,
+      "paperback_price": 9.99,
+      "low_content_book": true,
+      "large_print_book": true,
+      "trim_size": "8.5x11",
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true
+      }
+    }
+  ]
+}

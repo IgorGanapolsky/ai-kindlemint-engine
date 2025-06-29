@@ -15,6 +15,7 @@ import sys
 import time
 import traceback
 from datetime import datetime
+
 # Make Path alias available *before* load_dotenv so it's usable in the path expression
 from pathlib import Path
 from pathlib import Path as _PathForSentry
@@ -928,9 +929,11 @@ class BatchProcessor:
             qa_results = checker.run_enhanced_qa(interior_pdf)
             # Domain-aware puzzle validation
             try:
-                from scripts.puzzle_validators import (validate_crossword,
-                                                       validate_sudoku,
-                                                       validate_word_search)
+                from scripts.puzzle_validators import (
+                    validate_crossword,
+                    validate_sudoku,
+                    validate_word_search,
+                )
 
                 puzzle_type = book_config.get("puzzle_type", "").lower()
                 puzzles_dir = Path(book_result["artifacts"].get("puzzles_dir", ""))
@@ -1043,7 +1046,7 @@ class BatchProcessor:
 
 ### Next Steps (Daily Non-Negotiables):
 1. **LinkedIn**: Post daily content from calendar
-2. **Email**: Implement capture page and sequences  
+2. **Email**: Implement capture page and sequences
 3. **Podcasts**: Send 2 pitches daily using templates
 4. **Facebook**: Engage in 5 groups with value-first approach
 5. **Metrics**: Track all activities in dashboard
@@ -1085,7 +1088,9 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
             logger.error(traceback.format_exc())
             raise RuntimeError(f"Prospecting materials generation failed: {str(e)}")
 
-    def _step_generate_magnetic_marketing(self, book_config: Dict, book_result: Dict) -> Dict:
+    def _step_generate_magnetic_marketing(
+        self, book_config: Dict, book_result: Dict
+    ) -> Dict:
         """Generate magnetic marketing system following Dan Kennedy's methodology"""
         try:
             # Import the magnetic marketing module
@@ -1100,15 +1105,17 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
                 )
 
             # Create magnetic marketing engine instance
-            engine = magnetic_module.MagneticMarketingEngine(book_config, book_result["artifacts"])
-            
+            engine = magnetic_module.MagneticMarketingEngine(
+                book_config, book_result["artifacts"]
+            )
+
             # Generate complete magnetic marketing system
             marketing_assets = engine.create_magnetic_marketing_system()
-            
+
             # Create implementation summary
             series_name = book_config.get("series_name", "Default_Series")
             volume = book_config.get("volume", 1)
-            
+
             implementation_summary = f"""# Magnetic Marketing System Generated - {book_config.get("title", f"{series_name} Volume {volume}")}
 
 ## 🧲 Dan Kennedy's Magnetic Marketing Implementation
@@ -1118,7 +1125,7 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 ### The Magnetic Triangle:
 - **MESSAGE**: Hyper-specific avatar + direct response copy
-- **MARKET**: Ideal customer identification + pain/desire mapping  
+- **MARKET**: Ideal customer identification + pain/desire mapping
 - **MEDIA**: Multi-channel domination strategy
 
 ### Revenue Optimization:
@@ -1155,13 +1162,15 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
             # Save implementation summary
             summary_file = engine.output_dir / "magnetic_marketing_summary.md"
-            with open(summary_file, 'w') as f:
+            with open(summary_file, "w") as f:
                 f.write(implementation_summary)
 
             marketing_assets["implementation_summary"] = str(summary_file)
 
-            logger.info(f"Magnetic marketing system generated: {len(marketing_assets)} components created")
-            
+            logger.info(
+                f"Magnetic marketing system generated: {len(marketing_assets)} components created"
+            )
+
             # Return artifacts
             return {
                 "magnetic_marketing_dir": str(engine.output_dir),
@@ -1172,7 +1181,7 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
                 "lead_magnet_funnel": marketing_assets.get("lead_magnet_funnel"),
                 "premium_positioning": marketing_assets.get("premium_positioning"),
                 "backend_systems": marketing_assets.get("backend_systems"),
-                "implementation_summary": str(summary_file)
+                "implementation_summary": str(summary_file),
             }
 
         except Exception as e:

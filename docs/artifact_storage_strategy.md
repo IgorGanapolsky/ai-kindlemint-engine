@@ -25,7 +25,7 @@ class ArtifactStorage:
     def __init__(self):
         self.s3 = boto3.client('s3')
         self.bucket = 'kindlemint-artifacts'
-    
+
     def upload_book(self, book_path, book_id):
         key = f"books/{book_id}/interior.pdf"
         self.s3.upload_file(book_path, self.bucket, key)
@@ -60,9 +60,9 @@ class ArtifactStorage:
 ```
 kindlemint-engine/
 ├── books/                    # Metadata only (JSON files)
-│   └── active_production/    
+│   └── active_production/
 ├── published_archive/        # Final KDP-ready files (keep in LFS)
-│   └── volume_X/            
+│   └── volume_X/
 ├── temp/                     # Local temporary files (gitignored)
 └── scripts/                  # Code only
 ```

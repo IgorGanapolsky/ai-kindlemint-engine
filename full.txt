@@ -88,18 +88,18 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_crossword_engine_v3.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_crossword_engine_v3.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/crossword_engine_v3_fixed.py:79: in __init__
     self.word_dict = self._load_word_dictionary()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.crossword_engine_v3_fixed.CrosswordEngineV3 object at 0x10582c4a0>
 
     def _load_word_dictionary(self):
         """Load word dictionary from file or use built-in common words."""
         word_dict = {}
-    
+
 >       if self.word_list_path and self.word_list_path.exists():
 E       AttributeError: 'str' object has no attribute 'exists'
 
@@ -119,18 +119,18 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_crossword_engine_v3.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_crossword_engine_v3.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/crossword_engine_v3_fixed.py:79: in __init__
     self.word_dict = self._load_word_dictionary()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.crossword_engine_v3_fixed.CrosswordEngineV3 object at 0x10582d220>
 
     def _load_word_dictionary(self):
         """Load word dictionary from file or use built-in common words."""
         word_dict = {}
-    
+
 >       if self.word_list_path and self.word_list_path.exists():
 E       AttributeError: 'str' object has no attribute 'exists'
 
@@ -150,18 +150,18 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_crossword_engine_v3.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_crossword_engine_v3.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/crossword_engine_v3_fixed.py:79: in __init__
     self.word_dict = self._load_word_dictionary()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.crossword_engine_v3_fixed.CrosswordEngineV3 object at 0x10582f8f0>
 
     def _load_word_dictionary(self):
         """Load word dictionary from file or use built-in common words."""
         word_dict = {}
-    
+
 >       if self.word_list_path and self.word_list_path.exists():
 E       AttributeError: 'str' object has no attribute 'exists'
 
@@ -181,18 +181,18 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_crossword_engine_v3.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_crossword_engine_v3.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/crossword_engine_v3_fixed.py:79: in __init__
     self.word_dict = self._load_word_dictionary()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.crossword_engine_v3_fixed.CrosswordEngineV3 object at 0x10582ffe0>
 
     def _load_word_dictionary(self):
         """Load word dictionary from file or use built-in common words."""
         word_dict = {}
-    
+
 >       if self.word_list_path and self.word_list_path.exists():
 E       AttributeError: 'str' object has no attribute 'exists'
 
@@ -212,18 +212,18 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_crossword_engine_v3.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_crossword_engine_v3.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/crossword_engine_v3_fixed.py:79: in __init__
     self.word_dict = self._load_word_dictionary()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.crossword_engine_v3_fixed.CrosswordEngineV3 object at 0x10582d430>
 
     def _load_word_dictionary(self):
         """Load word dictionary from file or use built-in common words."""
         word_dict = {}
-    
+
 >       if self.word_list_path and self.word_list_path.exists():
 E       AttributeError: 'str' object has no attribute 'exists'
 
@@ -243,18 +243,18 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_crossword_engine_v3.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_crossword_engine_v3.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/crossword_engine_v3_fixed.py:79: in __init__
     self.word_dict = self._load_word_dictionary()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.crossword_engine_v3_fixed.CrosswordEngineV3 object at 0x10582eb40>
 
     def _load_word_dictionary(self):
         """Load word dictionary from file or use built-in common words."""
         word_dict = {}
-    
+
 >       if self.word_list_path and self.word_list_path.exists():
 E       AttributeError: 'str' object has no attribute 'exists'
 
@@ -274,18 +274,18 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_crossword_engine_v3.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_crossword_engine_v3.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/crossword_engine_v3_fixed.py:79: in __init__
     self.word_dict = self._load_word_dictionary()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.crossword_engine_v3_fixed.CrosswordEngineV3 object at 0x105a740e0>
 
     def _load_word_dictionary(self):
         """Load word dictionary from file or use built-in common words."""
         word_dict = {}
-    
+
 >       if self.word_list_path and self.word_list_path.exists():
 E       AttributeError: 'str' object has no attribute 'exists'
 
@@ -305,18 +305,18 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_crossword_engine_v3.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_crossword_engine_v3.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/crossword_engine_v3_fixed.py:79: in __init__
     self.word_dict = self._load_word_dictionary()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.crossword_engine_v3_fixed.CrosswordEngineV3 object at 0x105a75fa0>
 
     def _load_word_dictionary(self):
         """Load word dictionary from file or use built-in common words."""
         word_dict = {}
-    
+
 >       if self.word_list_path and self.word_list_path.exists():
 E       AttributeError: 'str' object has no attribute 'exists'
 
@@ -336,18 +336,18 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_crossword_engine_v3.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_crossword_engine_v3.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/crossword_engine_v3_fixed.py:79: in __init__
     self.word_dict = self._load_word_dictionary()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.crossword_engine_v3_fixed.CrosswordEngineV3 object at 0x105a76e40>
 
     def _load_word_dictionary(self):
         """Load word dictionary from file or use built-in common words."""
         word_dict = {}
-    
+
 >       if self.word_list_path and self.word_list_path.exists():
 E       AttributeError: 'str' object has no attribute 'exists'
 
@@ -367,18 +367,18 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_crossword_engine_v3.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_crossword_engine_v3.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/crossword_engine_v3_fixed.py:79: in __init__
     self.word_dict = self._load_word_dictionary()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.crossword_engine_v3_fixed.CrosswordEngineV3 object at 0x10582f290>
 
     def _load_word_dictionary(self):
         """Load word dictionary from file or use built-in common words."""
         word_dict = {}
-    
+
 >       if self.word_list_path and self.word_list_path.exists():
 E       AttributeError: 'str' object has no attribute 'exists'
 
@@ -398,18 +398,18 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_crossword_engine_v3.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_crossword_engine_v3.py:36:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts/crossword_engine_v3_fixed.py:79: in __init__
     self.word_dict = self._load_word_dictionary()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.crossword_engine_v3_fixed.CrosswordEngineV3 object at 0x10582e2d0>
 
     def _load_word_dictionary(self):
         """Load word dictionary from file or use built-in common words."""
         word_dict = {}
-    
+
 >       if self.word_list_path and self.word_list_path.exists():
 E       AttributeError: 'str' object has no attribute 'exists'
 
@@ -428,8 +428,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x105a75850>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_word_content_valid0'
@@ -440,7 +440,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_word_content_valid0/metadata
@@ -460,8 +460,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x105a779b0>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_word_content_invalid0'
@@ -472,7 +472,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_word_content_invalid0/metadata
@@ -492,8 +492,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x105a76cf0>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_intersections_valid0'
@@ -504,7 +504,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_intersections_valid0/metadata
@@ -524,8 +524,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x105a2eae0>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_intersections_invalid_con0'
@@ -536,7 +536,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_intersections_invalid_con0/metadata
@@ -556,8 +556,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x105a76c00>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_grid_connectivity_valid0'
@@ -568,7 +568,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_grid_connectivity_valid0/metadata
@@ -588,8 +588,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x105a74b90>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_grid_connectivity_invalid0'
@@ -600,7 +600,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_grid_connectivity_invalid0/metadata
@@ -620,8 +620,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x10582df40>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_duplicate_words0'
@@ -632,7 +632,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_duplicate_words0/metadata
@@ -652,8 +652,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x105a2fcb0>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_full_run_pass0'
@@ -664,7 +664,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_full_run_pass0/metadata
@@ -684,8 +684,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x105a2fb90>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_full_run_fail0'
@@ -696,7 +696,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_full_run_fail0/metadata
@@ -716,8 +716,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x105a2f2f0>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_scoring_logic0'
@@ -728,7 +728,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_scoring_logic0/metadata
@@ -748,8 +748,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x105a76b10>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_missing_collection_json0'
@@ -760,7 +760,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_missing_collection_json0/metadata
@@ -780,8 +780,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x10582dee0>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_malformed_json0'
@@ -792,7 +792,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_malformed_json0/metadata
@@ -812,8 +812,8 @@ custom_word_list = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/
             word_list_path=custom_word_list
         )
 
-tests/test_enhanced_qa_validator_v2.py:102: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_enhanced_qa_validator_v2.py:102:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <scripts.enhanced_qa_validator_v2.EnhancedQAValidatorV2 object at 0x105a75b80>
 book_dir = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_missing_puzzle_file0'
@@ -824,7 +824,7 @@ word_list_path = '/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.p
         """Initialize the validator"""
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "metadata"
-    
+
         if not self.metadata_dir.exists():
 >           raise FileNotFoundError(f"Metadata directory not found: {self.metadata_dir}")
 E           FileNotFoundError: Metadata directory not found: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/.pytest_tmp/pytest-of-igorganapolsky/pytest-1/test_missing_puzzle_file0/metadata
@@ -861,7 +861,7 @@ self = <tests.integration.test_book_generation.TestBookGenerationPipeline testMe
         # Generate a small book
         output_dir = Path(self.temp_dir) / "test_book"
         output_dir.mkdir()
-    
+
         subprocess.run([
             sys.executable,
             str(self.scripts_dir / "crossword_engine_v2.py"),
@@ -869,20 +869,20 @@ self = <tests.integration.test_book_generation.TestBookGenerationPipeline testMe
             "--count", "2",
             "--difficulty", "easy"
         ], capture_output=True)
-    
+
         # Create a dummy PDF for testing (in real scenario, this would be generated)
         # For now, we'll just test the metadata validation part
 >       from scripts.comprehensive_qa_validator import ComprehensiveQAValidator
 
-tests/integration/test_book_generation.py:135: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/integration/test_book_generation.py:135:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
     #!/usr/bin/env python3
     """
     Comprehensive QA Validator - Strict validation for crossword puzzle books
     Combines PDF validation with metadata validation for complete quality assurance
     """
-    
+
     import os
     import sys
     import json
@@ -893,7 +893,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     import re
     from typing import Dict, List, Tuple, Optional
     from collections import Counter
-    
+
     # Import our enhanced validators
 >   from puzzle_validators import (
         validate_crossword_solutions_in_pdf,
@@ -917,50 +917,50 @@ self = <tests.integration.test_book_generation.TestBookGenerationPipeline testMe
             "--count", "5",
             "--difficulty", "easy"
         ], capture_output=True, text=True)
-    
+
         # Check generation succeeded
         self.assertEqual(result.returncode, 0, f"Generation failed: {result.stderr}")
-    
+
         # Verify output structure
         output_path = Path(self.temp_dir)
         self.assertTrue((output_path / "puzzles").exists())
         self.assertTrue((output_path / "metadata").exists())
         self.assertTrue((output_path / "metadata" / "collection.json").exists())
-    
+
         # Verify puzzles were created
         puzzle_files = list((output_path / "puzzles").glob("puzzle_*.png"))
         self.assertEqual(len(puzzle_files), 5)
-    
+
         # Verify solutions were created
         solution_files = list((output_path / "puzzles").glob("solution_*.png"))
         self.assertEqual(len(solution_files), 5)
-    
+
         # Verify metadata
         with open(output_path / "metadata" / "collection.json") as f:
             collection = json.load(f)
-    
+
         self.assertEqual(collection["puzzle_count"], 5)
         self.assertEqual(collection["difficulty_mode"], "easy")
-    
+
         # Check individual puzzle metadata
         for i in range(1, 6):
             puzzle_meta = output_path / "metadata" / f"puzzle_{i:02d}.json"
             self.assertTrue(puzzle_meta.exists())
-    
+
             with open(puzzle_meta) as f:
                 puzzle_data = json.load(f)
-    
+
             # Verify solution grid exists and is filled
             self.assertIn("solution_grid", puzzle_data)
             solution_grid = puzzle_data["solution_grid"]
-    
+
             # Count letters in solution
             letter_count = sum(
                 1 for row in solution_grid
                 for cell in row
                 if isinstance(cell, str) and cell.isalpha()
             )
-    
+
             # Should have substantial number of letters
 >           self.assertGreater(letter_count, 50,
                 f"Puzzle {i} solution has only {letter_count} letters")
@@ -974,9 +974,9 @@ self = <tests.unit.test_puzzle_validators.TestCrosswordValidators testMethod=tes
     def test_validate_crossword_with_valid_puzzle(self):
         """Test validation of a valid crossword puzzle"""
         self.create_test_puzzle_metadata(1, has_answers=True)
-    
+
         issues = validate_crossword(self.metadata_dir)
-    
+
         # Should have no issues for valid puzzle
 >       self.assertEqual(len(issues), 0)
 E       AssertionError: 1 != 0

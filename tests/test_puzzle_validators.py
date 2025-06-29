@@ -7,9 +7,11 @@ import pytest
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from kindlemint.validators.sudoku_validator import validate_sudoku
 from kindlemint.validators.crossword_validator import validate_crossword
-from kindlemint.validators.wordsearch_validator import validate_wordsearch as validate_word_search
+from kindlemint.validators.sudoku_validator import validate_sudoku
+from kindlemint.validators.wordsearch_validator import (
+    validate_wordsearch as validate_word_search,
+)
 
 
 @pytest.fixture

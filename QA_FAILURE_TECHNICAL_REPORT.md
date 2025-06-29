@@ -131,7 +131,7 @@ class CrosswordValidator:
 ### 3. Multi-Stage Validation Pipeline
 1. **Parse Stage**: Extract puzzle data from PDF
 2. **Structure Stage**: Validate grid patterns
-3. **Content Stage**: Validate words and clues  
+3. **Content Stage**: Validate words and clues
 4. **Consistency Stage**: Verify puzzle-solution match
 5. **Playability Stage**: Ensure puzzle is actually solvable
 

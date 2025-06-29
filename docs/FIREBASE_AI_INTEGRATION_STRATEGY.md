@@ -19,7 +19,7 @@ class FirebaseAIContentGenerator:
     def __init__(self):
         self.firebase_ai = FirebaseAILogic()
         self.genkit = GenkitFramework()
-    
+
     def generate_illustrated_puzzle(self, theme):
         # Use Gemini's multi-modal capabilities
         puzzle_data = self.firebase_ai.generate({
@@ -28,12 +28,12 @@ class FirebaseAIContentGenerator:
             "include_visual_clues": True,
             "difficulty": "medium"
         })
-        
+
         # Generate accompanying illustrations
         illustrations = self.firebase_ai.generate_images(
             puzzle_data.visual_prompts
         )
-        
+
         return puzzle_data, illustrations
 ```
 
@@ -61,12 +61,12 @@ Dashboard Components:
       - Real-time KDP sales data
       - Revenue analytics
       - Market performance metrics
-  
+
   - Content Manager:
       - Book inventory
       - Production pipeline status
       - Quality metrics
-  
+
   - AI Assistant Interface:
       - Idea generator
       - Cover designer
@@ -91,7 +91,7 @@ class AIMetricsCollector:
     def __init__(self):
         self.firebase_metrics = FirebaseAIMetrics()
         self.sentry_monitor = get_agent_monitor()
-    
+
     def track_generation(self, request_type, model, metrics):
         # Firebase AI dashboard metrics
         self.firebase_metrics.log({
@@ -102,7 +102,7 @@ class AIMetricsCollector:
             "token_usage": metrics.tokens,
             "cost": metrics.estimated_cost
         })
-        
+
         # Existing Sentry integration
         self.sentry_monitor.track_prompt(...)
 ```
@@ -120,7 +120,7 @@ class AIMetricsCollector:
 class ContentDatabase:
     def __init__(self):
         self.data_connect = FirebaseDataConnect()
-    
+
     @transaction
     async def publish_book(self, book_data):
         # All operations succeed or fail together
@@ -128,7 +128,7 @@ class ContentDatabase:
         await self.data_connect.insert("metadata", book_data.metadata)
         await self.data_connect.update("inventory", {"count": "+1"})
         await self.data_connect.log("publication", book_id)
-        
+
         return book_id
 ```
 
@@ -192,7 +192,7 @@ class ContentDatabase:
 
 Integrating Firebase AI capabilities offers significant advantages:
 1. **Enhanced Content**: Multi-modal generation for richer books
-2. **Rapid Development**: Firebase Studio for quick tool building  
+2. **Rapid Development**: Firebase Studio for quick tool building
 3. **Better Insights**: Comprehensive AI monitoring
 4. **Reliability**: Transactional data operations
 

@@ -15,16 +15,16 @@ jobs:
   quality-assurance:
     runs-on: ubuntu-latest
     name: 📚 Book Quality Validation
-    
+
     steps:
     - name: 🔄 Checkout Repository
       uses: actions/checkout@v4
-      
+
     - name: 🐍 Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-        
+
     - name: 📦 Install Dependencies
       run: |
         python -m pip install --upgrade pip
@@ -77,7 +77,7 @@ jobs:
       with:
         name: qa-reports
         path: books/active_production/**/ENHANCED_QA_REPORT_*.json
-    
+
     - name: 💬 Send Enhanced Slack Notification
       if: always()
       env:
@@ -87,20 +87,20 @@ jobs:
           echo "No Slack webhook configured"
           exit 0
         fi
-        
+
         # Parse QA results with detailed information
         TOTAL_BOOKS=0
         PASSED_BOOKS=0
         FAILED_BOOKS=0
         BOOK_DETAILS=""
-        
+
         for report in $(find books/active_production -name "ENHANCED_QA_REPORT_*.json" 2>/dev/null); do
           TOTAL_BOOKS=$((TOTAL_BOOKS + 1))
           STATUS=$(jq -r '.overall_status' "$report" 2>/dev/null || echo "UNKNOWN")
-          
+
           # Extract full book path
           BOOK_PATH=$(echo "$report" | sed 's|books/active_production/||' | sed 's|/ENHANCED_QA_REPORT.*||')
-          
+
           if [ "$STATUS" == "PASS" ]; then
             PASSED_BOOKS=$((PASSED_BOOKS + 1))
             SCORE=$(jq -r '.summary.total_score // 100' "$report" 2>/dev/null)
@@ -109,17 +109,17 @@ jobs:
             FAILED_BOOKS=$((FAILED_BOOKS + 1))
             ISSUES=$(jq -r '.summary.critical_issues_count // 0' "$report" 2>/dev/null)
             SCORE=$(jq -r '.summary.total_score // 0' "$report" 2>/dev/null)
-            
+
             # Get first 2 critical issues
             CRITICAL_LIST=$(jq -r '.critical_issues[0:2][] | "    → " + .description' "$report" 2>/dev/null || echo "")
-            
+
             BOOK_DETAILS="${BOOK_DETAILS}• ❌ *${BOOK_PATH}*: FAILED (Score: ${SCORE}, ${ISSUES} issues)\n"
             if [ -n "$CRITICAL_LIST" ]; then
               BOOK_DETAILS="${BOOK_DETAILS}${CRITICAL_LIST}\n"
             fi
           fi
         done
-        
+
         # Determine overall status
         if [ "$FAILED_BOOKS" -eq 0 ] && [ "$TOTAL_BOOKS" -gt 0 ]; then
           COLOR="good"
@@ -134,7 +134,7 @@ jobs:
           EMOJI="❌"
           STATUS="$FAILED_BOOKS books failed QA"
         fi
-        
+
         # Build enhanced message
         PAYLOAD=$(cat <<EOF
         {
@@ -157,7 +157,7 @@ jobs:
               }
         EOF
         )
-        
+
         # Add book details if any
         if [ -n "$BOOK_DETAILS" ] && [ "$TOTAL_BOOKS" -gt 0 ]; then
           PAYLOAD="${PAYLOAD},
@@ -172,7 +172,7 @@ jobs:
                 }
               }"
         fi
-        
+
         PAYLOAD="${PAYLOAD},
               {
                 \"type\": \"context\",
@@ -184,7 +184,7 @@ jobs:
             ]
           }]
         }"
-        
+
         echo "$PAYLOAD" | curl -X POST -H 'Content-type: application/json' \
           --data @- \
           "$SLACK_WEBHOOK_URL"

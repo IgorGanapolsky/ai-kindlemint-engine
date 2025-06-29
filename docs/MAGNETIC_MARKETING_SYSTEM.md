@@ -17,7 +17,7 @@ Instead of "publish and pray," you now have a complete system:
 ### Message → Market → Media (In That Exact Order)
 
 **Step 1: MESSAGE** - Create irresistible offer for specific avatar
-**Step 2: MARKET** - Identify exactly WHO you want as customers  
+**Step 2: MARKET** - Identify exactly WHO you want as customers
 **Step 3: MEDIA** - Deploy message to market through optimal channels
 
 ## What Gets Generated
@@ -237,7 +237,7 @@ Both systems work together:
 - ❌ Publishing without avatar research
 - ✅ Create avatar before writing
 
-### The "Price Competition" Trap  
+### The "Price Competition" Trap
 - ❌ Competing on lowest price
 - ✅ Competing on unique value
 
@@ -278,7 +278,7 @@ The magnetic marketing system creates the foundation, then prospecting automatio
 
 ### Conservative Estimates (Per Book)
 - **Month 1**: $500 (launch month)
-- **Month 2**: $800 (backend kicks in) 
+- **Month 2**: $800 (backend kicks in)
 - **Month 3**: $1,200 (full system running)
 - **Ongoing**: $1,500-2,000/month per book
 

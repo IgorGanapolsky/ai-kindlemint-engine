@@ -35,47 +35,47 @@ prompt_input() {
     local var_name=$1
     local prompt_text=$2
     local is_secret=${3:-false}
-    
+
     if [[ $is_secret == true ]]; then
         read -s -p "$prompt_text: " input
         echo ""
     else
         read -p "$prompt_text: " input
     fi
-    
+
     if [[ -z "$input" ]]; then
         echo -e "${RED}❌ Error: $var_name is required${NC}"
         exit 1
     fi
-    
+
     eval "$var_name='$input'"
 }
 
 # Function to check AWS CLI configuration
 check_aws_config() {
     echo -e "${YELLOW}🔍 Checking AWS configuration...${NC}"
-    
+
     if ! command_exists aws; then
         echo -e "${RED}❌ AWS CLI not found. Please install AWS CLI first.${NC}"
         echo "Install: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
         exit 1
     fi
-    
+
     if ! aws sts get-caller-identity >/dev/null 2>&1; then
         echo -e "${RED}❌ AWS CLI not configured. Please run 'aws configure' first.${NC}"
         exit 1
     fi
-    
+
     echo -e "${GREEN}✅ AWS CLI configured${NC}"
 }
 
 # Function to check SAM CLI
 check_sam_cli() {
     echo -e "${YELLOW}🔍 Checking SAM CLI...${NC}"
-    
+
     if ! command_exists sam; then
         echo -e "${YELLOW}⚠️  SAM CLI not found. Installing...${NC}"
-        
+
         if command_exists brew; then
             brew install aws-sam-cli
         elif command_exists pip; then
@@ -85,14 +85,14 @@ check_sam_cli() {
             exit 1
         fi
     fi
-    
+
     echo -e "${GREEN}✅ SAM CLI available${NC}"
 }
 
 # Function to gather required parameters
 gather_parameters() {
     echo -e "${YELLOW}📝 Gathering deployment parameters...${NC}"
-    
+
     # GitHub Token
     if [[ -z "$GITHUB_TOKEN" ]]; then
         echo ""
@@ -101,7 +101,7 @@ gather_parameters() {
         echo "Required scopes: repo, workflow, actions:read"
         prompt_input GITHUB_TOKEN "Enter GitHub Token" true
     fi
-    
+
     # Slack Webhook
     if [[ -z "$SLACK_WEBHOOK_URL" ]]; then
         echo ""
@@ -109,25 +109,25 @@ gather_parameters() {
         echo "Create one at: https://api.slack.com/messaging/webhooks"
         prompt_input SLACK_WEBHOOK_URL "Enter Slack Webhook URL" true
     fi
-    
+
     # Sentry Configuration (optional)
     if [[ -z "$SENTRY_DSN" ]]; then
         read -p "Enter Sentry DSN (optional, press Enter to skip): " SENTRY_DSN
     fi
-    
+
     if [[ -n "$SENTRY_DSN" && -z "$SENTRY_AUTH_TOKEN" ]]; then
         prompt_input SENTRY_AUTH_TOKEN "Enter Sentry Auth Token" true
     fi
-    
+
     echo -e "${GREEN}✅ Parameters collected${NC}"
 }
 
 # Function to create S3 bucket for deployment artifacts
 create_deployment_bucket() {
     echo -e "${YELLOW}🪣 Setting up deployment bucket...${NC}"
-    
+
     BUCKET_NAME="${BUCKET_PREFIX}-${AWS_REGION}-$(date +%s)"
-    
+
     if aws s3 mb "s3://${BUCKET_NAME}" --region "${AWS_REGION}" >/dev/null 2>&1; then
         echo -e "${GREEN}✅ Created deployment bucket: ${BUCKET_NAME}${NC}"
     else
@@ -139,26 +139,26 @@ create_deployment_bucket() {
 # Function to package Lambda functions
 package_functions() {
     echo -e "${YELLOW}📦 Packaging Lambda functions...${NC}"
-    
+
     # Create temporary directory for packaging
     TEMP_DIR=$(mktemp -d)
-    
+
     # Package CI Orchestration Function
     echo "Packaging CI Orchestration Function..."
     cp ../ci_orchestration_function.py "$TEMP_DIR/"
     cp -r ../../scripts/ci_orchestration/requirements.txt "$TEMP_DIR/" 2>/dev/null || echo "# boto3" > "$TEMP_DIR/requirements.txt"
-    
-    # Package Alert Orchestration Function  
+
+    # Package Alert Orchestration Function
     echo "Packaging Alert Orchestration Function..."
     cp ../alert_orchestration_function.py "$TEMP_DIR/"
-    
+
     echo -e "${GREEN}✅ Functions packaged${NC}"
 }
 
 # Function to validate template
 validate_template() {
     echo -e "${YELLOW}🔍 Validating CloudFormation template...${NC}"
-    
+
     if aws cloudformation validate-template --template-body file://"$TEMPLATE_FILE" >/dev/null 2>&1; then
         echo -e "${GREEN}✅ Template validation passed${NC}"
     else
@@ -171,20 +171,20 @@ validate_template() {
 # Function to deploy stack
 deploy_stack() {
     echo -e "${YELLOW}🚀 Deploying CloudFormation stack...${NC}"
-    
+
     # Build parameter list
     PARAMETERS="ParameterKey=Environment,ParameterValue=${ENVIRONMENT}"
     PARAMETERS+=",ParameterKey=GitHubToken,ParameterValue=${GITHUB_TOKEN}"
     PARAMETERS+=",ParameterKey=SlackWebhookURL,ParameterValue=${SLACK_WEBHOOK_URL}"
-    
+
     if [[ -n "$SENTRY_DSN" ]]; then
         PARAMETERS+=",ParameterKey=SentryDSN,ParameterValue=${SENTRY_DSN}"
     fi
-    
+
     if [[ -n "$SENTRY_AUTH_TOKEN" ]]; then
         PARAMETERS+=",ParameterKey=SentryAuthToken,ParameterValue=${SENTRY_AUTH_TOKEN}"
     fi
-    
+
     # Deploy using SAM
     sam deploy \
         --template-file "$TEMPLATE_FILE" \
@@ -195,7 +195,7 @@ deploy_stack() {
         --region "$AWS_REGION" \
         --no-confirm-changeset \
         --no-fail-on-empty-changeset
-    
+
     if [[ $? -eq 0 ]]; then
         echo -e "${GREEN}✅ Stack deployment completed successfully${NC}"
     else
@@ -207,13 +207,13 @@ deploy_stack() {
 # Function to get stack outputs
 get_stack_outputs() {
     echo -e "${YELLOW}📊 Retrieving stack outputs...${NC}"
-    
+
     OUTPUTS=$(aws cloudformation describe-stacks \
         --stack-name "$STACK_NAME" \
         --region "$AWS_REGION" \
         --query 'Stacks[0].Outputs' \
         --output table)
-    
+
     if [[ $? -eq 0 ]]; then
         echo ""
         echo -e "${GREEN}📋 Stack Outputs:${NC}"
@@ -226,17 +226,17 @@ get_stack_outputs() {
 # Function to setup initial configuration
 setup_initial_config() {
     echo -e "${YELLOW}⚙️  Setting up initial configuration...${NC}"
-    
+
     # Get table names from stack outputs
     CONFIG_TABLE=$(aws cloudformation describe-stacks \
         --stack-name "$STACK_NAME" \
         --region "$AWS_REGION" \
         --query 'Stacks[0].Outputs[?OutputKey==`ConfigTableName`].OutputValue' \
         --output text)
-    
+
     if [[ -n "$CONFIG_TABLE" ]]; then
         echo "Creating initial configuration in DynamoDB..."
-        
+
         # CI Orchestration Config
         aws dynamodb put-item \
             --table-name "$CONFIG_TABLE" \
@@ -261,7 +261,7 @@ setup_initial_config() {
                     }}
                 }}
             }' >/dev/null 2>&1
-        
+
         # Alert Orchestration Config
         aws dynamodb put-item \
             --table-name "$CONFIG_TABLE" \
@@ -287,7 +287,7 @@ setup_initial_config() {
                     }}
                 }}
             }' >/dev/null 2>&1
-        
+
         echo -e "${GREEN}✅ Initial configuration created${NC}"
     else
         echo -e "${YELLOW}⚠️  Could not setup initial configuration${NC}"
@@ -297,17 +297,17 @@ setup_initial_config() {
 # Function to test deployment
 test_deployment() {
     echo -e "${YELLOW}🧪 Testing deployment...${NC}"
-    
+
     # Get function names
     CI_FUNCTION=$(aws cloudformation describe-stacks \
         --stack-name "$STACK_NAME" \
         --region "$AWS_REGION" \
         --query 'Stacks[0].Outputs[?OutputKey==`CIOrchestrationFunctionArn`].OutputValue' \
         --output text | sed 's/.*://')
-    
+
     if [[ -n "$CI_FUNCTION" ]]; then
         echo "Testing CI Orchestration Function..."
-        
+
         TEST_RESULT=$(aws lambda invoke \
             --function-name "$CI_FUNCTION" \
             --region "$AWS_REGION" \
@@ -315,7 +315,7 @@ test_deployment() {
             /tmp/test-response.json \
             --query 'StatusCode' \
             --output text)
-        
+
         if [[ "$TEST_RESULT" == "200" ]]; then
             echo -e "${GREEN}✅ CI Orchestration Function test passed${NC}"
         else
@@ -327,16 +327,16 @@ test_deployment() {
 # Function to cleanup deployment resources
 cleanup_deployment() {
     echo -e "${YELLOW}🧹 Cleaning up deployment resources...${NC}"
-    
+
     if [[ -n "$BUCKET_NAME" ]]; then
         echo "Removing deployment bucket..."
         aws s3 rb "s3://${BUCKET_NAME}" --force >/dev/null 2>&1 || true
     fi
-    
+
     if [[ -n "$TEMP_DIR" && -d "$TEMP_DIR" ]]; then
         rm -rf "$TEMP_DIR"
     fi
-    
+
     echo -e "${GREEN}✅ Cleanup completed${NC}"
 }
 
@@ -383,10 +383,10 @@ main() {
     echo -e "${BLUE}║         Cost-Optimized AWS Lambda      ║${NC}"
     echo -e "${BLUE}╚════════════════════════════════════════╝${NC}"
     echo ""
-    
+
     # Trap to ensure cleanup on exit
     trap cleanup_deployment EXIT
-    
+
     # Execute deployment steps
     check_aws_config
     check_sam_cli
@@ -400,7 +400,7 @@ main() {
     test_deployment
     display_cost_estimate
     display_next_steps
-    
+
     echo -e "${GREEN}🎉 Deployment completed successfully!${NC}"
 }
 

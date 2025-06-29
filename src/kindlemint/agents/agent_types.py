@@ -10,6 +10,7 @@ from enum import Enum
 
 class AgentCapability(Enum):
     """Standard agent capabilities"""
+
     CONTENT_GENERATION = "content_generation"
     PUZZLE_CREATION = "puzzle_creation"
     PDF_LAYOUT = "pdf_layout"

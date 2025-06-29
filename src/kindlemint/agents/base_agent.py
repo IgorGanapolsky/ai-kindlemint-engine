@@ -24,6 +24,7 @@ from .task_system import Task, TaskResult, TaskStatus
 
 class AgentStatus(Enum):
     """Agent operational status"""
+
     INITIALIZING = "initializing"
     IDLE = "idle"
     BUSY = "busy"
@@ -34,6 +35,7 @@ class AgentStatus(Enum):
 @dataclass
 class AgentMetrics:
     """Performance metrics for agent monitoring"""
+
     tasks_completed: int = 0
     tasks_failed: int = 0
     total_processing_time: float = 0.0
@@ -48,7 +50,7 @@ class AgentMetrics:
 class BaseAgent(ABC):
     """
     Foundation class for all KindleMint agents
-    
+
     Provides core functionality including:
     - Task execution and lifecycle management
     - Inter-agent communication
@@ -67,7 +69,7 @@ class BaseAgent(ABC):
     ):
         """
         Initialize base agent
-        
+
         Args:
             agent_id: Unique identifier (auto-generated if None)
             agent_type: Type classification for the agent
@@ -80,53 +82,49 @@ class BaseAgent(ABC):
         self.capabilities = set(capabilities or [])
         self.max_concurrent_tasks = max_concurrent_tasks
         self.heartbeat_interval = heartbeat_interval
-        
+
         # Agent state
         self.status = AgentStatus.INITIALIZING
         self.current_tasks: Dict[str, Task] = {}
         self.task_queue: asyncio.Queue = asyncio.Queue()
         self.message_queue: asyncio.Queue = asyncio.Queue()
-        
+
         # Performance tracking
         self.metrics = AgentMetrics()
         self.health_status = HealthStatus()
         self.start_time = datetime.now()
-        
+
         # Communication
         self.message_handlers: Dict[MessageType, callable] = {}
-        self.agent_registry: Optional['AgentRegistry'] = None
-        
+        self.agent_registry: Optional["AgentRegistry"] = None
+
         # Logging
         self.logger = logging.getLogger(f"agent.{self.agent_id}")
-        
+
         # Background tasks
         self._background_tasks: Set[asyncio.Task] = set()
         self._shutdown_event = asyncio.Event()
-        
-        self.logger.info(f"Agent {self.agent_id} initialized with capabilities: {self.capabilities}")
+
+        self.logger.info(
+            f"Agent {self.agent_id} initialized with capabilities: {self.capabilities}"
+        )
 
     async def start(self) -> None:
         """Start the agent and begin processing tasks"""
         try:
             self.status = AgentStatus.IDLE
             self.logger.info(f"Starting agent {self.agent_id}")
-            
+
             # Start background tasks
-            self._background_tasks.add(
-                asyncio.create_task(self._task_processor())
-            )
-            self._background_tasks.add(
-                asyncio.create_task(self._message_processor())
-            )
-            self._background_tasks.add(
-                asyncio.create_task(self._health_monitor())
-            )
-            
+            self._background_tasks.add(asyncio.create_task(self._task_processor()))
+            self._background_tasks.add(asyncio.create_task(self._message_processor()))
+            self._background_tasks.add(asyncio.create_task(self._health_monitor()))
+
             # Agent-specific initialization
             await self._initialize()
-            
+
             self.logger.info(f"Agent {self.agent_id} started successfully")
-            
+
         except Exception as e:
             self.status = AgentStatus.ERROR
             self.logger.error(f"Failed to start agent {self.agent_id}: {e}")
@@ -137,40 +135,37 @@ class BaseAgent(ABC):
         self.logger.info(f"Stopping agent {self.agent_id}")
         self.status = AgentStatus.SHUTDOWN
         self._shutdown_event.set()
-        
+
         # Wait for current tasks to complete (with timeout)
         try:
-            await asyncio.wait_for(
-                self._wait_for_tasks_completion(),
-                timeout=30.0
-            )
+            await asyncio.wait_for(self._wait_for_tasks_completion(), timeout=30.0)
         except asyncio.TimeoutError:
             self.logger.warning("Task completion timeout, forcing shutdown")
-        
+
         # Cancel background tasks
         for task in self._background_tasks:
             task.cancel()
-        
+
         await asyncio.gather(*self._background_tasks, return_exceptions=True)
-        
+
         # Agent-specific cleanup
         await self._cleanup()
-        
+
         self.logger.info(f"Agent {self.agent_id} stopped")
 
     async def assign_task(self, task: Task) -> bool:
         """
         Assign a task to this agent
-        
+
         Args:
             task: Task to execute
-            
+
         Returns:
             True if task was accepted, False otherwise
         """
         if not self._can_accept_task(task):
             return False
-        
+
         try:
             await self.task_queue.put(task)
             self.logger.info(f"Task {task.task_id} assigned to agent {self.agent_id}")
@@ -182,10 +177,10 @@ class BaseAgent(ABC):
     async def send_message(self, message: AgentMessage) -> bool:
         """
         Send message to another agent
-        
+
         Args:
             message: Message to send
-            
+
         Returns:
             True if message was sent successfully
         """
@@ -216,7 +211,7 @@ class BaseAgent(ABC):
         self.health_status.active_tasks = len(self.current_tasks)
         self.health_status.success_rate = self.metrics.success_rate
         self.health_status.last_heartbeat = datetime.now()
-        
+
         return self.health_status
 
     def get_metrics(self) -> AgentMetrics:
@@ -228,10 +223,10 @@ class BaseAgent(ABC):
     async def _execute_task(self, task: Task) -> TaskResult:
         """
         Execute a specific task (implemented by subclasses)
-        
+
         Args:
             task: Task to execute
-            
+
         Returns:
             Task execution result
         """
@@ -252,15 +247,15 @@ class BaseAgent(ABC):
         """Check if agent can accept a new task"""
         if self.status != AgentStatus.IDLE:
             return False
-        
+
         if len(self.current_tasks) >= self.max_concurrent_tasks:
             return False
-        
+
         # Check if agent has required capabilities
         if task.required_capabilities:
             if not all(cap in self.capabilities for cap in task.required_capabilities):
                 return False
-        
+
         return True
 
     async def _task_processor(self) -> None:
@@ -268,14 +263,11 @@ class BaseAgent(ABC):
         while not self._shutdown_event.is_set():
             try:
                 # Wait for task with timeout to allow for shutdown
-                task = await asyncio.wait_for(
-                    self.task_queue.get(),
-                    timeout=1.0
-                )
-                
+                task = await asyncio.wait_for(self.task_queue.get(), timeout=1.0)
+
                 # Process the task
                 await self._process_task(task)
-                
+
             except asyncio.TimeoutError:
                 # Normal timeout, continue loop
                 continue
@@ -285,42 +277,44 @@ class BaseAgent(ABC):
     async def _process_task(self, task: Task) -> None:
         """Process a single task"""
         task_start_time = time.time()
-        
+
         try:
             self.status = AgentStatus.BUSY
             self.current_tasks[task.task_id] = task
             task.status = TaskStatus.RUNNING
             task.assigned_agent = self.agent_id
             task.start_time = datetime.now()
-            
+
             self.logger.info(f"Processing task {task.task_id}")
-            
+
             # Execute the task
             result = await self._execute_task(task)
-            
+
             # Update task status
             task.status = TaskStatus.COMPLETED if result.success else TaskStatus.FAILED
             task.end_time = datetime.now()
             task.result = result
-            
+
             # Update metrics
             processing_time = time.time() - task_start_time
-            self._update_metrics(success=result.success, processing_time=processing_time)
-            
+            self._update_metrics(
+                success=result.success, processing_time=processing_time
+            )
+
             self.logger.info(
                 f"Task {task.task_id} {'completed' if result.success else 'failed'} "
                 f"in {processing_time:.2f}s"
             )
-            
+
         except Exception as e:
             self.logger.error(f"Task {task.task_id} execution failed: {e}")
             task.status = TaskStatus.FAILED
             task.end_time = datetime.now()
             task.error = str(e)
-            
+
             processing_time = time.time() - task_start_time
             self._update_metrics(success=False, processing_time=processing_time)
-            
+
         finally:
             # Clean up
             self.current_tasks.pop(task.task_id, None)
@@ -331,13 +325,10 @@ class BaseAgent(ABC):
         """Background message processor"""
         while not self._shutdown_event.is_set():
             try:
-                message = await asyncio.wait_for(
-                    self.message_queue.get(),
-                    timeout=1.0
-                )
-                
+                message = await asyncio.wait_for(self.message_queue.get(), timeout=1.0)
+
                 await self._handle_message(message)
-                
+
             except asyncio.TimeoutError:
                 continue
             except Exception as e:
@@ -361,16 +352,15 @@ class BaseAgent(ABC):
                 # Update health metrics
                 self.health_status.cpu_usage = self._get_cpu_usage()
                 self.health_status.memory_usage = self._get_memory_usage()
-                
+
                 # Send heartbeat if registry is available
                 if self.agent_registry:
                     await self.agent_registry.update_agent_health(
-                        self.agent_id, 
-                        self.get_health_status()
+                        self.agent_id, self.get_health_status()
                     )
-                
+
                 await asyncio.sleep(self.heartbeat_interval)
-                
+
             except Exception as e:
                 self.logger.error(f"Health monitoring error: {e}")
 
@@ -380,18 +370,16 @@ class BaseAgent(ABC):
             self.metrics.tasks_completed += 1
         else:
             self.metrics.tasks_failed += 1
-        
+
         self.metrics.total_processing_time += processing_time
         total_tasks = self.metrics.tasks_completed + self.metrics.tasks_failed
-        
+
         if total_tasks > 0:
             self.metrics.average_processing_time = (
                 self.metrics.total_processing_time / total_tasks
             )
-            self.metrics.success_rate = (
-                self.metrics.tasks_completed / total_tasks * 100
-            )
-        
+            self.metrics.success_rate = self.metrics.tasks_completed / total_tasks * 100
+
         self.metrics.last_activity = datetime.now()
 
     def _get_cpu_usage(self) -> float:

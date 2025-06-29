@@ -39,7 +39,7 @@ def integrate_monitoring():
     print(
         """
     from scripts.sentry_agent_monitoring import get_agent_monitor, AgentContext
-    
+
     monitor = get_agent_monitor()
     context = AgentContext(
         agent_id="unique_id",
@@ -47,7 +47,7 @@ def integrate_monitoring():
         task_name="your_workflow",
         model="gpt-4"
     )
-    
+
     with monitor.start_agent(context) as transaction:
         # Your workflow code here
         pass

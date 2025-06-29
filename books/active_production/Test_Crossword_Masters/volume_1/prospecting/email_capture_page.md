@@ -2,7 +2,7 @@
 
 ## What You'll Get:
 ✅ **FREE 10-page preview** of Test Crossword Masters - Volume 1
-✅ **Exclusive solving tips** from puzzle experts  
+✅ **Exclusive solving tips** from puzzle experts
 ✅ **Early access** to new volumes (before Amazon)
 ✅ **Monthly puzzle newsletter** with brain training tips
 ✅ **Behind-the-scenes** content creation insights

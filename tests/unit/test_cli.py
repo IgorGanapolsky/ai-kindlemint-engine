@@ -1,9 +1,10 @@
+from pathlib import Path
+
 import pytest
 from click.testing import CliRunner
 
 import scripts.cli.main as cli_module
-from scripts.cli.main import cli, FORMATTERS
-from pathlib import Path
+from scripts.cli.main import FORMATTERS, cli
 
 
 class DummyFormatter:

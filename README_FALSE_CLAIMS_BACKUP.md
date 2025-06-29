@@ -218,7 +218,7 @@ MIT License - Use freely for your KDP business!
 
 **Disclaimer**: This tool generates content. You are responsible for:
 - Copyright compliance
-- KDP terms adherence  
+- KDP terms adherence
 - Quality verification
 - Customer satisfaction
 

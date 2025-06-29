@@ -29,21 +29,21 @@ jobs:
   setup-and-test:
     runs-on: ubuntu-latest
     name: 🧪 Setup & Unit Tests
-    
+
     outputs:
       test-scope: ${{ steps.set-scope.outputs.scope }}
       has-books: ${{ steps.check-books.outputs.has_books }}
-      
+
     steps:
     - name: 🔄 Checkout Repository
       uses: actions/checkout@v4
-      
+
     - name: 🐍 Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
         cache: 'pip'
-        
+
     - name: 📦 Install Dependencies
       run: |
         python -m pip install --upgrade pip
@@ -59,7 +59,7 @@ jobs:
         fi
         # Install test dependencies
         pip install pytest pytest-cov pytest-json-report
-        
+
     - name: 🎯 Set Test Scope
       id: set-scope
       run: |
@@ -68,7 +68,7 @@ jobs:
         else
           echo "scope=full" >> $GITHUB_OUTPUT
         fi
-        
+
     - name: 📚 Check for Books
       id: check-books
       run: |
@@ -77,7 +77,7 @@ jobs:
         else
           echo "has_books=false" >> $GITHUB_OUTPUT
         fi
-        
+
     - name: 🧪 Run Unit Tests
       run: |
         echo "🔬 Running unit tests..."
@@ -88,7 +88,7 @@ jobs:
         else
           echo "⚠️ No tests directory found, skipping unit tests."
         fi
-        
+
     - name: 📊 Upload Test Coverage
       if: always()
       uses: actions/upload-artifact@v4
@@ -102,16 +102,16 @@ jobs:
     name: 🚀 Test One-Click Generator
     needs: setup-and-test
     if: needs.setup-and-test.outputs.test-scope == 'full'
-    
+
     steps:
     - name: 🔄 Checkout Repository
       uses: actions/checkout@v4
-      
+
     - name: 🐍 Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-        
+
     - name: 📦 Install Dependencies
       run: |
         python -m pip install --upgrade pip
@@ -123,7 +123,7 @@ jobs:
           pip install -r requirements.txt
           pip install -e .
         fi
-        
+
     - name: 🧪 Test Generator Help
       run: |
         echo "🧪 Testing one-click generator help..."
@@ -132,7 +132,7 @@ jobs:
         else
           echo "⚠️ generate_book.py not found, skipping test."
         fi
-        
+
     - name: 📊 Test Market Validator
       run: |
         echo "📊 Testing market validator..."
@@ -141,7 +141,7 @@ jobs:
         else
           echo "⚠️ market_validator.py not found, skipping test."
         fi
-        
+
     - name: 🏗️ Test Mini Book Generation
       run: |
         echo "🏗️ Testing mini book generation..."
@@ -151,7 +151,7 @@ jobs:
         else
           echo "⚠️ generate_book.py not found, skipping generation test."
         fi
-        
+
     - name: ✅ Validate Generated Content
       run: |
         echo "✅ Validating generated test content..."
@@ -166,16 +166,16 @@ jobs:
     name: 🔍 Content-Aware Validation
     needs: [setup-and-test]
     if: needs.setup-and-test.outputs.has-books == 'true'
-    
+
     steps:
     - name: 🔄 Checkout Repository
       uses: actions/checkout@v4
-      
+
     - name: 🐍 Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-        
+
     - name: 📦 Install Dependencies
       run: |
         python -m pip install --upgrade pip
@@ -187,14 +187,14 @@ jobs:
           pip install -r requirements.txt
           pip install -e .
         fi
-        
+
     - name: 🗂️ Find Book Directories
       id: find-books
       run: |
         book_dirs=$(find books/active_production -name collection.json -print0 | xargs -0 -n1 dirname | tr '\n' ' ')
         echo "book_dirs=${book_dirs}" >> $GITHUB_OUTPUT
         echo "Found book directories: ${book_dirs}"
-        
+
     - name: 🔍 Run Enhanced QA Validator v3
       if: steps.find-books.outputs.book_dirs != ''
       run: |
@@ -208,7 +208,7 @@ jobs:
             echo "⚠️ enhanced_qa_validator_v3.py not found, skipping."
           fi
         done
-        
+
     - name: 📊 Upload QA Reports
       if: always()
       uses: actions/upload-artifact@v4
@@ -222,21 +222,21 @@ jobs:
     name: 📋 Generate Final Report
     needs: [setup-and-test, test-one-click-generator, content-validation]
     if: always()
-    
+
     steps:
     - name: 📊 Collect Results
       id: collect-results
       run: |
         echo "📊 Collecting test results..."
-        
+
         SETUP_STATUS="${{ needs.setup-and-test.result }}"
         GENERATOR_STATUS="${{ needs.test-one-click-generator.result }}"
         CONTENT_STATUS="${{ needs.content-validation.result }}"
-        
+
         echo "Setup & Unit Tests: $SETUP_STATUS"
         echo "One-Click Generator Test: $GENERATOR_STATUS"
         echo "Content Validation: $CONTENT_STATUS"
-        
+
         # Determine overall status
         if [[ "$SETUP_STATUS" == "failure" || "$GENERATOR_STATUS" == "failure" ]]; then
           echo "OVERALL_STATUS=FAILURE" >> $GITHUB_ENV
@@ -248,7 +248,7 @@ jobs:
           echo "OVERALL_STATUS=SUCCESS" >> $GITHUB_ENV
           echo "FINAL_MESSAGE=✅ All tests passed successfully." >> $GITHUB_ENV
         fi
-        
+
     - name: 🎯 Final Status Check
       run: |
         echo "${{ env.FINAL_MESSAGE }}"

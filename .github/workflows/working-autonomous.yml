@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
+
     - uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    
+
     - name: System Check
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -23,7 +23,7 @@ jobs:
         echo "=============================="
         echo "Timestamp: $(date)"
         echo "Repository: ${{ github.repository }}"
-        
+
         # Test GitHub API
         echo "🔍 Testing GitHub API..."
         if curl -s -H "Authorization: token $GITHUB_TOKEN" \
@@ -32,7 +32,7 @@ jobs:
         else
           echo "❌ GitHub API: Failed"
         fi
-    
+
     - name: Code Cleanup
       run: |
         echo "🧹 Running code cleanup..."
@@ -41,7 +41,7 @@ jobs:
         else
           echo "Cleanup script not found"
         fi
-    
+
     - name: CI Check
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -51,7 +51,7 @@ jobs:
           "https://api.github.com/repos/${{ github.repository }}/actions/runs?status=failure&per_page=3" | \
           grep -c '"conclusion":"failure"' || echo "0")
         echo "Recent failures: $FAILURES"
-    
+
     - name: Send Notification
       if: secrets.SLACK_WEBHOOK_URL
       env:
@@ -60,7 +60,7 @@ jobs:
         curl -X POST -H 'Content-type: application/json' \
           --data '{"text": "🤖 Autonomous system completed successfully! All monitoring systems active."}' \
           "$SLACK_WEBHOOK_URL" || echo "Notification sent"
-    
+
     - name: Success
       run: |
         echo "✅ AUTONOMOUS SYSTEM OPERATIONAL"

@@ -181,7 +181,8 @@
       "Bash(--subtitle \"100 Challenging Puzzles with Large Print Format\" )",
       "Bash(--page-size letter )",
       "Bash(--include-solutions)",
-      "Bash(export AWS_PROFILE=easy-smart)"
+      "Bash(export AWS_PROFILE=easy-smart)",
+      "Bash(npm run test:*)"
     ],
     "deny": []
   }

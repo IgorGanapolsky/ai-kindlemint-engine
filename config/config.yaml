@@ -10,40 +10,40 @@ kdp_specifications:
     # Page dimensions
     page_width_in: 8.5
     page_height_in: 11
-    
+
     # Margin specifications (in inches)
     gutter_in: 0.375      # Inside margin (binding side)
     outer_margin_in: 0.5  # Outside margin
     top_margin_in: 0.75   # Top margin
     bottom_margin_in: 0.5 # Bottom margin
-    
+
     # Additional specifications
     bleed_in: 0.125       # Standard KDP bleed for full-page images
     barcode_width_in: 2.0
     barcode_height_in: 1.2
-    
+
   hardcover:
     # Page dimensions
     page_width_in: 8.5
     page_height_in: 11
-    
+
     # Margin specifications (in inches)
     gutter_in: 0.5        # Larger gutter for hardcover
     outer_margin_in: 0.75 # Hardcovers often require larger margins
     top_margin_in: 0.75
     bottom_margin_in: 0.75
-    
+
     # Hardcover specific
     spine_base_in: 0.06   # Base spine width
     pages_to_spine_multiplier: 0.0025  # Multiply by page count for spine width
     wrap_coverage_in: 1.5 # How far the cover wraps around
-    
+
   # Common settings for all book types
   expected_page_count: 156 # Target page count for a standard 50-puzzle book
   min_page_count: 128      # Minimum for spine calculations
   dpi: 300                 # Required resolution for all images
   max_file_size_mb: 650    # Maximum PDF file size
-  
+
   # Cover specifications
   cover:
     width_pixels: 2550     # 8.5" at 300 DPI
@@ -64,28 +64,28 @@ puzzle_generation:
     grid_size: 15
     cell_size_points: 18.72  # 0.26 inches in points
     cell_size_pixels: 18     # For image generation
-    
+
     # Word constraints
     max_word_length: 15
     min_word_length: 3
     max_black_square_ratio: 0.25  # Maximum 25% black squares
     max_down_clue_ratio: 0.65     # Maximum 65% down clues
-    
+
     # Defines the progressive difficulty curve for a 50-puzzle book
     difficulty_distribution:
       easy_ratio: 0.4   # First 40% of puzzles are easy (Puzzles 1-20)
       medium_ratio: 0.4 # Next 40% are medium (Puzzles 21-40)
       hard_ratio: 0.2   # Final 20% are hard (Puzzles 41-50)
-    
+
     # Algorithm settings
     backtracking_max_attempts: 3
     generation_max_retries: 10
-    
+
   sudoku:
     # Settings for the Sudoku generator (if integrated)
     supported_difficulties: ['easy', 'medium', 'hard', 'expert']
     grid_size: 9
-    
+
   word_search:
     # Settings for the Word Search generator (if integrated)
     default_grid_size: 20
@@ -101,7 +101,7 @@ typography:
     subtitle: "Helvetica"
     body: "Helvetica"
     monospace: "Courier"
-    
+
   font_sizes:
     large_title: 20
     title: 18
@@ -110,7 +110,7 @@ typography:
     body: 12
     small_text: 10
     grid_numbers: 9
-    
+
   spacing:
     line_spacing_in: 0.25
     paragraph_spacing_in: 0.5
@@ -127,7 +127,7 @@ file_paths:
   automation_logs_dir: "automation_logs"
   fonts_dir: "fonts"
   assets_dir: "assets"
-  
+
   # Subdirectories within a book's folder
   puzzles_subdir: "puzzles"
   metadata_subdir: "metadata"
@@ -135,13 +135,13 @@ file_paths:
   paperback_subdir: "paperback"
   hardcover_subdir: "hardcover"
   kindle_subdir: "kindle"
-  
+
   # File naming patterns
   pdf_filename_pattern: "{title}_interior_FINAL.pdf"
   cover_filename_pattern: "cover_{format}_{width}x{height}.{ext}"
   metadata_filename: "collection.json"
   qa_report_filename: "qa_production_report.json"
-  
+
   # Resource files
   word_list_path: "resources/wordlist.txt" # Path to the master word dictionary
   requirements_files:
@@ -157,11 +157,11 @@ processing:
   # Image processing
   pdf_to_image_dpi: 150  # DPI for converting PDFs to images
   cover_generation_dpi: 300
-  
+
   # Performance settings
   parallel_processing: true
   max_workers: 4
-  
+
   # Validation settings
   enable_qa_validation: true
   strict_mode: false  # If true, fail on any QA warning
@@ -174,7 +174,7 @@ api_settings:
     base_url: "https://serpapi.com/search"
     # Rate limits can be defined here to prevent hitting API caps
     requests_per_minute: 60
-    
+
   openai:
     dalle_model: "dall-e-3"
     gpt_model: "gpt-4"
@@ -182,8 +182,8 @@ api_settings:
     temperature: 0.7
     # Template for generating cover design prompts
     cover_prompt_template: >
-      "Create a vibrant, high-contrast, professional book cover for a puzzle book titled '{title}'. 
-      The theme is '{theme}'. The style should be modern and clean, with easily readable text. 
+      "Create a vibrant, high-contrast, professional book cover for a puzzle book titled '{title}'.
+      The theme is '{theme}'. The style should be modern and clean, with easily readable text.
       Avoid small, busy details. The primary colors should be {primary_color} and {secondary_color}."
 
   sentry:
@@ -203,13 +203,13 @@ qa_validation:
   critical_issue_penalty: 20
   major_issue_penalty: 10
   minor_issue_penalty: 5
-  
+
   # Pass/fail thresholds
   minimum_score: 70
-  
+
   # Specific checks
   page_count_tolerance: 2  # Allow ±2 pages from expected
-  
+
   # Revenue targets (for reporting)
   daily_revenue_target: 300  # USD per day
 

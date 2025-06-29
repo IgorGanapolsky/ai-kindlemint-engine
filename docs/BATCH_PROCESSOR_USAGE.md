@@ -1,7 +1,7 @@
-# 🏭 KindleMint Engine Batch Processor – Usage Guide  
-*(docs/BATCH_PROCESSOR_USAGE.md)*  
+# 🏭 KindleMint Engine Batch Processor – Usage Guide
+*(docs/BATCH_PROCESSOR_USAGE.md)*
 
-The **Batch Processor** (`scripts/batch_processor.py`) is a command-line orchestrator that automates every step of KindleMint book production—puzzle generation, PDF/EPUB layout, hardcover packaging, QA, and reporting—for **multiple books in a single run**.  
+The **Batch Processor** (`scripts/batch_processor.py`) is a command-line orchestrator that automates every step of KindleMint book production—puzzle generation, PDF/EPUB layout, hardcover packaging, QA, and reporting—for **multiple books in a single run**.
 It is the operational backbone that lets Igor hit the **“5 books per week”** goal without drowning in manual steps.
 
 ---
@@ -17,17 +17,17 @@ It is the operational backbone that lets Igor hit the **“5 books per week”**
 ---
 
 ## 2 · Prerequisites
-1. **Python 3.11** + all repo requirements  
+1. **Python 3.11** + all repo requirements
    ```bash
    pip install -r requirements.txt
-   ```  
-2. OS packages for PDF/EPUB tooling (ImageMagick, Ghostscript on macOS/Linux).  
-3. Repo checked out at the project root (`ai-kindlemint-engine`).  
+   ```
+2. OS packages for PDF/EPUB tooling (ImageMagick, Ghostscript on macOS/Linux).
+3. Repo checked out at the project root (`ai-kindlemint-engine`).
 
 ---
 
 ## 3 · Batch Configuration File
-Create a JSON file describing the books to build.  
+Create a JSON file describing the books to build.
 Example: `config/batch_example.json` (already committed).
 
 Key sections:
@@ -60,8 +60,8 @@ Book object essentials:
 python scripts/batch_processor.py config/batch_example.json
 ```
 Produces:
-* `batch_reports/<TIMESTAMP>/batch_summary.md` – human-readable report  
-* `batch_reports/<TIMESTAMP>/batch_report.json` – machine report  
+* `batch_reports/<TIMESTAMP>/batch_summary.md` – human-readable report
+* `batch_reports/<TIMESTAMP>/batch_report.json` – machine report
 * `batch_reports/<TIMESTAMP>/book_<ID>.json` – per-book logs
 
 ### 4.2 Verbose mode
@@ -102,20 +102,20 @@ batch_reports/
 
 ## 6 · How It Helps Achieve 5 Books/Week
 
-1. **Serial automation** – Generates & validates each book in ~20 min  
-   → 5 books ≈ 2 hrs of unattended runtime.  
-2. **Error containment** – One bad volume doesn’t abort the whole run; QA must pass (`publish_ready:true`).  
-3. **Resume & logging** – Overnight runs safe to resume, so failures never waste previous work.  
-4. **Unified reports** – Quick glance shows if weekly quota met; flags which titles need fixes.  
+1. **Serial automation** – Generates & validates each book in ~20 min
+   → 5 books ≈ 2 hrs of unattended runtime.
+2. **Error containment** – One bad volume doesn’t abort the whole run; QA must pass (`publish_ready:true`).
+3. **Resume & logging** – Overnight runs safe to resume, so failures never waste previous work.
+4. **Unified reports** – Quick glance shows if weekly quota met; flags which titles need fixes.
 
 ---
 
 ## 7 · Tips & Best Practices
-* **Small test batch** first (`books: [1 item]`) to verify config.  
-* Keep **cover images** in `templates/` or series folder; batch will copy paths.  
-* Use **GitHub Actions** to schedule the command on a self-hosted runner for real hands-off nights.  
-* Include only **one heavy step at a time** (e.g., turn off EPUB when troubleshooting PDF).  
-* Version control your `config/*.json` to track series roadmap.  
+* **Small test batch** first (`books: [1 item]`) to verify config.
+* Keep **cover images** in `templates/` or series folder; batch will copy paths.
+* Use **GitHub Actions** to schedule the command on a self-hosted runner for real hands-off nights.
+* Include only **one heavy step at a time** (e.g., turn off EPUB when troubleshooting PDF).
+* Version control your `config/*.json` to track series roadmap.
 
 ---
 
@@ -131,9 +131,9 @@ batch_reports/
 ---
 
 ## 9 · Next Enhancements
-* Parallel execution per CPU core  
-* Slack / email notification on batch completion  
-* Granular CLI flags (`--skip-qa`, `--only-qa`)  
+* Parallel execution per CPU core
+* Slack / email notification on batch completion
+* Granular CLI flags (`--skip-qa`, `--only-qa`)
 * Integration with cost-tracking scripts for real-time ROI.
 
 ---

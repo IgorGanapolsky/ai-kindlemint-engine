@@ -142,7 +142,7 @@ webhooks:
       initial_delay: 2000  # milliseconds
       max_delay: 10000     # milliseconds
       backoff_factor: 2
-  
+
   events:
     - name: conversation.started
       description: Triggered when a new conversation starts
@@ -189,7 +189,7 @@ phases:
     endpoints:
       - /api/v1/conversation_to_content
     status: planned
-  
+
   - id: 2
     name: Reader Engagement Bots
     timeline: Weeks 3-4
@@ -198,7 +198,7 @@ phases:
     endpoints:
       - /api/v1/feedback_to_insights
     status: planned
-  
+
   - id: 3
     name: Conversational Ecosystem
     timeline: Q+1
@@ -209,7 +209,7 @@ phases:
       - /api/v1/content_to_book
       - /api/v1/marketing_automation
     status: planned
-  
+
   - id: 4
     name: AI-Powered Community Management
     timeline: Q+2
@@ -225,17 +225,17 @@ metrics:
     description: Time to complete author onboarding process
     target: -50%  # 50% reduction
     source: conversation_duration
-  
+
   - name: reader_completion_rate
     description: Percentage of readers who finish the book
     target: +20%  # 20% increase
     source: kindle_page_reads
-  
+
   - name: net_promoter_score
     description: NPS from reader feedback
     target: ">= 60"
     source: feedback_surveys
-  
+
   - name: weekly_revenue_growth
     description: Week-over-week revenue growth
     target: "5-7%"  # YC benchmark

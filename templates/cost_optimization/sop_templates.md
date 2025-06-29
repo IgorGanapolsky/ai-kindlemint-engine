@@ -2,8 +2,8 @@
 ## Cost-Effective Development Without Claude Code
 
 ### SOP: Adding New Book Category
-**Estimated Time**: 15 minutes  
-**Complexity**: Low  
+**Estimated Time**: 15 minutes
+**Complexity**: Low
 **Prerequisites**: Local Python environment
 
 #### Steps:
@@ -35,8 +35,8 @@
 ---
 
 ### SOP: Hardcover Production for New Volume
-**Estimated Time**: 10 minutes  
-**Complexity**: Low  
+**Estimated Time**: 10 minutes
+**Complexity**: Low
 **Prerequisites**: Existing paperback PDF
 
 #### Steps:
@@ -71,8 +71,8 @@
 ---
 
 ### SOP: GitHub Actions Workflow Debugging
-**Estimated Time**: 20 minutes  
-**Complexity**: Medium  
+**Estimated Time**: 20 minutes
+**Complexity**: Medium
 **Prerequisites**: GitHub access
 
 #### Steps:
@@ -103,8 +103,8 @@
 ---
 
 ### SOP: AWS Lambda Deployment
-**Estimated Time**: 5 minutes  
-**Complexity**: Low  
+**Estimated Time**: 5 minutes
+**Complexity**: Low
 **Prerequisites**: AWS credentials configured
 
 #### Steps:
@@ -126,8 +126,8 @@
 ---
 
 ### SOP: Book Quality Validation
-**Estimated Time**: 10 minutes  
-**Complexity**: Low  
+**Estimated Time**: 10 minutes
+**Complexity**: Low
 **Prerequisites**: PDF file exists
 
 #### Manual Workflow:
@@ -138,7 +138,7 @@
 
 2. **Review output**
    - Font embedding status
-   - Page count validation  
+   - Page count validation
    - File size compliance
    - Print quality metrics
 

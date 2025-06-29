@@ -8,8 +8,4 @@ authority, engage communities, and generate leads across all major platforms.
 __version__ = "1.0.0"
 
 # Main exports for the social media marketing system
-__all__ = [
-    "ContentAtomizer",
-    "MarketingAnalytics", 
-    "SocialMediaAPI"
-]
+__all__ = ["ContentAtomizer", "MarketingAnalytics", "SocialMediaAPI"]

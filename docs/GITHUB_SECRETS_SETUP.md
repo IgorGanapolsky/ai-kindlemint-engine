@@ -113,7 +113,7 @@ The market research workflow runs:
 
 ## Cost Estimates
 
-- **SerpAPI**: 
+- **SerpAPI**:
   - Free: 100 searches/month
   - Business: $50/month for 5,000 searches
   - Each workflow run uses ~10-20 searches

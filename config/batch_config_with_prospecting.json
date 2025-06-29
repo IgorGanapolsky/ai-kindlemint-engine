@@ -41,7 +41,7 @@
       "description": "Challenge your mind with Volume 5 of our bestselling Large Print Crossword Masters series! This collection features 50 carefully crafted crossword puzzles designed specifically for puzzle enthusiasts who appreciate larger, easier-to-read print.",
       "keywords": [
         "large print crossword puzzles",
-        "crossword puzzle books for adults", 
+        "crossword puzzle books for adults",
         "large print puzzle books",
         "crossword volume 5",
         "brain games large print",
@@ -54,7 +54,7 @@
     },
     {
       "id": "sudoku_masters_v3",
-      "title": "Large Print Sudoku Masters - Volume 3", 
+      "title": "Large Print Sudoku Masters - Volume 3",
       "subtitle": "50 Number Puzzles for Logic Training",
       "author": "Sudoku Masters Publishing",
       "series_name": "Large_Print_Sudoku_Masters",
@@ -68,7 +68,7 @@
       "puzzle_params": {
         "difficulty_distribution": {
           "easy": 15,
-          "medium": 25, 
+          "medium": 25,
           "hard": 10
         },
         "grid_style": "classic"

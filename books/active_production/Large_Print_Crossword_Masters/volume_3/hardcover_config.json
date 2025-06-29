@@ -1,12 +1,12 @@
 {
   "title": "Large Print Crossword Masters",
-  "subtitle": "50 Puzzles for Relaxation - Volume 3", 
+  "subtitle": "50 Puzzles for Relaxation - Volume 3",
   "author": "Crossword Masters Publishing",
   "publisher": "Crossword Masters Publishing",
-  
+
   "description": "Welcome to Volume 3 of Large Print Crossword Masters! This carefully curated collection of 50 crossword puzzles is designed for maximum enjoyment and readability. Each puzzle features extra-large grids and clear, easy-to-read clues, making it perfect for seniors and anyone who prefers larger print. Whether you're looking to sharpen your mind, pass the time, or simply enjoy a relaxing mental challenge, these puzzles offer hours of entertainment. From everyday vocabulary to interesting trivia, each crossword is crafted to be both engaging and accessible.",
   "back_cover_description": "50 carefully selected crossword puzzles with extra-large print for comfortable solving. Perfect for seniors, puzzle enthusiasts, and anyone who enjoys a good mental challenge without eye strain.",
-  
+
   "keywords": [
     "large print crossword puzzles",
     "senior crossword book",
@@ -18,20 +18,20 @@
     "volume 3 crossword collection",
     "relaxation puzzles"
   ],
-  
+
   "categories": [
     "Games & Puzzles > Crossword Puzzles",
     "Health & Fitness > Exercise & Fitness > Injury Prevention",
     "Self-Help > Aging"
   ],
-  
+
   "language": "English",
   "pages": 156,
   "target_audience": "Adults 50+, Seniors, Puzzle enthusiasts",
-  
+
   "cover_source": "/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Crossword_Masters/volume_3/paperback/cover.png",
   "output_dir": "/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Crossword_Masters/volume_3/hardcover",
-  
+
   "paperback_price_min": 9.99,
   "paperback_price_max": 14.99,
   "hardcover_price_min": 19.99,

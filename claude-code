@@ -4,10 +4,11 @@ Claude Code CLI - AI-Accelerated Development System for KindleMint
 """
 
 import asyncio
-import click
 import json
 import sys
 from pathlib import Path
+
+import click
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
@@ -16,6 +17,7 @@ from kindlemint.orchestrator import ClaudeCodeOrchestrator
 
 orchestrator = None
 
+
 @click.group()
 @click.pass_context
 def cli(ctx):
@@ -23,190 +25,227 @@ def cli(ctx):
     global orchestrator
     orchestrator = ClaudeCodeOrchestrator()
     ctx.ensure_object(dict)
-    ctx.obj['orchestrator'] = orchestrator
+    ctx.obj["orchestrator"] = orchestrator
+
 
 @cli.command()
-@click.option('--type', 'agent_type', required=True, help='Type of agent to create')
-@click.option('--capabilities', multiple=True, help='Agent capabilities')
-@click.option('--framework', default='langchain', help='Framework to use')
-@click.option('--output', help='Output path for agent')
+@click.option("--type", "agent_type", required=True, help="Type of agent to create")
+@click.option("--capabilities", multiple=True, help="Agent capabilities")
+@click.option("--framework", default="langchain", help="Framework to use")
+@click.option("--output", help="Output path for agent")
 def create_agent(agent_type, capabilities, framework, output):
     """Generate a new AI agent"""
+
     async def _create():
         await orchestrator.initialize()
         result = await orchestrator.create_agent(
             agent_type=agent_type,
             capabilities=list(capabilities),
             framework=framework,
-            output_path=output
+            output_path=output,
         )
         click.echo(json.dumps(result, indent=2))
-    
+
     asyncio.run(_create())
 
+
 @cli.command()
-@click.argument('feature_name')
-@click.option('--requirements', '-r', help='Requirements JSON file')
-@click.option('--no-tests', is_flag=True, help='Skip test generation')
-@click.option('--no-docs', is_flag=True, help='Skip documentation')
+@click.argument("feature_name")
+@click.option("--requirements", "-r", help="Requirements JSON file")
+@click.option("--no-tests", is_flag=True, help="Skip test generation")
+@click.option("--no-docs", is_flag=True, help="Skip documentation")
 def develop_feature(feature_name, requirements, no_tests, no_docs):
     """Develop a complete feature"""
+
     async def _develop():
         await orchestrator.initialize()
-        
+
         # Load requirements
         req_data = {}
         if requirements:
-            with open(requirements, 'r') as f:
+            with open(requirements, "r") as f:
                 req_data = json.load(f)
-        
+
         result = await orchestrator.develop_feature(
             feature_name=feature_name,
             requirements=req_data,
             include_tests=not no_tests,
-            include_docs=not no_docs
+            include_docs=not no_docs,
         )
         click.echo(json.dumps(result, indent=2))
-    
+
     asyncio.run(_develop())
 
+
 @cli.command()
-@click.option('--type', 'opt_type', default='all', 
-              type=click.Choice(['all', 'performance', 'security', 'scalability', 'maintainability']))
-@click.option('--auto-implement/--no-implement', default=True)
+@click.option(
+    "--type",
+    "opt_type",
+    default="all",
+    type=click.Choice(
+        ["all", "performance", "security", "scalability", "maintainability"]
+    ),
+)
+@click.option("--auto-implement/--no-implement", default=True)
 def optimize(opt_type, auto_implement):
     """Optimize the codebase"""
+
     async def _optimize():
         await orchestrator.initialize()
         result = await orchestrator.optimize_codebase(
-            optimization_type=opt_type,
-            auto_implement=auto_implement
+            optimization_type=opt_type, auto_implement=auto_implement
         )
         click.echo(json.dumps(result, indent=2))
-    
+
     asyncio.run(_optimize())
 
+
 @cli.command()
-@click.option('--industry', required=True, help='Industry specialization')
-@click.option('--book-type', required=True, help='Type of book')
-@click.option('--monetization', multiple=True, help='Monetization strategies')
-@click.option('--compliance', help='Compliance requirements')
+@click.option("--industry", required=True, help="Industry specialization")
+@click.option("--book-type", required=True, help="Type of book")
+@click.option("--monetization", multiple=True, help="Monetization strategies")
+@click.option("--compliance", help="Compliance requirements")
 def generate_specialist(industry, book_type, monetization, compliance):
     """Generate a specialized agent"""
+
     async def _generate():
         await orchestrator.initialize()
         result = await orchestrator.generate_specialist(
             industry=industry,
             book_type=book_type,
             monetization=list(monetization),
-            compliance=compliance
+            compliance=compliance,
         )
         click.echo(json.dumps(result, indent=2))
-    
+
     asyncio.run(_generate())
 
+
 @cli.command()
-@click.argument('service_name')
-@click.option('--type', 'integration_type', default='api', help='Integration type')
-@click.option('--no-error-handling', is_flag=True, help='Skip error handling')
-@click.option('--no-tests', is_flag=True, help='Skip test generation')
+@click.argument("service_name")
+@click.option("--type", "integration_type", default="api", help="Integration type")
+@click.option("--no-error-handling", is_flag=True, help="Skip error handling")
+@click.option("--no-tests", is_flag=True, help="Skip test generation")
 def integrate(service_name, integration_type, no_error_handling, no_tests):
     """Create integration with external service"""
+
     async def _integrate():
         await orchestrator.initialize()
         result = await orchestrator.integrate_service(
             service_name=service_name,
             integration_type=integration_type,
             include_error_handling=not no_error_handling,
-            include_tests=not no_tests
+            include_tests=not no_tests,
         )
         click.echo(json.dumps(result, indent=2))
-    
+
     asyncio.run(_integrate())
 
+
 @cli.command()
-@click.option('--types', multiple=True, 
-              default=['unit_tests', 'integration_tests'],
-              help='Types of tests to generate')
-@click.option('--coverage', default=0.9, help='Target coverage')
-@click.option('--no-edge-cases', is_flag=True, help='Skip edge case tests')
+@click.option(
+    "--types",
+    multiple=True,
+    default=["unit_tests", "integration_tests"],
+    help="Types of tests to generate",
+)
+@click.option("--coverage", default=0.9, help="Target coverage")
+@click.option("--no-edge-cases", is_flag=True, help="Skip edge case tests")
 def generate_tests(types, coverage, no_edge_cases):
     """Generate comprehensive test suite"""
+
     async def _generate():
         await orchestrator.initialize()
         result = await orchestrator.generate_tests(
             test_types=list(types),
             target_coverage=coverage,
-            include_edge_cases=not no_edge_cases
+            include_edge_cases=not no_edge_cases,
         )
         click.echo(json.dumps(result, indent=2))
-    
+
     asyncio.run(_generate())
+
 
 @cli.command()
 def status():
     """Get orchestrator status"""
+
     async def _status():
         await orchestrator.initialize()
         result = await orchestrator.get_status()
         click.echo(json.dumps(result, indent=2))
-    
+
     asyncio.run(_status())
 
+
 @cli.command()
-@click.option('--identify', default='friction-points', 
-              help='What to identify in usage analysis')
-@click.option('--generate-solutions', is_flag=True, help='Generate solutions')
-@click.option('--implement-top', type=int, default=0, 
-              help='Number of top solutions to implement')
+@click.option(
+    "--identify", default="friction-points", help="What to identify in usage analysis"
+)
+@click.option("--generate-solutions", is_flag=True, help="Generate solutions")
+@click.option(
+    "--implement-top", type=int, default=0, help="Number of top solutions to implement"
+)
 def analyze_usage(identify, generate_solutions, implement_top):
     """Analyze usage and suggest improvements"""
+
     async def _analyze():
         await orchestrator.initialize()
-        
+
         # Analyze usage
         issues = await orchestrator.analyze_usage(identify)
         click.echo(f"Found {len(issues)} {identify}:")
         for issue in issues:
             click.echo(f"  - {issue['location']}: {issue['severity']} severity")
-        
+
         if generate_solutions:
             solutions = await orchestrator.generate_solutions(issues)
             click.echo(f"\nGenerated {len(solutions)} solutions:")
             for i, solution in enumerate(solutions):
                 click.echo(f"  {i+1}. {solution['proposed_solution']}")
-                click.echo(f"     Impact: {solution['impact']}, Time: {solution['implementation_time']}")
-            
+                click.echo(
+                    f"     Impact: {solution['impact']}, Time: {solution['implementation_time']}"
+                )
+
             if implement_top > 0:
                 click.echo(f"\nImplementing top {implement_top} solutions...")
                 for solution in solutions[:implement_top]:
                     # Implement solution
                     result = await orchestrator.develop_feature(
                         feature_name=f"fix_{solution['problem']['location']}",
-                        requirements={"solution": solution}
+                        requirements={"solution": solution},
                     )
                     click.echo(f"  ✓ Implemented: {solution['proposed_solution']}")
-    
+
     asyncio.run(_analyze())
+
 
 @cli.group()
 def init():
     """Initialize Claude Code environment"""
     pass
 
+
 @init.command()
-@click.option('--architecture', default='microservices', 
-              type=click.Choice(['microservices', 'monolithic', 'serverless']))
-@click.option('--stack', default='python-fastapi-react')
-@click.option('--features', multiple=True, 
-              default=['ai-agents', 'voice-input', 'multi-channel-publishing'])
+@click.option(
+    "--architecture",
+    default="microservices",
+    type=click.Choice(["microservices", "monolithic", "serverless"]),
+)
+@click.option("--stack", default="python-fastapi-react")
+@click.option(
+    "--features",
+    multiple=True,
+    default=["ai-agents", "voice-input", "multi-channel-publishing"],
+)
 def kindlemint(architecture, stack, features):
     """Bootstrap KindleMint project"""
+
     async def _init():
         click.echo(f"Initializing KindleMint with {architecture} architecture...")
         click.echo(f"Stack: {stack}")
         click.echo(f"Features: {', '.join(features)}")
-        
+
         # Create project structure
         project_structure = {
             "src/": {
@@ -228,49 +267,51 @@ def kindlemint(architecture, stack, features):
             ".claude_code/": {
                 "workflows/": {},
                 "templates/": {},
-            }
+            },
         }
-        
+
         # Create directories
         for path, content in project_structure.items():
             Path(path).mkdir(parents=True, exist_ok=True)
             if isinstance(content, dict):
                 _create_structure(Path(path), content)
-        
+
         click.echo("✓ Project structure created")
-        
+
         # Initialize orchestrator
         await orchestrator.initialize()
-        
+
         # Generate initial agents
         for feature in features:
-            if feature == 'ai-agents':
+            if feature == "ai-agents":
                 await orchestrator.create_agent(
                     agent_type="content-generator",
-                    capabilities=["content-generation", "seo-optimization"]
+                    capabilities=["content-generation", "seo-optimization"],
                 )
                 click.echo("✓ Content generator agent created")
-            
-            elif feature == 'voice-input':
+
+            elif feature == "voice-input":
                 await orchestrator.develop_feature(
                     feature_name="voice_to_book",
-                    requirements={"input": "voice", "output": "book"}
+                    requirements={"input": "voice", "output": "book"},
                 )
                 click.echo("✓ Voice-to-book feature created")
-            
-            elif feature == 'multi-channel-publishing':
+
+            elif feature == "multi-channel-publishing":
                 await orchestrator.develop_feature(
                     feature_name="multi_channel_publisher",
-                    requirements={"channels": ["kdp", "social", "email"]}
+                    requirements={"channels": ["kdp", "social", "email"]},
                 )
                 click.echo("✓ Multi-channel publisher created")
-        
+
         click.echo("\n✅ KindleMint initialized successfully!")
         click.echo("\nNext steps:")
-        click.echo("  1. ./claude-code create-agent --type marketing-specialist --capabilities market-analysis")
+        click.echo(
+            "  1. ./claude-code create-agent --type marketing-specialist --capabilities market-analysis"
+        )
         click.echo("  2. ./claude-code develop-feature affiliate_integration")
         click.echo("  3. ./claude-code optimize --type all")
-    
+
     def _create_structure(base_path, structure):
         for name, content in structure.items():
             path = base_path / name
@@ -279,50 +320,53 @@ def kindlemint(architecture, stack, features):
                 _create_structure(path, content)
             else:
                 path.write_text(content)
-    
+
     asyncio.run(_init())
+
 
 @cli.group()
 def create():
     """Create various components"""
     pass
 
+
 @create.command()
-@click.option('--agents', multiple=True, required=True, help='Agents to include')
-@click.option('--orchestration', default='parallel-with-aggregation')
-@click.option('--monitoring', default='weights-and-biases')
+@click.option("--agents", multiple=True, required=True, help="Agents to include")
+@click.option("--orchestration", default="parallel-with-aggregation")
+@click.option("--monitoring", default="weights-and-biases")
 def moa(agents, orchestration, monitoring):
     """Create Mixture of Agents implementation"""
+
     async def _create_moa():
         await orchestrator.initialize()
-        
+
         click.echo(f"Creating MoA with agents: {', '.join(agents)}")
-        
+
         # Create each agent
         for agent in agents:
             result = await orchestrator.create_agent(
                 agent_type=agent,
                 capabilities=[f"{agent}-analysis", f"{agent}-generation"],
-                framework="langchain"
+                framework="langchain",
             )
             click.echo(f"✓ Created {agent} agent")
-        
+
         # Create orchestration layer
         moa_requirements = {
             "agents": list(agents),
             "orchestration_type": orchestration,
-            "monitoring": monitoring
+            "monitoring": monitoring,
         }
-        
+
         result = await orchestrator.develop_feature(
-            feature_name="moa_orchestrator",
-            requirements=moa_requirements
+            feature_name="moa_orchestrator", requirements=moa_requirements
         )
-        
+
         click.echo(f"✓ MoA orchestrator created")
         click.echo(f"\nMoA implementation complete!")
-    
+
     asyncio.run(_create_moa())
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cli()

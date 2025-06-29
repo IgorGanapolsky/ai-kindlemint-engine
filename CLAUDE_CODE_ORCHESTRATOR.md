@@ -191,7 +191,7 @@ phases:
       - type: code_analysis
         config:
           metrics: [complexity, coverage, security]
-  
+
   - name: Implementation
     tasks:
       - type: feature_development

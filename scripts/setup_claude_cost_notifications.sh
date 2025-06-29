@@ -31,7 +31,7 @@ add_cron_job() {
     local schedule=$1
     local command=$2
     local comment=$3
-    
+
     # Check if cron job already exists
     if crontab -l 2>/dev/null | grep -q "$comment"; then
         echo "✓ Cron job already exists: $comment"

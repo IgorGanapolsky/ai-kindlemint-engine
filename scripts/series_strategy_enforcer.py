@@ -5,108 +5,118 @@ Ensures every series directory has a comprehensive SERIES_STRATEGY_COMPLETE.md f
 This is a CRITICAL requirement for all book series production
 """
 
-import os
 import json
-from pathlib import Path
+import os
 from datetime import datetime
+from pathlib import Path
 
 
 class SeriesStrategyEnforcer:
     """Enforce series strategy requirements across all series directories"""
-    
+
     def __init__(self, base_path: Path = None):
         if base_path is None:
-            self.base_path = Path(__file__).parent.parent / "books" / "active_production"
+            self.base_path = (
+                Path(__file__).parent.parent / "books" / "active_production"
+            )
         else:
             self.base_path = base_path
-        
+
         self.required_file = "SERIES_STRATEGY_COMPLETE.md"
         self.violations = []
         self.compliant_series = []
-    
+
     def scan_all_series(self):
         """Scan all series directories for strategy compliance"""
         print("🔍 Scanning all series directories for strategy compliance...")
-        
+
         if not self.base_path.exists():
             print(f"❌ Base path not found: {self.base_path}")
             return False
-        
+
         for item in self.base_path.iterdir():
-            if item.is_dir() and not item.name.startswith('.'):
+            if item.is_dir() and not item.name.startswith("."):
                 self.check_series_compliance(item)
-        
+
         return len(self.violations) == 0
-    
+
     def check_series_compliance(self, series_dir: Path):
         """Check if a single series directory has required strategy file"""
         series_name = series_dir.name
         strategy_file = series_dir / self.required_file
-        
+
         if strategy_file.exists():
             print(f"✅ {series_name}: Strategy file found")
             self.compliant_series.append(series_name)
         else:
             print(f"❌ {series_name}: Missing {self.required_file}")
-            self.violations.append({
-                'series': series_name,
-                'path': str(series_dir),
-                'missing_file': str(strategy_file)
-            })
-    
+            self.violations.append(
+                {
+                    "series": series_name,
+                    "path": str(series_dir),
+                    "missing_file": str(strategy_file),
+                }
+            )
+
     def generate_violation_report(self):
         """Generate detailed report of compliance violations"""
         if not self.violations:
             print("\n🎉 ALL SERIES ARE COMPLIANT!")
-            print(f"✅ {len(self.compliant_series)} series have complete strategy files")
+            print(
+                f"✅ {len(self.compliant_series)} series have complete strategy files"
+            )
             return
-        
+
         print(f"\n🚨 COMPLIANCE VIOLATIONS FOUND!")
         print(f"❌ {len(self.violations)} series missing strategy files")
         print(f"✅ {len(self.compliant_series)} series compliant")
-        
+
         print("\n📋 VIOLATIONS DETAIL:")
         for violation in self.violations:
             print(f"  • {violation['series']}")
             print(f"    Path: {violation['path']}")
             print(f"    Missing: {violation['missing_file']}")
-        
+
         print(f"\n🛠️  REQUIRED ACTION:")
         print(f"Create {self.required_file} for each violated series directory")
-        print(f"Each file must contain comprehensive series strategy as per requirements")
-    
+        print(
+            f"Each file must contain comprehensive series strategy as per requirements"
+        )
+
     def auto_generate_template_strategies(self):
         """Generate template strategy files for non-compliant series"""
         if not self.violations:
             print("No violations found - no templates needed")
             return
-        
-        print(f"\n🔧 Auto-generating strategy templates for {len(self.violations)} series...")
-        
+
+        print(
+            f"\n🔧 Auto-generating strategy templates for {len(self.violations)} series..."
+        )
+
         for violation in self.violations:
-            series_name = violation['series']
-            series_path = Path(violation['path'])
-            
+            series_name = violation["series"]
+            series_path = Path(violation["path"])
+
             template_content = self.generate_strategy_template(series_name)
-            
+
             strategy_file = series_path / self.required_file
-            with open(strategy_file, 'w') as f:
+            with open(strategy_file, "w") as f:
                 f.write(template_content)
-            
+
             print(f"✅ Generated strategy template for {series_name}")
-    
+
     def generate_strategy_template(self, series_name: str) -> str:
         """Generate a comprehensive strategy template for a series"""
-        clean_name = series_name.replace('_', ' ').title()
-        
+        clean_name = series_name.replace("_", " ").title()
+
         template = f"""# 🎯 {clean_name.upper()} - COMPLETE SERIES STRATEGY
 
 ## 📚 SERIES OVERVIEW
 
-**Series Name:** {clean_name}  
-**Target:** [Define target audience - seniors, professionals, students, etc.]  
-**Market:** [Define market segment - puzzle enthusiasts, educational, entertainment]  
-**Unique Positioning:** [Define what makes this series unique and compelling]  
+**Series Name:** {clean_name}
+**Target:** [Define target audience - seniors, professionals, students, etc.]
+**Market:** [Define market segment - puzzle enthusiasts, educational, entertainment]
+**Unique Positioning:** [Define what makes this series unique and compelling]
 
 ---
 
@@ -361,88 +371,92 @@ This comprehensive strategy provides the framework for building a successful, pr
 **DUE DATE:** [SET COMPLETION DEADLINE]
 """
         return template
-    
+
     def validate_strategy_completeness(self, strategy_file: Path) -> bool:
         """Validate that a strategy file is complete and not just a template"""
         if not strategy_file.exists():
             return False
-        
-        with open(strategy_file, 'r') as f:
+
+        with open(strategy_file, "r") as f:
             content = f.read()
-        
+
         # Check for template indicators
         template_indicators = [
             "[WRITE COMPELLING",
             "[Define target audience",
             "[TEMPLATE - REQUIRES COMPLETION]",
             "[X.97]",
-            "[Amount]"
+            "[Amount]",
         ]
-        
+
         for indicator in template_indicators:
             if indicator in content:
                 return False
-        
+
         # Check for required sections
         required_sections = [
             "SERIES OVERVIEW",
             "KDP SERIES SETUP",
             "PRICING & REVENUE STRATEGY",
             "MARKETING STRATEGY",
-            "SUCCESS METRICS"
+            "SUCCESS METRICS",
         ]
-        
+
         for section in required_sections:
             if section not in content:
                 return False
-        
+
         return True
-    
+
     def enforce_compliance(self, auto_generate: bool = True):
         """Main enforcement method - scan and ensure compliance"""
         print("🔒 ENFORCING SERIES STRATEGY COMPLIANCE")
         print("=" * 50)
-        
+
         # Scan for compliance
         is_compliant = self.scan_all_series()
-        
+
         # Generate report
         self.generate_violation_report()
-        
+
         if not is_compliant and auto_generate:
             self.auto_generate_template_strategies()
             print(f"\n✅ Template strategies generated for all non-compliant series")
-            print(f"⚠️  IMPORTANT: These are templates and MUST be completed before series launch!")
-        
+            print(
+                f"⚠️  IMPORTANT: These are templates and MUST be completed before series launch!"
+            )
+
         return is_compliant
-    
+
     def generate_compliance_summary(self):
         """Generate summary for management reporting"""
         total_series = len(self.compliant_series) + len(self.violations)
-        compliance_rate = len(self.compliant_series) / total_series * 100 if total_series > 0 else 0
-        
+        compliance_rate = (
+            len(self.compliant_series) / total_series * 100 if total_series > 0 else 0
+        )
+
         summary = {
-            'timestamp': datetime.now().isoformat(),
-            'total_series': total_series,
-            'compliant_series': len(self.compliant_series),
-            'violations': len(self.violations),
-            'compliance_rate': compliance_rate,
-            'compliant_list': self.compliant_series,
-            'violation_list': [v['series'] for v in self.violations]
+            "timestamp": datetime.now().isoformat(),
+            "total_series": total_series,
+            "compliant_series": len(self.compliant_series),
+            "violations": len(self.violations),
+            "compliance_rate": compliance_rate,
+            "compliant_list": self.compliant_series,
+            "violation_list": [v["series"] for v in self.violations],
         }
-        
+
         # Save summary
         summary_file = self.base_path.parent / "series_compliance_report.json"
-        with open(summary_file, 'w') as f:
+        with open(summary_file, "w") as f:
             json.dump(summary, f, indent=2)
-        
+
         print(f"\n📊 COMPLIANCE SUMMARY:")
         print(f"  Total Series: {total_series}")
         print(f"  Compliant: {len(self.compliant_series)}")
         print(f"  Violations: {len(self.violations)}")
         print(f"  Compliance Rate: {compliance_rate:.1f}%")
         print(f"  Summary saved: {summary_file}")
-        
+
         return summary
 
 
@@ -452,18 +466,20 @@ def main():
     print("=" * 50)
     print("CRITICAL REQUIREMENT: Every series MUST have SERIES_STRATEGY_COMPLETE.md")
     print("=" * 50)
-    
+
     enforcer = SeriesStrategyEnforcer()
-    
+
     # Enforce compliance
     is_compliant = enforcer.enforce_compliance(auto_generate=True)
-    
+
     # Generate summary
     summary = enforcer.generate_compliance_summary()
-    
+
     if not is_compliant:
         print(f"\n🚨 ACTION REQUIRED:")
-        print(f"Complete the generated strategy templates before proceeding with series production!")
+        print(
+            f"Complete the generated strategy templates before proceeding with series production!"
+        )
         exit(1)
     else:
         print(f"\n🎉 ALL SERIES COMPLIANT - READY FOR PRODUCTION!")

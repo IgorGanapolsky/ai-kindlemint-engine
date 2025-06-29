@@ -6,28 +6,28 @@ Demonstrates the complete transformation of book content into a
 comprehensive content marketing ecosystem.
 """
 
-import sys
 import os
+import sys
 
 # Add the source directory to the path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
 from kindlemint.social.core import demo_social_media_marketing
 
 
 def main():
     """Run the Social Media Marketing demonstration"""
-    
+
     print("🚀 KindleMint Social Media Marketing Podcast Integration Demo")
     print("=" * 60)
     print()
     print("Transforming book content into a complete content marketing ecosystem...")
     print()
-    
+
     try:
         # Run the demonstration
         results = demo_social_media_marketing()
-        
+
         print("\n" + "=" * 60)
         print("✅ TRANSFORMATION COMPLETE!")
         print()
@@ -43,11 +43,11 @@ def main():
         print()
         print("📁 Check 'social_media_marketing_results.json' for complete export.")
         print()
-        
+
     except Exception as e:
         print(f"❌ Error: {e}")
         return 1
-    
+
     return 0
 
 

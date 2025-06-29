@@ -5,7 +5,7 @@
 *For: Business groups, entrepreneur meetups*
 **Key Insight**: While everyone chases tech startups, the traditional puzzle market offers stable, profitable opportunities with proven demand.
 
-### 🧠 Puzzles as Brain Medicine: The Science of Cognitive Benefits  
+### 🧠 Puzzles as Brain Medicine: The Science of Cognitive Benefits
 *For: Senior organizations, health & wellness groups*
 **Key Insight**: Research proves crosswords provide better cognitive benefits than expensive brain training apps.
 
@@ -46,7 +46,7 @@ Signed copies of The 15-Minute Crossword Secret That Retirement Homes Don't Want
 
 ## Contact
 **Email**: [AUTHOR EMAIL]
-**Phone**: [AUTHOR PHONE]  
+**Phone**: [AUTHOR PHONE]
 **Website**: [AUTHOR WEBSITE]
 **LinkedIn**: [LINKEDIN PROFILE]
 

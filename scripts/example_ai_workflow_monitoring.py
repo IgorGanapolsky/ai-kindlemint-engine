@@ -138,7 +138,7 @@ class MonitoredCrosswordWorkflow:
         }
 
         return f"""Generate 3 crossword clues for the word "{word.upper()}".
-        
+
 Difficulty level: {difficulty} ({difficulty_guidelines.get(difficulty, 'medium')})
 Word length: {len(word)} letters
 
