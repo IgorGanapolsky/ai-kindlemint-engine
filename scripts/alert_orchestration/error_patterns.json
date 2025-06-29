@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "last_updated": "2025-06-28T00:00:00Z",
   "description": "Known error patterns for automated detection and resolution",
-  "pattern_count": 24,
+  "pattern_count": 27,
   "patterns": [
     {
       "id": "db_connection_timeout",
@@ -433,6 +433,60 @@
         "common_causes": ["storage issues", "permission problems", "network timeouts"],
         "typical_duration": "30-120 minutes",
         "business_impact": "low",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "qa_validation_failure",
+      "name": "QA Validation Failure",
+      "pattern": "(?:qa|validation|book).{0,50}(?:failed|failure|error)|(?:failed|failure).{0,50}(?:qa|validation)",
+      "category": "validation",
+      "severity": "high",
+      "confidence": 0.85,
+      "frequency": 25,
+      "last_seen": "2025-06-29T00:00:00Z",
+      "resolution_strategy": "qa_validation_fix",
+      "similar_errors": ["test_failure", "build_failure"],
+      "metadata": {
+        "common_causes": ["missing metadata", "incorrect page count", "rendering issues", "missing solutions"],
+        "typical_duration": "15-45 minutes",
+        "business_impact": "medium",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "crossword_validation_error",
+      "name": "Crossword Book Validation Error",
+      "pattern": "(?:crossword|puzzle).{0,50}(?:validation|qa|failed)|Large_Print_Crossword.{0,30}(?:failed|error)",
+      "category": "validation",
+      "severity": "medium",
+      "confidence": 0.9,
+      "frequency": 15,
+      "last_seen": "2025-06-29T00:00:00Z",
+      "resolution_strategy": "qa_validation_fix",
+      "similar_errors": ["qa_validation_failure", "sudoku_validation_error"],
+      "metadata": {
+        "common_causes": ["clue rendering", "grid issues", "metadata missing", "page formatting"],
+        "typical_duration": "20-30 minutes",
+        "business_impact": "medium",
+        "auto_resolvable": true
+      }
+    },
+    {
+      "id": "sudoku_validation_error",
+      "name": "Sudoku Book Validation Error",
+      "pattern": "(?:sudoku).{0,50}(?:validation|qa|failed)|Sudoku.{0,30}(?:failed|error)",
+      "category": "validation",
+      "severity": "medium",
+      "confidence": 0.9,
+      "frequency": 10,
+      "last_seen": "2025-06-29T00:00:00Z",
+      "resolution_strategy": "qa_validation_fix",
+      "similar_errors": ["qa_validation_failure", "crossword_validation_error"],
+      "metadata": {
+        "common_causes": ["clue visibility", "solution errors", "difficulty progression", "page count"],
+        "typical_duration": "15-25 minutes",
+        "business_impact": "medium",
         "auto_resolvable": true
       }
     }

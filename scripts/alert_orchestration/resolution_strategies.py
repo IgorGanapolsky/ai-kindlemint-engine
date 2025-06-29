@@ -586,6 +586,14 @@ class StrategyRegistry:
             ServiceRestartStrategy()
         ]
         
+        # Register QA validation strategy if available
+        try:
+            from .qa_validation_strategy import QAValidationStrategy
+            strategies.append(QAValidationStrategy())
+            logger.info("QA validation strategy loaded")
+        except ImportError:
+            logger.warning("QA validation strategy not available")
+        
         for strategy in strategies:
             self.register_strategy(strategy)
     

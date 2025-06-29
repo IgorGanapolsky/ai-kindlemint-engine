@@ -214,6 +214,22 @@ class SlackBot:
                            include_actions: bool) -> List[Dict]:
         """Create Slack blocks for alert message"""
         
+        # Check if this is a QA validation alert and use specialized template
+        if alert_type in ["qa_validation", "validation", "qa_failure"]:
+            try:
+                from .qa_notification_templates import qa_validation_failure_blocks
+                return qa_validation_failure_blocks(alert_data)
+            except ImportError:
+                pass  # Fall back to generic template
+        
+        # Check for QA resolution success
+        if alert_type == "qa_resolution_success":
+            try:
+                from .qa_notification_templates import qa_resolution_success_blocks
+                return qa_resolution_success_blocks(alert_data)
+            except ImportError:
+                pass  # Fall back to generic template
+        
         # Determine emoji and color based on severity
         severity_config = {
             'critical': {'emoji': '🚨', 'color': '#FF0000'},
