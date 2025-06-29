@@ -1,0 +1,51 @@
+{
+  "timestamp": "2025-06-29T14:42:02.770567",
+  "status": "FAILED",
+  "critical_errors": [],
+  "errors": [
+    "\u274c No solutions section found"
+  ],
+  "warnings": [
+    "\u26a0\ufe0f Only 101 pages (expected 200+)"
+  ],
+  "passed": [
+    "\u2705 Visual rendering looks correct (4 pages checked)",
+    "\u2705 Puzzle data consistency OK"
+  ],
+  "visual_validation": {
+    "page_10": {
+      "page": 10,
+      "has_issues": false,
+      "issues": [],
+      "dark_ratio": 0.09081167693155075,
+      "avg_contrast": 170.0
+    },
+    "page_20": {
+      "page": 20,
+      "has_issues": false,
+      "issues": [],
+      "dark_ratio": 0.09029950571185362,
+      "avg_contrast": 170.0
+    },
+    "page_50": {
+      "page": 50,
+      "has_issues": false,
+      "issues": [],
+      "dark_ratio": 0.08279147621193587,
+      "avg_contrast": 170.0
+    },
+    "page_100": {
+      "page": 100,
+      "has_issues": false,
+      "issues": [],
+      "dark_ratio": 0.078470925699407,
+      "avg_contrast": 170.0
+    }
+  },
+  "content_validation": {},
+  "summary": {
+    "reason": "Content/structure errors",
+    "total_checks": 4,
+    "visual_checks": 4
+  }
+}

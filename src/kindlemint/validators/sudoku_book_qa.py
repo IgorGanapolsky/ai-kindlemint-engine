@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """
+DEPRECATED: This validator produces incomplete/misleading results.
+Use scripts/unified_sudoku_qa_validator.py instead!
+
+
 Automated QA Validator for Sudoku Books
 Ensures puzzle books meet quality standards before publication
 """
