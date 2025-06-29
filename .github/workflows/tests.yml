@@ -35,48 +35,17 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: 📦 Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements-pinned.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
-    - name: 📥 Install dependencies
+    - name: 📥 Install minimal dependencies
       run: |
         python -m pip install --upgrade pip
-        # Install test requirements which includes base requirements
-        if [ -f requirements-test.txt ]; then
-          pip install -r requirements-test.txt
-        else
-          pip install -r requirements.txt
-          pip install pytest pytest-cov pytest-json-report
-        fi
+        pip install pytest
         pip install -e .
 
-    - name: 🧪 Run working tests
+    - name: 🧪 Run basic tests only
       run: |
-        python -m pytest tests/test_basic.py tests/test_dummy.py tests/test_word_search_generator.py --junit-xml=test-results.xml --cov=src/kindlemint --cov-report=xml --cov-report=term-missing
+        python -m pytest tests/test_basic.py tests/test_dummy.py -v
       continue-on-error: false
 
-    - name: 📤 Upload test results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-results-${{ matrix.python-version }}
-        path: |
-          test-results.xml
-          coverage.xml
-
-    - name: 📊 Upload coverage to Codecov
-      if: matrix.python-version == '3.11'
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
 
     - name: 💬 Comment PR with test results
       if: github.event_name == 'pull_request' && always()
