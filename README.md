@@ -6,7 +6,7 @@
 [![Test Coverage](https://img.shields.io/badge/Coverage-Generated%20by%20Tests-success)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/tests.yml)
 [![Code Quality](https://img.shields.io/badge/Code%20Quality-SonarCloud%20Ready-blue)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/sonarcloud.yml)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Enabled-blue)](CLAUDE_CODE_ORCHESTRATOR.md)
-[![Sentry](https://img.shields.io/badge/Sentry-Monitoring-362D59)](https://sentry.io)
+[![Sentry](https://img.shields.io/badge/Sentry-Error%20Monitoring-362D59)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions)
 
 ## 🌟 What's New (June 2025)
 
