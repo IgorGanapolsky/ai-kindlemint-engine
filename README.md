@@ -3,8 +3,8 @@
 **Transform expertise into profitable books at 10x speed using AI orchestration, voice-to-book technology, and automated publishing workflows.**
 
 [![Tests](https://github.com/IgorGanapolsky/ai-kindlemint-engine/workflows/Tests/badge.svg)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/gh/IgorGanapolsky/ai-kindlemint-engine/branch/main/graph/badge.svg)](https://codecov.io/gh/IgorGanapolsky/ai-kindlemint-engine)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Enabled-blue)](CLAUDE_CODE_ORCHESTRATOR.md)
 [![Sentry](https://img.shields.io/badge/Sentry-Error%20Monitoring-362D59)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions)
 
