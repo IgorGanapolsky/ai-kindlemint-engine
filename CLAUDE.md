@@ -272,6 +272,7 @@ Do what has been asked; nothing more, nothing less.
 NEVER create files unless they're absolutely necessary for achieving your goal.
 ALWAYS prefer editing an existing file to creating a new one.
 NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+**ALWAYS commit and push your changes** - After making any code changes, you MUST commit them with a descriptive message and push to the repository
 **CRITICAL: ALWAYS DELETE OUTDATED FILES before commit and push - Never keep obsolete versions that could cause confusion**
 **CRITICAL: KDP CATEGORIES - Never hallucinate categories! Always use ACTUAL KDP categories with FULL PATHS including subcategories (e.g., "Crafts, Hobbies & Home > Games & Activities"). KDP allows THREE categories, always provide exactly 3 complete category paths. Verify against actual KDP dropdown menus.**
 **CRITICAL: KDP BOOK TYPE CLASSIFICATIONS - Always specify for every book metadata:**
