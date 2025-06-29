@@ -7,6 +7,13 @@
 - `npm run typecheck`: Run TypeScript type checking
 - `./claude-flow --help`: Show all available commands
 
+## Sentry AI Integration (NEW!)
+- **Automatic PR Review**: `@sentry review` - Triggered automatically on all PRs
+- **Test Generation**: `@sentry generate-test` - Auto-generates tests for new code
+- **Manual PR Check**: `python scripts/alert_orchestration/sentry_ai_orchestrator.py check --pr <PR_NUMBER>`
+- **Monitor All PRs**: `python scripts/alert_orchestration/sentry_ai_orchestrator.py monitor`
+- **Test Automation**: `python scripts/test_sentry_ai_automation.py`
+
 ## Claude Cost Tracking & Slack Notifications
 - `./claude-flow-costs status`: Show current cost status
 - `./claude-flow-costs summary --days 7`: View cost summary

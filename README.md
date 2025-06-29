@@ -46,6 +46,9 @@ python scripts/agent_monitor.py --continuous
 [![GitHub Actions](https://github.com/IgorGanapolsky/ai-kindlemint-engine/workflows/QA%20Validation%20Pipeline/badge.svg)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions)
 [![Test Coverage](https://img.shields.io/badge/Coverage-95%25-brightgreen)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Enabled-blue)](CLAUDE_CODE_ORCHESTRATOR.md)
+[![Sentry](https://img.shields.io/badge/Sentry-Monitoring-362D59)](https://sentry.io)
+[![Sentry AI](https://img.shields.io/badge/Sentry%20AI-Enabled-FF4444)](https://github.com/apps/sentry-seer)
+[![Error Tracking](https://img.shields.io/badge/Error%20Tracking-Active-success)](https://sentry.io)
 
 ## 🌟 What's New (June 2025)
 

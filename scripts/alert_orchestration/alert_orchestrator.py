@@ -22,6 +22,7 @@ from .sentry_monitor import SentryMonitor, SentryError
 from .slack_handler import SlackBot, SlackWebhookHandler
 from .error_analyzer import ErrorAnalyzer, ErrorClassification
 from .auto_resolver import AutoResolver, ResolutionResult
+from .sentry_ai_orchestrator import SentryAIOrchestrator, SentryAIAgent
 
 # Configuration
 logging.basicConfig(level=logging.INFO)
@@ -92,6 +93,8 @@ class AlertOrchestrator:
         self.slack_bot = None
         self.error_analyzer = None
         self.auto_resolver = None
+        self.sentry_ai_orchestrator = None
+        self.sentry_ai_agent = None
         
         # State management
         self.active_alerts: Dict[str, Dict] = {}
@@ -160,6 +163,11 @@ class AlertOrchestrator:
                 self.auto_resolver = AutoResolver(dry_run=self.config.dry_run)
                 logger.info("Auto resolver initialized")
             
+            # Initialize Sentry AI orchestrator
+            self.sentry_ai_orchestrator = SentryAIOrchestrator()
+            self.sentry_ai_agent = SentryAIAgent()
+            logger.info("Sentry AI orchestrator initialized")
+            
         except Exception as e:
             logger.error(f"Failed to initialize components: {e}")
             raise
@@ -177,6 +185,9 @@ class AlertOrchestrator:
             # Start continuous monitoring
             if self.sentry_monitor:
                 monitoring_task = asyncio.create_task(self._monitoring_loop())
+            
+            # Start PR monitoring for Sentry AI
+            pr_monitoring_task = asyncio.create_task(self._pr_monitoring_loop())
             
             # Start resolution processing
             resolution_task = asyncio.create_task(self._resolution_loop())
@@ -235,6 +246,45 @@ class AlertOrchestrator:
             except Exception as e:
                 logger.error(f"Error in monitoring loop: {e}")
                 await asyncio.sleep(self.config.monitoring_interval)
+    
+    async def _pr_monitoring_loop(self):
+        """Monitor pull requests for automated Sentry AI quality checks"""
+        logger.info("Starting PR monitoring loop...")
+        
+        while not self.shutdown_requested:
+            try:
+                # Monitor active PRs
+                if self.sentry_ai_orchestrator:
+                    pr_statuses = await self.sentry_ai_orchestrator.monitor_active_prs()
+                    
+                    for pr_status in pr_statuses:
+                        pr_number = pr_status.get('pr_number')
+                        
+                        # Check if PR needs Sentry AI processing
+                        if (not pr_status.get('has_sentry_review') and 
+                            not pr_status.get('is_processing') and
+                            'sentry-ai-skip' not in pr_status.get('labels', [])):
+                            
+                            logger.info(f"PR #{pr_number} needs Sentry AI review")
+                            
+                            # Process through Sentry AI agent
+                            task = {
+                                'type': 'check_pr',
+                                'pr_number': pr_number
+                            }
+                            
+                            result = await self.sentry_ai_agent.process_task(task)
+                            
+                            # Send notification if issues found
+                            if result.get('summary', {}).get('action_required'):
+                                await self._notify_pr_issues(pr_number, result)
+                
+                # Wait for next PR check cycle (check PRs every 10 minutes)
+                await asyncio.sleep(600)
+                
+            except Exception as e:
+                logger.error(f"Error in PR monitoring loop: {e}")
+                await asyncio.sleep(600)
     
     async def _process_errors(self, errors: List[SentryError]):
         """Process a batch of errors"""
@@ -469,6 +519,65 @@ class AlertOrchestrator:
             
         except Exception as e:
             logger.error(f"Failed to escalate alert: {e}")
+    
+    async def _notify_pr_issues(self, pr_number: int, analysis_result: Dict[str, Any]):
+        """Send notification about PR quality issues found by Sentry AI"""
+        try:
+            summary = analysis_result.get('summary', {})
+            
+            # Prepare notification data
+            notification_data = {
+                'title': f"PR #{pr_number} - Sentry AI Quality Check",
+                'description': summary.get('recommendation', 'Quality check completed'),
+                'pr_number': pr_number,
+                'quality_score': summary.get('quality_score', 0),
+                'fields': []
+            }
+            
+            # Add analysis details
+            for step in analysis_result.get('steps', []):
+                if step['step'] == 'analyze_feedback':
+                    feedback = step['result']
+                    notification_data['fields'].extend([
+                        {
+                            'title': 'Issues Found',
+                            'value': str(feedback.get('issues_found', 0)),
+                            'short': True
+                        },
+                        {
+                            'title': 'Tests Generated',
+                            'value': str(feedback.get('tests_generated', 0)),
+                            'short': True
+                        },
+                        {
+                            'title': 'Critical Issues',
+                            'value': str(len(feedback.get('critical_issues', []))),
+                            'short': True
+                        }
+                    ])
+            
+            # Determine severity based on recommendation
+            severity = 'info'
+            if 'BLOCK' in summary.get('recommendation', ''):
+                severity = 'critical'
+            elif 'REVIEW' in summary.get('recommendation', ''):
+                severity = 'warning'
+            
+            # Send to appropriate channel
+            channel = self.config.notification_channels.get('pr_reviews', '#code-review')
+            
+            if self.slack_bot:
+                self.slack_bot.send_alert(
+                    channel=channel,
+                    alert_data=notification_data,
+                    alert_type="pr_quality",
+                    severity=severity
+                )
+            
+            logger.info(f"Sent PR quality notification for PR #{pr_number}")
+            
+        except Exception as e:
+            logger.error(f"Failed to notify PR issues: {e}")
     
     def _get_escalation_reason(self, error: SentryError, classification: ErrorClassification) -> str:
         """Get reason for escalation"""
