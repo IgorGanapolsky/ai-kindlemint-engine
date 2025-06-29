@@ -16,8 +16,35 @@ from typing import Any, Callable, Dict, List, Optional, Set, Union
 from urllib.parse import parse_qs, urlparse
 
 import requests
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+
+# Make FastAPI optional for CI environments
+try:
+    from fastapi import FastAPI, HTTPException, Request
+    from fastapi.responses import JSONResponse
+    FASTAPI_AVAILABLE = True
+except ImportError:
+    FASTAPI_AVAILABLE = False
+    # Mock classes for when FastAPI is not available
+    class FastAPI:
+        def __init__(self, *args, **kwargs):
+            pass
+        def post(self, *args, **kwargs):
+            def decorator(func):
+                return func
+            return decorator
+    
+    class HTTPException(Exception):
+        def __init__(self, status_code, detail):
+            self.status_code = status_code
+            self.detail = detail
+    
+    class Request:
+        pass
+    
+    class JSONResponse:
+        def __init__(self, content, status_code=200):
+            self.content = content
+            self.status_code = status_code
 
 # Configuration
 logging.basicConfig(level=logging.INFO)

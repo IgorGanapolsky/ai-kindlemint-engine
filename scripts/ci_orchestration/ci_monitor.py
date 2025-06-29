@@ -8,6 +8,7 @@ import sys
 import json
 import time
 import logging
+import subprocess
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Tuple
 import requests
@@ -54,16 +55,43 @@ class CIMonitor:
             return []
     
     def get_workflow_logs(self, run_id: int) -> Optional[str]:
-        """Download logs for a specific workflow run"""
-        url = f"{self.api_base}/actions/runs/{run_id}/logs"
-        
+        """Download logs for a specific workflow run using GitHub CLI"""
         try:
-            response = requests.get(url, headers=self.headers)
-            response.raise_for_status()
-            return response.text
-        except requests.exceptions.RequestException as e:
+            # Use GitHub CLI to get detailed logs
+            cmd = f"gh run view {run_id} --repo {self.repo_owner}/{self.repo_name} --log"
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=60)
+            
+            if result.returncode == 0:
+                return result.stdout
+            else:
+                logger.error(f"Failed to fetch logs for run {run_id}: {result.stderr}")
+                # Fallback to API if CLI fails
+                return self._get_workflow_logs_api_fallback(run_id)
+        except subprocess.TimeoutExpired:
+            logger.error(f"Timeout fetching logs for run {run_id}")
+            return None
+        except Exception as e:
             logger.error(f"Failed to fetch logs for run {run_id}: {e}")
             return None
+    
+    def _get_workflow_logs_api_fallback(self, run_id: int) -> Optional[str]:
+        """Fallback method to get basic log info from API"""
+        # Get job details to at least have some information
+        jobs = self.get_job_details(run_id)
+        log_summary = []
+        
+        for job in jobs:
+            if job.get('conclusion') == 'failure':
+                log_summary.append(f"Job: {job.get('name', 'Unknown')}")
+                log_summary.append(f"Status: {job.get('conclusion', 'Unknown')}")
+                
+                # Get steps to find which step failed
+                steps = job.get('steps', [])
+                for step in steps:
+                    if step.get('conclusion') == 'failure':
+                        log_summary.append(f"Failed step: {step.get('name', 'Unknown')}")
+        
+        return '\n'.join(log_summary) if log_summary else None
     
     def get_job_details(self, run_id: int) -> List[Dict]:
         """Get job details for a workflow run"""
