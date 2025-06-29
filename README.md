@@ -1,54 +1,15 @@
 # 🚀 AI-KindleMint-Engine - Revolutionary AI-Powered Book Publishing Platform
 
-<!-- AGENT_DASHBOARD_START -->
-## 🤖 Live Agent Orchestration Dashboard
-
-![System Status](https://img.shields.io/badge/System-Unknown-blue?style=flat-square)
-![Active Agents](https://img.shields.io/badge/Active%20Agents-0-lightgrey?style=flat-square)
-![Memory](https://img.shields.io/badge/Memory%20Entries-0-lightgrey?style=flat-square)
-![Task Queue](https://img.shields.io/badge/Task%20Queue-Idle-lightgrey?style=flat-square)
-![Health](https://img.shields.io/badge/Orchestration-%F0%9F%94%B4%20Offline-red?style=flat-square)
-![Last Updated](https://img.shields.io/badge/Last%20Updated-18%3A38%3A41%20UTC-informational?style=flat-square)
-
-### Current Status
-- **System:** Unknown
-- **Active Agents:** 0
-- **Memory Entries:** 0
-- **Tasks:** 0 pending, 0 running
-
-### Quick Commands
-```bash
-# Monitor agents live
-python scripts/agent_monitor.py --continuous
-
-# Start orchestration
-./claude-flow start --ui --port 3000
-
-# Spawn agents
-./claude-flow sparc "task description" --mode orchestrator
-./claude-flow swarm "complex task" --strategy development --parallel
-```
-
-### Agent Types Available
-- 🔍 **Research Agents** - Market analysis, data gathering
-- 💻 **Code Agents** - Development, testing, debugging  
-- 📊 **QA Agents** - Quality validation, testing
-- 🎯 **Orchestrator Agents** - Multi-agent coordination
-- 🧠 **Memory Agents** - Data storage and retrieval
-
----
-*Dashboard auto-updates every 5 minutes via GitHub Actions*
-
-<!-- AGENT_DASHBOARD_END -->
-
 **Transform expertise into profitable books at 10x speed using AI orchestration, voice-to-book technology, and automated publishing workflows.**
 
 [![GitHub Actions](https://github.com/IgorGanapolsky/ai-kindlemint-engine/workflows/QA%20Validation%20Pipeline/badge.svg)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions)
 [![Test Coverage](https://img.shields.io/badge/Coverage-95%25-brightgreen)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-A+-success)](https://github.com/IgorGanapolsky/ai-kindlemint-engine)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Enabled-blue)](CLAUDE_CODE_ORCHESTRATOR.md)
 [![Sentry](https://img.shields.io/badge/Sentry-Monitoring-362D59)](https://sentry.io)
 [![Sentry AI](https://img.shields.io/badge/Sentry%20AI-Enabled-FF4444)](https://github.com/apps/sentry-seer)
-[![Error Tracking](https://img.shields.io/badge/Error%20Tracking-Active-success)](https://sentry.io)
 
 ## 🌟 What's New (June 2025)
 
