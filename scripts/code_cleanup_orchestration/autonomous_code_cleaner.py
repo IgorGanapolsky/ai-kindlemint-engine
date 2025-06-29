@@ -197,11 +197,12 @@ class AutonomousCodeCleaner:
         
         file_hashes = defaultdict(list)
         
-        # Scan all Python files and other important files
+        # Scan all Python files and other important files including PDFs and images
         for file_path in self.repo_path.rglob('*'):
             if (file_path.is_file() and 
                 not self.is_in_ignored_directory(file_path) and
-                file_path.suffix in ['.py', '.md', '.txt', '.json', '.yaml', '.yml']):
+                file_path.suffix in ['.py', '.md', '.txt', '.json', '.yaml', '.yml', 
+                                   '.pdf', '.png', '.jpg', '.jpeg', '.epub', '.mobi']):
                 
                 try:
                     content_hash = self.get_file_hash(file_path)
@@ -222,10 +223,31 @@ class AutonomousCodeCleaner:
                 remove_files = sorted_files[1:]
                 
                 for remove_file in remove_files:
-                    # Only remove if it's in archive or clearly a duplicate
+                    # Enhanced duplicate removal logic
+                    should_remove = False
+                    
+                    # Always remove if in archive, backup, or temp directories
                     if ('archive' in str(remove_file) or 
                         'backup' in str(remove_file) or
+                        'BACKUP' in str(remove_file) or
                         '.pytest_tmp' in str(remove_file)):
+                        should_remove = True
+                    
+                    # For PDFs and books: Remove if filename suggests it's intermediate/draft
+                    elif remove_file.suffix == '.pdf':
+                        name_lower = remove_file.stem.lower()
+                        if any(x in name_lower for x in ['interior', 'draft', 'old', 'temp', 'backup']):
+                            # But keep if it's the only PDF in the directory
+                            pdf_count = len(list(remove_file.parent.glob('*.pdf')))
+                            if pdf_count > 1:
+                                should_remove = True
+                    
+                    # For duplicate images: Remove if they are backups
+                    elif remove_file.suffix in ['.png', '.jpg', '.jpeg']:
+                        if 'BACKUP' in remove_file.stem or '_backup' in remove_file.stem:
+                            should_remove = True
+                    
+                    if should_remove:
                         try:
                             size = remove_file.stat().st_size
                             remove_file.unlink()

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-06-28T19:36:43.520816",
+  "timestamp": "2025-06-29T12:39:37.308921",
   "files_removed": [
     "venv/lib/python3.13/site-packages/__pycache__",
     "venv/lib/python3.13/site-packages/pip/__pycache__",
@@ -26,14 +26,515 @@
     "src/kindlemint/utils/__pycache__",
     ".git/lfs/tmp/"
   ],
-  "duplicates_removed": [],
-  "bytes_saved": 1962207,
+  "duplicates_removed": [
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_069_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_069.png",
+      "size": 20892
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_096_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_096.png",
+      "size": 18636
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_072_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_072.png",
+      "size": 21310
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_066_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_066.png",
+      "size": 21533
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_099_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_099.png",
+      "size": 17524
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_098_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_098.png",
+      "size": 18544
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_017_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_017.png",
+      "size": 24847
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_020_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_020.png",
+      "size": 25833
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_067_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_067.png",
+      "size": 20247
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_073_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_073.png",
+      "size": 20775
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_075_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_075.png",
+      "size": 20470
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_042_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_042.png",
+      "size": 21517
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_053_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_053.png",
+      "size": 20892
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_064_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_064.png",
+      "size": 20830
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_065_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_065.png",
+      "size": 20326
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_071_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_071.png",
+      "size": 19983
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_059_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_059.png",
+      "size": 20399
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_031_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_031.png",
+      "size": 26117
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_006_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_006.png",
+      "size": 24840
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_058_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_058.png",
+      "size": 21688
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_070_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_070.png",
+      "size": 19940
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_087_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_087.png",
+      "size": 18107
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_078_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_078.png",
+      "size": 20629
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_061_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_061.png",
+      "size": 21836
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_100_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_100.png",
+      "size": 17943
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_056_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_056.png",
+      "size": 21147
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_003_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_003.png",
+      "size": 26017
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_034_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_034.png",
+      "size": 26058
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_048_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_048.png",
+      "size": 20343
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_060_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_060.png",
+      "size": 20686
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_074_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_074.png",
+      "size": 21378
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_049_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_049.png",
+      "size": 19872
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_028_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_028.png",
+      "size": 26359
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_082_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_082.png",
+      "size": 18467
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_093_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_093.png",
+      "size": 18786
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_039_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_039.png",
+      "size": 25859
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_077_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_077.png",
+      "size": 20239
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_063_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_063.png",
+      "size": 20762
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_088_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_088.png",
+      "size": 18918
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_089_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_089.png",
+      "size": 16482
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_062_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_062.png",
+      "size": 20041
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_076_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_076.png",
+      "size": 21032
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_025_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_025.png",
+      "size": 25023
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_012_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_012.png",
+      "size": 24352
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_047_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_047.png",
+      "size": 20843
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_022_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_022.png",
+      "size": 25779
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_015_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_015.png",
+      "size": 24953
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_040_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_040.png",
+      "size": 24876
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_011_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_011.png",
+      "size": 26894
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_005_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_005.png",
+      "size": 24646
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_038_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_038.png",
+      "size": 25148
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_009_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_009.png",
+      "size": 25540
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_004_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_004.png",
+      "size": 25766
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_010_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_010.png",
+      "size": 26791
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_094_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_094.png",
+      "size": 17860
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_085_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_085.png",
+      "size": 17779
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_018_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_018.png",
+      "size": 26707
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_013_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_013.png",
+      "size": 25361
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_007_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_007.png",
+      "size": 24727
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_051_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_051.png",
+      "size": 20828
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_033_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_033.png",
+      "size": 24873
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_080_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_080.png",
+      "size": 20743
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_054_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_054.png",
+      "size": 19671
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_016_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_016.png",
+      "size": 25099
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_002_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_002.png",
+      "size": 27577
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_036_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_036.png",
+      "size": 25476
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_001_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_001.png",
+      "size": 26471
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_027_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_027.png",
+      "size": 25024
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_014_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_014.png",
+      "size": 26008
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_045_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_045.png",
+      "size": 21927
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_091_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_091.png",
+      "size": 18612
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_029_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_029.png",
+      "size": 25619
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_057_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_057.png",
+      "size": 21039
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_030_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_030.png",
+      "size": 25877
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_024_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_024.png",
+      "size": 25418
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_035_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_035.png",
+      "size": 24726
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_019_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_019.png",
+      "size": 27922
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_083_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_083.png",
+      "size": 17406
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_092_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_092.png",
+      "size": 19073
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_032_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_032.png",
+      "size": 25429
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_026_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_026.png",
+      "size": 25638
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_046_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_046.png",
+      "size": 20163
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_097_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_097.png",
+      "size": 17648
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_068_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_068.png",
+      "size": 20559
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_037_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_037.png",
+      "size": 25195
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_023_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_023.png",
+      "size": 26025
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_021_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_021.png",
+      "size": 25014
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_043_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_043.png",
+      "size": 21034
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_052_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_052.png",
+      "size": 20708
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_079_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_079.png",
+      "size": 20258
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_008_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_008.png",
+      "size": 25702
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_086_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_086.png",
+      "size": 19666
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_081_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_081.png",
+      "size": 17357
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_090_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_090.png",
+      "size": 17609
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_084_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_084.png",
+      "size": 18155
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_055_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_055.png",
+      "size": 19593
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_044_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_044.png",
+      "size": 21997
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_050_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_050.png",
+      "size": 22043
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_041_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_041.png",
+      "size": 19377
+    },
+    {
+      "removed": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_095_BACKUP.png",
+      "kept": "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles/puzzles/sudoku_puzzle_095.png",
+      "size": 17492
+    }
+  ],
+  "bytes_saved": 4179407,
   "directories_cleaned": [],
   "summary": {
     "total_files_removed": 24,
-    "total_duplicates_removed": 0,
-    "total_bytes_saved": 1962207,
+    "total_duplicates_removed": 100,
+    "total_bytes_saved": 4179407,
     "total_directories_cleaned": 0,
-    "mb_saved": 1.87
+    "mb_saved": 3.99
   }
 }
