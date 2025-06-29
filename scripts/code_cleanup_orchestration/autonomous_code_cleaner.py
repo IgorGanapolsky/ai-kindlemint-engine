@@ -86,6 +86,9 @@ class AutonomousCodeCleaner:
         # Step 5: Generate cleanup report
         self.generate_cleanup_report()
         
+        # Step 6: Rotate old cleanup reports (keep last 3)
+        self._rotate_old_reports()
+        
         print(f"✅ CLEANUP COMPLETE! Saved {self.cleanup_results['bytes_saved']} bytes")
         return self.cleanup_results
     
@@ -399,6 +402,30 @@ class AutonomousCodeCleaner:
         print(f"Directories cleaned: {summary['total_directories_cleaned']}")
         print(f"Space saved: {summary['mb_saved']} MB")
         print("="*50)
+    
+    def _rotate_old_reports(self):
+        """Keep only the last 3 cleanup reports"""
+        reports_dir = self.repo_path / 'scripts/code_cleanup_orchestration/reports'
+        if not reports_dir.exists():
+            return
+        
+        # Find all cleanup reports
+        report_files = list(reports_dir.glob("cleanup_report*.json"))
+        
+        if len(report_files) <= 3:
+            return
+        
+        # Sort by modification time (oldest first)
+        report_files.sort(key=lambda f: f.stat().st_mtime)
+        
+        # Remove old reports
+        to_remove = report_files[:-3]  # Keep last 3
+        for old_report in to_remove:
+            try:
+                old_report.unlink()
+                print(f"   ✓ Rotated old report: {old_report.name}")
+            except Exception:
+                pass
 
 def main():
     """Main entry point for autonomous code cleanup"""

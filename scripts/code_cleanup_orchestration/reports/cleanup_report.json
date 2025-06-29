@@ -1,41 +1,14 @@
 {
-  "timestamp": "2025-06-29T13:50:03.851293",
-  "files_removed": [
-    "scripts/ci_orchestration/__pycache__",
-    "venv/lib/python3.13/site-packages/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_internal/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_vendor/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_internal/utils/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_internal/models/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_internal/cli/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_internal/locations/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_internal/commands/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_internal/metadata/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_internal/metadata/importlib/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_vendor/packaging/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_vendor/pygments/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_vendor/certifi/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_vendor/rich/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_vendor/platformdirs/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_vendor/pygments/filters/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_vendor/pygments/lexers/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_vendor/pygments/styles/__pycache__",
-    "venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/__pycache__",
-    "src/kindlemint/__pycache__",
-    "src/kindlemint/utils/__pycache__",
-    "src/kindlemint/validators/__pycache__",
-    ".git/lfs/tmp/"
-  ],
+  "timestamp": "2025-06-29T14:27:53.115297",
+  "files_removed": [],
   "duplicates_removed": [],
-  "bytes_saved": 2127906,
+  "bytes_saved": 0,
   "directories_cleaned": [],
   "summary": {
-    "total_files_removed": 26,
+    "total_files_removed": 0,
     "total_duplicates_removed": 0,
-    "total_bytes_saved": 2127906,
+    "total_bytes_saved": 0,
     "total_directories_cleaned": 0,
-    "mb_saved": 2.03
+    "mb_saved": 0.0
   }
 }
