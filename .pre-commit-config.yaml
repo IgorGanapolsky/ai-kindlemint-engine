@@ -43,3 +43,10 @@ repos:
       language: python
       files: '^books/.*\.json$'
       pass_filenames: false
+      
+    - id: badge-validation
+      name: Badge Validation Agent
+      entry: python scripts/badge_validator.py
+      language: python
+      files: '^README\.md$'
+      pass_filenames: false
