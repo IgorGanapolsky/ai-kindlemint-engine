@@ -173,7 +173,15 @@
       "Bash(./claude-flow:*)",
       "Bash(./claude-flow:*)",
       "Bash(/dev/null)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(--input books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles )",
+      "Bash(--output books/active_production/Large_Print_Sudoku_Masters/volume_1/paperback )",
+      "Bash(--title \"Large Print Sudoku Masters\" )",
+      "Bash(--author \"KindleMint Publishing\" )",
+      "Bash(--subtitle \"100 Challenging Puzzles with Large Print Format\" )",
+      "Bash(--page-size letter )",
+      "Bash(--include-solutions)",
+      "Bash(export AWS_PROFILE=easy-smart)"
     ],
     "deny": []
   }
