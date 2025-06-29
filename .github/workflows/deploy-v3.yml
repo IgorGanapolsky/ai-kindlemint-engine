@@ -45,14 +45,34 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
+
+    - name: Install All Project Dependencies (including dev for testing)
+      run: |
+        python -m pip install --upgrade pip
+        pip install .[dev] # Installs from setup.py with the 'dev' extras
+
+    - name: Run Tests
+      run: |
+        python -m pytest tests/
         
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
       
-    - name: Install dependencies
+    # This step might need adjustment if Docker build needs full deps vs. minimal runtime
+    # For now, keeping it as is, assuming Dockerfile handles its own specific dependencies.
+    # If the main 'pip install boto3 requests' was for build scripts, it might be okay.
+    # However, a full 'pip install -r requirements.txt' or 'pip install .' might be needed
+    # here too if build scripts depend on more project code.
+    - name: Install minimal dependencies for build scripts (if any beyond project install)
       run: |
-        python -m pip install --upgrade pip
-        pip install boto3 requests
+        # This step is a bit ambiguous now. The 'pip install .[dev]' above should cover most needs.
+        # If specific separate dependencies are needed ONLY for docker build scripts and NOT for tests/app,
+        # they could be installed here. For now, assuming project install is enough.
+        # If Docker build fails due to missing packages that were previously installed by 'pip install boto3 requests',
+        # those might need to be re-added or included in setup.py.
+        # For now, let's assume the `pip install .[dev]` covers what's needed for subsequent steps
+        # or the Dockerfile handles its own dependencies.
+        echo "Minimal dependencies for build scripts step - review if Docker build needs more."
         
     - name: Create ECR repository if not exists
       run: |
@@ -118,11 +138,24 @@ jobs:
         # Create Lambda deployment package
         mkdir -p lambda-package
         cp lambda/v3_orchestrator.py lambda-package/lambda_function.py
-        cp -r kindlemint lambda-package/
-        cd lambda-package
+        cp -r kindlemint lambda-package/ # Package the kindlemint module
         
-        # Install dependencies
-        pip install -t . boto3 openai requests python-docx pillow
+        # Create a temporary requirements.txt for lambda layer
+        # This should ideally list ONLY the runtime dependencies needed by v3_orchestrator.py
+        # and what it imports from kindlemint.
+        # For now, using a subset similar to what was there, but this should be refined.
+        # A better approach would be a separate requirements-lambda.txt or dependency analysis.
+        echo "boto3" > lambda-package/requirements_lambda.txt
+        echo "openai" >> lambda-package/requirements_lambda.txt
+        echo "requests" >> lambda-package/requirements_lambda.txt
+        echo "python-docx" >> lambda-package/requirements_lambda.txt
+        echo "pillow" >> lambda-package/requirements_lambda.txt
+        # Add google-generativeai if used by this specific lambda or its kindlemint imports
+        # echo "google-generativeai" >> lambda-package/requirements_lambda.txt
+
+        cd lambda-package
+        pip install -r requirements_lambda.txt -t . # Install into the lambda-package directory
+        rm requirements_lambda.txt # Clean up temp requirements file
         
         # Create zip package
         zip -r ../v3-orchestrator.zip .

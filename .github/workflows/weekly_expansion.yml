@@ -50,7 +50,10 @@ jobs:
           from datetime import datetime, timedelta
           import requests
           
-          expansion_type = '${{ github.event.inputs.expansion_type || \"auto\" }}'
+          # Correctly handle default for expansion_type within Python
+          # The default 'auto' is now handled by the Python logic itself if input is empty
+          expansion_type_input = '${{ github.event.inputs.expansion_type }}'
+          expansion_type = expansion_type_input if expansion_type_input else 'auto'
           current_day = datetime.now().strftime('%A')
           
           print(f'🎯 Starting Weekly Expansion: {expansion_type}')
@@ -158,7 +161,7 @@ jobs:
           "
           
       - name: 💾 Archive Expansion Plans
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # Updated to v4
         with:
           name: expansion-plans-${{ github.run_number }}
           path: output/expansion_plans/
