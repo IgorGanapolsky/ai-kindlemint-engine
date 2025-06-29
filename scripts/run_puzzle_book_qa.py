@@ -42,14 +42,15 @@ def run_qa_checks():
             
             if report['status'] == 'FAIL':
                 all_passed = False
-                print(f"❌ FAILED: {len(report['errors'])} critical errors!")
+                error_count = report.get('errors', 0)
+                print(f"❌ FAILED: {error_count} critical errors!")
                 
                 # Save detailed failure report
                 failure_report = {
                     'book': str(pdf_path),
                     'timestamp': datetime.now().isoformat(),
-                    'errors': report['error_details'],
-                    'warnings': report['warning_details']
+                    'errors': report.get('error_details', []),
+                    'warnings': report.get('warning_details', [])
                 }
                 
                 failure_path = pdf_path.parent / f"QA_FAILURE_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"

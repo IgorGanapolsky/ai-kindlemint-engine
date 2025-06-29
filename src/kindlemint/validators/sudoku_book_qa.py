@@ -160,14 +160,19 @@ class SudokuBookQAValidator:
                     issues['wrong_clues'] += 1
                     self.warnings.append(f"⚠️ Puzzle {puzzle_id} has many clues: {clue_count} (max: {expected_range['max']} for {difficulty})")
                 
-                # Check puzzle image exists
+                # Check puzzle image exists and verify content matches JSON
                 puzzle_id = data.get('id', 0)
                 puzzle_image = puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}.png"
                 if not puzzle_image.exists():
                     issues['missing_images'] += 1
                 else:
-                    # Analyze the image
-                    self._validate_puzzle_image(puzzle_image, puzzle_id)
+                    # Analyze the image and verify it matches JSON metadata
+                    png_clues = self._validate_puzzle_image(puzzle_image, puzzle_id)
+                    
+                    # CRITICAL: Verify PNG content matches JSON metadata
+                    if png_clues != -1 and abs(png_clues - clue_count) > 3:  # Allow small detection variance
+                        self.errors.append(f"❌ CRITICAL: Puzzle {puzzle_id} PNG/JSON mismatch: PNG ~{png_clues} clues vs JSON {clue_count} clues")
+                        issues['wrong_clues'] += 1
             
             # Report issues
             if issues['all_filled'] > 0:
@@ -187,30 +192,50 @@ class SudokuBookQAValidator:
         else:
             self.errors.append("Metadata directory not found")
     
-    def _validate_puzzle_image(self, image_path: Path, puzzle_id: int):
-        """Analyze puzzle image to ensure it has blank cells.
+    def _validate_puzzle_image(self, image_path: Path, puzzle_id: int) -> int:
+        """Analyze puzzle image to ensure it has blank cells and count filled cells.
         
         Args:
             image_path: Path to the puzzle image file
             puzzle_id: ID of the puzzle being validated
             
+        Returns:
+            Number of filled cells detected in the image, or -1 if analysis failed
+            
         Note:
             - Converts image to grayscale
-            - Analyzes white space ratio
-            - Detects if puzzle appears completely filled
-            - Adds errors if white ratio < 50%
+            - Analyzes individual cells for numbers
+            - Detects PNG/JSON content mismatches
+            - Returns clue count for validation
         """
         try:
             img = Image.open(image_path)
+            img_gray = img.convert('L')
+            img_array = np.array(img_gray)
             
-            # Convert to grayscale numpy array
-            img_array = np.array(img.convert('L'))
+            # Grid analysis parameters (matching generator)
+            cell_size = 60
+            margin = 40
             
-            # Simple heuristic: count white/empty regions
-            # In a filled puzzle, there would be numbers everywhere
-            # In a proper puzzle, there should be significant white space
+            filled_cells = 0
             
-            # Get the central region (avoiding borders)
+            # Check each cell position for darkness (indicating a number)
+            for r in range(9):
+                for c in range(9):
+                    # Calculate cell center
+                    x = margin + c * cell_size + cell_size // 2
+                    y = margin + r * cell_size + cell_size // 2
+                    
+                    # Sample a region around the center
+                    if y-10 >= 0 and y+10 < img_array.shape[0] and x-10 >= 0 and x+10 < img_array.shape[1]:
+                        region = img_array[y-10:y+10, x-10:x+10]
+                        if region.size > 0:
+                            # If the region has darker pixels, likely contains a number
+                            avg_brightness = np.mean(region)
+                            if avg_brightness < 200:  # Threshold for detecting numbers
+                                filled_cells += 1
+            
+            # Validate overall puzzle has blanks
             h, w = img_array.shape
             central = img_array[int(h*0.1):int(h*0.9), int(w*0.1):int(w*0.9)]
             
@@ -223,8 +248,11 @@ class SudokuBookQAValidator:
             if white_ratio < 0.5:
                 self.errors.append(f"❌ Puzzle {puzzle_id} image appears to be completely filled")
             
+            return filled_cells
+            
         except Exception as e:
             self.warnings.append(f"Could not analyze image {puzzle_id}: {str(e)}")
+            return -1
     
     def _is_complete_grid_in_text(self, text: str) -> bool:
         """Check if extracted text looks like a complete sudoku grid.

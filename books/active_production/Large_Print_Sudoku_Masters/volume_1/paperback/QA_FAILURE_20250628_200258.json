@@ -1,0 +1,14 @@
+{
+  "book": "/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Sudoku_Masters/volume_1/paperback/Large_Print_Sudoku_Masters_V1_COMPLETE.pdf",
+  "timestamp": "2025-06-28T20:02:58.356182",
+  "errors": [
+    "\u274c CRITICAL: Puzzle 28 PNG/JSON mismatch: PNG ~36 clues vs JSON 40 clues",
+    "\u274c CRITICAL: Puzzle 4 PNG/JSON mismatch: PNG ~34 clues vs JSON 40 clues",
+    "\u274c CRITICAL: Puzzle 12 PNG/JSON mismatch: PNG ~35 clues vs JSON 40 clues",
+    "\u274c CRITICAL: Puzzle 100 PNG/JSON mismatch: PNG ~21 clues vs JSON 26 clues",
+    "\u274c CRITICAL: Puzzle 32 PNG/JSON mismatch: PNG ~34 clues vs JSON 40 clues"
+  ],
+  "warnings": [
+    "PDF has only 106 pages (expected 200+)"
+  ]
+}
