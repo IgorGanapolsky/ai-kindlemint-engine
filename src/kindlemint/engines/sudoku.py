@@ -281,7 +281,7 @@ class SudokuGenerator:
         }
 
     def create_grid_image(self, grid: List[List[int]], puzzle_id: int, is_solution: bool = False) -> Path:
-        """Create high-quality Large Print Sudoku grid image."""
+        """Create high-quality Large Print Sudoku grid image with proper clue distinction."""
         cell_size = 60
         margin = 40
         img_size = self.grid_size * cell_size + 2 * margin
@@ -289,10 +289,24 @@ class SudokuGenerator:
         img = Image.new("RGB", (img_size, img_size), "white")
         draw = ImageDraw.Draw(img)
 
+        # Load fonts with proper fallback for visual distinction
         try:
-            font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
+            # Bold font for clues (given numbers) - CRITICAL for visual distinction
+            clue_font = ImageFont.truetype("/System/Library/Fonts/Helvetica-Bold.ttc", 42)
         except:
-            font = ImageFont.load_default()
+            try:
+                clue_font = ImageFont.truetype("/System/Library/Fonts/Arial-BoldMT.ttc", 42)
+            except:
+                try:
+                    clue_font = ImageFont.truetype("/System/Library/Fonts/AppleSDGothicNeo-Bold.ttc", 42)
+                except:
+                    clue_font = ImageFont.load_default()
+        
+        try:
+            # Regular font for solutions (when is_solution=True)
+            regular_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
+        except:
+            regular_font = ImageFont.load_default()
 
         # Draw grid lines with proper thickness for large print
         for i in range(self.grid_size + 1):
@@ -319,12 +333,30 @@ class SudokuGenerator:
                 width=line_width,
             )
 
-        # Draw numbers with large font for readability
+        # Draw numbers with proper visual distinction between clues and empty cells
         for r in range(self.grid_size):
             for c in range(self.grid_size):
+                # Calculate cell boundaries
+                cell_x1 = margin + c * cell_size
+                cell_y1 = margin + r * cell_size  
+                cell_x2 = cell_x1 + cell_size
+                cell_y2 = cell_y1 + cell_size
+                
                 value = grid[r][c]
                 if value != 0:
+                    # This cell has a number
                     text = str(value)
+                    
+                    # CRITICAL: Choose font based on puzzle type
+                    if is_solution:
+                        # Solution: use regular font
+                        font = regular_font
+                        fill_color = "black"
+                    else:
+                        # Puzzle: use BOLD font for clues (visual distinction)
+                        font = clue_font 
+                        fill_color = "black"
+                    
                     # Get text dimensions for centering
                     bbox = draw.textbbox((0, 0), text, font=font)
                     text_width = bbox[2] - bbox[0]
@@ -333,7 +365,15 @@ class SudokuGenerator:
                     x = margin + c * cell_size + (cell_size - text_width) // 2
                     y = margin + r * cell_size + (cell_size - text_height) // 2
 
-                    draw.text((x, y), text, fill="black", font=font)
+                    draw.text((x, y), text, fill=fill_color, font=font)
+                else:
+                    # Empty cell: add subtle background for visual distinction
+                    if not is_solution:  # Only for puzzles, not solutions
+                        # Light gray background to clearly show empty cells
+                        draw.rectangle(
+                            [cell_x1 + 2, cell_y1 + 2, cell_x2 - 2, cell_y2 - 2], 
+                            fill="#FAFAFA"
+                        )
 
         # Use appropriate filename based on whether it's a solution or puzzle
         filename = f"sudoku_{'solution' if is_solution else 'puzzle'}_{puzzle_id:03d}.png"

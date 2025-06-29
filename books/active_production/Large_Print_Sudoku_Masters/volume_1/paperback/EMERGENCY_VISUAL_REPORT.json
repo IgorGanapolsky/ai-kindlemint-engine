@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-06-29T14:55:03.199948",
+  "pdf_path": "books/active_production/Large_Print_Sudoku_Masters/volume_1/paperback/TEST_PUZZLE_100.pdf",
+  "status": "PASSED",
+  "total_critical_issues": 0,
+  "pages_analyzed": 4,
+  "critical_issues": [],
+  "detailed_analysis": {},
+  "summary": {
+    "has_visual_distinction": true,
+    "clues_properly_styled": true,
+    "puzzle_solvable": true
+  }
+}

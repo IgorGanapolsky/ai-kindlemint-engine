@@ -2,10 +2,11 @@
 
 **Transform expertise into profitable books at 10x speed using AI orchestration, voice-to-book technology, and automated publishing workflows.**
 
-[![GitHub Actions](https://github.com/IgorGanapolsky/ai-kindlemint-engine/workflows/QA%20Validation%20Pipeline/badge.svg)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions)
+[![GitHub Actions](https://github.com/IgorGanapolsky/ai-kindlemint-engine/workflows/Tests/badge.svg)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions)
+[![Python Tests](https://img.shields.io/badge/Tests-Pytest-green)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/tests.yml)
+[![Code Coverage](https://img.shields.io/badge/Coverage-Generated-blue)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/tests.yml)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Enabled-blue)](CLAUDE_CODE_ORCHESTRATOR.md)
 [![Sentry](https://img.shields.io/badge/Sentry-Monitoring-362D59)](https://sentry.io)
-[![Sentry AI](https://img.shields.io/badge/Sentry%20AI-Enabled-FF4444)](https://github.com/apps/sentry-seer)
 
 ## 🌟 What's New (June 2025)
 

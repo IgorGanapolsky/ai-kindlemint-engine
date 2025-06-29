@@ -78,6 +78,15 @@ jobs:
           test-results.xml
           coverage.xml
     
+    - name: 📊 Upload coverage to Codecov
+      if: matrix.python-version == '3.11'
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+    
     - name: 💬 Comment PR with test results
       if: github.event_name == 'pull_request' && always()
       uses: actions/github-script@v7

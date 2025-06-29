@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "label": "AWS Infrastructure",
+  "message": "Down (0.0%)",
+  "color": "red",
+  "cacheSeconds": 300
+}
