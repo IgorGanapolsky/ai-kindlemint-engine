@@ -676,7 +676,7 @@ strategy_registry = StrategyRegistry()
 
 # Convenience functions for external use
 def get_applicable_strategies(
-    error_context: Dict[str, Any]
+    error_context: Dict[str, Any],
 ) -> List[ResolutionStrategy]:
     """Get resolution strategies applicable to an error"""
     return strategy_registry.get_applicable_strategies(error_context)

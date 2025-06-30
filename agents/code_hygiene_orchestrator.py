@@ -17,15 +17,16 @@ Features:
 - Dependency cleanup
 """
 
-import os
-import json
-import shutil
 import hashlib
+import json
 import logging
+import os
+import shutil
+from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Set, Tuple, Optional
-from collections import defaultdict
+from typing import Dict, List, Optional, Set, Tuple
+
 import click
 import git
 from tabulate import tabulate

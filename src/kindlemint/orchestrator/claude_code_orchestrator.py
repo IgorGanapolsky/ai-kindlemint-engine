@@ -8,12 +8,13 @@ high-level development tasks, feature creation, and code optimization.
 import logging
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Dict, List, Optional
 from enum import Enum
+from typing import Any, Dict, List, Optional
 
 
 class TaskType(Enum):
     """Task types for Claude Code orchestration"""
+
     FEATURE_DEVELOPMENT = "feature_development"
     CODE_OPTIMIZATION = "code_optimization"
     TEST_GENERATION = "test_generation"
