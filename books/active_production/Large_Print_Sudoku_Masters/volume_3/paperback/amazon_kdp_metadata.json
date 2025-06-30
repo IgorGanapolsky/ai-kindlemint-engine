@@ -16,7 +16,7 @@
     "16-point font puzzles"
   ],
   "categories": [
-    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
+    "Health, Fitness & Dieting > Aging",
     "Health, Fitness & Dieting > Mental Health > Memory Improvement",
     "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers"
   ],
@@ -48,7 +48,7 @@
     "special_features": "Pattern recognition masterclass"
   },
   "cover_design": {
-    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 3 - Medium Puzzles'. Confident teal and white color scheme. Central Sudoku grid with balanced fill pattern. Bold title typography with 'The Sweet Spot' subtitle emphasized. Include 'Volume 3' badge and satisfaction guarantee-style element. Clean, inviting design that suggests perfect difficulty balance. 'Large Print' callout prominently displayed."
-  },
-  "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 3. Confident design with teal and white color scheme. Highlight key features: '110 Medium Puzzles', 'The Perfect Challenge Sweet Spot', 'Pattern Recognition Masterclass', 'Advanced Scanning Techniques'. Include brief description of balanced difficulty, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 3 - Medium Puzzles'. Confident teal and white color scheme. Central Sudoku grid with balanced fill pattern. Bold title typography with 'The Sweet Spot' subtitle emphasized. Include 'Volume 3' badge and satisfaction guarantee-style element. Clean, inviting design that suggests perfect difficulty balance. 'Large Print' callout prominently displayed.",
+    "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 3. Confident design with teal and white color scheme. Highlight key features: '110 Medium Puzzles', 'The Perfect Challenge Sweet Spot', 'Pattern Recognition Masterclass', 'Advanced Scanning Techniques'. Include brief description of balanced difficulty, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+  }
 }

@@ -16,9 +16,9 @@
     "16-point font puzzles"
   ],
   "categories": [
-    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
-    "Self-Help > Memory Improvement",
-    "Health, Fitness & Dieting > Aging"
+    "Health, Fitness & Dieting > Aging",
+    "Health, Fitness & Dieting > Mental Health > Memory Improvement",
+    "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers"
   ],
   "language": "en",
   "pages": 248,
@@ -54,7 +54,7 @@
     }
   },
   "cover_design": {
-    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 6 - Mixed Collection'. Rainbow gradient or spectrum design showing variety. Multiple Sudoku grids at different completion stages. Bold, inclusive typography with 'Something for Everyone' prominently displayed. 'Volume 6' badge with premium finish look. Include diversity visual elements. 'Large Print' and 'Ultimate Collection' badges featured."
-  },
-  "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 6. Vibrant design with rainbow gradient theme. Highlight key features: '120 Mixed Difficulty Puzzles', 'Something for Everyone', 'Complete Technique Guide', 'Ultimate Variety Collection'. Include brief description of mixed difficulty levels (20 easy, 40 medium, 40 hard, 20 expert), author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 6 - Mixed Collection'. Rainbow gradient or spectrum design showing variety. Multiple Sudoku grids at different completion stages. Bold, inclusive typography with 'Something for Everyone' prominently displayed. 'Volume 6' badge with premium finish look. Include diversity visual elements. 'Large Print' and 'Ultimate Collection' badges featured.",
+    "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 6. Vibrant design with rainbow gradient theme. Highlight key features: '120 Mixed Difficulty Puzzles', 'Something for Everyone', 'Complete Technique Guide', 'Ultimate Variety Collection'. Include brief description of mixed difficulty levels (20 easy, 40 medium, 40 hard, 20 expert), author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+  }
 }

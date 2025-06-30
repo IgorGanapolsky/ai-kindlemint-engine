@@ -16,9 +16,9 @@
     "16-point font puzzles"
   ],
   "categories": [
-    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
-    "Health, Fitness & Dieting > Mental Health",
-    "Self-Help > Aging"
+    "Health, Fitness & Dieting > Aging",
+    "Health, Fitness & Dieting > Mental Health > Memory Improvement",
+    "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers"
   ],
   "language": "en",
   "pages": 216,
@@ -47,7 +47,7 @@
     "font_size": "20-point for maximum readability"
   },
   "cover_design": {
-    "dalle_prompt": "Professional book cover design for 'Large Print Sudoku Masters: Volume 1 - Easy Puzzles'. Feature a clean, modern layout with a large Sudoku grid prominently displayed. Use calming blue and white color scheme. Include large, bold title text at top, subtitle below. Show partially completed easy Sudoku puzzle with extra-large numbers. Add subtle brain/wellness imagery in background. Professional typography, accessibility-focused design. Include 'Volume 1' badge and 'Large Print' callout."
-  },
-  "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 1. Clean, accessible design with blue and white color scheme. Highlight key features: '100 Easy Puzzles Perfect for Beginners', '20-Point Large Print Font', 'Solutions Included', 'Perfect for Seniors & Visual Wellness'. Include brief description of contents, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+    "dalle_prompt": "Professional book cover design for 'Large Print Sudoku Masters: Volume 1 - Easy Puzzles'. Feature a clean, modern layout with a large Sudoku grid prominently displayed. Use calming blue and white color scheme. Include large, bold title text at top, subtitle below. Show partially completed easy Sudoku puzzle with extra-large numbers. Add subtle brain/wellness imagery in background. Professional typography, accessibility-focused design. Include 'Volume 1' badge and 'Large Print' callout.",
+    "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 1. Clean, accessible design with blue and white color scheme. Highlight key features: '100 Easy Puzzles Perfect for Beginners', '20-Point Large Print Font', 'Solutions Included', 'Perfect for Seniors & Visual Wellness'. Include brief description of contents, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+  }
 }

@@ -16,7 +16,7 @@
     "16-point font puzzles"
   ],
   "categories": [
-    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
+    "Health, Fitness & Dieting > Aging",
     "Self-Help > Self-Esteem > Self-Confidence",
     "Health, Fitness & Dieting > Mental Health > Cognitive Enhancement"
   ],
@@ -48,7 +48,7 @@
     "special_features": "Advanced technique tutorials"
   },
   "cover_design": {
-    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 4 - Rising Challenge'. Dynamic orange to red gradient suggesting increasing difficulty. Sudoku grid with complex pattern visible. Strong, bold typography with 'Volume 4' badge. Include upward arrow or mountain imagery for 'rising' theme. Professional design with 'Large Print' prominently featured. Convey advancement and achievement."
-  },
-  "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 4. Dynamic design with orange to red gradient theme. Highlight key features: '110 Medium to Hard Puzzles', 'Rising Challenge for Growth', 'Advanced Technique Tutorials', 'Expert Strategy Development'. Include brief description of skill advancement, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 4 - Rising Challenge'. Dynamic orange to red gradient suggesting increasing difficulty. Sudoku grid with complex pattern visible. Strong, bold typography with 'Volume 4' badge. Include upward arrow or mountain imagery for 'rising' theme. Professional design with 'Large Print' prominently featured. Convey advancement and achievement.",
+    "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 4. Dynamic design with orange to red gradient theme. Highlight key features: '110 Medium to Hard Puzzles', 'Rising Challenge for Growth', 'Advanced Technique Tutorials', 'Expert Strategy Development'. Include brief description of skill advancement, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+  }
 }

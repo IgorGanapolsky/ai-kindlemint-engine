@@ -15,7 +15,7 @@
     "gift"
   ],
   "categories": [
-    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
+    "Health, Fitness & Dieting > Aging",
     "Health, Fitness & Dieting > Mental Health > Dementia",
     "Self-Help > Aging"
   ],
@@ -42,7 +42,7 @@
     "large_print_book": true
   },
   "cover_design": {
-    "dalle_prompt": "Professional hardcover book design for 'Large Print Sudoku Masters: Volume 6'. Sophisticated rainbow gradient showing ultimate collection. Multiple Sudoku grids at different stages. Premium hardcover with embossed 'Master Collection' badge. 'Volume 6' in crown-style design. Ultimate gift presentation with luxury finish."
-  },
-  "back_cover_dalle_prompt": "Professional back cover design for Large Print Sudoku Masters Volume 6 hardcover. Sophisticated design with rainbow gradient theme. Feature compelling benefits: '120 Premium Puzzles', 'Master Collection - All Levels', 'Ultimate Cognitive Wellness', 'Complete Brain Training Resource'. Include brief author bio section, testimonial space, and barcode area. Premium hardcover appearance with sophisticated typography matching front cover. Professional book spine visible on side."
+    "dalle_prompt": "Professional hardcover book design for 'Large Print Sudoku Masters: Volume 6'. Sophisticated rainbow gradient showing ultimate collection. Multiple Sudoku grids at different stages. Premium hardcover with embossed 'Master Collection' badge. 'Volume 6' in crown-style design. Ultimate gift presentation with luxury finish.",
+    "back_cover_dalle_prompt": "Professional back cover design for Large Print Sudoku Masters Volume 6 hardcover. Sophisticated design with rainbow gradient theme. Feature compelling benefits: '120 Premium Puzzles', 'Master Collection - All Levels', 'Ultimate Cognitive Wellness', 'Complete Brain Training Resource'. Include brief author bio section, testimonial space, and barcode area. Premium hardcover appearance with sophisticated typography matching front cover. Professional book spine visible on side."
+  }
 }

@@ -16,9 +16,9 @@
     "16-point font puzzles"
   ],
   "categories": [
-    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
-    "Health, Fitness & Dieting > Mental Health",
-    "Self-Help > Personal Transformation"
+    "Health, Fitness & Dieting > Aging",
+    "Health, Fitness & Dieting > Mental Health > Memory Improvement",
+    "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers"
   ],
   "language": "en",
   "pages": 216,
@@ -48,7 +48,7 @@
     "special_features": "Technique tutorials between sections"
   },
   "cover_design": {
-    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 2 - Easy to Medium'. Modern design with gradient from light blue (easy) to medium blue (medium difficulty). Feature Sudoku grid with progression visual. Bold, accessible typography with 'Volume 2' prominently displayed. Include progress bar or arrow showing skill advancement. Clean, professional layout with 'Building Confidence' subtitle. Add 'Large Print' badge."
-  },
-  "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 2. Modern design with blue gradient theme. Highlight key features: '100 Progressive Puzzles', 'Easy to Medium Difficulty', 'Confidence Building Approach', 'Advanced Technique Tutorials'. Include brief description of skill progression, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 2 - Easy to Medium'. Modern design with gradient from light blue (easy) to medium blue (medium difficulty). Feature Sudoku grid with progression visual. Bold, accessible typography with 'Volume 2' prominently displayed. Include progress bar or arrow showing skill advancement. Clean, professional layout with 'Building Confidence' subtitle. Add 'Large Print' badge.",
+    "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 2. Modern design with blue gradient theme. Highlight key features: '100 Progressive Puzzles', 'Easy to Medium Difficulty', 'Confidence Building Approach', 'Advanced Technique Tutorials'. Include brief description of skill progression, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+  }
 }

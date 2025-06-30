@@ -15,9 +15,9 @@
     "gift"
   ],
   "categories": [
-    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
-    "Health, Fitness & Dieting > Mental Health > Dementia",
-    "Self-Help > Aging"
+    "Health, Fitness & Dieting > Aging",
+    "Health, Fitness & Dieting > Mental Health > Memory Improvement",
+    "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers"
   ],
   "language": "en",
   "pages": 120,
@@ -42,7 +42,7 @@
     "large_print_book": true
   },
   "cover_design": {
-    "dalle_prompt": "Professional hardcover book design for 'Large Print Sudoku Masters: Volume 4'. Dynamic orange to burgundy gradient showing mental challenge. Premium hardcover with embossed details. Complex Sudoku pattern suggesting advanced difficulty. 'Mental Challenge' subtitle with strategic design elements. 'Volume 4' in distinguished badge. Executive gift appearance."
-  },
-  "back_cover_dalle_prompt": "Professional back cover design for Large Print Sudoku Masters Volume 4 hardcover. Dynamic design with orange to burgundy gradient theme. Feature compelling benefits: '100 Advanced Puzzles', 'Mental Challenge & Excellence', 'Strategic Thinking Development', 'Cognitive Performance Optimization'. Include brief author bio section, testimonial space, and barcode area. Premium hardcover appearance with sophisticated typography matching front cover. Professional book spine visible on side."
+    "dalle_prompt": "Professional hardcover book design for 'Large Print Sudoku Masters: Volume 4'. Dynamic orange to burgundy gradient showing mental challenge. Premium hardcover with embossed details. Complex Sudoku pattern suggesting advanced difficulty. 'Mental Challenge' subtitle with strategic design elements. 'Volume 4' in distinguished badge. Executive gift appearance.",
+    "back_cover_dalle_prompt": "Professional back cover design for Large Print Sudoku Masters Volume 4 hardcover. Dynamic design with orange to burgundy gradient theme. Feature compelling benefits: '100 Advanced Puzzles', 'Mental Challenge & Excellence', 'Strategic Thinking Development', 'Cognitive Performance Optimization'. Include brief author bio section, testimonial space, and barcode area. Premium hardcover appearance with sophisticated typography matching front cover. Professional book spine visible on side."
+  }
 }

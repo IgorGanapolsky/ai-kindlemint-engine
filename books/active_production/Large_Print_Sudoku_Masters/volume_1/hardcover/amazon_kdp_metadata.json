@@ -15,9 +15,9 @@
     "gift"
   ],
   "categories": [
-    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
-    "Health, Fitness & Dieting > Mental Health > Dementia",
-    "Self-Help > Aging"
+    "Health, Fitness & Dieting > Aging",
+    "Health, Fitness & Dieting > Mental Health > Memory Improvement",
+    "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers"
   ],
   "language": "en",
   "pages": 120,
@@ -42,7 +42,7 @@
     "large_print_book": true
   },
   "cover_design": {
-    "dalle_prompt": "Professional hardcover book design for 'Large Print Sudoku Masters: Volume 1'. Elegant blue and silver color scheme with premium feel. Large, clear Sudoku grid as central element with some cells filled. Sophisticated typography with embossed effect. 'Volume 1' in elegant badge design. Include subtle brain wellness imagery. Hardcover spine visible at angle showing title. Premium gift-worthy appearance."
-  },
-  "back_cover_dalle_prompt": "Professional back cover design for Large Print Sudoku Masters Volume 1 hardcover. Clean, elegant layout with blue and silver color scheme. Feature compelling benefits: '100 Large Print Puzzles', 'Beginner-Friendly Design', '16-Point Font for Visual Comfort', 'Brain Training for Seniors'. Include brief author bio section, testimonial space, and barcode area. Premium hardcover appearance with sophisticated typography matching front cover. Professional book spine visible on side."
+    "dalle_prompt": "Professional hardcover book design for 'Large Print Sudoku Masters: Volume 1'. Elegant blue and silver color scheme with premium feel. Large, clear Sudoku grid as central element with some cells filled. Sophisticated typography with embossed effect. 'Volume 1' in elegant badge design. Include subtle brain wellness imagery. Hardcover spine visible at angle showing title. Premium gift-worthy appearance.",
+    "back_cover_dalle_prompt": "Professional back cover design for Large Print Sudoku Masters Volume 1 hardcover. Clean, elegant layout with blue and silver color scheme. Feature compelling benefits: '100 Large Print Puzzles', 'Beginner-Friendly Design', '16-Point Font for Visual Comfort', 'Brain Training for Seniors'. Include brief author bio section, testimonial space, and barcode area. Premium hardcover appearance with sophisticated typography matching front cover. Professional book spine visible on side."
+  }
 }

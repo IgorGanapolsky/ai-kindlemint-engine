@@ -16,7 +16,7 @@
     "16-point font puzzles"
   ],
   "categories": [
-    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
+    "Health, Fitness & Dieting > Aging",
     "Self-Help > Personal Growth > Success",
     "Health, Fitness & Dieting > Mental Health > Cognitive Performance"
   ],
@@ -48,7 +48,7 @@
     "special_features": "Expert strategy compendium"
   },
   "cover_design": {
-    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 5 - Hard Puzzles'. Deep purple and gold color scheme suggesting mastery. Complex Sudoku grid pattern with expert-level visual. Bold, authoritative typography with 'Volume 5' badge prominently displayed. Include crown or summit imagery for achievement. 'For Experienced Solvers' subtitle clearly visible. 'Large Print' feature highlighted."
-  },
-  "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 5. Sophisticated design with deep purple and gold color scheme. Highlight key features: '120 Hard Puzzles', 'For Experienced Solvers', 'Expert Strategy Compendium', 'Cognitive Mastery Training'. Include brief description of expert-level challenges, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 5 - Hard Puzzles'. Deep purple and gold color scheme suggesting mastery. Complex Sudoku grid pattern with expert-level visual. Bold, authoritative typography with 'Volume 5' badge prominently displayed. Include crown or summit imagery for achievement. 'For Experienced Solvers' subtitle clearly visible. 'Large Print' feature highlighted.",
+    "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 5. Sophisticated design with deep purple and gold color scheme. Highlight key features: '120 Hard Puzzles', 'For Experienced Solvers', 'Expert Strategy Compendium', 'Cognitive Mastery Training'. Include brief description of expert-level challenges, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
+  }
 }
