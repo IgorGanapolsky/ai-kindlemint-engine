@@ -28,12 +28,13 @@ class CriticalMetadataQA:
 
         # Verified KDP categories from actual interface screenshots
         self.valid_kdp_categories = {
-            "Crafts, Hobbies & Home > Games & Activities > Puzzles & Games",
+            "Health, Fitness & Dieting > Aging",
+            "Health, Fitness & Dieting > Mental Health > Memory Improvement",
             "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers",
+            "Crafts, Hobbies & Home > Games & Activities > Puzzles & Games",
             "Games > Puzzles",
             "Games > Word Games", 
             "Self-Help > Memory Improvement",
-            "Health, Fitness & Dieting > Aging",
             "Crafts, Hobbies & Home > Games & Activities",  # Valid parent category
         }
 

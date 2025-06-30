@@ -11,9 +11,9 @@ from pathlib import Path
 # Actual KDP categories with FULL PATHS including subcategories (from real interface)
 ACTUAL_KDP_CATEGORIES = {
     "puzzle_books": [
-        "Crafts, Hobbies & Home > Games & Activities > Puzzles & Games",
+        "Health, Fitness & Dieting > Aging",
+        "Health, Fitness & Dieting > Mental Health > Memory Improvement",
         "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers",
-        "Games > Puzzles",
     ],
     "crossword_books": [
         "Crafts, Hobbies & Home > Games & Activities > Puzzles & Games", 
@@ -23,7 +23,7 @@ ACTUAL_KDP_CATEGORIES = {
     "brain_training": [
         "Self-Help > Memory Improvement",
         "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers",
-        "Crafts, Hobbies & Home > Games & Activities > Puzzles & Games",
+        "Health, Fitness & Dieting > Aging",
     ],
 }
 
