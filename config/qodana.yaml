@@ -1,0 +1,48 @@
+#-------------------------------------------------------------------------------#
+#               Qodana analysis is configured by qodana.yaml file               #
+#             https://www.jetbrains.com/help/qodana/qodana-yaml.html            #
+#-------------------------------------------------------------------------------#
+
+version: "1.0"
+
+linter: jetbrains/qodana-python-community:latest
+
+projectJDK: "11"
+
+profile:
+  name: qodana.starter
+
+exclude:
+  - name: All
+    paths:
+      - ".git"
+      - ".idea"
+      - "**/__pycache__"
+      - "**/*.pyc"
+      - "venv"
+      - "env"
+      - ".venv"
+      - "node_modules"
+      - "tests"
+      - "lambda"
+      - "assets"
+      - "books"
+      - "output"
+      - "temp"
+      - "coverage"
+      - "dist"
+      - "build"
+      - "*.egg-info"
+      - "docs/_build"
+      - "*.log"
+      - "*.tmp"
+      - "*.temp"
+      - "hygiene_report_*.json"
+      - "ci_analysis_enhanced.json"
+      - "ci_failures_enhanced.json"
+
+bootstrap: |
+  pip install -r requirements.txt
+  pip install -e .
+
+failThreshold: 0

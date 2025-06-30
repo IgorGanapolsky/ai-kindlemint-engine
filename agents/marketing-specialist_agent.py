@@ -13,67 +13,60 @@ from langchain.agents import AgentExecutor, LLMSingleActionAgent, Tool
 from langchain.llms import OpenAI
 from langchain.memory import ConversationBufferMemory
 
-from ..analytics.market_analyzer import MarketAnalyzer
+# from analytics.market_analyzer import MarketAnalyzer
 
-        class MarketingSpecialistAgent:
-            """
-            Specialized agent for marketing specialist tasks
 
-            Capabilities:
-                - market-analysis
-            """
-
-            def __init__(self, config: Optional[Dict] = None):
-                self.config = config or {}
-                self.logger = logging.getLogger(__name__)
-                self.capabilities = ['market-analysis']
-                self._initialize_tools()
-
-            def _initialize_tools(self):
-                """Initialize agent tools based on capabilities"""
-                self.tools = []
-
-async def market_analysis(self, **kwargs) -> Dict:
+class MarketingSpecialistAgent:
     """
-    Perform market analysis tasks
+    Specialized agent for marketing specialist tasks
+
+    Capabilities:
+        - market-analysis
     """
-    self.logger.info(f"Executing market-analysis with params: {kwargs}")
 
-    try:
-        # Implementation for market-analysis
-        result = {
-            "status": "success",
-            "capability": "market-analysis",
-            "timestamp": datetime.now().isoformat()
-        }
+    def __init__(self, config: Optional[Dict] = None):
+        self.config = config or {}
+        self.logger = logging.getLogger(__name__)
+        self.capabilities = ["market-analysis"]
+        self._initialize_tools()
 
-        return result
+    def _initialize_tools(self):
+        """Initialize agent tools based on capabilities"""
+        self.tools = []
 
-    except Exception as e:
-        self.logger.error(f"Error in market-analysis: {e}")
-        return {
-            "status": "error",
-            "capability": "market-analysis",
-            "error": str(e)
-        }
+    async def market_analysis(self, **kwargs) -> Dict:
+        """
+        Perform market analysis tasks
+        """
+        self.logger.info(f"Executing market-analysis with params: {kwargs}")
 
+        try:
+            # Implementation for market-analysis
+            result = {
+                "status": "success",
+                "capability": "market-analysis",
+                "timestamp": datetime.now().isoformat(),
+            }
 
-async def execute(self, task: str, params: Dict = None) -> Dict:
-    """
-    Execute a task using available capabilities
-    """
-    params = params or {}
+            return result
 
-    self.logger.info(f"Executing task: {task}")
+        except Exception as e:
+            self.logger.error(f"Error in market-analysis: {e}")
+            return {"status": "error", "capability": "market-analysis", "error": str(e)}
 
-    # Route to appropriate capability
-    if task in self.capabilities:
-        method_name = task.replace('-', '_')
-        if hasattr(self, method_name):
-            method = getattr(self, method_name)
-            return await method(**params)
+    async def execute(self, task: str, params: Dict = None) -> Dict:
+        """
+        Execute a task using available capabilities
+        """
+        params = params or {}
 
-    return {
-        "status": "error",
-        "message": f"Unknown task: {task}"
-    }
+        self.logger.info(f"Executing task: {task}")
+
+        # Route to appropriate capability
+        if task in self.capabilities:
+            method_name = task.replace("-", "_")
+            if hasattr(self, method_name):
+                method = getattr(self, method_name)
+                return await method(**params)
+
+        return {"status": "error", "message": f"Unknown task: {task}"}
