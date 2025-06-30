@@ -268,7 +268,11 @@
       "Bash(ci_test_response.json)",
       "Bash(unzip:*)",
       "Bash(./package_lambdas.sh:*)",
-      "Bash(pre-commit:*)"
+      "Bash(pre-commit:*)",
+      "Bash(flake8:*)",
+      "Bash(autoflake:*)",
+      "Bash(black:*)",
+      "Bash(isort:*)"
     ],
     "deny": []
   }

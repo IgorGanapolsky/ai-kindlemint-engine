@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
 """Real coverage tests - based on actual code structure"""
 
-import json
-import tempfile
-from pathlib import Path
-from unittest.mock import MagicMock, patch
-
-import pytest
+from unittest.mock import patch
 
 
 def test_sudoku_generator_coverage():
@@ -78,7 +73,6 @@ def test_config_loader_coverage():
 def test_base_validator_coverage():
     """Boost base_validator.py coverage from 55% to 75%+"""
     from kindlemint.validators.base_validator import (
-        BaseValidator,
         IssueSeverity,
         ValidationIssue,
         ValidationReport,
@@ -123,12 +117,7 @@ def test_base_validator_coverage():
 
 def test_message_protocol_coverage():
     """Boost message_protocol.py coverage from 77% to 90%+"""
-    from kindlemint.agents.message_protocol import (
-        Message,
-        MessageBus,
-        MessagePriority,
-        MessageType,
-    )
+    from kindlemint.agents.message_protocol import Message, MessagePriority, MessageType
 
     # Test all MessageType values
     assert MessageType.TASK_REQUEST.value == "task_request"

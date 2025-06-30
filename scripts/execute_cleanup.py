@@ -6,7 +6,6 @@ CAUTION: This script will reorganize your project structure!
 
 import argparse
 import json
-import os
 import shutil
 import sys
 from pathlib import Path

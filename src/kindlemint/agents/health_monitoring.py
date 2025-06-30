@@ -7,15 +7,12 @@ and alerting capabilities for the multi-agent publishing automation system.
 
 import asyncio
 import logging
-import time
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional
 
 import psutil
-
-from .message_protocol import AgentMessage, MessageType, Priority
 
 
 class HealthLevel(Enum):

@@ -13,7 +13,7 @@ from typing import Any, Dict, List
 # Add project root to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from scripts.api_manager_enhanced import EnhancedAPIManager, with_ai_monitoring
+from scripts.api_manager_enhanced import EnhancedAPIManager
 from scripts.crossword_clue_generator import CrosswordClueGenerator
 from scripts.sentry_agent_monitoring import AgentContext, get_agent_monitor
 

@@ -676,5 +676,3 @@ class ContextMemoryStore:
                 "processing_metadata": voice_input.processing_metadata,
             }
         )
-
-        return json.dumps(data)

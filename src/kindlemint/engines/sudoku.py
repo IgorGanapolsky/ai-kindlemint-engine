@@ -7,12 +7,11 @@ Generates valid Sudoku puzzles with guaranteed unique solutions for KindleMint E
 import argparse
 import copy
 import json
-import os
 import random
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 from PIL import Image, ImageDraw, ImageFont
 

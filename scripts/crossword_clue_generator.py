@@ -4,9 +4,7 @@ Professional Crossword Clue Generator
 Generates high-quality, varied clues for crossword puzzles
 """
 
-import random
-import re
-from typing import Dict, List, Optional
+from typing import Optional
 
 
 class CrosswordClueGenerator:

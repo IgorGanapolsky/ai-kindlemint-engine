@@ -19,7 +19,7 @@ from datetime import datetime
 # Make Path alias available *before* load_dotenv so it's usable in the path expression
 from pathlib import Path
 from pathlib import Path as _PathForSentry
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional
 
 # --------------------------------------------------------------------------- #
 # Load environment variables early so Sentry / Slack see them

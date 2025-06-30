@@ -8,12 +8,10 @@ import asyncio
 import json
 import logging
 import os
-import re
 import time
-from dataclasses import asdict, dataclass
-from datetime import datetime, timedelta
-from typing import Any, Callable, Dict, List, Optional, Set, Union
-from urllib.parse import parse_qs, urlparse
+from dataclasses import dataclass
+from datetime import datetime
+from typing import Any, Callable, Dict, List, Optional
 
 import requests
 
@@ -535,7 +533,7 @@ class SlackBot:
 
     def _handle_autofix(self, action_value: Dict, user: str) -> SlackResponse:
         """Handle auto-fix action"""
-        alert_data = action_value.get("alert_data", {})
+        action_value.get("alert_data", {})
 
         blocks = [
             {
@@ -558,7 +556,7 @@ class SlackBot:
 
     def _handle_optimize(self, action_value: Dict, user: str) -> SlackResponse:
         """Handle optimize action"""
-        alert_data = action_value.get("alert_data", {})
+        action_value.get("alert_data", {})
 
         blocks = [
             {
@@ -660,7 +658,7 @@ class SlackWebhookHandler:
     async def _process_message(self, event: Dict[str, Any]):
         """Process incoming message events"""
         text = event.get("text", "")
-        user = event.get("user")
+        event.get("user")
         channel = event.get("channel")
 
         # Check for alert keywords

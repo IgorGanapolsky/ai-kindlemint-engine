@@ -4,7 +4,6 @@ Hardcover Cover Wrap Alignment Fix
 Corrects positioning issues in the KDP hardcover cover wrap based on template specifications
 """
 
-import os
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -180,7 +179,7 @@ class CoverWrapAlignmentFixer:
         # === BACK COVER TEXT ===
         back_text_x = self.back_cover_x + self.safe_margin
         back_text_y = self.cover_y + self.safe_margin
-        back_text_width = self.back_cover_width - (2 * self.safe_margin)
+        self.back_cover_width - (2 * self.safe_margin)
 
         # Title
         draw.text(
@@ -256,7 +255,7 @@ def main():
     )
 
     # Create corrected cover wrap
-    corrected_path = fixer.create_corrected_cover_wrap(cover_source, output_dir)
+    fixer.create_corrected_cover_wrap(cover_source, output_dir)
 
     print(f"\n🎯 Alignment corrections applied:")
     print(f"   ✅ Spine text properly centered within {fixer.spine_width_px}px width")

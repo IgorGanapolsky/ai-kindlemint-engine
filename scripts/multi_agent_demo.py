@@ -7,12 +7,11 @@ showing how specialized agents coordinate to generate books efficiently.
 """
 
 import asyncio
-import json
 import logging
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -508,7 +507,7 @@ async def main():
 if __name__ == "__main__":
     # Add required dependencies check
     try:
-        import psutil
+        pass
     except ImportError:
         print("❌ Missing required dependency: psutil")
         print("Install with: pip install psutil")

@@ -147,12 +147,10 @@ class A2AAgent(ABC):
     @abstractmethod
     def _define_capabilities(self) -> List[AgentCapability]:
         """Define agent capabilities - must be implemented by subclasses"""
-        pass
 
     @abstractmethod
     def _register_handlers(self) -> Dict[str, Any]:
         """Register message handlers - must be implemented by subclasses"""
-        pass
 
     def process_message(self, message: A2AMessage) -> A2AMessage:
         """Process an incoming A2A message"""

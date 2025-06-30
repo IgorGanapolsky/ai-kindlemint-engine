@@ -10,7 +10,6 @@ import os
 import subprocess
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -286,8 +285,8 @@ class CIOrchestrationSetup:
 
         # Test component initialization
         try:
-            monitor = CIMonitor("igorganapolsky", "ai-kindlemint-engine")
-            analyzer = CIAnalyzer(self.repo_path)
+            CIMonitor("igorganapolsky", "ai-kindlemint-engine")
+            CIAnalyzer(self.repo_path)
             fixer = CIFixer(self.repo_path, dry_run=True)
             orchestrator = CIOrchestrator(
                 "igorganapolsky", "ai-kindlemint-engine", self.repo_path, dry_run=True

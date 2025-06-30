@@ -5,9 +5,8 @@ Test AWS deployment status and functionality
 
 import json
 import subprocess
-import time
 from datetime import datetime
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def check_stack_status(

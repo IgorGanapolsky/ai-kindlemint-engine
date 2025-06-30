@@ -5,7 +5,6 @@ Uses larger variety of templates and dynamic clue generation
 """
 
 import random
-from datetime import datetime
 from pathlib import Path
 
 from reportlab.lib import colors

@@ -6,7 +6,6 @@ Creates professional PDF interiors from puzzle data for KDP publishing
 
 import argparse
 import json
-import os
 import re
 import sys
 from datetime import datetime
@@ -15,13 +14,9 @@ from pathlib import Path
 from scripts.formatter import Formatter
 
 try:
-    from PIL import Image
-    from reportlab.lib import colors
     from reportlab.lib.pagesizes import A4, letter
-    from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
     from reportlab.lib.units import inch
     from reportlab.pdfgen import canvas
-    from reportlab.platypus import Paragraph, Table, TableStyle
 except ImportError:
     print("❌ Required dependencies missing. Run: pip install reportlab pillow")
     sys.exit(1)

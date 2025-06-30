@@ -6,13 +6,9 @@ Implements the Magnetic Marketing Triangle: Message → Market → Media
 """
 
 import json
-import os
-import random
-import re
 import sys
-from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List
 
 
 class MagneticMarketingEngine:
@@ -95,7 +91,7 @@ class MagneticMarketingEngine:
 
         # Get book theme and target from config
         book_theme = self.book_config.get("puzzle_type", "crossword")
-        target_audience = self.book_config.get("target_audience", "general")
+        self.book_config.get("target_audience", "general")
 
         # Kennedy-style avatar templates based on book type
         avatar_templates = {

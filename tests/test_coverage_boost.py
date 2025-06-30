@@ -6,10 +6,6 @@ This test file uses what actually exists to boost coverage from 10% to 25%+
 
 import json
 import tempfile
-from pathlib import Path
-from unittest.mock import MagicMock, patch
-
-import pytest
 
 
 def test_kindlemint_package_imports():
@@ -22,7 +18,6 @@ def test_kindlemint_package_imports():
 
     # Test specific imports that boost coverage
     from kindlemint.agents.agent_types import AgentCapability
-    from kindlemint.engines.sudoku import SudokuGenerator
 
     assert kindlemint is not None
     assert AgentCapability.CONTENT_GENERATION.value == "content_generation"

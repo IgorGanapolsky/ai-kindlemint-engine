@@ -6,13 +6,12 @@ Creates complete hardcover publishing packages for Large Print books
 
 import argparse
 import json
-import os
 import shutil
 import sys
 from datetime import datetime
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 
 
 class HardcoverProducer8x11:
@@ -293,7 +292,7 @@ class HardcoverProducer8x11:
             img.paste(source_img, (front_x, front_y))
 
             # Add spine text
-            spine_x = bleed + back_width
+            bleed + back_width
             # Note: Real implementation would rotate text 90 degrees
 
             # Add back cover - simple navy background with description

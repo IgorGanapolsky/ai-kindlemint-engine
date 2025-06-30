@@ -6,14 +6,13 @@ CI Fixer - Implements automated fixes for common CI failures
 import ast
 import json
 import logging
-import os
 import re
 import shutil
 import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional, Tuple
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
@@ -715,7 +714,7 @@ class CIFixer:
                             r"from (kindlemint\.[^\s]+) import (.+)", line
                         )
                         if import_match:
-                            module_name = import_match.group(1)
+                            import_match.group(1)
                             import_names = import_match.group(2)
 
                             # Create try/except block

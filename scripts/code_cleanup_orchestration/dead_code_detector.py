@@ -12,20 +12,15 @@ This module provides comprehensive dead code detection capabilities including:
 """
 
 import ast
-import importlib.util
 import json
 import logging
 import os
-import re
-import subprocess
-import sys
 from collections import defaultdict, deque
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set
 
-import networkx as nx
 import yaml
 
 

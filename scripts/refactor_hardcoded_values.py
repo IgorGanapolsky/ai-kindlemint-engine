@@ -11,7 +11,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 
 import argparse
-import os
 import re
 import shutil
 import sys
@@ -124,8 +123,6 @@ def refactor_file(filepath, dry_run=False):
     try:
         with open(filepath, "r") as f:
             content = f.read()
-
-        original_content = content
 
         # Add config import if needed
         content = add_config_import(content)

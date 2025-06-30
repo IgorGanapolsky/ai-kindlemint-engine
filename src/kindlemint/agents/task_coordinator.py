@@ -8,14 +8,14 @@ and agent coordination for the multi-agent book publishing system.
 import asyncio
 import logging
 import uuid
-from collections import defaultdict, deque
+from collections import defaultdict
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set
 
 from .agent_registry import AgentRegistry
-from .base_agent import AgentCapability, AgentStatus
+from .base_agent import AgentCapability
 from .message_protocol import AgentMessage, MessageType, Priority, create_task_request
 from .task_system import Task, TaskPriority, TaskResult, TaskStatus, TaskType
 

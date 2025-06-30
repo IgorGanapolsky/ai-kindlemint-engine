@@ -366,7 +366,6 @@ class Volume3CrosswordGenerator:
 
         # Place horizontal words - varying patterns for each puzzle
         placed_words = []
-        word_positions = {}
 
         # Different patterns based on puzzle number for variety
         pattern_type = puzzle_num % 5

@@ -9,11 +9,11 @@ import asyncio
 import logging
 from collections import defaultdict
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set
 
 from .base_agent import AgentCapability, AgentStatus
 from .health_monitoring import HealthMonitor, HealthStatus
-from .message_protocol import AgentMessage, MessageType, Priority
+from .message_protocol import AgentMessage
 
 
 class AgentRegistry:

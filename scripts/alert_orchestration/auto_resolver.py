@@ -5,16 +5,11 @@ Provides safe, validated automated fixes with rollback capabilities
 """
 
 import asyncio
-import json
 import logging
-import os
-import shutil
-import subprocess
 import time
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple
 
 # Configuration
 logging.basicConfig(level=logging.INFO)
@@ -716,7 +711,7 @@ class AutoResolver:
             return False
 
         action = rollback_info["action"]
-        context = rollback_info["context"]
+        rollback_info["context"]
 
         logger.info(f"Rolling back resolution: {action.name}")
 

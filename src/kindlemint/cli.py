@@ -9,7 +9,6 @@ structure while the full migration of `scripts/` is in progress.
 
 import sys
 from pathlib import Path
-from typing import Any, Callable, Type, Union
 
 # Add the project root to sys.path to allow importing from 'scripts'
 # This is a temporary measure for backward compatibility during migration.
@@ -21,8 +20,6 @@ if str(project_root) not in sys.path:
 # Define a custom error for missing legacy scripts
 class LegacyScriptNotFoundError(ModuleNotFoundError):
     """Raised when a required legacy script cannot be imported."""
-
-    pass
 
 
 # Re-export main script entrypoints with error handling
@@ -69,7 +66,7 @@ except ImportError as e:
 # 5. validate_metadata from scripts.critical_metadata_qa
 try:
     from scripts.critical_metadata_qa import validate_metadata
-except ImportError as e:
+except ImportError:
     # Try to import the class and create a wrapper function if the direct function import fails
     try:
         from scripts.critical_metadata_qa import CriticalMetadataQA

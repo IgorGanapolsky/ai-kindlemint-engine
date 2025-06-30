@@ -4,7 +4,6 @@ Create crossword puzzles for Volume 4 with UNIQUE solutions for each puzzle
 Building on Volume 4's success with enhanced word variety
 """
 
-import hashlib
 import json
 import random
 import sys
@@ -577,7 +576,6 @@ class Volume4CrosswordGenerator:
 
         # Place horizontal words - create truly unique patterns
         placed_words = []
-        word_positions = {}
 
         # Generate unique pattern based on puzzle number
         # Use more variation in patterns

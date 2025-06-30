@@ -22,7 +22,6 @@ warnings.warn(
 
 # Also make the main function available
 # Import and re-export everything from new location
-from kindlemint.engines.sudoku import *
 from kindlemint.engines.sudoku import main
 
 # Run main if executed directly

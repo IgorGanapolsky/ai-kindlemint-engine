@@ -6,12 +6,9 @@ A2A Message Bus - Central communication hub for agents
 import asyncio
 import json
 import logging
-from collections import defaultdict
-from datetime import datetime
-from pathlib import Path
 from typing import Dict, List, Optional
 
-from .base_agent import A2AAgent, A2AMessage, A2ARegistry
+from .base_agent import A2AMessage, A2ARegistry
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

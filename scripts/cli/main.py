@@ -26,7 +26,6 @@ FORMATTERS = {
 @click.group()
 def cli():
     """KindleMint Engine CLI"""
-    pass
 
 
 @cli.command("generate")

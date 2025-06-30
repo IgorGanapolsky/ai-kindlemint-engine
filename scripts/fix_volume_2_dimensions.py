@@ -4,24 +4,13 @@ Fix Volume 2 PDF dimensions from 8.5x11 to 6x9 inches
 Ensure proper gutter margin for 128-page book
 """
 
-import json
 from pathlib import Path
 
-from PIL import Image as PILImage
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import inch
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import inch
-from reportlab.pdfgen import canvas
-from reportlab.platypus import (
-    Image,
-    PageBreak,
-    Paragraph,
-    SimpleDocTemplate,
-    Spacer,
-    Table,
-    TableStyle,
-)
+from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer
 
 # CRITICAL: KDP 6x9 dimensions
 PAGE_WIDTH = 6 * inch
@@ -36,7 +25,7 @@ def fix_volume_2_pdf():
     """Regenerate Volume 2 with correct dimensions"""
 
     volume_dir = Path("books/active_production/Large_Print_Crossword_Masters/volume_2")
-    puzzles_dir = volume_dir / "puzzles"
+    volume_dir / "puzzles"
     output_pdf = volume_dir / "paperback" / "crossword_book_volume_2_FINAL_6x9.pdf"
 
     # Create PDF with correct dimensions

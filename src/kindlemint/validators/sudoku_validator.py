@@ -8,17 +8,11 @@ and grid validity according to Sudoku rules.
 """
 
 import copy
-import json
 import logging
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
+from typing import Any, Dict, List, Union
 
-from .base_validator import (
-    IssueSeverity,
-    PuzzleValidator,
-    ValidationIssue,
-    ValidationResult,
-)
+from .base_validator import IssueSeverity, PuzzleValidator, ValidationIssue
 
 # Configure logging
 logger = logging.getLogger(__name__)

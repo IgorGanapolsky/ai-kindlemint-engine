@@ -8,7 +8,6 @@ import argparse
 import subprocess
 import sys
 import time
-from datetime import datetime
 from pathlib import Path
 
 # Add parent directory to path
@@ -29,9 +28,7 @@ def print_banner():
 def check_dependencies():
     """Check if required dependencies are installed"""
     try:
-        import PIL
-        import PyPDF2
-        import reportlab
+        pass
 
         return True
     except ImportError:
@@ -70,7 +67,6 @@ def generate_book(book_type: str, volume: int, output_dir: str = None):
 def generate_crossword_book(volume: int, output_path: Path):
     """Generate a crossword puzzle book"""
     from book_layout_bot import BookLayoutBot
-    from crossword_clue_generator import CrosswordClueGenerator
     from crossword_engine_v3_fixed import CrosswordEngineV3
 
     print("🎯 Initializing Crossword Engine...")

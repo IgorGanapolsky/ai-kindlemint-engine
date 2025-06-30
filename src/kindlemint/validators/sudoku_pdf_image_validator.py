@@ -7,7 +7,7 @@ Validates that puzzle images are actually rendered in the PDF
 import json
 import sys
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict
 
 import fitz  # PyMuPDF
 
@@ -247,13 +247,12 @@ def validate_sudoku_pdf(pdf_path: str) -> bool:
     """
     try:
         # Install PyMuPDF if needed
-        import fitz
+        pass
     except ImportError:
         print("Installing PyMuPDF...")
         import subprocess
 
         subprocess.check_call([sys.executable, "-m", "pip", "install", "PyMuPDF"])
-        import fitz
 
     validator = SudokuPDFImageValidator()
     report = validator.validate_pdf_images(Path(pdf_path))

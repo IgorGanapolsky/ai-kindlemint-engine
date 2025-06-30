@@ -9,7 +9,6 @@ import pytest
 
 from scripts.a2a_protocol.message_bus import A2AMessageBus, A2AOrchestrator
 from scripts.a2a_protocol.puzzle_validator_agent import PuzzleValidatorAgent
-from scripts.a2a_protocol.sudoku_validator import SudokuValidator
 
 
 class TestA2AIntegration:

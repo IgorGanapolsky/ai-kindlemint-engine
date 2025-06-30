@@ -5,27 +5,22 @@ Implements Marketing School's "Focus on Leaders, Not Companies" strategy
 "Personal Profile > Publisher Page" - Neil Patel & Eric Siu
 """
 
-import hashlib
 import json
-import os
 import random
-import re
 import sys
-import time
-import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List
 
 try:
-    import schedule
+    pass
 
     SCHEDULE_AVAILABLE = True
 except ImportError:
     SCHEDULE_AVAILABLE = False
 
 try:
-    import requests
+    pass
 
     REQUESTS_AVAILABLE = True
 except ImportError:

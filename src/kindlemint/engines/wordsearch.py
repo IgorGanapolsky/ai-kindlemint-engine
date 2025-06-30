@@ -5,7 +5,6 @@ Generates Word Search puzzles for KindleMint Engine
 """
 import argparse
 import json
-import os
 import random
 import sys
 from datetime import datetime

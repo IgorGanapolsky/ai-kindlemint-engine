@@ -21,7 +21,6 @@ Usage:
     python scripts/build_executable.py
 """
 
-import os
 import shutil
 import subprocess
 import sys

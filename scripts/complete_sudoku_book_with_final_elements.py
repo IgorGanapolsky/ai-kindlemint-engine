@@ -6,7 +6,6 @@ Regenerates the Large Print Sudoku Masters Volume 1 with copyright page and fina
 
 import json
 import os
-from datetime import datetime
 from pathlib import Path
 
 try:
@@ -22,7 +21,6 @@ try:
         SimpleDocTemplate,
         Spacer,
     )
-    from reportlab.platypus.tableofcontents import TableOfContents
 except ImportError:
     print("Installing required packages...")
     os.system("pip install reportlab")
@@ -38,7 +36,6 @@ except ImportError:
         SimpleDocTemplate,
         Spacer,
     )
-    from reportlab.platypus.tableofcontents import TableOfContents
 
 
 class CompleteSudokuBookGenerator:

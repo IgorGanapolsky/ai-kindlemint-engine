@@ -3,9 +3,6 @@
 
 import tempfile
 from pathlib import Path
-from unittest.mock import MagicMock, patch
-
-import pytest
 
 
 def test_sudoku_generator_basics():
@@ -101,7 +98,6 @@ def test_agent_enums():
 
 def test_validator_imports():
     """Test validator module imports"""
-    import kindlemint.validators
     from kindlemint.validators import get_validator
 
     # Test factory function exists
@@ -110,7 +106,6 @@ def test_validator_imports():
 
 def test_engines_imports():
     """Test engines module imports"""
-    import kindlemint.engines
     from kindlemint.engines import get_engine
 
     # Test factory function exists

@@ -2,14 +2,11 @@
 Cover Design Agent for creating book covers (front and back) using AI
 """
 
-import asyncio
-import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict
 
-from ..utils.api import call_ai_api
 from .agent_types import AgentCapability
 from .base_agent import BaseAgent
 from .task_system import Task, TaskResult, TaskType
@@ -131,7 +128,7 @@ class CoverDesignAgent(BaseAgent):
         self, title: str, author: str, metadata: Dict
     ) -> str:
         """Generate a basic front cover prompt if none provided"""
-        subtitle = metadata.get("subtitle", "")
+        metadata.get("subtitle", "")
         is_large_print = "Large Print" in title
 
         prompt = f"""Create a professional book cover for '{title}' by {author}.
@@ -154,7 +151,7 @@ NO text generation - only design elements and layout."""
         self, title: str, author: str, metadata: Dict
     ) -> str:
         """Generate a basic back cover prompt if none provided"""
-        is_large_print = "Large Print" in title
+        "Large Print" in title
         description = metadata.get("description", "").split("\n")[0]  # First line
 
         prompt = f"""Create a professional back cover design for '{title}' by {author}.

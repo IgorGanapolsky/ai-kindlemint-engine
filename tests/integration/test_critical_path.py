@@ -6,9 +6,6 @@ These tests cover the most important business flows and will boost coverage sign
 
 import tempfile
 from pathlib import Path
-from unittest.mock import MagicMock, patch
-
-import pytest
 
 
 class TestBookGenerationPipeline:
@@ -18,7 +15,7 @@ class TestBookGenerationPipeline:
         """Test complete sudoku book generation - covers ~10 modules"""
         # This single test covers: engines, validators, metadata, and more
         from kindlemint.engines.sudoku import SudokuPuzzle
-        from kindlemint.validators.base_validator import IssueSeverity, ValidationReport
+        from kindlemint.validators.base_validator import ValidationReport
 
         # Create a simple sudoku puzzle
         puzzle = SudokuPuzzle(

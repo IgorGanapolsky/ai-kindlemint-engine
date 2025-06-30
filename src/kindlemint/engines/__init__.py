@@ -11,14 +11,14 @@ This package contains the core engines for generating various types of puzzles:
 __all__ = []
 
 try:
-    from .sudoku import SudokuGenerator
+    pass
 
     __all__.append("SudokuGenerator")
 except ImportError:
     pass
 
 try:
-    from .wordsearch import WordSearchGenerator
+    pass
 
     __all__.append("WordSearchGenerator")
 except ImportError:

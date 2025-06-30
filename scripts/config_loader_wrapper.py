@@ -20,11 +20,10 @@ warnings.warn(
 )
 
 # Import and re-export everything from new location
-from kindlemint.utils.config import *
 
 # Also explicitly import commonly used items
 try:
-    from kindlemint.utils.config import ConfigManager, get_config, load_config
+    pass
 except ImportError:
     # Fallback if specific exports aren't available
     pass

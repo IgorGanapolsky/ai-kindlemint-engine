@@ -5,7 +5,6 @@ Each puzzle has completely different clues
 """
 
 import json
-import os
 import random
 from datetime import datetime
 from pathlib import Path
@@ -17,7 +16,6 @@ from reportlab.pdfgen import canvas
 # KDP 6x9 book dimensions (not letter size!)
 BOOK_WIDTH = 6 * inch
 BOOK_HEIGHT = 9 * inch
-import string
 
 from reportlab.lib.units import inch
 

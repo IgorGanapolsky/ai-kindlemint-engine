@@ -5,17 +5,13 @@ Handles all AI API interactions (OpenAI, DALL-E, Gemini) with consistent error h
 rate limiting, and configuration management.
 """
 
-import json
 import logging
 import os
-import sys
-import time
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 import google.generativeai as genai
-import openai
 from openai import OpenAI
 from tenacity import retry, stop_after_attempt, wait_exponential
 

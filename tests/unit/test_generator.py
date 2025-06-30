@@ -4,10 +4,9 @@ Test Generator - Generates comprehensive test suites automatically
 
 import ast
 import logging
-from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
 from textwrap import dedent
+from typing import Dict, List
 
 
 class TestGenerator:

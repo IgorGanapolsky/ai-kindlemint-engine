@@ -4,10 +4,7 @@ Marketing Millennials Strategy Launcher
 Automates the 30-day transformation from book generator to media company
 """
 
-import json
 import sys
-from datetime import datetime
-from pathlib import Path
 
 
 def week_1_reposition_catalog():

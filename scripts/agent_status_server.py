@@ -4,7 +4,6 @@ Real-time Agent Status Server
 Serves live agent orchestration status via HTTP endpoints
 """
 
-import asyncio
 import json
 import threading
 import time
@@ -25,7 +24,7 @@ class AgentStatusHandler(BaseHTTPRequestHandler):
         """Handle GET requests"""
         parsed_path = urlparse(self.path)
         path = parsed_path.path
-        query = parse_qs(parsed_path.query)
+        parse_qs(parsed_path.query)
 
         # CORS headers
         self.send_header("Access-Control-Allow-Origin", "*")

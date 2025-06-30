@@ -4,7 +4,6 @@ Create REAL crossword puzzles for Volume 3 with UNIQUE solutions for each puzzle
 This fixes the duplication issue by ensuring each puzzle has different word selections
 """
 
-import hashlib
 import json
 import random
 from datetime import datetime
@@ -620,7 +619,6 @@ class Volume3CrosswordGenerator:
 
         # Place horizontal words - create truly unique patterns
         placed_words = []
-        word_positions = {}
 
         # Generate unique pattern based on puzzle number
         # Use more variation in patterns

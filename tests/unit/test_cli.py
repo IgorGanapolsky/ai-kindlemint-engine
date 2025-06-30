@@ -1,6 +1,5 @@
 from pathlib import Path
 
-import pytest
 from click.testing import CliRunner
 
 import scripts.cli.main as cli_module

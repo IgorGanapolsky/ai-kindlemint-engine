@@ -6,7 +6,6 @@ Demo script to showcase Claude Cost Slack Notifications
 import os
 import sys
 import time
-from datetime import datetime
 
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -36,7 +35,7 @@ def main():
 
     # Initialize components
     notifier = ClaudeCostSlackNotifier()
-    tracker = ClaudeCostTracker()
+    ClaudeCostTracker()
 
     # Show current status
     print_header("📊 Current Cost Status")

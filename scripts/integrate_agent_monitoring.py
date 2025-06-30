@@ -4,7 +4,6 @@ Integration helper for adding Sentry Agent Monitoring to existing scripts
 """
 
 import os
-import sys
 
 
 def integrate_monitoring():

@@ -3,15 +3,11 @@ Code Optimizer - Analyzes and optimizes codebase for performance, security, and 
 """
 
 import ast
-import asyncio
-import cProfile
-import io
 import logging
-import pstats
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Set
+from typing import Dict, List
 
 
 class CodeOptimizer:
@@ -301,8 +297,6 @@ class CodeOptimizer:
     ) -> List[Dict]:
         """Analyze AST for performance issues"""
 
-        issues = []
-
         class PerformanceAnalyzer(ast.NodeVisitor):
             def __init__(self):
                 self.issues = []
@@ -383,8 +377,6 @@ class CodeOptimizer:
     ) -> List[Dict]:
         """Analyze AST for scalability issues"""
 
-        issues = []
-
         class ScalabilityAnalyzer(ast.NodeVisitor):
             def __init__(self):
                 self.issues = []
@@ -424,8 +416,6 @@ class CodeOptimizer:
         self, tree: ast.AST, content: str, file_path: Path
     ) -> List[Dict]:
         """Analyze code for maintainability issues"""
-
-        issues = []
 
         class MaintainabilityAnalyzer(ast.NodeVisitor):
             def __init__(self):

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Check page counts of all PDF files in the Large Print Crossword Masters series."""
 
-import os
 from pathlib import Path
 
 from pypdf import PdfReader

@@ -4,15 +4,14 @@ Code Hygiene Orchestrator Agent
 Maintains project cleanliness, organizes files, and manages git hygiene
 """
 
-import os
 import json
-import subprocess
-from pathlib import Path
-from typing import List, Dict, Set, Tuple
-from datetime import datetime
 import shutil
+import subprocess
 from collections import defaultdict
+from datetime import datetime
 from enum import Enum
+from pathlib import Path
+from typing import Dict, List, Set
 
 
 class FileCategory(Enum):
@@ -457,7 +456,7 @@ class CodeHygieneOrchestrator:
 
     def generate_commit_plan(self) -> List[Dict]:
         """Generate a plan for committing files in logical groups"""
-        report = self.analyze_project_hygiene()
+        self.analyze_project_hygiene()
         categorized = self._categorize_files(self._get_untracked_files())
 
         commit_groups = []

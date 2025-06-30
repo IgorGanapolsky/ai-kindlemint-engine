@@ -12,13 +12,13 @@ import time
 import uuid
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Set, Union
+from typing import Dict, List, Optional, Set
 
 from .agent_types import AgentCapability
 from .health_monitoring import HealthStatus
-from .message_protocol import AgentMessage, MessageType, Priority
+from .message_protocol import AgentMessage, MessageType
 from .task_system import Task, TaskResult, TaskStatus
 
 
@@ -230,17 +230,14 @@ class BaseAgent(ABC):
         Returns:
             Task execution result
         """
-        pass
 
     @abstractmethod
     async def _initialize(self) -> None:
         """Agent-specific initialization logic"""
-        pass
 
     @abstractmethod
     async def _cleanup(self) -> None:
         """Agent-specific cleanup logic"""
-        pass
 
     # Private methods
     def _can_accept_task(self, task: Task) -> bool:

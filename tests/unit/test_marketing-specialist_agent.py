@@ -8,15 +8,17 @@ import pytest
 # Skip the entire module during the transition away from legacy agent tests.
 pytest.skip("agent tests deprecated", allow_module_level=True)
 
-import pytest
-import asyncio
-from pathlib import Path
 import sys
+from pathlib import Path
+
+import pytest
 
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-MarketingSpecialistAgent = __import__("marketing-specialist_agent").MarketingSpecialistAgent
+MarketingSpecialistAgent = __import__(
+    "marketing-specialist_agent"
+).MarketingSpecialistAgent
 
 
 class TestMarketingSpecialistAgent:
@@ -30,7 +32,7 @@ class TestMarketingSpecialistAgent:
     def test_initialization(self, agent):
         """Test agent initialization"""
         assert agent is not None
-        assert agent.capabilities == ['market-analysis']
+        assert agent.capabilities == ["market-analysis"]
 
     @pytest.mark.asyncio
     async def test_execute_valid_task(self, agent):
@@ -45,6 +47,7 @@ class TestMarketingSpecialistAgent:
         result = await agent.execute("invalid-task", {})
         assert result["status"] == "error"
         assert "Unknown task" in result["message"]
+
 
 @pytest.mark.asyncio
 async def test_market_analysis(self, agent):

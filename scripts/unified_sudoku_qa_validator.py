@@ -5,10 +5,9 @@ Replaces all the contradicting validators with one comprehensive check
 """
 
 import json
-import os
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List
 
 import fitz  # PyMuPDF for visual validation
 import numpy as np

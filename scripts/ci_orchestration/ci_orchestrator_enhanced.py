@@ -8,10 +8,9 @@ import json
 import logging
 import os
 import sys
-import time
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
@@ -293,7 +292,7 @@ def main():
 
     orchestrator = EnhancedCIOrchestrator(args.owner, args.repo, dry_run=args.dry_run)
 
-    analysis = orchestrator.run_complete_cycle()
+    orchestrator.run_complete_cycle()
 
     print(f"\n✅ Enhanced CI orchestration complete")
     print(f"📄 Analysis saved to: ci_analysis_enhanced.json")

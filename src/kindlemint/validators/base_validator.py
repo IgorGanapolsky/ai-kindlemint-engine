@@ -13,7 +13,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Union
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -176,7 +176,6 @@ class PuzzleValidator(ABC):
         Returns:
             List of validation issues found in the puzzle
         """
-        pass
 
     @abstractmethod
     def check_structure(
@@ -192,7 +191,6 @@ class PuzzleValidator(ABC):
         Returns:
             List of structural issues found in the puzzle
         """
-        pass
 
     @abstractmethod
     def check_content(
@@ -208,7 +206,6 @@ class PuzzleValidator(ABC):
         Returns:
             List of content issues found in the puzzle
         """
-        pass
 
     @abstractmethod
     def check_solvability(
@@ -224,7 +221,6 @@ class PuzzleValidator(ABC):
         Returns:
             List of solvability issues found in the puzzle
         """
-        pass
 
     def validate_directory(self, directory_path: Union[str, Path]) -> ValidationResult:
         """

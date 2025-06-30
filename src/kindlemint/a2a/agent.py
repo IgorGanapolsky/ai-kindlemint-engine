@@ -1,9 +1,6 @@
 # src/kindlemint/a2a/agent.py
 
-import json
-from typing import Any, Callable, Dict, List
-
-import requests
+from typing import Any, Callable, Dict
 
 from .registry import AgentRegistry
 from .skill import Skill
@@ -58,7 +55,6 @@ class A2AAgent:
         # This is a limitation of our simple, in-process simulation.
         # For now, we'll have to assume a direct object reference is available.
         # This will be addressed when we implement the A2A server.
-        pass
 
     def _create_success_response(self, data: Any) -> Dict[str, Any]:
         """Creates a standard success response."""

@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """Simple import tests to boost coverage - these should all pass"""
 
-import pytest
-
 
 def test_kindlemint_imports():
     """Test basic package imports"""

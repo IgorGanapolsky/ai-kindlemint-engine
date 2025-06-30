@@ -17,4 +17,3 @@ class Formatter(ABC):
         """
         Generate and save a PDF, returning its Path.
         """
-        pass

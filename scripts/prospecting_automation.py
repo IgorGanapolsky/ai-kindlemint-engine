@@ -6,11 +6,10 @@ Implements Jeb Blount's Sales Gravy methodology for systematic book prospecting
 
 import json
 import os
-import re
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List
 
 try:
     import openai
@@ -96,7 +95,7 @@ class ProspectingAutomation:
             collection_file = metadata_dir / "collection.json"
             if collection_file.exists():
                 with open(collection_file, "r") as f:
-                    collection_data = json.load(f)
+                    json.load(f)
 
                 # Extract themes and create quotable insights
                 puzzle_themes = []

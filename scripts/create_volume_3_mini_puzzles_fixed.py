@@ -9,8 +9,6 @@ from pathlib import Path
 from PyPDF2 import PdfReader, PdfWriter
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import inch
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 
 # 6×9 book dimensions

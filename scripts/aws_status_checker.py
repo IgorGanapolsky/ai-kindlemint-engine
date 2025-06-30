@@ -5,10 +5,9 @@ Generates status badges and health checks for AWS services
 """
 
 import json
-import os
 import subprocess
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 
 def get_aws_region() -> str:

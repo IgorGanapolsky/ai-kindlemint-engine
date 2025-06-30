@@ -1,5 +1,3 @@
-import pytest
-
 from scripts.kdp_publisher import KdpPublisher
 
 

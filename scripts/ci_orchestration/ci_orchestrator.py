@@ -10,9 +10,9 @@ import os
 import subprocess
 import sys
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Optional, Tuple
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
@@ -377,7 +377,7 @@ class CIOrchestrator:
         slack_webhook = self.config["notifications"].get("slack_webhook")
         if slack_webhook:
             try:
-                slack_message = self._format_slack_message(results)
+                self._format_slack_message(results)
                 # Send to Slack (implementation depends on your Slack setup)
                 notification_results["slack_sent"] = True
             except Exception as e:

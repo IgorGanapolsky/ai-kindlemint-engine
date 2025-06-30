@@ -3,7 +3,6 @@
 Clean up the validator chaos - establish single source of truth
 """
 
-import os
 import shutil
 from pathlib import Path
 

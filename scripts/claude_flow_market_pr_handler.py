@@ -4,11 +4,8 @@ Claude-Flow Market Research PR Handler
 Automated decision-making for market research pull requests
 """
 
-import json
 import subprocess
 import sys
-from datetime import datetime
-from pathlib import Path
 
 
 def analyze_market_pr():
@@ -30,7 +27,7 @@ def analyze_market_pr():
 
     try:
         result = subprocess.run(analysis_cmd, capture_output=True, text=True)
-        analysis_output = result.stdout
+        result.stdout
 
         print("✅ Analysis complete")
 

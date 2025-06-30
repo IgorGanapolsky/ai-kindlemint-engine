@@ -9,7 +9,6 @@ Ensures CSV output follows the required schema
 
 import csv
 import json
-import os
 from datetime import datetime
 from pathlib import Path
 

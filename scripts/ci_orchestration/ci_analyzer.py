@@ -136,7 +136,7 @@ class CIAnalyzer:
     def analyze_failure(self, failure_info: Dict) -> List[FixStrategy]:
         """Analyze a CI failure and return possible fix strategies"""
         failure_type = failure_info.get("failure_type", "unknown")
-        error_message = failure_info.get("error_message", "")
+        failure_info.get("error_message", "")
         logs = failure_info.get("logs", "")
 
         strategies = []
@@ -252,7 +252,7 @@ class CIAnalyzer:
             if len(match) >= 3:
                 error_desc = match[0] if isinstance(match, tuple) else match
                 file_path = match[1] if len(match) > 1 else None
-                line_num = match[2] if len(match) > 2 else None
+                match[2] if len(match) > 2 else None
 
                 strategies.append(
                     FixStrategy(
@@ -539,7 +539,7 @@ class CIAnalyzer:
         """Analyze PDF generation errors and suggest fixes"""
         strategies = []
 
-        logs = failure_info.get("logs", "")
+        failure_info.get("logs", "")
 
         # Check for missing fallback methods (the exact issue we had)
         if any(

@@ -2,10 +2,7 @@
 """Tests for ConfigLoader to improve coverage"""
 
 import os
-from pathlib import Path
-from unittest.mock import MagicMock, patch
-
-import pytest
+from unittest.mock import patch
 
 from kindlemint.utils.config import ConfigLoader
 

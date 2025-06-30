@@ -3,9 +3,9 @@
 Simple test to create ONE puzzle and verify rendering
 """
 
-from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
+from reportlab.pdfgen import canvas
 
 # Create a simple test PDF with one puzzle
 c = canvas.Canvas("test_sudoku.pdf", pagesize=letter)

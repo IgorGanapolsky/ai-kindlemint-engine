@@ -21,7 +21,6 @@ Usage:
 import argparse
 import cProfile
 import io
-import os
 import pstats
 import shutil
 import sys

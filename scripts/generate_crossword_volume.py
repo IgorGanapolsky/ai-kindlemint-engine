@@ -5,9 +5,6 @@ Using proven methods that actually work
 """
 
 import json
-import os
-import random
-import string
 from datetime import datetime
 from pathlib import Path
 
@@ -496,7 +493,7 @@ class ProperCrosswordGenerator:
             )
 
         # Create PDF interior
-        pdf_path = self.create_pdf_interior(puzzles_data)
+        self.create_pdf_interior(puzzles_data)
 
         # Create metadata files
         self.create_metadata_files()

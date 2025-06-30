@@ -5,17 +5,15 @@ This module builds and maintains comprehensive author profiles that enable
 personalized, context-aware content generation through voice interaction.
 """
 
-import asyncio
 import logging
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple
+from datetime import datetime
+from typing import Dict, List, Optional
 
 from .context_memory import ContextMemoryStore
 from .models import (
     AuthorContext,
     BookGenre,
     CreativeMood,
-    Intent,
     SuccessPatterns,
     UserPreferences,
     VoiceInput,
@@ -238,7 +236,7 @@ class PreferenceEngine:
         """Update user preferences based on new voice input and session data"""
 
         # Analyze genre preferences from voice input
-        genre_preferences = self._analyze_genre_preferences(voice_input.text)
+        self._analyze_genre_preferences(voice_input.text)
 
         # Update publishing goals based on expressed intent
         publishing_goals = self._extract_publishing_goals(voice_input)

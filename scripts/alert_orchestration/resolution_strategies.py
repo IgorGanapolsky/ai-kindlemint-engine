@@ -5,11 +5,10 @@ Provides detailed implementation strategies for common errors and issues
 """
 
 import logging
-import subprocess
 import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger("ResolutionStrategies")
 
@@ -39,17 +38,14 @@ class ResolutionStrategy(ABC):
     @abstractmethod
     async def execute(self, error_context: Dict[str, Any]) -> StrategyResult:
         """Execute the resolution strategy"""
-        pass
 
     @abstractmethod
     async def validate(self, error_context: Dict[str, Any]) -> bool:
         """Validate that this strategy is applicable to the error"""
-        pass
 
     @abstractmethod
     async def rollback(self, rollback_info: Dict[str, Any]) -> bool:
         """Rollback the resolution if needed"""
-        pass
 
 
 class DatabaseConnectionStrategy(ResolutionStrategy):
@@ -196,11 +192,11 @@ class MemoryLeakStrategy(ResolutionStrategy):
 
         try:
             # Step 1: Force garbage collection
-            gc_result = await self._force_garbage_collection(error_context)
+            await self._force_garbage_collection(error_context)
             actions_taken.append("Forced garbage collection")
 
             # Step 2: Clear application caches
-            cache_cleared = await self._clear_application_caches(error_context)
+            await self._clear_application_caches(error_context)
             actions_taken.append("Cleared application caches")
 
             # Step 3: If still high memory, restart service
@@ -291,12 +287,12 @@ class APIRateLimitStrategy(ResolutionStrategy):
             actions_taken.append("Implemented exponential backoff")
 
             # Step 2: Reduce request rate temporarily
-            rate_reduced = await self._reduce_request_rate(error_context)
+            await self._reduce_request_rate(error_context)
             actions_taken.append("Temporarily reduced request rate")
 
             # Step 3: Switch to backup endpoint if available
             if error_context.get("backup_endpoint_available"):
-                endpoint_switched = await self._switch_to_backup_endpoint(error_context)
+                await self._switch_to_backup_endpoint(error_context)
                 actions_taken.append("Switched to backup API endpoint")
 
             return StrategyResult(
@@ -477,11 +473,11 @@ class AuthTokenStrategy(ResolutionStrategy):
 
             # Step 2: Refresh refresh token if needed
             if not access_refreshed:
-                refresh_refreshed = await self._refresh_refresh_token(error_context)
+                await self._refresh_refresh_token(error_context)
                 actions_taken.append("Refreshed refresh token")
 
             # Step 3: Clear authentication cache
-            cache_cleared = await self._clear_auth_cache(error_context)
+            await self._clear_auth_cache(error_context)
             actions_taken.append("Cleared authentication cache")
 
             # Step 4: Validate new tokens
@@ -562,7 +558,7 @@ class ServiceRestartStrategy(ResolutionStrategy):
             service_name = error_context.get("service_name", "unknown")
 
             # Step 1: Graceful shutdown
-            shutdown_success = await self._graceful_shutdown(service_name)
+            await self._graceful_shutdown(service_name)
             actions_taken.append(f"Gracefully shut down {service_name}")
 
             # Step 2: Wait for processes to terminate

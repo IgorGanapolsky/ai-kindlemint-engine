@@ -7,18 +7,11 @@ checking for empty answers, invalid characters, duplicate clues,
 grid structure issues, and solution completeness.
 """
 
-import json
 import logging
-import re
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
+from typing import Any, Dict, List, Union
 
-from .base_validator import (
-    IssueSeverity,
-    PuzzleValidator,
-    ValidationIssue,
-    ValidationResult,
-)
+from .base_validator import IssueSeverity, PuzzleValidator, ValidationIssue
 
 # Configure logging
 logger = logging.getLogger(__name__)

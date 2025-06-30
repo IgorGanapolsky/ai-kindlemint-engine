@@ -6,16 +6,14 @@ Leverages GPT-4o and Gemini for content validation, alongside traditional PDF ch
 """
 
 import argparse
-import hashlib
 import json
 import logging
 import os
 import re
 import sys
-import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Dict
 
 # Configure logging
 logging.basicConfig(
@@ -232,7 +230,7 @@ class EnhancedQAValidator:
         self._calculate_overall_score()
 
         # Generate and save the report
-        report_path = self._generate_report(pdf_path)
+        self._generate_report(pdf_path)
 
         return self.qa_results
 

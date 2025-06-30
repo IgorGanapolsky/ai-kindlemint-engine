@@ -6,7 +6,6 @@ This is a CRITICAL requirement for all book series production
 """
 
 import json
-import os
 from datetime import datetime
 from pathlib import Path
 
@@ -473,7 +472,7 @@ def main():
     is_compliant = enforcer.enforce_compliance(auto_generate=True)
 
     # Generate summary
-    summary = enforcer.generate_compliance_summary()
+    enforcer.generate_compliance_summary()
 
     if not is_compliant:
         print(f"\n🚨 ACTION REQUIRED:")

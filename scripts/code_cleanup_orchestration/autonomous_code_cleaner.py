@@ -4,18 +4,14 @@ Autonomous Code Cleanup Orchestrator
 Immediately identifies and removes dead files, duplicate code, and unnecessary files
 """
 
-import ast
 import hashlib
 import json
 import os
-import re
 import shutil
-import subprocess
-import sys
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Set, Tuple
+from typing import Any, Dict
 
 
 class AutonomousCodeCleaner:
@@ -151,7 +147,7 @@ class AutonomousCodeCleaner:
             archive_path = self.repo_path / archive_dir
             if archive_path.exists() and archive_path.is_dir():
                 try:
-                    size = self.get_directory_size(archive_path)
+                    self.get_directory_size(archive_path)
 
                     # For archive directories, we'll be more selective
                     # Remove only obvious duplicates and very old files
@@ -232,7 +228,7 @@ class AutonomousCodeCleaner:
                 try:
                     content_hash = self.get_file_hash(file_path)
                     file_hashes[content_hash].append(file_path)
-                except Exception as e:
+                except Exception:
                     continue
 
         # Find duplicates and remove them intelligently
@@ -352,7 +348,7 @@ class AutonomousCodeCleaner:
                     print(
                         f"   ✓ Removed empty directory: {dir_path.relative_to(self.repo_path)}"
                     )
-                except Exception as e:
+                except Exception:
                     continue
 
         print(f"   📊 Removed {removed_count} empty directories")

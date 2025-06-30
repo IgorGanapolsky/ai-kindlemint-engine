@@ -5,8 +5,6 @@ from datetime import datetime
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-import pytest
-
 
 # Test Message Protocol (77% coverage -> 90%)
 def test_message_protocol_complete():
@@ -98,7 +96,6 @@ def test_task_system_complete():
 def test_base_validator_complete():
     """Test base validator functionality"""
     from kindlemint.validators.base_validator import (
-        BaseValidator,
         IssueSeverity,
         ValidationIssue,
         ValidationReport,
@@ -145,13 +142,7 @@ def test_base_validator_complete():
 # Test utilities initialization
 def test_utils_init():
     """Test utils module initialization"""
-    from kindlemint.utils import (
-        ensure_directory,
-        format_timestamp,
-        get_logger,
-        load_json,
-        save_json,
-    )
+    from kindlemint.utils import ensure_directory, format_timestamp, get_logger
 
     # Test logger
     logger = get_logger("test")

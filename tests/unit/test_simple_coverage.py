@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 """Simple tests to boost coverage quickly"""
 
-import tempfile
-from pathlib import Path
-from unittest.mock import MagicMock, patch
-
-import pytest
-
 
 # Test the engines module
 def test_sudoku_engine_import():
@@ -26,12 +20,7 @@ def test_wordsearch_engine_import():
 # Test message protocol which already has 77% coverage
 def test_message_protocol():
     """Test message protocol basics"""
-    from kindlemint.agents.message_protocol import (
-        Message,
-        MessageBus,
-        MessageHandler,
-        MessageType,
-    )
+    from kindlemint.agents.message_protocol import Message, MessageType
 
     # Test MessageType enum
     assert MessageType.TASK.value == "task"
@@ -55,7 +44,7 @@ def test_message_protocol():
 # Test task system which has 72% coverage
 def test_task_system():
     """Test task system basics"""
-    from kindlemint.agents.task_system import Task, TaskPriority, TaskQueue, TaskStatus
+    from kindlemint.agents.task_system import Task, TaskPriority, TaskStatus
 
     # Test enums
     assert TaskPriority.HIGH.value > TaskPriority.LOW.value

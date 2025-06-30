@@ -5,27 +5,21 @@ Implements Marketing School's "Attribution Solution" methodology
 "Track the full customer journey, not just the last click" - Neil Patel & Eric Siu
 """
 
-import hashlib
 import json
-import os
-import re
 import sys
-import time
 import urllib.parse
-import uuid
-from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict
 
 try:
-    import sqlite3
+    pass
 
     SQLITE_AVAILABLE = True
 except ImportError:
     SQLITE_AVAILABLE = False
 
 try:
-    import pandas as pd
+    pass
 
     PANDAS_AVAILABLE = True
 except ImportError:

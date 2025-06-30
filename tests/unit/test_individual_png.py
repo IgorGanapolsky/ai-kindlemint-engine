@@ -5,13 +5,11 @@ Test individual PNG files to see if they have visual distinction
 
 import sys
 from pathlib import Path
-from io import BytesIO
 
 sys.path.append(str(Path(__file__).parent))
 
-from emergency_visual_validator import EmergencyVisualValidator
-from PIL import Image
 import numpy as np
+from PIL import Image
 
 
 def test_png_visual_distinction():

@@ -4,9 +4,6 @@ Create PRODUCTION-READY Volume 3 - No mistakes allowed
 Following Volume 1's proven approach exactly
 """
 
-import json
-import random
-from datetime import datetime
 from pathlib import Path
 
 from reportlab.lib import colors

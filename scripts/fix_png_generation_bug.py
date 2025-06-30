@@ -182,7 +182,7 @@ class PNGGenerationFixer:
                 continue
 
             # Create solution image
-            clues_drawn = self.create_solution_image(solution_grid, puzzle_id)
+            self.create_solution_image(solution_grid, puzzle_id)
             solutions_fixed += 1
 
         print(f"✅ Regenerated {solutions_fixed} solution images")

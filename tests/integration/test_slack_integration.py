@@ -8,7 +8,6 @@ Test script for Slack integration in batch processor
 
 import os
 import sys
-import json
 from datetime import datetime
 
 # Add scripts directory to path for imports

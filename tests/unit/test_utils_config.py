@@ -4,9 +4,7 @@
 import os
 import tempfile
 from pathlib import Path
-from unittest.mock import MagicMock, patch
-
-import pytest
+from unittest.mock import patch
 
 from kindlemint.utils.config import Config, get_config, get_project_root, load_env_file
 

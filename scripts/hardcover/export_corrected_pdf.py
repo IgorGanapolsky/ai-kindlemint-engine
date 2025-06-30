@@ -5,10 +5,8 @@ Creates KDP-ready PDF from the corrected cover wrap
 """
 
 import os
-from pathlib import Path
 
 from PIL import Image
-from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 
 

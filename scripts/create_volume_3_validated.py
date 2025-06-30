@@ -4,11 +4,9 @@ Create Volume 3 with VALIDATED crossword puzzles
 Uses actual crossword construction algorithms
 """
 
-import json
 import random
-from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import inch

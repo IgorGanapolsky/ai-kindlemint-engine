@@ -7,14 +7,13 @@ Handles task delegation, quality control, and self-healing loops
 
 import json
 import logging
-import os
 import subprocess
 import sys
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 # Configure logging
 logging.basicConfig(
@@ -223,19 +222,16 @@ class KindleMintOrchestrator:
         """Regenerate solutions for puzzles with empty solutions"""
         logger.info("Regenerating puzzle solutions...")
         # Implementation would call solution generator
-        pass
 
     def _fix_metadata(self, book_path: Path):
         """Fix missing or invalid metadata"""
         logger.info("Fixing metadata issues...")
         # Implementation would ensure all metadata files exist
-        pass
 
     def _adjust_page_count(self, book_path: Path):
         """Adjust content to meet page count requirements"""
         logger.info("Adjusting page count...")
         # Implementation would add/remove content as needed
-        pass
 
     def batch_generate(self, specs: List[BookSpec]) -> List[GenerationResult]:
         """Generate multiple books in sequence"""

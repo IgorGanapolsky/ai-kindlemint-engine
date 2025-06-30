@@ -10,9 +10,6 @@ from typing import Dict, List, Optional, Tuple
 
 import fitz  # PyMuPDF for better PDF analysis
 import numpy as np
-import pdf2image
-import PyPDF2
-from PIL import Image
 
 
 class EnhancedSudokuPDFValidator:

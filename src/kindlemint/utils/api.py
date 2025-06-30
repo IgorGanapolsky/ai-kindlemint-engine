@@ -6,21 +6,15 @@ Integrates AI API calls with Sentry's new Agent Monitoring for debugging
 
 import json
 import logging
-import os
-import sys
 import time
-from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 import google.generativeai as genai
-import openai
-from openai import OpenAI
 
 # Import the original API manager and Sentry monitoring
 from scripts.api_manager import APIConfig, APIManager, APIProvider
 from scripts.sentry_agent_monitoring import (
     AgentContext,
-    PromptTrace,
     get_agent_monitor,
     monitor_ai_agent,
 )

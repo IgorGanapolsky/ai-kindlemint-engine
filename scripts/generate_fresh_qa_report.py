@@ -5,7 +5,6 @@ Analyzes the COMPLETE version with all required elements
 """
 
 import json
-import os
 from datetime import datetime
 from pathlib import Path
 

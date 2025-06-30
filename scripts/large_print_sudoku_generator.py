@@ -5,7 +5,6 @@ Creates truly large print puzzle images based on bestseller analysis
 """
 
 import json
-import random
 from datetime import datetime
 from pathlib import Path
 
@@ -61,7 +60,7 @@ class LargePrintSudokuGenerator:
         self._draw_grid(draw)
 
         # Add numbers with true large print - make clues BOLD and prominent
-        initial_grid = puzzle_data.get("grid", [[0] * 9] * 9)
+        initial_grid = puzzle_data.get("initial_grid", [[0] * 9] * 9)
         for row in range(self.grid_size):
             for col in range(self.grid_size):
                 value = initial_grid[row][col]

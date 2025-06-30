@@ -4,9 +4,7 @@ Create REAL crossword puzzles with actual words and complete answer keys
 This is a production-quality generator that creates solvable puzzles
 """
 
-import json
 import random
-from datetime import datetime
 from pathlib import Path
 
 from reportlab.lib import colors
@@ -182,7 +180,6 @@ class RealCrosswordGenerator:
 
         # Place horizontal words
         placed_words = []
-        word_positions = {}
 
         # Strategic word placement for real crossword
         horizontal_slots = [

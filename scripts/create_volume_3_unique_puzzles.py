@@ -5,19 +5,12 @@ Each puzzle will have completely different words and clues.
 """
 
 import logging
-import os
 import random
 import sys
-from datetime import datetime
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
-from reportlab.lib import colors
 from reportlab.lib.colors import black, white
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.utils import ImageReader
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 
 # Set up logging

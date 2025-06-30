@@ -5,12 +5,9 @@ Uses predefined puzzle templates to ensure uniqueness.
 """
 
 import logging
-import os
 import random
-from datetime import datetime
 from pathlib import Path
 
-from reportlab.lib import colors
 from reportlab.lib.colors import black, white
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas

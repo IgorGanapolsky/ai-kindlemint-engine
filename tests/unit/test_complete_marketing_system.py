@@ -5,16 +5,16 @@ Combines Jeb Blount prospecting + Dan Kennedy magnetic marketing
 """
 
 import json
-import tempfile
-from pathlib import Path
 
 # Add scripts to path
 import sys
+import tempfile
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent / "scripts"))
 
-from prospecting_automation import ProspectingAutomation
 from magnetic_marketing import MagneticMarketingEngine
+from prospecting_automation import ProspectingAutomation
 
 
 def test_complete_marketing_system():

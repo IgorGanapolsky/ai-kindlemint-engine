@@ -43,7 +43,7 @@ class CrosswordPDFParser:
 
         with open(pdf_path, "rb") as file:
             reader = PyPDF2.PdfReader(file)
-            total_pages = len(reader.pages)
+            len(reader.pages)
 
             # Track which pages contain what
             puzzle_pages = {}

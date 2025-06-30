@@ -329,7 +329,7 @@ def main():
 
     # Run research
     engine = MarketResearchEngine()
-    csv_path = engine.run_research(keywords)
+    engine.run_research(keywords)
 
     # Exit successfully
     return 0

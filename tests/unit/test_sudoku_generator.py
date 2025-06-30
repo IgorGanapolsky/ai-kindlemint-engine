@@ -4,7 +4,6 @@ Unit tests for production-ready Sudoku puzzle generator
 Tests puzzle validity, solvability, and difficulty levels
 """
 
-import copy
 import sys
 import unittest
 from pathlib import Path

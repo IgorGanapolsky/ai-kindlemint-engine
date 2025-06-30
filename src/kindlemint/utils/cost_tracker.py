@@ -5,12 +5,11 @@ Tracks Claude API usage costs and associates them with git commits
 """
 
 import json
-import os
 import re
 import subprocess
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 
 class ClaudeCostTracker:

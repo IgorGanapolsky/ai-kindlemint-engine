@@ -5,8 +5,6 @@ Test enhanced CI orchestration using GitHub CLI
 
 import json
 import subprocess
-import sys
-from pathlib import Path
 
 
 # Test using GitHub CLI to get recent failures

@@ -7,14 +7,11 @@ Implements the "Wisdom of the Agents" approach for market validation
 
 import json
 import logging
-import os
-import random
-import sys
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("SyntheticMarketResearch")

@@ -5,11 +5,10 @@ Checks that puzzles have blanks and solutions are complete
 """
 
 import json
-import re
 import sys
 from io import BytesIO
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 import fitz  # PyMuPDF
 from PIL import Image

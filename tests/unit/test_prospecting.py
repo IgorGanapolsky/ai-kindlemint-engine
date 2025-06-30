@@ -4,11 +4,11 @@ Quick test script for prospecting automation module
 """
 
 import json
-import tempfile
-from pathlib import Path
 
 # Add scripts to path
 import sys
+import tempfile
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent / "scripts"))
 

@@ -5,7 +5,6 @@ Tests validation logic for crossword puzzles
 """
 
 import json
-import os
 import sys
 import tempfile
 import unittest

@@ -6,8 +6,6 @@ Updated: 2025-06-23 - Streamlined for revenue-focused book validation
 """
 
 import json
-import os
-import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -92,7 +90,6 @@ class EnhancedQAChecker:
                 margin_threshold = 20  # Points from edge
 
                 edge_text_issues = []
-                overlapping_text = []
 
                 if "blocks" in text_blocks:
                     for block in text_blocks["blocks"]:

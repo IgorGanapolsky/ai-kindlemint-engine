@@ -5,15 +5,13 @@ GitHub Issues Agent for managing issues, PRs, and security improvements
 import asyncio
 import json
 import logging
-import subprocess
 from datetime import datetime
 from enum import Enum
-from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from .agent_types import AgentCapability
 from .base_agent import BaseAgent
-from .task_system import Task, TaskResult, TaskType
+from .task_system import Task, TaskResult
 
 
 class GitHubActionType(Enum):

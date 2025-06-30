@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Tests for agent_types module - quick coverage boost"""
 
-import pytest
 
 from kindlemint.agents.agent_types import AgentCapability
 

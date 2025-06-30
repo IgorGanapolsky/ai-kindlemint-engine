@@ -5,13 +5,11 @@ Code Hygiene Orchestrator Agent - A2A implementation for cleaning up project str
 
 import json
 import logging
-import os
 import re
-import shutil
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from .base_agent import A2AAgent, A2AMessage, AgentCapability
 

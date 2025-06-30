@@ -201,8 +201,6 @@ class QAValidationPipeline:
 
     def _check_text_cutoff(self, pdf_path: Path) -> Tuple[int, List[Dict]]:
         """Check for text cutoff at page edges"""
-        issues = []
-        cutoff_count = 0
 
         try:
             # Use pdfinfo to get page dimensions
@@ -533,7 +531,7 @@ class QAValidationPipeline:
 
             return embedded_percentage, unembedded
 
-        except Exception as e:
+        except Exception:
             return 100.0, []  # Assume OK if can't check
 
     def _calculate_overall_score(self, criteria_results: Dict) -> float:

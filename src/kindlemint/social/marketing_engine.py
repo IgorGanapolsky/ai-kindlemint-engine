@@ -7,18 +7,17 @@ system for transforming books into comprehensive social media marketing campaign
 
 import json
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional
+from typing import Dict, List
 
-from .analytics_dashboard import MarketingAnalyticsDashboard, MetricType
-from .atomizer import AtomicContent, ContentAtomizer
-from .authority import AuthorityBuilder, AuthorityLevel
-from .engagement_bot import CommunityEngagementBot, CommunityEvent, CommunityEventType
-from .lead_generation import LeadGenerationEngine, LeadMagnet, LeadMagnetType
+from .analytics_dashboard import MarketingAnalyticsDashboard
+from .atomizer import ContentAtomizer
+from .authority import AuthorityBuilder
+from .engagement_bot import CommunityEngagementBot
+from .lead_generation import LeadGenerationEngine
 from .platforms import (
     FacebookOptimizer,
     InstagramOptimizer,
     LinkedInOptimizer,
-    OptimizedPost,
     PlatformType,
     TikTokOptimizer,
     TwitterOptimizer,

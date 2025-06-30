@@ -8,7 +8,7 @@ import json
 import os
 import subprocess
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -58,7 +58,7 @@ class AgentMonitor:
             else:
                 return []
 
-        except Exception as e:
+        except Exception:
             return []
 
     def get_memory_status(self) -> Dict[str, Any]:
@@ -96,7 +96,7 @@ class AgentMonitor:
             else:
                 return {"pending": 0, "in_progress": 0, "completed": 0}
 
-        except Exception as e:
+        except Exception:
             return {"pending": 0, "in_progress": 0, "completed": 0}
 
     def get_running_processes(self) -> List[Dict[str, Any]]:
@@ -128,7 +128,7 @@ class AgentMonitor:
             else:
                 return []
 
-        except Exception as e:
+        except Exception:
             return []
 
     def _parse_status_output(self, output: str) -> Dict[str, Any]:

@@ -9,7 +9,7 @@ import logging
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 import requests
 
@@ -167,10 +167,9 @@ class SlackNotifier:
         # Business / efficiency metrics — taken only if provided so that
         # older batch_result structures remain compatible.
         # ------------------------------------------------------------------ #
-        avg_time_per_book = "N/A"
         if books_processed:
             avg_seconds = total_time / books_processed
-            avg_time_per_book = f"{int(avg_seconds // 60)}m {int(avg_seconds % 60)}s"
+            f"{int(avg_seconds // 60)}m {int(avg_seconds % 60)}s"
 
         # Optional business metrics expected from BatchProcessor
         total_profit = batch_results.get("total_profit")

@@ -4,10 +4,6 @@ LinkedIn Content Generator - Marketing Millennials Strategy
 Creates story-driven posts from book content for audience building
 """
 
-import json
-from datetime import datetime
-from pathlib import Path
-
 
 class LinkedInContentEngine:
     """Generate Marketing Millennials-style LinkedIn content."""

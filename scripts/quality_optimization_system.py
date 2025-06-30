@@ -5,28 +5,20 @@ Implements Marketing School's "Quality Over Quantity" principle
 "10 exceptional books > 100 mediocre books" - Neil Patel & Eric Siu
 """
 
-import hashlib
 import json
-import os
-import re
-import statistics
 import sys
-import time
-import uuid
-from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict
 
 try:
-    import matplotlib.pyplot as plt
-    import seaborn as sns
+    pass
 
     PLOTTING_AVAILABLE = True
 except ImportError:
     PLOTTING_AVAILABLE = False
 
 try:
-    import pandas as pd
+    pass
 
     PANDAS_AVAILABLE = True
 except ImportError:

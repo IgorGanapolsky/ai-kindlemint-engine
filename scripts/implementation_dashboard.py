@@ -5,27 +5,21 @@ Tracks 30-day Marketing School transformation journey
 "Implementation beats perfection" - Neil Patel & Eric Siu
 """
 
-import hashlib
 import json
-import os
-import re
 import sys
-import time
-import uuid
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict
 
 try:
-    import matplotlib.pyplot as plt
-    import seaborn as sns
+    pass
 
     PLOTTING_AVAILABLE = True
 except ImportError:
     PLOTTING_AVAILABLE = False
 
 try:
-    import pandas as pd
+    pass
 
     PANDAS_AVAILABLE = True
 except ImportError:

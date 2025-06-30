@@ -12,7 +12,7 @@ import sys
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
-from unittest.mock import AsyncMock, MagicMock, Mock, patch
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -43,7 +43,7 @@ from alert_orchestrator import AlertOrchestrator, OrchestrationConfig
 from auto_resolver import AutoResolver, ResolutionResult
 from error_analyzer import ErrorAnalyzer, ErrorClassification
 from notification_templates import render_notification, template_registry
-from resolution_strategies import DatabaseConnectionStrategy, strategy_registry
+from resolution_strategies import strategy_registry
 
 
 class TestSentryMonitor:

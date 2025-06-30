@@ -29,7 +29,6 @@ Usage:
 import argparse
 import json
 import logging
-import os
 import subprocess
 import sys
 import traceback
@@ -43,7 +42,6 @@ sys.path.insert(0, str(project_root))
 
 try:
     from reportlab.lib import colors
-    from reportlab.lib.pagesizes import letter
     from reportlab.lib.units import inch
     from reportlab.pdfgen import canvas
 

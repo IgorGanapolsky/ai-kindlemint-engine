@@ -3,8 +3,8 @@
 Test the fixed clue rendering to verify visual distinction works
 """
 
-import sys
 import json
+import sys
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent / "src"))

@@ -6,11 +6,9 @@ intent classification, and voice characteristic analysis for the vibecoding syst
 """
 
 import asyncio
-import json
 import logging
-import re
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple
 
 from .models import (
     CreativeMood,

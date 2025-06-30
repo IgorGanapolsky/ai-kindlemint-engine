@@ -57,7 +57,6 @@ class SudokuClueRenderingFixer:
         if clue_font is None:
             print("Warning: Using default font")
             clue_font = ImageFont.load_default()
-            normal_font = clue_font
 
         # Draw grid lines
         for i in range(grid_size + 1):
@@ -188,7 +187,6 @@ class SudokuClueRenderingFixer:
         # 1. Clues are visually distinct (darker/bolder)
         # 2. Empty cells are clearly empty
         # 3. Grid lines are visible
-        pass
 
 
 def main():

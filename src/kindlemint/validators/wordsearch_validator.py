@@ -7,18 +7,11 @@ checking for valid grid structure, word list validation, grid size consistency,
 and word placement verification.
 """
 
-import json
 import logging
-import re
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
+from typing import Any, Dict, List, Tuple, Union
 
-from .base_validator import (
-    IssueSeverity,
-    PuzzleValidator,
-    ValidationIssue,
-    ValidationResult,
-)
+from .base_validator import IssueSeverity, PuzzleValidator, ValidationIssue
 
 # Configure logging
 logger = logging.getLogger(__name__)

@@ -9,7 +9,7 @@ import os
 import subprocess
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from .resolution_strategies import ResolutionStrategy, StrategyResult
 
@@ -33,7 +33,7 @@ class QAValidationStrategy(ResolutionStrategy):
 
         try:
             # Extract validation details from error
-            validation_type = error_context.get("validation_type", "unknown")
+            error_context.get("validation_type", "unknown")
             book_info = error_context.get("book_info", {})
             failures = error_context.get("failures", [])
 

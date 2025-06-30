@@ -28,14 +28,13 @@ import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union, cast
+from typing import Any, Callable, Dict, List, Optional
 
 import requests
 from requests.exceptions import RequestException, Timeout
 
 # Import KindleMint utilities
 from kindlemint.utils.api import APIManager
-from kindlemint.utils.config import ConfigManager
 from kindlemint.utils.cost_tracker import CostTracker
 
 # Configure logging
@@ -50,8 +49,6 @@ RETRY_DELAY = 2  # seconds
 class BotpressError(Exception):
     """Base exception for Botpress integration errors."""
 
-    pass
-
 
 class BotpressAPIError(BotpressError):
     """Exception raised for errors in the Botpress API."""
@@ -65,13 +62,9 @@ class BotpressAPIError(BotpressError):
 class BotpressConfigError(BotpressError):
     """Exception raised for configuration errors."""
 
-    pass
-
 
 class BotpressWebhookError(BotpressError):
     """Exception raised for webhook processing errors."""
-
-    pass
 
 
 class BotType(Enum):
@@ -447,7 +440,6 @@ class BaseBot(ABC):
 
         This method should be implemented by each specific bot type.
         """
-        pass
 
     def send_message(
         self, user_id: str, message: str, conversation_id: Optional[str] = None

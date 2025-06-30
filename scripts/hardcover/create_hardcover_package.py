@@ -6,7 +6,6 @@ Creates complete hardcover publishing packages for any book volume
 
 import argparse
 import json
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -30,7 +29,7 @@ class HardcoverProducer:
         # KDP expects exactly 12.82 inches width and 9.50 inches height
         # Width: 0.125 + 6 + spine + 6 + 0.125 + wrap = 12.82
         # Therefore: wrap = 12.82 - 12.25 - spine
-        wrap_coverage = 12.82 - 12.25 - self.spine_width
+        12.82 - 12.25 - self.spine_width
         self.template_width_inches = 12.82  # KDP exact requirement
         self.template_height_inches = 9.50  # KDP exact requirement
         self.template_width = int(self.template_width_inches * 300)
@@ -355,7 +354,6 @@ class HardcoverProducer:
     def export_pdf_x1a(self, output_dir):
         """Export cover wrap as PDF/X-1a"""
         try:
-            from reportlab.lib.units import inch
             from reportlab.pdfgen import canvas as pdf_canvas
 
             input_file = output_dir / "hardcover_cover_wrap_final.png"

@@ -9,15 +9,12 @@ Ensures puzzle books meet quality standards before publication
 """
 
 import json
-import os
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict
 
 import numpy as np
 import PyPDF2
 from PIL import Image
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
 
 
 class SudokuBookQAValidator:
@@ -149,6 +146,9 @@ class SudokuBookQAValidator:
                 with open(json_file, "r") as f:
                     data = json.load(f)
 
+                # Get puzzle ID for error messages
+                puzzle_id = data.get("id", 0)
+
                 # Check initial grid has blanks (zeros)
                 grid = data.get("initial_grid", [])
                 blank_count = sum(1 for row in grid for cell in row if cell == 0)
@@ -182,7 +182,6 @@ class SudokuBookQAValidator:
                     )
 
                 # Check puzzle image exists and verify content matches JSON
-                puzzle_id = data.get("id", 0)
                 puzzle_image = puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}.png"
                 if not puzzle_image.exists():
                     issues["missing_images"] += 1

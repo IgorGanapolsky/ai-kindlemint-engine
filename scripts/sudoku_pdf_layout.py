@@ -6,17 +6,15 @@ Creates professional PDF interiors for Large Print Sudoku books
 
 import argparse
 import json
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4, letter
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import inch
-from reportlab.pdfgen import canvas
 from reportlab.platypus import (
     Image,
     PageBreak,
@@ -26,7 +24,6 @@ from reportlab.platypus import (
     Table,
     TableStyle,
 )
-from reportlab.platypus.tableofcontents import TableOfContents
 
 
 class SudokuPDFLayout:

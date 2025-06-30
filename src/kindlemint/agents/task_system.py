@@ -7,9 +7,9 @@ handling for the multi-agent book publishing automation system.
 
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 from .agent_types import AgentCapability
 

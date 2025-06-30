@@ -14,9 +14,7 @@ from pathlib import Path
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import inch
-from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.pdfgen import canvas
-from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer
 
 # Professional 6×9 book dimensions
 PAGE_WIDTH = 6 * inch

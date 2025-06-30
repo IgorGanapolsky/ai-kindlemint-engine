@@ -10,8 +10,9 @@ from pathlib import Path
 # Add parent directory to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.kindlemint.agents.code_hygiene_orchestrator import CodeHygieneOrchestrator
 import argparse
+
+from src.kindlemint.agents.code_hygiene_orchestrator import CodeHygieneOrchestrator
 
 
 def main():

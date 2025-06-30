@@ -201,9 +201,8 @@ async def main():
         duplicates = await find_duplicates(project_path)
 
     # Generate cleanup plan if requested
-    plan = None
     if args.generate_plan and analysis:
-        plan = await generate_cleanup_plan(analysis)
+        await generate_cleanup_plan(analysis)
 
     # Save report
     await save_report(analysis, duplicates, args.output)

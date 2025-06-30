@@ -6,7 +6,6 @@ Generates Large Print Sudoku Masters with proper solving tips and explanations
 
 import json
 import os
-from datetime import datetime
 from pathlib import Path
 
 try:

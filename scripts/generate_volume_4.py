@@ -5,7 +5,6 @@ Generate Volume 4 of Large Print Crossword Masters
 """
 
 import json
-import os
 import sys
 import time
 from datetime import datetime

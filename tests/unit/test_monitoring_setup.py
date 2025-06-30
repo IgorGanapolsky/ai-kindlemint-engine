@@ -3,7 +3,6 @@
 Test monitoring setup for Slack and Sentry
 """
 
-import json
 import os
 import sys
 from datetime import datetime

@@ -7,7 +7,6 @@ Provides actionable feedback for automatic content optimization
 
 import json
 import logging
-import os
 import re
 import sys
 from collections import Counter

@@ -9,9 +9,6 @@ import sys
 from pathlib import Path
 
 import fitz  # PyMuPDF
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.units import inch
-from reportlab.pdfgen import canvas
 
 
 class PaperbackToHardcoverConverter:
@@ -138,7 +135,7 @@ class PaperbackToHardcoverConverter:
             output_doc = fitz.open()
 
             for page_num in range(page_count):
-                source_page = source_doc[page_num]
+                source_doc[page_num]
 
                 # Create new page
                 new_page = output_doc.new_page(

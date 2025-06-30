@@ -23,10 +23,7 @@ Usage:
 """
 
 import ast
-import json
 import logging
-import re
-import shutil
 import textwrap
 from collections import defaultdict
 from pathlib import Path

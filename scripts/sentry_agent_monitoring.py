@@ -6,19 +6,17 @@ model calls, tool usage, and prompt-response chains.
 """
 
 import functools
-import json
 import os
 import time
 from dataclasses import asdict, dataclass
 from datetime import datetime
-from typing import Any, Callable, Dict, List, Optional, Union
+from typing import Any, Callable, Dict, List, Optional
 
 import sentry_sdk
-from sentry_sdk import Hub, set_context, set_tag, start_transaction
 from sentry_sdk.integrations.openai import OpenAIIntegration
 
 # Import the existing Sentry config
-from .sentry_config import add_breadcrumb, init_sentry
+from .sentry_config import add_breadcrumb
 
 
 @dataclass
@@ -340,7 +338,7 @@ def monitor_ai_agent(agent_type: str, task_name: str, model: str = None):
                 try:
                     result = func(*args, **kwargs)
                     return result
-                except Exception as e:
+                except Exception:
                     # Error is automatically captured by context manager
                     raise
 

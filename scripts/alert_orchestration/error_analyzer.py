@@ -9,13 +9,10 @@ import logging
 import os
 import re
 import statistics
-from collections import Counter, defaultdict
+from collections import defaultdict
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
-
-import numpy as np
+from typing import Any, Dict, List, Optional, Tuple
 
 # Configuration
 logging.basicConfig(level=logging.INFO)

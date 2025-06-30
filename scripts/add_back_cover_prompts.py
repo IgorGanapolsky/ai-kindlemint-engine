@@ -13,7 +13,7 @@ from typing import Any, Dict
 def generate_back_cover_prompt(metadata: Dict[str, Any]) -> str:
     """Generate a professional back cover prompt based on book metadata"""
     title = metadata.get("title", "Book Title")
-    subtitle = metadata.get("subtitle", "")
+    metadata.get("subtitle", "")
     author = metadata.get("author", "Author Name")
     description = metadata.get("description", "")
 

@@ -5,18 +5,11 @@ Implements Neil Patel and Eric Siu's AI-first publishing strategies
 "The ChatGPT Shift": From Google → Amazon → Buy to ChatGPT → Direct Recommendation → Buy
 """
 
-import asyncio
-import hashlib
 import json
 import os
-import re
 import sys
-import time
-from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
-
-import aiohttp
+from typing import Dict, List
 
 try:
     import openai

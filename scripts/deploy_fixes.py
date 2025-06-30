@@ -13,7 +13,6 @@ to the new, enhanced versions. It provides functionality to:
 import argparse
 import fileinput
 import json
-import os
 import shutil
 import subprocess
 import sys

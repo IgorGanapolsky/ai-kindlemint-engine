@@ -2,10 +2,8 @@
 """Fixed tests for A2A Protocol implementation"""
 
 import asyncio
-import json
 from datetime import datetime
 from typing import List
-from unittest.mock import Mock, patch
 
 import pytest
 

@@ -8,13 +8,14 @@ Validates that all API keys work and return real data
 Updated: 2025-06-24 - Testing workflow triggers
 """
 
-import os
 import json
-import requests
-import praw
-from serpapi.google_search import GoogleSearch
+import os
 from datetime import datetime
+
+import praw
+import requests
 from dotenv import load_dotenv
+from serpapi.google_search import GoogleSearch
 
 # Load environment variables
 load_dotenv()

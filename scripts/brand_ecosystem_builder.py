@@ -6,17 +6,12 @@ Implements Marketing School's "Quality Over Quantity" principle
 """
 
 import json
-import os
-import re
 import sys
-import time
-import uuid
-from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict
 
 try:
-    import jinja2
+    pass
 
     JINJA2_AVAILABLE = True
 except ImportError:

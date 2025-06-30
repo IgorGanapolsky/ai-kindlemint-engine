@@ -8,7 +8,7 @@ into a unified context for optimal content generation with attention-based weigh
 import asyncio
 import logging
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 from .author_context import AuthorContextBuilder
 from .context_memory import ContextMemoryStore

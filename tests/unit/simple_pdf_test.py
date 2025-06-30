@@ -3,13 +3,11 @@
 Simple test to create a PDF with just puzzle 100 to verify the visual fix
 """
 
-import sys
 from pathlib import Path
 
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
-from reportlab.platypus import Image
 
 
 def create_test_pdf():

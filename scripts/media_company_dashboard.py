@@ -4,8 +4,7 @@ Media Company Dashboard - Track All Revenue Streams
 Based on Marketing Millennials diversification strategy
 """
 
-import json
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 
 

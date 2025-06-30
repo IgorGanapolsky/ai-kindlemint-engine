@@ -4,12 +4,9 @@ Strategic Coverage Tests - Target 25%+ Total Coverage
 Focus on modules with partial coverage to maximize gains
 """
 
-import json
 import tempfile
 from pathlib import Path
-from unittest.mock import MagicMock, mock_open, patch
-
-import pytest
+from unittest.mock import patch
 
 
 def test_sudoku_generator_advanced():
@@ -100,7 +97,6 @@ def test_config_loader_advanced():
 def test_base_validator_advanced():
     """Push base_validator from 57% to 80%+"""
     from kindlemint.validators.base_validator import (
-        BaseValidator,
         IssueSeverity,
         ValidationIssue,
         ValidationReport,
@@ -217,7 +213,6 @@ def test_crossword_validator_advanced():
     assert not validator._is_valid_word("A" * 20)  # Too long
 
     # Test grid validation basics
-    test_grid = [["C", "A", "T"], ["A", " ", " "], ["R", " ", " "]]
 
     # Should have method to check grid
     assert hasattr(validator, "_validate_grid")

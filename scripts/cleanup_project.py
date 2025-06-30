@@ -10,12 +10,11 @@ This script provides a step-by-step approach to cleaning up the codebase
 with safety checks and the ability to preview changes before applying them.
 """
 
-import os
-import sys
-import subprocess
 import shutil
-from pathlib import Path
+import subprocess
 from datetime import datetime
+from pathlib import Path
+
 import click
 
 

@@ -10,10 +10,8 @@ import logging
 import os
 import subprocess
 from datetime import datetime
-from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-import sentry_sdk
 from github import Github
 from sentry_sdk import capture_exception, capture_message
 

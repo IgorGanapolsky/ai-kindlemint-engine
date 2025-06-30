@@ -189,7 +189,7 @@ class EmergencyVisualValidator:
 
                 # Check if cell contains a number (dark pixels)
                 if cell.size > 0:
-                    min_val = np.min(cell)
+                    np.min(cell)
                     dark_pixels = np.sum(cell < 150)  # Dark threshold
                     dark_ratio = dark_pixels / cell.size
 

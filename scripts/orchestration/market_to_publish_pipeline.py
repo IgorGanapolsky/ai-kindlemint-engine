@@ -6,11 +6,10 @@ Orchestrates the entire flow from market analysis to book publication
 
 import asyncio
 import json
-import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 sys.path.append(str(Path(__file__).parent.parent.parent / "src"))
 

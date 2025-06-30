@@ -3,8 +3,6 @@
 Check which KDP hardcover templates are needed for current books
 """
 
-import json
-import os
 from pathlib import Path
 
 import PyPDF2

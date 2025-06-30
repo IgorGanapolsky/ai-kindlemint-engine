@@ -4,11 +4,12 @@ Test if PDF embedding is causing the visual distinction loss
 """
 
 from pathlib import Path
-from reportlab.pdfgen import canvas
+
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Image, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Spacer
 
 
 def test_direct_embedding():

@@ -4,15 +4,13 @@ CI Orchestration Test Suite
 Tests all components of the CI orchestration system
 """
 
-import os
-import sys
 import json
-import tempfile
 import logging
-from pathlib import Path
-from typing import Dict, List, Optional
+import sys
+import tempfile
 import unittest
-from unittest.mock import Mock, patch, MagicMock
+from pathlib import Path
+from unittest.mock import Mock, patch
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
@@ -20,9 +18,9 @@ sys.path.append(str(Path(__file__).parent))
 
 # Import orchestration modules
 try:
-    from ci_monitor import CIMonitor
     from ci_analyzer import CIAnalyzer, FixStrategy
     from ci_fixer import CIFixer
+    from ci_monitor import CIMonitor
     from ci_orchestrator import CIOrchestrator
 except ImportError as e:
     print(f"Failed to import orchestration modules: {e}")
@@ -401,9 +399,9 @@ def run_system_validation():
     try:
         # Test 1: Component imports
         logger.info("Testing component imports...")
-        from ci_monitor import CIMonitor
         from ci_analyzer import CIAnalyzer
         from ci_fixer import CIFixer
+        from ci_monitor import CIMonitor
         from ci_orchestrator import CIOrchestrator
 
         logger.info("✅ All components imported successfully")
@@ -412,7 +410,7 @@ def run_system_validation():
         logger.info("Testing component initialization...")
         temp_dir = Path(tempfile.mkdtemp())
 
-        monitor = CIMonitor("test-owner", "test-repo", "test-token")
+        CIMonitor("test-owner", "test-repo", "test-token")
         analyzer = CIAnalyzer(temp_dir)
         fixer = CIFixer(temp_dir, dry_run=True)
         orchestrator = CIOrchestrator(
@@ -434,7 +432,7 @@ def run_system_validation():
         config_file = Path(__file__).parent / "config.json"
         if config_file.exists():
             with open(config_file, "r") as f:
-                config = json.load(f)
+                json.load(f)
             logger.info("✅ Configuration loaded successfully")
 
         # Clean up

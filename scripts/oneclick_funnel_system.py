@@ -5,20 +5,13 @@ Implements Marketing School's "One-Click Simplification" principle
 "Remove friction at every step of the customer journey" - Neil Patel & Eric Siu
 """
 
-import hashlib
 import json
-import os
-import re
 import sys
-import time
-import uuid
-from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict
 
 try:
-    import jinja2
-    from jinja2 import Template
+    pass
 
     JINJA2_AVAILABLE = True
 except ImportError:

@@ -4,19 +4,16 @@ Monitoring Dashboard - Real-time monitoring and metrics for Alert Orchestration
 Provides web dashboard, metrics collection, and health monitoring capabilities
 """
 
-import json
 import logging
-import os
 import time
 from collections import defaultdict, deque
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 # Configuration

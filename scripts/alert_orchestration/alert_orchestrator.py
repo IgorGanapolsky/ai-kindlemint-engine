@@ -12,8 +12,7 @@ import signal
 import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional
 
 import yaml
 
@@ -30,9 +29,9 @@ except ImportError:
     from sentry_monitor import SentryError, SentryMonitor
 
     try:
-        from .slack_handler import SlackBot, SlackWebhookHandler
+        from .slack_handler import SlackBot
     except ImportError:
-        from slack_handler import SlackBot, SlackWebhookHandler
+        from slack_handler import SlackBot
 
 # Configuration
 logging.basicConfig(level=logging.INFO)
@@ -205,7 +204,7 @@ class AlertOrchestrator:
                 monitoring_task = asyncio.create_task(self._monitoring_loop())
 
             # Start PR monitoring for Sentry AI
-            pr_monitoring_task = asyncio.create_task(self._pr_monitoring_loop())
+            asyncio.create_task(self._pr_monitoring_loop())
 
             # Start resolution processing
             resolution_task = asyncio.create_task(self._resolution_loop())

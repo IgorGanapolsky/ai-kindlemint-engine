@@ -4,7 +4,6 @@ Setup script for Sentry Seer AI integration
 Helps configure and verify the Sentry AI features for the project
 """
 
-import json
 import os
 import subprocess
 import sys

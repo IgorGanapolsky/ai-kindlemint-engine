@@ -7,13 +7,10 @@ Generates high-quality crossword puzzles for KindleMint Engine with proper word 
 import argparse
 import json
 import logging
-import os
 import random
-import re
-import string
 import sys
 import time
-from collections import Counter, defaultdict
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
 

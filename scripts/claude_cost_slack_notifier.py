@@ -4,8 +4,6 @@ Claude Cost Slack Notifier
 Sends Claude API cost tracking notifications to Slack
 """
 
-import json
-import os
 import subprocess
 import sys
 from datetime import datetime, timedelta

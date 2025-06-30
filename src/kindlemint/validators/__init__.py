@@ -8,7 +8,7 @@ these validators inspect the actual puzzle content for correctness,
 uniqueness, and solvability.
 """
 
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict
 
 # Version information
 __version__ = "1.0.0"

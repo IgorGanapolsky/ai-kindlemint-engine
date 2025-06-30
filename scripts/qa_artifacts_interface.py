@@ -4,11 +4,9 @@ Claude Artifacts QA Interface
 Generates interactive QA reports for Claude Artifacts workspace
 """
 
-import json
-import subprocess
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict
 
 
 class QAArtifactsInterface:

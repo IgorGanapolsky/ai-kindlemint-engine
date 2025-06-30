@@ -4,7 +4,6 @@ Regenerate main PDF with debugging to ensure it uses the correct images
 """
 
 import subprocess
-import sys
 from pathlib import Path
 
 

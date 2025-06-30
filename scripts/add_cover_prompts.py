@@ -6,7 +6,6 @@ Add DALL-E cover prompts to all metadata files
 import glob
 import json
 import os
-from pathlib import Path
 
 
 def get_cover_prompt(title: str, series_name: str, book_type: str) -> str:

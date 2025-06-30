@@ -6,22 +6,19 @@ Creates professional PDF interiors with all publishing standards
 
 import argparse
 import json
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4, letter
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 from reportlab.platypus import (
-    Frame,
     Image,
     PageBreak,
-    PageTemplate,
     Paragraph,
     SimpleDocTemplate,
     Spacer,
@@ -44,7 +41,7 @@ class NumberedCanvas(canvas.Canvas):
 
     def save(self):
         """Add page numbers to all pages."""
-        num_pages = len(self._saved_page_states)
+        len(self._saved_page_states)
         for state in self._saved_page_states:
             self.__dict__.update(state)
             if self._pageNumber > 3:  # Skip numbering title, copyright, instructions

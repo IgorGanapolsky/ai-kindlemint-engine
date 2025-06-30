@@ -6,15 +6,13 @@ including puzzle creation, PDF layout, EPUB generation, and cover design.
 """
 
 import asyncio
-import logging
-import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
-from .base_agent import AgentCapability, AgentStatus, BaseAgent
-from .task_system import Task, TaskResult, TaskStatus, TaskType
+from .base_agent import AgentCapability, BaseAgent
+from .task_system import Task, TaskResult, TaskType
 
 
 class PuzzleGeneratorAgent(BaseAgent):
@@ -684,7 +682,7 @@ class QualityAssuranceAgent(BaseAgent):
         try:
             # Extract task parameters
             file_path = task.input_data.get("file_path")
-            validation_type = task.input_data.get("validation_type", "comprehensive")
+            task.input_data.get("validation_type", "comprehensive")
             puzzle_type = task.input_data.get("puzzle_type", "").lower()
             puzzles_dir = task.input_data.get("puzzles_dir")
 

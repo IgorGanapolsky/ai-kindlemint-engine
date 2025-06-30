@@ -1,6 +1,5 @@
 # scripts/a2a_orchestrator.py
 
-import json
 import sys
 from pathlib import Path
 
