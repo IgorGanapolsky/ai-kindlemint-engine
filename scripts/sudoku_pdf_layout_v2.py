@@ -357,10 +357,11 @@ class EnhancedSudokuPDFLayout:
         )
 
         # Load puzzle image
-        puzzles_dir = self.input_dir / "puzzles" / "puzzles"
-        if not puzzles_dir.exists():
+        # Fixed path logic - try direct path first, then fallbacks
+        puzzles_dir = self.input_dir
+        if not (puzzles_dir / f"sudoku_puzzle_{puzzle_data['id']:03d}.png").exists():
             puzzles_dir = self.input_dir / "puzzles"
-            if not puzzles_dir.exists():
+            if not (puzzles_dir / f"sudoku_puzzle_{puzzle_data['id']:03d}.png").exists():
                 puzzles_dir = self.input_dir.parent / "puzzles"
 
         image_path = puzzles_dir / f"sudoku_puzzle_{puzzle_data['id']:03d}.png"
@@ -415,20 +416,20 @@ class EnhancedSudokuPDFLayout:
         )
         story.append(Spacer(1, 0.3 * inch))
 
-        # Load solution image
+        # Load solution image - Fixed path logic
         solution_path = (
             self.input_dir
-            / "puzzles"
-            / "puzzles"
             / f"sudoku_solution_{puzzle_data['id']:03d}.png"
         )
         if not solution_path.exists():
+            # Try in puzzles subdirectory
             solution_path = (
                 self.input_dir
                 / "puzzles"
                 / f"sudoku_solution_{puzzle_data['id']:03d}.png"
             )
             if not solution_path.exists():
+                # Try in parent puzzles directory
                 solution_path = (
                     self.input_dir.parent
                     / "puzzles"

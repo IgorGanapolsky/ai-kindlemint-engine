@@ -272,7 +272,8 @@
       "Bash(flake8:*)",
       "Bash(autoflake:*)",
       "Bash(black:*)",
-      "Bash(isort:*)"
+      "Bash(isort:*)",
+      "WebFetch(domain:app.deepsource.com)"
     ],
     "deny": []
   }
