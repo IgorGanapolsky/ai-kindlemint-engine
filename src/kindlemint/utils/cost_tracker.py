@@ -25,8 +25,7 @@ class ClaudeCostTracker:
         "claude-instant": {"input": 0.80, "output": 2.40},
     }
 
-        """  Init  """
-def __init__(self, repo_path: str = "."):
+    def __init__(self, repo_path: str = "."):
         self.repo_path = Path(repo_path).resolve()
         self.commit_costs_file = self.repo_path / "commit_costs.json"
         self.last_commit_cost_file = self.repo_path / "last_commit_cost.json"
@@ -332,15 +331,15 @@ def __init__(self, repo_path: str = "."):
         cutoff_date = datetime.now().timestamp() - (days * 24 * 60 * 60)
         recent_commits = [
             c
-            for c_var in commit_costs["commits"]
+            for c in commit_costs["commits"]
             if datetime.fromisoformat(c["timestamp"]).timestamp() > cutoff_date
         ]
 
         if not recent_commits:
             return {"error": f"No commits in the last {days} days"}
 
-        total_cost = sum(c["cost"] for c_var in recent_commits)
-        total_tokens = sum(c["tokens"] for c_var in recent_commits)
+        total_cost = sum(c["cost"] for c in recent_commits)
+        total_tokens = sum(c["tokens"] for c in recent_commits)
 
         return {
             "period_days": days,

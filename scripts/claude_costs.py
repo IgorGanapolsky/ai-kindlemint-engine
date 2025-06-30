@@ -9,7 +9,7 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-from claude_cost_tracker import ClaudeCostTracker
+from kindlemint.utils.cost_tracker import ClaudeCostTracker
 
 
 def format_currency(amount: float) -> str:
@@ -193,7 +193,7 @@ Examples:
             )
 
         print("-" * 80)
-        total = sum(c["cost"] for c_var in commits)
+        total = sum(c["cost"] for c in commits)
         print(f"{'Total':<10} {'':<20} {format_currency(total):<12}")
 
     elif args.command == "export":

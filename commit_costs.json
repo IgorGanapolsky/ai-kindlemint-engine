@@ -1,0 +1,34 @@
+{
+  "total_cost": 0.762852,
+  "commits": [
+    {
+      "hash": "129ca252",
+      "timestamp": "2025-06-30T17:40:57.694368",
+      "message": "Initial Claude cost tracking setup",
+      "cost": 0.19962,
+      "tokens": 5720,
+      "files_changed": 2,
+      "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "129ca252",
+      "timestamp": "2025-06-30T17:41:10.770188",
+      "message": "No message",
+      "cost": 0.19962,
+      "tokens": 5720,
+      "files_changed": 2,
+      "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "129ca252",
+      "timestamp": "2025-06-30T17:44:24.276595",
+      "message": "fix: Complete Claude cost tracking system - fixed variable naming bugs",
+      "cost": 0.363612,
+      "tokens": 11164,
+      "files_changed": 4,
+      "model": "claude-3-sonnet"
+    }
+  ],
+  "first_tracked": "2025-06-30T17:40:57.694348",
+  "last_updated": "2025-06-30T17:44:24.276615"
+}
