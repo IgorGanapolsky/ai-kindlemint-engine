@@ -15,33 +15,34 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
 
 class TestSecretsImport(unittest.TestCase):
     """Test cases for secrets module import and usage"""
-    
+
     def test_secrets_module_can_be_imported(self):
         """Test that the secrets module can be imported successfully"""
         try:
             import secrets
-            self.assertTrue(hasattr(secrets, 'choice'))
+
+            self.assertTrue(hasattr(secrets, "choice"))
         except ImportError:
             self.fail("secrets module should be available in Python 3.6+")
-    
+
     def test_sudoku_pdf_layout_v2_imports_secrets(self):
         """Test that sudoku_pdf_layout_v2 module imports secrets"""
         # Import the module and check if secrets is available
         import sudoku_pdf_layout_v2
-        
+
         # Check that secrets is imported at module level
-        self.assertTrue(hasattr(sudoku_pdf_layout_v2, 'secrets'))
-    
+        self.assertTrue(hasattr(sudoku_pdf_layout_v2, "secrets"))
+
     def test_secrets_choice_functionality(self):
         """Test that secrets.choice works as expected"""
         import secrets
-        
+
         # Test with a list of choices
         choices = ["option1", "option2", "option3"]
         result = secrets.choice(choices)
-        
+
         self.assertIn(result, choices)
-        
+
         # Test multiple calls return potentially different results
         results = [secrets.choice(choices) for _ in range(10)]
         # While not guaranteed, it's extremely unlikely all results are identical
