@@ -28,9 +28,13 @@ class CriticalMetadataQA:
 
         # Verified KDP categories from actual interface screenshots
         self.valid_kdp_categories = {
-            "Crafts, Hobbies & Home > Crafts & Hobbies",
+            "Crafts, Hobbies & Home > Games & Activities > Puzzles & Games",
+            "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers",
+            "Games > Puzzles",
+            "Games > Word Games", 
             "Self-Help > Memory Improvement",
             "Health, Fitness & Dieting > Aging",
+            "Crafts, Hobbies & Home > Games & Activities",  # Valid parent category
         }
 
         # Known hallucinated categories to catch
@@ -38,7 +42,8 @@ class CriticalMetadataQA:
             "Games, Puzzles & Trivia > Sudoku",
             "Activity Books",
             "Crafts, Hobbies & Home > Activity Books",
-            "Crafts, Hobbies & Home > Games & Activities",
+            "Brain Games",
+            "Memory Games",
         }
 
     def validate_trim_size(self, data: Dict, file_path: str) -> None:

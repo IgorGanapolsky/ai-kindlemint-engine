@@ -13,14 +13,14 @@
     "crossword puzzle book"
   ],
   "categories": [
-    "Crafts, Hobbies & Home > Games & Activities",
-    "Self-Help > Memory Improvement",
-    "Education & Teaching > Adult & Continuing Education"
+    "Crafts, Hobbies & Home > Games & Activities > Puzzles & Games",
+    "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers",
+    "Games > Word Games"
   ],
-  "kdp_book_types": [
-    "low_content_book",
-    "large_print_book"
-  ],
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  },
   "language": "English",
   "pages": 156,
   "format": "Paperback",
