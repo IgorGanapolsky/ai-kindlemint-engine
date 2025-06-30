@@ -6,7 +6,7 @@ AI-KindleMint-Engine uses a **3-tier orchestration architecture** to automate bo
 
 1. **🤖 Claude Code Orchestration** (Local Development) - AI-accelerated coding
 2. **🔗 A2A Protocol** (Local Agents) - Agent-to-agent communication  
-3. **☁️ AWS Lambda Orchestration** (Production Monitoring) - Cloud infrastructure
+3. **☁️ AWS Business Infrastructure** (Revenue Generation) - Scalable business services
 
 ## 🏛️ Architecture Overview
 
@@ -18,10 +18,10 @@ AI-KindleMint-Engine uses a **3-tier orchestration architecture** to automate bo
 │  │ CLAUDE CODE     │  │ A2A PROTOCOL    │  │ AWS LAMBDA   │ │
 │  │ ORCHESTRATION   │  │ ORCHESTRATION   │  │ ORCHESTRATION│ │
 │  │                 │  │                 │  │              │ │
-│  │ • Development   │  │ • Agent Comm    │  │ • Production │ │
-│  │ • AI Coding     │  │ • Task Routing  │  │ • Monitoring │ │
-│  │ • Feature Gen   │  │ • PDF Creation  │  │ • CI/CD      │ │
-│  │ • Code Quality  │  │ • Puzzle Gen    │  │ • Alerts     │ │
+│  │ • Development   │  │ • Agent Comm    │  │ • Business   │ │
+│  │ • AI Coding     │  │ • Task Routing  │  │ • Revenue    │ │
+│  │ • Feature Gen   │  │ • PDF Creation  │  │ • Analytics  │ │
+│  │ • Code Quality  │  │ • Puzzle Gen    │  │ • CDN/APIs   │ │
 │  └─────────────────┘  └─────────────────┘  └──────────────┘ │
 │           │                     │                   │       │
 │           └─────────────────────┼───────────────────┘       │
@@ -97,41 +97,39 @@ pdf = await pdf_agent.execute_skill("create_pdf", {"puzzles": puzzles})
 
 ---
 
-## ☁️ 3. AWS Lambda Orchestration (Production Infrastructure)
+## ☁️ 3. AWS Business Infrastructure (Revenue Generation)
 
 ### **What It Does:**
-- **Production monitoring** - Watches GitHub repo for issues
-- **CI/CD automation** - Triggers builds, tests, deployments  
-- **Alert management** - Handles Sentry errors, GitHub failures
-- **Cost optimization** - Scheduled runs during business hours
-- **Slack notifications** - Real-time status updates
+- **Book production pipeline** - Scalable PDF and cover generation
+- **Sales analytics** - Real-time revenue tracking and market intelligence
+- **Content delivery** - Global CDN for fast book downloads
+- **Customer APIs** - Mobile and web application backend
+- **Business automation** - End-to-end publishing workflows
 
 ### **How It Works:**
 ```
-GitHub Repo Changes → Lambda Functions → Analysis → Slack Alerts
-                                     ↓
-                              CloudWatch Metrics
-                                     ↓
-                               DynamoDB Logs
+Book Request → Step Functions → Lambda Processing → S3 Storage → CloudFront CDN
+     ↓               ↓                ↓               ↓           ↓
+Customer API → Workflow Orchestration → PDF/Cover Gen → Asset Storage → Global Delivery
+     ↓               ↓                ↓               ↓           ↓
+Sales Event → Analytics Pipeline → Revenue Tracking → DynamoDB → Business Intelligence
 ```
 
-### **Deployed Infrastructure:**
-- **Production Stack**: `autonomous-orchestration-production` ✅ RUNNING
-- **CI Lambda**: Monitors GitHub every 15 minutes (business hours)
-- **Alert Lambda**: Checks Sentry errors every 5 minutes
-- **DynamoDB**: Stores configuration and logs
-- **SNS**: Notification system
-- **CloudWatch**: Metrics and alarms
+### **Business Services:**
+- **Book Production**: Lambda functions for PDF/cover generation  
+- **Sales Analytics**: DynamoDB + real-time revenue tracking
+- **Content CDN**: S3 + CloudFront for global book delivery
+- **Customer APIs**: API Gateway for mobile/web applications
+- **Business Intelligence**: Market analysis and A/B testing
 
 ### **Key Files:**
-- `lambda/deployment/autonomous-orchestration-template.yaml`
-- `lambda/ci_orchestration_function.py`
-- `lambda/alert_orchestration_function.py`
+- `docs/AWS_BUSINESS_STRATEGY.md` (comprehensive strategy)
+- `lambda/book-production/` (production pipeline)
+- `lambda/analytics/` (sales tracking)
 
 ### **API Requirements:**
-- `GITHUB_TOKEN` (GitHub API access)
-- `SLACK_WEBHOOK_URL` (notifications)
-- `SENTRY_DSN` (error monitoring)
+- `OPENAI_API_KEY` (DALL-E cover generation)
+- `AWS_ACCESS_KEY` (S3, DynamoDB, Lambda access)
 
 ---
 
@@ -187,9 +185,9 @@ else:
    pdf = await pdf_agent.create_book(puzzles)
    ```
 
-3. **AWS Lambda** monitors production:
+3. **AWS Business Services** handle production:
    ```
-   Lambda detects new book → Runs QA checks → Sends Slack notification
+   Step Functions workflow → PDF generation → Cover creation → S3 storage → CloudFront delivery
    ```
 
 4. **Unified Orchestrator** coordinates everything:
@@ -207,14 +205,14 @@ else:
 ### **Monthly Costs:**
 - **Claude Code**: ~$50-100 (OpenAI/Claude API)
 - **A2A Protocol**: $0 (local execution)
-- **AWS Lambda**: ~$5-20 (compute + storage)
-- **Total**: ~$55-120/month
+- **AWS Business**: ~$25-50 (revenue-generating services)
+- **Total**: ~$75-150/month (with 10x business value)
 
 ### **Performance:**
 - **Development**: 10x faster with Claude Code
 - **Puzzle Generation**: 100 puzzles in ~30 seconds (A2A)
-- **Monitoring**: Real-time alerts within 5 minutes (AWS)
-- **Book Creation**: Complete book in 2-4 hours vs 2-4 weeks
+- **Book Production**: Complete book in 2-4 hours vs 2-4 weeks (AWS)
+- **Global Delivery**: <2 second book downloads worldwide (CloudFront)
 
 ---
 
@@ -281,9 +279,10 @@ print(f"Agents: {len(registry.list_agents())}")
 ```
 
 ### **AWS Issues:**
-- Check CloudFormation console for stack status
-- View Lambda logs in CloudWatch
-- Verify GitHub/Slack webhooks working
+- Check Step Functions execution history
+- Monitor S3 bucket access and storage costs
+- Verify API Gateway endpoints responding
+- Review DynamoDB sales data ingestion
 
 ---
 
