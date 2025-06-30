@@ -123,7 +123,7 @@ class MarketResearchEngine:
             mock_products.append(
                 {
                     "position": i + 1,
-                    "title": f"Mock {keyword} Book #{i+1}",
+                    "title": f"Mock {keyword} Book #{i + 1}",
                     "price": f"${random.uniform(6.99, 24.99):.2f}",
                     "rating": random.uniform(3.5, 5.0),
                     "reviews": random.randint(10, 5000),
@@ -236,13 +236,13 @@ class MarketResearchEngine:
         all_data_points = []
 
         for idx, keyword in enumerate(keywords):
-            print(f"📊 [{idx+1}/{len(keywords)}] Researching: {keyword}")
+            print(f"📊 [{idx + 1}/{len(keywords)}] Researching: {keyword}")
             data_points = self.process_keyword(keyword)
             all_data_points.extend(data_points)
 
             # Progress tracking
             if (idx + 1) % 5 == 0:
-                print(f"⏳ Progress: {idx+1}/{len(keywords)} keywords processed")
+                print(f"⏳ Progress: {idx + 1}/{len(keywords)} keywords processed")
 
         # Save to CSV
         csv_path = self.save_to_csv(all_data_points)

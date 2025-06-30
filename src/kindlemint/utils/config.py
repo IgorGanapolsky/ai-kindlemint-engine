@@ -84,7 +84,8 @@ class ConfigLoader:
                 return config_data or {}
         except FileNotFoundError:
             logger.warning(
-                f"Configuration file not found at {self.config_path}. Proceeding with defaults and environment variables."
+                f"Configuration file not found at {
+                    self.config_path}. Proceeding with defaults and environment variables."
             )
             return {}
         except yaml.YAMLError as e:
@@ -117,7 +118,8 @@ class ConfigLoader:
                         current_level[final_key] = value
 
                 logger.info(
-                    f"Overrode config '{'.'.join(path)}' with value from environment variable."
+                    f"Overrode config '{
+                        '.'.join(path)}' with value from environment variable."
                 )
 
     def _validate_config(self):
@@ -130,7 +132,8 @@ class ConfigLoader:
         for key in required_keys:
             if self.get(key) is None:
                 raise ValueError(
-                    f"Missing critical configuration key: '{key}'. Please define it in config/config.yaml or as an environment variable."
+                    f"Missing critical configuration key: '{
+                        key}'. Please define it in config/config.yaml or as an environment variable."
                 )
 
     def get(self, key_path, default=None):

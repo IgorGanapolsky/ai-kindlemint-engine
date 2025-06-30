@@ -256,7 +256,8 @@ class AutonomousCodeCleaner:
                     ):
                         should_remove = True
 
-                    # For PDFs and books: Remove if filename suggests it's intermediate/draft
+                    # For PDFs and books: Remove if filename suggests it's
+                    # intermediate/draft
                     elif remove_file.suffix == ".pdf":
                         name_lower = remove_file.stem.lower()
                         # Extended list of indicators for intermediate/test files
@@ -308,7 +309,8 @@ class AutonomousCodeCleaner:
                             self.cleanup_results["bytes_saved"] += size
                             duplicates_removed += 1
                             print(
-                                f"   ✓ Removed duplicate: {remove_file.relative_to(self.repo_path)}"
+                                f"   ✓ Removed duplicate: {
+                                    remove_file.relative_to(self.repo_path)}"
                             )
 
                         except Exception as e:
@@ -346,7 +348,8 @@ class AutonomousCodeCleaner:
                     )
                     removed_count += 1
                     print(
-                        f"   ✓ Removed empty directory: {dir_path.relative_to(self.repo_path)}"
+                        f"   ✓ Removed empty directory: {
+                            dir_path.relative_to(self.repo_path)}"
                     )
                 except Exception:
                     continue

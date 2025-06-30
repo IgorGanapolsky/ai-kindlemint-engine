@@ -237,7 +237,8 @@ class MarketResearchAutoReviewer:
         else:
             decisions["reasoning"].append("Opportunities need manual review")
             decisions["reasoning"].append(
-                f"Best score: {analysis['top_scores'][0] if analysis['top_scores'] else 0}"
+                f"Best score: {analysis['top_scores'][0]
+                               if analysis['top_scores'] else 0}"
             )
 
         # Add market insights
@@ -259,7 +260,8 @@ class MarketResearchAutoReviewer:
 
         # Print selected niches
         print(
-            f"\n✅ Selected {len(decisions['selected_niches'])} niches for content generation:"
+            f"\n✅ Selected {len(decisions['selected_niches'])
+                            } niches for content generation:"
         )
         for niche in decisions["selected_niches"]:
             print(f"  • {niche['niche']} (score: {niche['score']})")

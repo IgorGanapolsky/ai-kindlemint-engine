@@ -48,7 +48,7 @@ def check_github_app():
         else:
             print("❌ Not in a git repository")
             return False
-    except:
+    except BaseException:
         print("❌ Git not available")
         return False
 

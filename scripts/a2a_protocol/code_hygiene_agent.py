@@ -360,7 +360,8 @@ class CodeHygieneAgent(A2AAgent):
         root_files = [f for f in self.project_root.iterdir() if f.is_file()]
         if len(root_files) > 10:
             recommendations.append(
-                f"Too many files in root ({len(root_files)}), organize into subdirectories"
+                f"Too many files in root ({
+                    len(root_files)}), organize into subdirectories"
             )
 
         # Check for test organization

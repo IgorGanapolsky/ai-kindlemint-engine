@@ -43,7 +43,7 @@ class PNGGenerationFixer:
             try:
                 font = ImageFont.truetype(font_path, 36)
                 break
-            except:
+            except BaseException:
                 continue
 
         if font is None:
@@ -141,7 +141,8 @@ class PNGGenerationFixer:
 
             if json_clues != declared_clues:
                 print(
-                    f"⚠️  Puzzle {puzzle_id}: JSON metadata inconsistent ({json_clues} vs {declared_clues})"
+                    f"⚠️  Puzzle {puzzle_id}: JSON metadata inconsistent ({json_clues} vs {
+                        declared_clues})"
                 )
 
             # Always regenerate to ensure consistency
@@ -149,12 +150,14 @@ class PNGGenerationFixer:
 
             if clues_drawn == json_clues:
                 print(
-                    f"✅ Puzzle {puzzle_id}: Verified {clues_drawn} clues drawn correctly"
+                    f"✅ Puzzle {puzzle_id}: Verified {
+                        clues_drawn} clues drawn correctly"
                 )
                 total_fixed += 1
             else:
                 print(
-                    f"❌ Puzzle {puzzle_id}: ERROR - Drew {clues_drawn} but expected {json_clues}"
+                    f"❌ Puzzle {
+                        puzzle_id}: ERROR - Drew {clues_drawn} but expected {json_clues}"
                 )
 
         print(f"\n📊 Fixed {total_fixed} puzzle PNGs")
@@ -199,7 +202,7 @@ class PNGGenerationFixer:
 
         try:
             font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
-        except:
+        except BaseException:
             font = ImageFont.load_default()
 
         # Draw grid lines

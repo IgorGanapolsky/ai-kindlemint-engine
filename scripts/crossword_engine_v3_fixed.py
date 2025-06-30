@@ -134,7 +134,8 @@ class CrosswordEngineV3:
         else:
             if self.word_list_path:
                 logger.warning(
-                    f"Word list not found at {self.word_list_path}. Falling back to built-in list."
+                    f"Word list not found at {
+                        self.word_list_path}. Falling back to built-in list."
                 )
             # Use built-in common English words (limited set)
             common_words = [
@@ -1682,7 +1683,8 @@ class CrosswordEngineV3:
 
         if not filled_grid:
             logger.warning(
-                f"Failed to fill grid for puzzle {puzzle_id}. Retrying with simpler pattern."
+                f"Failed to fill grid for puzzle {
+                    puzzle_id}. Retrying with simpler pattern."
             )
             grid = [[" " for _ in range(self.grid_size)] for _ in range(self.grid_size)]
             black_squares = self.create_symmetric_pattern("EASY")
@@ -2321,7 +2323,8 @@ class CrosswordEngineV3:
             theme = themes[i % len(themes)]
 
             print(
-                f"  Creating puzzle {puzzle_id}/{self.puzzle_count}: {theme} ({difficulty})"
+                f"  Creating puzzle {
+                    puzzle_id}/{self.puzzle_count}: {theme} ({difficulty})"
             )
 
             grid = self.generate_grid_with_content(puzzle_id, theme, difficulty)
@@ -2338,7 +2341,8 @@ class CrosswordEngineV3:
 
             if not validation["valid"]:
                 logger.warning(
-                    f"Puzzle {puzzle_id} has issues: {validation['issues']}. Trying to regenerate."
+                    f"Puzzle {puzzle_id} has issues: {
+                        validation['issues']}. Trying to regenerate."
                 )
                 attempts = 0
                 while (
@@ -2361,7 +2365,8 @@ class CrosswordEngineV3:
                     )
                 if not validation["valid"]:
                     logger.error(
-                        f"Could not generate valid puzzle {puzzle_id} after {attempts} attempts."
+                        f"Could not generate valid puzzle {
+                            puzzle_id} after {attempts} attempts."
                     )
 
             puzzle_data = {
@@ -2415,7 +2420,11 @@ class CrosswordEngineV3:
         valid_count = collection_meta["validation_summary"]["valid_puzzles"]
         print(f"✓ Valid puzzles: {valid_count}/{self.puzzle_count}")
         if valid_count < self.puzzle_count:
-            print(f"⚠️ {self.puzzle_count - valid_count} puzzles have validation issues")
+            print(
+                f"⚠️ {
+                    self.puzzle_count -
+                    valid_count} puzzles have validation issues"
+            )
 
         return puzzles_data
 

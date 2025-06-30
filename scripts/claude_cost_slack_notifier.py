@@ -4,6 +4,8 @@ Claude Cost Slack Notifier
 Sends Claude API cost tracking notifications to Slack
 """
 
+from scripts.slack_notifier import SlackNotifier
+from scripts.claude_cost_tracker import ClaudeCostTracker
 import subprocess
 import sys
 from datetime import datetime, timedelta
@@ -12,9 +14,6 @@ from typing import Dict, List, Optional, Tuple
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from scripts.claude_cost_tracker import ClaudeCostTracker
-from scripts.slack_notifier import SlackNotifier
 
 
 class ClaudeCostSlackNotifier:
@@ -40,7 +39,7 @@ class ClaudeCostSlackNotifier:
             if "/" in url:
                 return url.split("/")[-1].replace(".git", "")
             return "Unknown Repository"
-        except:
+        except BaseException:
             return "Unknown Repository"
 
     def send_commit_notification(self, commit_hash: str) -> bool:
@@ -360,7 +359,8 @@ class ClaudeCostSlackNotifier:
         )
 
         return self.slack_notifier.send_message(
-            text=f"Weekly Claude Cost Analysis: ${current_cost:.2f} ({cost_change_pct:+.1f}% change)",
+            text=f"Weekly Claude Cost Analysis: ${
+                current_cost:.2f} ({cost_change_pct:+.1f}% change)",
             blocks=blocks,
             color="#3498db",
         )
@@ -428,7 +428,9 @@ class ClaudeCostSlackNotifier:
         ]
 
         return self.slack_notifier.send_message(
-            text=f"🚨 Claude Cost Budget Alert: ${current_cost:.2f} exceeds ${budget_limit:.2f} limit",
+            text=f"🚨 Claude Cost Budget Alert: ${
+                current_cost:.2f} exceeds ${
+                budget_limit:.2f} limit",
             blocks=blocks,
             color="#e74c3c",
         )
@@ -549,7 +551,8 @@ class ClaudeCostSlackNotifier:
         )
 
         return self.slack_notifier.send_message(
-            text=f"Claude Cost Efficiency Report: {tokens_per_dollar:,.0f} tokens per dollar",
+            text=f"Claude Cost Efficiency Report: {
+                tokens_per_dollar:,.0f} tokens per dollar",
             blocks=blocks,
             color="#9b59b6",
         )

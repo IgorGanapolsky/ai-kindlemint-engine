@@ -37,7 +37,8 @@ class BrandEcosystemBuilder:
 
         # Create ecosystem output directory
         self.output_dir = Path(
-            f"books/active_production/{self.series_name}/volume_{self.volume}/brand_ecosystem"
+            f"books/active_production/{self.series_name}/volume_{
+                self.volume}/brand_ecosystem"
         )
         self.output_dir.mkdir(parents=True, exist_ok=True)
 

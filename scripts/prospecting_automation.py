@@ -106,7 +106,7 @@ class ProspectingAutomation:
                             theme = puzzle_data.get("theme", "")
                             if theme:
                                 puzzle_themes.append(theme)
-                    except:
+                    except BaseException:
                         continue
 
                 # Generate insights based on puzzle themes

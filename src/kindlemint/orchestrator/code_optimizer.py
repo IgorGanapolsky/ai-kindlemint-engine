@@ -579,7 +579,8 @@ def _save_data(data):
                 # In a real implementation, this would modify the actual files
                 # For now, we'll just count as implemented
                 self.logger.info(
-                    f"Implementing optimization in {optimization.get('file', 'unknown')}"
+                    f"Implementing optimization in {
+                        optimization.get('file', 'unknown')}"
                 )
                 implemented += 1
             except Exception as e:

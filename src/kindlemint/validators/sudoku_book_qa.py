@@ -173,12 +173,14 @@ class SudokuBookQAValidator:
                 if clue_count < expected_range["min"]:
                     issues["wrong_clues"] += 1
                     self.errors.append(
-                        f"❌ CRITICAL: Puzzle {puzzle_id} has too few clues: {clue_count} (min: {expected_range['min']} for {difficulty})"
+                        f"❌ CRITICAL: Puzzle {puzzle_id} has too few clues: {
+                            clue_count} (min: {expected_range['min']} for {difficulty})"
                     )
                 elif clue_count > expected_range["max"]:
                     issues["wrong_clues"] += 1
                     self.warnings.append(
-                        f"⚠️ Puzzle {puzzle_id} has many clues: {clue_count} (max: {expected_range['max']} for {difficulty})"
+                        f"⚠️ Puzzle {puzzle_id} has many clues: {
+                            clue_count} (max: {expected_range['max']} for {difficulty})"
                     )
 
                 # Check puzzle image exists and verify content matches JSON
@@ -194,7 +196,8 @@ class SudokuBookQAValidator:
                         png_clues != -1 and abs(png_clues - clue_count) > 3
                     ):  # Allow small detection variance
                         self.errors.append(
-                            f"❌ CRITICAL: Puzzle {puzzle_id} PNG/JSON mismatch: PNG ~{png_clues} clues vs JSON {clue_count} clues"
+                            f"❌ CRITICAL: Puzzle {
+                                puzzle_id} PNG/JSON mismatch: PNG ~{png_clues} clues vs JSON {clue_count} clues"
                         )
                         issues["wrong_clues"] += 1
 

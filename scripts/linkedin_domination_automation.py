@@ -46,7 +46,8 @@ class LinkedInDominationAutomation:
 
         # Create LinkedIn automation output directory
         self.output_dir = Path(
-            f"books/active_production/{self.series_name}/volume_{self.volume}/linkedin_automation"
+            f"books/active_production/{self.series_name}/volume_{
+                self.volume}/linkedin_automation"
         )
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -1149,7 +1150,8 @@ class LinkedInDominationAutomation:
         article_topics = {
             "industry_analysis": {
                 "sample_titles": [
-                    f"The Accessibility Crisis in Publishing: What {self.title} Taught Me About Inclusive Design",
+                    f"The Accessibility Crisis in Publishing: What {
+                        self.title} Taught Me About Inclusive Design",
                     "Why 90% of Brain Training Apps Are Missing the Point (And What Actually Works)",
                     "The $2 Billion Puzzle Market That Publishers Are Ignoring",
                 ],

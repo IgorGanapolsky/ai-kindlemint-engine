@@ -3,6 +3,7 @@ Compatibility wrapper for sudoku_generator during migration.
 This maintains backward compatibility while the code is migrated to the new structure.
 """
 
+from kindlemint.engines.sudoku import main
 import sys
 import warnings
 from pathlib import Path
@@ -22,7 +23,6 @@ warnings.warn(
 
 # Also make the main function available
 # Import and re-export everything from new location
-from kindlemint.engines.sudoku import main
 
 # Run main if executed directly
 if __name__ == "__main__":

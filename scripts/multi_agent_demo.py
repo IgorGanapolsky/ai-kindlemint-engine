@@ -6,16 +6,13 @@ This script demonstrates the new multi-agent architecture in action,
 showing how specialized agents coordinate to generate books efficiently.
 """
 
-import asyncio
-import logging
-import sys
-from datetime import datetime
-from pathlib import Path
-from typing import Dict
-
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-
+from kindlemint.agents.task_system import TaskPriority
+from kindlemint.agents.content_agents import (
+    EPUBGeneratorAgent,
+    PDFLayoutAgent,
+    PuzzleGeneratorAgent,
+    QualityAssuranceAgent,
+)
 from kindlemint.agents import (
     AgentRegistry,
     HealthMonitor,
@@ -25,13 +22,15 @@ from kindlemint.agents import (
     create_puzzle_generation_task,
     create_qa_validation_task,
 )
-from kindlemint.agents.content_agents import (
-    EPUBGeneratorAgent,
-    PDFLayoutAgent,
-    PuzzleGeneratorAgent,
-    QualityAssuranceAgent,
-)
-from kindlemint.agents.task_system import TaskPriority
+import asyncio
+import logging
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Dict
+
+# Add src to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
 class MultiAgentBookGenerator:
@@ -431,7 +430,8 @@ class MultiAgentBookGenerator:
         self.logger.info(f"❌ Failed: {self.demo_metrics['books_failed']}")
         self.logger.info(f"⏱️ Total Duration: {duration:.1f} seconds")
         self.logger.info(
-            f"📈 Books per Minute: {(self.demo_metrics['books_processed'] / duration * 60):.1f}"
+            f"📈 Books per Minute: {
+                (self.demo_metrics['books_processed'] / duration * 60):.1f}"
         )
 
         success_rate = (

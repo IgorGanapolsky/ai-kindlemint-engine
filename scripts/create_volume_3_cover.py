@@ -21,7 +21,7 @@ try:
     subtitle_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 60)
     volume_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 100)
     publisher_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 50)
-except:
+except BaseException:
     # Fallback
     title_font = ImageFont.load_default()
     subtitle_font = title_font

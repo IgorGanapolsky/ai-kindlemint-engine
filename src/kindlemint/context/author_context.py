@@ -662,7 +662,8 @@ class AuthorContextBuilder:
             await self.memory_store.store_author_context(user_id, author_context)
 
             self.logger.info(
-                f"Built author context for user {user_id} with mood {current_mood.value}"
+                f"Built author context for user {
+                    user_id} with mood {current_mood.value}"
             )
             return author_context
 

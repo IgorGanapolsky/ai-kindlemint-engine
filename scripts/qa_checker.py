@@ -208,7 +208,8 @@ class IntelligentQAChecker:
                                 QAIssue(
                                     severity="critical",
                                     category="format",
-                                    description=f"{pdf_file.name} has {actual} pages, expected {expected}",
+                                    description=f"{pdf_file.name} has {
+                                        actual} pages, expected {expected}",
                                     location=str(pdf_file),
                                     suggested_fix=f"Regenerate with correct page count",
                                     auto_fixable=True,
@@ -255,7 +256,8 @@ class IntelligentQAChecker:
                     QAIssue(
                         severity="critical",
                         category="metadata",
-                        description=f"Puzzle {puzzle_data.get('id', '?')} missing fields: {missing}",
+                        description=f"Puzzle {puzzle_data.get('id', '?')} missing fields: {
+                            missing}",
                         location=str(puzzle_file),
                         suggested_fix="Regenerate puzzle with complete metadata",
                         auto_fixable=True,
@@ -332,7 +334,8 @@ class IntelligentQAChecker:
                         QAIssue(
                             severity="warning",
                             category="metadata",
-                            description=f"Collection lists {len(listed_puzzles)} puzzles but found {actual_puzzles}",
+                            description=f"Collection lists {
+                                len(listed_puzzles)} puzzles but found {actual_puzzles}",
                             suggested_fix="Update collection.json",
                             auto_fixable=True,
                         )

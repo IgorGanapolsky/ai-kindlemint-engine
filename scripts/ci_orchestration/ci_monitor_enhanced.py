@@ -92,7 +92,8 @@ class EnhancedCIMonitor:
     def _get_job_logs_cli_fallback(self, job_id: int) -> Optional[str]:
         """Fallback to GitHub CLI for job logs"""
         try:
-            cmd = f"gh api repos/{self.repo_owner}/{self.repo_name}/actions/jobs/{job_id}/logs"
+            cmd = f"gh api repos/{self.repo_owner}/{
+                self.repo_name}/actions/jobs/{job_id}/logs"
             result = subprocess.run(
                 cmd, shell=True, capture_output=True, text=True, timeout=30
             )
@@ -109,7 +110,8 @@ class EnhancedCIMonitor:
 
         # GitHub Actions logs have a specific format
         # Each step starts with a timestamp and the step name
-        step_pattern = rf"\d{{4}}-\d{{2}}-\d{{2}}T\d{{2}}:\d{{2}}:\d{{2}}\.\d+Z {re.escape(failed_step)}"
+        step_pattern = rf"\d{{4}}-\d{{2}}-\d{{2}}T\d{{2}}:\d{{2}}:\d{{2}}\.\d+Z {
+            re.escape(failed_step)}"
 
         lines = logs.split("\n")
         step_logs = []

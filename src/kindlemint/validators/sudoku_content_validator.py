@@ -54,7 +54,8 @@ class SudokuContentValidator:
             else:
                 self.results["status"] = "FAILED"
                 print(
-                    f"❌ CONTENT VALIDATION FAILED - {len(self.results['errors'])} errors"
+                    f"❌ CONTENT VALIDATION FAILED - {
+                        len(self.results['errors'])} errors"
                 )
 
             self._print_summary()
@@ -71,7 +72,7 @@ class SudokuContentValidator:
         """Check that puzzle pages contain blanks (not complete grids)"""
         errors = []
 
-        print(f"🧩 Checking puzzle pages {start_page+1} to {end_page+1}...")
+        print(f"🧩 Checking puzzle pages {start_page + 1} to {end_page + 1}...")
 
         for page_num in range(start_page, min(end_page + 1, doc.page_count)):
             try:
@@ -82,7 +83,7 @@ class SudokuContentValidator:
 
                 if not image_list:
                     errors.append(
-                        f"Page {page_num+1}: No images found (expected puzzle)"
+                        f"Page {page_num + 1}: No images found (expected puzzle)"
                     )
                     continue
 
@@ -93,13 +94,14 @@ class SudokuContentValidator:
                         if is_complete:
                             puzzle_num = page_num - start_page + 1
                             errors.append(
-                                f"Puzzle #{puzzle_num} (Page {page_num+1}): Shows complete solution instead of puzzle with blanks"
+                                f"Puzzle #{puzzle_num} (Page {
+                                    page_num + 1}): Shows complete solution instead of puzzle with blanks"
                             )
                         break
 
             except Exception as e:
                 errors.append(
-                    f"Page {page_num+1}: Error checking puzzle content - {str(e)}"
+                    f"Page {page_num + 1}: Error checking puzzle content - {str(e)}"
                 )
 
         return errors
@@ -108,7 +110,7 @@ class SudokuContentValidator:
         """Check that solution pages contain complete grids"""
         errors = []
 
-        print(f"💡 Checking solution pages {start_page+1} to {end_page+1}...")
+        print(f"💡 Checking solution pages {start_page + 1} to {end_page + 1}...")
 
         for page_num in range(start_page, min(end_page + 1, doc.page_count)):
             try:
@@ -119,7 +121,7 @@ class SudokuContentValidator:
 
                 if not image_list:
                     errors.append(
-                        f"Page {page_num+1}: No images found (expected solution)"
+                        f"Page {page_num + 1}: No images found (expected solution)"
                     )
                     continue
 
@@ -130,13 +132,14 @@ class SudokuContentValidator:
                         if not is_complete:
                             solution_num = page_num - start_page + 1
                             errors.append(
-                                f"Solution #{solution_num} (Page {page_num+1}): Incomplete solution grid"
+                                f"Solution #{solution_num} (Page {
+                                    page_num + 1}): Incomplete solution grid"
                             )
                         break
 
             except Exception as e:
                 errors.append(
-                    f"Page {page_num+1}: Error checking solution content - {str(e)}"
+                    f"Page {page_num + 1}: Error checking solution content - {str(e)}"
                 )
 
         return errors
@@ -159,7 +162,7 @@ class SudokuContentValidator:
             pix = None  # Free memory
             return is_square and is_reasonable_size
 
-        except:
+        except BaseException:
             return False
 
     def _check_if_grid_complete(self, page, img) -> bool:

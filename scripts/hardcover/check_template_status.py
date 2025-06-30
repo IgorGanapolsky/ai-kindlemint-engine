@@ -62,7 +62,8 @@ def check_templates():
                     status = "✅ EXISTS" if template_path.exists() else "❌ NEEDED"
 
                     print(
-                        f"  📖 {volume_dir.name}: {page_count} pages - Template: {status}"
+                        f"  📖 {volume_dir.name}: {
+                            page_count} pages - Template: {status}"
                     )
 
                     if not template_path.exists():

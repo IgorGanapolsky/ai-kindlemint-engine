@@ -37,7 +37,7 @@ class ClaudeCostTracker:
             try:
                 with open(self.commit_costs_file, "r") as f:
                     return json.load(f)
-            except:
+            except BaseException:
                 pass
 
         return {
@@ -53,7 +53,7 @@ class ClaudeCostTracker:
             try:
                 with open(self.last_commit_cost_file, "r") as f:
                     return json.load(f)
-            except:
+            except BaseException:
                 pass
 
         return {
@@ -74,7 +74,7 @@ class ClaudeCostTracker:
                 check=True,
             )
             return result.stdout.strip()
-        except:
+        except BaseException:
             return None
 
     def get_changed_files(self) -> List[str]:
@@ -105,7 +105,7 @@ class ClaudeCostTracker:
             )
 
             return list(set(staged_files + modified_files))
-        except:
+        except BaseException:
             return []
 
     def estimate_token_count(self, text: str) -> int:
@@ -155,7 +155,7 @@ class ClaudeCostTracker:
                 "complexity": complexity,
                 "lines": len(content.split("\n")),
             }
-        except:
+        except BaseException:
             return {"tokens": 0, "complexity": "low", "lines": 0}
 
     def calculate_file_cost(
@@ -266,7 +266,7 @@ class ClaudeCostTracker:
             all_files = (
                 result.stdout.strip().split("\n") if result.stdout.strip() else []
             )
-        except:
+        except BaseException:
             pass
 
         # Quick estimation for full repo

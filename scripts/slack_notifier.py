@@ -612,9 +612,11 @@ class SlackNotifier:
             # Financial impact
             if total_profit is not None:
                 if total_profit > 0:
-                    impact_text += f"• *Profitable batch* generating ${total_profit:.2f} in estimated revenue\n"
+                    impact_text += f"• *Profitable batch* generating ${
+                        total_profit:.2f} in estimated revenue\n"
                 else:
-                    impact_text += f"• *Unprofitable batch* with ${abs(total_profit):.2f} estimated loss\n"
+                    impact_text += f"• *Unprofitable batch* with ${
+                        abs(total_profit):.2f} estimated loss\n"
 
             # Quality impact
             if avg_qa_score is not None:
@@ -632,7 +634,8 @@ class SlackNotifier:
             # Production efficiency
             if production_efficiency is not None:
                 weekly_capacity = int((7 * 24 * 60 * 60) / production_efficiency)
-                impact_text += f"• Current capacity: *{weekly_capacity} books/week* at this efficiency\n"
+                impact_text += f"• Current capacity: *{
+                    weekly_capacity} books/week* at this efficiency\n"
 
             # KDP readiness
             if kdp_ready_count is not None:
@@ -641,7 +644,8 @@ class SlackNotifier:
                         "• *All books ready for KDP* - proceed to publishing\n"
                     )
                 elif kdp_ready_count > 0:
-                    impact_text += f"• *{kdp_ready_count}/{books_processed} books ready for KDP* - partial publishing possible\n"
+                    impact_text += f"• *{kdp_ready_count}/{
+                        books_processed} books ready for KDP* - partial publishing possible\n"
                 else:
                     impact_text += (
                         "• *No books ready for KDP* - fix critical issues first\n"
@@ -679,7 +683,8 @@ class SlackNotifier:
 
         # Send the notification
         return self.send_message(
-            text=f"📊 Executive Dashboard: Batch {batch_id} - {books_succeeded}/{books_processed} books successful ({success_rate:.1f}%)",
+            text=f"📊 Executive Dashboard: Batch {
+                batch_id} - {books_succeeded}/{books_processed} books successful ({success_rate:.1f}%)",
             blocks=blocks,
             color=color,
         )
@@ -938,7 +943,8 @@ def test_slack_notifier():
         )
         return False
 
-    test_message = f"🧪 Test notification from KindleMint Engine at {datetime.now().strftime('%H:%M:%S')}"
+    test_message = f"🧪 Test notification from KindleMint Engine at {
+        datetime.now().strftime('%H:%M:%S')}"
     success = notifier.send_message(test_message, color="#3498db")
 
     if success:

@@ -563,7 +563,8 @@ class TaskCoordinator:
                 }
 
                 self.logger.info(
-                    f"Workflow execution {execution.execution_id} completed successfully"
+                    f"Workflow execution {
+                        execution.execution_id} completed successfully"
                 )
             else:
                 execution.status = WorkflowStatus.FAILED

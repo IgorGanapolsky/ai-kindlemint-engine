@@ -38,7 +38,8 @@ class QAValidationStrategy(ResolutionStrategy):
             failures = error_context.get("failures", [])
 
             logger.info(
-                f"Processing QA validation failure for {book_info.get('title', 'unknown book')}"
+                f"Processing QA validation failure for {
+                    book_info.get('title', 'unknown book')}"
             )
 
             # Step 1: Identify specific validation failures
@@ -87,7 +88,8 @@ class QAValidationStrategy(ResolutionStrategy):
 
             return StrategyResult(
                 success=False,
-                message=f"Unable to fully resolve QA validation: {len(failure_types) - fixes_applied} issues remain",
+                message=f"Unable to fully resolve QA validation: {
+                    len(failure_types) - fixes_applied} issues remain",
                 actions_taken=actions_taken,
                 time_taken=time.time() - start_time,
             )

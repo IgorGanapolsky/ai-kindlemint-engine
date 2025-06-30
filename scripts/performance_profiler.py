@@ -168,7 +168,8 @@ The following functions are the most significant contributors to the total execu
 | ------------- | -------------- | ---------- |
 """
         for func in top_5_tottime:
-            report_content += f"| `{func['function']}` | `{func['tottime']:.4f}` | `{func['ncalls']}` |\n"
+            report_content += f"| `{func['function']
+                                    }` | `{func['tottime']:.4f}` | `{func['ncalls']}` |\n"
 
         report_content += """
 ### Top 5 Functions by Cumulative Time
@@ -179,7 +180,8 @@ The following functions are the most significant contributors to the total execu
 | ------------- | ------------------- | ---------- |
 """
         for func in top_5_cumtime:
-            report_content += f"| `{func['function']}` | `{func['cumtime']:.4f}` | `{func['ncalls']}` |\n"
+            report_content += f"| `{func['function']
+                                    }` | `{func['cumtime']:.4f}` | `{func['ncalls']}` |\n"
 
         report_content += """
 ## 3. Recommendations

@@ -176,7 +176,8 @@ class ConsolidationAnalyzer:
                 ].append(name)
 
             # Decide which scripts to remove. A script is a good candidate for removal
-            # if it's a simple experiment or clearly superseded by a more robust version.
+            # if it's a simple experiment or clearly superseded by a more robust
+            # version.
             is_simple_experiment = (
                 features["has_word_db"] and len(features["functions"]) < 15
             )
@@ -260,7 +261,8 @@ class ConsolidationAnalyzer:
         # --- Migration Checklist ---
         report.append("\n# 📋 3. Migration Checklist to Unified Generator")
         report.append(
-            f"The following features should be migrated to `{UNIFIED_GENERATOR}` and `config.yaml`."
+            f"The following features should be migrated to `{
+                UNIFIED_GENERATOR}` and `config.yaml`."
         )
 
         checklist = []

@@ -3,14 +3,13 @@
 Claude Code Demo - Demonstrates AI-accelerated development
 """
 
+from kindlemint.orchestrator import ClaudeCodeOrchestrator
 import asyncio
 import sys
 from pathlib import Path
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-
-from kindlemint.orchestrator import ClaudeCodeOrchestrator
 
 
 async def main():
@@ -91,7 +90,10 @@ async def main():
         target_coverage=0.9,
     )
     print(
-        f"✅ Generated {tests['total_tests']} tests with {tests['estimated_coverage']*100:.0f}% coverage"
+        f"✅ Generated {
+            tests['total_tests']} tests with {
+            tests['estimated_coverage'] *
+            100:.0f}% coverage"
     )
 
     print("\n5️⃣ Optimizing Codebase...")
@@ -100,13 +102,15 @@ async def main():
     # Run performance optimization
     perf_optimization = await orchestrator.optimize_codebase("performance")
     print(
-        f"✅ Performance optimizations: {len(perf_optimization['performance']['optimizations'])} improvements found"
+        f"✅ Performance optimizations: {
+            len(perf_optimization['performance']['optimizations'])} improvements found"
     )
 
     # Run security audit
     security_optimization = await orchestrator.optimize_codebase("security")
     print(
-        f"✅ Security audit: {len(security_optimization['security']['optimizations'])} issues addressed"
+        f"✅ Security audit: {
+            len(security_optimization['security']['optimizations'])} issues addressed"
     )
 
     print("\n6️⃣ Creating Specialized Agent...")

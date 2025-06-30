@@ -6,13 +6,12 @@ Demonstrates the complete transformation of book content into a
 comprehensive content marketing ecosystem.
 """
 
+from kindlemint.social.core import demo_social_media_marketing
 import os
 import sys
 
 # Add the source directory to the path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
-
-from kindlemint.social.core import demo_social_media_marketing
 
 
 def main():

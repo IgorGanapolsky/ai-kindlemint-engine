@@ -60,13 +60,17 @@ def move_test_files(project_root: Path, dry_run: bool = True):
 
                 if dry_run:
                     print(
-                        f"🔄 Would move: {test_file.relative_to(project_root)} → {target_path.relative_to(project_root)}"
+                        f"🔄 Would move: {
+                            test_file.relative_to(project_root)} → {
+                            target_path.relative_to(project_root)}"
                     )
                 else:
                     target_path.parent.mkdir(parents=True, exist_ok=True)
                     shutil.move(str(test_file), str(target_path))
                     print(
-                        f"✅ Moved: {test_file.name} → {target_path.relative_to(project_root)}"
+                        f"✅ Moved: {
+                            test_file.name} → {
+                            target_path.relative_to(project_root)}"
                     )
 
                 moved.append((str(test_file), str(target_path)))
@@ -103,7 +107,8 @@ def consolidate_requirements(project_root: Path, dry_run: bool = True):
 
     if dry_run:
         print(
-            f"🔄 Would consolidate {len(req_files)} requirements files into requirements.txt"
+            f"🔄 Would consolidate {
+                len(req_files)} requirements files into requirements.txt"
         )
         print(f"   Total unique requirements: {len(sorted_requirements)}")
     else:
@@ -194,7 +199,8 @@ def move_agent_files(project_root: Path, dry_run: bool = True):
 
                 if dry_run:
                     print(
-                        f"🔄 Would move: {agent_file.relative_to(project_root)} → agents/{agent_file.name}"
+                        f"🔄 Would move: {agent_file.relative_to(
+                            project_root)} → agents/{agent_file.name}"
                     )
                 else:
                     shutil.move(str(agent_file), str(target_path))

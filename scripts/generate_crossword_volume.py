@@ -75,7 +75,7 @@ class ProperCrosswordGenerator:
         try:
             font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
             number_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 20)
-        except:
+        except BaseException:
             font = ImageFont.load_default()
             number_font = font
 

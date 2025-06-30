@@ -207,7 +207,9 @@ def run_sentry_enhanced_research():
 
                 if response.status_code != 200:
                     raise requests.HTTPError(
-                        f"Slack webhook returned {response.status_code}: {response.text}"
+                        f"Slack webhook returned {
+                            response.status_code}: {
+                            response.text}"
                     )
 
                 results["apis_tested"].append("Slack - SUCCESS")
@@ -257,7 +259,8 @@ def run_sentry_enhanced_research():
         # SAVE RESULTS with Seer AI context
         try:
             os.makedirs("research/sentry_enhanced", exist_ok=True)
-            filename = f'research/sentry_enhanced/sentry_research_{datetime.now().strftime("%Y_%m_%d_%H%M")}.json'
+            filename = f'research/sentry_enhanced/sentry_research_{
+                datetime.now().strftime("%Y_%m_%d_%H%M")}.json'
 
             with open(filename, "w") as f:
                 json.dump(results, f, indent=2)

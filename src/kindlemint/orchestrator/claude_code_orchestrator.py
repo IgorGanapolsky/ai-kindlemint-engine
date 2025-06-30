@@ -14,6 +14,7 @@ from enum import Enum
 
 class TaskType(Enum):
     """Task types for Claude Code orchestration"""
+
     FEATURE_DEVELOPMENT = "feature_development"
     CODE_OPTIMIZATION = "code_optimization"
     TEST_GENERATION = "test_generation"

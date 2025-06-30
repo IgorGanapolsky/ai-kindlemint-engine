@@ -3,13 +3,12 @@
 Regenerate ALL puzzle images with the fixed visual distinction code
 """
 
+from kindlemint.engines.sudoku import SudokuGenerator
 import json
 import sys
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent / "src"))
-
-from kindlemint.engines.sudoku import SudokuGenerator
 
 
 def regenerate_all_puzzles():

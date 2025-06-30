@@ -109,7 +109,8 @@ def add_back_cover_to_metadata(file_path: str) -> bool:
         # If front cover prompt is missing, add a placeholder
         if "dalle_prompt" not in data["cover_design"]:
             print(
-                f"  ⚠️  Adding placeholder front cover prompt: {os.path.basename(file_path)}"
+                f"  ⚠️  Adding placeholder front cover prompt: {
+                    os.path.basename(file_path)}"
             )
             data["cover_design"][
                 "dalle_prompt"

@@ -204,13 +204,13 @@ class PDFLayoutAgent(A2AAgent):
                 if not isinstance(puzzle, dict):
                     return {
                         "valid": False,
-                        "error": f"Puzzle {i+1} must be a dictionary",
+                        "error": f"Puzzle {i + 1} must be a dictionary",
                     }
 
                 if "puzzle" not in puzzle:
                     return {
                         "valid": False,
-                        "error": f"Puzzle {i+1} missing 'puzzle' field",
+                        "error": f"Puzzle {i + 1} missing 'puzzle' field",
                     }
 
                 # Validate puzzle grid structure
@@ -218,7 +218,7 @@ class PDFLayoutAgent(A2AAgent):
                 if not isinstance(puzzle_grid, list) or len(puzzle_grid) != 9:
                     return {
                         "valid": False,
-                        "error": f"Puzzle {i+1} has invalid grid structure",
+                        "error": f"Puzzle {i + 1} has invalid grid structure",
                     }
 
             # Validate book format

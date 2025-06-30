@@ -82,9 +82,9 @@ class EmergencyVisualValidator:
                 json.dump(report, f, indent=2)
 
             # Print summary
-            print(f"\n{'='*60}")
+            print(f"\n{'=' * 60}")
             print(f"🚨 EMERGENCY REPORT: {status}")
-            print(f"{'='*60}")
+            print(f"{'=' * 60}")
 
             if total_issues > 0:
                 print(f"\n❌ CRITICAL VISUAL ISSUES DETECTED: {total_issues}")
@@ -132,7 +132,8 @@ class EmergencyVisualValidator:
 
             if filled_cells > 45:  # More than half the grid filled
                 issues.append(
-                    f"Too many numbers visible ({filled_cells}/81 cells) - appears to show solution"
+                    f"Too many numbers visible ({
+                        filled_cells}/81 cells) - appears to show solution"
                 )
 
             if empty_cells < 30:  # Too few empty cells

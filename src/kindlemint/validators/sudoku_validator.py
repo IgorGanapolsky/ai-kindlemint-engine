@@ -136,7 +136,8 @@ class SudokuValidator(PuzzleValidator):
                         issues.append(
                             self.create_issue(
                                 severity=IssueSeverity.ERROR,
-                                description=f"Row {i} must have 9 cells, found {len(row)}",
+                                description=f"Row {
+                                    i} must have 9 cells, found {len(row)}",
                                 puzzle_id=puzzle_id,
                                 location=f"grid[{i}]",
                             )
@@ -157,7 +158,8 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Cell at [{i},{j}] must be between 0-9, found {cell}",
+                                    description=f"Cell at [{i},{
+                                        j}] must be between 0-9, found {cell}",
                                     puzzle_id=puzzle_id,
                                     location=f"grid[{i}][{j}]",
                                     recommendation="Use 0 for empty cells, 1-9 for clues",
@@ -183,7 +185,8 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Solution must have 9 rows, found {len(solution)}",
+                            description=f"Solution must have 9 rows, found {
+                                len(solution)}",
                             puzzle_id=puzzle_id,
                         )
                     )
@@ -203,7 +206,8 @@ class SudokuValidator(PuzzleValidator):
                         issues.append(
                             self.create_issue(
                                 severity=IssueSeverity.ERROR,
-                                description=f"Solution row {i} must have 9 cells, found {len(row)}",
+                                description=f"Solution row {
+                                    i} must have 9 cells, found {len(row)}",
                                 puzzle_id=puzzle_id,
                                 location=f"solution[{i}]",
                             )
@@ -215,7 +219,8 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Solution cell at [{i},{j}] must be an integer",
+                                    description=f"Solution cell at [{
+                                        i},{j}] must be an integer",
                                     puzzle_id=puzzle_id,
                                     location=f"solution[{i}][{j}]",
                                 )
@@ -224,7 +229,8 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Solution cell at [{i},{j}] must be between 1-9, found {cell}",
+                                    description=f"Solution cell at [{i},{
+                                        j}] must be between 1-9, found {cell}",
                                     puzzle_id=puzzle_id,
                                     location=f"solution[{i}][{j}]",
                                 )
@@ -247,7 +253,8 @@ class SudokuValidator(PuzzleValidator):
                         severity=IssueSeverity.WARNING,
                         description=f"Unknown difficulty: {difficulty}",
                         puzzle_id=puzzle_id,
-                        recommendation=f"Use one of: {', '.join(self.DIFFICULTY_CLUE_RANGES.keys())}",
+                        recommendation=f"Use one of: {
+                            ', '.join(self.DIFFICULTY_CLUE_RANGES.keys())}",
                     )
                 )
 
@@ -326,9 +333,16 @@ class SudokuValidator(PuzzleValidator):
                                 issues.append(
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
-                                        description=f"Duplicate value {cell} in 3x3 box at [{box_i},{box_j}]",
+                                        description=f"Duplicate value {
+                                            cell} in 3x3 box at [{box_i},{box_j}]",
                                         puzzle_id=puzzle_id,
-                                        location=f"grid[{box_i * 3 + i}][{box_j * 3 + j}]",
+                                        location=f"grid[{
+                                            box_i *
+                                            3 +
+                                            i}][{
+                                            box_j *
+                                            3 +
+                                            j}]",
                                         recommendation="Remove duplicate or correct the value",
                                     )
                                 )
@@ -343,7 +357,8 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Row {i} in solution is not complete or has duplicates",
+                            description=f"Row {
+                                i} in solution is not complete or has duplicates",
                             puzzle_id=puzzle_id,
                             location=f"solution[{i}]",
                             recommendation="Solution rows must contain all digits 1-9 exactly once",
@@ -357,7 +372,8 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Column {j} in solution is not complete or has duplicates",
+                            description=f"Column {
+                                j} in solution is not complete or has duplicates",
                             puzzle_id=puzzle_id,
                             location=f"solution[:][{j}]",
                             recommendation="Solution columns must contain all digits 1-9 exactly once",
@@ -376,7 +392,8 @@ class SudokuValidator(PuzzleValidator):
                         issues.append(
                             self.create_issue(
                                 severity=IssueSeverity.ERROR,
-                                description=f"3x3 box at [{box_i},{box_j}] in solution is not complete or has duplicates",
+                                description=f"3x3 box at [{box_i},{
+                                    box_j}] in solution is not complete or has duplicates",
                                 puzzle_id=puzzle_id,
                                 recommendation="Solution boxes must contain all digits 1-9 exactly once",
                             )
@@ -396,7 +413,8 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Grid clue at [{i},{j}] doesn't match solution: {grid[i][j]} vs {solution[i][j]}",
+                                    description=f"Grid clue at [{i},{j}] doesn't match solution: {
+                                        grid[i][j]} vs {solution[i][j]}",
                                     puzzle_id=puzzle_id,
                                     location=f"grid[{i}][{j}]",
                                     recommendation="Ensure all clues match the solution",
@@ -423,7 +441,8 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Too few clues for {difficulty} difficulty: {clue_count} (min: {expected_range['min']})",
+                            description=f"Too few clues for {difficulty} difficulty: {
+                                clue_count} (min: {expected_range['min']})",
                             puzzle_id=puzzle_id,
                             recommendation=f"Add more clues or change difficulty level",
                         )
@@ -432,7 +451,8 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.WARNING,
-                            description=f"Too many clues for {difficulty} difficulty: {clue_count} (max: {expected_range['max']})",
+                            description=f"Too many clues for {difficulty} difficulty: {
+                                clue_count} (max: {expected_range['max']})",
                             puzzle_id=puzzle_id,
                             recommendation=f"Remove some clues or change difficulty level",
                         )
@@ -446,7 +466,8 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Empty row {i + 1} found - puzzle may be invalid",
+                            description=f"Empty row {
+                                i + 1} found - puzzle may be invalid",
                             puzzle_id=puzzle_id,
                             location=f"grid[{i}]",
                             recommendation="Every row must have at least one clue",
@@ -459,7 +480,8 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Empty column {j + 1} found - puzzle may be invalid",
+                            description=f"Empty column {
+                                j + 1} found - puzzle may be invalid",
                             puzzle_id=puzzle_id,
                             location=f"grid[:][{j}]",
                             recommendation="Every column must have at least one clue",
@@ -538,7 +560,8 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Provided solution doesn't match computed solution at [{i},{j}]",
+                                    description=f"Provided solution doesn't match computed solution at [{
+                                        i},{j}]",
                                     puzzle_id=puzzle_id,
                                     location=f"solution[{i}][{j}]",
                                     recommendation="Correct the solution or the puzzle",

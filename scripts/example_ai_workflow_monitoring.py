@@ -4,6 +4,9 @@ Example: AI Workflow with Sentry Agent Monitoring
 Demonstrates how to integrate agent monitoring into existing workflows
 """
 
+from scripts.sentry_agent_monitoring import AgentContext, get_agent_monitor
+from scripts.crossword_clue_generator import CrosswordClueGenerator
+from scripts.api_manager_enhanced import EnhancedAPIManager
 import json
 import os
 import sys
@@ -13,9 +16,6 @@ from typing import Any, Dict, List
 # Add project root to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from scripts.api_manager_enhanced import EnhancedAPIManager
-from scripts.crossword_clue_generator import CrosswordClueGenerator
-from scripts.sentry_agent_monitoring import AgentContext, get_agent_monitor
 
 # Set up environment (for testing - in production use .env file)
 if not os.getenv("SENTRY_DSN"):
@@ -119,7 +119,8 @@ class MonitoredCrosswordWorkflow:
             # Summary tracking
             transaction.track_prompt(
                 prompt=f"Generate clues for {len(words)} words",
-                response=f"Generated {len([r for r in results if 'clues' in r])} successful clues",
+                response=f"Generated {
+                    len([r for r in results if 'clues' in r])} successful clues",
                 tokens=sum(r.get("tokens_used", 0) for r in results),
             )
 

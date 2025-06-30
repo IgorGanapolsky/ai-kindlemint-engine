@@ -7,6 +7,20 @@ with the existing batch processing system for backward compatibility
 and gradual migration.
 """
 
+from kindlemint.agents.content_agents import (
+    EPUBGeneratorAgent,
+    PDFLayoutAgent,
+    PuzzleGeneratorAgent,
+    QualityAssuranceAgent,
+)
+from kindlemint.agents import (
+    AgentRegistry,
+    HealthMonitor,
+    Task,
+    TaskCoordinator,
+    TaskPriority,
+    TaskType,
+)
 import asyncio
 import json
 import logging
@@ -17,21 +31,6 @@ from typing import Any, Dict, List
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-
-from kindlemint.agents import (
-    AgentRegistry,
-    HealthMonitor,
-    Task,
-    TaskCoordinator,
-    TaskPriority,
-    TaskType,
-)
-from kindlemint.agents.content_agents import (
-    EPUBGeneratorAgent,
-    PDFLayoutAgent,
-    PuzzleGeneratorAgent,
-    QualityAssuranceAgent,
-)
 
 
 class MultiAgentBatchProcessor:
@@ -291,7 +290,8 @@ class MultiAgentBatchProcessor:
 
             if not puzzle_result or not puzzle_result.success:
                 raise RuntimeError(
-                    f"Puzzle generation failed: {puzzle_result.error_message if puzzle_result else 'Unknown error'}"
+                    f"Puzzle generation failed: {
+                        puzzle_result.error_message if puzzle_result else 'Unknown error'}"
                 )
 
             book_result["steps_completed"].append("generate_puzzles")
@@ -320,7 +320,8 @@ class MultiAgentBatchProcessor:
 
             if not pdf_result or not pdf_result.success:
                 raise RuntimeError(
-                    f"PDF layout failed: {pdf_result.error_message if pdf_result else 'Unknown error'}"
+                    f"PDF layout failed: {
+                        pdf_result.error_message if pdf_result else 'Unknown error'}"
                 )
 
             book_result["steps_completed"].append("create_pdf")
@@ -346,7 +347,8 @@ class MultiAgentBatchProcessor:
 
             if not qa_result or not qa_result.success:
                 raise RuntimeError(
-                    f"QA validation failed: {qa_result.error_message if qa_result else 'Unknown error'}"
+                    f"QA validation failed: {
+                        qa_result.error_message if qa_result else 'Unknown error'}"
                 )
 
             book_result["steps_completed"].append("run_qa")
@@ -459,7 +461,8 @@ class MultiAgentBatchProcessor:
             )
 
         self.logger.info(
-            f"📊 Batch processing completed: {successful}/{len(results)} books successful"
+            f"📊 Batch processing completed: {
+                successful}/{len(results)} books successful"
         )
         return batch_report
 
@@ -510,7 +513,8 @@ async def main():
 
         print(f"✅ Multi-Agent Results:")
         print(
-            f"   📚 Books: {ma_results['books_succeeded']}/{ma_results['books_processed']}"
+            f"   📚 Books: {ma_results['books_succeeded']
+                           }/{ma_results['books_processed']}"
         )
         print(f"   ⏱️ Duration: {ma_results['total_duration_seconds']:.1f}s")
         print(f"   📈 Rate: {ma_results['books_per_hour']:.1f} books/hour")
@@ -524,7 +528,8 @@ async def main():
 
         print(f"✅ Legacy Results:")
         print(
-            f"   📚 Books: {legacy_results['books_succeeded']}/{legacy_results['books_processed']}"
+            f"   📚 Books: {legacy_results['books_succeeded']
+                           }/{legacy_results['books_processed']}"
         )
         print(f"   ⏱️ Duration: {legacy_results['total_duration_seconds']:.1f}s")
         print(f"   📈 Rate: {legacy_results['books_per_hour']:.1f} books/hour")
@@ -560,7 +565,7 @@ async def main():
         # Cleanup
         try:
             Path(config_path).unlink()
-        except:
+        except BaseException:
             pass
         print("\n✅ Integration demo completed")
 

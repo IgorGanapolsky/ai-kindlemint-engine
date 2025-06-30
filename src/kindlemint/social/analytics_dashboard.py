@@ -576,7 +576,7 @@ class MarketingAnalyticsDashboard:
             drop = previous_rate - current_rate
             if drop > max_drop:
                 max_drop = drop
-                drop_off_stage = f"{stages[i-1]['stage']} to {stages[i]['stage']}"
+                drop_off_stage = f"{stages[i - 1]['stage']} to {stages[i]['stage']}"
 
         return drop_off_stage
 
@@ -923,19 +923,24 @@ class MarketingAnalyticsDashboard:
         achievements = []
         if engagement_rate > self.kpi_targets["engagement_rate"]:
             achievements.append(
-                f"Exceeded engagement rate target by {engagement_rate - self.kpi_targets['engagement_rate']:.1f}%"
+                f"Exceeded engagement rate target by {
+                    engagement_rate - self.kpi_targets['engagement_rate']:.1f}%"
             )
 
         if roi > self.kpi_targets["roi"]:
             achievements.append(
-                f"Achieved {roi:.1f}% ROI, exceeding target by {roi - self.kpi_targets['roi']:.1f}%"
+                f"Achieved {
+                    roi:.1f}% ROI, exceeding target by {
+                    roi - self.kpi_targets['roi']:.1f}%"
             )
 
         # Identify challenges
         challenges = []
         if engagement_rate < self.kpi_targets["engagement_rate"]:
             challenges.append(
-                f"Engagement rate {engagement_rate:.1f}% below target of {self.kpi_targets['engagement_rate']}%"
+                f"Engagement rate {
+                    engagement_rate:.1f}% below target of {
+                    self.kpi_targets['engagement_rate']}%"
             )
 
         if roi < self.kpi_targets["roi"]:

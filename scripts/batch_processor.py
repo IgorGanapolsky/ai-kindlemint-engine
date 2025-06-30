@@ -195,7 +195,8 @@ class BatchProcessor:
 
             logger.info(f"Resuming from progress file: {self.resume_file}")
             logger.info(
-                f"Found {len(progress.get('book_results', {}))} books with saved progress"
+                f"Found {len(progress.get('book_results', {}))
+                         } books with saved progress"
             )
             return progress
         except Exception as e:
@@ -238,7 +239,7 @@ class BatchProcessor:
 
         # Process each book
         for i, book_config in enumerate(self.config["books"]):
-            book_id = book_config.get("id", f"book_{i+1}")
+            book_id = book_config.get("id", f"book_{i + 1}")
 
             # Check if we should skip this book (already processed in resume)
             if (
@@ -256,9 +257,14 @@ class BatchProcessor:
                 continue
 
             # Process this book
-            logger.info(f"Processing book {i+1}/{total_books}: {book_id}")
+            logger.info(f"Processing book {i + 1}/{total_books}: {book_id}")
             print(
-                f"\n{self.step_indicators['init']} STARTING BOOK: {book_config.get('title', book_id)} ({i+1}/{total_books})"
+                f"\n{
+                    self.step_indicators['init']} STARTING BOOK: {
+                    book_config.get(
+                        'title',
+                        book_id)} ({
+                    i + 1}/{total_books})"
             )
 
             book_result = self.process_book(book_config)
@@ -270,12 +276,14 @@ class BatchProcessor:
             if book_result["status"] == "complete":
                 self.results["books_succeeded"] += 1
                 print(
-                    f"{self.step_indicators['complete']} BOOK COMPLETE: {book_config.get('title', book_id)}"
+                    f"{self.step_indicators['complete']} BOOK COMPLETE: {
+                        book_config.get('title', book_id)}"
                 )
             else:
                 self.results["books_failed"] += 1
                 print(
-                    f"{self.step_indicators['failed']} BOOK FAILED: {book_config.get('title', book_id)}"
+                    f"{self.step_indicators['failed']} BOOK FAILED: {
+                        book_config.get('title', book_id)}"
                 )
 
             # Save progress after each book
@@ -773,7 +781,7 @@ class BatchProcessor:
 
 ### 📊 **EPUB Specifications**
 - **Format**: EPUB 3.0
-- **File Size**: {os.path.getsize(epub_file) / (1024*1024):.2f} MB
+- **File Size**: {os.path.getsize(epub_file) / (1024 * 1024):.2f} MB
 - **Enhanced Features**: Navigation, high-res grids, marketing back-matter
 
 ### 📋 **Publishing Steps**
@@ -824,13 +832,15 @@ class BatchProcessor:
             )
             output_dir.mkdir(parents=True, exist_ok=True)
 
-            # Copy the interior PDF to hardcover directory (per File Organization Policy)
+            # Copy the interior PDF to hardcover directory (per File Organization
+            # Policy)
             interior_pdf_path = book_result["artifacts"].get("interior_pdf")
             if interior_pdf_path and Path(interior_pdf_path).exists():
                 hardcover_interior_pdf = output_dir / Path(interior_pdf_path).name
                 shutil.copy2(interior_pdf_path, hardcover_interior_pdf)
                 logger.info(
-                    f"Copied interior PDF to hardcover directory: {hardcover_interior_pdf}"
+                    f"Copied interior PDF to hardcover directory: {
+                        hardcover_interior_pdf}"
                 )
 
             # Create hardcover config file
@@ -990,7 +1000,8 @@ class BatchProcessor:
 {chr(10).join([f"- {warning['description']}" for warning in qa_results['warnings']])}
 
 ### 📋 **Next Steps**
-{'✅ Book is ready for publishing!' if qa_results['publish_ready'] else '❌ Fix critical issues before publishing'}
+{'✅ Book is ready for publishing!' if qa_results['publish_ready']
+                else '❌ Fix critical issues before publishing'}
 """
 
             validation_report_file = output_dir / "qa_validation_report.txt"
@@ -1022,7 +1033,8 @@ class BatchProcessor:
 
             if not prospecting_module:
                 raise ImportError(
-                    f"Could not import prospecting automation from {prospecting_module_path}"
+                    f"Could not import prospecting automation from {
+                        prospecting_module_path}"
                 )
 
             # Create prospecting automation instance
@@ -1042,7 +1054,8 @@ class BatchProcessor:
 ## 🎯 Jeb Blount's Fanatical Publishing System Implementation
 
 ### Generated Assets:
-{chr(10).join(f'• **{asset_type.replace("_", " ").title()}**: {file_path}' for asset_type, file_path in prospecting_assets.items())}
+{chr(10).join(f'• **{asset_type.replace("_", " ").title()
+                     }**: {file_path}' for asset_type, file_path in prospecting_assets.items())}
 
 ### Next Steps (Daily Non-Negotiables):
 1. **LinkedIn**: Post daily content from calendar
@@ -1070,7 +1083,8 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
             prospecting_assets["summary_report"] = str(summary_file)
 
             logger.info(
-                f"Prospecting materials generated: {len(prospecting_assets)} assets created"
+                f"Prospecting materials generated: {
+                    len(prospecting_assets)} assets created"
             )
 
             # Return artifacts
@@ -1121,7 +1135,8 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 ## 🧲 Dan Kennedy's Magnetic Marketing Implementation
 
 ### Core Components Created:
-{chr(10).join(f'• **{asset_type.replace("_", " ").title()}**: Complete system ready for implementation' for asset_type in marketing_assets.keys())}
+{chr(10).join(f'• **{asset_type.replace("_", " ").title()
+                     }**: Complete system ready for implementation' for asset_type in marketing_assets.keys())}
 
 ### The Magnetic Triangle:
 - **MESSAGE**: Hyper-specific avatar + direct response copy
@@ -1168,7 +1183,8 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
             marketing_assets["implementation_summary"] = str(summary_file)
 
             logger.info(
-                f"Magnetic marketing system generated: {len(marketing_assets)} components created"
+                f"Magnetic marketing system generated: {
+                    len(marketing_assets)} components created"
             )
 
             # Return artifacts
@@ -1313,7 +1329,8 @@ Batch ID: {self.batch_id}
         print("\n" + "=" * 80)
         print(f"🎯 BATCH PROCESSING COMPLETE: {self.batch_id}")
         print(
-            f"📚 Books: {books_succeeded}/{books_processed} successful ({success_rate:.1f}%)"
+            f"📚 Books: {
+                books_succeeded}/{books_processed} successful ({success_rate:.1f}%)"
         )
         print(f"⏱️ Total time: {hours:02d}:{minutes:02d}:{seconds:02d}")
         print(f"📄 Report: {report_file}")
@@ -1393,7 +1410,7 @@ def main():
                         "resume_file": args.resume or "none",
                     },
                 )
-        except:
+        except BaseException:
             pass  # Don't let notification failure prevent proper exit
 
         return 1

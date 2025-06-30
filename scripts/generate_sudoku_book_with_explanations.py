@@ -367,7 +367,8 @@ class EnhancedSudokuBookGenerator:
                 f"• Row {max_row} has {max(row_counts)} clues - good place to start"
             )
             explanations.append(
-                f"• Column {max_col} has {max(col_counts)} clues - check for singles here"
+                f"• Column {max_col} has {
+                    max(col_counts)} clues - check for singles here"
             )
             explanations.append("• Look for 3×3 boxes with 6 or more clues filled")
 

@@ -3,6 +3,10 @@
 GitHub Issues Manager - Automated issue and PR handling with monitoring
 """
 
+from kindlemint.agents.task_system import Task, TaskPriority, TaskType
+from kindlemint.agents.github_issues_agent import GitHubActionType, GitHubIssuesAgent
+from slack_notifier import SlackNotifier
+from sentry_config import init_sentry, track_kdp_operation
 import asyncio
 import os
 import sys
@@ -16,11 +20,6 @@ sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(project_root / "src"))
 sys.path.insert(0, str(project_root / "scripts"))
 
-from sentry_config import init_sentry, track_kdp_operation
-from slack_notifier import SlackNotifier
-
-from kindlemint.agents.github_issues_agent import GitHubActionType, GitHubIssuesAgent
-from kindlemint.agents.task_system import Task, TaskPriority, TaskType
 
 # Initialize monitoring
 init_sentry()
@@ -193,7 +192,9 @@ class GitHubIssuesManager:
                 if "pr_number" in item:
                     action = item["result"].get("action_taken", "reviewed")
                     emoji = "✅" if action == "auto_approved_and_merged" else "👀"
-                    text = f"{emoji} PR #{item['pr_number']}: {item['title']}\n   Action: {action}"
+                    text = f"{emoji} PR #{
+                        item['pr_number']}: {
+                        item['title']}\n   Action: {action}"
                 else:
                     text = f"📊 Issue #{item['issue_number']}: {item['title']}"
 

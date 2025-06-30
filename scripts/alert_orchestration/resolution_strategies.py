@@ -4,6 +4,7 @@ Resolution Strategies - Specific automated resolution strategies for different e
 Provides detailed implementation strategies for common errors and issues
 """
 
+import asyncio
 import logging
 import time
 from abc import ABC, abstractmethod
@@ -704,4 +705,3 @@ async def execute_strategy(
 
 
 # Import asyncio for async functions
-import asyncio

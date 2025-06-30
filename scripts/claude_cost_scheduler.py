@@ -4,6 +4,8 @@ Claude Cost Scheduler
 Manages automated Claude cost notifications and reports
 """
 
+from scripts.claude_cost_tracker import ClaudeCostTracker
+from scripts.claude_cost_slack_notifier import ClaudeCostSlackNotifier
 import argparse
 import json
 import logging
@@ -20,8 +22,6 @@ import schedule
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts.claude_cost_slack_notifier import ClaudeCostSlackNotifier
-from scripts.claude_cost_tracker import ClaudeCostTracker
 
 # Configure logging
 logging.basicConfig(
@@ -167,7 +167,8 @@ class ClaudeCostScheduler:
                     self._run_efficiency_report
                 )
                 logger.info(
-                    f"Daily efficiency reports scheduled at {self.config['efficiency_reports']['time']}"
+                    f"Daily efficiency reports scheduled at {
+                        self.config['efficiency_reports']['time']}"
                 )
 
     def _run_daily_summary(self) -> None:
@@ -251,7 +252,8 @@ class ClaudeCostScheduler:
 
                             if cost >= threshold:
                                 logger.info(
-                                    f"Commit cost ${cost:.4f} exceeds threshold ${threshold}"
+                                    f"Commit cost ${
+                                        cost:.4f} exceeds threshold ${threshold}"
                                 )
                                 self.notifier.send_commit_notification(current_hash)
                             break
@@ -268,7 +270,7 @@ class ClaudeCostScheduler:
                 ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True
             )
             return result.stdout.strip()
-        except:
+        except BaseException:
             return None
 
     def run(self) -> None:

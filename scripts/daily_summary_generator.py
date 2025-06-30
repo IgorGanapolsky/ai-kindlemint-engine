@@ -112,7 +112,7 @@ class DailySummaryGenerator:
                                 passed += 1
                             if "critical_issues" in report:
                                 issues.extend(report["critical_issues"][:2])
-                    except:
+                    except BaseException:
                         pass
 
                 metrics["qa_pass_rate"] = (passed / len(today_reports)) * 100
@@ -154,7 +154,7 @@ class DailySummaryGenerator:
                         insights["hot_niches"] = [r["niche"] for r in recs[:3]]
 
                     insights["last_scrape"] = data.get("timestamp", "Unknown")
-                except:
+                except BaseException:
                     pass
 
         return insights
@@ -218,7 +218,7 @@ class DailySummaryGenerator:
             )
             if result.returncode == 0:
                 status["last_commit"] = result.stdout.strip()
-        except:
+        except BaseException:
             pass
 
         # Check for GitHub Actions runs (simplified)
@@ -273,7 +273,8 @@ class DailySummaryGenerator:
         # Market recommendations
         if market["trending_keywords"]:
             recommendations.append(
-                f"🔥 Create content for trending keyword: {market['trending_keywords'][0]}"
+                f"🔥 Create content for trending keyword: {
+                    market['trending_keywords'][0]}"
             )
 
         if market["hot_niches"]:
@@ -426,7 +427,8 @@ class DailySummaryGenerator:
         # Print key metrics
         print(f"\n📚 Total Books: {summary['production']['total_books']}")
         print(
-            f"💰 Monthly Revenue Estimate: ${summary['revenue_estimate']['monthly_estimate']:,.2f}"
+            f"💰 Monthly Revenue Estimate: ${
+                summary['revenue_estimate']['monthly_estimate']:,.2f}"
         )
         print(f"✅ QA Pass Rate: {summary['quality']['qa_pass_rate']:.0f}%")
 

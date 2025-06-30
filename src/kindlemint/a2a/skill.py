@@ -10,7 +10,7 @@ class Skill:
         self.name = name
         self.func = func
         self.description = description
-    
+
     @property
     def handler(self):
         """Alias for func to maintain compatibility"""

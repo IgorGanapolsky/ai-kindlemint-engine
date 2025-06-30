@@ -3,6 +3,8 @@
 Project Cleanup Tool - Uses Code Hygiene Agent to analyze and clean project structure
 """
 
+from a2a_protocol.code_hygiene_agent import CodeHygieneAgent
+from a2a_protocol.base_agent import A2AMessage
 import argparse
 import asyncio
 import json
@@ -11,9 +13,6 @@ from pathlib import Path
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent))
-
-from a2a_protocol.base_agent import A2AMessage
-from a2a_protocol.code_hygiene_agent import CodeHygieneAgent
 
 
 async def analyze_project(project_path: Path, deep_scan: bool = True):
@@ -92,7 +91,9 @@ async def find_duplicates(project_path: Path):
         return duplicates
     else:
         print(
-            f"❌ Duplicate detection failed: {response.payload.get('error', 'Unknown error')}"
+            f"❌ Duplicate detection failed: {
+                response.payload.get(
+                    'error', 'Unknown error')}"
         )
         return None
 
@@ -120,7 +121,8 @@ async def generate_cleanup_plan(analysis: dict):
         print(f"   Files to move: {plan['estimated_impact']['files_to_move']}")
         print(f"   Files to delete: {plan['estimated_impact']['files_to_delete']}")
         print(
-            f"   Directories to create: {plan['estimated_impact']['directories_to_create']}"
+            f"   Directories to create: {
+                plan['estimated_impact']['directories_to_create']}"
         )
 
         print(f"\n📝 Planned Actions:")
@@ -132,7 +134,9 @@ async def generate_cleanup_plan(analysis: dict):
         return plan
     else:
         print(
-            f"❌ Plan generation failed: {response.payload.get('error', 'Unknown error')}"
+            f"❌ Plan generation failed: {
+                response.payload.get(
+                    'error', 'Unknown error')}"
         )
         return None
 

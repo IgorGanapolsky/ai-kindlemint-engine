@@ -37,7 +37,8 @@ class OneClickFunnelSystem:
 
         # Create funnel output directory
         self.output_dir = Path(
-            f"books/active_production/{self.series_name}/volume_{self.volume}/oneclick_funnel"
+            f"books/active_production/{self.series_name}/volume_{
+                self.volume}/oneclick_funnel"
         )
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -283,7 +284,8 @@ class OneClickFunnelSystem:
         </div>
 
         <div class="social-proof">
-            {''.join([f'<div class="testimonial">{proof}</div>' for proof in page_data.get('social_proof', [])])}
+            {''.join([f'<div class="testimonial">{
+                     proof}</div>' for proof in page_data.get('social_proof', [])])}
         </div>
 
         <div class="cta-section">

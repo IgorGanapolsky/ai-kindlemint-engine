@@ -58,7 +58,8 @@ def fix_json_file(file_path: Path, backup_dir: Path) -> bool:
             return True
         except json.JSONDecodeError as e:
             if "Extra data" in str(e):
-                # Handle "Extra data" error by finding the end of the first valid JSON object
+                # Handle "Extra data" error by finding the end of the first valid JSON
+                # object
                 try:
                     # Extract position of extra data from error message
                     match = re.search(r"char (\d+)", str(e))

@@ -1050,7 +1050,8 @@ class IntegrationAutomator:
                 \"\"\"Test error handling\"\"\"
                 with patch('aiohttp.ClientSession') as mock_session:
                     # Mock error
-                    mock_session.return_value.__aenter__.return_value.post.side_effect = Exception("API Error")
+                    mock_session.return_value.__aenter__.return_value.post.side_effect = Exception(
+                        "API Error")
 
                     with pytest.raises(Exception):
                         await integration.authenticate()

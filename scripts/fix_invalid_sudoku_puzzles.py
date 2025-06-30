@@ -194,7 +194,8 @@ class SudokuPuzzleFixer:
             return True
         else:
             print(
-                f"   ❌ Could not fix puzzle. Remaining issues: {', '.join(remaining_issues)}"
+                f"   ❌ Could not fix puzzle. Remaining issues: {
+                    ', '.join(remaining_issues)}"
             )
             return False
 
@@ -228,7 +229,8 @@ class SudokuPuzzleFixer:
 
         if fixed_count > 0:
             print(
-                f"\n✅ Successfully fixed puzzles: {', '.join(f'#{p}' for p in self.fixed_puzzles)}"
+                f"\n✅ Successfully fixed puzzles: {
+                    ', '.join(f'#{p}' for p in self.fixed_puzzles)}"
             )
 
         if fixed_count < len(invalid_puzzles):

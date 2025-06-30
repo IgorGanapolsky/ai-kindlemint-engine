@@ -4,19 +4,15 @@ Configuration Usage Examples
 This script demonstrates best practices for using the centralized configuration
 system in the AI KindleMint Engine.
 """
+from config_loader import config
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 
-import sys
-from pathlib import Path
-
 # Add parent directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
-
-from config_loader import config
 
 
 def example_1_basic_usage():
@@ -96,9 +92,9 @@ def example_4_reportlab_integration():
     top_margin = config.get("kdp_specifications.paperback.top_margin_in") * inch
 
     print(f"Margins in points:")
-    print(f"  Gutter: {gutter:.1f}pt ({gutter/inch:.3f} inches)")
-    print(f"  Outer: {outer_margin:.1f}pt ({outer_margin/inch:.3f} inches)")
-    print(f"  Top: {top_margin:.1f}pt ({top_margin/inch:.3f} inches)")
+    print(f"  Gutter: {gutter:.1f}pt ({gutter / inch:.3f} inches)")
+    print(f"  Outer: {outer_margin:.1f}pt ({outer_margin / inch:.3f} inches)")
+    print(f"  Top: {top_margin:.1f}pt ({top_margin / inch:.3f} inches)")
 
     # Cell size for crossword grids
     cell_size = config.get("puzzle_generation.crossword.cell_size_points")

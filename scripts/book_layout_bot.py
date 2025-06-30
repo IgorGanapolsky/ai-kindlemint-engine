@@ -82,7 +82,8 @@ class BookLayoutBot:
                 with open(collection_file, "r") as f:
                     collection = json.load(f)
                     print(
-                        f"📊 Found collection metadata: {collection.get('puzzle_count', 0)} puzzles"
+                        f"📊 Found collection metadata: {
+                            collection.get('puzzle_count', 0)} puzzles"
                     )
 
             # Load individual puzzle metadata

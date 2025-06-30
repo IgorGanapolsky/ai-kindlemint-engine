@@ -148,11 +148,14 @@ class PuzzleGeneratorAgent(A2AAgent):
                         puzzles.append(formatted_puzzle)
                     else:
                         failed_count += 1
-                        self.logger.warning(f"Puzzle {i+1} failed validation, skipping")
+                        self.logger.warning(
+                            f"Puzzle {
+                                i + 1} failed validation, skipping"
+                        )
 
                 except Exception as e:
                     failed_count += 1
-                    self.logger.error(f"Error generating puzzle {i+1}: {e}")
+                    self.logger.error(f"Error generating puzzle {i + 1}: {e}")
 
             success = len(puzzles) > 0
             error = (

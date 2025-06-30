@@ -104,7 +104,8 @@ class SudokuPDFImageValidator:
                 puzzle_pages_with_images < expected_puzzle_pages * 0.9
             ):  # Allow 10% margin
                 self.errors.append(
-                    f"❌ CRITICAL: Only {puzzle_pages_with_images}/{expected_puzzle_pages} puzzle pages have images!"
+                    f"❌ CRITICAL: Only {
+                        puzzle_pages_with_images}/{expected_puzzle_pages} puzzle pages have images!"
                 )
             else:
                 self.passed_checks.append(
@@ -113,7 +114,8 @@ class SudokuPDFImageValidator:
 
             if solution_pages_with_images < expected_solution_pages * 0.9:
                 self.errors.append(
-                    f"❌ CRITICAL: Only {solution_pages_with_images}/{expected_solution_pages} solution pages have images!"
+                    f"❌ CRITICAL: Only {
+                        solution_pages_with_images}/{expected_solution_pages} solution pages have images!"
                 )
             else:
                 self.passed_checks.append(
@@ -122,7 +124,8 @@ class SudokuPDFImageValidator:
 
             if pages_with_text_fallback > 0:
                 self.errors.append(
-                    f"❌ CRITICAL: {pages_with_text_fallback} pages using text fallback instead of images!"
+                    f"❌ CRITICAL: {
+                        pages_with_text_fallback} pages using text fallback instead of images!"
                 )
 
             # Check image quality
@@ -159,14 +162,19 @@ class SudokuPDFImageValidator:
                         # Check image dimensions
                         if pix.width < 300 or pix.height < 300:
                             self.warnings.append(
-                                f"⚠️ Page {page_num + 1}: Low resolution image ({pix.width}x{pix.height})"
+                                f"⚠️ Page {
+                                    page_num +
+                                    1}: Low resolution image ({
+                                    pix.width}x{
+                                    pix.height})"
                             )
 
                         # Check approximate file size
                         img_data = doc.extract_image(xref)
                         if img_data and len(img_data["image"]) < min_expected_size:
                             self.warnings.append(
-                                f"⚠️ Page {page_num + 1}: Small image size ({len(img_data['image'])} bytes)"
+                                f"⚠️ Page {
+                                    page_num + 1}: Small image size ({len(img_data['image'])} bytes)"
                             )
 
                         pix = None  # Release pixmap

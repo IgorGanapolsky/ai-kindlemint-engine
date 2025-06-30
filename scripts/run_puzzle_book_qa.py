@@ -4,6 +4,7 @@ Automated QA Runner for Puzzle Books
 Integrates with the build process to ensure quality before publication
 """
 
+from kindlemint.validators.sudoku_book_qa import SudokuBookQAValidator
 import json
 import sys
 from datetime import datetime
@@ -11,8 +12,6 @@ from pathlib import Path
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-
-from kindlemint.validators.sudoku_book_qa import SudokuBookQAValidator
 
 
 def run_qa_checks():

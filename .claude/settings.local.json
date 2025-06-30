@@ -273,7 +273,12 @@
       "Bash(autoflake:*)",
       "Bash(black:*)",
       "Bash(isort:*)",
-      "WebFetch(domain:app.deepsource.com)"
+      "WebFetch(domain:app.deepsource.com)",
+      "Bash(--input \"books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles\" )",
+      "Bash(--output \"books/active_production/Large_Print_Sudoku_Masters/volume_1/paperback\" )",
+      "Bash(--title \"Large Print Sudoku Masters\" )",
+      "Bash(--author \"Crossword Masters Publishing\" )",
+      "Bash(--subtitle \"100 Easy to Hard Progressive Puzzles\" )"
     ],
     "deny": []
   }

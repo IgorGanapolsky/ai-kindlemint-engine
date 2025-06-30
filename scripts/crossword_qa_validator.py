@@ -1405,7 +1405,8 @@ class CrosswordQAValidator:
         with open(pdf_path, "rb") as file:
             reader = PyPDF2.PdfReader(file)
 
-            # Parse puzzles - this is simplified, real implementation would be more complex
+            # Parse puzzles - this is simplified, real implementation would be more
+            # complex
             for i in range(50):  # Expecting 50 puzzles
                 # Extract grid, clues, and solution from appropriate pages
                 # This is where we'd parse the actual PDF content
@@ -1451,7 +1452,9 @@ class CrosswordQAValidator:
                         passed=False,
                         score=50,
                         category="structure",
-                        message=f"Puzzle {puzzle.number}: Too many black squares ({black_ratio:.1%})",
+                        message=f"Puzzle {
+                            puzzle.number}: Too many black squares ({
+                            black_ratio:.1%})",
                     )
                 )
 
@@ -1558,7 +1561,8 @@ class CrosswordQAValidator:
                         passed=False,
                         score=25,
                         category="clues",
-                        message=f"Puzzle {puzzle.number}: Too few DOWN clues ({down_count}/{total_clues})",
+                        message=f"Puzzle {
+                            puzzle.number}: Too few DOWN clues ({down_count}/{total_clues})",
                         details={"across": across_count, "down": down_count},
                     )
                 )
@@ -1568,7 +1572,8 @@ class CrosswordQAValidator:
                         passed=False,
                         score=25,
                         category="clues",
-                        message=f"Puzzle {puzzle.number}: Too few ACROSS clues ({across_count}/{total_clues})",
+                        message=f"Puzzle {
+                            puzzle.number}: Too few ACROSS clues ({across_count}/{total_clues})",
                         details={"across": across_count, "down": down_count},
                     )
                 )
@@ -1578,7 +1583,8 @@ class CrosswordQAValidator:
                         passed=True,
                         score=100,
                         category="clues",
-                        message=f"Puzzle {puzzle.number}: Clue balance good ({across_count} across, {down_count} down)",
+                        message=f"Puzzle {puzzle.number}: Clue balance good ({across_count} across, {
+                            down_count} down)",
                     )
                 )
 
@@ -1622,7 +1628,8 @@ class CrosswordQAValidator:
                         passed=False,
                         score=0,
                         category="solutions",
-                        message=f"Puzzle {puzzle.number}: Solution doesn't match grid pattern",
+                        message=f"Puzzle {
+                            puzzle.number}: Solution doesn't match grid pattern",
                     )
                 )
                 continue
@@ -1643,7 +1650,8 @@ class CrosswordQAValidator:
                         passed=False,
                         score=50,
                         category="solutions",
-                        message=f"Puzzle {puzzle.number}: Solution has {empty_cells} empty cells",
+                        message=f"Puzzle {
+                            puzzle.number}: Solution has {empty_cells} empty cells",
                     )
                 )
             else:
@@ -1671,7 +1679,9 @@ class CrosswordQAValidator:
                     passed=False,
                     score=0,
                     category="consistency",
-                    message=f"Expected {self.MIN_PUZZLE_COUNT} puzzles, found {len(puzzles)}",
+                    message=f"Expected {
+                        self.MIN_PUZZLE_COUNT} puzzles, found {
+                        len(puzzles)}",
                 )
             )
 
@@ -1700,7 +1710,8 @@ class CrosswordQAValidator:
                             passed=False,
                             score=50,
                             category="consistency",
-                            message=f"Puzzle {puzzle.number}: ACROSS clue {num} not found in grid",
+                            message=f"Puzzle {
+                                puzzle.number}: ACROSS clue {num} not found in grid",
                         )
                     )
 
@@ -1930,13 +1941,14 @@ def main():
     report = validator.validate_pdf(pdf_path)
 
     # Print report
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"CROSSWORD QA VALIDATION REPORT")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     print(f"File: {report['file']}")
     print(f"Status: {report['status']}")
     print(
-        f"Score: {report['final_score']}/100 (Pass threshold: {report['pass_threshold']})"
+        f"Score: {report['final_score']
+                  }/100 (Pass threshold: {report['pass_threshold']})"
     )
     print(f"\nSummary:")
     print(f"  Total Checks: {report['summary']['total_checks']}")
@@ -1953,7 +1965,8 @@ def main():
         print(f"\n⚠️  WARNINGS:")
         for warning in report["warnings"]:
             print(
-                f"  - [{warning['category']}] {warning['message']} (score: {warning['score']})"
+                f"  - [{warning['category']}] {warning['message']
+                                               } (score: {warning['score']})"
             )
 
     print(f"\n📊 Category Breakdown:")

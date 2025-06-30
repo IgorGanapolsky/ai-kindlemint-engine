@@ -222,14 +222,16 @@ def main():
         print(f"✅ Status: {overall.get('status', 'unknown')}")
         print(f"📊 Health: {overall.get('health_percentage', 0)}%")
         print(
-            f"🔧 Services: {overall.get('healthy_services', 0)}/{overall.get('total_services', 0)}"
+            f"🔧 Services: {overall.get('healthy_services', 0)
+                           }/{overall.get('total_services', 0)}"
         )
 
         # Print service details
         for service_name, service_status in status.get("services", {}).items():
             status_emoji = "✅" if service_status.get("status") == "available" else "❌"
             print(
-                f"  {status_emoji} {service_name}: {service_status.get('status', 'unknown')}"
+                f"  {status_emoji} {service_name}: {
+                    service_status.get('status', 'unknown')}"
             )
 
         return status

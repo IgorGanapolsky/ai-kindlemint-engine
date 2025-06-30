@@ -3,6 +3,9 @@
 CI Orchestrator - Main orchestration script for automated CI failure handling
 """
 
+from ci_monitor import CIMonitor
+from ci_fixer import CIFixer
+from ci_analyzer import CIAnalyzer
 import argparse
 import json
 import logging
@@ -17,11 +20,8 @@ from typing import Dict, Optional, Tuple
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-from ci_analyzer import CIAnalyzer
-from ci_fixer import CIFixer
 
 # Import our CI orchestration modules
-from ci_monitor import CIMonitor
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -168,7 +168,8 @@ class CIOrchestrator:
             cycle_end = datetime.utcnow()
             results["cycle_duration"] = (cycle_end - cycle_start).total_seconds()
             logger.info(
-                f"Orchestration cycle completed in {results['cycle_duration']:.2f} seconds"
+                f"Orchestration cycle completed in {
+                    results['cycle_duration']:.2f} seconds"
             )
 
         return results
@@ -417,7 +418,8 @@ class CIOrchestrator:
         elif fixes > 0:
             return f"Auto-fixed {fixes}/{failures} CI failures (cycle: {duration:.1f}s)"
         else:
-            return f"Detected {failures} CI failures - manual review needed (cycle: {duration:.1f}s)"
+            return f"Detected {
+                failures} CI failures - manual review needed (cycle: {duration:.1f}s)"
 
     def _run_command(self, command: str) -> Tuple[bool, str, str]:
         """Run a shell command and return success, stdout, stderr"""
@@ -562,9 +564,9 @@ def main():
             json.dump(results, f, indent=2)
 
         # Print summary
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"CI Orchestration Results - {'DRY RUN' if args.dry_run else 'APPLIED'}")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
         print(f"Failures detected: {results['failures_detected']}")
         print(f"Fixes applied: {results['fixes_applied']}")
         print(f"Cycle duration: {results['cycle_duration']:.2f}s")

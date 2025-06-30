@@ -234,7 +234,8 @@ class A2ARegistry:
             self.capabilities_index[capability.name].append(agent.agent_id)
 
         logger.info(
-            f"Registered agent: {agent.name} with {len(agent.capabilities)} capabilities"
+            f"Registered agent: {agent.name} with {
+                len(agent.capabilities)} capabilities"
         )
 
     def unregister(self, agent_id: str):

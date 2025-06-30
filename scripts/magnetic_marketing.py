@@ -30,7 +30,8 @@ class MagneticMarketingEngine:
 
         # Create magnetic marketing output directory
         self.output_dir = Path(
-            f"books/active_production/{self.series_name}/volume_{self.volume}/magnetic_marketing"
+            f"books/active_production/{self.series_name}/volume_{
+                self.volume}/magnetic_marketing"
         )
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -176,8 +177,11 @@ class MagneticMarketingEngine:
                 f"Fed up with generic solutions that don't understand your specific situation?",
             ],
             "solution_promise": [
-                f"Finally, a {book_theme} book designed specifically for {avatar_data['demographics'].lower()}",
-                f"The exact system that helps {avatar_data['demographics'].lower()} {avatar_data['specific_desire'].lower()}",
+                f"Finally, a {book_theme} book designed specifically for {
+                    avatar_data['demographics'].lower()}",
+                f"The exact system that helps {
+                    avatar_data['demographics'].lower()} {
+                    avatar_data['specific_desire'].lower()}",
                 f"Proven method used by hundreds of people just like you",
             ],
             "proof_elements": [
@@ -287,9 +291,12 @@ class MagneticMarketingEngine:
                 "core_promise": f"The ONLY {self.book_config.get('puzzle_type', 'puzzle')} book designed specifically for {avatar_data['avatar_profile'].get('demographics', 'your specific situation')}",
                 "unique_mechanism": f"The {self.series_name} Method™",
                 "proof_points": [
-                    f"Tested with 100+ {avatar_data['avatar_profile'].get('demographics', 'readers')}",
+                    f"Tested with 100+ {
+                        avatar_data['avatar_profile'].get(
+                            'demographics', 'readers')}",
                     f"Guaranteed results in 30 days or money back",
-                    f"Only book that addresses {avatar_data['avatar_profile'].get('specific_pain_points', ['common frustrations'])[0] if avatar_data['avatar_profile'].get('specific_pain_points') else 'your specific needs'}",
+                    f"Only book that addresses {avatar_data['avatar_profile'].get('specific_pain_points', ['common frustrations'])[
+                        0] if avatar_data['avatar_profile'].get('specific_pain_points') else 'your specific needs'}",
                 ],
                 "irresistible_offer": f"{self.title} + Bonus Materials + 30-Day Guarantee + Limited-Time Pricing",
             },
@@ -989,7 +996,8 @@ PLUS these exclusive bonuses:
 """
 
         for bonus in template["bonus_stack"]:
-            presentation_copy += f"✅ {bonus['item']} ({bonus['value']} value)\n{bonus['description']}\n\n"
+            presentation_copy += f"✅ {bonus['item']
+                                      } ({bonus['value']} value)\n{bonus['description']}\n\n"
 
         presentation_copy += f"""
 TOTAL VALUE: ${total_value:.2f}
@@ -1685,7 +1693,8 @@ Click "Add to Cart" now to claim your complete package...
                     "Podcast shows",
                 ],
                 "story_angles": [
-                    f"Local author creates revolutionary {self.book_config.get('puzzle_type', 'puzzle')} method",
+                    f"Local author creates revolutionary {
+                        self.book_config.get('puzzle_type', 'puzzle')} method",
                     f"How {self.author} built 6-figure business with puzzles",
                     f"The science behind {self.series_name} Method™",
                 ],
@@ -1729,7 +1738,10 @@ Click "Add to Cart" now to claim your complete package...
                 "Featured in [MEDIA]",
             ],
             "achievements": [
-                f"#1 Bestseller in {self.book_config.get('puzzle_type', 'puzzle')} category",
+                f"#1 Bestseller in {
+                    self.book_config.get(
+                        'puzzle_type',
+                        'puzzle')} category",
                 "Winner of [AWARD]",
                 "Recognized expert in [FIELD]",
                 "Speaker at [EVENT]",

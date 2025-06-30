@@ -202,7 +202,7 @@ class CIFixer:
 
     def _fix_run_black(self, strategy: Dict) -> bool:
         """Run Black formatter"""
-        command = "black . --exclude '/(\.git|\.venv|venv|build|dist)/'"
+        command = "black . --exclude '/(\\.git|\\.venv|venv|build|dist)/'"
         success, stdout, stderr = self._run_command(command)
 
         if success:
@@ -859,9 +859,9 @@ def main():
         json.dump(report, f, indent=2)
 
     # Print summary
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"CI Fix Report - {'DRY RUN' if args.dry_run else 'APPLIED'}")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     print(f"Total fixes applied: {report['total_fixes_applied']}")
     print(f"Failed fixes: {report['failed_fixes']}")
     print(f"Files modified: {report['total_files_modified']}")

@@ -266,7 +266,8 @@ async def demo_a2a_system():
     print(f"\n📨 Message History ({len(message_bus.message_history)} messages):")
     for msg in message_bus.get_message_history(limit=5):
         print(
-            f"  - {msg['timestamp']}: {msg['sender']} -> {msg['receiver']} ({msg['action']})"
+            f"  - {msg['timestamp']}: {msg['sender']
+                                       } -> {msg['receiver']} ({msg['action']})"
         )
 
     # Test with a blank puzzle (should fail)

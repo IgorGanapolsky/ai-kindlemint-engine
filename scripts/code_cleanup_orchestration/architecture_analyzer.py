@@ -404,7 +404,9 @@ class ArchitectureAnalyzer:
                     pattern_type="tight_coupling",
                     severity="medium" if analysis.coupling_score < 15 else "high",
                     location=Path(module_path).name,
-                    description=f"Module has {analysis.coupling_score} dependencies (threshold: {self.coupling_threshold})",
+                    description=f"Module has {
+                        analysis.coupling_score} dependencies (threshold: {
+                        self.coupling_threshold})",
                     impact="High coupling makes modules difficult to test, modify, and reuse",
                     remediation_steps=[
                         "Extract common dependencies to a service layer",
@@ -428,7 +430,9 @@ class ArchitectureAnalyzer:
                     pattern_type="low_cohesion",
                     severity="medium",
                     location=Path(module_path).name,
-                    description=f"Module has low cohesion score: {analysis.cohesion_score:.2f} (threshold: {self.cohesion_threshold})",
+                    description=f"Module has low cohesion score: {
+                        analysis.cohesion_score:.2f} (threshold: {
+                        self.cohesion_threshold})",
                     impact="Low cohesion indicates module does not have a single, well-defined purpose",
                     remediation_steps=[
                         "Split module into smaller, more focused modules",
@@ -460,7 +464,9 @@ class ArchitectureAnalyzer:
                     pattern_type="god_object",
                     severity="high",
                     location=Path(module_path).name,
-                    description=f"Large module: {analysis.lines_of_code} LOC, complexity: {analysis.cyclomatic_complexity}",
+                    description=f"Large module: {
+                        analysis.lines_of_code} LOC, complexity: {
+                        analysis.cyclomatic_complexity}",
                     impact="God objects are difficult to understand, test, and maintain",
                     remediation_steps=[
                         "Break module into smaller, focused modules",
@@ -480,7 +486,8 @@ class ArchitectureAnalyzer:
 
         # This is a simplified detection - would need more sophisticated analysis
         for module_path, analysis in self.module_analyses.items():
-            # If a module depends on many other modules but has few incoming dependencies
+            # If a module depends on many other modules but has few incoming
+            # dependencies
             if (
                 len(analysis.dependencies_out) > 5
                 and len(analysis.dependencies_in) < 2
@@ -772,7 +779,8 @@ class ArchitectureAnalyzer:
         }
 
         self.logger.info(
-            f"Architecture analysis complete. Found {len(self.anti_patterns)} anti-patterns"
+            f"Architecture analysis complete. Found {
+                len(self.anti_patterns)} anti-patterns"
         )
         return report
 

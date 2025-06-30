@@ -148,17 +148,17 @@ class AgentMonitor:
             elif "Agents:" in line:
                 try:
                     status["active_agents"] = int(line.split("Agents:")[-1].split()[0])
-                except:
+                except BaseException:
                     pass
             elif "Tasks:" in line:
                 try:
                     status["queued_tasks"] = int(line.split("Tasks:")[-1].split()[0])
-                except:
+                except BaseException:
                     pass
             elif "Memory:" in line:
                 try:
                     status["memory_entries"] = int(line.split("Memory:")[-1].split()[0])
-                except:
+                except BaseException:
                     pass
             elif "Terminal Pool:" in line:
                 status["terminal_pool"] = line.split("Terminal Pool:")[-1].strip()
@@ -191,14 +191,14 @@ class AgentMonitor:
             if "entries:" in line:
                 try:
                     stats["total_entries"] = int(line.split("entries:")[-1].strip())
-                except:
+                except BaseException:
                     pass
             elif "size:" in line:
                 try:
                     size_str = line.split("size:")[-1].strip()
                     if "MB" in size_str:
                         stats["size_mb"] = float(size_str.replace("MB", "").strip())
-                except:
+                except BaseException:
                     pass
         return stats
 
@@ -209,17 +209,17 @@ class AgentMonitor:
             if "pending:" in line:
                 try:
                     queue["pending"] = int(line.split("pending:")[-1].strip())
-                except:
+                except BaseException:
                     pass
             elif "in_progress:" in line:
                 try:
                     queue["in_progress"] = int(line.split("in_progress:")[-1].strip())
-                except:
+                except BaseException:
                     pass
             elif "completed:" in line:
                 try:
                     queue["completed"] = int(line.split("completed:")[-1].strip())
-                except:
+                except BaseException:
                     pass
         return queue
 
@@ -287,7 +287,8 @@ class AgentMonitor:
             print(f"\\n⚡ CLAUDE PROCESSES ({len(processes)}):")
             for proc in processes[:5]:  # Show top 5
                 print(
-                    f"   • PID {proc['pid']} - CPU: {proc['cpu']}% - Memory: {proc['memory']}%"
+                    f"   • PID {proc['pid']} - CPU: {proc['cpu']
+                                                     }% - Memory: {proc['memory']}%"
                 )
                 print(f"     {proc['command']}")
 

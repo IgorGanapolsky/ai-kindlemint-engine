@@ -51,7 +51,7 @@ class SudokuClueRenderingFixer:
                     font_path, 36
                 )  # Smaller font if needed
                 break
-            except:
+            except BaseException:
                 continue
 
         if clue_font is None:
@@ -104,7 +104,8 @@ class SudokuClueRenderingFixer:
                     clues_drawn += 1
                 else:
                     # This is an empty cell - leave it blank
-                    # Optionally, draw a very light gray background to indicate it's fillable
+                    # Optionally, draw a very light gray background to indicate it's
+                    # fillable
                     cell_x = margin + c * cell_size + 1
                     cell_y = margin + r * cell_size + 1
                     cell_x2 = cell_x + cell_size - 2
@@ -118,7 +119,8 @@ class SudokuClueRenderingFixer:
         img.save(output_path, "PNG", dpi=(300, 300), optimize=False)
 
         print(
-            f"✅ Fixed Puzzle {puzzle_id}: {clues_drawn} clues rendered (empty cells left blank)"
+            f"✅ Fixed Puzzle {puzzle_id}: {
+                clues_drawn} clues rendered (empty cells left blank)"
         )
         return output_path, clues_drawn
 
@@ -170,7 +172,8 @@ class SudokuClueRenderingFixer:
                 total_fixed += 1
             else:
                 print(
-                    f"❌ Puzzle {puzzle_id}: Clue count mismatch ({clues_drawn} vs {expected_clues})"
+                    f"❌ Puzzle {puzzle_id}: Clue count mismatch ({clues_drawn} vs {
+                        expected_clues})"
                 )
 
         print(f"\n📊 Summary: Fixed {total_fixed} puzzles with proper clue rendering")

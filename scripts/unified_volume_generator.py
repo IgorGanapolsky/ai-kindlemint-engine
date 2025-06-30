@@ -325,7 +325,9 @@ class UnifiedVolumeGenerator:
         self.engine_script = self._get_engine_script()
 
         logger.info(
-            f"Initialized generator for series '{self.series_name}', volumes {self.volume_nums}"
+            f"Initialized generator for series '{
+                self.series_name}', volumes {
+                self.volume_nums}"
         )
 
     def _get_engine_script(self) -> Path:

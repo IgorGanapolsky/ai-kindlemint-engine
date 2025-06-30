@@ -45,7 +45,8 @@ class ImplementationDashboard:
 
         # Create implementation dashboard output directory
         self.output_dir = Path(
-            f"books/active_production/{self.series_name}/volume_{self.volume}/implementation_dashboard"
+            f"books/active_production/{self.series_name}/volume_{
+                self.volume}/implementation_dashboard"
         )
         self.output_dir.mkdir(parents=True, exist_ok=True)
 

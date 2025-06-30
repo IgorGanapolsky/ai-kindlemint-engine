@@ -298,7 +298,7 @@ class SudokuPDFLayout:
             if solution_path.exists():
                 # Create solution entry
                 solution_table_data = [
-                    [Paragraph(f"Puzzle {i+1}", self.styles["Normal"])],
+                    [Paragraph(f"Puzzle {i + 1}", self.styles["Normal"])],
                     [Image(str(solution_path), width=2.5 * inch, height=2.5 * inch)],
                 ]
                 current_page_puzzles.append(solution_table_data)

@@ -50,7 +50,7 @@ class CoverWrapAlignmentFixer:
         for font_path in font_paths:
             try:
                 return ImageFont.truetype(font_path, size)
-            except:
+            except BaseException:
                 continue
         return ImageFont.load_default()
 

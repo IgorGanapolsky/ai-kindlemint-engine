@@ -656,7 +656,8 @@ class VoiceCharacteristicsExtractor:
     ) -> VoiceCharacteristics:
         """Extract voice characteristics from audio analysis"""
 
-        # Extract basic metrics (simulated - in production would use real audio analysis)
+        # Extract basic metrics (simulated - in production would use real audio
+        # analysis)
         pace = self._analyze_speaking_pace(audio_analysis, text)
         tone = self._determine_tone(audio_analysis, text)
         clarity_score = self._calculate_clarity(audio_analysis)
@@ -1043,7 +1044,8 @@ class VoiceInputProcessor:
             )
 
             self.logger.info(
-                f"Processed voice input for session {session_id}: intent={intent.value}, emotion={emotions.primary_emotion}"
+                f"Processed voice input for session {session_id}: intent={
+                    intent.value}, emotion={emotions.primary_emotion}"
             )
 
             return voice_input

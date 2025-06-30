@@ -80,7 +80,7 @@ class PromptChain:
         result = ChainResult(success=True)
 
         for i, step in enumerate(self.steps):
-            logger.info(f"Executing step {i+1}/{len(self.steps)}: {step.name}")
+            logger.info(f"Executing step {i + 1}/{len(self.steps)}: {step.name}")
 
             try:
                 step_output = self._execute_step(step)

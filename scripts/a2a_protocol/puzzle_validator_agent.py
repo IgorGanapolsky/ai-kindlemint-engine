@@ -3,6 +3,7 @@
 Puzzle Validator Agent - A2A implementation for validating Sudoku puzzles
 """
 
+from .sudoku_validator import SudokuValidator
 import json
 import logging
 
@@ -16,7 +17,6 @@ from .base_agent import A2AAgent, A2AMessage, AgentCapability
 sys.path.append(str(Path(__file__).parent.parent))
 
 # Import existing validator
-from .sudoku_validator import SudokuValidator
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -186,7 +186,8 @@ class PuzzleValidatorAgent(A2AAgent):
             valid = False
         elif clue_count < 17:  # Minimum for unique solution
             errors.append(
-                f"Too few clues ({clue_count}) - minimum 17 required for unique solution"
+                f"Too few clues ({
+                    clue_count}) - minimum 17 required for unique solution"
             )
             valid = False
 

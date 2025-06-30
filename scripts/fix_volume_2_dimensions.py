@@ -63,7 +63,7 @@ def fix_volume_2_pdf():
 
     print(f"✅ Created 6x9 PDF: {output_pdf}")
     print(f"   - Page size: 6x9 inches")
-    print(f"   - Gutter margin: {GUTTER_MARGIN/inch:.3f} inches")
+    print(f"   - Gutter margin: {GUTTER_MARGIN / inch:.3f} inches")
     print(f"   - Ready for KDP Print Previewer")
 
     return output_pdf

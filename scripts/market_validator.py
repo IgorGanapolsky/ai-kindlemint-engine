@@ -255,36 +255,45 @@ class MarketValidator:
         }.get(rec["decision"], "💡")
 
         print(
-            f"\n🎯 Recommendation: {emoji} {rec['decision']} (Viability Score: {report['viability_score']}/100)"
+            f"\n🎯 Recommendation: {emoji} {
+                rec['decision']} (Viability Score: {
+                report['viability_score']}/100)"
         )
         print(f"   Reason: {rec['reason']}")
 
         print("\n💰 Estimated Monthly Revenue Potential:")
         print(
-            f"   Range: {report['revenue_estimation']['monthly_potential']} (Confidence: {report['revenue_estimation']['confidence']})"
+            f"   Range: {
+                report['revenue_estimation']['monthly_potential']} (Confidence: {
+                report['revenue_estimation']['confidence']})"
         )
 
         print("\n📈 Detailed Scores:")
         print(f"   - Demand Score:       {report['detailed_scores']['demand']}/100")
         print(
-            f"   - Competition Score:    {report['detailed_scores']['competition']}/100 (Higher is better/less competition)"
+            f"   - Competition Score:    {report['detailed_scores']
+                                          ['competition']}/100 (Higher is better/less competition)"
         )
         print(
-            f"   - Profitability Score:  {report['detailed_scores']['profitability']}/100"
+            f"   - Profitability Score:  {
+                report['detailed_scores']['profitability']}/100"
         )
 
         print("\n--- Raw Data ---")
         print("Amazon Data:")
         print(
-            f"  - Search Results: {report['market_data']['amazon']['search_results_count']}"
+            f"  - Search Results: {report['market_data']
+                                   ['amazon']['search_results_count']}"
         )
         print(
-            f"  - Competitors Found: {len(report['market_data']['amazon']['top_competitors'])}"
+            f"  - Competitors Found: {len(report['market_data']
+                                          ['amazon']['top_competitors'])}"
         )
         print("Reddit Data:")
         print(f"  - Mentions: {report['market_data']['reddit']['mentions']}")
         print(
-            f"  - Positive Sentiment: {report['market_data']['reddit']['positive_sentiment']:.1%}"
+            f"  - Positive Sentiment: {report['market_data']
+                                       ['reddit']['positive_sentiment']:.1%}"
         )
         print("=" * 60)
 

@@ -316,7 +316,8 @@ class AgentGenerator:
 
         This agent has the following capabilities:
 
-        {chr(10).join(f'- **{cap}**: Handles {cap.replace("-", " ")} operations' for cap in capabilities)}
+        {chr(10).join(f'- **{cap}**: Handles {cap.replace("-", " ")
+                                              } operations' for cap in capabilities)}
 
         ## Usage
 

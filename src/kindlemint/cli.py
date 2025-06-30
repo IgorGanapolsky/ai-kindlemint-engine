@@ -49,7 +49,8 @@ try:
 except ImportError as e:
     CrosswordEngineV2 = None
     print(
-        f"Warning: Could not import CrosswordEngine from scripts.crossword_engine_v2: {e}"
+        f"Warning: Could not import CrosswordEngine from scripts.crossword_engine_v2: {
+            e}"
     )
     print("This class will not be available via kindlemint.cli.CrosswordEngineV2.")
 
@@ -67,7 +68,8 @@ except ImportError as e:
 try:
     from scripts.critical_metadata_qa import validate_metadata
 except ImportError:
-    # Try to import the class and create a wrapper function if the direct function import fails
+    # Try to import the class and create a wrapper function if the direct
+    # function import fails
     try:
         from scripts.critical_metadata_qa import CriticalMetadataQA
 
@@ -79,7 +81,8 @@ except ImportError:
     except ImportError as e2:
         validate_metadata = None
         print(
-            f"Warning: Could not import validate_metadata from scripts.critical_metadata_qa: {e2}"
+            f"Warning: Could not import validate_metadata from scripts.critical_metadata_qa: {
+                e2}"
         )
         print(
             "This function will not be available via kindlemint.cli.validate_metadata."

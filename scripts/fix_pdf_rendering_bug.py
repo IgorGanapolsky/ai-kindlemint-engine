@@ -128,7 +128,7 @@ class SudokuRenderingFixer:
 
         try:
             font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
-        except:
+        except BaseException:
             font = ImageFont.load_default()
 
         # Draw grid lines

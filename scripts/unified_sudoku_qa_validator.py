@@ -105,7 +105,8 @@ class UnifiedSudokuQAValidator:
                     self.report["critical_errors"].append(f"❌ VISUAL: {issue}")
             else:
                 self.report["passed"].append(
-                    f"✅ Visual rendering looks correct ({puzzle_pages_checked} pages checked)"
+                    f"✅ Visual rendering looks correct ({
+                        puzzle_pages_checked} pages checked)"
                 )
 
             pdf.close()
@@ -134,7 +135,8 @@ class UnifiedSudokuQAValidator:
         # Check for visual patterns
         if dark_ratio > 0.15:  # Too many numbers
             issues.append(
-                f"Page {page_num}: Appears to show complete solution (too many numbers visible)"
+                f"Page {
+                    page_num}: Appears to show complete solution (too many numbers visible)"
             )
 
         # Check for contrast in cells
@@ -294,9 +296,9 @@ class UnifiedSudokuQAValidator:
             json.dump(self.report, f, indent=2)
 
         # Print summary
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"📊 UNIFIED QA REPORT: {self.report['status']}")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
 
         if self.report["critical_errors"]:
             print("\n❌ CRITICAL ERRORS:")

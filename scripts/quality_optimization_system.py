@@ -44,7 +44,8 @@ class QualityOptimizationSystem:
 
         # Create quality optimization output directory
         self.output_dir = Path(
-            f"books/active_production/{self.series_name}/volume_{self.volume}/quality_optimization"
+            f"books/active_production/{self.series_name}/volume_{
+                self.volume}/quality_optimization"
         )
         self.output_dir.mkdir(parents=True, exist_ok=True)
 

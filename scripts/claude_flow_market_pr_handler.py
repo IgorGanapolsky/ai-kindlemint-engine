@@ -90,7 +90,8 @@ def analyze_market_pr():
         swarm_cmd = [
             "./claude-flow",
             "swarm",
-            f"Generate content for {len(decision['selected_niches'])} selected niches from market research",
+            f"Generate content for {
+                len(decision['selected_niches'])} selected niches from market research",
             "--strategy",
             "development",
             "--mode",
@@ -113,7 +114,10 @@ def analyze_market_pr():
     else:
         print("\n⚠️ Manual review required")
         print(
-            f"Reason: {decision.get('reasoning', 'Opportunities need further evaluation')}"
+            f"Reason: {
+                decision.get(
+                    'reasoning',
+                    'Opportunities need further evaluation')}"
         )
 
         # Post comment on PR

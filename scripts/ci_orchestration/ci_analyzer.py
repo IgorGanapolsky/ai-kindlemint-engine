@@ -481,7 +481,8 @@ class CIAnalyzer:
             strategies.append(
                 FixStrategy(
                     strategy_type="fix_missing_clues",
-                    description=f"Fix missing clues (only {clue_percentage}% visible) in puzzle generation",
+                    description=f"Fix missing clues (only {
+                        clue_percentage}% visible) in puzzle generation",
                     confidence=0.9,
                     files_to_modify=[
                         "scripts/large_print_sudoku_generator.py",
@@ -503,7 +504,8 @@ class CIAnalyzer:
             strategies.append(
                 FixStrategy(
                     strategy_type="fix_repeated_solutions",
-                    description=f"Fix repeated solution explanations ({repeat_percentage}% identical)",
+                    description=f"Fix repeated solution explanations ({
+                        repeat_percentage}% identical)",
                     confidence=0.85,
                     files_to_modify=["scripts/market_aligned_sudoku_pdf.py"],
                     commands=[
@@ -601,7 +603,8 @@ class CIAnalyzer:
                 strategies.append(
                     FixStrategy(
                         strategy_type="improve_content_quality",
-                        description=f"Improve content quality (current score: {score}/100)",
+                        description=f"Improve content quality (current score: {
+                            score}/100)",
                         confidence=0.9,
                         files_to_modify=[
                             "scripts/market_aligned_sudoku_pdf.py",
@@ -639,7 +642,8 @@ class CIAnalyzer:
         """Get a generic strategy when specific analysis fails"""
         return FixStrategy(
             strategy_type="manual_review",
-            description=f"Manual review required for {failure_info.get('failure_type', 'unknown')} error",
+            description=f"Manual review required for {
+                failure_info.get('failure_type', 'unknown')} error",
             confidence=0.1,
             files_to_modify=[],
             commands=[],
@@ -752,9 +756,9 @@ def main():
 
     # Print summary
     summary = analysis_results["summary"]
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"CI Failure Analysis Summary")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     print(f"Total failures analyzed: {analysis_results['total_failures']}")
     print(f"Auto-fixable: {summary['auto_fixable']}")
     print(f"Manual review needed: {summary['manual_review']}")

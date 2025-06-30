@@ -57,7 +57,7 @@ def qa_validation_failure_blocks(data: Dict[str, Any]) -> List[Dict]:
     if failures:
         failure_text = "*❌ Failed Checks:*\n"
         for i, failure in enumerate(failures[:5]):  # Show first 5
-            failure_text += f"{i+1}. {failure}\n"
+            failure_text += f"{i + 1}. {failure}\n"
         if len(failures) > 5:
             failure_text += f"_...and {len(failures) - 5} more_"
 

@@ -3,6 +3,9 @@
 Enhanced CI Orchestrator - Properly extracts and analyzes CI failures
 """
 
+from ci_monitor_enhanced import EnhancedCIMonitor
+from ci_fixer import CIFixer
+from ci_analyzer import CIAnalyzer
 import argparse
 import json
 import logging
@@ -15,9 +18,6 @@ from typing import Dict, Optional
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-from ci_analyzer import CIAnalyzer
-from ci_fixer import CIFixer
-from ci_monitor_enhanced import EnhancedCIMonitor
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -149,7 +149,9 @@ class EnhancedCIOrchestrator:
             # Only attempt high-confidence auto-fixable strategies
             if recommended["auto_fixable"] and recommended["confidence"] > 0.8:
                 logger.info(
-                    f"Attempting fix for {failure_info['job_name']}: {recommended['description']}"
+                    f"Attempting fix for {
+                        failure_info['job_name']}: {
+                        recommended['description']}"
                 )
 
                 fix_result = {
@@ -216,9 +218,9 @@ class EnhancedCIOrchestrator:
 
     def _print_analysis_summary(self, analysis: Dict):
         """Print analysis summary"""
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"CI Failure Analysis Summary")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
         print(f"Repository: {analysis['repository']}")
         print(f"Total failures: {analysis['total_failures']}")
         print(f"Auto-fixable: {analysis['summary']['auto_fixable']}")
@@ -243,14 +245,15 @@ class EnhancedCIOrchestrator:
             print(f"\n⚠️  Found {len(puzzle_failures)} puzzle QA failures:")
             for pf in puzzle_failures[:3]:  # Show first 3
                 print(
-                    f"  - {pf['failure_info']['job_name']}: {pf['failure_info']['error_message']}"
+                    f"  - {pf['failure_info']['job_name']
+                           }: {pf['failure_info']['error_message']}"
                 )
 
     def _print_fix_summary(self, fix_results: Dict):
         """Print fix execution summary"""
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"Fix Execution Summary")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
         print(f"Attempted: {fix_results['attempted_fixes']}")
         print(f"Successful: {fix_results['successful_fixes']}")
         print(f"Failed: {fix_results['failed_fixes']}")
@@ -265,7 +268,10 @@ class EnhancedCIOrchestrator:
                     "dry_run": "🔍",
                 }.get(fix["status"], "❓")
                 print(
-                    f"  {status_emoji} {fix['failure']}: {fix['description']} ({fix['status']})"
+                    f"  {status_emoji} {
+                        fix['failure']}: {
+                        fix['description']} ({
+                        fix['status']})"
                 )
 
 

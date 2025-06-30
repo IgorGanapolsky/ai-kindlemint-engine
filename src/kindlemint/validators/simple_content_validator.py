@@ -50,7 +50,8 @@ class SimpleContentValidator:
             else:
                 self.results["status"] = "FAILED"
                 print(
-                    f"❌ CONTENT VALIDATION FAILED - {len(self.results['errors'])} errors"
+                    f"❌ CONTENT VALIDATION FAILED - {
+                        len(self.results['errors'])} errors"
                 )
 
             self._print_summary()
@@ -67,7 +68,7 @@ class SimpleContentValidator:
         """Check puzzle pages using size heuristics"""
         errors = []
 
-        print(f"🧩 Checking puzzle pages {start_page+1} to {end_page+1}...")
+        print(f"🧩 Checking puzzle pages {start_page + 1} to {end_page + 1}...")
 
         # Sample check - only check first 5 puzzles for speed
         sample_pages = list(range(start_page, min(start_page + 5, end_page + 1)))
@@ -79,7 +80,7 @@ class SimpleContentValidator:
 
                 if not image_list:
                     errors.append(
-                        f"Page {page_num+1}: No images found (expected puzzle)"
+                        f"Page {page_num + 1}: No images found (expected puzzle)"
                     )
                     continue
 
@@ -89,16 +90,18 @@ class SimpleContentValidator:
                         img_size = self._get_image_size(page, img)
 
                         # Puzzles should be smaller (~26KB), solutions larger (~42KB)
-                        # If puzzle image is too large, it might be showing a complete solution
+                        # If puzzle image is too large, it might be showing a complete
+                        # solution
                         if img_size > 35000:  # 35KB threshold
                             puzzle_num = page_num - start_page + 1
                             errors.append(
-                                f"Puzzle #{puzzle_num} (Page {page_num+1}): Image too large ({img_size} bytes) - likely showing complete solution instead of puzzle with blanks"
+                                f"Puzzle #{puzzle_num} (Page {page_num + 1}): Image too large ({
+                                    img_size} bytes) - likely showing complete solution instead of puzzle with blanks"
                             )
                         break
 
             except Exception as e:
-                errors.append(f"Page {page_num+1}: Error checking puzzle - {str(e)}")
+                errors.append(f"Page {page_num + 1}: Error checking puzzle - {str(e)}")
 
         return errors
 
@@ -106,7 +109,7 @@ class SimpleContentValidator:
         """Check solution pages using size heuristics"""
         errors = []
 
-        print(f"💡 Checking solution pages {start_page+1} to {end_page+1}...")
+        print(f"💡 Checking solution pages {start_page + 1} to {end_page + 1}...")
 
         # Sample check - only check first 5 solutions for speed
         sample_pages = list(
@@ -120,7 +123,7 @@ class SimpleContentValidator:
 
                 if not image_list:
                     errors.append(
-                        f"Page {page_num+1}: No images found (expected solution)"
+                        f"Page {page_num + 1}: No images found (expected solution)"
                     )
                     continue
 
@@ -133,12 +136,16 @@ class SimpleContentValidator:
                         if img_size < 35000:  # 35KB threshold
                             solution_num = page_num - start_page + 1
                             errors.append(
-                                f"Solution #{solution_num} (Page {page_num+1}): Image too small ({img_size} bytes) - likely incomplete solution"
+                                f"Solution #{solution_num} (Page {
+                                    page_num + 1}): Image too small ({img_size} bytes) - likely incomplete solution"
                             )
                         break
 
             except Exception as e:
-                errors.append(f"Page {page_num+1}: Error checking solution - {str(e)}")
+                errors.append(
+                    f"Page {page_num +
+                                      1}: Error checking solution - {str(e)}"
+                )
 
         return errors
 
@@ -157,7 +164,7 @@ class SimpleContentValidator:
             pix = None
             return is_square and is_reasonable_size
 
-        except:
+        except BaseException:
             return False
 
     def _get_image_size(self, page, img) -> int:
@@ -168,7 +175,7 @@ class SimpleContentValidator:
             img_data = pix.tobytes("png")
             pix = None
             return len(img_data)
-        except:
+        except BaseException:
             return 0
 
     def _print_summary(self):

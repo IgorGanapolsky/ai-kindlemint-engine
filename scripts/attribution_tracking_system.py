@@ -45,7 +45,8 @@ class AttributionTrackingSystem:
 
         # Create attribution output directory
         self.output_dir = Path(
-            f"books/active_production/{self.series_name}/volume_{self.volume}/attribution_tracking"
+            f"books/active_production/{self.series_name}/volume_{
+                self.volume}/attribution_tracking"
         )
         self.output_dir.mkdir(parents=True, exist_ok=True)
 

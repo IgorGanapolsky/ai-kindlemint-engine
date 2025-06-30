@@ -112,7 +112,7 @@ class EnhancedEpubFormatter(Formatter):
 
             try:
                 font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 24)
-            except:
+            except BaseException:
                 font = ImageFont.load_default()
 
             for row in range(15):
@@ -173,7 +173,8 @@ class EnhancedEpubFormatter(Formatter):
         # Generate manifest items for grid images
         grid_items = ""
         for i in range(1, 6):
-            grid_items += f'        <item id="grid{i}" href="grids/grid_{i}.png" media-type="image/png"/>\n'
+            grid_items += f'        <item id="grid{
+                i}" href="grids/grid_{i}.png" media-type="image/png"/>\n'
 
         content_opf = f"""<?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="BookID">
@@ -270,7 +271,8 @@ class EnhancedEpubFormatter(Formatter):
         for i in range(50):
             puzzle_num = i + 1
             theme = puzzle_themes[i % len(puzzle_themes)]
-            nav_xhtml += f'\n                    <li><a href="puzzles.xhtml#puzzle{puzzle_num}">Puzzle {puzzle_num}: {theme}</a></li>'
+            nav_xhtml += f'\n                    <li><a href="puzzles.xhtml#puzzle{
+                puzzle_num}">Puzzle {puzzle_num}: {theme}</a></li>'
 
         nav_xhtml += """
                 </ol>

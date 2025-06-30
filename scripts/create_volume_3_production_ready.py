@@ -1182,7 +1182,8 @@ class Volume3ProductionReady:
 
                 if across_count == 0 or down_count == 0:
                     print(
-                        f"    ⚠️  WARNING: Puzzle {puzzle_num} missing clues - Across: {across_count}, Down: {down_count}"
+                        f"    ⚠️  WARNING: Puzzle {
+                            puzzle_num} missing clues - Across: {across_count}, Down: {down_count}"
                     )
 
                 # Store for answer key

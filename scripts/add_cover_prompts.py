@@ -34,7 +34,8 @@ def get_cover_prompt(title: str, series_name: str, book_type: str) -> str:
 
     format_spec = f"designed for {book_type} format"
 
-    prompt = f"""Create a {base_style}. Title: '{title}'. Include {theme}. Use {colors}. Feature {typography}. The cover should be {format_spec}, eye-catching for Amazon KDP marketplace, appealing to puzzle enthusiasts and seniors. Include subtle brain/mind imagery to suggest cognitive benefits. Ensure text is highly readable and professional appearance suitable for bookstore shelves."""
+    prompt = f"""Create a {base_style}. Title: '{title}'. Include {theme}. Use {colors}. Feature {typography}. The cover should be {
+        format_spec}, eye-catching for Amazon KDP marketplace, appealing to puzzle enthusiasts and seniors. Include subtle brain/mind imagery to suggest cognitive benefits. Ensure text is highly readable and professional appearance suitable for bookstore shelves."""
 
     return prompt
 
@@ -67,7 +68,8 @@ def add_cover_prompts():
             # Skip if already has cover design
             if "cover_design" in data:
                 print(
-                    f"✓ Already has cover design: {os.path.relpath(file_path, base_dir)}"
+                    f"✓ Already has cover design: {
+                        os.path.relpath(file_path, base_dir)}"
                 )
                 continue
 

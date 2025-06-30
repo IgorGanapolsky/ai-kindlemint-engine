@@ -250,7 +250,7 @@ def show_next_steps(output_path: Path):
     for f in files[:5]:  # Show first 5 files
         print(f"   - {f.name}")
     if len(files) > 5:
-        print(f"   ... and {len(files)-5} more files")
+        print(f"   ... and {len(files) - 5} more files")
 
     print("\n🚀 Next Steps:")
     print("1. Review the generated PDF")

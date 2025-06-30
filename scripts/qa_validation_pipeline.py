@@ -496,7 +496,7 @@ class QAValidationPipeline:
                             page_count = int(line.split(":")[1].strip())
                             # Sudoku books should have substantial page count
                             return page_count > 20
-                        except:
+                        except BaseException:
                             pass
 
             return True  # Default to valid if can't determine
@@ -613,7 +613,9 @@ class QAValidationPipeline:
         for criterion, details in result.criteria.items():
             status = "✅" if details["passed"] else "❌"
             print(
-                f"{status} {criterion}: {details['score']} (threshold: {details['threshold']})"
+                f"{status} {criterion}: {
+                    details['score']} (threshold: {
+                    details['threshold']})"
             )
 
         # Issues summary

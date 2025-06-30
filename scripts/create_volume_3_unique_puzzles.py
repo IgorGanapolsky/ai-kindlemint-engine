@@ -883,7 +883,7 @@ def main():
     puzzles = []
 
     for i in range(50):
-        logger.info(f"Generating puzzle {i+1}/50...")
+        logger.info(f"Generating puzzle {i + 1}/50...")
         puzzle = generator.generate_puzzle(i)
         puzzles.append(puzzle)
 

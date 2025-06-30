@@ -339,7 +339,8 @@ class DeadCodeDetector:
             return True
 
         # Check if used in variable assignments or other contexts
-        # This is a simplified check - could be enhanced with more sophisticated analysis
+        # This is a simplified check - could be enhanced with more sophisticated
+        # analysis
         try:
             with open(analyzer.file_path, "r") as f:
                 content = f.read()
@@ -659,7 +660,8 @@ def main():
     print(f"Dead code analysis complete. Report saved to: {output_path}")
     print(f"Found {report['summary']['total_candidates']} dead code candidates")
     print(
-        f"Potential lines of code that could be removed: {report['summary']['potential_lines_saved']}"
+        f"Potential lines of code that could be removed: {
+            report['summary']['potential_lines_saved']}"
     )
 
 

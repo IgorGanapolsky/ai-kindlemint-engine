@@ -4,6 +4,10 @@ Generate Volume 4 of Large Print Crossword Masters
 50 unique crossword puzzles with progressive difficulty
 """
 
+from slack_notifier import SlackNotifier
+from crossword_engine_v2 import CrosswordEngineV2 as CrosswordEngine
+from comprehensive_qa_validator import ComprehensiveQAValidator
+from book_layout_bot import BookLayoutBot as BookLayoutEngine
 import json
 import sys
 import time
@@ -13,10 +17,6 @@ from pathlib import Path
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from book_layout_bot import BookLayoutBot as BookLayoutEngine
-from comprehensive_qa_validator import ComprehensiveQAValidator
-from crossword_engine_v2 import CrosswordEngineV2 as CrosswordEngine
-from slack_notifier import SlackNotifier
 
 # Configuration
 VOLUME_NUMBER = 4
@@ -269,9 +269,9 @@ Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}
         ),
     }
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"✅ VOLUME {VOLUME_NUMBER} GENERATION COMPLETE!")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     print(f"📚 Title: {summary['title']}")
     print(f"🧩 Puzzles: {summary['puzzles_generated']}")
     print(f"⏱️  Time: {summary['generation_time']}")
@@ -281,7 +281,10 @@ Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}
 
     # Send Slack notification
     notifier.send_message(
-        f"✅ Volume {VOLUME_NUMBER} Complete! {summary['puzzles_generated']} puzzles generated in {summary['generation_time']}. Status: {summary['status']}",
+        f"✅ Volume {VOLUME_NUMBER} Complete! {
+            summary['puzzles_generated']} puzzles generated in {
+            summary['generation_time']}. Status: {
+            summary['status']}",
         color="#2ecc71",
     )
 

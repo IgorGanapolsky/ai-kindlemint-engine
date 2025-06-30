@@ -268,7 +268,7 @@ class HardcoverProducer:
             for font_path in font_paths:
                 try:
                     return ImageFont.truetype(font_path, size)
-                except:
+                except BaseException:
                     continue
             return ImageFont.load_default()
 
@@ -425,7 +425,8 @@ class HardcoverProducer:
 
         print(f"✅ Hardcover package complete: {output_dir}")
         print(
-            f"💰 Pricing: ${self.config['hardcover_price_min']:.2f} - ${self.config['hardcover_price_max']:.2f}"
+            f"💰 Pricing: ${self.config['hardcover_price_min']
+                :.2f} - ${self.config['hardcover_price_max']:.2f}"
         )
         print(f"📁 Production files only - scripts remain in scripts/hardcover/")
 

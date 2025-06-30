@@ -196,13 +196,15 @@ This report compares the output of the old crossword engine (`v2`) with the new,
 ### Old Engine (v2) - Critical Issues
 *The old engine produced puzzles with fundamental flaws that made them unsolvable.*
 ```json
-{json.dumps([p['critical_issues'] for p in old_report.get('puzzles', {}).values() if p.get('critical_issues')], indent=2)}
+{json.dumps([p['critical_issues'] for p in old_report.get(
+        'puzzles', {}).values() if p.get('critical_issues')], indent=2)}
 ```
 
 ### New Engine (v3) - Critical Issues
 *The new engine should have zero critical issues.*
 ```json
-{json.dumps([p['critical_issues'] for p in new_report.get('puzzles', {}).values() if p.get('critical_issues')], indent=2)}
+{json.dumps([p['critical_issues'] for p in new_report.get(
+            'puzzles', {}).values() if p.get('critical_issues')], indent=2)}
 ```
 
 ## Conclusion

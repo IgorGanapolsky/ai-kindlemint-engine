@@ -340,9 +340,9 @@ def main():
         report = monitor.save_failure_report(failures, args.output)
 
         # Print summary
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"CI Failure Report - {report['timestamp']}")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
         print(f"Total failures: {report['total_failures']}")
 
         if failures:

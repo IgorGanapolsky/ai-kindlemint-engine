@@ -295,7 +295,7 @@ class SocialMediaMarketingEngine:
                             "best_time": optimized.best_time_to_post,
                             "content_type": selected_content.content_type.value,
                         }
-                    except:
+                    except BaseException:
                         daily_content[platform.value] = {
                             "content": "Content optimization pending"
                         }
@@ -568,11 +568,13 @@ def demo_marketing_engine():
 
     print(f"✅ Campaign created with ID: {campaign['campaign_id']}")
     print(
-        f"📊 Total content pieces: {campaign['content_library']['total_optimized_posts']}"
+        f"📊 Total content pieces: {
+            campaign['content_library']['total_optimized_posts']}"
     )
     print(f"🧲 Lead magnets created: {len(campaign['lead_magnets'])}")
     print(
-        f"📅 30-day calendar: {len(campaign['30_day_specifics']['content_calendar'])} days planned"
+        f"📅 30-day calendar: {len(campaign['30_day_specifics']
+                                  ['content_calendar'])} days planned"
     )
 
     return campaign

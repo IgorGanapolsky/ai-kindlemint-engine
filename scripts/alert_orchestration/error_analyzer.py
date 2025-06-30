@@ -420,7 +420,7 @@ class ErrorAnalyzer:
                     root_cause["contributing_factors"].append("Peak business hours")
                 elif 0 <= hour <= 5:
                     root_cause["contributing_factors"].append("Maintenance window")
-            except:
+            except BaseException:
                 pass
 
         root_cause["confidence"] = min(root_cause["confidence"], 1.0)
@@ -616,7 +616,7 @@ class ErrorAnalyzer:
                 if timestamp >= cutoff_time:
                     category = error.get("category", "unknown")
                     category_timeseries[category].append(timestamp)
-            except:
+            except BaseException:
                 continue
 
         trends = []

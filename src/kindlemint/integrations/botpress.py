@@ -1396,7 +1396,8 @@ class ConversationalMarketingBot(BaseBot):
 
         # Craft an initial message based on interests
         interests_str = ", ".join(interests)
-        initial_message = f"I'm looking for book recommendations about {interests_str}. I'm at a {experience_level} level."
+        initial_message = f"I'm looking for book recommendations about {
+            interests_str}. I'm at a {experience_level} level."
 
         response = self.send_message(
             user_id=user_id, message=initial_message, conversation_id=conversation_id

@@ -260,7 +260,7 @@ class EnhancedQAValidator:
                 level="CRITICAL",
             )
         else:
-            print(f"  ✅ File size: {file_size/1024:.1f} KB (valid)")
+            print(f"  ✅ File size: {file_size / 1024:.1f} KB (valid)")
 
         self.qa_results["checks"]["file_properties"] = checks
 
@@ -344,7 +344,8 @@ class EnhancedQAValidator:
                         self._add_issue(
                             "FONT_NOT_EMBEDDED",
                             "Font not embedded",
-                            f"Font '{font_name}' on page {page_num+1} is not embedded",
+                            f"Font '{font_name}' on page {
+                                page_num + 1} is not embedded",
                             level="CRITICAL",
                         )
 
@@ -419,12 +420,17 @@ class EnhancedQAValidator:
                 self._add_issue(
                     "HIGH_DUPLICATION",
                     "High duplication",
-                    f"Content is {duplicate_ratio*100:.1f}% duplicate (threshold: {self.qa_criteria['duplicate_content_threshold']*100:.1f}%)",
+                    f"Content is {
+                        duplicate_ratio *
+                        100:.1f}% duplicate (threshold: {
+                        self.qa_criteria['duplicate_content_threshold'] *
+                        100:.1f}%)",
                     level="CRITICAL" if duplicate_ratio > 0.5 else "WARNING",
                 )
             else:
                 print(
-                    f"  ✅ Content duplication: {duplicate_ratio*100:.1f}% (acceptable)"
+                    f"  ✅ Content duplication: {
+                        duplicate_ratio * 100:.1f}% (acceptable)"
                 )
         else:
             checks["duplicate_content_ratio"] = 0.0
@@ -497,7 +503,11 @@ class EnhancedQAValidator:
                         checks.get("pages_with_high_whitespace", 0) + 1
                     )
                     print(
-                        f"  ⚠️  WARNING: Page {page_num + 1}: {whitespace_ratio*100:.1f}% white - may lack content"
+                        f"  ⚠️  WARNING: Page {
+                            page_num +
+                            1}: {
+                            whitespace_ratio *
+                            100:.1f}% white - may lack content"
                     )
 
                 # Check for text near page edges (cut-off risk)
@@ -524,7 +534,8 @@ class EnhancedQAValidator:
                                     self._add_issue(
                                         "TEXT_CUTOFF_RISK",
                                         "Text cutoff risk",
-                                        f"Page {page_num + 1}: Text '{text[:20]}...' may be cut off",
+                                        f"Page {page_num +
+                                                1}: Text '{text[:20]}...' may be cut off",
                                         level="CRITICAL",
                                     )
                                     checks["text_cutoff_instances"] = (
@@ -547,7 +558,8 @@ class EnhancedQAValidator:
                 self._add_issue(
                     "EXCESSIVE_WHITESPACE",
                     "Excessive whitespace",
-                    f"{checks['pages_with_high_whitespace']} of {page_count} pages ({(1-whitespace_compliance)*100:.1f}%) have excessive whitespace",
+                    f"{checks['pages_with_high_whitespace']} of {page_count} pages ({(
+                        1 - whitespace_compliance) * 100:.1f}%) have excessive whitespace",
                     level="WARNING",
                 )
 
@@ -556,7 +568,8 @@ class EnhancedQAValidator:
                 print("  ✅ No text cut-off issues detected")
             else:
                 print(
-                    f"  ❌ {checks['text_cutoff_instances']} text cut-off issues detected"
+                    f"  ❌ {checks['text_cutoff_instances']
+                           } text cut-off issues detected"
                 )
 
         except Exception as e:
@@ -581,7 +594,8 @@ class EnhancedQAValidator:
             text_blocks = page.get_text("dict").get("blocks", [])
             if len(text_blocks) > 0:
                 print(
-                    f"  ✅ Page {page_num + 1}: Crossword numbers appear properly positioned"
+                    f"  ✅ Page {
+                        page_num + 1}: Crossword numbers appear properly positioned"
                 )
         except Exception as e:
             logger.warning(
@@ -632,7 +646,8 @@ class EnhancedQAValidator:
                 validation_results["gpt4o"] = gpt_result
                 checks["models_used"].append("gpt4o")
                 print(
-                    f"  ✅ GPT-4o validation complete: {gpt_result.get('quality_score', 'N/A')}/100"
+                    f"  ✅ GPT-4o validation complete: {
+                        gpt_result.get('quality_score', 'N/A')}/100"
                 )
 
         # Try Gemini validation as backup or additional model
@@ -642,7 +657,8 @@ class EnhancedQAValidator:
                 validation_results["gemini"] = gemini_result
                 checks["models_used"].append("gemini")
                 print(
-                    f"  ✅ Gemini validation complete: {gemini_result.get('quality_score', 'N/A')}/100"
+                    f"  ✅ Gemini validation complete: {
+                        gemini_result.get('quality_score', 'N/A')}/100"
                 )
 
         # Calculate consensus score if we have multiple models
@@ -740,7 +756,10 @@ Your response must be in JSON format with the following structure:
 """
 
             # Get file metadata to provide context
-            file_info = f"Filename: {pdf_path.name}\nFile size: {pdf_path.stat().st_size/1024:.1f} KB"
+            file_info = f"Filename: {
+                pdf_path.name}\nFile size: {
+                pdf_path.stat().st_size /
+                1024:.1f} KB"
 
             # Call the OpenAI API
             response = OPENAI_VALIDATION_CLIENT.chat.completions.create(
@@ -785,7 +804,7 @@ Analyze this book content sample and evaluate it based on:
 4. KDP Compliance: Identify any issues that might cause Amazon KDP to reject the book.
 
 Filename: {pdf_path.name}
-File size: {pdf_path.stat().st_size/1024:.1f} KB
+File size: {pdf_path.stat().st_size / 1024:.1f} KB
 
 CONTENT SAMPLE:
 {text_sample}
@@ -898,7 +917,8 @@ Your response must be in JSON format with this structure:
                 self._add_issue(
                     "INVALID_PDF_VERSION",
                     "Invalid PDF version",
-                    f"PDF version {pdf_version} outside KDP's supported range (1.3-1.7)",
+                    f"PDF version {
+                        pdf_version} outside KDP's supported range (1.3-1.7)",
                     level="CRITICAL",
                 )
             else:
@@ -977,7 +997,8 @@ Your response must be in JSON format with this structure:
         print(f"❌ Critical Issues: {critical_issues}")
         print(f"⚠️  Warnings: {warnings}")
         print(
-            f"{'✅ READY' if self.qa_results['publish_ready'] else '❌ NOT READY'}: {'Book meets quality standards' if self.qa_results['publish_ready'] else 'Fix all critical issues before publishing'}"
+            f"{'✅ READY' if self.qa_results['publish_ready'] else '❌ NOT READY'}: {
+                'Book meets quality standards' if self.qa_results['publish_ready'] else 'Fix all critical issues before publishing'}"
         )
         print("\n" + "=" * 70)
 

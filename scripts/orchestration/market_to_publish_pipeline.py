@@ -156,7 +156,8 @@ class MarketToPublishOrchestrator:
             stage_data["selected_count"] = len(self.pipeline_state["selected_niches"])
             stage_data["status"] = "completed"
             print(
-                f"✅ Selected {stage_data['selected_count']} niches for content generation"
+                f"✅ Selected {stage_data['selected_count']
+                              } niches for content generation"
             )
 
         except Exception as e:
@@ -228,7 +229,8 @@ class MarketToPublishOrchestrator:
             for plan in content_plans:
                 print(f"  Generating: {plan['niche']}")
 
-                # Simulate content generation (in real implementation, call actual generators)
+                # Simulate content generation (in real implementation, call actual
+                # generators)
                 book_data = {
                     "title": f"{plan['niche']} Mastery Guide",
                     "niche": plan["niche"],
@@ -358,7 +360,8 @@ class MarketToPublishOrchestrator:
 
             stage_data["status"] = "completed"
             print(
-                f"✅ {len(stage_data['approved_for_publishing'])} books approved for publishing"
+                f"✅ {len(stage_data['approved_for_publishing'])
+                     } books approved for publishing"
             )
 
         except Exception as e:

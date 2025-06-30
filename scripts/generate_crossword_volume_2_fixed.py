@@ -4,6 +4,7 @@ Generate Volume 2 with UNIQUE crossword puzzles - PROPERLY TESTED
 Each puzzle has completely different clues
 """
 
+from reportlab.lib.units import inch
 import json
 import random
 from datetime import datetime
@@ -16,8 +17,6 @@ from reportlab.pdfgen import canvas
 # KDP 6x9 book dimensions (not letter size!)
 BOOK_WIDTH = 6 * inch
 BOOK_HEIGHT = 9 * inch
-
-from reportlab.lib.units import inch
 
 
 class FixedCrosswordGenerator:
@@ -396,7 +395,7 @@ class FixedCrosswordGenerator:
         try:
             font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
             number_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 20)
-        except:
+        except BaseException:
             font = ImageFont.load_default()
             number_font = font
 

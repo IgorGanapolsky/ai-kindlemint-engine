@@ -3,6 +3,7 @@ Compatibility wrapper for config_loader during migration.
 This maintains backward compatibility while the code is migrated to the new structure.
 """
 
+from kindlemint.utils.config import ConfigLoader, config
 import sys
 import warnings
 from pathlib import Path
@@ -21,7 +22,6 @@ warnings.warn(
 )
 
 # Import and re-export the config instance from new location
-from kindlemint.utils.config import ConfigLoader, config
 
 # Make sure all old imports continue to work
 __all__ = ["config", "ConfigLoader"]

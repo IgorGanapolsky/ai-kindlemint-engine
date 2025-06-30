@@ -29,15 +29,15 @@ print(f'Empty columns: {empty_cols if empty_cols else "None"}')
 # Show the grid with clues marked
 print("\nPuzzle Grid (0 = empty):")
 for i, row in enumerate(grid):
-    print(f'Row {i+1}: {" ".join(str(cell) for cell in row)}')
+    print(f'Row {i + 1}: {" ".join(str(cell) for cell in row)}')
 
 # Count clues in each row/column
 print("\nClues per row:")
 for i, row in enumerate(grid):
     count = sum(1 for cell in row if cell != 0)
-    print(f"  Row {i+1}: {count} clues")
+    print(f"  Row {i + 1}: {count} clues")
 
 print("\nClues per column:")
 for j in range(9):
     count = sum(1 for i in range(9) if grid[i][j] != 0)
-    print(f"  Column {j+1}: {count} clues")
+    print(f"  Column {j + 1}: {count} clues")

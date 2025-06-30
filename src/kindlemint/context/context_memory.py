@@ -474,7 +474,8 @@ class ContextMemoryStore:
 
                 self.logger.info(
                     f"Cleaned up old data: {voice_deleted} voice inputs, "
-                    f"{synthesis_deleted} synthesis records, {sessions_deleted} sessions"
+                    f"{synthesis_deleted} synthesis records, {
+                        sessions_deleted} sessions"
                 )
                 return True
 

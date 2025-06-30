@@ -389,7 +389,8 @@ class AutoResolver:
         urgency = classification.get("resolution_urgency", "medium")
 
         logger.info(
-            f"Attempting auto-resolution for {category} error (confidence: {confidence})"
+            f"Attempting auto-resolution for {
+                category} error (confidence: {confidence})"
         )
 
         # Get applicable resolution strategies

@@ -314,27 +314,37 @@ class EnhancedSudokuPDFLayout:
             "• Each 3×3 box must contain the numbers 1-9 with no repetition",
             "• Use logic and deduction - no guessing required!",
             "",
-            "<b>Tips for Success:</b>",
-            "• Start by looking for rows, columns, or boxes with the most numbers already filled",
-            "• Look for numbers that appear frequently across the grid",
-            "• Use pencil marks to note possible numbers in empty cells",
-            "• Take breaks if you get stuck - fresh eyes often spot new patterns",
+            "<b>Progressive Difficulty Levels:</b>",
+            "This volume features <b>progressive difficulty</b> - puzzles get gradually harder as you advance.",
             "",
-            "<b>Difficulty Levels in This Book:</b>",
-            f"This Volume {self.volume_number} contains <b>{self.puzzles[0]['difficulty'].title()}</b> level puzzles, perfect for "
-            + (
-                "beginners learning the basics."
-                if self.puzzles[0]["difficulty"] == "easy"
-                else "improving your skills."
-            ),
+            "<b>Easy Puzzles (1-33) - Solving Strategies:</b>",
+            "• Look for rows, columns, or 3×3 boxes with only one empty cell",
+            "• Find numbers that appear 8 times in the grid - the 9th position is obvious",
+            "• Use the process of elimination in each row, column, and box",
+            "• No advanced techniques required - just careful observation!",
+            "",
+            "<b>Medium Puzzles (34-66) - Additional Techniques:</b>",
+            "• Start with basic scanning and singles",
+            "• Look for hidden singles - numbers that can only go in one cell in a unit",
+            "• Use pencil marks to track candidates in empty cells",
+            "• Apply box/line reduction to eliminate possibilities",
+            "• Watch for naked pairs and triples to narrow down options",
+            "",
+            "<b>Hard Puzzles (67-100) - Advanced Methods:</b>",
+            "• Begin with all basic and intermediate strategies",
+            "• Look for X-Wing patterns across rows and columns",
+            "• Apply Swordfish technique for complex eliminations",
+            "• Use forcing chains to test possibilities",
+            "• Consider coloring or other advanced logical deductions",
+            "• Patience and systematic approach are essential!",
             "",
             "<b>About This Large Print Edition:</b>",
             "• Extra-large grids for comfortable solving",
             "• Clear, bold numbers that are easy to read",
             "• One puzzle per page to avoid distractions",
-            "• Complete solutions included at the back",
+            "• Complete solutions with strategy references at the back",
             "",
-            "Ready to begin? Turn the page and enjoy your Sudoku journey!",
+            "Ready to begin your progressive Sudoku journey? Turn the page to start with easy puzzles!",
         ]
 
         for line in instructions:
@@ -361,7 +371,9 @@ class EnhancedSudokuPDFLayout:
         puzzles_dir = self.input_dir
         if not (puzzles_dir / f"sudoku_puzzle_{puzzle_data['id']:03d}.png").exists():
             puzzles_dir = self.input_dir / "puzzles"
-            if not (puzzles_dir / f"sudoku_puzzle_{puzzle_data['id']:03d}.png").exists():
+            if not (
+                puzzles_dir / f"sudoku_puzzle_{puzzle_data['id']:03d}.png"
+            ).exists():
                 puzzles_dir = self.input_dir.parent / "puzzles"
 
         image_path = puzzles_dir / f"sudoku_puzzle_{puzzle_data['id']:03d}.png"
@@ -417,10 +429,7 @@ class EnhancedSudokuPDFLayout:
         story.append(Spacer(1, 0.3 * inch))
 
         # Load solution image - Fixed path logic
-        solution_path = (
-            self.input_dir
-            / f"sudoku_solution_{puzzle_data['id']:03d}.png"
-        )
+        solution_path = self.input_dir / f"sudoku_solution_{puzzle_data['id']:03d}.png"
         if not solution_path.exists():
             # Try in puzzles subdirectory
             solution_path = (
@@ -449,48 +458,16 @@ class EnhancedSudokuPDFLayout:
                 )
             )
 
-        story.append(Spacer(1, 0.5 * inch))
+        # Streamlined solution page - instructions moved to front matter
+        story.append(Spacer(1, 0.2 * inch))
 
-        # Add solving explanation based on difficulty
-        story.append(Paragraph("<b>Solving Strategy:</b>", self.styles["Normal"]))
-
-        if puzzle_data["difficulty"] == "easy":
-            explanation = [
-                "This puzzle can be solved using basic scanning techniques:",
-                "• Look for rows, columns, or 3×3 boxes with only one empty cell",
-                "• Find numbers that appear 8 times in the grid - the 9th position is obvious",
-                "• Use the process of elimination in each row, column, and box",
-                "• No advanced techniques required - just careful observation!",
-            ]
-        elif puzzle_data["difficulty"] == "medium":
-            explanation = [
-                "This puzzle requires intermediate solving techniques:",
-                "• Start with basic scanning and singles",
-                "• Look for hidden singles - numbers that can only go in one cell in a unit",
-                "• Use pencil marks to track candidates in empty cells",
-                "• Apply box/line reduction to eliminate possibilities",
-                "• Watch for naked pairs and triples to narrow down options",
-            ]
-        else:  # hard
-            explanation = [
-                "This challenging puzzle requires advanced techniques:",
-                "• Begin with all basic and intermediate strategies",
-                "• Look for X-Wing patterns across rows and columns",
-                "• Apply Swordfish technique for complex eliminations",
-                "• Use forcing chains to test possibilities",
-                "• Consider coloring or other advanced logical deductions",
-                "• Patience and systematic approach are essential!",
-            ]
-
-        for line in explanation:
-            story.append(Paragraph(line, self.styles["Instructions"]))
-
-        story.append(Spacer(1, 0.3 * inch))
-
-        # Add key insight
-        story.append(Paragraph("<b>Key Insight:</b>", self.styles["Normal"]))
-        key_insight = self.get_puzzle_insight(puzzle_data)
-        story.append(Paragraph(key_insight, self.styles["Instructions"]))
+        # Simple completion note
+        story.append(
+            Paragraph(
+                "<i>See front matter for solving strategies and tips for each difficulty level.</i>",
+                self.styles["Instructions"],
+            )
+        )
 
         story.append(PageBreak())
 

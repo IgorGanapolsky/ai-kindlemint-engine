@@ -387,7 +387,8 @@ class AgentRegistry:
             success_rate = self.agent_performance[agent_id]["success_rate"] / 100.0
             response_time = self.agent_performance[agent_id]["avg_response_time"]
 
-            # Lower is better for load and response time, higher is better for success rate
+            # Lower is better for load and response time, higher is better for success
+            # rate
             score = (
                 (1 - load_ratio) * 0.4
                 + success_rate * 0.4
@@ -460,7 +461,8 @@ class AgentRegistry:
                     self.logger.error(f"Failed to broadcast to {agent_id}: {e}")
 
         self.logger.debug(
-            f"Broadcast message {message.message_id} to {success_count}/{len(target_agents)} agents"
+            f"Broadcast message {message.message_id} to {
+                success_count}/{len(target_agents)} agents"
         )
 
         return success_count > 0

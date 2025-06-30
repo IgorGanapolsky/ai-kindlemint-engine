@@ -4,6 +4,7 @@ Generate cover generation checklists for all book volumes
 Using KDP official specifications and actual page counts
 """
 
+from scripts.kdp_cover_calculator import KDPCoverCalculator
 import argparse
 import os
 import sys
@@ -12,8 +13,6 @@ from pathlib import Path
 
 # Add the project root to the Python path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from scripts.kdp_cover_calculator import KDPCoverCalculator
 
 
 def generate_checklist(book_info, dimensions):

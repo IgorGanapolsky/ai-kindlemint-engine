@@ -327,7 +327,8 @@ def create_puzzle_generation_task(
     return Task(
         task_type=TaskType.GENERATE_PUZZLES,
         name=f"Generate {count} {puzzle_type} puzzles",
-        description=f"Generate {count} {puzzle_type} puzzles with {difficulty} difficulty",
+        description=f"Generate {count} {
+            puzzle_type} puzzles with {difficulty} difficulty",
         input_data={
             "puzzle_type": puzzle_type,
             "count": count,

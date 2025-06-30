@@ -51,7 +51,8 @@ class EnhancedSudokuPDFValidator:
                 )
             else:
                 self.errors.append(
-                    f"❌ Only {validated_count}/{len(puzzle_pages[:10])} puzzles have proper rendering"
+                    f"❌ Only {
+                        validated_count}/{len(puzzle_pages[:10])} puzzles have proper rendering"
                 )
 
             pdf_document.close()
@@ -125,16 +126,19 @@ class EnhancedSudokuPDFValidator:
 
                     if filled_cells == expected_clues:
                         self.passed_checks.append(
-                            f"✓ Puzzle {puzzle_num}: Correct number of clues ({filled_cells})"
+                            f"✓ Puzzle {puzzle_num}: Correct number of clues ({
+                                filled_cells})"
                         )
                     elif filled_cells == 81:
                         self.errors.append(
-                            f"❌ CRITICAL: Puzzle {puzzle_num} shows complete solution (81 cells) instead of {expected_clues} clues!"
+                            f"❌ CRITICAL: Puzzle {puzzle_num} shows complete solution (81 cells) instead of {
+                                expected_clues} clues!"
                         )
                         return False
                     else:
                         self.warnings.append(
-                            f"⚠️ Puzzle {puzzle_num}: Found {filled_cells} filled cells, expected {expected_clues} clues"
+                            f"⚠️ Puzzle {puzzle_num}: Found {
+                                filled_cells} filled cells, expected {expected_clues} clues"
                         )
 
                     # Check for visual distinction
@@ -143,7 +147,8 @@ class EnhancedSudokuPDFValidator:
                     )
                     if not has_distinction:
                         self.errors.append(
-                            f"❌ Puzzle {puzzle_num}: No visual distinction between clues and empty cells"
+                            f"❌ Puzzle {
+                                puzzle_num}: No visual distinction between clues and empty cells"
                         )
                         return False
 
@@ -163,7 +168,8 @@ class EnhancedSudokuPDFValidator:
 
             if filled_cells > expected_clues * 1.5:
                 self.errors.append(
-                    f"❌ Puzzle {puzzle_num}: Too many filled cells ({filled_cells} vs {expected_clues} expected)"
+                    f"❌ Puzzle {puzzle_num}: Too many filled cells ({filled_cells} vs {
+                        expected_clues} expected)"
                 )
                 return False
 

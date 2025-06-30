@@ -328,23 +328,23 @@ class SudokuGenerator:
             clue_font = ImageFont.truetype(
                 "/System/Library/Fonts/Helvetica-Bold.ttc", 42
             )
-        except:
+        except BaseException:
             try:
                 clue_font = ImageFont.truetype(
                     "/System/Library/Fonts/Arial-BoldMT.ttc", 42
                 )
-            except:
+            except BaseException:
                 try:
                     clue_font = ImageFont.truetype(
                         "/System/Library/Fonts/AppleSDGothicNeo-Bold.ttc", 42
                     )
-                except:
+                except BaseException:
                     clue_font = ImageFont.load_default()
 
         try:
             # Regular font for solutions (when is_solution=True)
             regular_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
-        except:
+        except BaseException:
             regular_font = ImageFont.load_default()
 
         # Draw grid lines with proper thickness for large print

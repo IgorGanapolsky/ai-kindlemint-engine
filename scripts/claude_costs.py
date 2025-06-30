@@ -144,7 +144,8 @@ Examples:
             print(f"Total cost: {format_currency(summary['total_cost'])}")
             print(f"Total tokens: {summary['total_tokens']:,}")
             print(
-                f"Average per commit: {format_currency(summary['average_cost_per_commit'])}"
+                f"Average per commit: {format_currency(
+                    summary['average_cost_per_commit'])}"
             )
 
             if summary["most_expensive_commit"]:
@@ -167,7 +168,8 @@ Examples:
         print(f"\n📋 Last {len(commits)} Commits with Claude Costs")
         print("=" * 80)
         print(
-            f"{'Hash':<10} {'Date':<20} {'Cost':<12} {'Files':<8} {'Tokens':<10} Message"
+            f"{'Hash':<10} {'Date':<20} {'Cost':<12} {
+                'Files':<8} {'Tokens':<10} Message"
         )
         print("-" * 80)
 
@@ -183,7 +185,8 @@ Examples:
             )
 
             print(
-                f"{commit['hash']:<10} {date:<20} {cost:<12} {commit['files_changed']:<8} "
+                f"{commit['hash']:<10} {date:<20} {
+                    cost:<12} {commit['files_changed']:<8} "
                 f"{commit['tokens']:<10,} {msg}"
             )
 
@@ -220,7 +223,8 @@ Examples:
                     )
 
             print(
-                f"✅ Exported {len(commit_costs.get('commits', []))} commits to {output_path}"
+                f"✅ Exported {len(commit_costs.get('commits', []))
+                              } commits to {output_path}"
             )
 
         elif output_path.suffix == ".json":

@@ -384,7 +384,8 @@ WantedBy=multi-user.target
 
         logger.info("Created cron job template")
         logger.info(
-            f"To install: crontab -l > /tmp/cron.bak && cat {cron_file} >> /tmp/cron.bak && crontab /tmp/cron.bak"
+            f"To install: crontab -l > /tmp/cron.bak && cat {
+                cron_file} >> /tmp/cron.bak && crontab /tmp/cron.bak"
         )
 
         return True

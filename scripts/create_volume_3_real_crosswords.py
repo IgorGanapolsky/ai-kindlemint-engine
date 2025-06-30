@@ -917,7 +917,10 @@ class Volume3CrosswordGenerator:
                     y_pos -= 0.3 * inch
 
                 c.drawString(
-                    x_pos, y_pos, f"Puzzle {i+1} ............... Page {107 + (i // 5)}"
+                    x_pos,
+                    y_pos,
+                    f"Puzzle {
+                        i + 1} ............... Page {107 + (i // 5)}",
                 )
 
             c.showPage()
@@ -1257,7 +1260,7 @@ class Volume3CrosswordGenerator:
                 c.drawCentredString(
                     PAGE_WIDTH / 2,
                     PAGE_HEIGHT - TOP_MARGIN - 0.5 * inch,
-                    f"Progress Tracker - Page {i+1}",
+                    f"Progress Tracker - Page {i + 1}",
                 )
 
                 c.setFont("Helvetica", 10)
@@ -1731,7 +1734,8 @@ class Volume3CrosswordGenerator:
                                         c.drawString(
                                             GUTTER,
                                             y_pos,
-                                            f"{numbers[(row,col)]}. {pattern['clues_across'][across_clue_idx]}",
+                                            f"{numbers[(row, col)]}. {
+                                                pattern['clues_across'][across_clue_idx]}",
                                         )
                                         y_pos -= 0.18 * inch
                                         across_clue_idx += 1
@@ -1759,7 +1763,8 @@ class Volume3CrosswordGenerator:
                                         c.drawString(
                                             PAGE_WIDTH / 2 + 0.1 * inch,
                                             y_pos,
-                                            f"{numbers[(row,col)]}. {pattern['clues_down'][down_clue_idx]}",
+                                            f"{numbers[(row, col)]}. {
+                                                pattern['clues_down'][down_clue_idx]}",
                                         )
                                         y_pos -= 0.18 * inch
                                         down_clue_idx += 1

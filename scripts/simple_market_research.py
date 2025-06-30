@@ -79,7 +79,8 @@ def run_simple_research():
 
     # Save results
     os.makedirs("research/simple_tests", exist_ok=True)
-    filename = f'research/simple_tests/simple_test_{datetime.now().strftime("%Y_%m_%d_%H%M")}.json'
+    filename = f'research/simple_tests/simple_test_{
+        datetime.now().strftime("%Y_%m_%d_%H%M")}.json'
 
     with open(filename, "w") as f:
         json.dump(results, f, indent=2)

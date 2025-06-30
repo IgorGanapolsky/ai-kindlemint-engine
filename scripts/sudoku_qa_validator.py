@@ -171,7 +171,7 @@ class SudokuQAValidator:
             if avg_coverage < 0.01:
                 self._add_issue("NO_CONTENT", "Pages appear blank", "CRITICAL")
             else:
-                print(f"  ✅ Average grid coverage: {avg_coverage*100:.1f}%")
+                print(f"  ✅ Average grid coverage: {avg_coverage * 100:.1f}%")
 
         except Exception as e:
             self._add_issue("CONTENT_CHECK_ERROR", str(e), "WARNING")
@@ -213,7 +213,8 @@ class SudokuQAValidator:
         print(f"❌ Critical Issues: {critical_count}")
         print(f"⚠️  Warnings: {warning_count}")
         print(
-            f"{'✅ READY' if self.qa_results['publish_ready'] else '❌ NOT READY'}: {'Fix critical issues before publishing' if not self.qa_results['publish_ready'] else 'Book ready for KDP'}"
+            f"{'✅ READY' if self.qa_results['publish_ready'] else '❌ NOT READY'}: {
+                'Fix critical issues before publishing' if not self.qa_results['publish_ready'] else 'Book ready for KDP'}"
         )
         print("=" * 70)
 

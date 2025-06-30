@@ -4,6 +4,7 @@ Create crossword puzzles for Volume 4 with UNIQUE solutions for each puzzle
 Building on Volume 4's success with enhanced word variety
 """
 
+from volume_4_clue_generator import Volume4ClueGenerator
 import json
 import random
 import sys
@@ -15,7 +16,6 @@ from reportlab.lib.pagesizes import inch
 from reportlab.pdfgen import canvas
 
 sys.path.append(str(Path(__file__).parent))
-from volume_4_clue_generator import Volume4ClueGenerator
 
 # 6×9 book dimensions (KDP Standard)
 PAGE_WIDTH = 6 * inch
@@ -1192,7 +1192,8 @@ class Volume4CrosswordGenerator:
                             # Add solution letter
                             c.setFillColor(colors.black)
                             c.setFont("Helvetica-Bold", 10)
-                            # Center letter in cell - y coordinate needs adjustment for PDF coordinate system
+                            # Center letter in cell - y coordinate needs adjustment for
+                            # PDF coordinate system
                             text_y = y + (
                                 small_cell * 0.35
                             )  # Position text in lower third of cell

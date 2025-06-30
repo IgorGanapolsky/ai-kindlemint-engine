@@ -145,7 +145,8 @@ class WordSearchValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Grid row {i} has inconsistent length: {len(row)} (expected {grid_width})",
+                                    description=f"Grid row {i} has inconsistent length: {
+                                        len(row)} (expected {grid_width})",
                                     puzzle_id=puzzle_id,
                                     location=f"grid[{i}]",
                                 )
@@ -156,7 +157,8 @@ class WordSearchValidator(PuzzleValidator):
                         issues.append(
                             self.create_issue(
                                 severity=IssueSeverity.WARNING,
-                                description=f"Grid is not square: {grid_height}x{grid_width}",
+                                description=f"Grid is not square: {
+                                    grid_height}x{grid_width}",
                                 puzzle_id=puzzle_id,
                             )
                         )
@@ -176,7 +178,8 @@ class WordSearchValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"grid_size ({grid_size}) doesn't match actual grid dimensions ({grid_height}x{grid_width})",
+                                    description=f"grid_size ({grid_size}) doesn't match actual grid dimensions ({
+                                        grid_height}x{grid_width})",
                                     puzzle_id=puzzle_id,
                                     recommendation="Update grid_size to match actual grid dimensions",
                                 )
@@ -273,7 +276,8 @@ class WordSearchValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Grid cell at [{i},{j}] must contain an uppercase letter, found: '{cell}'",
+                            description=f"Grid cell at [{i},{
+                                j}] must contain an uppercase letter, found: '{cell}'",
                             puzzle_id=puzzle_id,
                             location=f"grid[{i}][{j}]",
                             recommendation="Use only uppercase letters A-Z in the grid",
@@ -289,7 +293,8 @@ class WordSearchValidator(PuzzleValidator):
                 issues.append(
                     self.create_issue(
                         severity=IssueSeverity.ERROR,
-                        description=f"Word '{word}' at index {i} contains non-letter characters",
+                        description=f"Word '{word}' at index {
+                            i} contains non-letter characters",
                         puzzle_id=puzzle_id,
                         location=f"words[{i}]",
                         recommendation="Words should contain only letters",
@@ -327,7 +332,8 @@ class WordSearchValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Word '{word}' is too long for the grid (length: {len(word)}, grid size: {grid_size})",
+                            description=f"Word '{word}' is too long for the grid (length: {len(word)}, grid size: {
+                                grid_size})",
                             puzzle_id=puzzle_id,
                             location=f"words[{i}]",
                             recommendation="Shorten the word or increase grid size",

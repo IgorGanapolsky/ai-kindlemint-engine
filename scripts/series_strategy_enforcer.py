@@ -89,7 +89,8 @@ class SeriesStrategyEnforcer:
             return
 
         print(
-            f"\n🔧 Auto-generating strategy templates for {len(self.violations)} series..."
+            f"\n🔧 Auto-generating strategy templates for {
+                len(self.violations)} series..."
         )
 
         for violation in self.violations:

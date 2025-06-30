@@ -933,7 +933,8 @@ class ContextSynthesisEngine:
             await self._store_synthesis_record(synthesized_context)
 
             self.logger.info(
-                f"Synthesized context for user {user_id} with quality score {synthesized_context.quality_score:.2f}"
+                f"Synthesized context for user {user_id} with quality score {
+                    synthesized_context.quality_score:.2f}"
             )
 
             return synthesized_context

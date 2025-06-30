@@ -32,10 +32,14 @@ class PaperbackToHardcoverConverter:
 
         print(f"📐 Conversion parameters:")
         print(
-            f"   Source: 8.5×11 inches ({self.source_width:.0f}×{self.source_height:.0f} points)"
+            f"   Source: 8.5×11 inches ({
+                self.source_width:.0f}×{
+                self.source_height:.0f} points)"
         )
         print(
-            f"   Target: 6×9 inches ({self.target_width:.0f}×{self.target_height:.0f} points)"
+            f"   Target: 6×9 inches ({
+                self.target_width:.0f}×{
+                self.target_height:.0f} points)"
         )
         print(f"   Scale factor: {self.scale_factor:.3f}")
 

@@ -4,18 +4,15 @@ Refactoring Script: Replace Hardcoded Values with Configuration
 This script systematically updates Python files to use the centralized config loader
 instead of hardcoded paths and magic numbers.
 """
+from datetime import datetime
+import shutil
+import re
+import argparse
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-
-import argparse
-import re
-import shutil
-import sys
-from datetime import datetime
-from pathlib import Path
 
 # Add parent directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent))

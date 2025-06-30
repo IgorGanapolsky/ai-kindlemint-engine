@@ -4,6 +4,8 @@ Create Volume 3 with 50 truly unique crossword puzzles.
 Uses predefined puzzle templates to ensure uniqueness.
 """
 
+from scripts.config_loader import config
+import sys
 import logging
 import random
 from pathlib import Path
@@ -16,10 +18,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Import config loader at module level
-import sys
 
 sys.path.append(str(Path(__file__).parent.parent))
-from scripts.config_loader import config
 
 # Constants from config
 PAGE_WIDTH = config.get("kdp_specifications.paperback.page_width_in", 8.5) * 72
@@ -506,10 +506,12 @@ def create_pdf(puzzles, output_path):
 
     # List all 50 puzzles
     for i in range(1, 26):
-        c.drawString(MARGIN, y_position, f"Puzzle {i}: {puzzles[i-1]['theme']}")
+        c.drawString(MARGIN, y_position, f"Puzzle {i}: {puzzles[i - 1]['theme']}")
         if i + 25 <= 50:
             c.drawString(
-                PAGE_WIDTH / 2, y_position, f"Puzzle {i+25}: {puzzles[i+24]['theme']}"
+                PAGE_WIDTH / 2,
+                y_position,
+                f"Puzzle {i + 25}: {puzzles[i + 24]['theme']}",
             )
         y_position -= 20
 

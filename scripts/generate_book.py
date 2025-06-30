@@ -1,17 +1,16 @@
 # scripts/a2a_orchestrator.py
 
+from scripts.large_print_sudoku_generator import LargePrintSudokuGenerator
+from kindlemint.agents.puzzle_validator_agent import PuzzleValidatorAgent
+from kindlemint.agents.puzzle_generator_agent import PuzzleGeneratorAgent
+from kindlemint.agents.pdf_layout_agent import PDFLayoutAgent
+from kindlemint.a2a.server import A2AServer
+from kindlemint.a2a.registry import AgentRegistry
 import sys
 from pathlib import Path
 
 # Add the scripts directory to the Python path
 sys.path.append(str(Path(__file__).parent))
-
-from kindlemint.a2a.registry import AgentRegistry
-from kindlemint.a2a.server import A2AServer
-from kindlemint.agents.pdf_layout_agent import PDFLayoutAgent
-from kindlemint.agents.puzzle_generator_agent import PuzzleGeneratorAgent
-from kindlemint.agents.puzzle_validator_agent import PuzzleValidatorAgent
-from scripts.large_print_sudoku_generator import LargePrintSudokuGenerator
 
 
 class A2AOrchestrator:
@@ -45,10 +44,12 @@ class A2AOrchestrator:
 
             # 2. Validate each puzzle
             validation_result = self.puzzle_validator.validate_sudoku(
-                puzzle_data, f"puzzle_{i+1}"
+                puzzle_data, f"puzzle_{i + 1}"
             )
             if validation_result:
-                print(f"   -> Validation failed for puzzle {i+1}: {validation_result}")
+                print(
+                    f"   -> Validation failed for puzzle {i + 1}: {validation_result}"
+                )
                 # For simplicity, we'll stop on the first error.
                 # A more robust implementation would handle this differently.
                 return

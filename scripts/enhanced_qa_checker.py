@@ -136,7 +136,9 @@ class EnhancedQAChecker:
                     for issue in edge_text_issues:
                         self.add_critical_issue(
                             "TEXT_NEAR_EDGE",
-                            f"Page {issue['page']}: Text '{issue['text']}' may be cut off",
+                            f"Page {
+                                issue['page']}: Text '{
+                                issue['text']}' may be cut off",
                         )
 
                 # Render page as image for visual analysis
@@ -162,13 +164,21 @@ class EnhancedQAChecker:
                 if black_ratio > 0.5:
                     self.add_critical_issue(
                         "EXCESSIVE_BLACK",
-                        f"Page {page_num + 1}: {black_ratio*100:.1f}% black - may have rendering issues",
+                        f"Page {
+                            page_num +
+                            1}: {
+                            black_ratio *
+                            100:.1f}% black - may have rendering issues",
                     )
 
                 if white_ratio > 0.9:
                     self.add_warning(
                         "MOSTLY_WHITE",
-                        f"Page {page_num + 1}: {white_ratio*100:.1f}% white - may lack content",
+                        f"Page {
+                            page_num +
+                            1}: {
+                            white_ratio *
+                            100:.1f}% white - may lack content",
                     )
 
             doc.close()
@@ -220,7 +230,8 @@ class EnhancedQAChecker:
                                     # Numbers should be in upper-left of grid squares
                                     x, y = bbox[0], bbox[1]
 
-                                    # If number is very close to edge, it might be cut off
+                                    # If number is very close to edge, it might be cut
+                                    # off
                                     if x < 10 or y < 10:
                                         number_issues.append(
                                             {
@@ -263,11 +274,11 @@ class EnhancedQAChecker:
         elif file_size > 650 * 1024 * 1024:
             self.add_critical_issue(
                 "FILE_TOO_LARGE",
-                f"PDF {file_size/1024/1024:.1f}MB exceeds KDP 650MB limit",
+                f"PDF {file_size / 1024 / 1024:.1f}MB exceeds KDP 650MB limit",
             )
         else:
             checks["size_valid"] = True
-            print(f"  ✅ File size: {file_size/1024:.1f} KB (valid)")
+            print(f"  ✅ File size: {file_size / 1024:.1f} KB (valid)")
 
         self.qa_results["file_checks"] = checks
 
@@ -341,16 +352,17 @@ class EnhancedQAChecker:
                 if duplicate_ratio > 0.7:
                     self.add_critical_issue(
                         "HIGH_DUPLICATION",
-                        f"Content is {duplicate_ratio*100:.1f}% duplicate",
+                        f"Content is {duplicate_ratio * 100:.1f}% duplicate",
                     )
                 elif duplicate_ratio > 0.4:
                     self.add_warning(
                         "MODERATE_DUPLICATION",
-                        f"Content is {duplicate_ratio*100:.1f}% duplicate",
+                        f"Content is {duplicate_ratio * 100:.1f}% duplicate",
                     )
                 else:
                     print(
-                        f"  ✅ Content duplication: {duplicate_ratio*100:.1f}% (acceptable)"
+                        f"  ✅ Content duplication: {
+                            duplicate_ratio * 100:.1f}% (acceptable)"
                     )
 
         except Exception as e:
