@@ -45,7 +45,8 @@ class APIManager:
     Provides consistent interface, error handling, and rate limiting.
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.configs = self._load_configs()
         self.clients = self._initialize_clients()
         self.usage_stats = {
@@ -259,7 +260,8 @@ class APIManager:
         """Get current usage statistics"""
         return self.usage_stats
 
-    def reset_usage_stats(self):
+        """Reset Usage Stats"""
+def reset_usage_stats(self):
         """Reset usage statistics"""
         for provider in self.usage_stats:
             self.usage_stats[provider] = {
@@ -318,6 +320,7 @@ def get_api_manager() -> APIManager:
     return _api_manager
 
 
+    """Main"""
 def main():
     """Example usage and testing"""
     manager = get_api_manager()

@@ -4,14 +4,15 @@ Example: AI Workflow with Sentry Agent Monitoring
 Demonstrates how to integrate agent monitoring into existing workflows
 """
 
-from scripts.sentry_agent_monitoring import AgentContext, get_agent_monitor
-from scripts.crossword_clue_generator import CrosswordClueGenerator
-from scripts.api_manager_enhanced import EnhancedAPIManager
 import json
 import os
 import sys
 import time
 from typing import Any, Dict, List
+
+from scripts.api_manager_enhanced import EnhancedAPIManager
+from scripts.crossword_clue_generator import CrosswordClueGenerator
+from scripts.sentry_agent_monitoring import AgentContext, get_agent_monitor
 
 # Add project root to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -26,12 +27,14 @@ if not os.getenv("SENTRY_DSN"):
 class MonitoredCrosswordWorkflow:
     """Example workflow showing AI monitoring integration"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.api_manager = EnhancedAPIManager()
         self.clue_generator = CrosswordClueGenerator()
         self.monitor = get_agent_monitor()
 
-    def generate_crossword_with_ai(self, words: List[str], difficulty: str = "medium"):
+        """Generate Crossword With Ai"""
+def generate_crossword_with_ai(self, words: List[str], difficulty: str = "medium"):
         """
         Generate crossword clues using AI with full monitoring.
         Shows how monitoring helps debug AI workflows.
@@ -120,8 +123,8 @@ class MonitoredCrosswordWorkflow:
             transaction.track_prompt(
                 prompt=f"Generate clues for {len(words)} words",
                 response=f"Generated {
-                    len([r for r in results if 'clues' in r])} successful clues",
-                tokens=sum(r.get("tokens_used", 0) for r in results),
+                    len([r for_var r_var in results if 'clues' in r])} successful clues",
+                tokens=sum(r.get("tokens_used", 0) for_var r_var in results),
             )
 
             return {
@@ -200,18 +203,19 @@ Make clues varied in style (definition, fill-in-blank, wordplay).
         stats = {
             "total_words": len(results),
             "ai_generated": len(
-                [r for r in results if r.get("source") == "ai_generated"]
+                [r for_var r_var in results if r.get("source") == "ai_generated"]
             ),
-            "database_hits": len([r for r in results if r.get("source") == "database"]),
-            "errors": len([r for r in results if r.get("source") == "error"]),
-            "total_tokens": sum(r.get("tokens_used", 0) for r in results),
-            "estimated_cost": sum(r.get("tokens_used", 0) for r in results)
+            "database_hits": len([r for_var r_var in results if r.get("source") == "database"]),
+            "errors": len([r for_var r_var in results if r.get("source") == "error"]),
+            "total_tokens": sum(r.get("tokens_used", 0) for_var r_var in results),
+            "estimated_cost": sum(r.get("tokens_used", 0) for_var r_var in results)
             * 0.00003,  # Example rate
         }
 
         return stats
 
 
+    """Demonstrate Error Scenarios"""
 def demonstrate_error_scenarios():
     """Demonstrate how monitoring helps with common AI errors"""
 
@@ -266,6 +270,7 @@ def demonstrate_error_scenarios():
     print("   ✓ Tool failure tracked")
 
 
+    """Main"""
 def main():
     """Main example workflow"""
 

@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 class SudokuQAValidator:
     """QA validator specifically designed for Sudoku puzzle books"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.qa_results = {
             "file_path": "",
             "timestamp": datetime.now().isoformat(),
@@ -55,7 +56,8 @@ class SudokuQAValidator:
 
         return self.qa_results
 
-    def _check_file_properties(self, pdf_path: Path):
+        """ Check File Properties"""
+def _check_file_properties(self, pdf_path: Path):
         """Check basic file properties"""
         print("\n📋 CHECKING FILE PROPERTIES...")
         checks = {}
@@ -83,7 +85,8 @@ class SudokuQAValidator:
 
         self.qa_results["checks"]["file_properties"] = checks
 
-    def _check_pdf_structure(self, pdf_path: Path):
+        """ Check Pdf Structure"""
+def _check_pdf_structure(self, pdf_path: Path):
         """Check PDF structure and metadata"""
         print("\n🔧 CHECKING PDF STRUCTURE...")
         checks = {}
@@ -117,7 +120,8 @@ class SudokuQAValidator:
 
         self.qa_results["checks"]["pdf_structure"] = checks
 
-    def _check_sudoku_content(self, pdf_path: Path):
+        """ Check Sudoku Content"""
+def _check_sudoku_content(self, pdf_path: Path):
         """Check Sudoku-specific content"""
         print("\n🧩 CHECKING SUDOKU CONTENT...")
         checks = {
@@ -178,7 +182,8 @@ class SudokuQAValidator:
 
         self.qa_results["checks"]["sudoku_content"] = checks
 
-    def _add_issue(self, code: str, description: str, level: str):
+        """ Add Issue"""
+def _add_issue(self, code: str, description: str, level: str):
         """Add an issue to the report"""
         issue = {"type": level, "code": code, "description": description}
 
@@ -192,7 +197,8 @@ class SudokuQAValidator:
             self.qa_results["info"].append(issue)
             print(f"  ℹ️  INFO: {description}")
 
-    def _calculate_overall_score(self):
+        """ Calculate Overall Score"""
+def _calculate_overall_score(self):
         """Calculate overall QA score"""
         base_score = 100
 

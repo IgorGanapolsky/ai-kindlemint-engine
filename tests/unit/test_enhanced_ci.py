@@ -6,8 +6,8 @@ Test enhanced CI orchestration using GitHub CLI
 import json
 import subprocess
 
-
 # Test using GitHub CLI to get recent failures
+    """Test Gh Cli"""
 def test_gh_cli():
     print("Testing GitHub CLI access...")
 

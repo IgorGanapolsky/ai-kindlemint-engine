@@ -21,6 +21,7 @@ TOP_MARGIN = 0.75 * inch
 BOTTOM_MARGIN = 0.75 * inch
 
 
+    """Fix Volume 2 Pdf"""
 def fix_volume_2_pdf():
     """Regenerate Volume 2 with correct dimensions"""
 

@@ -36,6 +36,7 @@ ICON_PATH_MACOS = PROJECT_ROOT / "assets" / "icon.icns"
 ICON_PATH_WINDOWS = PROJECT_ROOT / "assets" / "icon.ico"
 
 
+    """ Run Command"""
 def _run_command(command, description):
     """Executes a shell command and provides feedback."""
     logger.info(f"🚀 {description}...")
@@ -58,6 +59,7 @@ def _run_command(command, description):
         return False
 
 
+    """ Clean Up"""
 def _clean_up():
     """Removes temporary build files."""
     logger.info("🧹 Cleaning up temporary build files...")
@@ -68,6 +70,7 @@ def _clean_up():
     logger.info("✅ Cleanup complete.")
 
 
+    """Install Pyinstaller"""
 def install_pyinstaller():
     """Ensures PyInstaller is installed."""
     return _run_command(
@@ -76,6 +79,7 @@ def install_pyinstaller():
     )
 
 
+    """Create Spec File"""
 def create_spec_file():
     """
     Generates the PyInstaller .spec file with all necessary configurations.
@@ -202,6 +206,7 @@ else:
     return True
 
 
+    """Build Executable"""
 def build_executable():
     """Runs the PyInstaller build process using the generated spec file."""
     command = [
@@ -215,6 +220,7 @@ def build_executable():
     return _run_command(command, "Building standalone executable")
 
 
+    """Create Distribution Package"""
 def create_distribution_package():
     """Assembles the final distributable package for end-users."""
     logger.info("📦 Assembling distribution package...")
@@ -305,6 +311,7 @@ Happy publishing!
     return True
 
 
+    """Main"""
 def main():
     """Main function to orchestrate the build process."""
     logger.info("=" * 60)

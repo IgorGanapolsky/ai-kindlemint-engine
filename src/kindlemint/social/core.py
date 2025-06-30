@@ -69,7 +69,8 @@ class ContentAtomizer:
     from book content and optimizes them for maximum engagement.
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.extraction_patterns = {
             ContentType.QUOTE: [r'"([^"]+)"', r'"([^"]+)"'],
             ContentType.TIP: [r"(?:Tip|Advice|Pro tip):\s*(.+?)(?:\.|$)"],
@@ -161,7 +162,8 @@ class ContentAtomizer:
 class PlatformOptimizer:
     """Optimizes content for specific social media platforms"""
 
-    def __init__(self, platform: PlatformType):
+        """  Init  """
+def __init__(self, platform: PlatformType):
         self.platform = platform
         self.optimization_rules = self._get_platform_rules()
 
@@ -263,7 +265,8 @@ class SocialMediaMarketing:
     community engagement, lead generation, and analytics into a unified system.
     """
 
-    def __init__(self, author_name: str, expertise_area: str):
+        """  Init  """
+def __init__(self, author_name: str, expertise_area: str):
         self.author_name = author_name
         self.expertise_area = expertise_area
         self.atomizer = ContentAtomizer()
@@ -410,6 +413,7 @@ class SocialMediaMarketing:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
 
+    """Demo Social Media Marketing"""
 def demo_social_media_marketing():
     """Demonstration of the Social Media Marketing system"""
 

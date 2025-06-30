@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).parent / "scripts"))
 
 from magnetic_marketing import MagneticMarketingEngine
 
-
+    """Test Magnetic Marketing System"""
 def test_magnetic_marketing_system():
     """Test the complete magnetic marketing system"""
 
@@ -182,6 +182,7 @@ def test_magnetic_marketing_system():
             return False
 
 
+    """Test Productivity Book"""
 def test_productivity_book():
     """Test with productivity book configuration"""
     print("\n🚀 Testing Productivity Book Configuration...")
@@ -233,6 +234,7 @@ def test_productivity_book():
             return False
 
 
+    """Test Integration Readiness"""
 def test_integration_readiness():
     """Test integration with batch processor"""
     print("\n🔧 Testing Batch Processor Integration...")
@@ -267,6 +269,7 @@ def test_integration_readiness():
         return False
 
 
+    """Test Kennedy Principles"""
 def test_kennedy_principles():
     """Test that Kennedy's principles are properly implemented"""
     print("\n🎯 Testing Kennedy's Principles Implementation...")

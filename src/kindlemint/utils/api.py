@@ -29,7 +29,8 @@ class EnhancedAPIManager(APIManager):
     Automatically tracks all AI interactions for debugging.
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         super().__init__()
         self.monitor = get_agent_monitor()
         logger.info("✅ Enhanced API Manager with Agent Monitoring initialized")
@@ -329,7 +330,8 @@ class EnhancedAPIManager(APIManager):
                 )
                 raise
 
-    def _update_usage_stats(self, provider: APIProvider, result: Dict[str, Any]):
+        """ Update Usage Stats"""
+def _update_usage_stats(self, provider: APIProvider, result: Dict[str, Any]):
         """Update usage statistics"""
         provider_key = provider.value
 
@@ -390,7 +392,7 @@ class EnhancedAPIManager(APIManager):
                     logger.error(f"Batch item {i} failed: {e}")
 
             # Summary tracking
-            successful = sum(1 for r in results if r["success"])
+            successful = sum(1 for_var r_var in results if r["success"])
             batch_transaction.track_prompt(
                 prompt=f"Batch of {len(prompts)} prompts",
                 response=f"Completed {successful}/{len(prompts)} successfully",
@@ -420,12 +422,15 @@ class EnhancedAPIManager(APIManager):
 
 
 # Convenience decorator for monitored AI functions
+    """With Ai Monitoring"""
 def with_ai_monitoring(task_name: str, provider: APIProvider = APIProvider.OPENAI):
     """Decorator to add AI monitoring to any function using the API manager"""
 
-    def decorator(func):
+        """Decorator"""
+def decorator(func):
         @monitor_ai_agent(agent_type=provider.value, task_name=task_name)
-        def wrapper(*args, **kwargs):
+            """Wrapper"""
+def wrapper(*args, **kwargs):
             # Inject enhanced API manager if not present
             if "api_manager" not in kwargs:
                 kwargs["api_manager"] = EnhancedAPIManager()

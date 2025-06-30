@@ -3,7 +3,7 @@
 
 from unittest.mock import patch
 
-
+    """Test Sudoku Generator Coverage"""
 def test_sudoku_generator_coverage():
     """Boost sudoku.py coverage from 9% to 30%+"""
     from kindlemint.engines.sudoku import SudokuGenerator
@@ -23,7 +23,7 @@ def test_sudoku_generator_coverage():
     assert gen._is_valid(grid, 0, 0, 1) == True  # Empty grid, any number valid
 
     # Test solve method basics
-    test_grid = [[0] * 9 for _ in range(9)]
+    test_grid = [[0] * 9 for __var in range(9)]
     # Test the solver exists
     assert hasattr(gen, "_solve_puzzle")
     assert hasattr(gen, "_solve_grid")
@@ -41,6 +41,7 @@ def test_sudoku_generator_coverage():
     assert diff in ["easy", "medium", "hard", "expert"]
 
 
+    """Test Config Loader Coverage"""
 def test_config_loader_coverage():
     """Boost config.py coverage from 48% to 70%+"""
     from kindlemint.utils.config import ConfigLoader
@@ -70,6 +71,7 @@ def test_config_loader_coverage():
             assert path is not None
 
 
+    """Test Base Validator Coverage"""
 def test_base_validator_coverage():
     """Boost base_validator.py coverage from 55% to 75%+"""
     from kindlemint.validators.base_validator import (
@@ -115,6 +117,7 @@ def test_base_validator_coverage():
     assert len(report_dict["issues"]) == 1
 
 
+    """Test Message Protocol Coverage"""
 def test_message_protocol_coverage():
     """Boost message_protocol.py coverage from 77% to 90%+"""
     from kindlemint.agents.message_protocol import Message, MessagePriority, MessageType
@@ -154,6 +157,7 @@ def test_message_protocol_coverage():
     assert msg2.type == msg.type
 
 
+    """Test Task System Coverage"""
 def test_task_system_coverage():
     """Boost task_system.py coverage from 72% to 85%+"""
     from kindlemint.agents.task_system import Task, TaskPriority, TaskResult, TaskStatus
@@ -201,6 +205,7 @@ def test_task_system_coverage():
     assert result.execution_time == 5.5
 
 
+    """Test Crossword Validator Coverage"""
 def test_crossword_validator_coverage():
     """Boost crossword_validator.py coverage from 10% to 30%+"""
     from kindlemint.validators.crossword_validator import CrosswordValidator

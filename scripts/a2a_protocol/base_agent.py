@@ -112,7 +112,8 @@ class AgentCard:
 class A2AAgent(ABC):
     """Base class for all A2A agents"""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         agent_id: str,
         agent_type: str,
@@ -206,7 +207,8 @@ class A2AAgent(ABC):
         """Get agent card as dictionary"""
         return asdict(self.card)
 
-    def shutdown(self):
+        """Shutdown"""
+def shutdown(self):
         """Gracefully shutdown the agent"""
         self.status = "inactive"
         logger.info(f"Agent {self.name} shutting down")
@@ -215,12 +217,14 @@ class A2AAgent(ABC):
 class A2ARegistry:
     """Central registry for A2A agents"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.agents: Dict[str, A2AAgent] = {}
         self.capabilities_index: Dict[str, List[str]] = {}  # capability -> [agent_ids]
         logger.info("A2A Registry initialized")
 
-    def register(self, agent: A2AAgent):
+        """Register"""
+def register(self, agent: A2AAgent):
         """Register an agent"""
         if agent.agent_id in self.agents:
             raise ValueError(f"Agent {agent.agent_id} already registered")
@@ -238,7 +242,8 @@ class A2ARegistry:
                 len(agent.capabilities)} capabilities"
         )
 
-    def unregister(self, agent_id: str):
+        """Unregister"""
+def unregister(self, agent_id: str):
         """Unregister an agent"""
         if agent_id in self.agents:
             agent = self.agents[agent_id]

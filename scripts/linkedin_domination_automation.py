@@ -33,7 +33,8 @@ class LinkedInDominationAutomation:
     Transforms authors into recognized experts in their space
     """
 
-    def __init__(self, book_config: Dict, book_artifacts: Dict):
+        """  Init  """
+def __init__(self, book_config: Dict, book_artifacts: Dict):
         """Initialize the LinkedIn Domination Automation"""
         self.book_config = book_config
         self.book_artifacts = book_artifacts
@@ -1705,6 +1706,7 @@ class LinkedInDominationAutomation:
         return {"automation_scheduler": str(scheduler_file)}
 
 
+    """Main"""
 def main():
     """CLI interface for LinkedIn domination automation"""
     import argparse

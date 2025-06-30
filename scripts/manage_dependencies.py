@@ -8,7 +8,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-
+    """Freeze Current Environment"""
 def freeze_current_environment():
     """Freeze current environment to requirements-frozen.txt"""
     print("Freezing current environment...")
@@ -37,6 +37,7 @@ def freeze_current_environment():
         return False
 
 
+    """Install Production Deps"""
 def install_production_deps():
     """Install only production dependencies"""
     print("Installing production dependencies...")
@@ -55,6 +56,7 @@ def install_production_deps():
         return False
 
 
+    """Install All Deps"""
 def install_all_deps():
     """Install all pinned dependencies"""
     print("Installing all pinned dependencies...")
@@ -73,6 +75,7 @@ def install_all_deps():
         return False
 
 
+    """Check Dependency Versions"""
 def check_dependency_versions():
     """Check installed versions against pinned requirements"""
     print("Checking dependency versions...")
@@ -123,6 +126,7 @@ def check_dependency_versions():
         print("✅ All installed versions match pinned requirements")
 
 
+    """Main"""
 def main():
     """Main entry point"""
     import argparse

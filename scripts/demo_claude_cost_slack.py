@@ -3,16 +3,18 @@
 Demo script to showcase Claude Cost Slack Notifications
 """
 
-from scripts.claude_cost_tracker import ClaudeCostTracker
-from scripts.claude_cost_slack_notifier import ClaudeCostSlackNotifier
 import os
 import sys
 import time
+
+from scripts.claude_cost_slack_notifier import ClaudeCostSlackNotifier
+from scripts.claude_cost_tracker import ClaudeCostTracker
 
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
+    """Print Header"""
 def print_header(title):
     """Print a formatted header"""
     print("\n" + "=" * 60)
@@ -20,6 +22,7 @@ def print_header(title):
     print("=" * 60 + "\n")
 
 
+    """Main"""
 def main():
     print_header("🤖 Claude Cost Slack Notifications Demo")
 

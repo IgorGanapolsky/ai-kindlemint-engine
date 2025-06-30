@@ -11,7 +11,8 @@ from pathlib import Path
 class TestBookGenerationPipeline:
     """Test the complete book generation pipeline - our money maker"""
 
-    def test_sudoku_book_generation_full_pipeline(self):
+        """Test Sudoku Book Generation Full Pipeline"""
+def test_sudoku_book_generation_full_pipeline(self):
         """Test complete sudoku book generation - covers ~10 modules"""
         # This single test covers: engines, validators, metadata, and more
         from kindlemint.engines.sudoku import SudokuPuzzle
@@ -19,8 +20,8 @@ class TestBookGenerationPipeline:
 
         # Create a simple sudoku puzzle
         puzzle = SudokuPuzzle(
-            grid=[[0] * 9 for _ in range(9)],
-            solution=[[1] * 9 for _ in range(9)],
+            grid=[[0] * 9 for __var in range(9)],
+            solution=[[1] * 9 for __var in range(9)],
             difficulty="easy",
             puzzle_id=1,
         )
@@ -36,7 +37,8 @@ class TestBookGenerationPipeline:
         assert report.is_valid() is True
         assert report.total_puzzles == 1
 
-    def test_pdf_generation_pipeline(self):
+        """Test Pdf Generation Pipeline"""
+def test_pdf_generation_pipeline(self):
         """Test PDF generation - critical for deliverables"""
         from pathlib import Path
 
@@ -47,7 +49,8 @@ class TestBookGenerationPipeline:
             ensure_directory(output_dir)
             assert output_dir.exists()
 
-    def test_validation_pipeline(self):
+        """Test Validation Pipeline"""
+def test_validation_pipeline(self):
         """Test our QA validation - prevents bad books"""
         from kindlemint.validators.base_validator import (
             IssueSeverity,
@@ -78,7 +81,8 @@ class TestBookGenerationPipeline:
 class TestAgentSystem:
     """Test our multi-agent system - core architecture"""
 
-    def test_agent_communication(self):
+        """Test Agent Communication"""
+def test_agent_communication(self):
         """Test agent message passing"""
         from kindlemint.agents.agent_types import AgentCapability
         from kindlemint.agents.message_protocol import MessageType
@@ -92,7 +96,8 @@ class TestAgentSystem:
         assert MessageType.TASK_REQUEST.value == "task_request"
         assert MessageType.TASK_COMPLETION.value == "task_completion"
 
-    def test_task_system(self):
+        """Test Task System"""
+def test_task_system(self):
         """Test task management"""
         from kindlemint.agents.task_system import TaskPriority, TaskStatus
 
@@ -109,7 +114,8 @@ class TestAgentSystem:
 class TestCoreUtilities:
     """Test utility functions used everywhere"""
 
-    def test_logging_setup(self):
+        """Test Logging Setup"""
+def test_logging_setup(self):
         """Test logging configuration"""
         from kindlemint.utils import get_logger
 
@@ -117,7 +123,8 @@ class TestCoreUtilities:
         assert logger is not None
         assert logger.name == "test_module"
 
-    def test_json_operations(self):
+        """Test Json Operations"""
+def test_json_operations(self):
         """Test JSON load/save utilities"""
         from kindlemint.utils import load_json, save_json
 
@@ -131,7 +138,8 @@ class TestCoreUtilities:
 
             Path(f.name).unlink()
 
-    def test_timestamp_formatting(self):
+        """Test Timestamp Formatting"""
+def test_timestamp_formatting(self):
         """Test timestamp utilities"""
         from datetime import datetime
 

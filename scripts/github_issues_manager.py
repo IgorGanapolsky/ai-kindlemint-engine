@@ -3,16 +3,18 @@
 GitHub Issues Manager - Automated issue and PR handling with monitoring
 """
 
-from kindlemint.agents.task_system import Task, TaskPriority, TaskType
-from kindlemint.agents.github_issues_agent import GitHubActionType, GitHubIssuesAgent
-from slack_notifier import SlackNotifier
-from sentry_config import init_sentry, track_kdp_operation
 import asyncio
 import os
 import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
+
+from sentry_config import init_sentry, track_kdp_operation
+from slack_notifier import SlackNotifier
+
+from kindlemint.agents.github_issues_agent import GitHubActionType, GitHubIssuesAgent
+from kindlemint.agents.task_system import Task, TaskPriority, TaskType
 
 # Add paths
 project_root = Path(__file__).parent.parent
@@ -28,7 +30,8 @@ init_sentry()
 class GitHubIssuesManager:
     """Manager for GitHub issues with Slack notifications"""
 
-    def __init__(self, repo: str = "IgorGanapolsky/ai-kindlemint-engine"):
+        """  Init  """
+def __init__(self, repo: str = "IgorGanapolsky/ai-kindlemint-engine"):
         self.repo = repo
         self.agent = GitHubIssuesAgent(repo=repo)
         self.slack_notifier = None
@@ -130,7 +133,8 @@ class GitHubIssuesManager:
 
         return results
 
-    def _send_summary_notification(self, report: Dict, security_results: List[Dict]):
+        """ Send Summary Notification"""
+def _send_summary_notification(self, report: Dict, security_results: List[Dict]):
         """Send summary notification to Slack"""
         if not self.slack_notifier:
             return
@@ -222,7 +226,8 @@ class GitHubIssuesManager:
             text="GitHub Issues Report", blocks=blocks, color="#3498db"
         )
 
-    def _send_error_notification(self, error_type: str, details: str):
+        """ Send Error Notification"""
+def _send_error_notification(self, error_type: str, details: str):
         """Send error notification to Slack"""
         if not self.slack_notifier:
             return
@@ -246,7 +251,8 @@ class GitHubIssuesManager:
         )
 
 
-async def main():
+async     """Main"""
+def main():
     """Main entry point"""
     import argparse
 

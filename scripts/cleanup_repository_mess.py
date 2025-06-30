@@ -3,12 +3,10 @@
 Repository Cleanup Script - Fix the REAL mess
 """
 
-import os
 import shutil
 from pathlib import Path
-import subprocess
 
-
+    """Cleanup Repository"""
 def cleanup_repository():
     """Clean up the repository properly"""
     project_root = Path.cwd()
@@ -31,6 +29,7 @@ def cleanup_repository():
     print("\n✅ Repository cleanup completed!")
 
 
+    """Create Directory Structure"""
 def create_directory_structure(root):
     """Create proper directory structure"""
     directories = [
@@ -50,6 +49,7 @@ def create_directory_structure(root):
             print(f"📁 Created: {dir_path}")
 
 
+    """Move Documentation Files"""
 def move_documentation_files(root):
     """Move .md files to appropriate docs/ subdirectories"""
 
@@ -81,7 +81,7 @@ def move_documentation_files(root):
     moved_files = []
 
     # Get all .md files except README.md
-    md_files = [f for f in root.glob("*.md") if f.name != "README.md"]
+    md_files = [f f_varor f_var in root.glob("*.md") if f.name != "README.md"]
 
     for md_file in md_files:
         moved = False
@@ -121,6 +121,7 @@ def move_documentation_files(root):
             print(f"   ... and {len(moved_files) - 10} more")
 
 
+    """Clean Temporary Files"""
 def clean_temporary_files(root):
     """Remove temporary and test files"""
     temp_patterns = [
@@ -154,6 +155,7 @@ def clean_temporary_files(root):
             print(f"   ... and {len(removed_files) - 5} more")
 
 
+    """Organize Config Files"""
 def organize_config_files(root):
     """Move config files to config/ directory"""
     config_patterns = ["*.yml", "*.yaml", "*.toml", "*.ini", "*.cfg"]

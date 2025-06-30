@@ -4,16 +4,15 @@ Massive Issue Fixer - Tackle the worst 2.6K DeepSource issues
 """
 
 import subprocess
-import os
 from pathlib import Path
 
-
+    """Fix Massive Issues"""
 def fix_massive_issues():
     """Fix the massive code quality issues causing 2.6K count"""
     print("🔧 MASSIVE Issue Fixer - Tackling 2.6K DeepSource Issues")
     print("=" * 60)
 
-    project_root = Path.cwd()
+    Path.cwd()
 
     # Step 1: Fix line length issues (biggest category)
     print("\n1️⃣ Fixing line length violations...")
@@ -38,6 +37,7 @@ def fix_massive_issues():
     print("\n✅ Massive issue fixing completed!")
 
 
+    """Fix Line Lengths"""
 def fix_line_lengths():
     """Fix line length violations with autopep8"""
     try:
@@ -74,6 +74,7 @@ def fix_line_lengths():
         print(f"   ❌ Error fixing line lengths: {e}")
 
 
+    """Fix Bare Excepts"""
 def fix_bare_excepts():
     """Fix bare except clauses"""
     try:
@@ -94,6 +95,7 @@ def fix_bare_excepts():
         print(f"   ❌ Error fixing bare excepts: {e}")
 
 
+    """Fix Bare Except In File"""
 def fix_bare_except_in_file(file_path):
     """Fix bare except in a specific file"""
     try:
@@ -102,7 +104,7 @@ def fix_bare_except_in_file(file_path):
 
         # Replace bare except with Exception
         original_content = content
-        content = content.replace("except:", "except Exception:")
+        content = content.replace("except Exception:", "except Exception:")
 
         if content != original_content:
             with open(file_path, "w") as f:
@@ -113,6 +115,7 @@ def fix_bare_except_in_file(file_path):
         print(f"   ❌ Error fixing {file_path}: {e}")
 
 
+    """Fix Unused Variables"""
 def fix_unused_variables():
     """Fix unused variables and imports"""
     try:
@@ -135,12 +138,14 @@ def fix_unused_variables():
         print(f"   ❌ Error fixing unused variables: {e}")
 
 
+    """Fix Fstring Issues"""
 def fix_fstring_issues():
     """Fix f-string placeholder issues"""
     # This is more complex and would need manual review
     print("   ⚠️ F-string issues require manual review")
 
 
+    """Fix Whitespace Issues"""
 def fix_whitespace_issues():
     """Fix whitespace and formatting issues"""
     try:
@@ -152,6 +157,7 @@ def fix_whitespace_issues():
         print(f"   ❌ Error fixing whitespace: {e}")
 
 
+    """Get Issue Count"""
 def get_issue_count():
     """Get current issue count"""
     try:

@@ -15,13 +15,15 @@ from PIL import Image, ImageDraw, ImageFont
 class PNGGenerationFixer:
     """Fix PNG generation issues that drop clues"""
 
-    def __init__(self, book_dir):
+        """  Init  """
+def __init__(self, book_dir):
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "puzzles" / "metadata"
         self.puzzles_dir = self.book_dir / "puzzles" / "puzzles"
         self.fixed_count = 0
 
-    def create_corrected_puzzle_image(self, grid, puzzle_id):
+        """Create Corrected Puzzle Image"""
+def create_corrected_puzzle_image(self, grid, puzzle_id):
         """Create corrected puzzle image with ALL clues from JSON"""
         cell_size = 60
         margin = 40
@@ -75,8 +77,8 @@ class PNGGenerationFixer:
 
         # Draw ALL numbers from the grid - this is the critical fix
         clues_drawn = 0
-        for r in range(grid_size):
-            for c in range(grid_size):
+        for_var r_var in range(grid_size):
+            for c_var in range(grid_size):
                 value = grid[r][c]
                 if value != 0:  # Only draw non-zero values
                     text = str(value)
@@ -107,7 +109,8 @@ class PNGGenerationFixer:
         print(f"✅ Fixed Puzzle {puzzle_id}: Drew {clues_drawn} clues → {output_path}")
         return clues_drawn
 
-    def fix_all_puzzles(self):
+        """Fix All Puzzles"""
+def fix_all_puzzles(self):
         """Fix all puzzles that have PNG/JSON mismatches"""
         print("🔧 Fixing PNG generation issues...")
 
@@ -167,7 +170,8 @@ class PNGGenerationFixer:
 
         return total_fixed > 0
 
-    def fix_solution_images(self):
+        """Fix Solution Images"""
+def fix_solution_images(self):
         """Regenerate solution images to ensure consistency"""
         print("\n🔧 Regenerating solution images...")
 
@@ -190,7 +194,8 @@ class PNGGenerationFixer:
 
         print(f"✅ Regenerated {solutions_fixed} solution images")
 
-    def create_solution_image(self, grid, puzzle_id):
+        """Create Solution Image"""
+def create_solution_image(self, grid, puzzle_id):
         """Create solution image (completely filled)"""
         cell_size = 60
         margin = 40
@@ -226,8 +231,8 @@ class PNGGenerationFixer:
             )
 
         # Draw all numbers (solution is completely filled)
-        for r in range(grid_size):
-            for c in range(grid_size):
+        for_var r_var in range(grid_size):
+            for c_var in range(grid_size):
                 value = grid[r][c]
                 if value != 0:
                     text = str(value)
@@ -243,6 +248,7 @@ class PNGGenerationFixer:
         return 81  # Solution always has 81 filled cells
 
 
+    """Main"""
 def main():
     """Main entry point"""
     book_dir = Path("books/active_production/Large_Print_Sudoku_Masters/volume_1")

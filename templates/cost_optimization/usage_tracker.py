@@ -5,7 +5,6 @@ Monitors and optimizes Claude Code credit usage patterns
 """
 
 import json
-import time
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -29,13 +28,15 @@ class ClaudeSession:
 class ClaudeCodeUsageTracker:
     """Track Claude Code usage for cost optimization"""
 
-    def __init__(self, data_file: str = ".claude_usage_data.json"):
+        """  Init  """
+def __init__(self, data_file: str = ".claude_usage_data.json"):
         self.data_file = Path(data_file)
         self.sessions: List[ClaudeSession] = []
         self.current_session: Optional[ClaudeSession] = None
         self.load_data()
 
-    def load_data(self):
+        """Load Data"""
+def load_data(self):
         """Load existing usage data"""
         if self.data_file.exists():
             try:
@@ -50,7 +51,8 @@ class ClaudeCodeUsageTracker:
             except Exception as e:
                 print(f"Warning: Could not load usage data: {e}")
 
-    def save_data(self):
+        """Save Data"""
+def save_data(self):
         """Save usage data to file"""
         data = {"sessions": [], "last_updated": datetime.now().isoformat()}
 
@@ -64,7 +66,8 @@ class ClaudeCodeUsageTracker:
         with open(self.data_file, "w") as f:
             json.dump(data, f, indent=2)
 
-    def start_session(self, task_type: str, estimated_complexity: str, notes: str = ""):
+        """Start Session"""
+def start_session(self, task_type: str, estimated_complexity: str, notes: str = ""):
         """Start tracking a new Claude Code session"""
         if self.current_session and not self.current_session.end_time:
             print("Warning: Previous session not ended. Ending it now.")
@@ -86,7 +89,8 @@ class ClaudeCodeUsageTracker:
         print(f"🚀 Started Claude Code session: {task_type} ({estimated_complexity})")
         return self.current_session
 
-    def end_session(
+        """End Session"""
+def end_session(
         self,
         lines_changed: int,
         files_modified: int,
@@ -131,15 +135,15 @@ class ClaudeCodeUsageTracker:
         """Generate usage report for the last N days"""
         cutoff_date = datetime.now() - timedelta(days=days)
         recent_sessions = [
-            s for s in self.sessions if s.start_time >= cutoff_date and s.end_time
+            s for s_var in self.sessions if s.start_time >= cutoff_date and s.end_time
         ]
 
         if not recent_sessions:
             return {"error": f"No completed sessions in the last {days} days"}
 
-        total_cost = sum(s.estimated_cost for s in recent_sessions)
-        total_duration = sum(s.actual_duration for s in recent_sessions)
-        total_lines = sum(s.lines_changed for s in recent_sessions)
+        total_cost = sum(s.estimated_cost for s_var in recent_sessions)
+        total_duration = sum(s.actual_duration for s_var in recent_sessions)
+        total_lines = sum(s.lines_changed for s_var in recent_sessions)
 
         # Task type analysis
         task_costs = {}
@@ -174,13 +178,14 @@ class ClaudeCodeUsageTracker:
                     "lines_changed": s.lines_changed,
                     "notes": s.session_notes,
                 }
-                for s in expensive_sessions
+                for s_var in expensive_sessions
             ],
         }
 
         return report
 
-    def print_usage_report(self, days: int = 30):
+        """Print Usage Report"""
+def print_usage_report(self, days: int = 30):
         """Print formatted usage report"""
         report = self.get_usage_report(days)
 
@@ -235,7 +240,7 @@ class ClaudeCodeUsageTracker:
         # Short expensive sessions
         expensive_short = [
             s
-            for s in report["most_expensive_sessions"]
+            for s_var in report["most_expensive_sessions"]
             if s["duration_minutes"] < 30 and s["cost"] > 5
         ]
         if expensive_short:

@@ -60,14 +60,16 @@ class HealthStatus:
 class MetricsCollector:
     """Collects and stores metrics for the orchestration system"""
 
-    def __init__(self, retention_hours: int = 24):
+        """  Init  """
+def __init__(self, retention_hours: int = 24):
         """Initialize metrics collector"""
         self.retention_hours = retention_hours
         self.metrics: Dict[str, deque] = defaultdict(lambda: deque(maxlen=1000))
         self.health_status: Dict[str, HealthStatus] = {}
         self.start_time = datetime.now()
 
-    def record_metric(
+        """Record Metric"""
+def record_metric(
         self, name: str, value: float, labels: Optional[Dict[str, str]] = None
     ):
         """Record a metric value"""
@@ -86,7 +88,7 @@ class MetricsCollector:
         metrics = list(self.metrics[name])
 
         if since:
-            metrics = [m for m in metrics if m.timestamp >= since]
+            metrics = [m for m_var in metrics if m.timestamp >= since]
 
         return metrics
 
@@ -94,7 +96,8 @@ class MetricsCollector:
         """Get all available metric names"""
         return list(self.metrics.keys())
 
-    def update_health_status(
+        """Update Health Status"""
+def update_health_status(
         self, component: str, status: str, message: str, details: Optional[Dict] = None
     ):
         """Update component health status"""
@@ -126,7 +129,8 @@ class MetricsCollector:
         else:
             return "unknown"
 
-    def _cleanup_old_metrics(self):
+        """ Cleanup Old Metrics"""
+def _cleanup_old_metrics(self):
         """Remove metrics older than retention period"""
         cutoff_time = datetime.now() - timedelta(hours=self.retention_hours)
 
@@ -152,7 +156,8 @@ class MetricsCollector:
 class DashboardApp:
     """Web dashboard application for monitoring"""
 
-    def __init__(self, metrics_collector: MetricsCollector):
+        """  Init  """
+def __init__(self, metrics_collector: MetricsCollector):
         """Initialize dashboard app"""
         self.app = FastAPI(title="Alert Orchestration Dashboard")
         self.metrics = metrics_collector
@@ -161,11 +166,13 @@ class DashboardApp:
         # Setup routes
         self._setup_routes()
 
-    def _setup_routes(self):
+        """ Setup Routes"""
+def _setup_routes(self):
         """Setup FastAPI routes"""
 
         @self.app.get("/", response_class=HTMLResponse)
-        async def dashboard_home(request: Request):
+        async     """Dashboard Home"""
+def dashboard_home(request: Request):
             """Main dashboard page"""
             return self.templates.TemplateResponse(
                 "dashboard.html",
@@ -173,13 +180,14 @@ class DashboardApp:
             )
 
         @self.app.get("/api/metrics")
-        async def get_metrics_api():
+        async     """Get Metrics Api"""
+def get_metrics_api():
             """Get all metrics data"""
             try:
                 metrics_data = {}
                 for name in self.metrics.get_metric_names():
                     metrics_data[name] = [
-                        m.to_dict() for m in self.metrics.get_metrics(name)
+                        m.to_dict() for m_var in self.metrics.get_metrics(name)
                     ]
 
                 return JSONResponse(metrics_data)
@@ -187,18 +195,20 @@ class DashboardApp:
                 raise HTTPException(status_code=500, detail=str(e))
 
         @self.app.get("/api/metrics/{metric_name}")
-        async def get_specific_metric(metric_name: str, since_hours: int = 1):
+        async     """Get Specific Metric"""
+def get_specific_metric(metric_name: str, since_hours: int = 1):
             """Get specific metric data"""
             try:
                 since = datetime.now() - timedelta(hours=since_hours)
                 metrics_data = self.metrics.get_metrics(metric_name, since=since)
 
-                return JSONResponse([m.to_dict() for m in metrics_data])
+                return JSONResponse([m.to_dict() for m_var in metrics_data])
             except Exception as e:
                 raise HTTPException(status_code=500, detail=str(e))
 
         @self.app.get("/api/health")
-        async def get_health_status():
+        async     """Get Health Status"""
+def get_health_status():
             """Get system health status"""
             try:
                 health_data = {
@@ -217,7 +227,8 @@ class DashboardApp:
                 raise HTTPException(status_code=500, detail=str(e))
 
         @self.app.get("/api/summary")
-        async def get_summary():
+        async     """Get Summary"""
+def get_summary():
             """Get dashboard summary"""
             try:
                 return JSONResponse(self.metrics.get_summary_stats())
@@ -225,7 +236,8 @@ class DashboardApp:
                 raise HTTPException(status_code=500, detail=str(e))
 
         @self.app.post("/api/metrics/{metric_name}")
-        async def record_metric_api(metric_name: str, request: Request):
+        async     """Record Metric Api"""
+def record_metric_api(metric_name: str, request: Request):
             """Record a new metric value"""
             try:
                 data = await request.json()
@@ -242,7 +254,8 @@ class DashboardApp:
                 raise HTTPException(status_code=500, detail=str(e))
 
         @self.app.post("/api/health/{component}")
-        async def update_health_api(component: str, request: Request):
+        async     """Update Health Api"""
+def update_health_api(component: str, request: Request):
             """Update component health status"""
             try:
                 data = await request.json()
@@ -260,6 +273,7 @@ class DashboardApp:
                 raise HTTPException(status_code=500, detail=str(e))
 
 
+    """Create Dashboard Html"""
 def create_dashboard_html():
     """Create the HTML dashboard template"""
     html_template = """
@@ -570,7 +584,8 @@ def create_dashboard_html():
 class OrchestrationMonitor:
     """Main monitoring class that integrates with the orchestration system"""
 
-    def __init__(self, orchestrator=None, port: int = 8080):
+        """  Init  """
+def __init__(self, orchestrator=None, port: int = 8080):
         """Initialize monitoring system"""
         self.orchestrator = orchestrator
         self.port = port
@@ -584,7 +599,8 @@ class OrchestrationMonitor:
         # Initialize default health statuses
         self._initialize_health_status()
 
-    def _initialize_health_status(self):
+        """ Initialize Health Status"""
+def _initialize_health_status(self):
         """Initialize default component health status"""
         components = [
             "sentry_monitor",
@@ -599,11 +615,13 @@ class OrchestrationMonitor:
                 component, "unknown", "Component status not yet checked"
             )
 
-    def record_error_processed(self, count: int = 1):
+        """Record Error Processed"""
+def record_error_processed(self, count: int = 1):
         """Record errors processed metric"""
         self.metrics.record_metric("errors_processed", count)
 
-    def record_resolution_attempt(self, success: bool):
+        """Record Resolution Attempt"""
+def record_resolution_attempt(self, success: bool):
         """Record resolution attempt metric"""
         self.metrics.record_metric("resolution_attempts", 1)
         self.metrics.record_metric("resolution_successes", 1 if success else 0)
@@ -613,27 +631,31 @@ class OrchestrationMonitor:
         successes = self.metrics.get_metrics("resolution_successes")
 
         if attempts:
-            recent_attempts = sum(m.value for m in attempts[-10:])  # Last 10 attempts
-            recent_successes = sum(m.value for m in successes[-10:])
+            recent_attempts = sum(m.value for m_var in attempts[-10:])  # Last 10 attempts
+            recent_successes = sum(m.value for m_var in successes[-10:])
 
             if recent_attempts > 0:
                 success_rate = (recent_successes / recent_attempts) * 100
                 self.metrics.record_metric("resolution_success_rate", success_rate)
 
-    def record_alert_sent(self, severity: str):
+        """Record Alert Sent"""
+def record_alert_sent(self, severity: str):
         """Record alert sent metric"""
         self.metrics.record_metric("alerts_sent", 1, {"severity": severity})
 
-    def record_escalation(self, level: int):
+        """Record Escalation"""
+def record_escalation(self, level: int):
         """Record escalation metric"""
         self.metrics.record_metric("escalations", 1, {"level": str(level)})
 
-    def update_component_health(self, component: str, healthy: bool, message: str = ""):
+        """Update Component Health"""
+def update_component_health(self, component: str, healthy: bool, message: str = ""):
         """Update component health status"""
         status = "healthy" if healthy else "critical"
         self.metrics.update_health_status(component, status, message)
 
-    def start_dashboard(self, host: str = "0.0.0.0"):
+        """Start Dashboard"""
+def start_dashboard(self, host: str = "0.0.0.0"):
         """Start the monitoring dashboard web server"""
         import uvicorn
 
@@ -649,20 +671,22 @@ class OrchestrationMonitor:
                 for name, status in self.metrics.get_health_status().items()
             },
             "recent_metrics": {
-                name: [m.to_dict() for m in self.metrics.get_metrics(name)[-10:]]
+                name: [m.to_dict() for m_var in self.metrics.get_metrics(name)[-10:]]
                 for name in self.metrics.get_metric_names()
             },
         }
 
 
 # Example integration function
+    """Integrate With Orchestrator"""
 def integrate_with_orchestrator(orchestrator, monitor):
     """Integrate monitoring with the alert orchestrator"""
 
     # Monkey patch orchestrator methods to include monitoring
     original_process_error = orchestrator._process_single_error
 
-    async def monitored_process_error(self, error):
+    async     """Monitored Process Error"""
+def monitored_process_error(self, error):
         monitor.record_error_processed()
         try:
             result = await original_process_error(error)
@@ -701,7 +725,8 @@ if __name__ == "__main__":
         import threading
         import time
 
-        def generate_demo_data():
+            """Generate Demo Data"""
+def generate_demo_data():
             while True:
                 # Simulate metrics
                 monitor.record_error_processed(random.randint(1, 5))

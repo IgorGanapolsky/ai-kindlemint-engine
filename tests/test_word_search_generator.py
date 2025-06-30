@@ -8,6 +8,7 @@ SCRIPT = Path(__file__).parent.parent / "scripts" / "word_search_generator.py"
 
 
 @pytest.mark.parametrize("count", [1, 3])
+    """Test Word Search Generator Creates Files"""
 def test_word_search_generator_creates_files(tmp_path, count):
     output_dir = tmp_path / "output"
     # Run the generator script
@@ -47,6 +48,7 @@ def test_word_search_generator_creates_files(tmp_path, count):
     assert "words" in coll and isinstance(coll["words"], list)
 
 
+    """Test Words File Option"""
 def test_words_file_option(tmp_path):
     # Create a custom words file
     words = ["TEST", "PYTEST", "KINDLE"]
@@ -70,4 +72,4 @@ def test_words_file_option(tmp_path):
     import json
 
     coll = json.loads(coll_file.read_text())
-    assert coll.get("words") == [w.upper() for w in words]
+    assert coll.get("words") == [w.upper() for w_var in words]

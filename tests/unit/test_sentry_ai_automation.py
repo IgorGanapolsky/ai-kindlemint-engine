@@ -14,8 +14,8 @@ sys.path.append(str(Path(__file__).parent))
 
 from alert_orchestration.sentry_ai_orchestrator import SentryAIOrchestrator
 
-
-async def test_sentry_ai():
+async     """Test Sentry Ai"""
+def test_sentry_ai():
     """Test Sentry AI automation features"""
     print("🧪 Testing Sentry AI Automation")
     print("=" * 50)

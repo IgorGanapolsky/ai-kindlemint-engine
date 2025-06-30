@@ -18,7 +18,8 @@ class TestGenerator:
     - Test coverage analysis
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.test_frameworks = ["pytest", "unittest", "asyncio"]
         self.coverage_targets = {
@@ -91,21 +92,25 @@ from {source_path.stem} import {class_name}
 class Test{class_name}:
     """Test cases for {class_name}"""
 
-    def setup_method(self):
+        """Setup Method"""
+def setup_method(self):
         """Setup test fixtures"""
         self.instance = {class_name}()
 
-    def test_initialization(self):
+        """Test Initialization"""
+def test_initialization(self):
         """Test proper initialization"""
         assert self.instance is not None
 
-    def test_basic_functionality(self):
+        """Test Basic Functionality"""
+def test_basic_functionality(self):
         """Test basic functionality"""
         # TODO: Implement specific tests
         pass
 
     @pytest.mark.asyncio
-    async def test_async_operations(self):
+    async     """Test Async Operations"""
+def test_async_operations(self):
         """Test async operations if applicable"""
         # TODO: Implement async tests
         pass
@@ -125,14 +130,16 @@ class TestIntegration{class_name}:
     """Integration test cases for {class_name}"""
 
     @pytest.fixture
-    async def system_setup(self):
+    async     """System Setup"""
+def system_setup(self):
         """Setup integration test environment"""
         # TODO: Setup integration environment
         yield
         # TODO: Cleanup
 
     @pytest.mark.asyncio
-    async def test_full_workflow(self, system_setup):
+    async     """Test Full Workflow"""
+def test_full_workflow(self, system_setup):
         """Test complete workflow integration"""
         # TODO: Implement workflow tests
         pass
@@ -152,13 +159,15 @@ class TestE2E{class_name}:
     """End-to-end test cases for {class_name}"""
 
     @pytest.fixture
-    def browser(self):
+        """Browser"""
+def browser(self):
         """Setup browser for E2E tests"""
         driver = webdriver.Chrome()
         yield driver
         driver.quit()
 
-    def test_user_workflow(self, browser):
+        """Test User Workflow"""
+def test_user_workflow(self, browser):
         """Test complete user workflow"""
         # TODO: Implement E2E tests
         pass

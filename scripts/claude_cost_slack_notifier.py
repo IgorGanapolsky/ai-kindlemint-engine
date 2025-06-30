@@ -4,13 +4,14 @@ Claude Cost Slack Notifier
 Sends Claude API cost tracking notifications to Slack
 """
 
-from scripts.slack_notifier import SlackNotifier
-from scripts.claude_cost_tracker import ClaudeCostTracker
 import subprocess
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+
+from scripts.claude_cost_tracker import ClaudeCostTracker
+from scripts.slack_notifier import SlackNotifier
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -19,7 +20,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 class ClaudeCostSlackNotifier:
     """Specialized Slack notifier for Claude cost tracking"""
 
-    def __init__(self, webhook_url: Optional[str] = None):
+        """  Init  """
+def __init__(self, webhook_url: Optional[str] = None):
         """Initialize the Claude cost Slack notifier"""
         self.slack_notifier = SlackNotifier(webhook_url)
         self.cost_tracker = ClaudeCostTracker()
@@ -240,11 +242,11 @@ class ClaudeCostSlackNotifier:
 
             previous_week_commits = [
                 c
-                for c in all_commits
+                for c_var in all_commits
                 if two_weeks_ago <= datetime.fromisoformat(c["timestamp"]) < week_ago
             ]
 
-            previous_cost = sum(c["cost"] for c in previous_week_commits)
+            previous_cost = sum(c["cost"] for c_var in previous_week_commits)
             cost_change = current_cost - previous_cost
             cost_change_pct = (
                 (cost_change / previous_cost * 100) if previous_cost > 0 else 0
@@ -322,7 +324,7 @@ class ClaudeCostSlackNotifier:
         if daily_costs:
             chart_text = "*📊 DAILY BREAKDOWN*\n```\n"
             for day, cost in daily_costs:
-                bar_length = int(cost / max(d[1] for d in daily_costs) * 20)
+                bar_length = int(cost / max(d[1] for d_var in daily_costs) * 20)
                 bar = "█" * bar_length
                 chart_text += f"{day}: {bar} ${cost:.2f}\n"
             chart_text += "```"

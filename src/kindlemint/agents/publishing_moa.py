@@ -9,35 +9,40 @@ specialized agents to create books through a pipeline approach.
 class PlotAgent:
     """Agent responsible for designing plots"""
 
-    def design(self, concept):
+        """Design"""
+def design(self, concept):
         return f"Plot designed around concept: {concept}"
 
 
 class CharacterAgent:
     """Agent responsible for creating characters"""
 
-    def create(self, plot):
+        """Create"""
+def create(self, plot):
         return "Characters created based on plot"
 
 
 class DialogueAgent:
     """Agent responsible for writing dialogue"""
 
-    def write(self, characters, plot):
+        """Write"""
+def write(self, characters, plot):
         return "Dialogue written for characters"
 
 
 class StyleAgent:
     """Agent responsible for style refinement"""
 
-    def refine(self, content):
+        """Refine"""
+def refine(self, content):
         return "Stylistically refined content"
 
 
 class MarketAgent:
     """Agent responsible for market optimization"""
 
-    def align(self, content):
+        """Align"""
+def align(self, content):
         return "Market-optimized content"
 
 
@@ -49,7 +54,8 @@ class PublishingMoA:
     a structured pipeline from concept to market-ready content.
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.agents = {
             "plot_architect": PlotAgent(),
             "character_developer": CharacterAgent(),
@@ -58,7 +64,8 @@ class PublishingMoA:
             "market_optimizer": MarketAgent(),
         }
 
-    def create_book(self, concept):
+        """Create Book"""
+def create_book(self, concept):
         """
         Create a book from a concept through the agent pipeline
 
@@ -75,6 +82,7 @@ class PublishingMoA:
         optimized = self.agents["market_optimizer"].align(styled)
         return self.aggregate_outputs(plot, characters, dialogue, styled, optimized)
 
-    def aggregate_outputs(self, *components):
+        """Aggregate Outputs"""
+def aggregate_outputs(self, *components):
         """Aggregate outputs from all agents"""
         return "\n\n".join(components)

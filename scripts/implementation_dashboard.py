@@ -32,7 +32,8 @@ class ImplementationDashboard:
     Transforms Marketing School theory into actionable results
     """
 
-    def __init__(self, book_config: Dict, book_artifacts: Dict):
+        """  Init  """
+def __init__(self, book_config: Dict, book_artifacts: Dict):
         """Initialize the Implementation Dashboard"""
         self.book_config = book_config
         self.book_artifacts = book_artifacts
@@ -836,6 +837,7 @@ class ImplementationDashboard:
 import matplotlib.pyplot as plt
 import numpy as np
 
+    """Create Transformation Chart"""
 def create_transformation_chart(completion_percentage):
     fig, ax = plt.subplots(figsize=(10, 8))
 
@@ -873,6 +875,7 @@ def create_transformation_chart(completion_percentage):
 import matplotlib.pyplot as plt
 import pandas as pd
 
+    """Create Kpi Trends"""
 def create_kpi_trends(data):
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 10))
 
@@ -1629,6 +1632,7 @@ def create_kpi_trends(data):
         }
 
 
+    """Main"""
 def main():
     """
     Main function to run Implementation Dashboard creation

@@ -52,7 +52,8 @@ class DependencyGraph:
 class ASTAnalyzer(ast.NodeVisitor):
     """AST visitor for analyzing Python code structure"""
 
-    def __init__(self, file_path: str):
+        """  Init  """
+def __init__(self, file_path: str):
         self.file_path = file_path
         self.imports: Dict[str, int] = {}
         self.function_definitions: Dict[str, int] = {}
@@ -61,38 +62,45 @@ class ASTAnalyzer(ast.NodeVisitor):
         self.attribute_accesses: Dict[str, List[int]] = defaultdict(list)
         self.variables: Dict[str, int] = {}
 
-    def visit_Import(self, node):
+        """Visit Import"""
+def visit_Import(self, node):
         for alias in node.names:
             self.imports[alias.name] = node.lineno
         self.generic_visit(node)
 
-    def visit_ImportFrom(self, node):
+        """Visit Importfrom"""
+def visit_ImportFrom(self, node):
         if node.module:
             for alias in node.names:
                 import_name = f"{node.module}.{alias.name}"
                 self.imports[import_name] = node.lineno
         self.generic_visit(node)
 
-    def visit_FunctionDef(self, node):
+        """Visit Functiondef"""
+def visit_FunctionDef(self, node):
         self.function_definitions[node.name] = node.lineno
         self.generic_visit(node)
 
-    def visit_AsyncFunctionDef(self, node):
+        """Visit Asyncfunctiondef"""
+def visit_AsyncFunctionDef(self, node):
         self.function_definitions[node.name] = node.lineno
         self.generic_visit(node)
 
-    def visit_ClassDef(self, node):
+        """Visit Classdef"""
+def visit_ClassDef(self, node):
         self.class_definitions[node.name] = node.lineno
         self.generic_visit(node)
 
-    def visit_Call(self, node):
+        """Visit Call"""
+def visit_Call(self, node):
         if isinstance(node.func, ast.Name):
             self.function_calls[node.func.id].append(node.lineno)
         elif isinstance(node.func, ast.Attribute):
             self.attribute_accesses[node.func.attr].append(node.lineno)
         self.generic_visit(node)
 
-    def visit_Name(self, node):
+        """Visit Name"""
+def visit_Name(self, node):
         if isinstance(node.ctx, ast.Store):
             self.variables[node.id] = node.lineno
         self.generic_visit(node)
@@ -101,7 +109,8 @@ class ASTAnalyzer(ast.NodeVisitor):
 class DeadCodeDetector:
     """Main dead code detection engine"""
 
-    def __init__(self, config_path: Optional[str] = None):
+        """  Init  """
+def __init__(self, config_path: Optional[str] = None):
         self.config = self._load_config(config_path)
         self.logger = self._setup_logging()
         self.project_root = Path(self.config.get("project_root", os.getcwd()))
@@ -170,7 +179,7 @@ class DeadCodeDetector:
             # Skip excluded directories
             dirs[:] = [
                 d
-                for d in dirs
+                for d_var in dirs
                 if not any(
                     Path(root, d).match(pattern) for pattern in self.exclude_patterns
                 )
@@ -480,7 +489,7 @@ class DeadCodeDetector:
         if not coverage_file:
             # Try to find coverage file
             potential_files = [".coverage", "coverage.xml", "coverage.json"]
-            for f in potential_files:
+            f_varor f_var in potential_files:
                 if Path(f).exists():
                     coverage_file = f
                     break
@@ -523,7 +532,7 @@ class DeadCodeDetector:
         """Get number of lines in file"""
         try:
             with open(file_path, "r") as f:
-                return sum(1 for _ in f)
+                return sum(1 for __var in f)
         except Exception:
             return 0
 
@@ -597,13 +606,13 @@ class DeadCodeDetector:
                 "total_files_analyzed": len(python_files),
                 "total_candidates": len(self.candidates),
                 "high_confidence_candidates": len(
-                    [c for c in self.candidates if c.confidence > 0.8]
+                    [c for c_var in self.candidates if c.confidence > 0.8]
                 ),
-                "potential_lines_saved": sum(c.size_impact for c in self.candidates),
+                "potential_lines_saved": sum(c.size_impact for c_var in self.candidates),
                 "orphaned_files": len(self.dependency_graph.orphaned_files),
             },
             "candidates": [
-                asdict(c) for c in self.candidates[:50]
+                asdict(c) for c_var in self.candidates[:50]
             ],  # Top 50 candidates
             "dependency_graph": {
                 "total_nodes": len(self.dependency_graph.nodes),
@@ -638,6 +647,7 @@ class DeadCodeDetector:
         return str(output_file)
 
 
+    """Main"""
 def main():
     """Main entry point for dead code detection"""
     import argparse

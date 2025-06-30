@@ -11,7 +11,7 @@ sys.path.append(str(Path(__file__).parent.parent / "src"))
 
 from kindlemint.engines.sudoku import SudokuGenerator
 
-
+    """Test Clue Rendering"""
 def test_clue_rendering():
     """Test the fixed clue rendering with visual distinction."""
     print("🧪 Testing fixed clue rendering...")
@@ -73,6 +73,7 @@ def test_clue_rendering():
         return False
 
 
+    """Validate Fix"""
 def validate_fix():
     """Run emergency validation on the fixed images."""
     print("\n🚨 Running emergency validation on fixed images...")

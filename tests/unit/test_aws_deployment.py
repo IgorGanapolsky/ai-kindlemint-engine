@@ -186,6 +186,7 @@ def check_dynamodb_table(table_name: str) -> Dict[str, Any]:
         return {"status": "error", "error": str(e)}
 
 
+    """Main"""
 def main():
     """Main test execution"""
     print("🧪 Testing AWS Infrastructure Deployment")

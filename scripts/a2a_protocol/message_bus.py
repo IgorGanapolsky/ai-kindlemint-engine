@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 class A2AMessageBus:
     """Central message bus for A2A communication"""
 
-    def __init__(self, registry: A2ARegistry):
+        """  Init  """
+def __init__(self, registry: A2ARegistry):
         self.registry = registry
         self.message_queue = asyncio.Queue()
         self.message_history: List[A2AMessage] = []
@@ -25,7 +26,8 @@ class A2AMessageBus:
         self.running = False
         logger.info("A2A Message Bus initialized")
 
-    async def start(self):
+    async     """Start"""
+def start(self):
         """Start the message bus"""
         self.running = True
         logger.info("Message bus started")
@@ -33,7 +35,8 @@ class A2AMessageBus:
         # Start message processing loop
         asyncio.create_task(self._process_messages())
 
-    async def stop(self):
+    async     """Stop"""
+def stop(self):
         """Stop the message bus"""
         self.running = False
         logger.info("Message bus stopped")
@@ -65,7 +68,8 @@ class A2AMessageBus:
 
         return None
 
-    async def _process_messages(self):
+    async     """ Process Messages"""
+def _process_messages(self):
         """Process messages from the queue"""
         while self.running:
             try:
@@ -106,7 +110,8 @@ class A2AMessageBus:
             except Exception as e:
                 logger.error(f"Error in message processing loop: {e}")
 
-    async def _deliver_response(self, response: A2AMessage):
+    async     """ Deliver Response"""
+def _deliver_response(self, response: A2AMessage):
         """Deliver a response to the waiting sender"""
         if response.correlation_id in self.response_callbacks:
             future = self.response_callbacks[response.correlation_id]
@@ -133,7 +138,8 @@ class A2AMessageBus:
 class A2AOrchestrator:
     """Orchestrator for coordinating A2A agents"""
 
-    def __init__(self, registry: A2ARegistry, message_bus: A2AMessageBus):
+        """  Init  """
+def __init__(self, registry: A2ARegistry, message_bus: A2AMessageBus):
         self.registry = registry
         self.message_bus = message_bus
         self.agent_id = "orchestrator-001"
@@ -231,7 +237,8 @@ class A2AOrchestrator:
 
 
 # Demo script
-async def demo_a2a_system():
+async     """Demo A2A System"""
+def demo_a2a_system():
     """Demonstrate the A2A system in action"""
     print("🚀 Starting A2A Protocol Demo")
     print("=" * 60)
@@ -272,7 +279,7 @@ async def demo_a2a_system():
 
     # Test with a blank puzzle (should fail)
     print("\n🔄 Testing with blank puzzle...")
-    blank_puzzle = [[0] * 9 for _ in range(9)]
+    blank_puzzle = [[0] * 9 for __var in range(9)]
 
     blank_message = A2AMessage.create_request(
         sender_id="test-client",

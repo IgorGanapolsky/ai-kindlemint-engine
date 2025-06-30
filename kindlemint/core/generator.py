@@ -3,8 +3,7 @@
 import json
 import logging
 import uuid
-from pathlib import Path
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from ..memory import KDPMemory
 from ..utils.api_manager import get_api_manager  # Added
@@ -16,7 +15,8 @@ logger = logging.getLogger(__name__)
 class ContentGenerator:
     """Generates book content using AI."""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         # api_key: Optional[str] = None, # Removed: Handled by APIManager
         # model: str = "gpt-4", # Removed: Handled by APIManager

@@ -32,7 +32,8 @@ class QAReport:
 class IntegratedCrosswordQA:
     """Complete QA system that catches all issues"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.critical_thresholds = {
             "min_unique_puzzles": 48,  # At least 48/50 must be unique
             "max_duplicate_clues": 5,  # Same clue in max 5 puzzles
@@ -225,15 +226,15 @@ class IntegratedCrosswordQA:
             return stats
 
         # Calculate averages
-        total_across = sum(len(p.get("across_clues", {})) for p in puzzles)
-        total_down = sum(len(p.get("down_clues", {})) for p in puzzles)
+        total_across = sum(len(p.get("across_clues", {})) for p_var in puzzles)
+        total_down = sum(len(p.get("down_clues", {})) for p_var in puzzles)
 
         stats["avg_across_clues"] = total_across / len(puzzles)
         stats["avg_down_clues"] = total_down / len(puzzles)
 
         # Count unique clues
         all_clues = set()
-        for p in puzzles:
+        for p_var in puzzles:
             all_clues.update(p.get("across_clues", {}).values())
             all_clues.update(p.get("down_clues", {}).values())
 
@@ -241,7 +242,7 @@ class IntegratedCrosswordQA:
 
         # Detect duplicates
         puzzle_hashes = {}
-        for p in puzzles:
+        for p_var in puzzles:
             # Create hash of puzzle content
             clue_str = json.dumps(
                 {
@@ -408,7 +409,7 @@ class IntegratedCrosswordQA:
 
         # Check if solutions exist
         puzzles_with_solutions = sum(
-            1 for p in content["puzzles"] if p.get("has_solution")
+            1 for p_var in content["puzzles"] if p.get("has_solution")
         )
 
         if puzzles_with_solutions < len(content["puzzles"]):
@@ -433,7 +434,8 @@ class IntegratedCrosswordQA:
 
         return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()
 
-    def _generate_recommendations(self, report: QAReport):
+        """ Generate Recommendations"""
+def _generate_recommendations(self, report: QAReport):
         """Generate actionable recommendations"""
 
         # Group issues by category
@@ -519,6 +521,7 @@ def generate_qa_report_html(report: QAReport) -> str:
     return html
 
 
+    """Main"""
 def main():
     """Run the integrated QA system"""
     import sys

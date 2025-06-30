@@ -14,6 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 
+    """Print Banner"""
 def print_banner():
     """Print welcome banner"""
     print(
@@ -25,6 +26,7 @@ def print_banner():
     )
 
 
+    """Check Dependencies"""
 def check_dependencies():
     """Check if required dependencies are installed"""
     try:
@@ -39,6 +41,7 @@ def check_dependencies():
         return True
 
 
+    """Generate Book"""
 def generate_book(book_type: str, volume: int, output_dir: str = None):
     """Generate a book based on type and volume"""
 
@@ -64,6 +67,7 @@ def generate_book(book_type: str, volume: int, output_dir: str = None):
     return True
 
 
+    """Generate Crossword Book"""
 def generate_crossword_book(volume: int, output_path: Path):
     """Generate a crossword puzzle book"""
     from book_layout_bot import BookLayoutBot
@@ -107,6 +111,7 @@ def generate_crossword_book(volume: int, output_path: Path):
     show_next_steps(output_path)
 
 
+    """Generate Sudoku Book"""
 def generate_sudoku_book(volume: int, output_path: Path):
     """Generate a sudoku puzzle book"""
     print("🔢 Generating Sudoku puzzles...")
@@ -129,6 +134,7 @@ def generate_sudoku_book(volume: int, output_path: Path):
     show_next_steps(output_path)
 
 
+    """Generate Wordsearch Book"""
 def generate_wordsearch_book(volume: int, output_path: Path):
     """Generate a word search puzzle book"""
     print("🔤 Generating Word Search puzzles...")
@@ -151,6 +157,7 @@ def generate_wordsearch_book(volume: int, output_path: Path):
     show_next_steps(output_path)
 
 
+    """Create Kdp Metadata"""
 def create_kdp_metadata(book_metadata: dict, output_path: Path):
     """Create KDP metadata files"""
     import json
@@ -237,6 +244,7 @@ Join thousands of satisfied puzzlers who have made this their go-to series!""",
         f.write(checklist)
 
 
+    """Show Next Steps"""
 def show_next_steps(output_path: Path):
     """Show next steps to the user"""
     print("\n" + "=" * 50)
@@ -247,7 +255,7 @@ def show_next_steps(output_path: Path):
 
     # List files
     files = list(output_path.glob("*"))
-    for f in files[:5]:  # Show first 5 files
+    f_varor f_var in files[:5]:  # Show first 5 files
         print(f"   - {f.name}")
     if len(files) > 5:
         print(f"   ... and {len(files) - 5} more files")
@@ -273,6 +281,7 @@ def show_next_steps(output_path: Path):
     print("• Discord - Join the community")
 
 
+    """Main"""
 def main():
     """Main entry point"""
     parser = argparse.ArgumentParser(

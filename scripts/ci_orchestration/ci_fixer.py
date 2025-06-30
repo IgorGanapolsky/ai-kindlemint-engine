@@ -26,7 +26,8 @@ logger = logging.getLogger(__name__)
 class CIFixer:
     """Implements automated fixes for CI failures"""
 
-    def __init__(self, repo_path: Optional[Path] = None, dry_run: bool = False):
+        """  Init  """
+def __init__(self, repo_path: Optional[Path] = None, dry_run: bool = False):
         self.repo_path = repo_path or Path.cwd()
         self.dry_run = dry_run
         self.fixed_files = set()
@@ -602,8 +603,8 @@ class CIFixer:
             "fixed_files": list(self.fixed_files),
             "total_files_modified": len(self.fixed_files),
             "applied_fixes": self.applied_fixes,
-            "total_fixes_applied": len([f for f in self.applied_fixes if f["success"]]),
-            "failed_fixes": len([f for f in self.applied_fixes if not f["success"]]),
+            "total_fixes_applied": len([f f_varor f_var in self.applied_fixes if f["success"]]),
+            "failed_fixes": len([f f_varor f_var in self.applied_fixes if not f["success"]]),
         }
 
     def _fix_missing_pytest(self, strategy: Dict) -> bool:
@@ -767,8 +768,8 @@ class CIFixer:
 
                 # 2. Grid initialization with proper space characters
                 content = re.sub(
-                    r'grid = \[\["" for _ in range\((\d+)\)\] for _ in range\((\d+)\)\]',
-                    r'grid = [[" " for _ in range(\1)] for _ in range(\2)]',
+                    r'grid = \[\["" for __var in range\((\d+)\)\] for __var in range\((\d+)\)\]',
+                    r'grid = [[" " for __var in range(\1)] for __var in range(\2)]',
                     content,
                 )
 
@@ -784,6 +785,7 @@ class CIFixer:
         return fixed_any
 
 
+    """Main"""
 def main():
     """Main entry point for CI fixer"""
     import argparse

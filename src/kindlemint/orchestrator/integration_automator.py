@@ -13,7 +13,8 @@ class IntegrationAutomator:
     Automates creation of integrations with external services
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.integration_templates = {
             "KDP Publishing API": self._kdp_integration_template,
@@ -130,7 +131,8 @@ class IntegrationAutomator:
             Integration with Amazon KDP Publishing API
             \"\"\"
 
-            def __init__(self, api_key: str, api_secret: str):
+                """  Init  """
+def __init__(self, api_key: str, api_secret: str):
                 self.api_key = api_key
                 self.api_secret = api_secret
                 self.base_url = "https://kdp.amazon.com/api/v1"
@@ -321,7 +323,8 @@ class IntegrationAutomator:
             Integration with Stripe for payment processing
             \"\"\"
 
-            def __init__(self, api_key: str):
+                """  Init  """
+def __init__(self, api_key: str):
                 self.api_key = api_key
                 stripe.api_key = api_key
                 self.logger = logging.getLogger(__name__)
@@ -447,7 +450,8 @@ class IntegrationAutomator:
             Integration with SendGrid for email automation
             \"\"\"
 
-            def __init__(self, api_key: str):
+                """  Init  """
+def __init__(self, api_key: str):
                 self.api_key = api_key
                 self.client = SendGridAPIClient(api_key)
                 self.logger = logging.getLogger(__name__)
@@ -566,7 +570,8 @@ class IntegrationAutomator:
             Integration with Botpress for conversational AI
             \"\"\"
 
-            def __init__(self, bot_url: str, auth_token: Optional[str] = None):
+                """  Init  """
+def __init__(self, bot_url: str, auth_token: Optional[str] = None):
                 self.bot_url = bot_url
                 self.auth_token = auth_token
                 self.logger = logging.getLogger(__name__)
@@ -684,7 +689,8 @@ class IntegrationAutomator:
             Integration with Amazon Product Advertising API
             \"\"\"
 
-            def __init__(self, access_key: str, secret_key: str, partner_tag: str):
+                """  Init  """
+def __init__(self, access_key: str, secret_key: str, partner_tag: str):
                 self.access_key = access_key
                 self.secret_key = secret_key
                 self.partner_tag = partner_tag
@@ -794,7 +800,8 @@ class IntegrationAutomator:
             Integration with OpenAI API for AI-powered features
             \"\"\"
 
-            def __init__(self, api_key: str):
+                """  Init  """
+def __init__(self, api_key: str):
                 self.api_key = api_key
                 openai.api_key = api_key
                 self.logger = logging.getLogger(__name__)
@@ -889,7 +896,8 @@ class IntegrationAutomator:
             Integration with {service_name}
             \"\"\"
 
-            def __init__(self, api_key: str, base_url: str):
+                """  Init  """
+def __init__(self, api_key: str, base_url: str):
                 self.api_key = api_key
                 self.base_url = base_url
                 self.logger = logging.getLogger(__name__)
@@ -1023,7 +1031,8 @@ class IntegrationAutomator:
             \"\"\"Test suite for {service_name} integration\"\"\"
 
             @pytest.fixture
-            def integration(self):
+                """Integration"""
+def integration(self):
                 \"\"\"Create integration instance for testing\"\"\"
                 return {class_name}Integration(
                     api_key="test_key",
@@ -1031,7 +1040,8 @@ class IntegrationAutomator:
                 )
 
             @pytest.mark.asyncio
-            async def test_authentication(self, integration):
+            async     """Test Authentication"""
+def test_authentication(self, integration):
                 \"\"\"Test authentication\"\"\"
                 with patch('aiohttp.ClientSession') as mock_session:
                     # Mock response
@@ -1046,7 +1056,8 @@ class IntegrationAutomator:
                     assert token == "test_token"
 
             @pytest.mark.asyncio
-            async def test_error_handling(self, integration):
+            async     """Test Error Handling"""
+def test_error_handling(self, integration):
                 \"\"\"Test error handling\"\"\"
                 with patch('aiohttp.ClientSession') as mock_session:
                     # Mock error

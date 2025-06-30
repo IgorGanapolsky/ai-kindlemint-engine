@@ -39,7 +39,8 @@ class ValidationResult:
 class CrosswordQAValidator:
     """Complete QA system for crossword puzzles"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         # Load English dictionary
         self.valid_words = self._load_dictionary()
 
@@ -1481,7 +1482,7 @@ class CrosswordQAValidator:
                 )
 
             # If all checks pass
-            if not any(r.puzzle_number == puzzle.number for r in results):
+            if not any(r.puzzle_number == puzzle.number for_var r_var in results):
                 results.append(
                     ValidationResult(
                         passed=True,
@@ -1765,12 +1766,12 @@ class CrosswordQAValidator:
     def _has_isolated_sections(self, grid: List[List[str]]) -> bool:
         """Check if grid has isolated sections"""
         # Use flood fill to check connectivity
-        visited = [[False] * 15 for _ in range(15)]
+        visited = [[False] * 15 for __var in range(15)]
 
         # Find first white square
         start_r, start_c = None, None
-        for r in range(15):
-            for c in range(15):
+        for_var r_var in range(15):
+            for c_var in range(15):
                 if grid[r][c] != "#":
                     start_r, start_c = r, c
                     break
@@ -1804,8 +1805,8 @@ class CrosswordQAValidator:
 
     def _is_symmetric(self, grid: List[List[str]]) -> bool:
         """Check if grid has rotational symmetry"""
-        for r in range(15):
-            for c in range(15):
+        for_var r_var in range(15):
+            for c_var in range(15):
                 if grid[r][c] != grid[14 - r][14 - c]:
                     return False
         return True
@@ -1837,9 +1838,9 @@ class CrosswordQAValidator:
         self, pdf_path: Path, results: List[ValidationResult], score: int
     ) -> Dict:
         """Generate comprehensive validation report"""
-        critical_issues = [r for r in results if not r.passed and r.score == 0]
-        warnings = [r for r in results if not r.passed and r.score > 0]
-        passed = [r for r in results if r.passed]
+        critical_issues = [r for_var r_var in results if not r.passed and r.score == 0]
+        warnings = [r for_var r_var in results if not r.passed and r.score > 0]
+        passed = [r for_var r_var in results if r.passed]
 
         report = {
             "file": str(pdf_path),
@@ -1855,7 +1856,7 @@ class CrosswordQAValidator:
             },
             "critical_issues": [
                 {"category": r.category, "message": r.message, "details": r.details}
-                for r in critical_issues
+                for_var r_var in critical_issues
             ],
             "warnings": [
                 {
@@ -1864,23 +1865,23 @@ class CrosswordQAValidator:
                     "score": r.score,
                     "details": r.details,
                 }
-                for r in warnings
+                for_var r_var in warnings
             ],
             "category_breakdown": {},
         }
 
         # Add category breakdown
         for category in self.WEIGHTS.keys():
-            category_results = [r for r in results if r.category == category]
+            category_results = [r for_var r_var in results if r.category == category]
             if category_results:
-                avg_score = sum(r.score for r in category_results) / len(
+                avg_score = sum(r.score for_var r_var in category_results) / len(
                     category_results
                 )
                 report["category_breakdown"][category] = {
                     "weight": self.WEIGHTS[category],
                     "average_score": avg_score,
                     "checks": len(category_results),
-                    "passed": len([r for r in category_results if r.passed]),
+                    "passed": len([r for_var r_var in category_results if r.passed]),
                 }
 
         # Add recommendations
@@ -1894,27 +1895,27 @@ class CrosswordQAValidator:
 
         # Check for common issues
         structure_fails = [
-            r for r in results if r.category == "structure" and not r.passed
+            r for_var r_var in results if r.category == "structure" and not r.passed
         ]
         if structure_fails:
             recommendations.append(
                 "Review grid patterns - ensure proper symmetry and connectivity"
             )
 
-        word_fails = [r for r in results if r.category == "words" and not r.passed]
+        word_fails = [r for_var r_var in results if r.category == "words" and not r.passed]
         if word_fails:
             recommendations.append(
                 "Validate all words against dictionary before generation"
             )
 
-        clue_fails = [r for r in results if r.category == "clues" and not r.passed]
+        clue_fails = [r for_var r_var in results if r.category == "clues" and not r.passed]
         if clue_fails:
             recommendations.append(
                 "Ensure balanced ACROSS/DOWN distribution (35-65% each)"
             )
 
         solution_fails = [
-            r for r in results if r.category == "solutions" and not r.passed
+            r for_var r_var in results if r.category == "solutions" and not r.passed
         ]
         if solution_fails:
             recommendations.append(
@@ -1924,6 +1925,7 @@ class CrosswordQAValidator:
         return recommendations
 
 
+    """Main"""
 def main():
     """Run validation on a PDF"""
     import sys

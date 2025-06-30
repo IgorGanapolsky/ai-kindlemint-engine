@@ -25,7 +25,8 @@ GRID_TOTAL_SIZE = GRID_SIZE * CELL_SIZE
 
 
 class Volume3ProductionReady:
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.output_dir = Path(
             "books/active_production/Large_Print_Crossword_Masters/volume_3"
         )
@@ -675,7 +676,8 @@ class Volume3ProductionReady:
             "VINTAGE": "Classic old",
         }
 
-    def create_crossword_pattern(self, puzzle_num):
+        """Create Crossword Pattern"""
+def create_crossword_pattern(self, puzzle_num):
         """Create a standard crossword pattern with guaranteed across and down words"""
         # Standard symmetric pattern that ensures both across and down words
         patterns = [
@@ -844,11 +846,12 @@ class Volume3ProductionReady:
         pattern_idx = (puzzle_num - 1) % len(patterns)
         return patterns[pattern_idx]
 
-    def create_puzzle(self, puzzle_num):
+        """Create Puzzle"""
+def create_puzzle(self, puzzle_num):
         """Create a complete puzzle with guaranteed across and down words"""
         # Initialize grid
-        grid = [["." for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
-        solution = [["." for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
+        grid = [["." for __var in range(GRID_SIZE)] for __var in range(GRID_SIZE)]
+        solution = [["." for __var in range(GRID_SIZE)] for __var in range(GRID_SIZE)]
 
         # Get black square pattern
         black_squares = self.create_crossword_pattern(puzzle_num)
@@ -961,7 +964,8 @@ class Volume3ProductionReady:
 
         return grid, solution, placed_words
 
-    def assign_numbers(self, grid):
+        """Assign Numbers"""
+def assign_numbers(self, grid):
         """Assign numbers to word starts"""
         numbers = {}
         current_num = 1
@@ -987,7 +991,8 @@ class Volume3ProductionReady:
 
         return numbers
 
-    def draw_grid(self, c, x_offset, y_offset, grid, numbers, solution=None):
+        """Draw Grid"""
+def draw_grid(self, c, x_offset, y_offset, grid, numbers, solution=None):
         """Draw crossword grid"""
         c.setLineWidth(1.5)
 
@@ -1020,7 +1025,8 @@ class Volume3ProductionReady:
                             x + CELL_SIZE / 2, y + CELL_SIZE / 2 - 4, solution[row][col]
                         )
 
-    def create_complete_book(self):
+        """Create Complete Book"""
+def create_complete_book(self):
         """Create the complete 156-page book"""
         print("🔨 Creating PRODUCTION-READY Volume 3...")
 
@@ -1176,9 +1182,9 @@ class Volume3ProductionReady:
 
                 # Verify puzzle has both across and down clues
                 across_count = len(
-                    [w for w in placed_words if w["direction"] == "across"]
+                    [w for w_var in placed_words if w["direction"] == "across"]
                 )
-                down_count = len([w for w in placed_words if w["direction"] == "down"])
+                down_count = len([w for w_var in placed_words if w["direction"] == "down"])
 
                 if across_count == 0 or down_count == 0:
                     print(
@@ -1220,11 +1226,11 @@ class Volume3ProductionReady:
 
                 # Sort clues by number
                 across_words = sorted(
-                    [w for w in placed_words if w["direction"] == "across"],
+                    [w for w_var in placed_words if w["direction"] == "across"],
                     key=lambda w: numbers.get((w["row"], w["col"]), 999),
                 )
                 down_words = sorted(
-                    [w for w in placed_words if w["direction"] == "down"],
+                    [w for w_var in placed_words if w["direction"] == "down"],
                     key=lambda w: numbers.get((w["row"], w["col"]), 999),
                 )
 
@@ -1341,6 +1347,7 @@ class Volume3ProductionReady:
                 print("✅ QA PASSED!")
 
 
+    """Main"""
 def main():
     print("🚀 Creating PRODUCTION-READY Volume 3")
     print("📋 Requirements: 156 pages, 50 puzzles with BOTH across and down clues")

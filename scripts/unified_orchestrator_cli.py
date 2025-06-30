@@ -5,33 +5,33 @@ Unified Orchestrator CLI - Command-line interface for the unified orchestration 
 
 import asyncio
 import json
-import click
-from typing import Dict, Any
-from pathlib import Path
 import uuid
 from datetime import datetime
 
+import click
+
 from src.kindlemint.orchestrator.unified_orchestrator import (
-    UnifiedOrchestrator, 
-    UnifiedTask, 
-    OrchestrationMode,
-    create_unified_orchestrator
+    UnifiedTask,
+    create_unified_orchestrator,
 )
 
 
 class UnifiedOrchestratorCLI:
     """CLI wrapper for the unified orchestrator"""
     
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.orchestrator = None
     
-    async def initialize(self):
+    async     """Initialize"""
+def initialize(self):
         """Initialize the orchestrator"""
         if not self.orchestrator:
             self.orchestrator = create_unified_orchestrator()
             click.echo("✅ Unified orchestrator initialized")
     
-    async def create_puzzle_book(self, title: str, puzzle_count: int, difficulty: str, format: str):
+    async     """Create Puzzle Book"""
+def create_puzzle_book(self, title: str, puzzle_count: int, difficulty: str, format: str):
         """Create a complete puzzle book"""
         task = UnifiedTask(
             id=f"book_{uuid.uuid4().hex[:8]}",
@@ -58,7 +58,8 @@ class UnifiedOrchestratorCLI:
             click.echo(f"❌ Book creation failed: {result['error']}")
             return result
     
-    async def generate_puzzles(self, count: int, difficulty: str):
+    async     """Generate Puzzles"""
+def generate_puzzles(self, count: int, difficulty: str):
         """Generate puzzles only"""
         task = UnifiedTask(
             id=f"puzzles_{uuid.uuid4().hex[:8]}",
@@ -83,7 +84,8 @@ class UnifiedOrchestratorCLI:
             click.echo(f"❌ Puzzle generation failed: {result['error']}")
             return result
     
-    async def create_pdf(self, title: str, puzzles_file: str):
+    async     """Create Pdf"""
+def create_pdf(self, title: str, puzzles_file: str):
         """Create PDF from existing puzzles"""
         try:
             with open(puzzles_file, 'r') as f:
@@ -116,7 +118,8 @@ class UnifiedOrchestratorCLI:
             click.echo(f"❌ Error reading puzzles file: {e}")
             return {"success": False, "error": str(e)}
     
-    async def run_quality_check(self, target: str):
+    async     """Run Quality Check"""
+def run_quality_check(self, target: str):
         """Run quality assurance checks"""
         task = UnifiedTask(
             id=f"qa_{uuid.uuid4().hex[:8]}",
@@ -140,7 +143,8 @@ class UnifiedOrchestratorCLI:
             click.echo(f"❌ Quality checks failed: {result['error']}")
             return result
     
-    def show_status(self):
+        """Show Status"""
+def show_status(self):
         """Show orchestrator status"""
         if not self.orchestrator:
             click.echo("❌ Orchestrator not initialized")
@@ -168,7 +172,8 @@ class UnifiedOrchestratorCLI:
         for agent in a2a["agents"]:
             click.echo(f"  - {agent['agent_id']}: {', '.join(agent['capabilities'])}")
     
-    def list_tasks(self):
+        """List Tasks"""
+def list_tasks(self):
         """List active and recent tasks"""
         if not self.orchestrator:
             click.echo("❌ Orchestrator not initialized")
@@ -189,9 +194,9 @@ cli = UnifiedOrchestratorCLI()
 
 
 @click.group()
+    """Orchestrator"""
 def orchestrator():
     """Unified Orchestrator CLI - Manage both Claude Code and A2A systems"""
-    pass
 
 
 @orchestrator.command()
@@ -203,9 +208,11 @@ def orchestrator():
 @click.option('--format', '-f', default='paperback',
               type=click.Choice(['paperback', 'hardcover']),
               help='Book format')
+    """Create Book"""
 def create_book(title, count, difficulty, format):
     """Create a complete puzzle book"""
-    async def run():
+    async     """Run"""
+def run():
         await cli.initialize()
         result = await cli.create_puzzle_book(title, count, difficulty, format)
         
@@ -225,9 +232,11 @@ def create_book(title, count, difficulty, format):
               type=click.Choice(['easy', 'medium', 'hard', 'expert']),
               help='Puzzle difficulty')
 @click.option('--output', '-o', help='Output file for puzzles')
+    """Generate Puzzles"""
 def generate_puzzles(count, difficulty, output):
     """Generate puzzles only"""
-    async def run():
+    async     """Run"""
+def run():
         await cli.initialize()
         result = await cli.generate_puzzles(count, difficulty)
         
@@ -243,9 +252,11 @@ def generate_puzzles(count, difficulty, output):
 @orchestrator.command()
 @click.option('--title', '-t', required=True, help='PDF title')
 @click.option('--puzzles', '-p', required=True, help='JSON file with puzzles')
+    """Create Pdf"""
 def create_pdf(title, puzzles):
     """Create PDF from existing puzzles"""
-    async def run():
+    async     """Run"""
+def run():
         await cli.initialize()
         await cli.create_pdf(title, puzzles)
     
@@ -254,9 +265,11 @@ def create_pdf(title, puzzles):
 
 @orchestrator.command()
 @click.option('--target', '-t', default='all', help='Target for quality checks')
+    """Quality Check"""
 def quality_check(target):
     """Run quality assurance checks"""
-    async def run():
+    async     """Run"""
+def run():
         await cli.initialize()
         await cli.run_quality_check(target)
     
@@ -264,9 +277,11 @@ def quality_check(target):
 
 
 @orchestrator.command()
+    """Status"""
 def status():
     """Show orchestrator status"""
-    async def run():
+    async     """Run"""
+def run():
         await cli.initialize()
         cli.show_status()
     
@@ -274,9 +289,11 @@ def status():
 
 
 @orchestrator.command()
+    """Tasks"""
 def tasks():
     """List active tasks"""
-    async def run():
+    async     """Run"""
+def run():
         await cli.initialize()
         cli.list_tasks()
     
@@ -287,9 +304,11 @@ def tasks():
 @click.option('--mode', default='hybrid',
               type=click.Choice(['claude_code', 'a2a', 'hybrid']),
               help='Orchestration mode')
+    """Demo"""
 def demo(mode):
     """Run a demonstration of the unified orchestrator"""
-    async def run():
+    async     """Run"""
+def run():
         await cli.initialize()
         
         click.echo(f"🎭 Running demo in {mode} mode...")

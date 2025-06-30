@@ -42,7 +42,6 @@ def fix_single_word_clue(clue: str) -> str:
         "Old": "Not new",
         "Good": "Not bad",
         "Bad": "Not good",
-        "Right": "Not wrong",
         "Wrong": "Not right",
         "True": "Not false",
         "False": "Not true",

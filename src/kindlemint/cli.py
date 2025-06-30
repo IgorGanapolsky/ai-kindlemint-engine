@@ -73,7 +73,8 @@ except ImportError:
     try:
         from scripts.critical_metadata_qa import CriticalMetadataQA
 
-        def validate_metadata(*args, **kwargs):
+            """Validate Metadata"""
+def validate_metadata(*args, **kwargs):
             """Wrapper for CriticalMetadataQA.validate_metadata."""
             qa = CriticalMetadataQA()
             return qa.validate_metadata(*args, **kwargs)

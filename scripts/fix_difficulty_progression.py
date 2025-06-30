@@ -8,7 +8,7 @@ import json
 import sys
 from pathlib import Path
 
-
+    """Update Difficulty Progression"""
 def update_difficulty_progression(puzzles_dir: Path):
     """Update all puzzle metadata files with proper difficulty progression"""
 
@@ -75,6 +75,7 @@ def update_difficulty_progression(puzzles_dir: Path):
     return True
 
 
+    """Main"""
 def main():
     """Main function"""
     if len(sys.argv) > 1:

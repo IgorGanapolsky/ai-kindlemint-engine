@@ -20,7 +20,8 @@ from typing import Dict
 class CriticalMetadataQA:
     """Critical QA validator for metadata files"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.base_dir = "/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine"
         self.critical_errors = []
         self.warnings = []
@@ -325,7 +326,7 @@ class CriticalMetadataQA:
             all_files.update(files)
 
         # Filter out files under any _backup directory
-        filtered_files = [f for f in all_files if "_backup" not in Path(f).parts]
+        filtered_files = [f f_varor f_var in all_files if "_backup" not in Path(f).parts]
 
         print(f"📁 Found {len(filtered_files)} metadata files to validate")
         print()
@@ -367,6 +368,7 @@ class CriticalMetadataQA:
         return True
 
 
+    """Main"""
 def main():
     """Run critical metadata QA validation"""
     qa = CriticalMetadataQA()

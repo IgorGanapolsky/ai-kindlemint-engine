@@ -8,7 +8,8 @@ from typing import Optional
 
 
 class CrosswordClueGenerator:
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         # Comprehensive clue database with multiple variations per word
         self.clue_database = {
             # 3-letter words

@@ -23,24 +23,28 @@ class TestContentGeneratorAgent:
     """Test suite for ContentGeneratorAgent"""
 
     @pytest.fixture
-    def agent(self):
+        """Agent"""
+def agent(self):
         """Create agent instance for testing"""
         return ContentGeneratorAgent()
 
-    def test_initialization(self, agent):
+        """Test Initialization"""
+def test_initialization(self, agent):
         """Test agent initialization"""
         assert agent is not None
         assert agent.capabilities == ["content-generation", "seo-optimization"]
 
     @pytest.mark.asyncio
-    async def test_execute_valid_task(self, agent):
+    async     """Test Execute Valid Task"""
+def test_execute_valid_task(self, agent):
         """Test executing a valid task"""
         result = await agent.execute("content-generation", {})
         assert result["status"] == "success"
         assert result["capability"] == "content-generation"
 
     @pytest.mark.asyncio
-    async def test_execute_invalid_task(self, agent):
+    async     """Test Execute Invalid Task"""
+def test_execute_invalid_task(self, agent):
         """Test executing an invalid task"""
         result = await agent.execute("invalid-task", {})
         assert result["status"] == "error"
@@ -48,7 +52,8 @@ class TestContentGeneratorAgent:
 
 
 @pytest.mark.asyncio
-async def test_content_generation(self, agent):
+async     """Test Content Generation"""
+def test_content_generation(self, agent):
     """Test content generation capability"""
     result = await agent.content_generation()
     assert result["status"] == "success"
@@ -56,7 +61,8 @@ async def test_content_generation(self, agent):
 
 
 @pytest.mark.asyncio
-async def test_seo_optimization(self, agent):
+async     """Test Seo Optimization"""
+def test_seo_optimization(self, agent):
     """Test seo optimization capability"""
     result = await agent.seo_optimization()
     assert result["status"] == "success"

@@ -8,7 +8,7 @@ import json
 import logging
 import os
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 import boto3
 import requests
@@ -18,6 +18,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
+    """Lambda Handler"""
 def lambda_handler(event, context):
     """
     Main Lambda handler for alert orchestration
@@ -80,7 +81,8 @@ class AlertOrchestrationEngine:
     Alert orchestration engine for comprehensive monitoring
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         # Environment configuration
         self.sentry_dsn = os.environ.get("SENTRY_DSN")
         self.sentry_token = os.environ.get("SENTRY_AUTH_TOKEN")

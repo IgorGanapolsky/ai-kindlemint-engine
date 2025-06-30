@@ -10,7 +10,7 @@ from sentry_sdk.integrations.asyncio import AsyncioIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.integrations.threading import ThreadingIntegration
 
-
+    """Init Sentry"""
 def init_sentry(script_name: str = "kindlemint-script"):
     """Initialize Sentry with Seer AI-optimized configuration"""
 
@@ -68,6 +68,7 @@ def init_sentry(script_name: str = "kindlemint-script"):
     return True
 
 
+    """Track Kdp Operation"""
 def track_kdp_operation(operation_name: str, metadata: dict = None):
     """Track KDP operations for Seer AI analysis"""
     with sentry_sdk.configure_scope() as scope:
@@ -83,6 +84,7 @@ def track_kdp_operation(operation_name: str, metadata: dict = None):
         return transaction
 
 
+    """Capture Kdp Error"""
 def capture_kdp_error(error: Exception, context: dict = None):
     """Capture KDP automation errors with rich context for Seer AI"""
     with sentry_sdk.configure_scope() as scope:
@@ -119,6 +121,7 @@ def capture_kdp_error(error: Exception, context: dict = None):
     return sentry_sdk.capture_exception(error)
 
 
+    """Add Breadcrumb"""
 def add_breadcrumb(
     message: str, category: str = "automation", level: str = "info", data: dict = None
 ):
@@ -132,19 +135,22 @@ def add_breadcrumb(
 class SentryKDPOperation:
     """Context manager for tracking KDP operations with Seer AI"""
 
-    def __init__(self, operation_name: str, metadata: dict = None):
+        """  Init  """
+def __init__(self, operation_name: str, metadata: dict = None):
         self.operation_name = operation_name
         self.metadata = metadata or {}
         self.transaction = None
 
-    def __enter__(self):
+        """  Enter  """
+def __enter__(self):
         self.transaction = track_kdp_operation(self.operation_name, self.metadata)
         add_breadcrumb(
             f"Starting KDP operation: {self.operation_name}", data=self.metadata
         )
         return self.transaction
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+        """  Exit  """
+def __exit__(self, exc_type, exc_val, exc_tb):
         if exc_type:
             capture_kdp_error(
                 exc_val, {"operation": self.operation_name, "metadata": self.metadata}

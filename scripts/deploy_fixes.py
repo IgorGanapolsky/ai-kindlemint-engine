@@ -41,6 +41,7 @@ BOOK_QA_WORKFLOW = WORKFLOWS_DIR / "book_qa_validation.yml"
 # --- Helper Functions ---
 
 
+    """Print Header"""
 def print_header(title):
     """Prints a formatted header."""
     print("\n" + "=" * 70)
@@ -48,11 +49,13 @@ def print_header(title):
     print("=" * 70)
 
 
+    """Print Subheader"""
 def print_subheader(title):
     """Prints a formatted subheader."""
     print(f"\n--- {title} ---")
 
 
+    """Run Command"""
 def run_command(command, cwd=None):
     """Runs a shell command and handles errors."""
     print(f"▶️  Running command: {' '.join(map(str, command))}")
@@ -72,6 +75,7 @@ def run_command(command, cwd=None):
         return None
 
 
+    """Cleanup Temp Dirs"""
 def cleanup_temp_dirs():
     """Removes temporary directories."""
     if TEMP_DIR.exists():
@@ -82,6 +86,7 @@ def cleanup_temp_dirs():
 # --- Core Logic ---
 
 
+    """Test Systems"""
 def test_systems():
     """
     Runs a test of both the old and new systems to generate a comparison.
@@ -149,6 +154,7 @@ def test_systems():
     generate_comparison_report()
 
 
+    """Generate Comparison Report"""
 def generate_comparison_report():
     """
     Generates a Markdown report comparing the results of the test run.
@@ -196,14 +202,14 @@ This report compares the output of the old crossword engine (`v2`) with the new,
 ### Old Engine (v2) - Critical Issues
 *The old engine produced puzzles with fundamental flaws that made them unsolvable.*
 ```json
-{json.dumps([p['critical_issues'] for p in old_report.get(
+{json.dumps([p['critical_issues'] for p_var in old_report.get(
         'puzzles', {}).values() if p.get('critical_issues')], indent=2)}
 ```
 
 ### New Engine (v3) - Critical Issues
 *The new engine should have zero critical issues.*
 ```json
-{json.dumps([p['critical_issues'] for p in new_report.get(
+{json.dumps([p['critical_issues'] for p_var in new_report.get(
             'puzzles', {}).values() if p.get('critical_issues')], indent=2)}
 ```
 
@@ -220,6 +226,7 @@ The new engine and QA system represent a **critical improvement** in quality and
     print(f"✅ Comparison report generated: {report_path}")
 
 
+    """ Backup File"""
 def _backup_file(file_path):
     """Creates a backup of a file."""
     if file_path.exists():
@@ -232,6 +239,7 @@ def _backup_file(file_path):
         return False
 
 
+    """ Restore Backup"""
 def _restore_backup(file_path):
     """Restores a file from its backup."""
     backup_path = file_path.with_suffix(file_path.suffix + ".bak")
@@ -244,6 +252,7 @@ def _restore_backup(file_path):
         return False
 
 
+    """ Update File Content"""
 def _update_file_content(file_path, old_str, new_str):
     """Performs in-place string replacement in a file."""
     print(f"✍️  Updating {file_path.name}: Replacing '{old_str}' with '{new_str}'")
@@ -252,6 +261,7 @@ def _update_file_content(file_path, old_str, new_str):
             print(line.replace(old_str, new_str), end="")
 
 
+    """Deploy Changes"""
 def deploy_changes():
     """Deploys the new scripts by updating the batch processor and workflows."""
     print_header("Deploying Quality Fixes")
@@ -275,6 +285,7 @@ def deploy_changes():
     print("   To revert these changes, run: python scripts/deploy_fixes.py rollback")
 
 
+    """Rollback Changes"""
 def rollback_changes():
     """Rolls back the changes to the previous state."""
     print_header("Rolling Back Deployment")
@@ -292,6 +303,7 @@ def rollback_changes():
 # --- Main CLI ---
 
 
+    """Main"""
 def main():
     """Main entry point for the deployment script."""
     parser = argparse.ArgumentParser(

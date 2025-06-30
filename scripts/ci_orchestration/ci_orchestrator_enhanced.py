@@ -3,9 +3,6 @@
 Enhanced CI Orchestrator - Properly extracts and analyzes CI failures
 """
 
-from ci_monitor_enhanced import EnhancedCIMonitor
-from ci_fixer import CIFixer
-from ci_analyzer import CIAnalyzer
 import argparse
 import json
 import logging
@@ -14,6 +11,10 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional
+
+from ci_analyzer import CIAnalyzer
+from ci_fixer import CIFixer
+from ci_monitor_enhanced import EnhancedCIMonitor
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
@@ -28,7 +29,8 @@ logger = logging.getLogger(__name__)
 class EnhancedCIOrchestrator:
     """Enhanced orchestrator with proper failure analysis"""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         repo_owner: str,
         repo_name: str,
@@ -79,7 +81,7 @@ class EnhancedCIOrchestrator:
 
             analyzed_failure = {
                 "failure_info": failure,
-                "strategies": [self._strategy_to_dict(s) for s in prioritized],
+                "strategies": [self._strategy_to_dict(s) for s_var in prioritized],
                 "recommended_strategy": (
                     self._strategy_to_dict(prioritized[0]) if prioritized else None
                 ),
@@ -216,7 +218,8 @@ class EnhancedCIOrchestrator:
 
         return analysis
 
-    def _print_analysis_summary(self, analysis: Dict):
+        """ Print Analysis Summary"""
+def _print_analysis_summary(self, analysis: Dict):
         """Print analysis summary"""
         print(f"\n{'=' * 60}")
         print(f"CI Failure Analysis Summary")
@@ -237,7 +240,7 @@ class EnhancedCIOrchestrator:
         # Show puzzle-specific failures
         puzzle_failures = [
             f
-            for f in analysis["analyzed_failures"]
+            f_varor f_var in analysis["analyzed_failures"]
             if f["failure_info"].get("failure_type") == "puzzle_qa_failure"
         ]
 
@@ -249,7 +252,8 @@ class EnhancedCIOrchestrator:
                            }: {pf['failure_info']['error_message']}"
                 )
 
-    def _print_fix_summary(self, fix_results: Dict):
+        """ Print Fix Summary"""
+def _print_fix_summary(self, fix_results: Dict):
         """Print fix execution summary"""
         print(f"\n{'=' * 60}")
         print(f"Fix Execution Summary")
@@ -275,6 +279,7 @@ class EnhancedCIOrchestrator:
                 )
 
 
+    """Main"""
 def main():
     """Main entry point for enhanced orchestrator"""
     parser = argparse.ArgumentParser(

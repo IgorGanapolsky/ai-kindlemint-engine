@@ -1,15 +1,14 @@
 """Automated cover generation agent using DALL-E 3 API."""
 
-import io
 import logging
 from pathlib import Path
 
 # import os # Removed: API key handled by APIManager
 # import base64 # Seems unused, will remove if confirmed
-from typing import Dict, List, Optional, Tuple
+from typing import Tuple
 
 import requests  # Retain for downloading image from URL
-from PIL import Image, ImageDraw, ImageFont
+from PIL import ImageFont
 
 # from openai import OpenAI # Removed: Client handled by APIManager
 from ..utils.api_manager import get_api_manager  # Added
@@ -32,7 +31,8 @@ class CoverAgent:
         self.fonts_dir = Path(__file__).parent.parent.parent / "assets" / "fonts"
         self.fonts_dir.mkdir(parents=True, exist_ok=True)  # Ensure directory exists
 
-    def _load_font(self, font_filename: str, size: int):
+        """ Load Font"""
+def _load_font(self, font_filename: str, size: int):
         """
         Loads a font from the assets/fonts directory, with fallback to default.
         """

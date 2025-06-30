@@ -7,7 +7,7 @@ import json
 import logging
 import os
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 import boto3
 import requests
@@ -17,6 +17,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
+    """Lambda Handler"""
 def lambda_handler(event, context):
     """
     Main Lambda handler for CI orchestration
@@ -76,7 +77,8 @@ class CIOrchestrationEngine:
     CI orchestration engine following KindleMint patterns
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         # Environment configuration
         self.github_token = os.environ.get("GITHUB_TOKEN")
         self.repo_owner = "IgorGanapolsky"

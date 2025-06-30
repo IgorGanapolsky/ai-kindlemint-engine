@@ -7,7 +7,7 @@ import time
 
 import schedule
 
-
+    """Check Sales"""
 def check_sales():
     """Check overnight book sales"""
     print("[08:00] Checking overnight book sales...")
@@ -25,6 +25,7 @@ def check_sales():
         print(f"Error during sales check: {e}")
 
 
+    """Generate Social Posts"""
 def generate_social_posts():
     """Generate social media posts from top-selling book"""
     print("[09:00] Generating 3 social media posts from top book...")
@@ -42,6 +43,7 @@ def generate_social_posts():
         print(f"Error generating social posts: {e}")
 
 
+    """Research Trending Topics"""
 def research_trending_topics():
     """Research trending topics in the niche"""
     print("[10:00] Researching trending topics in niche...")
@@ -56,6 +58,7 @@ def research_trending_topics():
         print(f"Error researching trending topics: {e}")
 
 
+    """Create Chapter Outline"""
 def create_chapter_outline():
     """Create chapter outline for next book"""
     print("[14:00] Creating chapter outline for tomorrow...")
@@ -73,6 +76,7 @@ def create_chapter_outline():
         print(f"Error creating chapter outline: {e}")
 
 
+    """Analyze Competitors"""
 def analyze_competitors():
     """Analyze competitor new releases"""
     print("[16:00] Analyzing competitor new releases...")
@@ -90,6 +94,7 @@ def analyze_competitors():
         print(f"Error analyzing competitors: {e}")
 
 
+    """Schedule Marketing"""
 def schedule_marketing():
     """Schedule next day's marketing tasks"""
     print("[18:00] Scheduling next day's marketing tasks...")
@@ -107,6 +112,7 @@ def schedule_marketing():
         print(f"Error scheduling marketing tasks: {e}")
 
 
+    """Run Daily Tasks"""
 def run_daily_tasks():
     """Configure and run the daily task scheduler"""
     schedule.every().day.at("08:00").do(check_sales)

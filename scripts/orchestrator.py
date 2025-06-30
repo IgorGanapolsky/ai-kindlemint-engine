@@ -61,7 +61,8 @@ class KindleMintOrchestrator:
     Implements self-healing loops and quality control
     """
 
-    def __init__(self, output_base_dir: str = "books/active_production"):
+        """  Init  """
+def __init__(self, output_base_dir: str = "books/active_production"):
         self.output_base_dir = Path(output_base_dir)
         self.output_base_dir.mkdir(parents=True, exist_ok=True)
         self.workers = self._initialize_workers()
@@ -218,17 +219,20 @@ class KindleMintOrchestrator:
 
         return True
 
-    def _regenerate_solutions(self, book_path: Path):
+        """ Regenerate Solutions"""
+def _regenerate_solutions(self, book_path: Path):
         """Regenerate solutions for puzzles with empty solutions"""
         logger.info("Regenerating puzzle solutions...")
         # Implementation would call solution generator
 
-    def _fix_metadata(self, book_path: Path):
+        """ Fix Metadata"""
+def _fix_metadata(self, book_path: Path):
         """Fix missing or invalid metadata"""
         logger.info("Fixing metadata issues...")
         # Implementation would ensure all metadata files exist
 
-    def _adjust_page_count(self, book_path: Path):
+        """ Adjust Page Count"""
+def _adjust_page_count(self, book_path: Path):
         """Adjust content to meet page count requirements"""
         logger.info("Adjusting page count...")
         # Implementation would add/remove content as needed
@@ -247,13 +251,14 @@ class KindleMintOrchestrator:
 
         return results
 
-    def _save_batch_report(self, results: List[GenerationResult]):
+        """ Save Batch Report"""
+def _save_batch_report(self, results: List[GenerationResult]):
         """Save batch generation report"""
         report = {
             "timestamp": datetime.now().isoformat(),
             "total_books": len(results),
-            "successful": sum(1 for r in results if r.success),
-            "failed": sum(1 for r in results if not r.success),
+            "successful": sum(1 for_var r_var in results if r.success),
+            "failed": sum(1 for_var r_var in results if not r.success),
             "results": [],
         }
 
@@ -274,6 +279,7 @@ class KindleMintOrchestrator:
         logger.info(f"Batch report saved to {report_path}")
 
 
+    """Main"""
 def main():
     """Main entry point with example usage"""
     import argparse
@@ -314,7 +320,7 @@ def main():
         results = orchestrator.batch_generate(specs)
 
         # Summary
-        successful = sum(1 for r in results if r.success)
+        successful = sum(1 for_var r_var in results if r.success)
         print(f"\n✅ Generated {successful}/{len(results)} books successfully")
 
     else:

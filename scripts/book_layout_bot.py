@@ -25,7 +25,8 @@ except ImportError:
 class BookLayoutBot:
     """Creates professional PDF interiors for puzzle books"""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         input_dir,
         output_dir,
@@ -69,7 +70,8 @@ class BookLayoutBot:
         # Load puzzle data
         self.puzzles_data = self._load_puzzle_data()
 
-    def _load_puzzle_data(self):
+        """ Load Puzzle Data"""
+def _load_puzzle_data(self):
         """Load puzzle data from input directory"""
         puzzles_data = []
 
@@ -146,7 +148,8 @@ class BookLayoutBot:
 
         return puzzles_data
 
-    def create_pdf_interior(self):
+        """Create Pdf Interior"""
+def create_pdf_interior(self):
         """Create the complete PDF interior"""
         print(f"📝 Creating PDF interior for '{self.title}'")
 
@@ -187,7 +190,8 @@ class BookLayoutFormatter(Formatter):
     Formatter for PDF book interiors using BookLayoutBot.
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         input_dir: str = None,
         output_dir: str = None,
@@ -228,7 +232,8 @@ class BookLayoutFormatter(Formatter):
         """
         return self.bot.create_pdf_interior()
 
-    def _create_title_page(self, c):
+        """ Create Title Page"""
+def _create_title_page(self, c):
         """Create the title page"""
         self.current_page += 1
 
@@ -266,7 +271,8 @@ class BookLayoutFormatter(Formatter):
         # Page number (not visible on title page)
         c.showPage()
 
-    def _create_copyright_page(self, c):
+        """ Create Copyright Page"""
+def _create_copyright_page(self, c):
         """Create the copyright page"""
         self.current_page += 1
 
@@ -309,7 +315,8 @@ class BookLayoutFormatter(Formatter):
         # Page number (not visible on copyright page)
         c.showPage()
 
-    def _create_table_of_contents(self, c):
+        """ Create Table Of Contents"""
+def _create_table_of_contents(self, c):
         """Create the table of contents"""
         self.current_page += 1
 
@@ -360,7 +367,8 @@ class BookLayoutFormatter(Formatter):
 
         c.showPage()
 
-    def _create_introduction_page(self, c):
+        """ Create Introduction Page"""
+def _create_introduction_page(self, c):
         """Create the introduction page"""
         self.current_page += 1
 
@@ -415,7 +423,8 @@ class BookLayoutFormatter(Formatter):
 
         c.showPage()
 
-    def _create_puzzle_pages(self, c):
+        """ Create Puzzle Pages"""
+def _create_puzzle_pages(self, c):
         """Create pages for all puzzles"""
         # First create introduction
         self._create_introduction_page(c)
@@ -425,7 +434,8 @@ class BookLayoutFormatter(Formatter):
             self._create_puzzle_page(c, puzzle)
             self._create_clues_page(c, puzzle)
 
-    def _create_puzzle_page(self, c, puzzle):
+        """ Create Puzzle Page"""
+def _create_puzzle_page(self, c, puzzle):
         """Create a page with the puzzle grid"""
         self.current_page += 1
 
@@ -471,7 +481,8 @@ class BookLayoutFormatter(Formatter):
 
         c.showPage()
 
-    def _create_clues_page(self, c, puzzle):
+        """ Create Clues Page"""
+def _create_clues_page(self, c, puzzle):
         """Create a page with the puzzle clues"""
         self.current_page += 1
 
@@ -526,7 +537,8 @@ class BookLayoutFormatter(Formatter):
 
         c.showPage()
 
-    def _create_solutions_section(self, c):
+        """ Create Solutions Section"""
+def _create_solutions_section(self, c):
         """Create the solutions section"""
         # Solutions title page
         self.current_page += 1
@@ -551,7 +563,8 @@ class BookLayoutFormatter(Formatter):
         for puzzle in self.puzzles_data:
             self._create_solution_page(c, puzzle)
 
-    def _create_solution_page(self, c, puzzle):
+        """ Create Solution Page"""
+def _create_solution_page(self, c, puzzle):
         """Create a solution page for a puzzle"""
         self.current_page += 1
 
@@ -606,7 +619,8 @@ class BookLayoutFormatter(Formatter):
 
         c.showPage()
 
-    def _create_metadata_files(self, pdf_path):
+        """ Create Metadata Files"""
+def _create_metadata_files(self, pdf_path):
         """Create metadata files for KDP publishing"""
         # Create KDP metadata
         metadata = {
@@ -678,6 +692,7 @@ class BookLayoutFormatter(Formatter):
         print(f"📄 Created metadata files in {self.output_dir}")
 
 
+    """Main"""
 def main():
     """Main entry point for book layout bot"""
     parser = argparse.ArgumentParser(

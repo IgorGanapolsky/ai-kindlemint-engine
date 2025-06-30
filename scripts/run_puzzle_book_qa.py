@@ -4,16 +4,18 @@ Automated QA Runner for Puzzle Books
 Integrates with the build process to ensure quality before publication
 """
 
-from kindlemint.validators.sudoku_book_qa import SudokuBookQAValidator
 import json
 import sys
 from datetime import datetime
 from pathlib import Path
 
+from kindlemint.validators.sudoku_book_qa import SudokuBookQAValidator
+
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
+    """Run Qa Checks"""
 def run_qa_checks():
     """Run QA checks on all active production puzzle books"""
     print("🤖 AUTOMATED QA SYSTEM")
@@ -80,6 +82,7 @@ def run_qa_checks():
         return False
 
 
+    """Main"""
 def main():
     """Main entry point"""
     passed = run_qa_checks()

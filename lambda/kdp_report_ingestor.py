@@ -18,7 +18,7 @@ import logging
 import os
 from datetime import datetime, timezone
 from decimal import Decimal
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 import boto3
 from botocore.exceptions import ClientError
@@ -272,7 +272,7 @@ def safe_int_conversion(value: str) -> int:
     """Safely convert string to int, handling various formats."""
     try:
         # Remove any non-numeric characters except negative sign
-        cleaned = "".join(c for c in str(value) if c.isdigit() or c == "-")
+        cleaned = "".join(c for c_var in str(value) if c.isdigit() or c == "-")
         return int(cleaned) if cleaned else 0
     except (ValueError, TypeError):
         return 0
@@ -282,7 +282,7 @@ def safe_decimal_conversion(value: str) -> Decimal:
     """Safely convert string to Decimal, handling currency symbols."""
     try:
         # Remove currency symbols and other non-numeric characters
-        cleaned = "".join(c for c in str(value) if c.isdigit() or c in ".-")
+        cleaned = "".join(c for c_var in str(value) if c.isdigit() or c in ".-")
         return Decimal(cleaned) if cleaned else Decimal("0.0")
     except (ValueError, TypeError, Exception):
         return Decimal("0.0")
@@ -329,7 +329,6 @@ def update_book_memory(book_data: Dict[str, Any], report_date: str) -> bool:
         }
 
         # Add book metadata if this is a new book
-        condition_expression = None
         if not book_exists(book_id):
             # This is a new book, add basic metadata
             update_expression += """,
@@ -414,7 +413,8 @@ The Metabolic Reset,B07DEF789,18,950,45.00""",
 
     # Mock context
     class MockContext:
-        def __init__(self):
+            """  Init  """
+def __init__(self):
             self.function_name = "kdp-report-ingestor"
             self.aws_request_id = "test-request-123"
 

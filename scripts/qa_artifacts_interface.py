@@ -12,7 +12,8 @@ from typing import Dict
 class QAArtifactsInterface:
     """Generate Claude Artifacts-compatible QA visualizations"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.artifact_template = """
 <!DOCTYPE html>
 <html>
@@ -312,7 +313,8 @@ class QAArtifactsInterface:
             return min(100, (score / threshold) * 100)
         return 0
 
-    def save_artifact(self, html: str, output_path: Path):
+        """Save Artifact"""
+def save_artifact(self, html: str, output_path: Path):
         """Save HTML artifact to file"""
         with open(output_path, "w") as f:
             f.write(html)
@@ -355,6 +357,7 @@ class QAArtifactsInterface:
         return summary
 
 
+    """Main"""
 def main():
     """Test the artifacts interface"""
     # Mock QA result for testing

@@ -38,7 +38,8 @@ class PuzzleResponse:
 class PuzzleGeneratorAgent(A2AAgent):
     """A2A Agent that generates Sudoku puzzles with validation"""
 
-    def __init__(self, registry):
+        """  Init  """
+def __init__(self, registry):
         super().__init__("puzzle_generator", registry)
         self.sudoku_engine = SudokuEngine()
         self.logger = logging.getLogger(__name__)
@@ -65,7 +66,8 @@ class PuzzleGeneratorAgent(A2AAgent):
             "Validate puzzle generation request parameters",
         )
 
-    def add_skill(self, name: str, handler, description: str):
+        """Add Skill"""
+def add_skill(self, name: str, handler, description: str):
         """Add a skill to the agent"""
         self.skills[name] = Skill(name, handler, description)
 
@@ -334,6 +336,7 @@ class PuzzleGeneratorAgent(A2AAgent):
 
 
 # Factory function for easy instantiation
+    """Create Puzzle Generator Agent"""
 def create_puzzle_generator_agent(registry):
     """Create and return a configured PuzzleGeneratorAgent"""
     return PuzzleGeneratorAgent(registry)

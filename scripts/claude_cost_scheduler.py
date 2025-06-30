@@ -4,8 +4,6 @@ Claude Cost Scheduler
 Manages automated Claude cost notifications and reports
 """
 
-from scripts.claude_cost_tracker import ClaudeCostTracker
-from scripts.claude_cost_slack_notifier import ClaudeCostSlackNotifier
 import argparse
 import json
 import logging
@@ -18,6 +16,9 @@ from pathlib import Path
 from typing import Dict, Optional
 
 import schedule
+
+from scripts.claude_cost_slack_notifier import ClaudeCostSlackNotifier
+from scripts.claude_cost_tracker import ClaudeCostTracker
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -33,7 +34,8 @@ logger = logging.getLogger("ClaudeCostScheduler")
 class ClaudeCostScheduler:
     """Manages scheduled Claude cost notifications"""
 
-    def __init__(self, config_file: Optional[str] = None):
+        """  Init  """
+def __init__(self, config_file: Optional[str] = None):
         """Initialize the scheduler"""
         self.config_file = config_file or os.path.join(
             Path.home(), ".claude-cost-scheduler.json"
@@ -440,6 +442,7 @@ def create_launchd_plist() -> None:
     print(f"  launchctl unload {plist_path}")
 
 
+    """Main"""
 def main():
     parser = argparse.ArgumentParser(
         description="Claude Cost Scheduler - Automated cost notifications",

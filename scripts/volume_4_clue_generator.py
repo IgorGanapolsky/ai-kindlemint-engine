@@ -9,7 +9,8 @@ from fix_single_word_clues import fix_single_word_clue
 
 
 class Volume4ClueGenerator(CrosswordClueGenerator):
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         super().__init__()
 
         # Add all missing Volume 4 words with proper crossword clues
@@ -1593,7 +1594,8 @@ class Volume4ClueGenerator(CrosswordClueGenerator):
         # Fix all single-word clues to ensure they have at least 2 words
         self._fix_single_word_clues()
 
-    def _fix_single_word_clues(self):
+        """ Fix Single Word Clues"""
+def _fix_single_word_clues(self):
         """Ensure all clues have at least 2 words to pass validation"""
         for word, clues in self.clue_database.items():
             fixed_clues = []

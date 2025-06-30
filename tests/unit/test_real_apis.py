@@ -21,6 +21,7 @@ from serpapi.google_search import GoogleSearch
 load_dotenv()
 
 
+    """Test Serpapi"""
 def test_serpapi():
     """Test SerpApi connection and functionality"""
     print("🔍 Testing SerpApi...")
@@ -66,6 +67,7 @@ def test_serpapi():
         return False
 
 
+    """Test Reddit Api"""
 def test_reddit_api():
     """Test Reddit API connection"""
     print("🗨️ Testing Reddit API...")
@@ -106,6 +108,7 @@ def test_reddit_api():
         return False
 
 
+    """Test Google Trends Via Serpapi"""
 def test_google_trends_via_serpapi():
     """Test Google Trends via SerpApi"""
     print("📈 Testing Google Trends via SerpApi...")
@@ -152,6 +155,7 @@ def test_google_trends_via_serpapi():
         return False
 
 
+    """Test Slack Webhook"""
 def test_slack_webhook():
     """Test Slack webhook"""
     print("📧 Testing Slack webhook...")
@@ -193,6 +197,7 @@ def test_slack_webhook():
         return False
 
 
+    """Main"""
 def main():
     """Run all API tests"""
     print("🧪 REAL API CONNECTION TESTS")

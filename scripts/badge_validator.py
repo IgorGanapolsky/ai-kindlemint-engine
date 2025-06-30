@@ -20,7 +20,8 @@ except ImportError:
 class BadgeValidator:
     """Orchestration agent to validate badges in README files"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.repo_owner = "IgorGanapolsky"
         self.repo_name = "ai-kindlemint-engine"
         self.forbidden_terms = [
@@ -196,7 +197,8 @@ class BadgeValidator:
 
         return results
 
-    def print_report(self, results: Dict):
+        """Print Report"""
+def print_report(self, results: Dict):
         """Print validation report"""
         print("\n" + "=" * 60)
         print("🛡️  BADGE VALIDATION REPORT")
@@ -222,6 +224,7 @@ class BadgeValidator:
         print("=" * 60)
 
 
+    """Main"""
 def main():
     """Run badge validation"""
     validator = BadgeValidator()

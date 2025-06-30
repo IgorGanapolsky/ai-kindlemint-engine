@@ -359,16 +359,19 @@ CLUE_VARIATIONS = {
 
 
 class CrosswordPuzzleGenerator:
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.used_words = set()
         self.used_clues = set()
         self.puzzle_count = 0
 
-    def create_empty_grid(self):
+        """Create Empty Grid"""
+def create_empty_grid(self):
         """Create an empty 15x15 grid"""
-        return [["#" for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
+        return [["#" for __var in range(GRID_SIZE)] for __var in range(GRID_SIZE)]
 
-    def get_unique_theme_words(self, puzzle_num):
+        """Get Unique Theme Words"""
+def get_unique_theme_words(self, puzzle_num):
         """Get words from a specific theme to ensure variety"""
         themes = list(WORD_THEMES.keys())
         # Rotate through themes
@@ -384,7 +387,8 @@ class CrosswordPuzzleGenerator:
         random.shuffle(words)
         return words
 
-    def generate_crossword_pattern(self, puzzle_num):
+        """Generate Crossword Pattern"""
+def generate_crossword_pattern(self, puzzle_num):
         """Generate a unique crossword pattern for each puzzle"""
         grid = self.create_empty_grid()
 
@@ -425,7 +429,7 @@ class CrosswordPuzzleGenerator:
         elif pattern_type == 3:
             # Scattered blocks
             random.seed(puzzle_num * 1000)
-            for _ in range(40):
+            for __var in range(40):
                 i = random.randint(1, GRID_SIZE - 2)
                 j = random.randint(1, GRID_SIZE - 2)
                 grid[i][j] = "."
@@ -445,7 +449,8 @@ class CrosswordPuzzleGenerator:
 
         return grid
 
-    def place_words_in_grid(self, grid, words, puzzle_num):
+        """Place Words In Grid"""
+def place_words_in_grid(self, grid, words, puzzle_num):
         """Place words in the grid ensuring no duplicates"""
         placed_words = []
         solution = [row[:] for row in grid]
@@ -507,7 +512,8 @@ class CrosswordPuzzleGenerator:
 
         return solution, placed_words
 
-    def can_place_horizontal(self, grid, word, row, col):
+        """Can Place Horizontal"""
+def can_place_horizontal(self, grid, word, row, col):
         """Check if word can be placed horizontally"""
         # Check boundaries
         if col + len(word) > GRID_SIZE:
@@ -526,7 +532,8 @@ class CrosswordPuzzleGenerator:
 
         return True
 
-    def can_place_vertical(self, grid, word, row, col):
+        """Can Place Vertical"""
+def can_place_vertical(self, grid, word, row, col):
         """Check if word can be placed vertically"""
         # Check boundaries
         if row + len(word) > GRID_SIZE:
@@ -545,7 +552,8 @@ class CrosswordPuzzleGenerator:
 
         return True
 
-    def get_unique_clue(self, word, puzzle_num):
+        """Get Unique Clue"""
+def get_unique_clue(self, word, puzzle_num):
         """Get a unique clue for a word"""
         if word in CLUE_VARIATIONS:
             variations = CLUE_VARIATIONS[word]
@@ -563,7 +571,8 @@ class CrosswordPuzzleGenerator:
         ]
         return clue_templates[puzzle_num % len(clue_templates)]
 
-    def generate_puzzle(self, puzzle_num):
+        """Generate Puzzle"""
+def generate_puzzle(self, puzzle_num):
         """Generate a complete puzzle with unique content"""
         # Get theme-specific words
         words = self.get_unique_theme_words(puzzle_num)
@@ -623,6 +632,7 @@ class CrosswordPuzzleGenerator:
         }
 
 
+    """Create Pdf"""
 def create_pdf(puzzles, output_path):
     """Create PDF with all puzzles"""
     c = canvas.Canvas(output_path, pagesize=letter)
@@ -874,6 +884,7 @@ def create_pdf(puzzles, output_path):
     logger.info(f"PDF created: {output_path}")
 
 
+    """Main"""
 def main():
     """Generate Volume 3 with unique puzzles"""
     logger.info("Starting Volume 3 generation with unique puzzles...")

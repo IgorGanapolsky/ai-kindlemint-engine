@@ -3,11 +3,11 @@
 Aggressive Repository Cleanup - Fix remaining root clutter
 """
 
-import os
 import shutil
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
+    """Aggressive Cleanup"""
 def aggressive_cleanup():
     """Perform aggressive repository cleanup"""
     project_root = Path.cwd()
@@ -45,6 +45,7 @@ def aggressive_cleanup():
     except Exception as e:
         print(f"❌ Could not run hygiene analyzer: {e}")
 
+    """Create Expanded Directory Structure"""
 def create_expanded_directory_structure(root):
     """Create additional directory structure"""
     directories = [
@@ -61,6 +62,7 @@ def create_expanded_directory_structure(root):
             full_path.mkdir(parents=True)
             print(f"📁 Created: {dir_path}")
 
+    """Move Log Files"""
 def move_log_files(root):
     """Move log files and temporary outputs to logs/"""
     log_patterns = [
@@ -85,6 +87,7 @@ def move_log_files(root):
         for file in moved_files:
             print(f"   📋 {file}")
 
+    """Clean Temporary Directories"""
 def clean_temporary_directories(root):
     """Clean up temporary test directories"""
     temp_dirs = [
@@ -114,6 +117,7 @@ def clean_temporary_directories(root):
         for dir_name in removed_dirs:
             print(f"   📁 {dir_name} → archive/test_data/")
 
+    """Move Root Scripts"""
 def move_root_scripts(root):
     """Move scripts from root to scripts/"""
     root_scripts = [
@@ -146,6 +150,7 @@ def move_root_scripts(root):
         for script in moved_scripts:
             print(f"   📜 {script}")
 
+    """Archive Batch Reports"""
 def archive_batch_reports(root):
     """Archive old batch reports"""
     batch_reports_dir = root / "batch_reports"
@@ -159,6 +164,7 @@ def archive_batch_reports(root):
         except Exception as e:
             print(f"❌ Error archiving batch_reports: {e}")
 
+    """Clean Duplicate Fonts"""
 def clean_duplicate_fonts(root):
     """Clean up duplicate font files"""
     fonts_dir = root / "fonts"
@@ -172,6 +178,7 @@ def clean_duplicate_fonts(root):
         except Exception as e:
             print(f"❌ Error removing duplicate fonts: {e}")
 
+    """Clean Text Files"""
 def clean_text_files(root):
     """Clean up misc text files"""
     text_files = [

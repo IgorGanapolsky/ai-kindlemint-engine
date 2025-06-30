@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).parent / "scripts"))
 
 from prospecting_automation import ProspectingAutomation
 
-
+    """Test Prospecting Automation"""
 def test_prospecting_automation():
     """Test the prospecting automation with sample data"""
 
@@ -160,6 +160,7 @@ def test_prospecting_automation():
             return False
 
 
+    """Test Standalone Cli"""
 def test_standalone_cli():
     """Test the standalone CLI interface"""
     print("\n🖥️  Testing Standalone CLI...")

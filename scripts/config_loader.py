@@ -3,10 +3,11 @@ Compatibility wrapper for config_loader during migration.
 This maintains backward compatibility while the code is migrated to the new structure.
 """
 
-from kindlemint.utils.config import ConfigLoader, config
 import sys
 import warnings
 from pathlib import Path
+
+from kindlemint.utils.config import ConfigLoader, config
 
 # Add src to path if needed
 src_path = Path(__file__).parent.parent / "src"

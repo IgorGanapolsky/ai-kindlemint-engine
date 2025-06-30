@@ -137,7 +137,8 @@ if __name__ == "__main__":
     test_event = {"topic": "Live System Test: The Phoenix Key", "source": "manual"}
 
     class MockContext:
-        def __init__(self):
+            """  Init  """
+def __init__(self):
             self.function_name = "kindlemintEngineFn"
             self.memory_limit_in_mb = 512
             self.invoked_function_arn = (

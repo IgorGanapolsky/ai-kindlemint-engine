@@ -30,13 +30,16 @@ except ImportError:
     logger.warning("Sentry integration not available. Run without monitoring.")
     SENTRY_AVAILABLE = False
 
-    def init_sentry(*args, **kwargs):
+        """Init Sentry"""
+def init_sentry(*args, **kwargs):
         return False
 
-    def add_breadcrumb(*args, **kwargs):
+        """Add Breadcrumb"""
+def add_breadcrumb(*args, **kwargs):
         pass
 
-    def capture_kdp_error(*args, **kwargs):
+        """Capture Kdp Error"""
+def capture_kdp_error(*args, **kwargs):
         pass
 
 
@@ -112,7 +115,8 @@ class EnhancedQAValidator:
     Uses multi-model LLM validation and detailed criteria.
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.qa_results = {
             "file_path": "",
             "timestamp": datetime.now().isoformat(),
@@ -157,7 +161,8 @@ class EnhancedQAValidator:
                 level="WARNING",
             )
 
-    def _add_issue(
+        """ Add Issue"""
+def _add_issue(
         self, issue_type: str, code: str, description: str, level: str = "CRITICAL"
     ):
         """Adds an issue or warning to the QA results."""
@@ -234,7 +239,8 @@ class EnhancedQAValidator:
 
         return self.qa_results
 
-    def _check_file_properties(self, pdf_path: Path):
+        """ Check File Properties"""
+def _check_file_properties(self, pdf_path: Path):
         """Checks basic file properties like existence and size."""
         print("📋 CHECKING FILE PROPERTIES...")
         checks = {}
@@ -264,7 +270,8 @@ class EnhancedQAValidator:
 
         self.qa_results["checks"]["file_properties"] = checks
 
-    def _check_pdf_structure(self, pdf_path: Path):
+        """ Check Pdf Structure"""
+def _check_pdf_structure(self, pdf_path: Path):
         """Checks PDF structure using PyPDF2."""
         print("🔧 CHECKING PDF STRUCTURE...")
         checks = {}
@@ -335,7 +342,7 @@ class EnhancedQAValidator:
                     }
 
                     # Check if this font is already in our list
-                    if not any(f["name"] == font_name for f in font_info["fonts"]):
+                    if not any(f["name"] == font_name f_varor f_var in font_info["fonts"]):
                         font_info["fonts"].append(font_entry)
 
                     # Update all_embedded flag if any font is not embedded
@@ -392,7 +399,8 @@ class EnhancedQAValidator:
 
         return all_text
 
-    def _check_content_quality(self, text_content: str):
+        """ Check Content Quality"""
+def _check_content_quality(self, text_content: str):
         """Checks content quality, including duplicate content."""
         print("📝 CHECKING CONTENT QUALITY...")
         checks = {}
@@ -441,7 +449,8 @@ class EnhancedQAValidator:
 
         self.qa_results["checks"]["content_quality"] = checks
 
-    def _check_puzzle_integrity(self, text_content: str):
+        """ Check Puzzle Integrity"""
+def _check_puzzle_integrity(self, text_content: str):
         """Check for puzzle integrity - matching clues and answers."""
         # Simple pattern matching for crossword clues and answers
         clue_pattern = r"(\d+)\s*\.\s*([A-Za-z\s]+):\s*([A-Za-z\s]+)"
@@ -453,7 +462,7 @@ class EnhancedQAValidator:
 
             # More sophisticated check would validate answers against clues
             # For now, just check that clues have reasonable lengths
-            invalid_clues = [c for c in clues if len(c[1]) < 2 or len(c[2]) < 2]
+            invalid_clues = [c for c_var in clues if len(c[1]) < 2 or len(c[2]) < 2]
             if invalid_clues:
                 self._add_issue(
                     "INVALID_CLUES",
@@ -462,7 +471,8 @@ class EnhancedQAValidator:
                     level="WARNING",
                 )
 
-    def _check_visual_layout(self, pdf_path: Path):
+        """ Check Visual Layout"""
+def _check_visual_layout(self, pdf_path: Path):
         """CRITICAL: Checks visual layout for cut-off text, overlaps, whitespace."""
         print("👁️  CHECKING VISUAL LAYOUT (CRITICAL)...")
         checks = {
@@ -584,7 +594,8 @@ class EnhancedQAValidator:
 
         self.qa_results["checks"]["visual_layout"] = checks
 
-    def _check_crossword_grid(self, page, page_num):
+        """ Check Crossword Grid"""
+def _check_crossword_grid(self, page, page_num):
         """Check crossword grid positioning and alignment."""
         # This is a simplified check - in a real implementation, we would use
         # computer vision techniques to detect grid patterns and validate them
@@ -602,7 +613,8 @@ class EnhancedQAValidator:
                 f"Could not check crossword grid on page {page_num + 1}: {e}"
             )
 
-    def _llm_content_validation(self, text_content: str, pdf_path: Path):
+        """ Llm Content Validation"""
+def _llm_content_validation(self, text_content: str, pdf_path: Path):
         """
         Perform LLM-based content validation using multiple models.
         This is the core of the multi-model validation approach.
@@ -665,7 +677,7 @@ class EnhancedQAValidator:
         if len(validation_results) > 1:
             # Simple average for now - could be weighted in the future
             quality_scores = [
-                r.get("quality_score", 0) for r in validation_results.values()
+                r.get("quality_score", 0) for_var r_var in validation_results.values()
             ]
             consensus_score = sum(quality_scores) / len(quality_scores)
             checks["consensus_score"] = round(consensus_score)
@@ -888,7 +900,8 @@ Your response must be in JSON format with this structure:
                 capture_kdp_error(e, {"stage": "gemini_validation"})
             return None
 
-    def _check_kdp_compliance(self, pdf_path: Path):
+        """ Check Kdp Compliance"""
+def _check_kdp_compliance(self, pdf_path: Path):
         """Check for KDP-specific compliance issues."""
         print("📚 CHECKING AMAZON KDP COMPLIANCE...")
         checks = {}
@@ -952,7 +965,8 @@ Your response must be in JSON format with this structure:
 
         self.qa_results["checks"]["kdp_compliance"] = checks
 
-    def _calculate_overall_score(self):
+        """ Calculate Overall Score"""
+def _calculate_overall_score(self):
         """
         Calculate the overall QA score and determine if the book is ready for publishing.
         Score is based on a 0-100 scale with 85 being the minimum acceptable score.
@@ -1029,6 +1043,7 @@ Your response must be in JSON format with this structure:
         return str(report_path)
 
 
+    """Main"""
 def main():
     """Main entry point for the enhanced QA validator."""
     parser = argparse.ArgumentParser(

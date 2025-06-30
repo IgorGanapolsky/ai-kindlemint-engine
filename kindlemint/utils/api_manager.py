@@ -43,7 +43,8 @@ class AIProvider(Enum):
 class APIManager:
     """Manages multiple AI API providers with smart routing and fallbacks."""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         """Initialize API manager."""
         self.logger = get_logger("api_manager")
         self.usage_file = (
@@ -153,7 +154,8 @@ class APIManager:
             "provider_stats": {},
         }
 
-    def _save_usage_data(self):
+        """ Save Usage Data"""
+def _save_usage_data(self):
         """Save usage tracking data."""
         try:
             with open(self.usage_file, "w", encoding="utf-8") as f:  # Added encoding
@@ -254,7 +256,7 @@ class APIManager:
                 AIProvider.GROK,
                 AIProvider.OPENAI,
             ]
-            for p in cost_priority_order:
+            for p_var in cost_priority_order:
                 if p in eligible_providers and self.providers[p]["models"].get(
                     model_key_suffix
                 ):
@@ -266,7 +268,7 @@ class APIManager:
                 AIProvider.GROK,
                 AIProvider.GEMINI,
             ]
-            for p in quality_priority_order:
+            for p_var in quality_priority_order:
                 if p in eligible_providers and self.providers[p]["models"].get(
                     model_key_suffix
                 ):
@@ -277,7 +279,7 @@ class APIManager:
             return order[0]
 
         # Balanced or speed (currently first eligible that has the model type from the eligible_providers list)
-        for p in eligible_providers:  # Iterate in current order of eligible_providers
+        for p_var in eligible_providers:  # Iterate in current order of eligible_providers
             if self.providers[p]["models"].get(model_key_suffix):
                 return p
 
@@ -567,7 +569,8 @@ class APIManager:
         )
         return image_url
 
-    def _track_usage(
+        """ Track Usage"""
+def _track_usage(
         self, provider: AIProvider, task_type: str, model_name: str, **kwargs
     ):
         """Track API usage for monitoring and cost control, including per-model stats."""
@@ -761,10 +764,10 @@ class APIManager:
             )
 
         num_fully_available_providers = sum(
-            1 for s in summary["provider_status"].values() if s["is_fully_available"]
+            1 for s_var in summary["provider_status"].values() if s["is_fully_available"]
         )
         num_configured_providers = sum(
-            1 for s in summary["provider_status"].values() if s["api_key_set"]
+            1 for s_var in summary["provider_status"].values() if s["api_key_set"]
         )
 
         if num_configured_providers > 0 and num_fully_available_providers == 0:

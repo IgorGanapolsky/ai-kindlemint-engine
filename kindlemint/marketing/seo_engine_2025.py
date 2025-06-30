@@ -5,7 +5,7 @@ This module implements the SEO-optimized marketing strategies outlined in the
 strategic integration plan, focusing on organic traffic and content distribution.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class SEOOptimizedMarketing:
@@ -13,7 +13,8 @@ class SEOOptimizedMarketing:
     Applies 2025-era SEO tactics to enhance book marketing and drive organic growth.
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         """
         Initializes the engine with proven 2025 SEO strategies.
         """

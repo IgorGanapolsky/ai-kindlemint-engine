@@ -28,7 +28,8 @@ GRID_TOTAL_SIZE = GRID_SIZE * CELL_SIZE
 
 
 class Volume3CrosswordGenerator:
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.output_dir = Path(
             "books/active_production/Large_Print_Crossword_Masters/volume_3"
         )
@@ -593,7 +594,8 @@ class Volume3CrosswordGenerator:
         # Initialize used words tracker for each puzzle
         self.used_words_by_puzzle = {}
 
-    def get_clue_for_word(self, word, puzzle_num):
+        """Get Clue For Word"""
+def get_clue_for_word(self, word, puzzle_num):
         """Get a unique clue for a word, varying by puzzle number"""
         if word in self.clue_database and isinstance(self.clue_database[word], list):
             # Use puzzle number to select different clue variations
@@ -604,10 +606,11 @@ class Volume3CrosswordGenerator:
             # Default clue
             return f"Word meaning {word.lower()}"
 
-    def create_filled_grid(self, puzzle_num):
+        """Create Filled Grid"""
+def create_filled_grid(self, puzzle_num):
         """Create a crossword grid with ACTUAL WORDS filled in - UNIQUE for each puzzle"""
-        grid = [["#" for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
-        solution = [["#" for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
+        grid = [["#" for __var in range(GRID_SIZE)] for __var in range(GRID_SIZE)]
+        solution = [["#" for __var in range(GRID_SIZE)] for __var in range(GRID_SIZE)]
 
         # Initialize used words for this puzzle if not exists
         if puzzle_num not in self.used_words_by_puzzle:
@@ -742,7 +745,7 @@ class Volume3CrosswordGenerator:
             ):
                 available_words = [
                     w
-                    for w in self.word_database[str(length)]
+                    for w_var in self.word_database[str(length)]
                     if w not in self.used_words_by_puzzle[puzzle_num]
                 ]
 
@@ -848,7 +851,7 @@ class Volume3CrosswordGenerator:
                 # Find word that matches existing letters
                 available_words = [
                     w
-                    for w in self.word_database[str(length)]
+                    for w_var in self.word_database[str(length)]
                     if w not in self.used_words_by_puzzle[puzzle_num]
                 ]
 
@@ -894,7 +897,8 @@ class Volume3CrosswordGenerator:
 
         return grid, solution, placed_words
 
-    def assign_numbers(self, grid):
+        """Assign Numbers"""
+def assign_numbers(self, grid):
         """Assign numbers to cells that start words"""
         numbers = {}
         current_num = 1
@@ -920,7 +924,8 @@ class Volume3CrosswordGenerator:
 
         return numbers
 
-    def draw_grid(self, c, x_offset, y_offset, grid, numbers, solution=None):
+        """Draw Grid"""
+def draw_grid(self, c, x_offset, y_offset, grid, numbers, solution=None):
         """Draw crossword grid - empty for puzzle, filled for answer key"""
         c.setLineWidth(1.5)
 
@@ -954,7 +959,8 @@ class Volume3CrosswordGenerator:
                             x + CELL_SIZE / 2, y + CELL_SIZE / 2 - 4, solution[row][col]
                         )
 
-    def create_complete_book(self):
+        """Create Complete Book"""
+def create_complete_book(self):
         """Create the complete crossword book with UNIQUE puzzles for Volume 3"""
         print("🔧 Creating Volume 3 with UNIQUE solutions for each puzzle...")
 
@@ -1129,8 +1135,8 @@ class Volume3CrosswordGenerator:
                 )
 
                 # Separate words by direction
-                across_words = [w for w in placed_words if w["direction"] == "across"]
-                down_words = [w for w in placed_words if w["direction"] == "down"]
+                across_words = [w for w_var in placed_words if w["direction"] == "across"]
+                down_words = [w for w_var in placed_words if w["direction"] == "down"]
 
                 # Sort by position
                 across_words.sort(key=lambda w: (w["row"], w["col"]))
@@ -1228,14 +1234,14 @@ class Volume3CrosswordGenerator:
                     set(
                         [
                             w["word"]
-                            for w in puzzle["words"]
+                            for w_var in puzzle["words"]
                             if w["direction"] == "across"
                         ]
                     )
                 )
                 down_words = sorted(
                     set(
-                        [w["word"] for w in puzzle["words"] if w["direction"] == "down"]
+                        [w["word"] for w_var in puzzle["words"] if w["direction"] == "down"]
                     )
                 )
 
@@ -1256,7 +1262,7 @@ class Volume3CrosswordGenerator:
                         word_info = next(
                             (
                                 w
-                                for w in puzzle["words"]
+                                for w_var in puzzle["words"]
                                 if w["word"] == across and w["direction"] == "across"
                             ),
                             None,
@@ -1276,7 +1282,7 @@ class Volume3CrosswordGenerator:
                         word_info = next(
                             (
                                 w
-                                for w in puzzle["words"]
+                                for w_var in puzzle["words"]
                                 if w["word"] == down and w["direction"] == "down"
                             ),
                             None,
@@ -1353,6 +1359,7 @@ class Volume3CrosswordGenerator:
                 json.dump(metadata, f, indent=2)
 
 
+    """Main"""
 def main():
     print("🚀 Creating Volume 3 Crossword Book with UNIQUE solutions...")
     print("📋 Target: 156 pages with 50 unique puzzles")

@@ -35,7 +35,8 @@ class QAResult:
 class QAValidationPipeline:
     """Multi-model QA validation system"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         # QA Criteria thresholds
         self.qa_criteria = {
             "duplicate_content": {"threshold": 10, "unit": "%"},
@@ -251,7 +252,7 @@ class QAValidationPipeline:
                         )
 
             avg_ratio = (
-                sum(p["ratio"] for p in high_whitespace_pages)
+                sum(p["ratio"] for p_var in high_whitespace_pages)
                 / len(high_whitespace_pages)
                 if high_whitespace_pages
                 else 0
@@ -597,7 +598,8 @@ class QAValidationPipeline:
         """Generate unique book ID"""
         return hashlib.md5(f"{pdf_path.name}{datetime.now()}".encode()).hexdigest()[:12]
 
-    def _print_qa_summary(self, result: QAResult):
+        """ Print Qa Summary"""
+def _print_qa_summary(self, result: QAResult):
         """Print colored QA summary to console"""
         print("\n" + "=" * 60)
         print(f"📊 QA VALIDATION REPORT - {datetime.now().strftime('%Y-%m-%d %H:%M')}")
@@ -634,7 +636,8 @@ class QAValidationPipeline:
 
         print("\n" + "=" * 60)
 
-    def _save_qa_report(self, result: QAResult, pdf_path: Path):
+        """ Save Qa Report"""
+def _save_qa_report(self, result: QAResult, pdf_path: Path):
         """Save QA report to JSON file"""
         qa_dir = pdf_path.parent / "qa"
         qa_dir.mkdir(exist_ok=True)
@@ -649,6 +652,7 @@ class QAValidationPipeline:
         print(f"\n📄 Full report saved to: {report_path}")
 
 
+    """Main"""
 def main():
     """Test the QA pipeline"""
     import sys

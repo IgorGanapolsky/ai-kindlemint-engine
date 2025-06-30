@@ -15,7 +15,8 @@ import numpy as np
 class EnhancedSudokuPDFValidator:
     """Advanced QA validator that checks PDF visual rendering"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.errors = []
         self.warnings = []
         self.passed_checks = []
@@ -189,8 +190,8 @@ class EnhancedSudokuPDFValidator:
         cell_w = w // 9
 
         filled_count = 0
-        for r in range(9):
-            for c in range(9):
+        for_var r_var in range(9):
+            for c_var in range(9):
                 # Extract cell region
                 cell = gray[
                     r * cell_h : (r + 1) * cell_h, c * cell_w : (c + 1) * cell_w
@@ -223,8 +224,8 @@ class EnhancedSudokuPDFValidator:
         cell_w = w // 9
 
         cell_darkness = []
-        for r in range(9):
-            for c in range(9):
+        for_var r_var in range(9):
+            for c_var in range(9):
                 cell = gray[
                     r * cell_h : (r + 1) * cell_h, c * cell_w : (c + 1) * cell_w
                 ]
@@ -232,7 +233,7 @@ class EnhancedSudokuPDFValidator:
                 cell_darkness.append(darkness)
 
         # Should have at least 2 distinct levels (empty vs filled)
-        unique_levels = len(set(int(d / 10) for d in cell_darkness))
+        unique_levels = len(set(int(d / 10) for d_var in cell_darkness))
         return unique_levels >= 2
 
     def _find_grid_region(
@@ -267,6 +268,7 @@ class EnhancedSudokuPDFValidator:
         }
 
 
+    """Main"""
 def main():
     """Run enhanced PDF validation"""
     import sys

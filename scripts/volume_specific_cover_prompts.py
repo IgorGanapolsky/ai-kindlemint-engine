@@ -32,6 +32,7 @@ VOLUME_COVER_PROMPTS = {
 }
 
 
+    """Get Volume Prompt"""
 def get_volume_prompt(
     volume_num,
     title="Large Print Crossword Masters",
@@ -69,6 +70,7 @@ Output: Print-ready book cover design"""
     return prompt
 
 
+    """Get Series Consistency Guide"""
 def get_series_consistency_guide():
     """
     Guidelines for maintaining consistency across the series

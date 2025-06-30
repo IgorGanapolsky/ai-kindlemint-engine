@@ -29,7 +29,8 @@ from reportlab.platypus import (
 class SudokuPDFLayout:
     """Generate professional PDF layouts for Sudoku puzzle books."""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         input_dir,
         output_dir,
@@ -65,7 +66,8 @@ class SudokuPDFLayout:
         # Setup styles
         self.setup_styles()
 
-    def load_puzzle_metadata(self):
+        """Load Puzzle Metadata"""
+def load_puzzle_metadata(self):
         """Load puzzle metadata from the input directory."""
         metadata_dir = self.input_dir / "metadata"
         if not metadata_dir.exists():
@@ -86,7 +88,8 @@ class SudokuPDFLayout:
                 with open(puzzle_file) as f:
                     self.puzzles.append(json.load(f))
 
-    def setup_styles(self):
+        """Setup Styles"""
+def setup_styles(self):
         """Setup paragraph styles for the book."""
         self.styles = getSampleStyleSheet()
 
@@ -166,7 +169,8 @@ class SudokuPDFLayout:
             )
         )
 
-    def create_title_page(self, story):
+        """Create Title Page"""
+def create_title_page(self, story):
         """Create the title page."""
         story.append(Spacer(1, 2 * inch))
 
@@ -191,7 +195,8 @@ class SudokuPDFLayout:
 
         story.append(PageBreak())
 
-    def create_copyright_page(self, story):
+        """Create Copyright Page"""
+def create_copyright_page(self, story):
         """Create the copyright page."""
         copyright_text = f"""
         © {datetime.now().year} {self.author}. All rights reserved.
@@ -210,7 +215,8 @@ class SudokuPDFLayout:
         story.append(Paragraph(copyright_text, self.styles["Normal"]))
         story.append(PageBreak())
 
-    def create_instructions_page(self, story):
+        """Create Instructions Page"""
+def create_instructions_page(self, story):
         """Create the instructions page."""
         story.append(Paragraph("How to Solve Sudoku", self.styles["Heading1"]))
         story.append(Spacer(1, 0.5 * inch))
@@ -238,7 +244,8 @@ class SudokuPDFLayout:
 
         story.append(PageBreak())
 
-    def create_puzzle_page(self, story, puzzle_data, puzzle_number):
+        """Create Puzzle Page"""
+def create_puzzle_page(self, story, puzzle_data, puzzle_number):
         """Create a page for a single puzzle."""
         # Puzzle header
         story.append(Paragraph(f"Puzzle {puzzle_number}", self.styles["PuzzleNumber"]))
@@ -270,7 +277,8 @@ class SudokuPDFLayout:
 
         story.append(PageBreak())
 
-    def create_solutions_section(self, story):
+        """Create Solutions Section"""
+def create_solutions_section(self, story):
         """Create the solutions section."""
         if not self.include_solutions:
             return
@@ -312,7 +320,8 @@ class SudokuPDFLayout:
         if current_page_puzzles:
             self.add_solutions_page(story, current_page_puzzles)
 
-    def add_solutions_page(self, story, puzzle_solutions):
+        """Add Solutions Page"""
+def add_solutions_page(self, story, puzzle_solutions):
         """Add a page with multiple solutions."""
         # Create 2x2 grid
         if len(puzzle_solutions) <= 2:
@@ -369,7 +378,8 @@ class SudokuPDFLayout:
         story.append(table)
         story.append(PageBreak())
 
-    def generate_pdf(self):
+        """Generate Pdf"""
+def generate_pdf(self):
         """Generate the complete PDF book."""
         output_file = self.output_dir / f"{self.title.replace(' ', '_')}_Interior.pdf"
 
@@ -405,6 +415,7 @@ class SudokuPDFLayout:
         return output_file
 
 
+    """Main"""
 def main():
     """Main entry point for Sudoku PDF layout generator."""
     parser = argparse.ArgumentParser(

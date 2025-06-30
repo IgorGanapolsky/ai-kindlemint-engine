@@ -10,17 +10,13 @@ for AI-powered book publishing.
 import asyncio
 import json
 import logging
-from pathlib import Path
-from datetime import datetime
 
-from src.kindlemint.orchestrator.unified_orchestrator import (
-    UnifiedOrchestrator,
-    UnifiedTask,
-    OrchestrationMode,
-    create_unified_orchestrator
-)
 from src.kindlemint.orchestrator.monitoring import create_monitor
-
+from src.kindlemint.orchestrator.unified_orchestrator import (
+    OrchestrationMode,
+    UnifiedTask,
+    create_unified_orchestrator,
+)
 
 # Configure logging
 logging.basicConfig(
@@ -33,11 +29,13 @@ logger = logging.getLogger(__name__)
 class OrchestrationDemo:
     """Demonstration of the unified orchestration system"""
     
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.orchestrator = None
         self.monitor = None
     
-    async def initialize(self):
+    async     """Initialize"""
+def initialize(self):
         """Initialize the orchestration system"""
         print("🚀 Initializing Unified Orchestration System...")
         
@@ -55,7 +53,8 @@ class OrchestrationDemo:
         # Show system status
         await self.show_system_status()
     
-    async def show_system_status(self):
+    async     """Show System Status"""
+def show_system_status(self):
         """Display current system status"""
         print("\n📊 System Status:")
         print("=" * 50)
@@ -81,7 +80,8 @@ class OrchestrationDemo:
             capabilities = ", ".join(agent["capabilities"])
             print(f"   - {agent['agent_id']}: {capabilities}")
     
-    async def demo_puzzle_generation(self):
+    async     """Demo Puzzle Generation"""
+def demo_puzzle_generation(self):
         """Demonstrate A2A puzzle generation"""
         print("\n🧩 Demo: A2A Puzzle Generation")
         print("=" * 40)
@@ -117,7 +117,8 @@ class OrchestrationDemo:
             print(f"❌ Puzzle generation failed: {result['error']}")
             return None
     
-    async def demo_pdf_creation(self, puzzles):
+    async     """Demo Pdf Creation"""
+def demo_pdf_creation(self, puzzles):
         """Demonstrate A2A PDF creation"""
         print("\n📄 Demo: A2A PDF Creation")
         print("=" * 40)
@@ -159,7 +160,8 @@ class OrchestrationDemo:
         
         return None
     
-    async def demo_hybrid_workflow(self):
+    async     """Demo Hybrid Workflow"""
+def demo_hybrid_workflow(self):
         """Demonstrate hybrid orchestration workflow"""
         print("\n🔄 Demo: Hybrid Book Production Workflow")
         print("=" * 50)
@@ -203,7 +205,8 @@ class OrchestrationDemo:
             print(f"❌ Hybrid workflow failed: {result['error']}")
             return False
     
-    async def demo_claude_code_features(self):
+    async     """Demo Claude Code Features"""
+def demo_claude_code_features(self):
         """Demonstrate Claude Code orchestrator features"""
         print("\n🚀 Demo: Claude Code Features")
         print("=" * 40)
@@ -221,7 +224,8 @@ class OrchestrationDemo:
         
         print("✅ Claude Code integration ready!")
     
-    async def show_health_status(self):
+    async     """Show Health Status"""
+def show_health_status(self):
         """Show system health status"""
         print("\n🏥 System Health Status")
         print("=" * 40)
@@ -243,7 +247,8 @@ class OrchestrationDemo:
             print(f"   {status_emoji} {check_name}: {check_info['message']}")
             print(f"      Response time: {check_info['duration_ms']:.1f}ms")
     
-    async def show_metrics(self):
+    async     """Show Metrics"""
+def show_metrics(self):
         """Show system metrics"""
         print("\n📊 System Metrics")
         print("=" * 40)
@@ -267,7 +272,8 @@ class OrchestrationDemo:
         else:
             print("⚠️  No metrics available yet")
     
-    async def run_complete_demo(self):
+    async     """Run Complete Demo"""
+def run_complete_demo(self):
         """Run the complete demonstration"""
         print("🎭 AI-KindleMint-Engine Unified Orchestration Demo")
         print("=" * 60)
@@ -312,7 +318,8 @@ class OrchestrationDemo:
                 await self.monitor.stop_monitoring()
 
 
-async def main():
+async     """Main"""
+def main():
     """Main demonstration function"""
     demo = OrchestrationDemo()
     await demo.run_complete_demo()

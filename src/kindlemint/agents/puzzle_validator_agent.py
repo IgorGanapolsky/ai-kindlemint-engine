@@ -8,7 +8,8 @@ from kindlemint.validators.sudoku_validator import SudokuValidator
 class PuzzleValidatorAgent(A2AAgent):
     """An A2A agent that validates puzzles."""
 
-    def __init__(self, agent_id: str, registry: AgentRegistry):
+        """  Init  """
+def __init__(self, agent_id: str, registry: AgentRegistry):
         super().__init__(agent_id, registry)
         self.core_validator = SudokuValidator()
         self.add_skill(
@@ -17,7 +18,8 @@ class PuzzleValidatorAgent(A2AAgent):
             "Validates a Sudoku puzzle.",
         )
 
-    def validate_sudoku(self, puzzle_data: dict, puzzle_id: str):
+        """Validate Sudoku"""
+def validate_sudoku(self, puzzle_data: dict, puzzle_id: str):
         """
         Validates a Sudoku puzzle.
 

@@ -16,7 +16,8 @@ from kindlemint.engines.sudoku import SudokuGenerator as CoreSudokuGenerator
 class LargePrintSudokuGenerator:
     """Generate market-aligned large print Sudoku puzzles"""
 
-    def __init__(self, output_dir, grid_size=9):
+        """  Init  """
+def __init__(self, output_dir, grid_size=9):
         self.output_dir = Path(output_dir)
         self.puzzles_dir = self.output_dir / "puzzles"
         self.metadata_dir = self.output_dir / "metadata"
@@ -39,7 +40,8 @@ class LargePrintSudokuGenerator:
             self.grid_size * self.cell_size + 2 * self.margin,
         )
 
-    def generate_puzzle_image(self, puzzle_data, puzzle_id):
+        """Generate Puzzle Image"""
+def generate_puzzle_image(self, puzzle_data, puzzle_id):
         """Create a truly large print puzzle image"""
         # Create white background
         img = Image.new("RGB", self.image_size, "white")
@@ -76,7 +78,8 @@ class LargePrintSudokuGenerator:
 
         return puzzle_path
 
-    def generate_solution_image(self, puzzle_data, puzzle_id):
+        """Generate Solution Image"""
+def generate_solution_image(self, puzzle_data, puzzle_id):
         """Create solution image with complete grid"""
         # Create white background
         img = Image.new("RGB", self.image_size, "white")
@@ -127,7 +130,8 @@ class LargePrintSudokuGenerator:
 
         return solution_path
 
-    def _draw_grid(self, draw):
+        """ Draw Grid"""
+def _draw_grid(self, draw):
         """Draw the Sudoku grid with clear, thick lines"""
         # Outer border - extra thick
         draw.rectangle(
@@ -162,7 +166,8 @@ class LargePrintSudokuGenerator:
                 width=width,
             )
 
-    def _draw_number(self, draw, row, col, number, font, color="black", bold=False):
+        """ Draw Number"""
+def _draw_number(self, draw, row, col, number, font, color="black", bold=False):
         """Draw a number in a cell with perfect centering and optional bold effect"""
         # Calculate cell center
         x = self.margin + col * self.cell_size + self.cell_size // 2
@@ -196,7 +201,8 @@ class LargePrintSudokuGenerator:
         # Draw the main number
         draw.text((text_x, text_y), number, fill=color, font=font)
 
-    def generate_sudoku_puzzle(self, difficulty="medium"):
+        """Generate Sudoku Puzzle"""
+def generate_sudoku_puzzle(self, difficulty="medium"):
         """Generate a Sudoku puzzle with the specified difficulty"""
         core_generator = CoreSudokuGenerator()
         puzzle_data = core_generator.generate_puzzle(difficulty)
@@ -208,7 +214,8 @@ class LargePrintSudokuGenerator:
             "clue_count": puzzle_data["clue_count"],
         }
 
-    def generate_batch(self, count, difficulty="medium"):
+        """Generate Batch"""
+def generate_batch(self, count, difficulty="medium"):
         """Generate a batch of puzzles with metadata"""
         puzzles_metadata = []
 
@@ -259,6 +266,7 @@ class LargePrintSudokuGenerator:
         return puzzles_metadata
 
 
+    """Main"""
 def main():
     import argparse
 

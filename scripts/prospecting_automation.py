@@ -25,7 +25,8 @@ class ProspectingAutomation:
     Automates content extraction and prospecting material generation
     """
 
-    def __init__(self, book_config: Dict, book_artifacts: Dict):
+        """  Init  """
+def __init__(self, book_config: Dict, book_artifacts: Dict):
         """Initialize prospecting automation with book data"""
         self.book_config = book_config
         self.book_artifacts = book_artifacts
@@ -1286,6 +1287,7 @@ Signed copies of {self.title} for all attendees (author provides)
 """
 
 
+    """Main"""
 def main():
     """CLI interface for prospecting automation"""
     import argparse

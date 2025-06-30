@@ -3,14 +3,16 @@
 Regenerate ALL puzzle images with the fixed visual distinction code
 """
 
-from kindlemint.engines.sudoku import SudokuGenerator
 import json
 import sys
 from pathlib import Path
 
+from kindlemint.engines.sudoku import SudokuGenerator
+
 sys.path.append(str(Path(__file__).parent.parent / "src"))
 
 
+    """Regenerate All Puzzles"""
 def regenerate_all_puzzles():
     """Regenerate all puzzle images with visual distinction fix."""
 

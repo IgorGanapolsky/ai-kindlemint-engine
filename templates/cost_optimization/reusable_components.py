@@ -25,13 +25,15 @@ def retry_with_backoff(
 
     Usage:
         @retry_with_backoff(max_attempts=3, initial_delay=1.0)
-        def unstable_api_call():
+            """Unstable Api Call"""
+def unstable_api_call():
             # Your code here
     """
 
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+            """Wrapper"""
+def wrapper(*args, **kwargs):
             delay = initial_delay
             last_exception = None
 
@@ -57,7 +59,8 @@ def retry_with_backoff(
 class SafeExecutor:
     """Safe execution context with comprehensive error handling"""
 
-    def __init__(self, logger: Optional[logging.Logger] = None):
+        """  Init  """
+def __init__(self, logger: Optional[logging.Logger] = None):
         self.logger = logger or logging.getLogger(__name__)
 
     def execute_safely(self, func: Callable, *args, **kwargs) -> Dict[str, Any]:
@@ -315,7 +318,8 @@ class MonitoringHelper:
     """Reusable monitoring and alerting utilities"""
 
     @staticmethod
-    def setup_cloudwatch_alarm(
+        """Setup Cloudwatch Alarm"""
+def setup_cloudwatch_alarm(
         metric_name: str, threshold: float, comparison: str = "GreaterThanThreshold"
     ):
         """Setup CloudWatch alarm with standard configuration"""
@@ -340,7 +344,8 @@ class MonitoringHelper:
         return cloudwatch.put_metric_alarm(**alarm_config)
 
     @staticmethod
-    def log_business_metric(metric_name: str, value: float, unit: str = "Count"):
+        """Log Business Metric"""
+def log_business_metric(metric_name: str, value: float, unit: str = "Count"):
         """Log custom business metrics to CloudWatch"""
         import boto3
 

@@ -20,7 +20,8 @@ from scripts.a2a_protocol.puzzle_validator_agent import PuzzleValidatorAgent
 class TestAgent(A2AAgent):
     """Concrete test agent for testing base functionality"""
 
-    def _define_capabilities(self):
+        """ Define Capabilities"""
+def _define_capabilities(self):
         return [
             AgentCapability(
                 name="test_capability",
@@ -30,19 +31,22 @@ class TestAgent(A2AAgent):
             )
         ]
 
-    def _register_handlers(self):
+        """ Register Handlers"""
+def _register_handlers(self):
         return {
             "test_action": self._handle_test_action,
         }
 
-    def _handle_test_action(self, payload):
+        """ Handle Test Action"""
+def _handle_test_action(self, payload):
         return {"status": "success", "result": "test completed"}
 
 
 class TestA2AMessage:
     """Test A2A Message data structure"""
 
-    def test_message_creation(self):
+        """Test Message Creation"""
+def test_message_creation(self):
         """Test creating an A2A message"""
         msg = A2AMessage(
             message_id="test-123",
@@ -60,7 +64,8 @@ class TestA2AMessage:
         assert msg.action == "validate"
         assert msg.payload == {"data": "test"}
 
-    def test_message_with_correlation(self):
+        """Test Message With Correlation"""
+def test_message_with_correlation(self):
         """Test message with correlation ID"""
         msg = A2AMessage(
             message_id="test-456",
@@ -78,7 +83,8 @@ class TestA2AMessage:
 class TestAgentCapability:
     """Test Agent Capability structure"""
 
-    def test_capability_creation(self):
+        """Test Capability Creation"""
+def test_capability_creation(self):
         """Test creating an agent capability"""
         cap = AgentCapability(
             name="validate_puzzle",
@@ -95,7 +101,8 @@ class TestAgentCapability:
 class TestAgentCard:
     """Test Agent Card structure"""
 
-    def test_agent_card_creation(self):
+        """Test Agent Card Creation"""
+def test_agent_card_creation(self):
         """Test creating an agent card"""
         cap = AgentCapability(
             name="test_cap",
@@ -122,7 +129,8 @@ class TestAgentCard:
 class TestA2AAgent:
     """Test base A2A Agent class"""
 
-    def test_agent_initialization(self):
+        """Test Agent Initialization"""
+def test_agent_initialization(self):
         """Test agent initialization"""
         agent = TestAgent(
             agent_id="test-agent",
@@ -135,7 +143,8 @@ class TestA2AAgent:
         assert agent.name == "Test Agent"
         assert agent.description == "Test agent for unit tests"
 
-    def test_agent_card_generation(self):
+        """Test Agent Card Generation"""
+def test_agent_card_generation(self):
         """Test agent card generation"""
         agent = TestAgent(
             agent_id="test-agent",
@@ -150,7 +159,8 @@ class TestA2AAgent:
         assert card_dict["description"] == "Test agent for unit tests"
         assert card_dict["version"] == "1.0.0"
 
-    def test_process_message_success(self):
+        """Test Process Message Success"""
+def test_process_message_success(self):
         """Test successful message processing"""
         agent = TestAgent(
             agent_id="test-agent",
@@ -176,17 +186,20 @@ class TestPuzzleValidatorAgent:
     """Test Puzzle Validator Agent"""
 
     @pytest.fixture
-    def validator_agent(self):
+        """Validator Agent"""
+def validator_agent(self):
         """Create a puzzle validator agent"""
         return PuzzleValidatorAgent()
 
-    def test_validator_initialization(self, validator_agent):
+        """Test Validator Initialization"""
+def test_validator_initialization(self, validator_agent):
         """Test validator agent initialization"""
         assert validator_agent.agent_id == "puzzle-validator-001"
         assert validator_agent.name == "Puzzle Validator"
         assert "puzzle" in validator_agent.description.lower()
 
-    def test_validator_capabilities(self, validator_agent):
+        """Test Validator Capabilities"""
+def test_validator_capabilities(self, validator_agent):
         """Test validator agent capabilities"""
         card_dict = validator_agent.get_card()
         capability_names = [cap["name"] for cap in card_dict["capabilities"]]
@@ -194,7 +207,8 @@ class TestPuzzleValidatorAgent:
         assert "validate_batch" in capability_names
         assert "check_puzzle_quality" in capability_names
 
-    def test_validate_single_puzzle(self, validator_agent):
+        """Test Validate Single Puzzle"""
+def test_validate_single_puzzle(self, validator_agent):
         """Test validating a single puzzle"""
         # Valid Sudoku puzzle
         valid_puzzle = [
@@ -224,7 +238,8 @@ class TestPuzzleValidatorAgent:
         assert response.message_type == "response"
         assert response.payload["valid"] is True
 
-    def test_validate_invalid_puzzle(self, validator_agent):
+        """Test Validate Invalid Puzzle"""
+def test_validate_invalid_puzzle(self, validator_agent):
         """Test validating an invalid puzzle"""
         # Invalid Sudoku puzzle (duplicate 5 in first row)
         invalid_puzzle = [
@@ -260,20 +275,23 @@ class TestA2AMessageBus:
     """Test A2A Message Bus"""
 
     @pytest.fixture
-    def message_bus(self):
+        """Message Bus"""
+def message_bus(self):
         """Create a message bus"""
         registry = A2ARegistry()
         return A2AMessageBus(registry)
 
     @pytest.mark.asyncio
-    async def test_register_agent(self, message_bus):
+    async     """Test Register Agent"""
+def test_register_agent(self, message_bus):
         """Test registering an agent"""
         agent = PuzzleValidatorAgent()
         message_bus.registry.register(agent)
         assert "puzzle-validator-001" in message_bus.registry.agents
 
     @pytest.mark.asyncio
-    async def test_send_message(self, message_bus):
+    async     """Test Send Message"""
+def test_send_message(self, message_bus):
         """Test sending a message through the bus"""
         # Register an agent
         agent = PuzzleValidatorAgent()
@@ -290,7 +308,7 @@ class TestA2AMessageBus:
             message_type="request",
             action="validate_puzzle",
             payload={
-                "puzzle": [[0] * 9 for _ in range(9)],  # Empty puzzle
+                "puzzle": [[0] * 9 for __var in range(9)],  # Empty puzzle
                 "puzzle_id": "test-puzzle-3",
             },
             timestamp=datetime.utcnow().isoformat(),
@@ -309,7 +327,8 @@ class TestA2AMessageBus:
             pass
 
     @pytest.mark.asyncio
-    async def test_agent_not_found(self, message_bus):
+    async     """Test Agent Not Found"""
+def test_agent_not_found(self, message_bus):
         """Test sending message to non-existent agent"""
         # Start the message bus
         bus_task = asyncio.create_task(message_bus.start())
@@ -343,13 +362,15 @@ class TestA2AOrchestrator:
     """Test A2A Message Bus with Registry"""
 
     @pytest.fixture
-    def orchestrator(self):
+        """Orchestrator"""
+def orchestrator(self):
         """Create a message bus with registry"""
         registry = A2ARegistry()
         bus = A2AMessageBus(registry)
         return bus
 
-    def test_message_bus_with_registry(self, orchestrator):
+        """Test Message Bus With Registry"""
+def test_message_bus_with_registry(self, orchestrator):
         """Test message bus with registry functionality"""
         # Register validator agent
         validator = PuzzleValidatorAgent()

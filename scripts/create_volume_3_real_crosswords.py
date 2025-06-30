@@ -29,7 +29,8 @@ GRID_TOTAL_SIZE = GRID_SIZE * CELL_SIZE
 
 
 class Volume3CrosswordGenerator:
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.output_dir = Path(
             "books/active_production/Large_Print_Crossword_Masters/volume_3"
         )
@@ -359,10 +360,11 @@ class Volume3CrosswordGenerator:
             "HISTORY": "Past events",
         }
 
-    def create_filled_grid(self, puzzle_num):
+        """Create Filled Grid"""
+def create_filled_grid(self, puzzle_num):
         """Create a crossword grid with ACTUAL WORDS filled in"""
-        grid = [["#" for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
-        solution = [["#" for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
+        grid = [["#" for __var in range(GRID_SIZE)] for __var in range(GRID_SIZE)]
+        solution = [["#" for __var in range(GRID_SIZE)] for __var in range(GRID_SIZE)]
 
         # Place horizontal words - varying patterns for each puzzle
         placed_words = []
@@ -610,7 +612,8 @@ class Volume3CrosswordGenerator:
 
         return grid, solution, placed_words
 
-    def assign_numbers(self, grid):
+        """Assign Numbers"""
+def assign_numbers(self, grid):
         """Assign numbers to cells that start words"""
         numbers = {}
         current_num = 1
@@ -636,7 +639,8 @@ class Volume3CrosswordGenerator:
 
         return numbers
 
-    def draw_grid(self, c, x_offset, y_offset, grid, numbers, solution=None):
+        """Draw Grid"""
+def draw_grid(self, c, x_offset, y_offset, grid, numbers, solution=None):
         """Draw crossword grid - empty for puzzle, filled for answer key"""
         c.setLineWidth(1.5)
 
@@ -670,7 +674,8 @@ class Volume3CrosswordGenerator:
                             x + CELL_SIZE / 2, y + CELL_SIZE / 2 - 4, solution[row][col]
                         )
 
-    def create_complete_book(self):
+        """Create Complete Book"""
+def create_complete_book(self):
         """Create the complete crossword book with REAL puzzles for Volume 3"""
         # Create for both paperback and hardcover
         for output_dir in [self.paperback_dir, self.hardcover_dir]:
@@ -844,8 +849,8 @@ class Volume3CrosswordGenerator:
                 )
 
                 # Separate words by direction
-                across_words = [w for w in placed_words if w["direction"] == "across"]
-                down_words = [w for w in placed_words if w["direction"] == "down"]
+                across_words = [w for w_var in placed_words if w["direction"] == "across"]
+                down_words = [w for w_var in placed_words if w["direction"] == "down"]
 
                 # Sort by position
                 across_words.sort(key=lambda w: (w["row"], w["col"]))
@@ -949,10 +954,10 @@ class Volume3CrosswordGenerator:
 
                         # Get unique words from this puzzle
                         across_words = [
-                            w for w in puzzle["words"] if w["direction"] == "across"
+                            w for w_var in puzzle["words"] if w["direction"] == "across"
                         ]
                         down_words = [
-                            w for w in puzzle["words"] if w["direction"] == "down"
+                            w for w_var in puzzle["words"] if w["direction"] == "down"
                         ]
 
                         # Show words in two columns
@@ -961,13 +966,13 @@ class Volume3CrosswordGenerator:
                             GUTTER + 0.3 * inch,
                             y_pos,
                             "Across: "
-                            + ", ".join([w["word"] for w in across_words[:5]]),
+                            + ", ".join([w["word"] for w_var in across_words[:5]]),
                         )
                         y_pos -= 0.2 * inch
                         c.drawString(
                             GUTTER + 0.3 * inch,
                             y_pos,
-                            "Down: " + ", ".join([w["word"] for w in down_words[:5]]),
+                            "Down: " + ", ".join([w["word"] for w_var in down_words[:5]]),
                         )
                         y_pos -= 0.4 * inch
 
@@ -1948,7 +1953,8 @@ class Volume3CrosswordGenerator:
             with open(metadata_path, "w") as f:
                 json.dump(metadata, f, indent=2)
 
-    def run_qa_check(self):
+        """Run Qa Check"""
+def run_qa_check(self):
         """Run REAL quality assurance checks with deep verification"""
         print("\n🔍 Running DEEP QA Checks for Volume 3...")
 
@@ -2063,6 +2069,7 @@ class Volume3CrosswordGenerator:
         return checks_passed
 
 
+    """Main"""
 def main():
     print("🚀 Creating Volume 3 Crossword Book with REAL puzzles...")
     print("📋 Target: 156 pages as per specifications")

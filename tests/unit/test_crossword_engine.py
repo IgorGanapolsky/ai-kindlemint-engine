@@ -19,17 +19,20 @@ from crossword_engine_v2 import CrosswordEngineV2
 class TestCrosswordEngine(unittest.TestCase):
     """Test cases for Crossword puzzle generation"""
 
-    def setUp(self):
+        """Setup"""
+def setUp(self):
         """Set up test fixtures"""
         # Create a temporary output directory for generated assets
         self.temp_dir = tempfile.mkdtemp()
         self.engine = CrosswordEngineV2(output_dir=self.temp_dir)
 
-    def tearDown(self):
+        """Teardown"""
+def tearDown(self):
         """Clean up temporary directory"""
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_grid_creation(self):
+        """Test Grid Creation"""
+def test_grid_creation(self):
         """Test creation of crossword grid"""
         size = 15
         grid = self.engine.generate_grid_with_content("test_puzzle_1")
@@ -44,7 +47,8 @@ class TestCrosswordEngine(unittest.TestCase):
             for cell in row:
                 self.assertIn(cell, [" ", "#"])
 
-    def test_grid_symmetry(self):
+        """Test Grid Symmetry"""
+def test_grid_symmetry(self):
         """Test that grids have rotational symmetry"""
         size = 15
         grid = self.engine.generate_grid_with_content("test_puzzle_2")
@@ -56,9 +60,10 @@ class TestCrosswordEngine(unittest.TestCase):
                     # The opposite cell should also be blocked
                     self.assertEqual(grid[size - 1 - i][size - 1 - j], "#")
 
-    def test_word_placement(self):
+        """Test Word Placement"""
+def test_word_placement(self):
         """Test placing words in the grid"""
-        grid = [[" " for _ in range(15)] for _ in range(15)]
+        grid = [[" " for __var in range(15)] for __var in range(15)]
 
         # Place a horizontal word
         word = "HELLO"
@@ -69,7 +74,8 @@ class TestCrosswordEngine(unittest.TestCase):
         # Check placement
         self.assertEqual("".join(grid[5][5:10]), "HELLO")
 
-    def test_clue_generation(self):
+        """Test Clue Generation"""
+def test_clue_generation(self):
         """Test that clues are generated properly"""
         # This would need mocking of the API calls
         # For now, test the structure
@@ -84,10 +90,11 @@ class TestCrosswordEngine(unittest.TestCase):
             all(isinstance(clue, list) and len(clue) == 2 for clue in clues["down"])
         )
 
-    def test_solution_grid_generation(self):
+        """Test Solution Grid Generation"""
+def test_solution_grid_generation(self):
         """Test generation of filled solution grid"""
         # Create a simple test grid
-        grid = [["" for _ in range(15)] for _ in range(15)]
+        grid = [["" for __var in range(15)] for __var in range(15)]
         grid[0][0:5] = list("HELLO")
         grid[1][0] = "E"
         grid[2][0] = "L"
@@ -101,7 +108,8 @@ class TestCrosswordEngine(unittest.TestCase):
         self.assertEqual(solution[2][0], "L")
         self.assertEqual(solution[3][0], "P")
 
-    def test_grid_connectivity(self):
+        """Test Grid Connectivity"""
+def test_grid_connectivity(self):
         """Test that crossword grids are properly connected"""
         grid = self.engine.generate_grid_with_content("test_puzzle_3")
 
@@ -115,7 +123,8 @@ class TestCrosswordEngine(unittest.TestCase):
         # Grid should not be completely empty
         self.assertGreater(black_count, 0)
 
-    def test_minimum_word_length(self):
+        """Test Minimum Word Length"""
+def test_minimum_word_length(self):
         """Test that all word slots meet minimum length"""
         grid = self.engine.generate_grid_with_content("test_puzzle_4")
 
@@ -147,7 +156,8 @@ class TestCrosswordEngine(unittest.TestCase):
             if word_length > 0 and word_length < 3:
                 self.fail(f"Word too short: {word_length} letters")
 
-    def test_difficulty_settings(self):
+        """Test Difficulty Settings"""
+def test_difficulty_settings(self):
         """Test different difficulty levels"""
         difficulties = ["easy", "medium", "hard"]
 
@@ -159,7 +169,8 @@ class TestCrosswordEngine(unittest.TestCase):
             self.assertEqual(len(grid), 15)
             self.assertEqual(len(grid[0]), 15)
 
-    def test_theme_support(self):
+        """Test Theme Support"""
+def test_theme_support(self):
         """Test theme-based puzzle generation"""
         themes = ["Animals", "Geography", "Science", "History"]
 
@@ -169,7 +180,8 @@ class TestCrosswordEngine(unittest.TestCase):
             clues = self.engine.generate_clues("test_puzzle", theme, "medium")
             self.assertIsInstance(clues, dict)
 
-    def test_puzzle_metadata(self):
+        """Test Puzzle Metadata"""
+def test_puzzle_metadata(self):
         """Test that puzzles include proper metadata"""
         puzzle_data = {
             "id": "puzzle_001",
@@ -184,7 +196,8 @@ class TestCrosswordEngine(unittest.TestCase):
         for field in required_fields:
             self.assertIn(field, puzzle_data)
 
-    def test_no_duplicate_numbers(self):
+        """Test No Duplicate Numbers"""
+def test_no_duplicate_numbers(self):
         """Test that clue numbers are unique and sequential"""
         # Create a mock clue set
         clues = {
@@ -209,7 +222,8 @@ class TestCrosswordEngine(unittest.TestCase):
 class TestCrosswordValidation(unittest.TestCase):
     """Test crossword validation functions"""
 
-    def test_valid_crossword_structure(self):
+        """Test Valid Crossword Structure"""
+def test_valid_crossword_structure(self):
         """Test validation of crossword structure"""
         valid_grid = [
             ["H", "E", "L", "L", "O", "#", "#"],
@@ -225,7 +239,8 @@ class TestCrosswordValidation(unittest.TestCase):
         # In practice, you'd call a validation method here
         self.assertTrue(True)
 
-    def test_solution_completeness(self):
+        """Test Solution Completeness"""
+def test_solution_completeness(self):
         """Test that solutions have all squares filled"""
         solution_grid = [
             ["H", "E", "L", "L", "O"],

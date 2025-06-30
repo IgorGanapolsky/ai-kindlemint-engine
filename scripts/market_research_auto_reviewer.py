@@ -16,7 +16,8 @@ from typing import Dict, List
 class MarketResearchAutoReviewer:
     """Automated reviewer for market research PRs"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.min_opportunity_score = 0.7  # Minimum score to consider an opportunity
         self.max_niches_per_day = 5  # Maximum niches to pursue daily
         self.required_criteria = {
@@ -248,7 +249,8 @@ class MarketResearchAutoReviewer:
 
         return decisions
 
-    def _execute_decisions(self, decisions: Dict, pr_number: str = None):
+        """ Execute Decisions"""
+def _execute_decisions(self, decisions: Dict, pr_number: str = None):
         """Execute the automated decisions"""
         print("\n📊 DECISION REPORT")
         print("=" * 50)
@@ -294,7 +296,8 @@ class MarketResearchAutoReviewer:
         else:
             print("\n⚠️ Manual review required - PR not auto-merged")
 
-    def _create_content_tasks(self, selected_niches: List[Dict]):
+        """ Create Content Tasks"""
+def _create_content_tasks(self, selected_niches: List[Dict]):
         """Create content generation tasks for selected niches"""
         tasks_file = Path("tasks") / "content_generation_queue.json"
         tasks_file.parent.mkdir(exist_ok=True)
@@ -325,6 +328,7 @@ class MarketResearchAutoReviewer:
         print(f"\n📝 Created {len(selected_niches)} content generation tasks")
 
 
+    """Main"""
 def main():
     """Main entry point"""
     import argparse

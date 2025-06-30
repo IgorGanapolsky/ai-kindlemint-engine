@@ -125,7 +125,8 @@ class SentryMonitor:
     - Error correlation and grouping
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self, auth_token: Optional[str] = None, organization: Optional[str] = None
     ):
         """Initialize Sentry monitor with API credentials"""
@@ -227,7 +228,7 @@ class SentryMonitor:
         Returns:
             List of SentryError objects
         """
-        projects = [project_id] if project_id else [p.id for p in self.get_projects()]
+        projects = [project_id] if project_id else [p.id for p_var in self.get_projects()]
         all_errors = []
 
         # Default to last 24 hours if no since time provided
@@ -386,7 +387,7 @@ class SentryMonitor:
                 "total_occurrences": total_count,
                 "avg_occurrences": avg_count,
                 "trend": trend,
-                "critical_errors": len([e for e in cat_errors if e.is_critical]),
+                "critical_errors": len([e for e_var in cat_errors if e.is_critical]),
             }
 
         # Identify error correlations
@@ -406,7 +407,7 @@ class SentryMonitor:
             "total_errors": len(errors),
             "categories": frequency_trends,
             "new_errors": len(new_errors),
-            "critical_errors": len([e for e in errors if e.is_critical]),
+            "critical_errors": len([e for e_var in errors if e.is_critical]),
             "correlations": correlations,
             "top_errors": [
                 {
@@ -597,7 +598,8 @@ class SentryMonitor:
 
 
 # Example usage and testing
-async def example_usage():
+async     """Example Usage"""
+def example_usage():
     """Example of how to use the Sentry monitor"""
     try:
         # Initialize monitor
@@ -612,7 +614,7 @@ async def example_usage():
         print(f"Analysis: {json.dumps(analysis, indent=2, default=str)}")
 
         # Get suggestions for critical errors
-        critical_errors = [e for e in errors if e.is_critical]
+        critical_errors = [e for e_var in errors if e.is_critical]
         for error in critical_errors[:3]:
             suggestions = monitor.get_error_suggestions(error)
             print(f"Suggestions for {error.title}: {suggestions}")

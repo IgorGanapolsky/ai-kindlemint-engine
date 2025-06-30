@@ -28,7 +28,8 @@ class StrategyResult:
 class ResolutionStrategy(ABC):
     """Base class for resolution strategies"""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self, name: str, description: str, confidence: float, safety_level: str
     ):
         self.name = name
@@ -52,7 +53,8 @@ class ResolutionStrategy(ABC):
 class DatabaseConnectionStrategy(ResolutionStrategy):
     """Strategy for resolving database connection issues"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         super().__init__(
             name="Database Connection Resolution",
             description="Resolve database connection timeouts and failures",
@@ -179,7 +181,8 @@ class DatabaseConnectionStrategy(ResolutionStrategy):
 class MemoryLeakStrategy(ResolutionStrategy):
     """Strategy for resolving memory leak issues"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         super().__init__(
             name="Memory Leak Resolution",
             description="Resolve memory leaks and high memory usage",
@@ -268,7 +271,8 @@ class MemoryLeakStrategy(ResolutionStrategy):
 class APIRateLimitStrategy(ResolutionStrategy):
     """Strategy for resolving API rate limiting issues"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         super().__init__(
             name="API Rate Limit Resolution",
             description="Implement exponential backoff and rate limiting",
@@ -374,7 +378,8 @@ class APIRateLimitStrategy(ResolutionStrategy):
 class DiskSpaceStrategy(ResolutionStrategy):
     """Strategy for resolving disk space issues"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         super().__init__(
             name="Disk Space Resolution",
             description="Clean up disk space by removing temporary files and logs",
@@ -455,7 +460,8 @@ class DiskSpaceStrategy(ResolutionStrategy):
 class AuthTokenStrategy(ResolutionStrategy):
     """Strategy for resolving authentication token issues"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         super().__init__(
             name="Authentication Token Resolution",
             description="Refresh expired or invalid authentication tokens",
@@ -543,7 +549,8 @@ class AuthTokenStrategy(ResolutionStrategy):
 class ServiceRestartStrategy(ResolutionStrategy):
     """Strategy for restarting services to resolve various issues"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         super().__init__(
             name="Service Restart Resolution",
             description="Gracefully restart services to resolve persistent issues",
@@ -617,11 +624,13 @@ class ServiceRestartStrategy(ResolutionStrategy):
 class StrategyRegistry:
     """Registry for managing resolution strategies"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.strategies = {}
         self._register_default_strategies()
 
-    def _register_default_strategies(self):
+        """ Register Default Strategies"""
+def _register_default_strategies(self):
         """Register all default strategies"""
         strategies = [
             DatabaseConnectionStrategy(),
@@ -644,7 +653,8 @@ class StrategyRegistry:
         for strategy in strategies:
             self.register_strategy(strategy)
 
-    def register_strategy(self, strategy: ResolutionStrategy):
+        """Register Strategy"""
+def register_strategy(self, strategy: ResolutionStrategy):
         """Register a new resolution strategy"""
         self.strategies[strategy.name] = strategy
         logger.info(f"Registered strategy: {strategy.name}")
@@ -683,6 +693,7 @@ def get_applicable_strategies(
     return strategy_registry.get_applicable_strategies(error_context)
 
 
+    """Register Custom Strategy"""
 def register_custom_strategy(strategy: ResolutionStrategy):
     """Register a custom resolution strategy"""
     strategy_registry.register_strategy(strategy)

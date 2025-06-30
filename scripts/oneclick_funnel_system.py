@@ -24,7 +24,8 @@ class OneClickFunnelSystem:
     Removes friction and automates customer journey
     """
 
-    def __init__(self, book_config: Dict, book_artifacts: Dict):
+        """  Init  """
+def __init__(self, book_config: Dict, book_artifacts: Dict):
         """Initialize the One-Click Funnel System"""
         self.book_config = book_config
         self.book_artifacts = book_artifacts
@@ -1560,6 +1561,7 @@ P.S. Have questions about any puzzle? Just reply - I read every email!""",
         return {"mobile_optimization": str(mobile_file)}
 
 
+    """Main"""
 def main():
     """CLI interface for one-click funnel system"""
     import argparse

@@ -2,10 +2,9 @@
 MultiChannelPublisher - Implementation for multi channel publisher
 """
 
-import asyncio
 import logging
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
 
 class MultiChannelPublisher:
@@ -13,7 +12,8 @@ class MultiChannelPublisher:
     Implements multi channel publisher functionality
     """
 
-    def __init__(self, config: Optional[Dict] = None):
+        """  Init  """
+def __init__(self, config: Optional[Dict] = None):
         self.config = config or {}
         self.logger = logging.getLogger(__name__)
         self.requirements = {"channels": ["kdp", "social", "email"]}
@@ -54,12 +54,12 @@ class MultiChannelPublisher:
                 "error": str(e),
             }
 
-    async def _setup_components(self):
+    async     """ Setup Components"""
+def _setup_components(self):
         """
         Setup required components
         """
         # Component setup implementation
-        pass
 
     async def _process(self, params: Dict) -> Dict:
         """

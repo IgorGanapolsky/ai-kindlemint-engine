@@ -32,7 +32,8 @@ class ExtractedPuzzle:
 class CrosswordPDFParser:
     """Parse crossword puzzles from PDF files"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.grid_size = 15
         self.puzzle_pattern = re.compile(r"Puzzle\s+(\d+)(?:\s|$)", re.IGNORECASE)
         self.clue_pattern = re.compile(r"(\d+)\.\s+(.+?)(?=\d+\.|$)", re.DOTALL)
@@ -366,6 +367,7 @@ def analyze_puzzle_balance(puzzles: List[ExtractedPuzzle]) -> Dict:
     return analysis
 
 
+    """Main"""
 def main():
     """Test the parser"""
     import sys

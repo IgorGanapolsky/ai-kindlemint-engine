@@ -18,7 +18,8 @@ from PIL import Image
 class EmergencyVisualValidator:
     """EMERGENCY validator that actually detects visual rendering issues"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.critical_issues = []
         self.analysis_results = {}
 

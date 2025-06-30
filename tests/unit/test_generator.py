@@ -14,7 +14,8 @@ class TestGenerator:
     Generates comprehensive test suites for code
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.test_templates = {
             "unit_tests": self._generate_unit_tests,
@@ -108,7 +109,7 @@ class TestGenerator:
                             "name": node.name,
                             "methods": [
                                 n.name
-                                for n in node.body
+                                for n_var in_var node.body
                                 if isinstance(n, ast.FunctionDef)
                             ],
                             "line": node.lineno,
@@ -188,7 +189,7 @@ class TestGenerator:
                 }
             )
 
-        return {"tests": tests, "test_count": sum(t["test_count"] for t in tests)}
+        return {"tests": tests, "test_count": sum(t["test_count"] for t_var in tests)}
 
     def _generate_class_tests(self, class_info: Dict, include_edge_cases: bool) -> str:
         """Generate tests for a class"""
@@ -202,16 +203,19 @@ class TestGenerator:
             \"\"\"Test suite for {class_name}\"\"\"
             
             @pytest.fixture
-            def instance(self):
+                """Instance"""
+def instance(self):
                 \"\"\"Create instance for testing\"\"\"
                 return {class_name}()
             
-            def test_initialization(self):
+                """Test Initialization"""
+def test_initialization(self):
                 \"\"\"Test {class_name} initialization\"\"\"
                 instance = {class_name}()
                 assert instance is not None
             
-            def test_attributes(self, instance):
+                """Test Attributes"""
+def test_attributes(self, instance):
                 \"\"\"Test {class_name} attributes\"\"\"
                 # Test default attributes exist
                 assert hasattr(instance, '__dict__')
@@ -324,7 +328,7 @@ class TestGenerator:
                 for case in edge_cases:
                     try:
                         result = {func_name}({', '.join(['case'] * len(args))})
-                    except:
+                    except Exception:
                         pass  # Some edge cases may raise exceptions
             """
             )
@@ -356,7 +360,8 @@ class TestGenerator:
             \"\"\"Integration test suite\"\"\"
             
             @pytest.mark.asyncio
-            async def test_end_to_end_workflow(self):
+            async     """Test End To End Workflow"""
+def test_end_to_end_workflow(self):
                 \"\"\"Test complete end-to-end workflow\"\"\"
                 # Import main components
                 from kindlemint.orchestrator import ClaudeCodeOrchestrator
@@ -380,19 +385,22 @@ class TestGenerator:
                 assert feature_result["status"] == "completed"
             
             @pytest.mark.asyncio
-            async def test_database_integration(self):
+            async     """Test Database Integration"""
+def test_database_integration(self):
                 \"\"\"Test database operations\"\"\"
                 # Test database connectivity and operations
                 pass
             
             @pytest.mark.asyncio
-            async def test_api_integration(self):
+            async     """Test Api Integration"""
+def test_api_integration(self):
                 \"\"\"Test API integrations\"\"\"
                 # Test external API calls
                 pass
             
             @pytest.mark.asyncio
-            async def test_multi_component_interaction(self):
+            async     """Test Multi Component Interaction"""
+def test_multi_component_interaction(self):
                 \"\"\"Test interaction between multiple components\"\"\"
                 # Test how different components work together
                 pass
@@ -403,7 +411,7 @@ class TestGenerator:
             {"name": "integration_tests", "code": integration_test, "test_count": 4}
         )
 
-        return {"tests": tests, "test_count": sum(t["test_count"] for t in tests)}
+        return {"tests": tests, "test_count": sum(t["test_count"] for t_var in tests)}
 
     async def _generate_load_tests(
         self, code_analysis: Dict, target_coverage: float, include_edge_cases: bool
@@ -428,15 +436,18 @@ class TestGenerator:
         class LoadTest:
             \"\"\"Load testing suite\"\"\"
             
-            def __init__(self):
+                """  Init  """
+def __init__(self):
                 self.results = []
                 self.errors = []
                 
-            async def test_concurrent_requests(self, num_requests: int = 1000):
+            async     """Test Concurrent Requests"""
+def test_concurrent_requests(self, num_requests: int = 1000):
                 \"\"\"Test system under concurrent load\"\"\"
                 print(f"Starting load test with {num_requests} requests...")
                 
-                async def make_request(session, request_id):
+                async     """Make Request"""
+def make_request(session, request_id):
                     start_time = time.time()
                     try:
                         # Replace with actual endpoint
@@ -476,7 +487,8 @@ class TestGenerator:
                 
                 return {"error": "No successful requests"}
             
-            async def test_sustained_load(self, duration_seconds: int = 60, 
+            async     """Test Sustained Load"""
+def test_sustained_load(self, duration_seconds: int = 60, 
                                         requests_per_second: int = 10):
                 \"\"\"Test system under sustained load\"\"\"
                 print(f"Starting sustained load test: {requests_per_second} req/s for {duration_seconds}s")
@@ -497,7 +509,8 @@ class TestGenerator:
                 
                 print(f"Sustained load test completed: {request_count} total requests")
             
-            async def test_spike_load(self, normal_load: int = 10, 
+            async     """Test Spike Load"""
+def test_spike_load(self, normal_load: int = 10, 
                                     spike_load: int = 1000):
                 \"\"\"Test system behavior under load spikes\"\"\"
                 print(f"Testing spike load: {normal_load} -> {spike_load} requests")
@@ -527,7 +540,7 @@ class TestGenerator:
 
         tests.append({"name": "load_tests", "code": load_test, "test_count": 3})
 
-        return {"tests": tests, "test_count": sum(t["test_count"] for t in tests)}
+        return {"tests": tests, "test_count": sum(t["test_count"] for t_var in tests)}
 
     async def _generate_security_tests(
         self, code_analysis: Dict, target_coverage: float, include_edge_cases: bool
@@ -552,7 +565,8 @@ class TestGenerator:
         class TestSecurity:
             \"\"\"Security test suite\"\"\"
             
-            def test_sql_injection_protection(self):
+                """Test Sql Injection Protection"""
+def test_sql_injection_protection(self):
                 \"\"\"Test protection against SQL injection\"\"\"
                 # Test various SQL injection attempts
                 injection_attempts = [
@@ -568,7 +582,8 @@ class TestGenerator:
                     # This would test actual database query functions
                     pass
             
-            def test_xss_protection(self):
+                """Test Xss Protection"""
+def test_xss_protection(self):
                 \"\"\"Test protection against XSS attacks\"\"\"
                 xss_attempts = [
                     "<script>alert('XSS')</script>",
@@ -582,20 +597,23 @@ class TestGenerator:
                     # Verify proper HTML escaping
                     pass
             
-            def test_authentication_security(self):
+                """Test Authentication Security"""
+def test_authentication_security(self):
                 \"\"\"Test authentication security\"\"\"
                 # Test password hashing
                 # Test session management
                 # Test brute force protection
                 pass
             
-            def test_authorization_security(self):
+                """Test Authorization Security"""
+def test_authorization_security(self):
                 \"\"\"Test authorization security\"\"\"
                 # Test access control
                 # Test privilege escalation prevention
                 pass
             
-            def test_input_validation(self):
+                """Test Input Validation"""
+def test_input_validation(self):
                 \"\"\"Test input validation\"\"\"
                 invalid_inputs = [
                     None,
@@ -611,21 +629,24 @@ class TestGenerator:
                     # Verify proper validation
                     pass
             
-            def test_file_upload_security(self):
+                """Test File Upload Security"""
+def test_file_upload_security(self):
                 \"\"\"Test file upload security\"\"\"
                 # Test file type validation
                 # Test file size limits
                 # Test path traversal prevention
                 pass
             
-            def test_api_security(self):
+                """Test Api Security"""
+def test_api_security(self):
                 \"\"\"Test API security\"\"\"
                 # Test rate limiting
                 # Test API key validation
                 # Test CORS configuration
                 pass
             
-            def test_cryptography(self):
+                """Test Cryptography"""
+def test_cryptography(self):
                 \"\"\"Test cryptographic implementations\"\"\"
                 # Test encryption strength
                 # Test secure random generation
@@ -636,7 +657,7 @@ class TestGenerator:
 
         tests.append({"name": "security_tests", "code": security_test, "test_count": 8})
 
-        return {"tests": tests, "test_count": sum(t["test_count"] for t in tests)}
+        return {"tests": tests, "test_count": sum(t["test_count"] for t_var in tests)}
 
     async def _write_test_files(self, generated_tests: Dict) -> Dict:
         """Write test files to disk"""

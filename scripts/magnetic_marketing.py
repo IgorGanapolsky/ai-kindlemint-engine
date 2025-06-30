@@ -17,7 +17,8 @@ class MagneticMarketingEngine:
     Transforms books from invisible to irresistible
     """
 
-    def __init__(self, book_config: Dict, book_artifacts: Dict):
+        """  Init  """
+def __init__(self, book_config: Dict, book_artifacts: Dict):
         """Initialize magnetic marketing engine"""
         self.book_config = book_config
         self.book_artifacts = book_artifacts
@@ -1773,6 +1774,7 @@ Click "Add to Cart" now to claim your complete package...
         return {"social_proof_systems": str(proof_file)}
 
 
+    """Main"""
 def main():
     """CLI interface for magnetic marketing system"""
     import argparse

@@ -1,13 +1,14 @@
 # scripts/a2a_orchestrator.py
 
-from scripts.large_print_sudoku_generator import LargePrintSudokuGenerator
-from kindlemint.agents.puzzle_validator_agent import PuzzleValidatorAgent
-from kindlemint.agents.puzzle_generator_agent import PuzzleGeneratorAgent
-from kindlemint.agents.pdf_layout_agent import PDFLayoutAgent
-from kindlemint.a2a.server import A2AServer
-from kindlemint.a2a.registry import AgentRegistry
 import sys
 from pathlib import Path
+
+from kindlemint.a2a.registry import AgentRegistry
+from kindlemint.a2a.server import A2AServer
+from kindlemint.agents.pdf_layout_agent import PDFLayoutAgent
+from kindlemint.agents.puzzle_generator_agent import PuzzleGeneratorAgent
+from kindlemint.agents.puzzle_validator_agent import PuzzleValidatorAgent
+from scripts.large_print_sudoku_generator import LargePrintSudokuGenerator
 
 # Add the scripts directory to the Python path
 sys.path.append(str(Path(__file__).parent))
@@ -16,7 +17,8 @@ sys.path.append(str(Path(__file__).parent))
 class A2AOrchestrator:
     """Orchestrates the book generation process using A2A agents."""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.registry = AgentRegistry(registry_file="a2a_registry.json")
         self.server = A2AServer(self.registry)
 
@@ -32,7 +34,8 @@ class A2AOrchestrator:
         self.server.register_agent(self.puzzle_validator)
         self.server.register_agent(self.pdf_layout)
 
-    def run_workflow(self):
+        """Run Workflow"""
+def run_workflow(self):
         """Runs the full book generation workflow."""
         print("🚀 Starting A2A book generation workflow...")
 

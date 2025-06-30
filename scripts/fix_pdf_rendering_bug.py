@@ -15,13 +15,15 @@ from PIL import Image, ImageDraw, ImageFont
 class SudokuRenderingFixer:
     """Diagnose and fix Sudoku PDF rendering issues"""
 
-    def __init__(self, book_dir):
+        """  Init  """
+def __init__(self, book_dir):
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "puzzles" / "metadata"
         self.puzzles_dir = self.book_dir / "puzzles" / "puzzles"
         self.issues_found = []
 
-    def count_clues_in_json(self, puzzle_data):
+        """Count Clues In Json"""
+def count_clues_in_json(self, puzzle_data):
         """Count actual clues in JSON grid"""
         if "initial_grid" not in puzzle_data:
             return 0
@@ -34,7 +36,8 @@ class SudokuRenderingFixer:
                     clue_count += 1
         return clue_count
 
-    def analyze_png_image(self, png_path):
+        """Analyze Png Image"""
+def analyze_png_image(self, png_path):
         """Analyze PNG image to detect filled cells (approximate)"""
         try:
             img = Image.open(png_path)
@@ -50,8 +53,8 @@ class SudokuRenderingFixer:
             filled_cells = 0
 
             # Check each cell position for darkness (indicating a number)
-            for r in range(9):
-                for c in range(9):
+            for_var r_var in range(9):
+                for c_var in range(9):
                     # Calculate cell center
                     x = margin + c * cell_size + cell_size // 2
                     y = margin + r * cell_size + cell_size // 2
@@ -69,7 +72,8 @@ class SudokuRenderingFixer:
             print(f"Error analyzing PNG {png_path}: {e}")
             return -1
 
-    def diagnose_puzzle(self, puzzle_id):
+        """Diagnose Puzzle"""
+def diagnose_puzzle(self, puzzle_id):
         """Diagnose a specific puzzle for rendering issues"""
         metadata_file = self.metadata_dir / f"sudoku_puzzle_{puzzle_id:03d}.json"
         png_file = self.puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}.png"
@@ -113,7 +117,8 @@ class SudokuRenderingFixer:
 
         return issue
 
-    def regenerate_puzzle_png(self, puzzle_data, puzzle_id):
+        """Regenerate Puzzle Png"""
+def regenerate_puzzle_png(self, puzzle_data, puzzle_id):
         """Regenerate PNG image from JSON metadata"""
         grid = puzzle_data["initial_grid"]
 
@@ -156,8 +161,8 @@ class SudokuRenderingFixer:
             )
 
         # Draw numbers
-        for r in range(grid_size):
-            for c in range(grid_size):
+        for_var r_var in range(grid_size):
+            for c_var in range(grid_size):
                 value = grid[r][c]
                 if value != 0:
                     text = str(value)
@@ -176,7 +181,8 @@ class SudokuRenderingFixer:
 
         return output_path
 
-    def fix_all_issues(self):
+        """Fix All Issues"""
+def fix_all_issues(self):
         """Diagnose and fix all puzzle rendering issues"""
         print("🔍 Diagnosing PDF rendering issues...")
 
@@ -214,6 +220,7 @@ class SudokuRenderingFixer:
         return issues
 
 
+    """Main"""
 def main():
     """Main entry point"""
     book_dir = Path("books/active_production/Large_Print_Sudoku_Masters/volume_1")

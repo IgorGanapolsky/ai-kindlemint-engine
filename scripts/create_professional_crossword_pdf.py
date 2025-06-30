@@ -29,6 +29,7 @@ GRID_WIDTH = GRID_SIZE * CELL_SIZE  # 4.2 inches
 GRID_HEIGHT = GRID_SIZE * CELL_SIZE  # 4.2 inches
 
 
+    """Create Crossword Grid"""
 def create_crossword_grid(c, x_offset, y_offset, puzzle_data):
     """Draw a professional crossword grid"""
 
@@ -174,7 +175,8 @@ class ProfessionalCrosswordFormatter(Formatter):
     Formatter for professional crossword PDFs.
     """
 
-    def __init__(self, output_path: Path = None):
+        """  Init  """
+def __init__(self, output_path: Path = None):
         self.output_path = output_path
 
     def create_pdf(self) -> Path:

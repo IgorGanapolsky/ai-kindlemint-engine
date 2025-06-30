@@ -8,7 +8,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-
+    """Test Sudoku Generator Advanced"""
 def test_sudoku_generator_advanced():
     """Push sudoku.py from 19% to 35%+"""
     from kindlemint.engines.sudoku import SudokuGenerator
@@ -32,7 +32,7 @@ def test_sudoku_generator_advanced():
     assert puzzle_dict["clue_count"] > 0
 
     # Test solving capability
-    test_grid = [[0] * 9 for _ in range(9)]
+    test_grid = [[0] * 9 for __var in range(9)]
     # Add some clues
     test_grid[0][0] = 1
     test_grid[0][1] = 2
@@ -48,6 +48,7 @@ def test_sudoku_generator_advanced():
     assert "initial_grid" in puzzle
 
 
+    """Test Config Loader Advanced"""
 def test_config_loader_advanced():
     """Push config.py from 48% to 70%+"""
     from kindlemint.utils.config import ConfigLoader
@@ -94,6 +95,7 @@ def test_config_loader_advanced():
                 assert loader.config["api_settings"]["openai"]["api_key"] == "env-key"
 
 
+    """Test Base Validator Advanced"""
 def test_base_validator_advanced():
     """Push base_validator from 57% to 80%+"""
     from kindlemint.validators.base_validator import (
@@ -149,6 +151,7 @@ def test_base_validator_advanced():
         Path(f.name).unlink()
 
 
+    """Test Api Provider Coverage"""
 def test_api_provider_coverage():
     """Boost api.py from 17% to 40%+"""
     from kindlemint.utils.api import APIProvider
@@ -162,7 +165,8 @@ def test_api_provider_coverage():
         from kindlemint.utils.api import with_ai_monitoring
 
         @with_ai_monitoring
-        def test_function():
+            """Test Function"""
+def test_function():
             return "result"
 
         result = test_function()
@@ -171,6 +175,7 @@ def test_api_provider_coverage():
         pass
 
 
+    """Test Cost Tracker Coverage"""
 def test_cost_tracker_coverage():
     """Boost cost_tracker.py from 14% to 30%+"""
     from kindlemint.utils.cost_tracker import ClaudeCostTracker
@@ -195,6 +200,7 @@ def test_cost_tracker_coverage():
     assert "claude-3-opus" in summary
 
 
+    """Test Crossword Validator Advanced"""
 def test_crossword_validator_advanced():
     """Boost crossword_validator from 11% to 25%+"""
     from kindlemint.validators.crossword_validator import CrosswordValidator
@@ -219,6 +225,7 @@ def test_crossword_validator_advanced():
     assert hasattr(validator, "_validate_clues")
 
 
+    """Test Wordsearch Validator Coverage"""
 def test_wordsearch_validator_coverage():
     """Boost wordsearch_validator from 13% to 30%+"""
     from kindlemint.validators.wordsearch_validator import WordSearchValidator

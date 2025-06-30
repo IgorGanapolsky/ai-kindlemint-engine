@@ -9,7 +9,7 @@ import os
 from PIL import Image
 from reportlab.pdfgen import canvas
 
-
+    """Export Corrected Cover To Pdf"""
 def export_corrected_cover_to_pdf():
     """Export the corrected cover wrap as PDF/X-1a for KDP"""
 

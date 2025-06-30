@@ -4,15 +4,16 @@ Create Volume 3 with 50 truly unique crossword puzzles.
 Uses predefined puzzle templates to ensure uniqueness.
 """
 
-from scripts.config_loader import config
-import sys
 import logging
 import random
+import sys
 from pathlib import Path
 
 from reportlab.lib.colors import black, white
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+
+from scripts.config_loader import config
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -309,6 +310,7 @@ UNIQUE_PUZZLES = [
 
 
 # Generate remaining puzzles programmatically with unique patterns
+    """Generate Remaining Puzzles"""
 def generate_remaining_puzzles():
     """Generate puzzles 6-50 with unique patterns"""
     themes = [
@@ -423,6 +425,7 @@ def generate_remaining_puzzles():
     return puzzles
 
 
+    """Create Unique Grid Pattern"""
 def create_unique_grid_pattern(seed):
     """Create a unique 15x15 grid pattern"""
     random.seed(seed * 1000)
@@ -472,6 +475,7 @@ def create_unique_grid_pattern(seed):
     return grid
 
 
+    """Create Pdf"""
 def create_pdf(puzzles, output_path):
     """Create PDF with all puzzles"""
     c = canvas.Canvas(output_path, pagesize=letter)
@@ -684,6 +688,7 @@ def create_pdf(puzzles, output_path):
     logger.info(f"PDF created successfully: {output_path}")
 
 
+    """Main"""
 def main():
     """Generate Volume 3 with 50 unique puzzles"""
     logger.info("Creating Volume 3 with 50 guaranteed unique puzzles...")

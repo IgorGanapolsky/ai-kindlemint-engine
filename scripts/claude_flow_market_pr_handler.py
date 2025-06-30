@@ -7,7 +7,7 @@ Automated decision-making for market research pull requests
 import subprocess
 import sys
 
-
+    """Analyze Market Pr"""
 def analyze_market_pr():
     """Analyze market research PR and make automated decisions"""
     print("🤖 CLAUDE-FLOW MARKET PR ANALYZER")
@@ -143,6 +143,7 @@ def analyze_market_pr():
         return False
 
 
+    """Main"""
 def main():
     """Main entry point"""
     # Check if running in CI/CD environment

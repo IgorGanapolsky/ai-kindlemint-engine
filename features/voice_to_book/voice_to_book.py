@@ -2,10 +2,9 @@
 Voice to Book Pipeline - Convert voice recordings to publishable books
 """
 
-import asyncio
 import logging
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict
 
 import whisper
 from pydub import AudioSegment
@@ -20,7 +19,8 @@ class VoiceToBookPipeline:
     Complete pipeline for converting voice to books
     """
 
-    def __init__(self, whisper_model: str = "base"):
+        """  Init  """
+def __init__(self, whisper_model: str = "base"):
         self.logger = logging.getLogger(__name__)
         self.whisper_model = whisper.load_model(whisper_model)
         self.voice_processor = VoiceProcessor()

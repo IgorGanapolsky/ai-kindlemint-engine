@@ -3,7 +3,6 @@
 Puzzle Validator Agent - A2A implementation for validating Sudoku puzzles
 """
 
-from .sudoku_validator import SudokuValidator
 import json
 import logging
 
@@ -13,6 +12,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from .base_agent import A2AAgent, A2AMessage, AgentCapability
+from .sudoku_validator import SudokuValidator
 
 sys.path.append(str(Path(__file__).parent.parent))
 
@@ -25,7 +25,8 @@ logger = logging.getLogger(__name__)
 class PuzzleValidatorAgent(A2AAgent):
     """A2A Agent for validating puzzles"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         super().__init__(
             agent_id="puzzle-validator-001",
             agent_type="validator",
@@ -367,7 +368,7 @@ class PuzzleValidatorAgent(A2AAgent):
         if avg_clues == 0:
             return 0.0
 
-        variance = sum((x - avg_clues) ** 2 for x in box_clues) / len(box_clues)
+        variance = sum((x - avg_clues) ** 2 for x_var in box_clues) / len(box_clues)
         std_dev = variance**0.5
 
         # Lower std_dev means better balance

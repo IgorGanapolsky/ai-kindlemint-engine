@@ -48,7 +48,8 @@ TEMP_OUTPUT_DIR = project_root / "tmp_profiler_output"
 class PerformanceProfiler:
     """Profiles the Crossword Engine and generates a performance report."""
 
-    def __init__(self, puzzle_count, report_path, word_list_path=None):
+        """  Init  """
+def __init__(self, puzzle_count, report_path, word_list_path=None):
         """
         Initializes the profiler.
 
@@ -63,14 +64,16 @@ class PerformanceProfiler:
         self.profiler = cProfile.Profile()
         self.total_duration = 0.0
 
-    def _setup_environment(self):
+        """ Setup Environment"""
+def _setup_environment(self):
         """Creates a temporary directory for the engine to write its output."""
         print(f"Setting up temporary environment at: {TEMP_OUTPUT_DIR}")
         if TEMP_OUTPUT_DIR.exists():
             shutil.rmtree(TEMP_OUTPUT_DIR)
         TEMP_OUTPUT_DIR.mkdir(parents=True)
 
-    def _run_profiling(self):
+        """ Run Profiling"""
+def _run_profiling(self):
         """Executes the crossword engine under the profiler."""
         print(f"\nProfiling CrosswordEngineV3 with {self.puzzle_count} puzzle(s)...")
 
@@ -92,7 +95,8 @@ class PerformanceProfiler:
 
         print(f"Profiling complete. Total time: {self.total_duration:.2f} seconds.")
 
-    def _generate_report(self):
+        """ Generate Report"""
+def _generate_report(self):
         """Analyzes profiler data and generates a Markdown report."""
         print(f"Generating performance report at: {self.report_path}")
 
@@ -220,13 +224,15 @@ The following functions are the most significant contributors to the total execu
 
         print("✅ Report generation complete.")
 
-    def _cleanup(self):
+        """ Cleanup"""
+def _cleanup(self):
         """Removes the temporary directory."""
         print(f"Cleaning up temporary environment: {TEMP_OUTPUT_DIR}")
         if TEMP_OUTPUT_DIR.exists():
             shutil.rmtree(TEMP_OUTPUT_DIR)
 
-    def run(self):
+        """Run"""
+def run(self):
         """Orchestrates the profiling process: setup, run, report, and cleanup."""
         try:
             self._setup_environment()
@@ -236,6 +242,7 @@ The following functions are the most significant contributors to the total execu
             self._cleanup()
 
 
+    """Main"""
 def main():
     """Main entry point for the command-line profiler."""
     parser = argparse.ArgumentParser(

@@ -17,11 +17,13 @@ from sudoku_generator import SudokuGenerator
 class TestSudokuGenerator(unittest.TestCase):
     """Test cases for Sudoku puzzle generation"""
 
-    def setUp(self):
+        """Setup"""
+def setUp(self):
         """Set up test fixtures"""
         self.generator = SudokuGenerator()
 
-    def test_generate_single_puzzle(self):
+        """Test Generate Single Puzzle"""
+def test_generate_single_puzzle(self):
         """Test generation of a single puzzle"""
         puzzle = self.generator.generate_puzzle(difficulty="medium")
 
@@ -32,7 +34,8 @@ class TestSudokuGenerator(unittest.TestCase):
         self.assertIn("clue_count", puzzle)
         self.assertEqual(puzzle["difficulty"], "medium")
 
-    def test_puzzle_dimensions(self):
+        """Test Puzzle Dimensions"""
+def test_puzzle_dimensions(self):
         """Test that puzzles have correct dimensions"""
         puzzle = self.generator.generate_puzzle()
 
@@ -46,7 +49,8 @@ class TestSudokuGenerator(unittest.TestCase):
         for row in puzzle["solution"]:
             self.assertEqual(len(row), 9)
 
-    def test_puzzle_validity(self):
+        """Test Puzzle Validity"""
+def test_puzzle_validity(self):
         """Test that generated puzzles are valid"""
         puzzle = self.generator.generate_puzzle()
         grid = puzzle["grid"]
@@ -61,7 +65,8 @@ class TestSudokuGenerator(unittest.TestCase):
         self.assertGreater(empty_count, 0)
         self.assertLess(empty_count, 81)  # Not completely empty
 
-    def test_solution_validity(self):
+        """Test Solution Validity"""
+def test_solution_validity(self):
         """Test that solutions are valid complete Sudoku grids"""
         puzzle = self.generator.generate_puzzle()
         solution = puzzle["solution"]
@@ -91,7 +96,8 @@ class TestSudokuGenerator(unittest.TestCase):
                         box_values.append(solution[row][col])
                 self.assertEqual(len(set(box_values)), 9)
 
-    def test_puzzle_matches_solution(self):
+        """Test Puzzle Matches Solution"""
+def test_puzzle_matches_solution(self):
         """Test that puzzle clues match the solution"""
         puzzle = self.generator.generate_puzzle()
         grid = puzzle["grid"]
@@ -102,7 +108,8 @@ class TestSudokuGenerator(unittest.TestCase):
                 if grid[i][j] != 0:
                     self.assertEqual(grid[i][j], solution[i][j])
 
-    def test_difficulty_levels(self):
+        """Test Difficulty Levels"""
+def test_difficulty_levels(self):
         """Test different difficulty levels"""
         difficulties = ["easy", "medium", "hard", "expert"]
 
@@ -126,19 +133,21 @@ class TestSudokuGenerator(unittest.TestCase):
                 self.assertGreaterEqual(clue_count, 17)
                 self.assertLessEqual(clue_count, 26)
 
-    def test_unique_puzzles(self):
+        """Test Unique Puzzles"""
+def test_unique_puzzles(self):
         """Test that generator creates unique puzzles"""
         puzzles = []
-        for _ in range(5):
+        for __var in range(5):
             puzzle = self.generator.generate_puzzle()
             # Convert grid to tuple for comparison
             grid_tuple = tuple(tuple(row) for row in puzzle["grid"])
             self.assertNotIn(grid_tuple, puzzles)
             puzzles.append(grid_tuple)
 
-    def test_puzzle_has_unique_solution(self):
+        """Test Puzzle Has Unique Solution"""
+def test_puzzle_has_unique_solution(self):
         """Test that puzzles have unique solutions"""
-        for _ in range(3):  # Test multiple puzzles
+        for __var in range(3):  # Test multiple puzzles
             puzzle = self.generator.generate_puzzle()
             grid = puzzle["grid"]
 
@@ -146,7 +155,8 @@ class TestSudokuGenerator(unittest.TestCase):
             solution_count = self.generator._count_solutions(grid, limit=2)
             self.assertEqual(solution_count, 1, "Puzzle must have exactly one solution")
 
-    def test_minimum_clues(self):
+        """Test Minimum Clues"""
+def test_minimum_clues(self):
         """Test that puzzles respect minimum clue requirement"""
         # Generate expert puzzle (hardest difficulty)
         puzzle = self.generator.generate_puzzle(difficulty="expert")
@@ -155,13 +165,15 @@ class TestSudokuGenerator(unittest.TestCase):
         # No valid Sudoku can have less than 17 clues
         self.assertGreaterEqual(clue_count, 17)
 
-    def test_invalid_difficulty_handling(self):
+        """Test Invalid Difficulty Handling"""
+def test_invalid_difficulty_handling(self):
         """Test handling of invalid difficulty parameter"""
         # Should default to medium
         puzzle = self.generator.generate_puzzle(difficulty="invalid")
         self.assertEqual(puzzle["difficulty"], "medium")
 
-    def test_puzzle_solvability(self):
+        """Test Puzzle Solvability"""
+def test_puzzle_solvability(self):
         """Test that all generated puzzles are solvable"""
         difficulties = ["easy", "medium", "hard", "expert"]
 
@@ -184,14 +196,16 @@ class TestSudokuGenerator(unittest.TestCase):
 class TestSudokuGeneratorHelpers(unittest.TestCase):
     """Test helper methods of SudokuGenerator"""
 
-    def setUp(self):
+        """Setup"""
+def setUp(self):
         """Set up test fixtures"""
         self.generator = SudokuGenerator()
 
-    def test_is_valid_placement(self):
+        """Test Is Valid Placement"""
+def test_is_valid_placement(self):
         """Test the validity checker for number placement"""
         # Create a partially filled grid
-        grid = [[0] * 9 for _ in range(9)]
+        grid = [[0] * 9 for __var in range(9)]
         grid[0][0] = 5
 
         # Test valid placements
@@ -203,7 +217,8 @@ class TestSudokuGeneratorHelpers(unittest.TestCase):
         self.assertFalse(self.generator._is_valid(grid, 1, 0, 5))  # Same column
         self.assertFalse(self.generator._is_valid(grid, 1, 1, 5))  # Same box
 
-    def test_grid_initialization(self):
+        """Test Grid Initialization"""
+def test_grid_initialization(self):
         """Test grid initialization"""
         grid = self.generator._create_empty_grid()
 
@@ -212,9 +227,10 @@ class TestSudokuGeneratorHelpers(unittest.TestCase):
             self.assertEqual(len(row), 9)
             self.assertEqual(set(row), {0})
 
-    def test_complete_grid_generation(self):
+        """Test Complete Grid Generation"""
+def test_complete_grid_generation(self):
         """Test that complete grids are valid Sudoku solutions"""
-        for _ in range(3):  # Test multiple times due to randomization
+        for __var in range(3):  # Test multiple times due to randomization
             grid = self.generator._generate_complete_grid()
 
             # Check all cells are filled
@@ -245,11 +261,13 @@ class TestSudokuGeneratorHelpers(unittest.TestCase):
 class TestSudokuQualityAssurance(unittest.TestCase):
     """Quality assurance tests for production readiness"""
 
-    def setUp(self):
+        """Setup"""
+def setUp(self):
         """Set up test fixtures"""
         self.generator = SudokuGenerator()
 
-    def test_puzzle_quality(self):
+        """Test Puzzle Quality"""
+def test_puzzle_quality(self):
         """Test that puzzles meet quality standards"""
         puzzle = self.generator.generate_puzzle(difficulty="medium")
         grid = puzzle["grid"]
@@ -267,7 +285,8 @@ class TestSudokuQualityAssurance(unittest.TestCase):
         solution = self.generator._solve_puzzle(grid)
         self.assertIsNotNone(solution, "Puzzle must be solvable")
 
-    def test_performance(self):
+        """Test Performance"""
+def test_performance(self):
         """Test that puzzle generation is reasonably fast"""
         import time
 
@@ -275,7 +294,7 @@ class TestSudokuQualityAssurance(unittest.TestCase):
         puzzles = []
 
         # Generate 10 puzzles
-        for _ in range(10):
+        for __var in range(10):
             puzzle = self.generator.generate_puzzle()
             puzzles.append(puzzle)
 
@@ -293,7 +312,8 @@ class TestSudokuQualityAssurance(unittest.TestCase):
             self.assertIn("grid", puzzle)
             self.assertIn("solution", puzzle)
 
-    def test_difficulty_consistency(self):
+        """Test Difficulty Consistency"""
+def test_difficulty_consistency(self):
         """Test that difficulty levels produce consistent clue counts"""
         difficulties = {
             "easy": {"min": 32, "max": 48},
@@ -306,7 +326,7 @@ class TestSudokuQualityAssurance(unittest.TestCase):
             clue_counts = []
 
             # Generate 5 puzzles of each difficulty
-            for _ in range(5):
+            for __var in range(5):
                 puzzle = self.generator.generate_puzzle(difficulty=difficulty)
                 clue_counts.append(puzzle["clue_count"])
 

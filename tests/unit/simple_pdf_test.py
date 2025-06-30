@@ -9,7 +9,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 
-
+    """Create Test Pdf"""
 def create_test_pdf():
     """Create a simple test PDF with the fixed puzzle 100."""
 

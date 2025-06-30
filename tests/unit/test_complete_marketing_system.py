@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent / "scripts"))
 from magnetic_marketing import MagneticMarketingEngine
 from prospecting_automation import ProspectingAutomation
 
-
+    """Test Complete Marketing System"""
 def test_complete_marketing_system():
     """Test both Blount prospecting and Kennedy magnetic marketing together"""
 
@@ -167,6 +167,7 @@ def test_complete_marketing_system():
             return False
 
 
+    """Test Batch Processor Readiness"""
 def test_batch_processor_readiness():
     """Test that batch processor can handle both systems"""
     print("\n🔧 Testing Batch Processor Integration...")
@@ -215,6 +216,7 @@ def test_batch_processor_readiness():
         return False
 
 
+    """Test Configuration Validation"""
 def test_configuration_validation():
     """Test the full marketing configuration file"""
     print("\n📋 Testing Full Marketing Configuration...")
@@ -248,8 +250,8 @@ def test_configuration_validation():
         kennedy_principles = global_settings.get("kennedy_principles", {})
         blount_principles = global_settings.get("blount_principles", {})
 
-        kennedy_count = sum(1 for v in kennedy_principles.values() if v)
-        blount_count = sum(1 for v in blount_principles.values() if v)
+        kennedy_count = sum(1 for v_var in kennedy_principles.values() if v)
+        blount_count = sum(1 for v_var in blount_principles.values() if v)
 
         print(f"\n🎯 Kennedy Principles: {kennedy_count}/6 enabled")
         print(f"📊 Blount Principles: {blount_count}/5 enabled")

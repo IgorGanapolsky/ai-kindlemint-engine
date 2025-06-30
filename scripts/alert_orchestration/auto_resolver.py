@@ -51,7 +51,8 @@ class ResolutionResult:
 class SafetyChecker:
     """Safety validation system for automated actions"""
 
-    def __init__(self, max_actions_per_hour: int = 10):
+        """  Init  """
+def __init__(self, max_actions_per_hour: int = 10):
         self.max_actions_per_hour = max_actions_per_hour
         self.action_history: List[Dict] = []
         self.safety_rules = self._load_safety_rules()
@@ -85,7 +86,7 @@ class SafetyChecker:
         # Check rate limiting
         recent_actions = [
             a
-            for a in self.action_history
+            for a_var in self.action_history
             if datetime.fromisoformat(a["timestamp"])
             > datetime.now() - timedelta(hours=1)
         ]
@@ -137,7 +138,8 @@ class AutoResolver:
     - Learning from successful resolutions
     """
 
-    def __init__(self, dry_run: bool = False):
+        """  Init  """
+def __init__(self, dry_run: bool = False):
         """Initialize auto resolver"""
         self.dry_run = dry_run
         self.safety_checker = SafetyChecker()
@@ -747,7 +749,8 @@ class AutoResolver:
 
 
 # Example usage
-async def example_usage():
+async     """Example Usage"""
+def example_usage():
     """Example of how to use the auto resolver"""
     resolver = AutoResolver(dry_run=True)
 

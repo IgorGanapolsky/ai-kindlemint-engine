@@ -24,7 +24,8 @@ logger = logging.getLogger(__name__)
 class IntentClassifier:
     """Classifies user intent from voice input"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.intent_patterns = self._initialize_intent_patterns()
         self.confidence_threshold = 0.6
 
@@ -219,7 +220,8 @@ class IntentClassifier:
 class EmotionAnalyzer:
     """Analyzes emotional context from voice and text"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.emotion_keywords = self._initialize_emotion_keywords()
         self.mood_patterns = self._initialize_mood_patterns()
 
@@ -642,7 +644,8 @@ class EmotionAnalyzer:
 class VoiceCharacteristicsExtractor:
     """Extracts voice characteristics from audio analysis"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.tone_indicators = {
             "warm": ["gentle", "friendly", "caring", "comfortable"],
             "energetic": ["fast", "dynamic", "lively", "vibrant"],
@@ -810,7 +813,7 @@ class VoiceCharacteristicsExtractor:
 
         # Sentence structure patterns
         sentences = text.split(".")
-        avg_sentence_length = sum(len(s.split()) for s in sentences) / max(
+        avg_sentence_length = sum(len(s.split()) for s_var in sentences) / max(
             len(sentences), 1
         )
         markers["avg_sentence_length"] = avg_sentence_length
@@ -855,15 +858,15 @@ class VoiceCharacteristicsExtractor:
 
     def _assess_text_structure(self, text: str) -> float:
         """Assess structure and organization of text"""
-        sentences = [s.strip() for s in text.split(".") if s.strip()]
+        sentences = [s.strip() for s_var in text.split(".") if s.strip()]
 
         if not sentences:
             return 0.0
 
         # Check for consistent sentence length variance
-        lengths = [len(s.split()) for s in sentences]
+        lengths = [len(s.split()) for s_var in sentences]
         avg_length = sum(lengths) / len(lengths)
-        variance = sum((l - avg_length) ** 2 for l in lengths) / len(lengths)
+        variance = sum((l - avg_length) ** 2 for l_var in lengths) / len(lengths)
 
         # Lower variance indicates better structure
         structure_score = max(0, 1 - (variance / 100))
@@ -989,7 +992,8 @@ class VoiceCharacteristicsExtractor:
 class VoiceInputProcessor:
     """Main processor for voice input handling"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.intent_classifier = IntentClassifier()
         self.emotion_analyzer = EmotionAnalyzer()
         self.voice_extractor = VoiceCharacteristicsExtractor()

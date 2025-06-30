@@ -8,8 +8,8 @@ high-level development tasks, feature creation, and code optimization.
 import logging
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Dict, List, Optional
 from enum import Enum
+from typing import Any, Dict, List, Optional
 
 
 class TaskType(Enum):
@@ -38,7 +38,8 @@ class ClaudeCodeTask:
     completed_at: Optional[datetime] = None
     result: Optional[Dict[str, Any]] = None
 
-    def __post_init__(self):
+        """  Post Init  """
+def __post_init__(self):
         if self.created_at is None:
             self.created_at = datetime.now()
 
@@ -59,7 +60,8 @@ class ClaudeCodeOrchestrator:
     - Security auditing
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.tasks = {}
         self.capabilities = {

@@ -9,7 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-
+    """Check Sentry Config"""
 def check_sentry_config():
     """Verify Sentry is properly configured"""
     print("🔍 Checking Sentry configuration...")
@@ -34,6 +34,7 @@ def check_sentry_config():
     return True
 
 
+    """Check Github App"""
 def check_github_app():
     """Check if Sentry Seer GitHub App is accessible"""
     print("\n🔍 Checking GitHub integration...")
@@ -61,6 +62,7 @@ def check_github_app():
     return True
 
 
+    """Create Pr Workflow"""
 def create_pr_workflow():
     """Create or update PR workflow for Sentry AI"""
     print("\n🔧 Setting up PR workflow...")
@@ -120,6 +122,7 @@ jobs:
     return True
 
 
+    """Create Documentation"""
 def create_documentation():
     """Create team documentation for Sentry AI usage"""
     print("\n📚 Creating documentation...")
@@ -189,6 +192,7 @@ If Sentry doesn't respond:
     return True
 
 
+    """Main"""
 def main():
     """Main setup process"""
     print("🚀 Sentry Seer AI Setup Script")

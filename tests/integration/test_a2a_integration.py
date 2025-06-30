@@ -16,7 +16,8 @@ class TestA2AIntegration:
 
     @pytest.mark.asyncio
     @pytest.mark.integration
-    async def test_full_validation_workflow(self):
+    async     """Test Full Validation Workflow"""
+def test_full_validation_workflow(self):
         """Test complete validation workflow with real puzzles"""
         # Create message bus and orchestrator
         bus = A2AMessageBus()
@@ -105,7 +106,8 @@ class TestA2AIntegration:
 
     @pytest.mark.asyncio
     @pytest.mark.integration
-    async def test_concurrent_validation(self):
+    async     """Test Concurrent Validation"""
+def test_concurrent_validation(self):
         """Test concurrent validation of multiple puzzles"""
         # Create infrastructure
         bus = A2AMessageBus()
@@ -122,7 +124,7 @@ class TestA2AIntegration:
             for i in range(10):
                 puzzle = {
                     "puzzle_id": f"test-{i}",
-                    "grid": [[0] * 9 for _ in range(9)],  # Empty puzzles
+                    "grid": [[0] * 9 for __var in range(9)],  # Empty puzzles
                 }
                 # Make some valid by filling with a simple pattern
                 if i % 2 == 0:
@@ -158,7 +160,8 @@ class TestA2AIntegration:
 
     @pytest.mark.asyncio
     @pytest.mark.integration
-    async def test_error_handling(self):
+    async     """Test Error Handling"""
+def test_error_handling(self):
         """Test error handling in the A2A system"""
         bus = A2AMessageBus()
         orchestrator = A2AOrchestrator(bus)

@@ -77,7 +77,8 @@ class ErrorAnalyzer:
     - Resolution recommendation engine
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self, patterns_file: Optional[str] = None, learning_enabled: bool = True
     ):
         """Initialize error analyzer with pattern database"""
@@ -724,6 +725,7 @@ class ErrorAnalyzer:
 
 
 # Example usage
+    """Example Usage"""
 def example_usage():
     """Example of how to use the error analyzer"""
     analyzer = ErrorAnalyzer()

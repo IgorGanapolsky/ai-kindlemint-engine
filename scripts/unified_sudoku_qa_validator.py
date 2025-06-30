@@ -21,7 +21,8 @@ from kindlemint.validators.sudoku_validator import SudokuValidator
 class UnifiedSudokuQAValidator:
     """THE ONLY validator you should use for Sudoku books"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.report = {
             "timestamp": datetime.now().isoformat(),
             "status": "PENDING",
@@ -66,7 +67,8 @@ class UnifiedSudokuQAValidator:
 
         return self.report
 
-    def _validate_visual_rendering(self, pdf_path: Path):
+        """ Validate Visual Rendering"""
+def _validate_visual_rendering(self, pdf_path: Path):
         """ACTUALLY check what the PDF looks like visually."""
         try:
             pdf = fitz.open(str(pdf_path))
@@ -189,7 +191,8 @@ class UnifiedSudokuQAValidator:
 
         return cells
 
-    def _validate_content_structure(self, pdf_path: Path):
+        """ Validate Content Structure"""
+def _validate_content_structure(self, pdf_path: Path):
         """Check PDF structure and content."""
         try:
             with open(pdf_path, "rb") as f:
@@ -221,7 +224,8 @@ class UnifiedSudokuQAValidator:
         except Exception as e:
             self.report["errors"].append(f"❌ Content validation error: {str(e)}")
 
-    def _validate_puzzle_data(self, puzzle_dir: Path):
+        """ Validate Puzzle Data"""
+def _validate_puzzle_data(self, puzzle_dir: Path):
         """Validate puzzle JSON/PNG consistency."""
         metadata_dir = puzzle_dir / "metadata"
         if not metadata_dir.exists():
@@ -247,7 +251,8 @@ class UnifiedSudokuQAValidator:
         else:
             self.report["passed"].append("✅ Puzzle data consistency OK")
 
-    def _determine_final_status(self):
+        """ Determine Final Status"""
+def _determine_final_status(self):
         """Determine overall PASS/FAIL status."""
         if self.report["critical_errors"]:
             self.report["status"] = "FAILED - CRITICAL"
@@ -271,7 +276,8 @@ class UnifiedSudokuQAValidator:
         )
         self.report["summary"]["visual_checks"] = len(self.report["visual_validation"])
 
-    def _save_report(self, pdf_path: Path):
+        """ Save Report"""
+def _save_report(self, pdf_path: Path):
         """Save the ONE unified report."""
         report_path = pdf_path.parent / "UNIFIED_QA_REPORT.json"
 

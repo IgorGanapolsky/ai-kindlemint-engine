@@ -8,7 +8,8 @@ Creates story-driven posts from book content for audience building
 class LinkedInContentEngine:
     """Generate Marketing Millennials-style LinkedIn content."""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.post_templates = {
             "transformation_story": """
             {hook}
@@ -50,7 +51,8 @@ class LinkedInContentEngine:
             """,
         }
 
-    def generate_weekly_content(self, book_topic: str, authority_angle: str):
+        """Generate Weekly Content"""
+def generate_weekly_content(self, book_topic: str, authority_angle: str):
         """Generate 7 days of LinkedIn content from book insights."""
         posts = []
 
@@ -83,6 +85,7 @@ class LinkedInContentEngine:
         return posts
 
 
+    """Main"""
 def main():
     """Generate LinkedIn content for book marketing."""
     generator = LinkedInContentEngine()

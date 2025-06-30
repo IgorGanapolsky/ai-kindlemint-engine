@@ -7,7 +7,7 @@ from pathlib import Path
 
 import PyPDF2
 
-
+    """Get Pdf Page Count"""
 def get_pdf_page_count(pdf_path):
     """Get exact page count from PDF"""
     try:
@@ -19,6 +19,7 @@ def get_pdf_page_count(pdf_path):
         return None
 
 
+    """Check Templates"""
 def check_templates():
     """Check template status for all books"""
     books_dir = Path("books/active_production")

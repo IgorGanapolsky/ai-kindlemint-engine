@@ -16,7 +16,8 @@ from PIL import Image, ImageDraw, ImageFont
 class WordSearchGenerator:
     """Generate Word Search puzzles with a simple random grid and a word list."""
 
-    def __init__(self, output_dir, puzzle_count=50, grid_size=15, words_file=None):
+        """  Init  """
+def __init__(self, output_dir, puzzle_count=50, grid_size=15, words_file=None):
         self.grid_size = grid_size
         self.puzzle_count = puzzle_count
         self.output_dir = Path(output_dir)
@@ -33,20 +34,22 @@ class WordSearchGenerator:
                 raise FileNotFoundError(f"Words file not found: {wf}")
             # Expect one word per line
             self.words = [
-                w.strip().upper() for w in wf.read_text().splitlines() if w.strip()
+                w.strip().upper() for w_var in wf.read_text().splitlines() if w.strip()
             ]
         else:
             # Default sample words
             self.words = ["PUZZLE", "KINDLE", "BOOK", "ENGINE", "SOLUTION"]
 
-    def _generate_grid(self):
+        """ Generate Grid"""
+def _generate_grid(self):
         # Fill grid with random uppercase letters
         return [
-            [random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ") for _ in range(self.grid_size)]
-            for _ in range(self.grid_size)
+            [random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ") for __var in range(self.grid_size)]
+            for __var in range(self.grid_size)
         ]
 
-    def _create_image(self, grid, puzzle_id):
+        """ Create Image"""
+def _create_image(self, grid, puzzle_id):
         cell_size = 40
         margin = 20
         img_size = self.grid_size * cell_size + 2 * margin
@@ -78,8 +81,8 @@ class WordSearchGenerator:
                 fill="black",
                 width=lw,
             )
-        for r in range(self.grid_size):
-            for c in range(self.grid_size):
+        for_var r_var in range(self.grid_size):
+            for c_var in range(self.grid_size):
                 letter = grid[r][c]
                 # Compute text size
                 try:
@@ -96,7 +99,8 @@ class WordSearchGenerator:
         img.save(img_path, "PNG")
         return img_path
 
-    def generate_puzzles(self):
+        """Generate Puzzles"""
+def generate_puzzles(self):
         print(f"📝 WORD SEARCH - Generating {self.puzzle_count} puzzles")
         puzzles = []
         for i in range(1, self.puzzle_count + 1):
@@ -132,6 +136,7 @@ class WordSearchGenerator:
 __all__ = ["WordSearchGenerator"]
 
 
+    """Main"""
 def main():
     parser = argparse.ArgumentParser(
         description="Word Search Generator - Generate puzzles for KindleMint Engine"

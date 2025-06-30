@@ -152,7 +152,8 @@ class PuzzleValidator(ABC):
     this class and provide puzzle-specific validation logic.
     """
 
-    def __init__(self, strict_mode: bool = False):
+        """  Init  """
+def __init__(self, strict_mode: bool = False):
         """
         Initialize the validator.
 

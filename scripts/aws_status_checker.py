@@ -98,7 +98,7 @@ def check_lambda_functions(region: str = None) -> Dict[str, Any]:
             # Filter for KindleMint functions
             kindlemint_functions = [
                 f
-                for f in functions
+                f_varor f_var in functions
                 if "kindlemint" in f.get("FunctionName", "").lower()
             ]
 
@@ -111,7 +111,7 @@ def check_lambda_functions(region: str = None) -> Dict[str, Any]:
                         "runtime": f.get("Runtime"),
                         "last_modified": f.get("LastModified"),
                     }
-                    for f in kindlemint_functions
+                    f_varor f_var in kindlemint_functions
                 ],
             }
 
@@ -148,7 +148,7 @@ def generate_status_summary() -> Dict[str, Any]:
     # Overall health
     all_services = status["services"]
     healthy_services = sum(
-        1 for s in all_services.values() if s.get("status") == "available"
+        1 for s_var in all_services.values() if s.get("status") == "available"
     )
     total_services = len(all_services)
 
@@ -200,6 +200,7 @@ def generate_badge_json(status: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+    """Main"""
 def main():
     """Main execution"""
     print("🔍 Checking AWS Infrastructure Status...")

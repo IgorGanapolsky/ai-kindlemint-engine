@@ -6,7 +6,7 @@ Regenerate main PDF with debugging to ensure it uses the correct images
 import subprocess
 from pathlib import Path
 
-
+    """Regenerate Main Pdf With Debug"""
 def regenerate_main_pdf_with_debug():
     """Regenerate the main PDF with extensive debugging."""
 

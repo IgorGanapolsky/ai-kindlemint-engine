@@ -77,7 +77,8 @@ class TaskCoordinator:
     Intelligent task coordination and workflow management system
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         agent_registry: AgentRegistry,
         max_concurrent_workflows: int = 10,

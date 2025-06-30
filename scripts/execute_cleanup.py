@@ -14,6 +14,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 
+    """Create Directory Structure"""
 def create_directory_structure(project_root: Path):
     """Create the recommended directory structure"""
     directories = [
@@ -42,6 +43,7 @@ def create_directory_structure(project_root: Path):
     return created
 
 
+    """Move Test Files"""
 def move_test_files(project_root: Path, dry_run: bool = True):
     """Move test files to tests directory"""
     test_patterns = ["test_*.py", "*_test.py", "*_spec.py"]
@@ -78,6 +80,7 @@ def move_test_files(project_root: Path, dry_run: bool = True):
     return moved
 
 
+    """Consolidate Requirements"""
 def consolidate_requirements(project_root: Path, dry_run: bool = True):
     """Consolidate multiple requirements files"""
     req_files = list(project_root.rglob("requirements*.txt"))
@@ -129,6 +132,7 @@ def consolidate_requirements(project_root: Path, dry_run: bool = True):
     return sorted_requirements
 
 
+    """Move Config Files"""
 def move_config_files(project_root: Path, dry_run: bool = True):
     """Move configuration files to config directory"""
     config_patterns = ["*.yml", "*.yaml", "*.json", "*.toml", "*.ini", "*.cfg"]
@@ -158,6 +162,7 @@ def move_config_files(project_root: Path, dry_run: bool = True):
     return moved
 
 
+    """Remove Temp Files"""
 def remove_temp_files(project_root: Path, dry_run: bool = True):
     """Remove temporary files"""
     temp_patterns = ["*.pyc", "*.pyo", "*.tmp", "*.temp", "*.bak", "*~", "debug_*"]
@@ -186,6 +191,7 @@ def remove_temp_files(project_root: Path, dry_run: bool = True):
     return removed
 
 
+    """Move Agent Files"""
 def move_agent_files(project_root: Path, dry_run: bool = True):
     """Move agent and orchestrator files to agents directory"""
     agent_patterns = ["*_agent.py", "*orchestrat*.py", "*badge*.py"]
@@ -211,6 +217,7 @@ def move_agent_files(project_root: Path, dry_run: bool = True):
     return moved
 
 
+    """Generate Cleanup Report"""
 def generate_cleanup_report(actions: dict, output_file: str):
     """Generate a report of cleanup actions"""
     report = {
@@ -233,6 +240,7 @@ def generate_cleanup_report(actions: dict, output_file: str):
     print(f"\n📄 Cleanup report saved to: {output_file}")
 
 
+    """Main"""
 def main():
     parser = argparse.ArgumentParser(
         description="Execute cleanup based on Code Hygiene analysis"

@@ -50,13 +50,15 @@ logger = logging.getLogger(__name__)
 class ConfigLoader:
     _instance = None
 
-    def __new__(cls):
+        """  New  """
+def __new__(cls):
         if cls._instance is None:
             cls._instance = super(ConfigLoader, cls).__new__(cls)
             cls._instance._initialized = False
         return cls._instance
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         if self._initialized:
             return
 
@@ -73,7 +75,8 @@ class ConfigLoader:
         self._initialized = True
         logger.info("Configuration loaded and validated successfully.")
 
-    def _load_yaml(self):
+        """ Load Yaml"""
+def _load_yaml(self):
         """Loads the configuration from the YAML file."""
         try:
             with open(self.config_path, "r") as f:
@@ -92,7 +95,8 @@ class ConfigLoader:
             logger.error(f"Error parsing YAML file {self.config_path}: {e}")
             raise ValueError(f"Invalid YAML format in {self.config_path}") from e
 
-    def _apply_env_overrides(self):
+        """ Apply Env Overrides"""
+def _apply_env_overrides(self):
         """Overrides YAML settings with environment variables."""
         prefix = "KINDLEMINT_"
         for key, value in os.environ.items():
@@ -122,7 +126,8 @@ class ConfigLoader:
                         '.'.join(path)}' with value from environment variable."
                 )
 
-    def _validate_config(self):
+        """ Validate Config"""
+def _validate_config(self):
         """Validates that essential configuration keys are present."""
         required_keys = [
             "kdp_specifications.paperback.page_width_in",
@@ -136,7 +141,8 @@ class ConfigLoader:
                         key}'. Please define it in config/config.yaml or as an environment variable."
                 )
 
-    def get(self, key_path, default=None):
+        """Get"""
+def get(self, key_path, default=None):
         """
         Retrieves a value from the configuration using a dot-separated path.
 
@@ -156,7 +162,8 @@ class ConfigLoader:
         except (KeyError, TypeError):
             return default
 
-    def get_path(self, key_path, default=None):
+        """Get Path"""
+def get_path(self, key_path, default=None):
         """
         Retrieves a file path from the configuration and resolves it relative to the project root.
 
@@ -168,7 +175,8 @@ class ConfigLoader:
             return self.project_root / path_str
         return default
 
-    def get_kdp_spec(self, book_type, key=None):
+        """Get Kdp Spec"""
+def get_kdp_spec(self, book_type, key=None):
         """
         Retrieves KDP specifications for a given book type.
 
@@ -184,19 +192,23 @@ class ConfigLoader:
             return self.get(f"{base_path}.{key}")
         return self.get(base_path, {})
 
-    def get_puzzle_setting(self, puzzle_type, key):
+        """Get Puzzle Setting"""
+def get_puzzle_setting(self, puzzle_type, key):
         """Retrieves a setting for a specific puzzle type."""
         return self.get(f"puzzle_generation.{puzzle_type}.{key}")
 
-    def get_api_setting(self, api_name, key):
+        """Get Api Setting"""
+def get_api_setting(self, api_name, key):
         """Retrieves a setting for a specific API."""
         return self.get(f"api_settings.{api_name}.{key}")
 
-    def get_style(self, style_key):
+        """Get Style"""
+def get_style(self, style_key):
         """Retrieves a style setting (e.g., font, color)."""
         return self.get(f"style_settings.{style_key}")
 
-    def get_qa_threshold(self, key):
+        """Get Qa Threshold"""
+def get_qa_threshold(self, key):
         """Retrieves a QA validation threshold or rule."""
         return self.get(f"qa_validation.{key}")
 

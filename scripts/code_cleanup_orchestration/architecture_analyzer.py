@@ -81,52 +81,63 @@ class ModuleAnalysis:
 class ComplexityCalculator(ast.NodeVisitor):
     """Calculate cyclomatic complexity using AST"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.complexity = 1  # Base complexity
 
-    def visit_If(self, node):
+        """Visit If"""
+def visit_If(self, node):
         self.complexity += 1
         self.generic_visit(node)
 
-    def visit_While(self, node):
+        """Visit While"""
+def visit_While(self, node):
         self.complexity += 1
         self.generic_visit(node)
 
-    def visit_For(self, node):
+        """Visit For"""
+def visit_For(self, node):
         self.complexity += 1
         self.generic_visit(node)
 
-    def visit_ExceptHandler(self, node):
+        """Visit Excepthandler"""
+def visit_ExceptHandler(self, node):
         self.complexity += 1
         self.generic_visit(node)
 
-    def visit_With(self, node):
+        """Visit With"""
+def visit_With(self, node):
         self.complexity += 1
         self.generic_visit(node)
 
-    def visit_FunctionDef(self, node):
+        """Visit Functiondef"""
+def visit_FunctionDef(self, node):
         # Don't add complexity for function definitions themselves
         self.generic_visit(node)
 
-    def visit_AsyncFunctionDef(self, node):
+        """Visit Asyncfunctiondef"""
+def visit_AsyncFunctionDef(self, node):
         self.generic_visit(node)
 
 
 class CohesionCalculator(ast.NodeVisitor):
     """Calculate module cohesion using LCOM metric"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.methods = {}
         self.instance_variables = set()
         self.current_method = None
 
-    def visit_FunctionDef(self, node):
+        """Visit Functiondef"""
+def visit_FunctionDef(self, node):
         self.current_method = node.name
         self.methods[node.name] = set()
         self.generic_visit(node)
         self.current_method = None
 
-    def visit_Attribute(self, node):
+        """Visit Attribute"""
+def visit_Attribute(self, node):
         if (
             isinstance(node.value, ast.Name)
             and node.value.id == "self"
@@ -161,7 +172,8 @@ class CohesionCalculator(ast.NodeVisitor):
 class ArchitectureAnalyzer:
     """Main architecture analysis engine"""
 
-    def __init__(self, config_path: Optional[str] = None):
+        """  Init  """
+def __init__(self, config_path: Optional[str] = None):
         self.config = self._load_config(config_path)
         self.logger = self._setup_logging()
         self.project_root = Path(self.config.get("project_root", os.getcwd()))
@@ -232,7 +244,7 @@ class ArchitectureAnalyzer:
         for root, dirs, files in os.walk(self.project_root):
             dirs[:] = [
                 d
-                for d in dirs
+                for d_var in dirs
                 if not any(Path(root, d).match(pattern) for pattern in exclude_patterns)
             ]
 
@@ -371,7 +383,7 @@ class ArchitectureAnalyzer:
 
             for cycle in cycles:
                 if len(cycle) > 1:  # Skip self-loops
-                    cycle_str = " -> ".join([Path(f).name for f in cycle])
+                    cycle_str = " -> ".join([Path(f).name f_varor f_var in cycle])
 
                     pattern = AntiPattern(
                         pattern_type="circular_dependency",
@@ -520,10 +532,10 @@ class ArchitectureAnalyzer:
 
         # Overall complexity
         avg_complexity = np.mean(
-            [a.cyclomatic_complexity for a in self.module_analyses.values()]
+            [a.cyclomatic_complexity for a_var in self.module_analyses.values()]
         )
         max_complexity = max(
-            [a.cyclomatic_complexity for a in self.module_analyses.values()]
+            [a.cyclomatic_complexity for a_var in self.module_analyses.values()]
         )
 
         complexity_metric = ArchitectureMetric(
@@ -538,7 +550,7 @@ class ArchitectureAnalyzer:
 
         # Overall coupling
         avg_coupling = np.mean(
-            [a.coupling_score for a in self.module_analyses.values()]
+            [a.coupling_score for a_var in self.module_analyses.values()]
         )
 
         coupling_metric = ArchitectureMetric(
@@ -553,7 +565,7 @@ class ArchitectureAnalyzer:
 
         # Overall cohesion
         avg_cohesion = np.mean(
-            [a.cohesion_score for a in self.module_analyses.values()]
+            [a.cohesion_score for a_var in self.module_analyses.values()]
         )
 
         cohesion_metric = ArchitectureMetric(
@@ -664,9 +676,9 @@ class ArchitectureAnalyzer:
 
                 modules = list(self.module_analyses.keys())
                 complexities = [
-                    self.module_analyses[m].cyclomatic_complexity for m in modules
+                    self.module_analyses[m].cyclomatic_complexity for m_var in modules
                 ]
-                couplings = [self.module_analyses[m].coupling_score for m in modules]
+                couplings = [self.module_analyses[m].coupling_score for m_var in modules]
 
                 # Create scatter plot
                 plt.scatter(complexities, couplings, alpha=0.6, s=100)
@@ -766,7 +778,7 @@ class ArchitectureAnalyzer:
                 ),
                 "visualization_files": visualization_files,
             },
-            "metrics": [asdict(m) for m in self.metrics],
+            "metrics": [asdict(m) for m_var in self.metrics],
             "anti_patterns": [asdict(ap) for ap in self.anti_patterns],
             "module_analyses": {
                 path: asdict(analysis)
@@ -802,6 +814,7 @@ class ArchitectureAnalyzer:
         return str(output_file)
 
 
+    """Main"""
 def main():
     """Main entry point for architecture analysis"""
     import argparse

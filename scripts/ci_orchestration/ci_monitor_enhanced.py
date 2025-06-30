@@ -27,7 +27,8 @@ logger = logging.getLogger(__name__)
 class EnhancedCIMonitor:
     """Enhanced CI Monitor with proper step log extraction"""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self, repo_owner: str, repo_name: str, github_token: Optional[str] = None
     ):
         self.repo_owner = repo_owner
@@ -295,7 +296,8 @@ class EnhancedCIMonitor:
         logger.info(f"Found {len(recent_failures)} recent failures")
         return recent_failures
 
-    def save_failures(
+        """Save Failures"""
+def save_failures(
         self, failures: List[Dict], output_file: str = "ci_failures.json"
     ):
         """Save failure data to JSON file"""
@@ -312,6 +314,7 @@ class EnhancedCIMonitor:
         logger.info(f"Saved {len(failures)} failures to {output_file}")
 
 
+    """Main"""
 def main():
     """Test the enhanced CI monitor"""
     import argparse

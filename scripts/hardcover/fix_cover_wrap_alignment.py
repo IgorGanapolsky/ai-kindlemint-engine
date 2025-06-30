@@ -12,7 +12,8 @@ from PIL import Image, ImageDraw, ImageFont
 class CoverWrapAlignmentFixer:
     """Fix hardcover cover wrap alignment issues for KDP compliance"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         # KDP template dimensions from the PNG template
         self.template_width = 4199  # 13.996" × 300 DPI
         self.template_height = 3125  # 10.417" × 300 DPI
@@ -40,7 +41,8 @@ class CoverWrapAlignmentFixer:
         print(f'   Spine width: {self.spine_width_px} px (0.421")')
         print(f"   Cover dimensions: {self.front_cover_width} × {self.cover_height} px")
 
-    def load_font(self, size):
+        """Load Font"""
+def load_font(self, size):
         """Load font with fallbacks"""
         font_paths = [
             "/System/Library/Fonts/Helvetica.ttc",
@@ -54,7 +56,8 @@ class CoverWrapAlignmentFixer:
                 continue
         return ImageFont.load_default()
 
-    def create_corrected_cover_wrap(self, cover_source_path, output_dir):
+        """Create Corrected Cover Wrap"""
+def create_corrected_cover_wrap(self, cover_source_path, output_dir):
         """Create properly aligned cover wrap"""
 
         # Load source cover
@@ -122,7 +125,8 @@ class CoverWrapAlignmentFixer:
         print(f"✅ Corrected cover wrap saved: {output_path}")
         return output_path
 
-    def add_text_overlays(self, canvas):
+        """Add Text Overlays"""
+def add_text_overlays(self, canvas):
         """Add properly positioned text overlays"""
         draw = ImageDraw.Draw(canvas)
 
@@ -244,6 +248,7 @@ class CoverWrapAlignmentFixer:
         )
 
 
+    """Main"""
 def main():
     """Fix the cover wrap alignment"""
     fixer = CoverWrapAlignmentFixer()

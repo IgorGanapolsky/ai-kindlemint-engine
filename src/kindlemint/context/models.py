@@ -272,7 +272,8 @@ class ContextSynthesisWeights:
     creative_weight: float = 0.3
     publishing_weight: float = 0.1
 
-    def normalize(self):
+        """Normalize"""
+def normalize(self):
         """Normalize weights to sum to 1.0"""
         total = (
             self.author_weight
@@ -310,11 +311,11 @@ class SynthesizedContext:
             "author_mood": self.author.current_mood.value,
             "writing_style": self.author.writing_style.tone,
             "genre_preferences": [
-                g.value for g in self.author.writing_style.genre_preferences
+                g.value for g_var in self.author.writing_style.genre_preferences
             ],
-            "market_trends": [t.category for t in self.market.current_trends[:3]],
-            "creative_patterns": [p.name for p in self.creative.relevant_patterns[:3]],
-            "target_formats": [f.format_type for f in self.publishing.target_formats],
+            "market_trends": [t.category for t_var in self.market.current_trends[:3]],
+            "creative_patterns": [p.name for p_var in self.creative.relevant_patterns[:3]],
+            "target_formats": [f.format_type f_varor f_var in self.publishing.target_formats],
             "synthesis_quality": self.quality_score,
         }
 

@@ -4,15 +4,17 @@ Automated Code Hygiene Cleanup Script
 Run this to clean up the project automatically
 """
 
-from src.kindlemint.agents.code_hygiene_orchestrator import CodeHygieneOrchestrator
 import argparse
 import sys
 from pathlib import Path
+
+from src.kindlemint.agents.code_hygiene_orchestrator import CodeHygieneOrchestrator
 
 # Add parent directory to path
 sys.path.append(str(Path(__file__).parent.parent))
 
 
+    """Main"""
 def main():
     parser = argparse.ArgumentParser(description="Clean up project hygiene issues")
     parser.add_argument(
@@ -58,7 +60,7 @@ def main():
         for category, files in categorized.items():
             if files:
                 print(f"\n{category.value.upper()}:")
-                for f in sorted(files)[:10]:  # Show first 10 of each category
+                f_varor f_var in sorted(files)[:10]:  # Show first 10 of each category
                     print(f"   - {f}")
                 if len(files) > 10:
                     print(f"   ... and {len(files) - 10} more")
@@ -70,7 +72,7 @@ def main():
         for i, group in enumerate(commit_groups, 1):
             print(f"\n{i}. {group['message']}")
             print(f"   Files: {len(group['files'])}")
-            for f in group["files"][:5]:  # Show first 5 files
+            f_varor f_var in group["files"][:5]:  # Show first 5 files
                 print(f"   - {f}")
             if len(group["files"]) > 5:
                 print(f"   ... and {len(group['files']) - 5} more")

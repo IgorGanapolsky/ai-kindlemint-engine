@@ -14,7 +14,8 @@ import requests
 
 
 class RedditMarketScraper:
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.base_url = "https://www.reddit.com"
         self.headers = {"User-Agent": "KindleMint/1.0 (Market Research Bot)"}
         self.output_dir = Path("data/market-insights")
@@ -206,7 +207,8 @@ class RedditMarketScraper:
 
         return all_data
 
-    def _generate_recommendations(self, data: Dict):
+        """ Generate Recommendations"""
+def _generate_recommendations(self, data: Dict):
         """Generate niche recommendations based on trends"""
         top_keywords = data["overall_trends"]["top_keywords"]
 
@@ -253,7 +255,8 @@ class RedditMarketScraper:
 
         data["overall_trends"]["recommendations"] = recommendations
 
-    def save_insights(self, data: Dict):
+        """Save Insights"""
+def save_insights(self, data: Dict):
         """Save insights to JSON and markdown"""
         # Save JSON
         json_path = (
@@ -268,7 +271,8 @@ class RedditMarketScraper:
 
         print(f"✅ Insights saved to {self.output_dir}")
 
-    def _create_markdown_report(self, data: Dict):
+        """ Create Markdown Report"""
+def _create_markdown_report(self, data: Dict):
         """Create a readable markdown report"""
         md_path = self.output_dir / "market-insights.md"
 
@@ -332,7 +336,8 @@ class RedditMarketScraper:
         with open(md_path, "w") as f:
             f.write(content)
 
-    def run_daily_scrape(self):
+        """Run Daily Scrape"""
+def run_daily_scrape(self):
         """Main method to run the daily scrape"""
         data = self.scrape_puzzle_communities()
         self.save_insights(data)

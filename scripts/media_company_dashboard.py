@@ -11,7 +11,8 @@ from pathlib import Path
 class MediaCompanyMetrics:
     """Track metrics for the full media company model."""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.metrics_file = Path("metrics/media_company_metrics.json")
         self.metrics_file.parent.mkdir(exist_ok=True)
 
@@ -26,7 +27,8 @@ class MediaCompanyMetrics:
             },  # 1hr/day consulting
         }
 
-    def track_daily_metrics(self, date: str = None):
+        """Track Daily Metrics"""
+def track_daily_metrics(self, date: str = None):
         """Track daily progress toward $300/day goal."""
         if not date:
             date = datetime.now().strftime("%Y-%m-%d")
@@ -46,7 +48,8 @@ class MediaCompanyMetrics:
 
         return metrics
 
-    def calculate_trajectory(self):
+        """Calculate Trajectory"""
+def calculate_trajectory(self):
         """Calculate path to $300/day based on Marketing Millennials model."""
         timeline = {
             "Week 1": {
@@ -79,6 +82,7 @@ class MediaCompanyMetrics:
         return timeline
 
 
+    """Main"""
 def main():
     """Display the media company transformation roadmap."""
     metrics = MediaCompanyMetrics()

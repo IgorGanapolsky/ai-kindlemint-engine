@@ -10,7 +10,8 @@ from kindlemint.utils.config import ConfigLoader
 class TestConfigLoader:
     """Test ConfigLoader class"""
 
-    def test_config_loader_init(self):
+        """Test Config Loader Init"""
+def test_config_loader_init(self):
         """Test ConfigLoader initialization"""
         with patch("kindlemint.utils.config.Path") as mock_path:
             with patch("kindlemint.utils.config.yaml.safe_load") as mock_yaml:
@@ -24,7 +25,8 @@ class TestConfigLoader:
                 loader = ConfigLoader()
                 assert loader is not None
 
-    def test_get_method(self):
+        """Test Get Method"""
+def test_get_method(self):
         """Test get method"""
         with patch("kindlemint.utils.config.yaml.safe_load") as mock_yaml:
             mock_yaml.return_value = {
@@ -42,7 +44,8 @@ class TestConfigLoader:
             # Test default value
             assert loader.get("nonexistent.key", "default") == "default"
 
-    def test_environment_override(self):
+        """Test Environment Override"""
+def test_environment_override(self):
         """Test environment variable override"""
         with patch.dict(
             os.environ,

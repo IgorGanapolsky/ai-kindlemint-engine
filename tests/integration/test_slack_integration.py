@@ -16,7 +16,7 @@ sys.path.insert(0, scripts_dir)
 
 from slack_notifier import SlackNotifier
 
-
+    """Test Slack Integration"""
 def test_slack_integration():
     """Test various Slack notification methods"""
     print("🧪 Testing Slack Integration for Batch Processor")

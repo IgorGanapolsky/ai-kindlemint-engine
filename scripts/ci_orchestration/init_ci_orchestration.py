@@ -20,7 +20,8 @@ logger = logging.getLogger(__name__)
 class CIOrchestrationSetup:
     """Setup and initialization for CI orchestration system"""
 
-    def __init__(self, repo_path: Path):
+        """  Init  """
+def __init__(self, repo_path: Path):
         self.repo_path = repo_path
         self.orchestration_path = repo_path / "scripts" / "ci_orchestration"
         self.github_workflows_path = repo_path / ".github" / "workflows"
@@ -410,7 +411,8 @@ WantedBy=multi-user.target
         except subprocess.CalledProcessError:
             return False
 
-    def _print_usage_instructions(self):
+        """ Print Usage Instructions"""
+def _print_usage_instructions(self):
         """Print usage instructions"""
         print("\n" + "=" * 60)
         print("🎉 CI ORCHESTRATION SETUP COMPLETE!")
@@ -454,6 +456,7 @@ WantedBy=multi-user.target
         print("=" * 60)
 
 
+    """Main"""
 def main():
     """Main entry point"""
     import argparse

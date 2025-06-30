@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+    """Test Slack Notification"""
 def test_slack_notification():
     """Test Slack webhook notification"""
     try:
@@ -82,6 +83,7 @@ def test_slack_notification():
         return False
 
 
+    """Test Sentry Monitoring"""
 def test_sentry_monitoring():
     """Test Sentry error tracking"""
     try:
@@ -135,6 +137,7 @@ def test_sentry_monitoring():
         return False
 
 
+    """Test Github Integration"""
 def test_github_integration():
     """Test GitHub CLI integration"""
     try:
@@ -163,6 +166,7 @@ def test_github_integration():
         return False
 
 
+    """Main"""
 def main():
     """Run all monitoring tests"""
     print("🔍 Testing KindleMint Monitoring Setup")
@@ -229,7 +233,7 @@ def main():
             notifier.send_message(
                 text="Monitoring Setup Summary", blocks=summary_blocks, color="#3498db"
             )
-        except:
+        except Exception:
             pass
 
     return 0 if all_passed else 1

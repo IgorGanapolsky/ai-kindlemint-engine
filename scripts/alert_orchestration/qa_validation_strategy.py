@@ -19,7 +19,8 @@ logger = logging.getLogger("QAValidationStrategy")
 class QAValidationStrategy(ResolutionStrategy):
     """Strategy for resolving QA validation failures in puzzle books"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         super().__init__(
             name="QA Validation Resolution",
             description="Resolve puzzle book QA validation failures",
@@ -297,6 +298,7 @@ class QAValidationStrategy(ResolutionStrategy):
 
 
 # Register the strategy
+    """Register Qa Strategies"""
 def register_qa_strategies(registry):
     """Register QA validation strategies with the registry"""
     registry.register(QAValidationStrategy())

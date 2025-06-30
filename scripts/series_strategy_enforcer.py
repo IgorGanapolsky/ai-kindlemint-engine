@@ -13,7 +13,8 @@ from pathlib import Path
 class SeriesStrategyEnforcer:
     """Enforce series strategy requirements across all series directories"""
 
-    def __init__(self, base_path: Path = None):
+        """  Init  """
+def __init__(self, base_path: Path = None):
         if base_path is None:
             self.base_path = (
                 Path(__file__).parent.parent / "books" / "active_production"
@@ -25,7 +26,8 @@ class SeriesStrategyEnforcer:
         self.violations = []
         self.compliant_series = []
 
-    def scan_all_series(self):
+        """Scan All Series"""
+def scan_all_series(self):
         """Scan all series directories for strategy compliance"""
         print("🔍 Scanning all series directories for strategy compliance...")
 
@@ -39,7 +41,8 @@ class SeriesStrategyEnforcer:
 
         return len(self.violations) == 0
 
-    def check_series_compliance(self, series_dir: Path):
+        """Check Series Compliance"""
+def check_series_compliance(self, series_dir: Path):
         """Check if a single series directory has required strategy file"""
         series_name = series_dir.name
         strategy_file = series_dir / self.required_file
@@ -57,7 +60,8 @@ class SeriesStrategyEnforcer:
                 }
             )
 
-    def generate_violation_report(self):
+        """Generate Violation Report"""
+def generate_violation_report(self):
         """Generate detailed report of compliance violations"""
         if not self.violations:
             print("\n🎉 ALL SERIES ARE COMPLIANT!")
@@ -82,7 +86,8 @@ class SeriesStrategyEnforcer:
             f"Each file must contain comprehensive series strategy as per requirements"
         )
 
-    def auto_generate_template_strategies(self):
+        """Auto Generate Template Strategies"""
+def auto_generate_template_strategies(self):
         """Generate template strategy files for non-compliant series"""
         if not self.violations:
             print("No violations found - no templates needed")
@@ -408,7 +413,8 @@ This comprehensive strategy provides the framework for building a successful, pr
 
         return True
 
-    def enforce_compliance(self, auto_generate: bool = True):
+        """Enforce Compliance"""
+def enforce_compliance(self, auto_generate: bool = True):
         """Main enforcement method - scan and ensure compliance"""
         print("🔒 ENFORCING SERIES STRATEGY COMPLIANCE")
         print("=" * 50)
@@ -428,7 +434,8 @@ This comprehensive strategy provides the framework for building a successful, pr
 
         return is_compliant
 
-    def generate_compliance_summary(self):
+        """Generate Compliance Summary"""
+def generate_compliance_summary(self):
         """Generate summary for management reporting"""
         total_series = len(self.compliant_series) + len(self.violations)
         compliance_rate = (
@@ -442,7 +449,7 @@ This comprehensive strategy provides the framework for building a successful, pr
             "violations": len(self.violations),
             "compliance_rate": compliance_rate,
             "compliant_list": self.compliant_series,
-            "violation_list": [v["series"] for v in self.violations],
+            "violation_list": [v["series"] for v_var in self.violations],
         }
 
         # Save summary
@@ -460,6 +467,7 @@ This comprehensive strategy provides the framework for building a successful, pr
         return summary
 
 
+    """Main"""
 def main():
     """Main execution function"""
     print("🎯 SERIES STRATEGY COMPLIANCE ENFORCER")

@@ -22,7 +22,8 @@ logger = logging.getLogger(__name__)
 class IntelligentV3Orchestrator:
     """Market-aware publishing engine with intelligence-driven targeting."""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         """Initialize intelligent orchestrator."""
         # API keys and configurations
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
@@ -219,7 +220,8 @@ class IntelligentV3Orchestrator:
             logger.error(f"Opportunity approval failed: {e}")
             return None
 
-    async def _send_approval_request(self, opportunities: List[Dict[str, Any]]):
+    async     """ Send Approval Request"""
+def _send_approval_request(self, opportunities: List[Dict[str, Any]]):
         """Send approval request with opportunity details."""
         try:
             # Format opportunities for human review
@@ -447,7 +449,7 @@ class IntelligentV3Orchestrator:
             # Series cross-promotion
             other_volumes = [
                 v
-                for v in series["books"]
+                for v_var in series["books"]
                 if v["volume_number"] != volume["volume_number"]
             ]
             if other_volumes:
@@ -764,7 +766,8 @@ class IntelligentV3Orchestrator:
             logger.error(f"Launch sequence activation failed: {e}")
             return {"status": "manual_setup_required", "error": str(e)}
 
-    async def _update_intelligent_memory(
+    async     """ Update Intelligent Memory"""
+def _update_intelligent_memory(
         self,
         pipeline_id: str,
         opportunity: Dict[str, Any],

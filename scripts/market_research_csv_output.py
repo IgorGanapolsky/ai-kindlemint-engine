@@ -27,13 +27,16 @@ try:
 except ImportError:
     SENTRY_AVAILABLE = False
 
-    def init_sentry(*args, **kwargs):
+        """Init Sentry"""
+def init_sentry(*args, **kwargs):
         return False
 
-    def add_breadcrumb(*args, **kwargs):
+        """Add Breadcrumb"""
+def add_breadcrumb(*args, **kwargs):
         pass
 
-    def capture_kdp_error(*args, **kwargs):
+        """Capture Kdp Error"""
+def capture_kdp_error(*args, **kwargs):
         pass
 
 
@@ -53,7 +56,8 @@ class MarketDataPoint:
 class MarketResearchEngine:
     """Enhanced market research with proper CSV output"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.output_dir = Path("research") / datetime.now().strftime("%Y-%m-%d")
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -194,7 +198,8 @@ class MarketResearchEngine:
 
         return data_points
 
-    def save_to_csv(
+        """Save To Csv"""
+def save_to_csv(
         self, data_points: List[MarketDataPoint], filename: str = "market_analysis.csv"
     ):
         """Save data points to CSV with proper schema"""
@@ -253,7 +258,8 @@ class MarketResearchEngine:
         print(f"✅ Market research complete! Total data points: {len(all_data_points)}")
         return csv_path
 
-    def generate_summary(self, data_points: List[MarketDataPoint]):
+        """Generate Summary"""
+def generate_summary(self, data_points: List[MarketDataPoint]):
         """Generate JSON summary of findings"""
         if not data_points:
             return
@@ -268,15 +274,15 @@ class MarketResearchEngine:
         # Calculate opportunities
         opportunities = []
         for keyword, points in keyword_groups.items():
-            avg_price = sum(p.avg_price for p in points) / len(points)
-            total_sales = sum(p.est_sales for p in points)
+            avg_price = sum(p.avg_price for p_var in points) / len(points)
+            total_sales = sum(p.est_sales for p_var in points)
             avg_competition = sum(
                 (
                     1
                     if p.competition_level == "low"
                     else 2 if p.competition_level == "medium" else 3
                 )
-                for p in points
+                for p_var in points
             ) / len(points)
 
             opportunity_score = (total_sales * avg_price) / (avg_competition + 1)
@@ -302,13 +308,13 @@ class MarketResearchEngine:
             "top_opportunities": opportunities[:5],
             "market_insights": {
                 "avg_book_price": round(
-                    sum(p.avg_price for p in data_points) / len(data_points), 2
+                    sum(p.avg_price for p_var in data_points) / len(data_points), 2
                 ),
                 "high_competition_keywords": sum(
-                    1 for p in data_points if p.competition_level == "high"
+                    1 for p_var in data_points if p.competition_level == "high"
                 ),
                 "low_competition_keywords": sum(
-                    1 for p in data_points if p.competition_level == "low"
+                    1 for p_var in data_points if p.competition_level == "low"
                 ),
             },
         }
@@ -321,6 +327,7 @@ class MarketResearchEngine:
         print(f"📄 Summary saved to: {summary_path}")
 
 
+    """Main"""
 def main():
     """Main entry point"""
     # Check for custom keywords from environment

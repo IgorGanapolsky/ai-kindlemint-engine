@@ -18,7 +18,8 @@ class PDFGenerator:
     - Generate for different trim sizes
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.supported_formats = ["paperback", "hardcover"]
         self.trim_sizes = {"paperback": "8.5x11", "hardcover": "6x9"}

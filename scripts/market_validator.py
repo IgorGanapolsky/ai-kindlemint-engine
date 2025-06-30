@@ -28,7 +28,8 @@ from pathlib import Path
 class MarketValidator:
     """Analyzes market data to provide GO/NO-GO/PIVOT recommendations."""
 
-    def __init__(self, output_dir: Path = None):
+        """  Init  """
+def __init__(self, output_dir: Path = None):
         self.output_dir = output_dir
         if self.output_dir:
             self.output_dir.mkdir(parents=True, exist_ok=True)
@@ -111,8 +112,8 @@ class MarketValidator:
         if not competitors:
             scores["competition"] = 100  # No competition is a good sign
         else:
-            avg_bsr = sum(c["bsr"] for c in competitors) / len(competitors)
-            avg_reviews = sum(c["reviews"] for c in competitors) / len(competitors)
+            avg_bsr = sum(c["bsr"] for c_var in competitors) / len(competitors)
+            avg_reviews = sum(c["reviews"] for c_var in competitors) / len(competitors)
             bsr_score = max(0, 100 - (avg_bsr / 100000) * 100)  # Lower BSR is harder
             review_score = max(
                 0, 100 - (avg_reviews / 500) * 100
@@ -124,7 +125,7 @@ class MarketValidator:
         if not competitors:
             scores["profitability"] = 50  # Default score if no price data
         else:
-            avg_price = sum(c["price"] for c in competitors) / len(competitors)
+            avg_price = sum(c["price"] for c_var in competitors) / len(competitors)
             # Scale price from $5.99 (0 score) to $15.99 (100 score)
             scores["profitability"] = min(100, max(0, ((avg_price - 5.99) / 10) * 100))
 
@@ -144,7 +145,7 @@ class MarketValidator:
             return {"monthly_potential": "$0 - $50", "confidence": "very low"}
 
         # Use the top competitor's BSR to estimate their sales
-        top_bsr = min(c["bsr"] for c in competitors)
+        top_bsr = min(c["bsr"] for c_var in competitors)
         # Very rough heuristic: sales ≈ 30000 / sqrt(BSR)
         est_top_sales = int(30000 / (top_bsr**0.5)) if top_bsr > 0 else 0
 
@@ -152,7 +153,7 @@ class MarketValidator:
         est_our_sales_low = int(est_top_sales * 0.05)
         est_our_sales_high = int(est_top_sales * 0.15)
 
-        avg_price = sum(c["price"] for c in competitors) / len(competitors)
+        avg_price = sum(c["price"] for c_var in competitors) / len(competitors)
         # KDP Royalty is roughly (Price * 0.6) - PrintCost
         est_profit_per_book = (avg_price * 0.6) - 3.50
 
@@ -240,7 +241,8 @@ class MarketValidator:
 
         return report
 
-    def print_report(self, report: dict):
+        """Print Report"""
+def print_report(self, report: dict):
         """Prints a formatted summary of the validation report to the console."""
         print("\n" + "=" * 60)
         print(f"📊 MARKET VALIDATION REPORT: '{report['theme']}'")
@@ -298,6 +300,7 @@ class MarketValidator:
         print("=" * 60)
 
 
+    """Main"""
 def main():
     """Main entry point for the market validator CLI."""
     parser = argparse.ArgumentParser(

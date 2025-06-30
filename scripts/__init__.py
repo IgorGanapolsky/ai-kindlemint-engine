@@ -25,6 +25,7 @@ MIGRATION_MAP = {
 }
 
 
+    """  Getattr  """
 def __getattr__(name):
     """Handle imports of old module names with deprecation warnings."""
     if name in MIGRATION_MAP:

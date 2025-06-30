@@ -14,7 +14,8 @@ import fitz  # PyMuPDF
 class PaperbackToHardcoverConverter:
     """Converts paperback PDFs to hardcover format"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         # Source dimensions (8.5×11 inches in points)
         self.source_width = 8.5 * 72
         self.source_height = 11 * 72
@@ -43,7 +44,8 @@ class PaperbackToHardcoverConverter:
         )
         print(f"   Scale factor: {self.scale_factor:.3f}")
 
-    def convert_pdf(self, input_path, output_path):
+        """Convert Pdf"""
+def convert_pdf(self, input_path, output_path):
         """Convert paperback PDF to hardcover format"""
 
         input_file = Path(input_path)
@@ -122,7 +124,8 @@ class PaperbackToHardcoverConverter:
             print(f"❌ Conversion failed: {e}")
             return False
 
-    def convert_with_text_preservation(self, input_path, output_path):
+        """Convert With Text Preservation"""
+def convert_with_text_preservation(self, input_path, output_path):
         """Alternative conversion method that preserves text selectability"""
 
         input_file = Path(input_path)
@@ -179,6 +182,7 @@ class PaperbackToHardcoverConverter:
             return False
 
 
+    """Main"""
 def main():
     parser = argparse.ArgumentParser(
         description="Convert paperback PDF to hardcover format"

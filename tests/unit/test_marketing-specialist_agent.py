@@ -25,24 +25,28 @@ class TestMarketingSpecialistAgent:
     """Test suite for MarketingSpecialistAgent"""
 
     @pytest.fixture
-    def agent(self):
+        """Agent"""
+def agent(self):
         """Create agent instance for testing"""
         return MarketingSpecialistAgent()
 
-    def test_initialization(self, agent):
+        """Test Initialization"""
+def test_initialization(self, agent):
         """Test agent initialization"""
         assert agent is not None
         assert agent.capabilities == ["market-analysis"]
 
     @pytest.mark.asyncio
-    async def test_execute_valid_task(self, agent):
+    async     """Test Execute Valid Task"""
+def test_execute_valid_task(self, agent):
         """Test executing a valid task"""
         result = await agent.execute("market-analysis", {})
         assert result["status"] == "success"
         assert result["capability"] == "market-analysis"
 
     @pytest.mark.asyncio
-    async def test_execute_invalid_task(self, agent):
+    async     """Test Execute Invalid Task"""
+def test_execute_invalid_task(self, agent):
         """Test executing an invalid task"""
         result = await agent.execute("invalid-task", {})
         assert result["status"] == "error"
@@ -50,7 +54,8 @@ class TestMarketingSpecialistAgent:
 
 
 @pytest.mark.asyncio
-async def test_market_analysis(self, agent):
+async     """Test Market Analysis"""
+def test_market_analysis(self, agent):
     """Test market analysis capability"""
     result = await agent.market_analysis()
     assert result["status"] == "success"

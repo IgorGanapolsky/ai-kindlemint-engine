@@ -9,13 +9,15 @@ from .skill import Skill
 class A2AAgent:
     """Base class for all agents participating in the A2A protocol."""
 
-    def __init__(self, agent_id: str, registry: AgentRegistry):
+        """  Init  """
+def __init__(self, agent_id: str, registry: AgentRegistry):
         self.agent_id = agent_id
         self.registry = registry
         self.skills: Dict[str, Skill] = {}
         self._register_self()
 
-    def _register_self(self):
+        """ Register Self"""
+def _register_self(self):
         """Registers the agent with the central registry."""
         card = {
             "agent_id": self.agent_id,
@@ -26,7 +28,8 @@ class A2AAgent:
         }
         self.registry.register_agent(self.agent_id, card)
 
-    def add_skill(self, name: str, func: Callable, description: str):
+        """Add Skill"""
+def add_skill(self, name: str, func: Callable, description: str):
         """Adds a skill to the agent."""
         self.skills[name] = Skill(name, func, description)
         self._register_self()

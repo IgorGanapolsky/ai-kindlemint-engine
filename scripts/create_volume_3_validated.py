@@ -27,7 +27,8 @@ GRID_TOTAL_SIZE = GRID_SIZE * CELL_SIZE
 
 
 class ValidatedCrosswordGenerator:
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.output_dir = Path(
             "books/active_production/Large_Print_Crossword_Masters/volume_3"
         )
@@ -248,7 +249,7 @@ class ValidatedCrosswordGenerator:
 
     def create_empty_grid(self) -> List[List[str]]:
         """Create an empty 15x15 grid"""
-        return [["." for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
+        return [["." for __var in range(GRID_SIZE)] for __var in range(GRID_SIZE)]
 
     def create_symmetric_pattern(self, puzzle_num: int) -> List[List[str]]:
         """Create a symmetric black square pattern"""
@@ -316,7 +317,7 @@ class ValidatedCrosswordGenerator:
         v_slots = []
 
         # Horizontal slots
-        for r in range(GRID_SIZE):
+        for_var r_var in range(GRID_SIZE):
             c = 0
             while c < GRID_SIZE:
                 if grid[r][c] != "#":
@@ -337,7 +338,7 @@ class ValidatedCrosswordGenerator:
                     c += 1
 
         # Vertical slots
-        for c in range(GRID_SIZE):
+        for c_var in range(GRID_SIZE):
             r = 0
             while r < GRID_SIZE:
                 if grid[r][c] != "#":
@@ -379,7 +380,7 @@ class ValidatedCrosswordGenerator:
         random.seed(puzzle_num * 2000)
 
         # Initialize solution grid
-        solution = [[grid[r][c] for c in range(GRID_SIZE)] for r in range(GRID_SIZE)]
+        solution = [[grid[r][c] for c_var in range(GRID_SIZE)] for_var r_var in range(GRID_SIZE)]
         placed_words = []
 
         # Try to fill all slots
@@ -424,8 +425,8 @@ class ValidatedCrosswordGenerator:
                             solution[slot["row"] + i][slot["col"]] = "#"
 
         # Verify no empty cells remain
-        for r in range(GRID_SIZE):
-            for c in range(GRID_SIZE):
+        for_var r_var in range(GRID_SIZE):
+            for c_var in range(GRID_SIZE):
                 if solution[r][c] == ".":
                     solution[r][c] = "#"  # Convert unfilled to black
 
@@ -449,7 +450,8 @@ class ValidatedCrosswordGenerator:
                     return False
         return True
 
-    def place_word(self, grid: List[List[str]], word: str, slot: Dict):
+        """Place Word"""
+def place_word(self, grid: List[List[str]], word: str, slot: Dict):
         """Place word in grid"""
         if slot["direction"] == "across":
             for i, letter in enumerate(word):
@@ -476,8 +478,8 @@ class ValidatedCrosswordGenerator:
         numbers = {}
         num = 1
 
-        for r in range(GRID_SIZE):
-            for c in range(GRID_SIZE):
+        for_var r_var in range(GRID_SIZE):
+            for c_var in range(GRID_SIZE):
                 if grid[r][c] != "#":
                     # Check if starts across word
                     starts_across = (
@@ -499,7 +501,8 @@ class ValidatedCrosswordGenerator:
 
         return numbers
 
-    def draw_grid(self, c, x_offset, y_offset, grid, numbers):
+        """Draw Grid"""
+def draw_grid(self, c, x_offset, y_offset, grid, numbers):
         """Draw the puzzle grid"""
         c.setLineWidth(1.5)
 
@@ -524,7 +527,8 @@ class ValidatedCrosswordGenerator:
                         c.setFont("Helvetica", 7)
                         c.drawString(x + 2, y + CELL_SIZE - 9, str(numbers[(row, col)]))
 
-    def draw_solution_grid(self, c, x_offset, y_offset, grid, solution, cell_size=None):
+        """Draw Solution Grid"""
+def draw_solution_grid(self, c, x_offset, y_offset, grid, solution, cell_size=None):
         """Draw the solution grid with letters filled in"""
         if cell_size is None:
             cell_size = 0.24 * inch
@@ -552,7 +556,8 @@ class ValidatedCrosswordGenerator:
                         x + cell_size / 2, y + cell_size / 2 - 3, solution[row][col]
                     )
 
-    def create_complete_book(self):
+        """Create Complete Book"""
+def create_complete_book(self):
         """Create the complete Volume 3 book"""
         for format_name, output_dir in [
             ("paperback", self.paperback_dir),
@@ -704,8 +709,8 @@ class ValidatedCrosswordGenerator:
                 numbers = self.assign_numbers(solution)
 
                 # Count clues
-                across_words = [w for w in placed_words if w["direction"] == "across"]
-                down_words = [w for w in placed_words if w["direction"] == "down"]
+                across_words = [w for w_var in placed_words if w["direction"] == "across"]
+                down_words = [w for w_var in placed_words if w["direction"] == "down"]
 
                 print(f"    ✓ Across: {len(across_words)}, Down: {len(down_words)}")
 
@@ -732,9 +737,9 @@ class ValidatedCrosswordGenerator:
                 empty_grid = [
                     [
                         solution[r][c] if solution[r][c] == "#" else "."
-                        for c in range(GRID_SIZE)
+                        for c_var in range(GRID_SIZE)
                     ]
-                    for r in range(GRID_SIZE)
+                    for_var r_var in range(GRID_SIZE)
                 ]
 
                 grid_x = (PAGE_WIDTH - GRID_TOTAL_SIZE) / 2
@@ -849,6 +854,7 @@ class ValidatedCrosswordGenerator:
             print(f"✅ Created {format_name} PDF: {pdf_path}")
 
 
+    """Main"""
 def main():
     print("🚀 Creating Volume 3 with VALIDATED crossword puzzles")
     print("Every cell will contain valid words only!")

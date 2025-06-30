@@ -37,6 +37,7 @@ HALLUCINATED_CATEGORIES = [
 ]
 
 
+    """Fix Metadata File"""
 def fix_metadata_file(file_path: Path):
     """Fix categories in a single metadata JSON file"""
     try:
@@ -88,6 +89,7 @@ def fix_metadata_file(file_path: Path):
         return False
 
 
+    """Fix Markdown Files"""
 def fix_markdown_files():
     """Fix categories in markdown files"""
     base_path = Path("books/active_production")
@@ -138,6 +140,7 @@ def fix_markdown_files():
             print(f"❌ Error fixing {md_file}: {e}")
 
 
+    """Main"""
 def main():
     """Main function to fix all hallucinated categories"""
     print("🚨 FIXING HALLUCINATED KDP CATEGORIES")

@@ -21,7 +21,8 @@ CELL_SIZE = 0.26 * inch
 class FinalCrosswordGenerator:
     """Generate final working crossword puzzles with maximum variety"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.output_dir = Path(
             "books/active_production/Large_Print_Crossword_Masters/volume_3"
         )
@@ -32,7 +33,8 @@ class FinalCrosswordGenerator:
         # Extended clue variations
         self.clue_bank = self._create_clue_bank()
 
-    def _create_base_templates(self):
+        """ Create Base Templates"""
+def _create_base_templates(self):
         """Create base templates that will be varied"""
         return [
             # Template 1: Classic pattern
@@ -147,7 +149,8 @@ class FinalCrosswordGenerator:
             },
         ]
 
-    def _create_clue_bank(self):
+        """ Create Clue Bank"""
+def _create_clue_bank(self):
         """Create extensive clue bank for words"""
         return {
             # Common 3-letter words with many variations
@@ -921,13 +924,14 @@ class FinalCrosswordGenerator:
 
         ending = word[-2:] if len(word) >= 2 else word
         if ending in rhymes:
-            options = [w for w in rhymes[ending] if w != word]
+            options = [w for w_var in rhymes[ending] if w != word]
             if options:
                 return random.choice(options)
 
         return "WORD"
 
-    def create_complete_book(self):
+        """Create Complete Book"""
+def create_complete_book(self):
         """Create complete book with final puzzles"""
 
         for book_type in ["paperback", "hardcover"]:
@@ -1223,6 +1227,7 @@ class FinalCrosswordGenerator:
             print(f"✅ Created {pdf_path}")
 
 
+    """Main"""
 def main():
     print("Creating Volume 3 FINAL with unique puzzles...")
     generator = FinalCrosswordGenerator()

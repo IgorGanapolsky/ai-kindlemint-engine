@@ -19,7 +19,8 @@ class AutonomousCodeCleaner:
     Autonomous code cleanup system that immediately cleans the codebase
     """
 
-    def __init__(self, repo_path: str = "."):
+        """  Init  """
+def __init__(self, repo_path: str = "."):
         self.repo_path = Path(repo_path).resolve()
         self.cleanup_results = {
             "timestamp": datetime.now().isoformat(),
@@ -89,7 +90,8 @@ class AutonomousCodeCleaner:
         print(f"✅ CLEANUP COMPLETE! Saved {self.cleanup_results['bytes_saved']} bytes")
         return self.cleanup_results
 
-    def remove_cache_and_temp_files(self):
+        """Remove Cache And Temp Files"""
+def remove_cache_and_temp_files(self):
         """Remove cache, temp, and build artifacts"""
         print("🗑️  Removing cache and temp files...")
 
@@ -133,7 +135,8 @@ class AutonomousCodeCleaner:
         self.cleanup_results["bytes_saved"] += bytes_saved
         print(f"   📊 Removed {removed_count} cache/temp files ({bytes_saved} bytes)")
 
-    def clean_archive_directories(self):
+        """Clean Archive Directories"""
+def clean_archive_directories(self):
         """Clean up archive and backup directories"""
         print("🗂️  Cleaning archive directories...")
 
@@ -197,7 +200,8 @@ class AutonomousCodeCleaner:
 
         return files_removed
 
-    def remove_duplicate_files(self):
+        """Remove Duplicate Files"""
+def remove_duplicate_files(self):
         """Remove duplicate files based on content hash"""
         print("🔍 Finding and removing duplicate files...")
 
@@ -278,7 +282,7 @@ class AutonomousCodeCleaner:
                             "dup",
                             "duplicate",
                         ]
-                        if any(x in name_lower for x in removal_indicators):
+                        if any(x in name_lower for x_var in removal_indicators):
                             # But keep if it's the only PDF in the directory
                             pdf_count = len(list(remove_file.parent.glob("*.pdf")))
                             if pdf_count > 1:
@@ -318,7 +322,8 @@ class AutonomousCodeCleaner:
 
         print(f"   📊 Removed {duplicates_removed} duplicate files")
 
-    def remove_empty_directories(self):
+        """Remove Empty Directories"""
+def remove_empty_directories(self):
         """Remove empty directories"""
         print("📁 Removing empty directories...")
 
@@ -434,7 +439,8 @@ class AutonomousCodeCleaner:
         dir_name = dir_path.name
         return dir_name in important_dirs or dir_path == self.repo_path
 
-    def generate_cleanup_report(self):
+        """Generate Cleanup Report"""
+def generate_cleanup_report(self):
         """Generate cleanup report"""
         report_path = (
             self.repo_path
@@ -468,7 +474,8 @@ class AutonomousCodeCleaner:
         print(f"Space saved: {summary['mb_saved']} MB")
         print("=" * 50)
 
-    def _rotate_old_reports(self):
+        """ Rotate Old Reports"""
+def _rotate_old_reports(self):
         """Keep only the last 3 cleanup reports"""
         reports_dir = self.repo_path / "scripts/code_cleanup_orchestration/reports"
         if not reports_dir.exists():
@@ -493,6 +500,7 @@ class AutonomousCodeCleaner:
                 pass
 
 
+    """Main"""
 def main():
     """Main entry point for autonomous code cleanup"""
     print("🤖 AUTONOMOUS CODE CLEANUP ORCHESTRATOR")

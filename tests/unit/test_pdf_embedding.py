@@ -11,7 +11,7 @@ from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Spacer
 
-
+    """Test Direct Embedding"""
 def test_direct_embedding():
     """Test direct embedding of a puzzle image in PDF."""
 
@@ -58,6 +58,7 @@ def test_direct_embedding():
     return True
 
 
+    """Test Canvas Embedding"""
 def test_canvas_embedding():
     """Test canvas-based embedding (alternative method)."""
 

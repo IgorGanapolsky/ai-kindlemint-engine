@@ -4,7 +4,6 @@ Create crossword puzzles for Volume 4 with UNIQUE solutions for each puzzle
 Building on Volume 4's success with enhanced word variety
 """
 
-from volume_4_clue_generator import Volume4ClueGenerator
 import json
 import random
 import sys
@@ -14,6 +13,7 @@ from pathlib import Path
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import inch
 from reportlab.pdfgen import canvas
+from volume_4_clue_generator import Volume4ClueGenerator
 
 sys.path.append(str(Path(__file__).parent))
 
@@ -32,7 +32,8 @@ GRID_TOTAL_SIZE = GRID_SIZE * CELL_SIZE
 
 
 class Volume4CrosswordGenerator:
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.output_dir = Path(
             "books/active_production/Large_Print_Crossword_Masters/volume_4"
         )
@@ -549,7 +550,8 @@ class Volume4CrosswordGenerator:
         # Initialize used words tracker for each puzzle
         self.used_words_by_puzzle = {}
 
-    def get_clue_for_word(self, word, puzzle_num):
+        """Get Clue For Word"""
+def get_clue_for_word(self, word, puzzle_num):
         """Get a unique clue for a word, varying by puzzle number"""
         # Use the professional clue generator to get varied clues
         clue = self.clue_generator.get_clue(
@@ -561,10 +563,11 @@ class Volume4CrosswordGenerator:
             # Fallback to a generic clue only if absolutely necessary
             return f"Word meaning {word.lower()}"
 
-    def create_filled_grid(self, puzzle_num):
+        """Create Filled Grid"""
+def create_filled_grid(self, puzzle_num):
         """Create a crossword grid with ACTUAL WORDS filled in - UNIQUE for each puzzle"""
-        grid = [["#" for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
-        solution = [["#" for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
+        grid = [["#" for __var in range(GRID_SIZE)] for __var in range(GRID_SIZE)]
+        solution = [["#" for __var in range(GRID_SIZE)] for __var in range(GRID_SIZE)]
 
         # Initialize used words for this puzzle if not exists
         if puzzle_num not in self.used_words_by_puzzle:
@@ -699,7 +702,7 @@ class Volume4CrosswordGenerator:
             ):
                 available_words = [
                     w
-                    for w in self.word_database[str(length)]
+                    for w_var in self.word_database[str(length)]
                     if w not in self.used_words_by_puzzle[puzzle_num]
                 ]
 
@@ -805,7 +808,7 @@ class Volume4CrosswordGenerator:
                 # Find word that matches existing letters
                 available_words = [
                     w
-                    for w in self.word_database[str(length)]
+                    for w_var in self.word_database[str(length)]
                     if w not in self.used_words_by_puzzle[puzzle_num]
                 ]
 
@@ -851,7 +854,8 @@ class Volume4CrosswordGenerator:
 
         return grid, solution, placed_words
 
-    def assign_numbers(self, grid, placed_words=None):
+        """Assign Numbers"""
+def assign_numbers(self, grid, placed_words=None):
         """Assign numbers to cells that start words"""
         if placed_words is None:
             # Fallback to old method if no word list provided
@@ -872,7 +876,8 @@ class Volume4CrosswordGenerator:
 
         return numbers
 
-    def _assign_numbers_by_pattern(self, grid):
+        """ Assign Numbers By Pattern"""
+def _assign_numbers_by_pattern(self, grid):
         """Original numbering method based on grid pattern detection"""
         numbers = {}
         current_num = 1
@@ -898,7 +903,8 @@ class Volume4CrosswordGenerator:
 
         return numbers
 
-    def draw_grid(self, c, x_offset, y_offset, grid, numbers, solution=None):
+        """Draw Grid"""
+def draw_grid(self, c, x_offset, y_offset, grid, numbers, solution=None):
         """Draw crossword grid - empty for puzzle, filled for answer key"""
         c.setLineWidth(1.5)
 
@@ -932,7 +938,8 @@ class Volume4CrosswordGenerator:
                             x + CELL_SIZE / 2, y + CELL_SIZE / 2 - 4, solution[row][col]
                         )
 
-    def create_complete_book(self):
+        """Create Complete Book"""
+def create_complete_book(self):
         """Create the complete crossword book with UNIQUE puzzles for Volume 4"""
         print("🔧 Creating Volume 4 with UNIQUE solutions for each puzzle...")
 
@@ -1107,8 +1114,8 @@ class Volume4CrosswordGenerator:
                 )
 
                 # Separate words by direction
-                across_words = [w for w in placed_words if w["direction"] == "across"]
-                down_words = [w for w in placed_words if w["direction"] == "down"]
+                across_words = [w for w_var in placed_words if w["direction"] == "across"]
+                down_words = [w for w_var in placed_words if w["direction"] == "down"]
 
                 # Sort by position
                 across_words.sort(key=lambda w: (w["row"], w["col"]))
@@ -1209,14 +1216,14 @@ class Volume4CrosswordGenerator:
                     set(
                         [
                             w["word"]
-                            for w in puzzle["words"]
+                            for w_var in puzzle["words"]
                             if w["direction"] == "across"
                         ]
                     )
                 )
                 down_words = sorted(
                     set(
-                        [w["word"] for w in puzzle["words"] if w["direction"] == "down"]
+                        [w["word"] for w_var in puzzle["words"] if w["direction"] == "down"]
                     )
                 )
 
@@ -1239,7 +1246,7 @@ class Volume4CrosswordGenerator:
                         word_info = next(
                             (
                                 w
-                                for w in puzzle["words"]
+                                for w_var in puzzle["words"]
                                 if w["word"] == across and w["direction"] == "across"
                             ),
                             None,
@@ -1264,7 +1271,7 @@ class Volume4CrosswordGenerator:
                         word_info = next(
                             (
                                 w
-                                for w in puzzle["words"]
+                                for w_var in puzzle["words"]
                                 if w["word"] == down and w["direction"] == "down"
                             ),
                             None,
@@ -1346,6 +1353,7 @@ class Volume4CrosswordGenerator:
                 json.dump(metadata, f, indent=2)
 
 
+    """Main"""
 def main():
     print("🚀 Creating Volume 4 Crossword Book with UNIQUE solutions...")
     print("📋 Target: 156 pages with 50 unique puzzles")

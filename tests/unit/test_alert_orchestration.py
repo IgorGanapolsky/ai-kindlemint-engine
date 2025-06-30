@@ -25,17 +25,21 @@ try:
 except ImportError:
     # Mock classes for CI environments where fastapi might not be available
     class SlackBot:
-        def __init__(self, *args, **kwargs):
+            """  Init  """
+def __init__(self, *args, **kwargs):
             pass
 
-        async def send_message(self, *args, **kwargs):
+        async     """Send Message"""
+def send_message(self, *args, **kwargs):
             return {"ok": True}
 
-        async def post_error_to_slack(self, *args, **kwargs):
+        async     """Post Error To Slack"""
+def post_error_to_slack(self, *args, **kwargs):
             return {"ok": True}
 
     class SlackAlert:
-        def __init__(self, *args, **kwargs):
+            """  Init  """
+def __init__(self, *args, **kwargs):
             pass
 
 
@@ -50,7 +54,8 @@ class TestSentryMonitor:
     """Test cases for Sentry monitoring functionality"""
 
     @pytest.fixture
-    def mock_sentry_monitor(self):
+        """Mock Sentry Monitor"""
+def mock_sentry_monitor(self):
         """Create a mock Sentry monitor for testing"""
         with patch.dict(
             "os.environ",
@@ -60,13 +65,15 @@ class TestSentryMonitor:
             monitor.session = Mock()
             return monitor
 
-    def test_sentry_monitor_initialization(self, mock_sentry_monitor):
+        """Test Sentry Monitor Initialization"""
+def test_sentry_monitor_initialization(self, mock_sentry_monitor):
         """Test Sentry monitor initialization"""
         assert mock_sentry_monitor.auth_token == "test_token"
         assert mock_sentry_monitor.organization == "test_org"
         assert mock_sentry_monitor.base_url == "https://sentry.io/api/0"
 
-    def test_create_sentry_error(self, mock_sentry_monitor):
+        """Test Create Sentry Error"""
+def test_create_sentry_error(self, mock_sentry_monitor):
         """Test creating SentryError objects from API data"""
         issue_data = {
             "id": "test_error_123",
@@ -120,7 +127,8 @@ class TestSentryMonitor:
         assert len(error.exceptions) == 1
         assert error.exceptions[0]["type"] == "ValueError"
 
-    def test_error_categorization(self, mock_sentry_monitor):
+        """Test Error Categorization"""
+def test_error_categorization(self, mock_sentry_monitor):
         """Test error categorization logic"""
         # Database error (without timeout keyword which would make it performance)
         db_error = SentryError(
@@ -175,14 +183,16 @@ class TestErrorAnalyzer:
     """Test cases for error analysis functionality"""
 
     @pytest.fixture
-    def error_analyzer(self):
+        """Error Analyzer"""
+def error_analyzer(self):
         """Create error analyzer instance"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             json.dump({"patterns": []}, f)
             analyzer = ErrorAnalyzer(patterns_file=f.name)
         return analyzer
 
-    def test_error_classification(self, error_analyzer):
+        """Test Error Classification"""
+def test_error_classification(self, error_analyzer):
         """Test error classification functionality"""
         error_data = {
             "id": "test_123",
@@ -200,7 +210,8 @@ class TestErrorAnalyzer:
         assert len(classification.suggested_actions) > 0
         assert classification.business_impact in ["low", "medium", "high", "critical"]
 
-    def test_pattern_matching(self, error_analyzer):
+        """Test Pattern Matching"""
+def test_pattern_matching(self, error_analyzer):
         """Test error pattern matching"""
         # Test database patterns
         db_messages = [
@@ -222,7 +233,8 @@ class TestErrorAnalyzer:
             assert category == "performance"
             assert confidence > 0.0
 
-    def test_trend_analysis(self, error_analyzer):
+        """Test Trend Analysis"""
+def test_trend_analysis(self, error_analyzer):
         """Test error trend analysis"""
         errors = []
         now = datetime.now(timezone.utc)
@@ -239,7 +251,7 @@ class TestErrorAnalyzer:
         trends = error_analyzer.analyze_trends(errors, time_window_hours=24)
 
         assert len(trends) > 0
-        db_trend = next((t for t in trends if t.category == "database"), None)
+        db_trend = next((t for t_var in trends if t.category == "database"), None)
         assert db_trend is not None
         assert db_trend.trend_direction in ["increasing", "decreasing", "stable"]
 
@@ -248,12 +260,14 @@ class TestAutoResolver:
     """Test cases for automated resolution functionality"""
 
     @pytest.fixture
-    def auto_resolver(self):
+        """Auto Resolver"""
+def auto_resolver(self):
         """Create auto resolver instance"""
         return AutoResolver(dry_run=True)
 
     @pytest.mark.asyncio
-    async def test_resolution_execution(self, auto_resolver):
+    async     """Test Resolution Execution"""
+def test_resolution_execution(self, auto_resolver):
         """Test resolution execution"""
         error_data = {
             "id": "test_error",
@@ -277,7 +291,8 @@ class TestAutoResolver:
         assert len(result.actions_taken) > 0
 
     @pytest.mark.asyncio
-    async def test_safety_validation(self, auto_resolver):
+    async     """Test Safety Validation"""
+def test_safety_validation(self, auto_resolver):
         """Test safety validation mechanisms"""
         # Test production restrictions
         error_data = {
@@ -297,7 +312,8 @@ class TestAutoResolver:
         # Should not attempt resolution due to low confidence in production
         assert result is None or not result.success
 
-    def test_strategy_registry(self):
+        """Test Strategy Registry"""
+def test_strategy_registry(self):
         """Test resolution strategy registry"""
         strategies = strategy_registry.strategies
 
@@ -323,7 +339,8 @@ class TestSlackHandler:
     """Test cases for Slack integration functionality"""
 
     @pytest.fixture
-    def slack_bot(self):
+        """Slack Bot"""
+def slack_bot(self):
         """Create mock Slack bot"""
         with patch.dict(
             "os.environ", {"SLACK_WEBHOOK_URL": "https://hooks.slack.com/test"}
@@ -333,7 +350,8 @@ class TestSlackHandler:
             bot._make_api_call = Mock(return_value={"ok": True, "ts": "1234567890.123"})
         return bot
 
-    def test_alert_creation(self, slack_bot):
+        """Test Alert Creation"""
+def test_alert_creation(self, slack_bot):
         """Test creating and sending alerts"""
         alert_data = {
             "title": "Test Alert",
@@ -354,7 +372,8 @@ class TestSlackHandler:
         assert message_ts is not None
         assert len(slack_bot.active_alerts) == 1
 
-    def test_interactive_components(self, slack_bot):
+        """Test Interactive Components"""
+def test_interactive_components(self, slack_bot):
         """Test interactive component handling"""
         payload = {
             "actions": [
@@ -371,7 +390,8 @@ class TestSlackHandler:
         assert response is not None
         assert "acknowledged" in response.text.lower()
 
-    def test_alert_blocks_creation(self, slack_bot):
+        """Test Alert Blocks Creation"""
+def test_alert_blocks_creation(self, slack_bot):
         """Test Slack block creation"""
         alert_data = {
             "title": "Database Error",
@@ -388,14 +408,15 @@ class TestSlackHandler:
         assert "Database Error" in str(blocks)
 
         # Should include action buttons
-        action_block = next((b for b in blocks if b.get("type") == "actions"), None)
+        action_block = next((b for b_var in blocks if b.get("type") == "actions"), None)
         assert action_block is not None
 
 
 class TestNotificationTemplates:
     """Test cases for notification template system"""
 
-    def test_template_registry(self):
+        """Test Template Registry"""
+def test_template_registry(self):
         """Test template registry functionality"""
         templates = template_registry.list_templates()
 
@@ -404,7 +425,8 @@ class TestNotificationTemplates:
         assert "resolution_success" in templates
         assert "escalation" in templates
 
-    def test_error_alert_rendering(self):
+        """Test Error Alert Rendering"""
+def test_error_alert_rendering(self):
         """Test error alert template rendering"""
         data = {
             "alert_id": "alert_123",
@@ -430,7 +452,8 @@ class TestNotificationTemplates:
         assert "Test Error" in blocks_str
         assert "production" in blocks_str
 
-    def test_resolution_templates(self):
+        """Test Resolution Templates"""
+def test_resolution_templates(self):
         """Test resolution notification templates"""
         success_data = {
             "resolution_id": "res_123",
@@ -460,7 +483,8 @@ class TestAlertOrchestrator:
     """Test cases for main orchestration functionality"""
 
     @pytest.fixture
-    def orchestrator_config(self):
+        """Orchestrator Config"""
+def orchestrator_config(self):
         """Create test orchestration configuration"""
         return OrchestrationConfig(
             sentry_enabled=False,  # Disable for testing
@@ -471,7 +495,8 @@ class TestAlertOrchestrator:
         )
 
     @pytest.fixture
-    def mock_orchestrator(self, orchestrator_config):
+        """Mock Orchestrator"""
+def mock_orchestrator(self, orchestrator_config):
         """Create mock orchestrator for testing"""
         with patch(
             "scripts.alert_orchestration.alert_orchestrator.SentryMonitor"
@@ -485,13 +510,15 @@ class TestAlertOrchestrator:
             orchestrator.config = orchestrator_config
             return orchestrator
 
-    def test_orchestrator_initialization(self, mock_orchestrator):
+        """Test Orchestrator Initialization"""
+def test_orchestrator_initialization(self, mock_orchestrator):
         """Test orchestrator initialization"""
         assert mock_orchestrator.config.dry_run == True
         assert mock_orchestrator.config.auto_resolution_enabled == True
         assert len(mock_orchestrator.active_alerts) == 0
 
-    def test_alert_processing_decision_logic(self, mock_orchestrator):
+        """Test Alert Processing Decision Logic"""
+def test_alert_processing_decision_logic(self, mock_orchestrator):
         """Test alert processing decision logic"""
         # Mock error and classification
         mock_error = Mock()
@@ -524,7 +551,8 @@ class TestAlertOrchestrator:
         )
         assert isinstance(should_escalate, bool)
 
-    def test_escalation_logic(self, mock_orchestrator):
+        """Test Escalation Logic"""
+def test_escalation_logic(self, mock_orchestrator):
         """Test escalation decision logic"""
         # Critical error should escalate
         critical_error = Mock()
@@ -557,7 +585,8 @@ class TestIntegration:
     """Integration tests for the complete system"""
 
     @pytest.mark.asyncio
-    async def test_end_to_end_workflow(self):
+    async     """Test End To End Workflow"""
+def test_end_to_end_workflow(self):
         """Test complete end-to-end workflow"""
         # This test would require more complex setup with actual integrations
         # For now, we'll test the workflow logic
@@ -590,7 +619,8 @@ class TestIntegration:
             assert isinstance(result, ResolutionResult)
             assert result.success in [True, False]  # Either outcome is valid in dry run
 
-    def test_configuration_validation(self):
+        """Test Configuration Validation"""
+def test_configuration_validation(self):
         """Test configuration file validation"""
         config_path = (
             Path(__file__).parent.parent
@@ -616,7 +646,8 @@ class TestIntegration:
             assert "slack_enabled" in components
             assert "auto_resolution_enabled" in components
 
-    def test_error_patterns_validation(self):
+        """Test Error Patterns Validation"""
+def test_error_patterns_validation(self):
         """Test error patterns file validation"""
         patterns_path = (
             Path(__file__).parent.parent
@@ -646,7 +677,8 @@ class TestIntegration:
 class TestPerformance:
     """Performance tests for the system"""
 
-    def test_error_analysis_performance(self):
+        """Test Error Analysis Performance"""
+def test_error_analysis_performance(self):
         """Test error analysis performance with multiple errors"""
         analyzer = ErrorAnalyzer()
 
@@ -684,7 +716,8 @@ class TestPerformance:
             assert classification.primary_category is not None
 
     @pytest.mark.asyncio
-    async def test_resolution_concurrency(self):
+    async     """Test Resolution Concurrency"""
+def test_resolution_concurrency(self):
         """Test concurrent resolution handling"""
         resolver = AutoResolver(dry_run=True)
 
@@ -717,6 +750,7 @@ class TestPerformance:
 
 # Pytest configuration and fixtures
 @pytest.fixture(scope="session")
+    """Event Loop"""
 def event_loop():
     """Create an instance of the default event loop for the test session."""
     loop = asyncio.get_event_loop_policy().new_event_loop()

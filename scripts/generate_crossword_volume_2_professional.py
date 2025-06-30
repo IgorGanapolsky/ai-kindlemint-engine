@@ -31,7 +31,8 @@ GRID_TOTAL_SIZE = GRID_SIZE * CELL_SIZE  # 3.9 inches
 
 
 class ProfessionalCrosswordGenerator:
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.output_dir = Path(
             "books/active_production/Large_Print_Crossword_Masters/volume_2"
         )
@@ -165,9 +166,10 @@ class ProfessionalCrosswordGenerator:
             ],
         }
 
-    def create_crossword_grid(self):
+        """Create Crossword Grid"""
+def create_crossword_grid(self):
         """Create a valid crossword grid pattern"""
-        grid = [["." for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
+        grid = [["." for __var in range(GRID_SIZE)] for __var in range(GRID_SIZE)]
 
         # Add black squares in a symmetric pattern
         black_squares = [
@@ -212,7 +214,8 @@ class ProfessionalCrosswordGenerator:
 
         return grid
 
-    def draw_crossword_grid(self, c, x_offset, y_offset, grid, numbers):
+        """Draw Crossword Grid"""
+def draw_crossword_grid(self, c, x_offset, y_offset, grid, numbers):
         """Draw crossword grid directly on canvas with vector graphics"""
 
         # Set line width for grid
@@ -240,7 +243,8 @@ class ProfessionalCrosswordGenerator:
                         c.setFont("Helvetica", 7)
                         c.drawString(x + 2, y + CELL_SIZE - 9, str(cell_num))
 
-    def generate_clues(self, theme, difficulty):
+        """Generate Clues"""
+def generate_clues(self, theme, difficulty):
         """Generate clues for the puzzle"""
         across_clues = []
         down_clues = []
@@ -288,7 +292,8 @@ class ProfessionalCrosswordGenerator:
 
         return {"across": across_clues, "down": down_clues}
 
-    def assign_numbers(self, grid):
+        """Assign Numbers"""
+def assign_numbers(self, grid):
         """Assign numbers to grid cells that start words"""
         numbers = {}
         current_num = 1
@@ -314,7 +319,8 @@ class ProfessionalCrosswordGenerator:
 
         return numbers
 
-    def create_pdf(self):
+        """Create Pdf"""
+def create_pdf(self):
         """Create the complete PDF with all 50 puzzles"""
         pdf_path = self.paperback_dir / "crossword_volume_2_PROFESSIONAL_FINAL.pdf"
         c = canvas.Canvas(str(pdf_path), pagesize=(PAGE_WIDTH, PAGE_HEIGHT))
@@ -555,7 +561,7 @@ class ProfessionalCrosswordGenerator:
                         "clue_count": len(p["clues"]["across"])
                         + len(p["clues"]["down"]),
                     }
-                    for p in puzzles_data
+                    for p_var in puzzles_data
                 ],
                 f,
                 indent=2,
@@ -584,6 +590,7 @@ class ProfessionalCrosswordGenerator:
         return pdf_path
 
 
+    """Main"""
 def main():
     print("🚀 Creating Professional Crossword Book...")
     generator = ProfessionalCrosswordGenerator()

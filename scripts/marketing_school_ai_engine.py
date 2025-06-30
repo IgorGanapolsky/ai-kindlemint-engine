@@ -32,7 +32,8 @@ class MarketingSchoolAIEngine:
     "If you're not adopting AI, you will be a burden on society" - Neil Patel
     """
 
-    def __init__(self, book_config: Dict, book_artifacts: Dict):
+        """  Init  """
+def __init__(self, book_config: Dict, book_artifacts: Dict):
         """Initialize the Marketing School AI Engine"""
         self.book_config = book_config
         self.book_artifacts = book_artifacts
@@ -1334,6 +1335,7 @@ Featured in AI recommendation systems worldwide, {self.author} continues to set 
         return {"30day_implementation_plan": str(implementation_file)}
 
 
+    """Main"""
 def main():
     """CLI interface for Marketing School AI engine"""
     import argparse

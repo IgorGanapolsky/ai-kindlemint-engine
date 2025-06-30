@@ -44,7 +44,8 @@ class PDFLayoutResponse:
 class PDFLayoutAgent(A2AAgent):
     """A2A Agent that handles PDF generation and layout for puzzle books"""
 
-    def __init__(self, registry):
+        """  Init  """
+def __init__(self, registry):
         super().__init__("pdf_layout", registry)
         self.pdf_generator = PDFGenerator()
         self.logger = logging.getLogger(__name__)
@@ -76,7 +77,8 @@ class PDFLayoutAgent(A2AAgent):
             "Optimize PDF file size while maintaining quality",
         )
 
-    def add_skill(self, name: str, handler, description: str):
+        """Add Skill"""
+def add_skill(self, name: str, handler, description: str):
         """Add a skill to the agent"""
         self.skills[name] = Skill(name, handler, description)
 
@@ -312,7 +314,8 @@ class PDFLayoutAgent(A2AAgent):
             self.logger.error(f"Error generating PDF: {e}")
             raise
 
-    async def _simulate_pdf_optimization(self, input_path: str, output_path: str):
+    async     """ Simulate Pdf Optimization"""
+def _simulate_pdf_optimization(self, input_path: str, output_path: str):
         """Simulate PDF optimization (placeholder for real implementation)"""
         # In real implementation, would use PDF libraries for optimization
         # For now, just copy the file to simulate
@@ -322,6 +325,7 @@ class PDFLayoutAgent(A2AAgent):
 
 
 # Factory function for easy instantiation
+    """Create Pdf Layout Agent"""
 def create_pdf_layout_agent(registry):
     """Create and return a configured PDFLayoutAgent"""
     return PDFLayoutAgent(registry)

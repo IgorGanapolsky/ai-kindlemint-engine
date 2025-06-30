@@ -6,7 +6,8 @@ class DummyPublisher(KdpPublisher):
     Subclass to override the simulate_kdp_upload_process for testing.
     """
 
-    def simulate_kdp_upload_process(self, book_metadata: dict):
+        """Simulate Kdp Upload Process"""
+def simulate_kdp_upload_process(self, book_metadata: dict):
         # Return a predictable structure for testing
         return {
             "success": True,
@@ -16,13 +17,15 @@ class DummyPublisher(KdpPublisher):
         }
 
 
+    """Test Upload Book Delegates To Simulate"""
 def test_upload_book_delegates_to_simulate(monkeypatch):
     # Prepare test metadata
     test_metadata = {"title": "Unit Test Book"}
     called = {}
 
     # Monkeypatch the simulate_kdp_upload_process method
-    def fake_simulate(self, metadata):
+        """Fake Simulate"""
+def fake_simulate(self, metadata):
         called["metadata"] = metadata
         return {"success": False, "error": "Simulated failure"}
 
@@ -37,6 +40,7 @@ def test_upload_book_delegates_to_simulate(monkeypatch):
     assert called.get("metadata") == test_metadata
 
 
+    """Test Dummy Publisher Returns Expected"""
 def test_dummy_publisher_returns_expected():
     # Using DummyPublisher to test actual return structure
     dummy = DummyPublisher()

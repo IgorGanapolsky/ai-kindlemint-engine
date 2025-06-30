@@ -51,7 +51,8 @@ class UnifiedOrchestrator:
     Unified orchestrator that coordinates between Claude Code and A2A systems
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.logger = logging.getLogger(__name__)
 
         # Initialize Claude Code orchestrator
@@ -78,7 +79,8 @@ class UnifiedOrchestrator:
             "quality_assurance": OrchestrationMode.HYBRID,
         }
 
-    def _initialize_a2a_agents(self):
+        """ Initialize A2A Agents"""
+def _initialize_a2a_agents(self):
         """Initialize A2A agents"""
         try:
             # Create puzzle generator agent
@@ -429,6 +431,7 @@ class UnifiedOrchestrator:
 
 
 # Factory function for easy instantiation
+    """Create Unified Orchestrator"""
 def create_unified_orchestrator():
     """Create and return a configured UnifiedOrchestrator"""
     return UnifiedOrchestrator()

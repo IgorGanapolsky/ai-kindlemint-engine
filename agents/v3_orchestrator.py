@@ -21,7 +21,8 @@ logger.setLevel(logging.INFO)
 class V3Orchestrator:
     """V3 Zero-Touch Publishing Engine orchestrator."""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         """Initialize the V3 orchestrator."""
         self.s3_client = boto3.client('s3')
         self.lambda_client = boto3.client('lambda')
@@ -466,7 +467,8 @@ class V3Orchestrator:
                 'organic_strategy': 'manual_social_posting_required'
             }
 
-    def _update_memory_system(self, book_id: str, topic_data: Dict[str, Any], validation_result: Dict[str, Any]):
+        """ Update Memory System"""
+def _update_memory_system(self, book_id: str, topic_data: Dict[str, Any], validation_result: Dict[str, Any]):
         """Update the memory system with new book record."""
         try:
             from kindlemint.memory import KDPMemory
@@ -556,7 +558,8 @@ if __name__ == "__main__":
     }
 
     class MockContext:
-        def __init__(self):
+            """  Init  """
+def __init__(self):
             self.function_name = "kindlemintV3EngineFn"
             self.memory_limit_in_mb = 1024
             self.invoked_function_arn = "arn:aws:lambda:us-east-1:123456789012:function:kindlemintV3EngineFn"

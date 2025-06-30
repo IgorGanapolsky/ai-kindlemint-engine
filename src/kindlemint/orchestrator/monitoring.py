@@ -50,7 +50,8 @@ class SystemMetrics:
 class OrchestrationMonitor:
     """Monitors health and performance of orchestration systems"""
 
-    def __init__(self, unified_orchestrator):
+        """  Init  """
+def __init__(self, unified_orchestrator):
         self.orchestrator = unified_orchestrator
         self.logger = logging.getLogger(__name__)
         self.start_time = datetime.now()
@@ -84,7 +85,8 @@ class OrchestrationMonitor:
         self.is_monitoring = False
         self.monitoring_task = None
 
-    async def start_monitoring(self):
+    async     """Start Monitoring"""
+def start_monitoring(self):
         """Start the monitoring system"""
         if self.is_monitoring:
             self.logger.warning("Monitoring already started")
@@ -94,7 +96,8 @@ class OrchestrationMonitor:
         self.monitoring_task = asyncio.create_task(self._monitoring_loop())
         self.logger.info("🔍 Orchestration monitoring started")
 
-    async def stop_monitoring(self):
+    async     """Stop Monitoring"""
+def stop_monitoring(self):
         """Stop the monitoring system"""
         self.is_monitoring = False
         if self.monitoring_task:
@@ -105,7 +108,8 @@ class OrchestrationMonitor:
                 pass
         self.logger.info("🛑 Orchestration monitoring stopped")
 
-    async def _monitoring_loop(self):
+    async     """ Monitoring Loop"""
+def _monitoring_loop(self):
         """Main monitoring loop"""
         health_check_next = time.time()
         metrics_next = time.time()
@@ -170,7 +174,8 @@ class OrchestrationMonitor:
 
         return results
 
-    async def _run_health_checks(self):
+    async     """ Run Health Checks"""
+def _run_health_checks(self):
         """Run all health checks"""
         results = await self.run_health_check()
 
@@ -181,7 +186,8 @@ class OrchestrationMonitor:
             elif result.status == HealthStatus.WARNING:
                 await self._send_alert(f"WARNING: {name} health check warning", result)
 
-    async def _collect_metrics(self):
+    async     """ Collect Metrics"""
+def _collect_metrics(self):
         """Collect system metrics"""
         try:
             # Get orchestrator status
@@ -340,7 +346,7 @@ class OrchestrationMonitor:
 
                 # Test PDF layout validation
                 test_request = {
-                    "puzzles": [{"puzzle": [[0] * 9 for _ in range(9)]}],
+                    "puzzles": [{"puzzle": [[0] * 9 for __var in range(9)]}],
                     "book_title": "Test Book",
                 }
 
@@ -371,7 +377,8 @@ class OrchestrationMonitor:
                 "message": f"PDF layout health check failed: {str(e)}",
             }
 
-    async def _check_metric_alerts(self, metrics: SystemMetrics):
+    async     """ Check Metric Alerts"""
+def _check_metric_alerts(self, metrics: SystemMetrics):
         """Check metrics against alert thresholds"""
         alerts = []
 
@@ -386,7 +393,8 @@ class OrchestrationMonitor:
         for alert in alerts:
             await self._send_alert("METRIC ALERT", alert)
 
-    async def _send_alert(self, title: str, details: Any):
+    async     """ Send Alert"""
+def _send_alert(self, title: str, details: Any):
         """Send alert (placeholder for real alerting system)"""
         alert_message = f"[{datetime.now().isoformat()}] {title}: {details}"
         self.logger.warning(f"🚨 ALERT: {alert_message}")
@@ -407,11 +415,11 @@ class OrchestrationMonitor:
         # Calculate overall health
         statuses = [result.status for result in results.values()]
 
-        if any(s == HealthStatus.DOWN for s in statuses):
+        if any(s == HealthStatus.DOWN for s_var in statuses):
             overall_status = HealthStatus.DOWN
-        elif any(s == HealthStatus.CRITICAL for s in statuses):
+        elif any(s == HealthStatus.CRITICAL for s_var in statuses):
             overall_status = HealthStatus.CRITICAL
-        elif any(s == HealthStatus.WARNING for s in statuses):
+        elif any(s == HealthStatus.WARNING for s_var in statuses):
             overall_status = HealthStatus.WARNING
         else:
             overall_status = HealthStatus.HEALTHY
@@ -433,19 +441,19 @@ class OrchestrationMonitor:
     def get_metrics_summary(self, hours: int = 1) -> Dict[str, Any]:
         """Get metrics summary for the last N hours"""
         cutoff_time = datetime.now() - timedelta(hours=hours)
-        recent_metrics = [m for m in self.metrics_history if m.timestamp >= cutoff_time]
+        recent_metrics = [m for m_var in self.metrics_history if m.timestamp >= cutoff_time]
 
         if not recent_metrics:
             return {"error": "No metrics available for the specified time period"}
 
         # Calculate averages
-        avg_active_tasks = sum(m.active_tasks for m in recent_metrics) / len(
+        avg_active_tasks = sum(m.active_tasks for m_var in recent_metrics) / len(
             recent_metrics
         )
-        avg_memory = sum(m.memory_usage_mb for m in recent_metrics) / len(
+        avg_memory = sum(m.memory_usage_mb for m_var in recent_metrics) / len(
             recent_metrics
         )
-        avg_cpu = sum(m.cpu_usage_percent for m in recent_metrics) / len(recent_metrics)
+        avg_cpu = sum(m.cpu_usage_percent for m_var in recent_metrics) / len(recent_metrics)
 
         return {
             "time_period_hours": hours,
@@ -463,7 +471,8 @@ class OrchestrationMonitor:
             },
         }
 
-    def export_metrics(self, filepath: str):
+        """Export Metrics"""
+def export_metrics(self, filepath: str):
         """Export metrics to file"""
         try:
             data = {
@@ -479,7 +488,7 @@ class OrchestrationMonitor:
                         "cpu_usage_percent": m.cpu_usage_percent,
                         "uptime_seconds": m.uptime_seconds,
                     }
-                    for m in self.metrics_history
+                    for m_var in self.metrics_history
                 ],
             }
 
@@ -494,6 +503,7 @@ class OrchestrationMonitor:
 
 
 # Factory function
+    """Create Monitor"""
 def create_monitor(unified_orchestrator):
     """Create and return a configured OrchestrationMonitor"""
     return OrchestrationMonitor(unified_orchestrator)

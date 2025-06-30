@@ -120,6 +120,7 @@ def lambda_handler(event: Dict[str, Any], context) -> Dict[str, Any]:
         }
 
 
+    """Send Ceo Notification"""
 def send_ceo_notification(opportunities: list):
     """Send Slack notification about new opportunities."""
     try:
@@ -179,7 +180,8 @@ if __name__ == "__main__":
     test_event = {"max_opportunities": 2, "source": "manual_test"}
 
     class MockContext:
-        def __init__(self):
+            """  Init  """
+def __init__(self):
             self.function_name = "niche-research-agent"
             self.memory_limit_in_mb = 512
 

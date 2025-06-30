@@ -27,7 +27,8 @@ logger = logging.getLogger(__name__)
 class CIMonitor:
     """Monitors GitHub Actions workflows for failures"""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self, repo_owner: str, repo_name: str, github_token: Optional[str] = None
     ):
         self.repo_owner = repo_owner
@@ -247,7 +248,8 @@ class CIMonitor:
         logger.info(f"Found {len(recent_failures)} recent failures")
         return recent_failures
 
-    def save_failure_report(
+        """Save Failure Report"""
+def save_failure_report(
         self, failures: List[Dict], output_path: str = "ci_failures.json"
     ):
         """Save failure report to file"""
@@ -287,6 +289,7 @@ class CIMonitor:
         return summary
 
 
+    """Main"""
 def main():
     """Main entry point for CI monitoring"""
     import argparse

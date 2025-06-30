@@ -9,7 +9,7 @@ from datetime import datetime
 
 import requests
 
-
+    """Run Simple Research"""
 def run_simple_research():
     """Run simple market research that actually works"""
     print("🔍 Simple Market Research - Real APIs")

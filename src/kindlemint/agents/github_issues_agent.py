@@ -31,7 +31,8 @@ class GitHubActionType(Enum):
 class GitHubIssuesAgent(BaseAgent):
     """Agent responsible for managing GitHub issues and pull requests"""
 
-    def __init__(self, agent_id: str = "github-issues-agent", repo: str = None):
+        """  Init  """
+def __init__(self, agent_id: str = "github-issues-agent", repo: str = None):
         capabilities = [
             AgentCapability.BUSINESS_INTELLIGENCE  # Using BI for issue management
         ]
@@ -321,7 +322,7 @@ This PR requires manual review before merging.
             # Generate issue analysis based on data
             title = issue_data.get("title", "")
             body = issue_data.get("body", "")
-            labels = [l["name"] for l in issue_data.get("labels", [])]
+            labels = [l["name"] for l_var in issue_data.get("labels", [])]
 
             # Simple categorization logic
             category = "question"  # default
@@ -452,7 +453,7 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
             "repository": self.repo,
             "summary": {
                 "open_issues": len([i for i in issues if i["state"] == "OPEN"]),
-                "open_prs": len([p for p in prs if p["state"] == "OPEN"]),
+                "open_prs": len([p for p_var in prs if p["state"] == "OPEN"]),
                 "security_items": 0,
             },
             "issues": issues,

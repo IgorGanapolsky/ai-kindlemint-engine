@@ -20,7 +20,8 @@ from PIL import Image
 class SudokuBookQAValidator:
     """Comprehensive QA validator for Sudoku puzzle books"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.errors = []
         self.warnings = []
         self.passed_checks = []
@@ -61,7 +62,8 @@ class SudokuBookQAValidator:
         # Generate report
         return self._generate_report()
 
-    def _validate_pdf(self, pdf_path: Path):
+        """ Validate Pdf"""
+def _validate_pdf(self, pdf_path: Path):
         """Validate PDF content including visual rendering checks.
 
         Args:
@@ -110,7 +112,8 @@ class SudokuBookQAValidator:
         except Exception as e:
             self.errors.append(f"Failed to read PDF: {str(e)}")
 
-    def _validate_puzzle_directory(self, puzzle_dir: Path):
+        """ Validate Puzzle Directory"""
+def _validate_puzzle_directory(self, puzzle_dir: Path):
         """Validate puzzle files and metadata.
 
         Args:
@@ -253,8 +256,8 @@ class SudokuBookQAValidator:
             filled_cells = 0
 
             # Check each cell position for darkness (indicating a number)
-            for r in range(9):
-                for c in range(9):
+            for_var r_var in range(9):
+                for c_var in range(9):
                     # Calculate cell center
                     x = margin + c * cell_size + cell_size // 2
                     y = margin + r * cell_size + cell_size // 2
@@ -376,7 +379,8 @@ class SudokuBookQAValidator:
 
         return report
 
-    def _validate_pdf_visual_rendering(self, pdf_path: Path):
+        """ Validate Pdf Visual Rendering"""
+def _validate_pdf_visual_rendering(self, pdf_path: Path):
         """Validate PDF visual rendering of puzzles.
 
         Critical validation to ensure:

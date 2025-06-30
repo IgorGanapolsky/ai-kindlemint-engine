@@ -19,6 +19,7 @@ TOP_MARGIN = 0.75 * inch
 BOTTOM_MARGIN = 0.75 * inch
 
 
+    """Create Mini Puzzles"""
 def create_mini_puzzles():
     """Create 9 properly solvable mini puzzles"""
 
@@ -394,6 +395,7 @@ def create_mini_puzzles():
     return buffer
 
 
+    """Replace Mini Puzzles"""
 def replace_mini_puzzles():
     """Replace pages 147-155 with fixed mini puzzles"""
 

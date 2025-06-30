@@ -15,7 +15,8 @@ import fitz  # PyMuPDF
 class SudokuPDFImageValidator:
     """Validates Sudoku PDFs have proper image rendering"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.errors = []
         self.warnings = []
         self.passed_checks = []
@@ -138,7 +139,8 @@ class SudokuPDFImageValidator:
 
         return self._generate_report()
 
-    def _check_image_quality(self, doc):
+        """ Check Image Quality"""
+def _check_image_quality(self, doc):
         """Check that images are high resolution.
 
         Args:

@@ -22,7 +22,8 @@ except ImportError:
 class EnhancedQAChecker:
     """Enhanced QA with visual layout validation"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.qa_results = {
             "file_path": "",
             "timestamp": datetime.now().isoformat(),
@@ -37,7 +38,8 @@ class EnhancedQAChecker:
             "publish_ready": False,
         }
 
-    def run_enhanced_qa(self, pdf_path):
+        """Run Enhanced Qa"""
+def run_enhanced_qa(self, pdf_path):
         """Run enhanced QA with visual validation"""
 
         pdf_path = Path(pdf_path)
@@ -66,7 +68,8 @@ class EnhancedQAChecker:
 
         return self.qa_results
 
-    def check_visual_layout(self, pdf_path):
+        """Check Visual Layout"""
+def check_visual_layout(self, pdf_path):
         """CRITICAL: Check visual layout for cut-off text, overlaps, spacing issues"""
 
         print("👁️  CHECKING VISUAL LAYOUT (CRITICAL)...")
@@ -194,7 +197,8 @@ class EnhancedQAChecker:
 
         self.qa_results["visual_checks"] = checks
 
-    def check_crossword_grid_numbers(self, page, page_num, checks):
+        """Check Crossword Grid Numbers"""
+def check_crossword_grid_numbers(self, page, page_num, checks):
         """Specifically check crossword grid numbers for visibility"""
 
         # Look for number patterns in crossword grids
@@ -251,7 +255,8 @@ class EnhancedQAChecker:
         else:
             print(f"  ✅ Page {page_num}: Crossword numbers appear properly positioned")
 
-    def check_file_properties(self, pdf_path):
+        """Check File Properties"""
+def check_file_properties(self, pdf_path):
         """Check basic file properties"""
 
         print("📋 CHECKING FILE PROPERTIES...")
@@ -282,7 +287,8 @@ class EnhancedQAChecker:
 
         self.qa_results["file_checks"] = checks
 
-    def check_pdf_structure(self, pdf_path):
+        """Check Pdf Structure"""
+def check_pdf_structure(self, pdf_path):
         """Check PDF structure"""
 
         print("🔧 CHECKING PDF STRUCTURE...")
@@ -316,7 +322,8 @@ class EnhancedQAChecker:
 
         self.qa_results["content_checks"] = checks
 
-    def check_content_quality(self, pdf_path):
+        """Check Content Quality"""
+def check_content_quality(self, pdf_path):
         """Check content quality"""
 
         print("📝 CHECKING CONTENT QUALITY...")
@@ -372,7 +379,8 @@ class EnhancedQAChecker:
 
         self.qa_results["content_checks"].update(checks)
 
-    def check_amazon_kdp_compliance(self, pdf_path):
+        """Check Amazon Kdp Compliance"""
+def check_amazon_kdp_compliance(self, pdf_path):
         """Check Amazon KDP compliance"""
 
         print("📚 CHECKING AMAZON KDP COMPLIANCE...")
@@ -391,21 +399,24 @@ class EnhancedQAChecker:
 
         self.qa_results["amazon_kdp_checks"] = checks
 
-    def add_critical_issue(self, code, description):
+        """Add Critical Issue"""
+def add_critical_issue(self, code, description):
         """Add a critical issue"""
         self.qa_results["issues_found"].append(
             {"type": "CRITICAL", "code": code, "description": description}
         )
         print(f"  ❌ CRITICAL: {description}")
 
-    def add_warning(self, code, description):
+        """Add Warning"""
+def add_warning(self, code, description):
         """Add a warning"""
         self.qa_results["warnings"].append(
             {"type": "WARNING", "code": code, "description": description}
         )
         print(f"  ⚠️  WARNING: {description}")
 
-    def calculate_overall_score(self):
+        """Calculate Overall Score"""
+def calculate_overall_score(self):
         """Calculate quality score"""
 
         total_checks = 0
@@ -436,7 +447,8 @@ class EnhancedQAChecker:
 
         return round(final_score)
 
-    def generate_enhanced_report(self, pdf_path):
+        """Generate Enhanced Report"""
+def generate_enhanced_report(self, pdf_path):
         """Generate enhanced QA report"""
 
         self.qa_results["overall_score"] = self.calculate_overall_score()
@@ -483,6 +495,7 @@ class EnhancedQAChecker:
         print("=" * 70)
 
 
+    """Main"""
 def main():
     """Run enhanced QA check"""
 

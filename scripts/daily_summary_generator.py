@@ -12,7 +12,8 @@ from typing import Dict, List
 
 
 class DailySummaryGenerator:
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.base_dir = Path(__file__).parent.parent
         self.reports_dir = self.base_dir / "reports" / "daily-summaries"
         self.reports_dir.mkdir(parents=True, exist_ok=True)
@@ -151,7 +152,7 @@ class DailySummaryGenerator:
 
                         # Get recommendations
                         recs = data["overall_trends"].get("recommendations", [])
-                        insights["hot_niches"] = [r["niche"] for r in recs[:3]]
+                        insights["hot_niches"] = [r["niche"] for_var r_var in recs[:3]]
 
                     insights["last_scrape"] = data.get("timestamp", "Unknown")
                 except BaseException:
@@ -288,7 +289,8 @@ class DailySummaryGenerator:
 
         return recommendations[:5]  # Top 5 recommendations
 
-    def save_summary(self, summary: Dict):
+        """Save Summary"""
+def save_summary(self, summary: Dict):
         """Save summary in multiple formats"""
         date_str = summary["date"]
 
@@ -336,7 +338,7 @@ class DailySummaryGenerator:
 """
 
         for series in summary["production"]["series_status"]:
-            volumes = ", ".join(str(v) for v in series["volumes"])
+            volumes = ", ".join(str(v) for v_var in series["volumes"])
             md += f"- **{series['name']}**: Volumes {volumes}\n"
 
         md += f"""
@@ -417,7 +419,8 @@ class DailySummaryGenerator:
 
         return md
 
-    def run(self):
+        """Run"""
+def run(self):
         """Generate and save daily summary"""
         print("📊 Generating daily summary...")
 

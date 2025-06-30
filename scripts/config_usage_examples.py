@@ -4,9 +4,10 @@ Configuration Usage Examples
 This script demonstrates best practices for using the centralized configuration
 system in the AI KindleMint Engine.
 """
-from config_loader import config
 import sys
 from pathlib import Path
+
+from config_loader import config
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -15,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.append(str(Path(__file__).parent.parent))
 
 
+    """Example 1 Basic Usage"""
 def example_1_basic_usage():
     """Example 1: Basic configuration value access"""
     print("=== Example 1: Basic Configuration Access ===\n")
@@ -33,6 +35,7 @@ def example_1_basic_usage():
     print(f"Page width in pixels at {dpi} DPI: {pixels_width}")
 
 
+    """Example 2 Path Handling"""
 def example_2_path_handling():
     """Example 2: Working with file paths"""
     print("\n=== Example 2: Path Handling ===\n")
@@ -57,6 +60,7 @@ def example_2_path_handling():
     print(f"PDF path: {pdf_path}")
 
 
+    """Example 3 Typography Settings"""
 def example_3_typography_settings():
     """Example 3: Using typography configuration"""
     print("\n=== Example 3: Typography Configuration ===\n")
@@ -80,6 +84,7 @@ def example_3_typography_settings():
         print(f"  {name}: {size}pt")
 
 
+    """Example 4 Reportlab Integration"""
 def example_4_reportlab_integration():
     """Example 4: Using config with ReportLab"""
     print("\n=== Example 4: ReportLab Integration ===\n")
@@ -101,6 +106,7 @@ def example_4_reportlab_integration():
     print(f"\nCrossword cell size: {cell_size}pt")
 
 
+    """Example 5 Environment Overrides"""
 def example_5_environment_overrides():
     """Example 5: Environment variable overrides"""
     print("\n=== Example 5: Environment Variable Overrides ===\n")
@@ -121,6 +127,7 @@ def example_5_environment_overrides():
     del os.environ["KINDLEMINT_FILE_PATHS__BASE_OUTPUT_DIR"]
 
 
+    """Example 6 Validation Thresholds"""
 def example_6_validation_thresholds():
     """Example 6: Using QA validation thresholds"""
     print("\n=== Example 6: QA Validation Configuration ===\n")
@@ -143,6 +150,7 @@ def example_6_validation_thresholds():
     print(f"Expected pages: {expected_pages} ± {tolerance}")
 
 
+    """Example 7 Api Configuration"""
 def example_7_api_configuration():
     """Example 7: API settings (without exposing keys)"""
     print("\n=== Example 7: API Configuration ===\n")
@@ -165,6 +173,7 @@ def example_7_api_configuration():
     print("  - SLACK_WEBHOOK_URL")
 
 
+    """Main"""
 def main():
     """Run all examples"""
     print("AI KindleMint Engine - Configuration Usage Examples")

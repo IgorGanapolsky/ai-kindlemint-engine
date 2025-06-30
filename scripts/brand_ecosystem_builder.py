@@ -24,7 +24,8 @@ class BrandEcosystemBuilder:
     Transforms single books into multi-product businesses
     """
 
-    def __init__(self, book_config: Dict, book_artifacts: Dict):
+        """  Init  """
+def __init__(self, book_config: Dict, book_artifacts: Dict):
         """Initialize the Brand Ecosystem Builder"""
         self.book_config = book_config
         self.book_artifacts = book_artifacts
@@ -1315,6 +1316,7 @@ class BrandEcosystemBuilder:
         return {"community_platform": str(community_file)}
 
 
+    """Main"""
 def main():
     """CLI interface for brand ecosystem builder"""
     import argparse

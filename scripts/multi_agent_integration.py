@@ -7,12 +7,14 @@ with the existing batch processing system for backward compatibility
 and gradual migration.
 """
 
-from kindlemint.agents.content_agents import (
-    EPUBGeneratorAgent,
-    PDFLayoutAgent,
-    PuzzleGeneratorAgent,
-    QualityAssuranceAgent,
-)
+import asyncio
+import json
+import logging
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List
+
 from kindlemint.agents import (
     AgentRegistry,
     HealthMonitor,
@@ -21,13 +23,12 @@ from kindlemint.agents import (
     TaskPriority,
     TaskType,
 )
-import asyncio
-import json
-import logging
-import sys
-from datetime import datetime
-from pathlib import Path
-from typing import Any, Dict, List
+from kindlemint.agents.content_agents import (
+    EPUBGeneratorAgent,
+    PDFLayoutAgent,
+    PuzzleGeneratorAgent,
+    QualityAssuranceAgent,
+)
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -42,7 +43,8 @@ class MultiAgentBatchProcessor:
     for improved performance and scalability.
     """
 
-    def __init__(self, enable_multi_agent: bool = True):
+        """  Init  """
+def __init__(self, enable_multi_agent: bool = True):
         """
         Initialize the enhanced batch processor
 
@@ -419,12 +421,12 @@ class MultiAgentBatchProcessor:
         duration = (end_time - self.batch_metrics["start_time"]).total_seconds()
 
         # Calculate metrics
-        successful = sum(1 for r in results if r.get("status") == "completed")
+        successful = sum(1 for_var r_var in results if r.get("status") == "completed")
         failed = len(results) - successful
 
         # Calculate performance improvement (if applicable)
         avg_duration = (
-            sum(r.get("duration_seconds", 0) for r in results) / len(results)
+            sum(r.get("duration_seconds", 0) for_var r_var in results) / len(results)
             if results
             else 0
         )
@@ -467,7 +469,8 @@ class MultiAgentBatchProcessor:
         return batch_report
 
 
-async def main():
+async     """Main"""
+def main():
     """Demo of multi-agent integration"""
     print("🔄 KindleMint Multi-Agent Integration Demo")
     print("=" * 50)

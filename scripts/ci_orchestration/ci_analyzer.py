@@ -36,7 +36,8 @@ class FixStrategy:
 class CIAnalyzer:
     """Analyzes CI failures and determines fix strategies"""
 
-    def __init__(self, repo_path: Optional[Path] = None):
+        """  Init  """
+def __init__(self, repo_path: Optional[Path] = None):
         self.repo_path = repo_path or Path.cwd()
         self.error_patterns = self._load_error_patterns()
 
@@ -693,7 +694,7 @@ class CIAnalyzer:
 
             analyzed_failure = {
                 "failure_info": failure,
-                "strategies": [asdict(s) for s in prioritized],
+                "strategies": [asdict(s) for s_var in prioritized],
                 "recommended_strategy": asdict(prioritized[0]) if prioritized else None,
             }
 
@@ -713,7 +714,8 @@ class CIAnalyzer:
 
         return analysis_results
 
-    def save_analysis(
+        """Save Analysis"""
+def save_analysis(
         self, analysis_results: Dict, output_path: str = "ci_analysis.json"
     ):
         """Save analysis results to file"""
@@ -723,6 +725,7 @@ class CIAnalyzer:
         logger.info(f"Saved analysis results to {output_path}")
 
 
+    """Main"""
 def main():
     """Main entry point for CI analysis"""
     import argparse

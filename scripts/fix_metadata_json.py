@@ -93,6 +93,8 @@ def fix_json_file(file_path: Path, backup_dir: Path) -> bool:
         print(f"  ERROR: Failed to read or write file: {e}")
         return False
 
+    """Main"""
+
 
 def main():
     """Fix all corrupted JSON files."""

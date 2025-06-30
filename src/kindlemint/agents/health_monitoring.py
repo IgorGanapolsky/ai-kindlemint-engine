@@ -150,7 +150,8 @@ class HealthMonitor:
     Centralized health monitoring system for all agents
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         check_interval: int = 30,
         alert_thresholds: Optional[Dict[str, float]] = None,

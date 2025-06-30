@@ -14,6 +14,7 @@ project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
 
+    """Run All Tests"""
 def run_all_tests():
     """Run all tests and return results"""
     # Discover and run all tests
@@ -29,6 +30,7 @@ def run_all_tests():
     return result.wasSuccessful()
 
 
+    """Run Unit Tests"""
 def run_unit_tests():
     """Run only unit tests"""
     loader = unittest.TestLoader()
@@ -41,6 +43,7 @@ def run_unit_tests():
     return result.wasSuccessful()
 
 
+    """Run Integration Tests"""
 def run_integration_tests():
     """Run only integration tests"""
     loader = unittest.TestLoader()

@@ -46,7 +46,8 @@ class ScriptFeatureAnalyzer(ast.NodeVisitor):
     An AST visitor to extract key features from a Python script.
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.features = {
             "imports": set(),
             "classes": [],
@@ -57,25 +58,30 @@ class ScriptFeatureAnalyzer(ast.NodeVisitor):
             "has_clue_db": False,
         }
 
-    def visit_Import(self, node):
+        """Visit Import"""
+def visit_Import(self, node):
         for alias in node.names:
             self.features["imports"].add(alias.name)
         self.generic_visit(node)
 
-    def visit_ImportFrom(self, node):
+        """Visit Importfrom"""
+def visit_ImportFrom(self, node):
         if node.module:
             self.features["imports"].add(node.module)
         self.generic_visit(node)
 
-    def visit_ClassDef(self, node):
+        """Visit Classdef"""
+def visit_ClassDef(self, node):
         self.features["classes"].append(node.name)
         self.generic_visit(node)
 
-    def visit_FunctionDef(self, node):
+        """Visit Functiondef"""
+def visit_FunctionDef(self, node):
         self.features["functions"].append(node.name)
         self.generic_visit(node)
 
-    def visit_Assign(self, node):
+        """Visit Assign"""
+def visit_Assign(self, node):
         # Look for variable assignments that might be hardcoded values
         if isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
             # Check for hardcoded paths
@@ -117,7 +123,8 @@ class ScriptFeatureAnalyzer(ast.NodeVisitor):
 class ConsolidationAnalyzer:
     """Analyzes scripts and generates a consolidation plan."""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.scripts_to_analyze = []
         self.analysis_results = {}
         self.consolidation_plan = {
@@ -126,14 +133,16 @@ class ConsolidationAnalyzer:
             "features_to_migrate": defaultdict(list),
         }
 
-    def find_volume_scripts(self):
+        """Find Volume Scripts"""
+def find_volume_scripts(self):
         """Finds all scripts matching the target pattern."""
         self.scripts_to_analyze = sorted(list(SCRIPTS_DIR.glob(TARGET_SCRIPT_PATTERN)))
         logger.info(
             f"Found {len(self.scripts_to_analyze)} volume creation scripts to analyze."
         )
 
-    def analyze_scripts(self):
+        """Analyze Scripts"""
+def analyze_scripts(self):
         """Analyzes each found script to extract its features."""
         for script_path in self.scripts_to_analyze:
             logger.info(f"Analyzing {script_path.name}...")
@@ -148,7 +157,8 @@ class ConsolidationAnalyzer:
                 logger.error(f"Could not parse {script_path.name}: {e}")
                 self.analysis_results[script_path.name] = {"error": str(e)}
 
-    def generate_plan(self):
+        """Generate Plan"""
+def generate_plan(self):
         """Generates the consolidation and migration plan."""
         if not self.analysis_results:
             logger.warning("No scripts analyzed, cannot generate a plan.")
@@ -206,7 +216,8 @@ class ConsolidationAnalyzer:
                     most_complex_script[0]
                 )
 
-    def generate_report(self):
+        """Generate Report"""
+def generate_report(self):
         """Prints the full analysis and consolidation report."""
         report = []
 
@@ -268,7 +279,7 @@ class ConsolidationAnalyzer:
         checklist = []
         for feature, scripts in self.consolidation_plan["features_to_migrate"].items():
             unique_scripts = sorted(list(set(scripts)))
-            script_list = ", ".join([f"`{s}`" for s in unique_scripts[:2]])
+            script_list = ", ".join([f"`{s}`" for s_var in unique_scripts[:2]])
             if len(unique_scripts) > 2:
                 script_list += f" and {len(unique_scripts) - 2} others"
             checklist.append(
@@ -298,7 +309,8 @@ class ConsolidationAnalyzer:
 
         return "\n".join(report)
 
-    def run(self):
+        """Run"""
+def run(self):
         """Runs the full analysis and prints the report."""
         logger.info("Starting script consolidation analysis...")
         self.find_volume_scripts()
@@ -318,6 +330,7 @@ class ConsolidationAnalyzer:
         logger.info("Analysis complete. Review the plan above for next steps.")
 
 
+    """Main"""
 def main():
     """Main entry point."""
     try:

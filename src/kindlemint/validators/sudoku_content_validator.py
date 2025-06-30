@@ -17,7 +17,8 @@ from PIL import Image
 class SudokuContentValidator:
     """Validates actual Sudoku content in PDFs and images"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.results = {
             "status": "UNKNOWN",
             "errors": [],
@@ -188,10 +189,10 @@ class SudokuContentValidator:
             total_pixels = len(pixel_data)
 
             # Count very bright pixels (likely empty cells)
-            bright_pixels = sum(1 for p in pixel_data if p > 240)
+            bright_pixels = sum(1 for p_var in pixel_data if p > 240)
 
             # Count medium pixels (likely numbers/text)
-            text_pixels = sum(1 for p in pixel_data if 50 <= p <= 200)
+            text_pixels = sum(1 for p_var in pixel_data if 50 <= p <= 200)
 
             # Calculate ratios
             bright_ratio = bright_pixels / total_pixels
@@ -209,7 +210,8 @@ class SudokuContentValidator:
             print(f"Warning: Could not analyze grid completeness - {str(e)}")
             return False  # Assume incomplete if can't determine
 
-    def _print_summary(self):
+        """ Print Summary"""
+def _print_summary(self):
         """Print validation summary"""
         print("\n" + "=" * 50)
         print("📊 SUDOKU CONTENT VALIDATION REPORT")
@@ -227,6 +229,7 @@ class SudokuContentValidator:
         print("=" * 50)
 
 
+    """Main"""
 def main():
     if len(sys.argv) != 2:
         print("Usage: python sudoku_content_validator.py <pdf_path>")

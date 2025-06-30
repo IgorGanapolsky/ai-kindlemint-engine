@@ -2,6 +2,7 @@
 """Simple import tests to boost coverage - these should all pass"""
 
 
+    """Test Kindlemint Imports"""
 def test_kindlemint_imports():
     """Test basic package imports"""
     import kindlemint
@@ -13,6 +14,7 @@ def test_kindlemint_imports():
     assert kindlemint is not None
 
 
+    """Test Agent Types"""
 def test_agent_types():
     """Test agent types module"""
     from kindlemint.agents.agent_types import AgentCapability
@@ -22,6 +24,7 @@ def test_agent_types():
     assert AgentCapability.CONTENT_GENERATION.value == "content_generation"
 
 
+    """Test Message Protocol Enums"""
 def test_message_protocol_enums():
     """Test message protocol enums"""
     from kindlemint.agents.message_protocol import MessageType
@@ -31,6 +34,7 @@ def test_message_protocol_enums():
     assert MessageType.TASK_COMPLETION.value == "task_completion"
 
 
+    """Test Task System Enums"""
 def test_task_system_enums():
     """Test task system enums"""
     from kindlemint.agents.task_system import TaskPriority, TaskStatus
@@ -44,6 +48,7 @@ def test_task_system_enums():
     assert TaskPriority.HIGH.value == "high"
 
 
+    """Test Validation Severity"""
 def test_validation_severity():
     """Test validation severity enum"""
     from kindlemint.validators.base_validator import IssueSeverity

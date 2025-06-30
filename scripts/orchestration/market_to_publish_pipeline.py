@@ -17,7 +17,8 @@ sys.path.append(str(Path(__file__).parent.parent.parent / "src"))
 class MarketToPublishOrchestrator:
     """Orchestrates the complete pipeline from market research to publishing"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.pipeline_stages = [
             "market_research",
             "opportunity_analysis",
@@ -30,7 +31,8 @@ class MarketToPublishOrchestrator:
         self.current_stage = None
         self.pipeline_state = {}
 
-    async def run_pipeline(self, config: Dict = None):
+    async     """Run Pipeline"""
+def run_pipeline(self, config: Dict = None):
         """Run the complete pipeline"""
         print("🚀 MARKET TO PUBLISH PIPELINE")
         print("=" * 50)
@@ -83,7 +85,8 @@ class MarketToPublishOrchestrator:
             print(f"\n❌ PIPELINE FAILED: {e}")
             raise
 
-    async def _run_market_research(self):
+    async     """ Run Market Research"""
+def _run_market_research(self):
         """Stage 1: Run market research"""
         print("\n📊 Stage 1: Market Research")
         print("-" * 30)
@@ -128,7 +131,8 @@ class MarketToPublishOrchestrator:
             stage_data["end_time"] = datetime.now().isoformat()
             self.pipeline_state["stages"][self.current_stage] = stage_data
 
-    async def _analyze_opportunities(self):
+    async     """ Analyze Opportunities"""
+def _analyze_opportunities(self):
         """Stage 2: Analyze market opportunities"""
         print("\n🔍 Stage 2: Opportunity Analysis")
         print("-" * 30)
@@ -169,7 +173,8 @@ class MarketToPublishOrchestrator:
             stage_data["end_time"] = datetime.now().isoformat()
             self.pipeline_state["stages"][self.current_stage] = stage_data
 
-    async def _plan_content(self):
+    async     """ Plan Content"""
+def _plan_content(self):
         """Stage 3: Plan content for selected niches"""
         print("\n📝 Stage 3: Content Planning")
         print("-" * 30)
@@ -209,7 +214,8 @@ class MarketToPublishOrchestrator:
             stage_data["end_time"] = datetime.now().isoformat()
             self.pipeline_state["stages"][self.current_stage] = stage_data
 
-    async def _generate_content(self):
+    async     """ Generate Content"""
+def _generate_content(self):
         """Stage 4: Generate content for planned books"""
         print("\n🎨 Stage 4: Content Generation")
         print("-" * 30)
@@ -254,7 +260,8 @@ class MarketToPublishOrchestrator:
             stage_data["end_time"] = datetime.now().isoformat()
             self.pipeline_state["stages"][self.current_stage] = stage_data
 
-    async def _run_quality_assurance(self):
+    async     """ Run Quality Assurance"""
+def _run_quality_assurance(self):
         """Stage 5: Run QA on generated content"""
         print("\n✓ Stage 5: Quality Assurance")
         print("-" * 30)
@@ -289,7 +296,8 @@ class MarketToPublishOrchestrator:
             stage_data["end_time"] = datetime.now().isoformat()
             self.pipeline_state["stages"][self.current_stage] = stage_data
 
-    async def _prepare_for_publishing(self):
+    async     """ Prepare For Publishing"""
+def _prepare_for_publishing(self):
         """Stage 6: Prepare books for publishing"""
         print("\n📚 Stage 6: Publishing Preparation")
         print("-" * 30)
@@ -334,7 +342,8 @@ class MarketToPublishOrchestrator:
             stage_data["end_time"] = datetime.now().isoformat()
             self.pipeline_state["stages"][self.current_stage] = stage_data
 
-    async def _final_review(self):
+    async     """ Final Review"""
+def _final_review(self):
         """Stage 7: Final review before publishing"""
         print("\n🎯 Stage 7: Final Review")
         print("-" * 30)
@@ -415,7 +424,8 @@ class MarketToPublishOrchestrator:
 
         return stdout.decode()
 
-    def _save_pipeline_results(self):
+        """ Save Pipeline Results"""
+def _save_pipeline_results(self):
         """Save pipeline results to file"""
         results_dir = Path("pipeline_results")
         results_dir.mkdir(exist_ok=True)
@@ -429,7 +439,8 @@ class MarketToPublishOrchestrator:
         print(f"\n📄 Pipeline results saved to: {results_file}")
 
 
-async def main():
+async     """Main"""
+def main():
     """Main entry point"""
     orchestrator = MarketToPublishOrchestrator()
 

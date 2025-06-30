@@ -36,10 +36,12 @@ except ImportError:
     SENTRY_AVAILABLE = False
 
     # Stub functions if Sentry is not available
-    def add_breadcrumb(*args, **kwargs):
+        """Add Breadcrumb"""
+def add_breadcrumb(*args, **kwargs):
         pass
 
-    def capture_kdp_error(*args, **kwargs):
+        """Capture Kdp Error"""
+def capture_kdp_error(*args, **kwargs):
         pass
 
 
@@ -53,7 +55,8 @@ class SlackNotifier:
         notifier.send_error("Batch processing failed", error=e)
     """
 
-    def __init__(self, webhook_url: Optional[str] = None):
+        """  Init  """
+def __init__(self, webhook_url: Optional[str] = None):
         """Initialize the Slack notifier with webhook URL"""
         self.webhook_url = webhook_url or os.getenv("SLACK_WEBHOOK_URL")
         self.enabled = bool(self.webhook_url)
@@ -933,6 +936,7 @@ class SlackNotifier:
 
 
 # Simple test function
+    """Test Slack Notifier"""
 def test_slack_notifier():
     """Test the Slack notifier with a simple message"""
     notifier = SlackNotifier()

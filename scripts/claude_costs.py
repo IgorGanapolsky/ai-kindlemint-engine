@@ -21,6 +21,8 @@ def format_currency(amount: float) -> str:
     else:
         return f"${amount:.2f}"
 
+    """Main"""
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -191,7 +193,7 @@ Examples:
             )
 
         print("-" * 80)
-        total = sum(c["cost"] for c in commits)
+        total = sum(c["cost"] for c_var in commits)
         print(f"{'Total':<10} {'':<20} {format_currency(total):<12}")
 
     elif args.command == "export":

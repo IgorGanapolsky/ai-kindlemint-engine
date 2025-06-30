@@ -67,7 +67,8 @@ class EnhancedSudokuBookGenerator:
         ],
     }
 
-    def __init__(self, volume_path: Path):
+        """  Init  """
+def __init__(self, volume_path: Path):
         self.volume_path = volume_path
         self.puzzles_dir = volume_path / "puzzles"
         self.output_dir = volume_path / "paperback"
@@ -77,7 +78,8 @@ class EnhancedSudokuBookGenerator:
         self.styles = getSampleStyleSheet()
         self.setup_custom_styles()
 
-    def setup_custom_styles(self):
+        """Setup Custom Styles"""
+def setup_custom_styles(self):
         """Setup custom paragraph styles for the book"""
         self.styles.add(
             ParagraphStyle(
@@ -147,7 +149,8 @@ class EnhancedSudokuBookGenerator:
             )
         )
 
-    def create_title_page(self, story):
+        """Create Title Page"""
+def create_title_page(self, story):
         """Create the title page"""
         story.append(Spacer(1, 2 * inch))
 
@@ -170,7 +173,8 @@ class EnhancedSudokuBookGenerator:
         story.append(author)
         story.append(PageBreak())
 
-    def create_copyright_page(self, story):
+        """Create Copyright Page"""
+def create_copyright_page(self, story):
         """Create the copyright page"""
         story.append(Spacer(1, 1 * inch))
 
@@ -199,7 +203,8 @@ class EnhancedSudokuBookGenerator:
 
         story.append(PageBreak())
 
-    def create_how_to_play_section(self, story):
+        """Create How To Play Section"""
+def create_how_to_play_section(self, story):
         """Create How to Play Sudoku section"""
         story.append(Spacer(1, 0.5 * inch))
 
@@ -236,7 +241,8 @@ class EnhancedSudokuBookGenerator:
 
         story.append(PageBreak())
 
-    def load_puzzle_data(self):
+        """Load Puzzle Data"""
+def load_puzzle_data(self):
         """Load all puzzle data from JSON files"""
         puzzles = []
         metadata_dir = self.puzzles_dir / "metadata"
@@ -250,7 +256,8 @@ class EnhancedSudokuBookGenerator:
 
         return sorted(puzzles, key=lambda x: x.get("id", 0))
 
-    def add_puzzle_pages(self, story, puzzles):
+        """Add Puzzle Pages"""
+def add_puzzle_pages(self, story, puzzles):
         """Add all puzzle pages to the book"""
         for i, puzzle in enumerate(puzzles, 1):
             # Puzzle number header
@@ -279,7 +286,8 @@ class EnhancedSudokuBookGenerator:
 
             story.append(PageBreak())
 
-    def add_text_puzzle(self, story, puzzle):
+        """Add Text Puzzle"""
+def add_text_puzzle(self, story, puzzle):
         """Add a text-based puzzle representation"""
         if "initial_grid" in puzzle:
             grid_data = []
@@ -311,7 +319,8 @@ class EnhancedSudokuBookGenerator:
             )
             story.append(table)
 
-    def generate_solution_explanation(self, puzzle):
+        """Generate Solution Explanation"""
+def generate_solution_explanation(self, puzzle):
         """Generate explanation for how to solve a specific puzzle"""
         difficulty = puzzle.get("difficulty", "medium").lower()
         puzzle_id = puzzle.get("id", 0)
@@ -374,7 +383,8 @@ class EnhancedSudokuBookGenerator:
 
         return explanations
 
-    def add_solutions_section(self, story, puzzles):
+        """Add Solutions Section"""
+def add_solutions_section(self, story, puzzles):
         """Add solutions section with explanations"""
         story.append(Spacer(1, 1 * inch))
 
@@ -447,7 +457,8 @@ class EnhancedSudokuBookGenerator:
 
             story.append(PageBreak())
 
-    def add_final_teaser_page(self, story):
+        """Add Final Teaser Page"""
+def add_final_teaser_page(self, story):
         """Add the final teaser page"""
         story.append(Spacer(1, 2 * inch))
 
@@ -474,7 +485,8 @@ class EnhancedSudokuBookGenerator:
             else:
                 story.append(Spacer(1, 15))
 
-    def generate_complete_book(self):
+        """Generate Complete Book"""
+def generate_complete_book(self):
         """Generate the complete book with all elements"""
         output_file = self.output_dir / "Large_Print_Sudoku_Masters_V1_ENHANCED.pdf"
 
@@ -532,6 +544,7 @@ class EnhancedSudokuBookGenerator:
         return output_file
 
 
+    """Main"""
 def main():
     """Main function to generate the enhanced book"""
     base_path = Path(__file__).parent.parent

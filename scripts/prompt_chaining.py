@@ -66,7 +66,8 @@ class ChainResult:
 class PromptChain:
     """Manages execution of chained prompts"""
 
-    def __init__(self, name: str, steps: List[PromptStep]):
+        """  Init  """
+def __init__(self, name: str, steps: List[PromptStep]):
         self.name = name
         self.steps = steps
         self.context = {}
@@ -403,6 +404,7 @@ class PromptChainLibrary:
         return PromptChain("content_optimization", steps)
 
 
+    """Example Usage"""
 def example_usage():
     """Demonstrate prompt chaining usage"""
 
@@ -450,6 +452,7 @@ def example_usage():
         print(f"❌ Theme development failed: {theme_result.errors}")
 
 
+    """Main"""
 def main():
     """CLI interface for prompt chaining"""
     import argparse

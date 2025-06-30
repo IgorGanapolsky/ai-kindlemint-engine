@@ -16,7 +16,8 @@ from PIL import Image, ImageDraw, ImageFont
 class HardcoverProducer:
     """Automated hardcover production system"""
 
-    def __init__(self, book_config):
+        """  Init  """
+def __init__(self, book_config):
         self.config = book_config
         self.template_dir = Path("templates/hardcover")
         self.scripts_dir = Path("scripts/hardcover")
@@ -35,7 +36,8 @@ class HardcoverProducer:
         self.template_width = int(self.template_width_inches * 300)
         self.template_height = int(self.template_height_inches * 300)
 
-    def create_directory_structure(self):
+        """Create Directory Structure"""
+def create_directory_structure(self):
         """Create hardcover production directories"""
         hardcover_dir = Path(self.config["output_dir"])
         hardcover_dir.mkdir(parents=True, exist_ok=True)
@@ -43,7 +45,8 @@ class HardcoverProducer:
         print(f"📁 Created hardcover directory: {hardcover_dir}")
         return hardcover_dir
 
-    def generate_metadata(self, output_dir):
+        """Generate Metadata"""
+def generate_metadata(self, output_dir):
         """Generate KDP metadata for hardcover edition"""
         metadata = {
             "title": self.config["title"],
@@ -84,7 +87,8 @@ class HardcoverProducer:
         print(f"📄 Generated metadata: {metadata_file}")
         return metadata_file
 
-    def create_production_checklist(self, output_dir):
+        """Create Production Checklist"""
+def create_production_checklist(self, output_dir):
         """Generate production checklist with calculations"""
         checklist_content = f"""# Hardcover Production Checklist
 ## {self.config['title']} - {self.config['subtitle']}
@@ -161,7 +165,8 @@ class HardcoverProducer:
         print(f"📋 Generated checklist: {checklist_file}")
         return checklist_file
 
-    def create_cover_wrap(self, output_dir):
+        """Create Cover Wrap"""
+def create_cover_wrap(self, output_dir):
         """Generate hardcover cover wrap design"""
 
         # Load template
@@ -252,14 +257,16 @@ class HardcoverProducer:
         print(f"🎨 Generated cover wrap: {final_path}")
         return final_path
 
-    def _add_text_overlays(
+        """ Add Text Overlays"""
+def _add_text_overlays(
         self, canvas, spine_x, spine_width, front_y, front_height, back_x, back_width
     ):
         """Add text overlays to cover wrap"""
         draw = ImageDraw.Draw(canvas)
 
         # Load fonts
-        def load_font(size):
+            """Load Font"""
+def load_font(size):
             font_paths = [
                 "/System/Library/Fonts/Arial.ttf",
                 "/System/Library/Fonts/Helvetica.ttc",
@@ -351,7 +358,8 @@ class HardcoverProducer:
             anchor="mm",
         )
 
-    def export_pdf_x1a(self, output_dir):
+        """Export Pdf X1A"""
+def export_pdf_x1a(self, output_dir):
         """Export cover wrap as PDF/X-1a"""
         try:
             from reportlab.pdfgen import canvas as pdf_canvas
@@ -397,7 +405,8 @@ class HardcoverProducer:
             print("❌ ReportLab not installed. Install with: pip install reportlab")
             return None
 
-    def create_complete_package(self):
+        """Create Complete Package"""
+def create_complete_package(self):
         """Create complete hardcover production package"""
         print(f"🏭 Creating hardcover package for: {self.config['title']}")
         print(f"📐 Spine width: {self.spine_width:.4f} inches")
@@ -433,12 +442,14 @@ class HardcoverProducer:
         return output_dir
 
 
+    """Load Book Config"""
 def load_book_config(config_file):
     """Load book configuration from JSON file"""
     with open(config_file, "r") as f:
         return json.load(f)
 
 
+    """Main"""
 def main():
     parser = argparse.ArgumentParser(description="Create hardcover production package")
     parser.add_argument("config", help="Book configuration JSON file")

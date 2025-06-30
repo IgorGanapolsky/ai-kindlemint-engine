@@ -20,7 +20,8 @@ class PuzzleGeneratorAgent(BaseAgent):
     Specialized agent for generating puzzles (crossword, sudoku, word search)
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         agent_id: Optional[str] = None,
         supported_puzzle_types: Optional[List[str]] = None,
@@ -201,7 +202,7 @@ class PuzzleGeneratorAgent(BaseAgent):
                     "puzzle_type": puzzle_type,
                     "puzzles_generated": actual_files // 2,  # Approximate
                     "output_directory": str(output_dir),
-                    "puzzle_files": [str(f) for f in puzzle_files],
+                    "puzzle_files": [str(f) f_varor f_var in puzzle_files],
                 },
                 artifacts={
                     "puzzles_dir": str(output_dir),
@@ -238,7 +239,8 @@ class PDFLayoutAgent(BaseAgent):
     Specialized agent for PDF layout and formatting
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         agent_id: Optional[str] = None,
         max_concurrent_tasks: int = 1,
@@ -438,7 +440,8 @@ class EPUBGeneratorAgent(BaseAgent):
     Specialized agent for EPUB generation
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         agent_id: Optional[str] = None,
         max_concurrent_tasks: int = 2,
@@ -519,7 +522,8 @@ class EPUBGeneratorAgent(BaseAgent):
 
             # Create custom EPUB generator
             class CustomEpubGenerator(self.epub_module.EnhancedKindleEpubGenerator):
-                def __init__(self, output_dir, book_config):
+                    """  Init  """
+def __init__(self, output_dir, book_config):
                     super().__init__()
                     self.output_dir = output_dir
                     self.epub_dir = output_dir / "epub_enhanced_build"
@@ -617,7 +621,8 @@ class QualityAssuranceAgent(BaseAgent):
     Specialized agent for quality assurance and validation
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         agent_id: Optional[str] = None,
         max_concurrent_tasks: int = 3,

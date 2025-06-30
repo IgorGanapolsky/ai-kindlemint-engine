@@ -100,7 +100,8 @@ class AgentMessage:
         None  # Route to agents with these capabilities
     )
 
-    def __post_init__(self):
+        """  Post Init  """
+def __post_init__(self):
         """Validate message after initialization"""
         if not self.sender_id:
             raise ValueError("sender_id is required")

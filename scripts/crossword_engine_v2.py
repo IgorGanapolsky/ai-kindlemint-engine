@@ -17,7 +17,8 @@ from PIL import Image, ImageDraw, ImageFont
 class CrosswordEngineV2:
     """Generate crossword puzzles with filled grids and black squares"""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         output_dir,
         puzzle_count=50,
@@ -43,7 +44,8 @@ class CrosswordEngineV2:
         self.metadata_dir = self.output_dir / "metadata"
         self.metadata_dir.mkdir(exist_ok=True)
 
-    def create_symmetric_pattern(self):
+        """Create Symmetric Pattern"""
+def create_symmetric_pattern(self):
         """Create symmetric black square pattern for crossword"""
         # More realistic crossword pattern
         pattern = []
@@ -56,9 +58,10 @@ class CrosswordEngineV2:
 
         return pattern
 
-    def generate_grid_with_content(self, puzzle_id):
+        """Generate Grid With Content"""
+def generate_grid_with_content(self, puzzle_id):
         """Generate a filled 15x15 grid with words"""
-        grid = [[" " for _ in range(self.grid_size)] for _ in range(self.grid_size)]
+        grid = [[" " for __var in range(self.grid_size)] for __var in range(self.grid_size)]
 
         # Apply black squares
         black_squares = self.create_symmetric_pattern()
@@ -72,7 +75,8 @@ class CrosswordEngineV2:
 
         return grid
 
-    def generate_filled_solution_grid(self, grid, clues):
+        """Generate Filled Solution Grid"""
+def generate_filled_solution_grid(self, grid, clues):
         """Generate a filled grid with all answers placed"""
         filled_grid = [row[:] for row in grid]  # Copy the grid
 
@@ -117,7 +121,8 @@ class CrosswordEngineV2:
 
         return filled_grid
 
-    def _can_place_across(self, grid, row, col, length):
+        """ Can Place Across"""
+def _can_place_across(self, grid, row, col, length):
         """Check if word can be placed horizontally"""
         if col + length > self.grid_size:
             return False
@@ -126,7 +131,8 @@ class CrosswordEngineV2:
                 return False
         return True
 
-    def _can_place_down(self, grid, row, col, length):
+        """ Can Place Down"""
+def _can_place_down(self, grid, row, col, length):
         """Check if word can be placed vertically"""
         if row + length > self.grid_size:
             return False
@@ -135,7 +141,8 @@ class CrosswordEngineV2:
                 return False
         return True
 
-    def create_grid_image(self, grid, puzzle_id, is_solution=False, filled_grid=None):
+        """Create Grid Image"""
+def create_grid_image(self, grid, puzzle_id, is_solution=False, filled_grid=None):
         """Create high-quality grid image"""
         cell_size = 60
         margin = 40
@@ -218,7 +225,8 @@ class CrosswordEngineV2:
 
         return img_path, clue_positions
 
-    def generate_clues(self, puzzle_id, theme, difficulty):
+        """Generate Clues"""
+def generate_clues(self, puzzle_id, theme, difficulty):
         """Generate appropriate clues based on difficulty"""
         clues = {"across": [], "down": []}
 
@@ -278,7 +286,8 @@ class CrosswordEngineV2:
 
         return clues
 
-    def generate_puzzles(self):
+        """Generate Puzzles"""
+def generate_puzzles(self):
         """Generate the specified number of crossword puzzles"""
         print(f"🔤 CROSSWORD ENGINE V2 - Generating {self.puzzle_count} puzzles")
         print(f"📁 Output directory: {self.puzzles_dir}")
@@ -352,7 +361,7 @@ class CrosswordEngineV2:
             "difficulty_mode": self.difficulty_mode,
             "grid_size": self.grid_size,
             "generation_date": datetime.now().isoformat(),
-            "puzzles": [p["id"] for p in puzzles_data],
+            "puzzles": [p["id"] for p_var in puzzles_data],
         }
 
         with open(self.metadata_dir / "collection.json", "w") as f:
@@ -363,7 +372,8 @@ class CrosswordEngineV2:
 
         return puzzles_data
 
-    def _generate_themes(self):
+        """ Generate Themes"""
+def _generate_themes(self):
         """Generate themes based on difficulty mode"""
         themes = [
             # Easy themes
@@ -431,7 +441,8 @@ class CrosswordEngineV2:
 
         return themes[: self.puzzle_count]
 
-    def _get_difficulty_for_puzzle(self, puzzle_id):
+        """ Get Difficulty For Puzzle"""
+def _get_difficulty_for_puzzle(self, puzzle_id):
         """Determine difficulty for a puzzle based on mode and ID"""
         mode = self.difficulty_mode.lower()
 
@@ -451,6 +462,7 @@ class CrosswordEngineV2:
                 return "HARD"
 
 
+    """Main"""
 def main():
     """Main entry point for crossword engine"""
     parser = argparse.ArgumentParser(

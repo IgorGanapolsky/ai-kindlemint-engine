@@ -15,13 +15,15 @@ from PIL import Image, ImageDraw, ImageFont
 class SudokuClueRenderingFixer:
     """Fix Sudoku puzzle rendering to show clues vs empty cells properly"""
 
-    def __init__(self, book_dir):
+        """  Init  """
+def __init__(self, book_dir):
         self.book_dir = Path(book_dir)
         self.metadata_dir = self.book_dir / "puzzles" / "metadata"
         self.puzzles_dir = self.book_dir / "puzzles" / "puzzles"
         self.fixed_count = 0
 
-    def create_proper_puzzle_image(self, initial_grid, puzzle_id):
+        """Create Proper Puzzle Image"""
+def create_proper_puzzle_image(self, initial_grid, puzzle_id):
         """Create puzzle image with visual distinction between clues and empty cells"""
         cell_size = 60
         margin = 40
@@ -84,8 +86,8 @@ class SudokuClueRenderingFixer:
 
         # Draw ONLY the clues (non-zero values) from initial_grid
         clues_drawn = 0
-        for r in range(grid_size):
-            for c in range(grid_size):
+        for_var r_var in range(grid_size):
+            for c_var in range(grid_size):
                 value = initial_grid[r][c]
                 if value != 0:  # This is a clue
                     text = str(value)
@@ -124,7 +126,8 @@ class SudokuClueRenderingFixer:
         )
         return output_path, clues_drawn
 
-    def fix_all_puzzles(self):
+        """Fix All Puzzles"""
+def fix_all_puzzles(self):
         """Fix all puzzle images to show proper clue rendering"""
         print("🔧 Fixing Sudoku clue rendering...")
 
@@ -184,7 +187,8 @@ class SudokuClueRenderingFixer:
 
         return total_fixed > 0
 
-    def validate_rendering(self, puzzle_id):
+        """Validate Rendering"""
+def validate_rendering(self, puzzle_id):
         """Validate that a puzzle image has proper clue rendering"""
         # This would analyze the image to ensure:
         # 1. Clues are visually distinct (darker/bolder)
@@ -192,6 +196,7 @@ class SudokuClueRenderingFixer:
         # 3. Grid lines are visible
 
 
+    """Main"""
 def main():
     if len(sys.argv) != 2:
         print("Usage: python fix_sudoku_clue_rendering.py <book_directory>")

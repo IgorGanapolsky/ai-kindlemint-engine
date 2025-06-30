@@ -17,7 +17,8 @@ from kindlemint.validators.base_validator import (
 class TestValidationResult:
     """Test ValidationResult dataclass"""
 
-    def test_validation_result_creation(self):
+        """Test Validation Result Creation"""
+def test_validation_result_creation(self):
         """Test creating validation results"""
         result = ValidationResult(
             is_valid=True, errors=[], warnings=["Minor issue"], info={"pages": 100}
@@ -27,7 +28,8 @@ class TestValidationResult:
         assert len(result.warnings) == 1
         assert result.info["pages"] == 100
 
-    def test_validation_result_invalid(self):
+        """Test Validation Result Invalid"""
+def test_validation_result_invalid(self):
         """Test invalid validation result"""
         result = ValidationResult(
             is_valid=False,
@@ -43,13 +45,15 @@ class TestValidationResult:
 class TestValidationLevel:
     """Test ValidationLevel enum"""
 
-    def test_validation_levels(self):
+        """Test Validation Levels"""
+def test_validation_levels(self):
         """Test validation level values"""
         assert ValidationLevel.ERROR.value == "error"
         assert ValidationLevel.WARNING.value == "warning"
         assert ValidationLevel.INFO.value == "info"
 
-    def test_level_comparison(self):
+        """Test Level Comparison"""
+def test_level_comparison(self):
         """Test we can compare levels"""
         levels = list(ValidationLevel)
         assert len(levels) == 3
@@ -58,22 +62,26 @@ class TestValidationLevel:
 class TestBaseValidator:
     """Test BaseValidator abstract class"""
 
-    def test_base_validator_abstract(self):
+        """Test Base Validator Abstract"""
+def test_base_validator_abstract(self):
         """Test that BaseValidator is abstract"""
         with pytest.raises(TypeError):
             BaseValidator()
 
-    def test_validator_implementation(self):
+        """Test Validator Implementation"""
+def test_validator_implementation(self):
         """Test implementing a validator"""
 
         class TestValidator(BaseValidator):
-            def validate(self, data):
+                """Validate"""
+def validate(self, data):
                 if data == "valid":
                     return ValidationResult(True, [], [], {})
                 else:
                     return ValidationResult(False, ["Invalid data"], [], {})
 
-            def validate_file(self, file_path):
+                """Validate File"""
+def validate_file(self, file_path):
                 if file_path.exists():
                     return ValidationResult(True, [], [], {"file": str(file_path)})
                 else:
@@ -97,7 +105,8 @@ class TestBaseValidator:
         result = validator.validate_file(Path("/nonexistent/file.txt"))
         assert result.is_valid is False
 
-    def test_validation_error(self):
+        """Test Validation Error"""
+def test_validation_error(self):
         """Test ValidationError exception"""
         error = ValidationError("Test error", level=ValidationLevel.ERROR)
         assert str(error) == "Test error"
@@ -106,19 +115,23 @@ class TestBaseValidator:
         warning = ValidationError("Test warning", level=ValidationLevel.WARNING)
         assert warning.level == ValidationLevel.WARNING
 
-    def test_validator_with_config(self):
+        """Test Validator With Config"""
+def test_validator_with_config(self):
         """Test validator with configuration"""
 
         class ConfigurableValidator(BaseValidator):
-            def __init__(self, strict=False):
+                """  Init  """
+def __init__(self, strict=False):
                 self.strict = strict
 
-            def validate(self, data):
+                """Validate"""
+def validate(self, data):
                 if self.strict and not data:
                     return ValidationResult(False, ["Empty data not allowed"], [], {})
                 return ValidationResult(True, [], [], {})
 
-            def validate_file(self, file_path):
+                """Validate File"""
+def validate_file(self, file_path):
                 return ValidationResult(True, [], [], {})
 
         validator = ConfigurableValidator(strict=True)

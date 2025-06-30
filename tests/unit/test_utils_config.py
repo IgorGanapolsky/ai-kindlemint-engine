@@ -12,14 +12,16 @@ from kindlemint.utils.config import Config, get_config, get_project_root, load_e
 class TestConfig:
     """Test configuration management"""
 
-    def test_default_config(self):
+        """Test Default Config"""
+def test_default_config(self):
         """Test default configuration values"""
         config = Config()
         assert config.debug is False
         assert config.log_level == "INFO"
         assert config.openai_api_key is None
 
-    def test_config_from_env(self):
+        """Test Config From Env"""
+def test_config_from_env(self):
         """Test loading config from environment"""
         with patch.dict(
             os.environ,
@@ -30,20 +32,23 @@ class TestConfig:
             assert config.log_level == "DEBUG"
             assert config.openai_api_key == "test-key-123"
 
-    def test_get_config_singleton(self):
+        """Test Get Config Singleton"""
+def test_get_config_singleton(self):
         """Test that get_config returns singleton"""
         config1 = get_config()
         config2 = get_config()
         assert config1 is config2
 
-    def test_get_project_root(self):
+        """Test Get Project Root"""
+def test_get_project_root(self):
         """Test finding project root"""
         root = get_project_root()
         assert root.exists()
         # Should contain pyproject.toml or .git
         assert (root / "pyproject.toml").exists() or (root / ".git").exists()
 
-    def test_load_env_file(self):
+        """Test Load Env File"""
+def test_load_env_file(self):
         """Test loading .env file"""
         with tempfile.NamedTemporaryFile(mode="w", suffix=".env", delete=False) as f:
             f.write("TEST_VAR=test_value\n")
@@ -64,14 +69,16 @@ class TestConfig:
             # Cleanup
             os.unlink(f.name)
 
-    def test_config_validation(self):
+        """Test Config Validation"""
+def test_config_validation(self):
         """Test config validation"""
         with patch.dict(os.environ, {"LOG_LEVEL": "INVALID"}):
             config = Config()
             # Should default to INFO for invalid log level
             assert config.log_level == "INFO"
 
-    def test_config_aws_settings(self):
+        """Test Config Aws Settings"""
+def test_config_aws_settings(self):
         """Test AWS configuration"""
         with patch.dict(
             os.environ, {"AWS_REGION": "us-west-2", "AWS_PROFILE": "test-profile"}
@@ -80,7 +87,8 @@ class TestConfig:
             assert config.aws_region == "us-west-2"
             assert config.aws_profile == "test-profile"
 
-    def test_config_paths(self):
+        """Test Config Paths"""
+def test_config_paths(self):
         """Test configuration paths"""
         config = Config()
         assert config.data_dir.exists()

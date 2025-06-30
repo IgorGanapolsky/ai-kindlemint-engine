@@ -5,7 +5,7 @@ from pathlib import Path
 
 from pypdf import PdfReader
 
-
+    """Check Pdf Page Count"""
 def check_pdf_page_count(pdf_path):
     """Get page count from a PDF file."""
     try:
@@ -15,6 +15,7 @@ def check_pdf_page_count(pdf_path):
         return f"Error: {str(e)}"
 
 
+    """Main"""
 def main():
     base_dir = Path(
         "/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/books/active_production/Large_Print_Crossword_Masters"

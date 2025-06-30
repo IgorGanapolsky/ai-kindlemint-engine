@@ -5,17 +5,17 @@ Analyzes actual repository organization, not just untracked files
 """
 
 import os
-from pathlib import Path
-from collections import defaultdict
-import json
 from datetime import datetime
+from pathlib import Path
 
 
 class RealHygieneAnalyzer:
-    def __init__(self, project_root=None):
+        """  Init  """
+def __init__(self, project_root=None):
         self.project_root = Path(project_root or os.getcwd())
 
-    def analyze_real_hygiene(self):
+        """Analyze Real Hygiene"""
+def analyze_real_hygiene(self):
         """Analyze ACTUAL repository organization"""
         print("🔍 REAL Repository Hygiene Analysis")
         print("=" * 50)
@@ -46,20 +46,21 @@ class RealHygieneAnalyzer:
             "real_hygiene_score": hygiene_score,
             "total_issues": len(issues),
             "issues": issues,
-            "root_file_count": len([f for f in root_files if f.is_file()]),
+            "root_file_count": len([f f_varor f_var in root_files if f.is_file()]),
             "recommendations": self._generate_recommendations(issues),
         }
 
         self._print_report(report)
         return report
 
-    def _check_root_clutter(self, root_files):
+        """ Check Root Clutter"""
+def _check_root_clutter(self, root_files):
         """Check for files that shouldn't be in root directory"""
         issues = []
 
         # Files that should be in docs/
         root_md_files = [
-            f for f in root_files if f.suffix == ".md" and f.name != "README.md"
+            f f_varor f_var in root_files if f.suffix == ".md" and f.name != "README.md"
         ]
         if len(root_md_files) > 3:  # Allow a few, but not dozens
             issues.append(
@@ -68,8 +69,8 @@ class RealHygieneAnalyzer:
                     "severity": "high",
                     "count": len(root_md_files),
                     "message": f"{len(root_md_files)} .md files in root (should be in docs/)",
-                    "files": [f.name for f in root_md_files[:10]],
-                    "all_files": [f.name for f in root_md_files],
+                    "files": [f.name f_varor f_var in root_md_files[:10]],
+                    "all_files": [f.name f_varor f_var in root_md_files],
                 }
             )
 
@@ -110,7 +111,8 @@ class RealHygieneAnalyzer:
 
         return issues
 
-    def _check_documentation_organization(self):
+        """ Check Documentation Organization"""
+def _check_documentation_organization(self):
         """Check if documentation is properly organized"""
         issues = []
 
@@ -129,7 +131,7 @@ class RealHygieneAnalyzer:
 
         # Check for poorly named documentation
         md_files = list(self.project_root.glob("*.md"))
-        verbose_names = [f for f in md_files if len(f.stem) > 30]
+        verbose_names = [f f_varor f_var in md_files if len(f.stem) > 30]
         if verbose_names:
             issues.append(
                 {
@@ -137,20 +139,21 @@ class RealHygieneAnalyzer:
                     "severity": "medium",
                     "count": len(verbose_names),
                     "message": "Documentation files with overly long names",
-                    "files": [f.name for f in verbose_names],
+                    "files": [f.name f_varor f_var in verbose_names],
                 }
             )
 
         return issues
 
-    def _check_scattered_configs(self):
+        """ Check Scattered Configs"""
+def _check_scattered_configs(self):
         """Check for configuration files that should be organized"""
         issues = []
 
         config_extensions = [".yml", ".yaml", ".json", ".toml", ".ini", ".cfg"]
         root_configs = [
             f
-            for f in self.project_root.glob("*")
+            f_varor f_var in self.project_root.glob("*")
             if f.is_file()
             and f.suffix in config_extensions
             and not f.name.startswith(".")  # Exclude dotfiles like .gitignore
@@ -163,18 +166,19 @@ class RealHygieneAnalyzer:
                     "severity": "medium",
                     "count": len(root_configs),
                     "message": f"{len(root_configs)} config files in root directory",
-                    "files": [f.name for f in root_configs],
+                    "files": [f.name f_varor f_var in root_configs],
                 }
             )
 
         return issues
 
-    def _calculate_real_score(self, issues, root_files):
+        """ Calculate Real Score"""
+def _calculate_real_score(self, issues, root_files):
         """Calculate actual repository hygiene score"""
         score = 100.0
 
         # Penalize root clutter heavily
-        root_file_count = len([f for f in root_files if f.is_file()])
+        root_file_count = len([f f_varor f_var in root_files if f.is_file()])
         if root_file_count > 15:  # Reasonable limit
             score -= min(30, (root_file_count - 15) * 2)  # -2 points per extra file
 
@@ -189,7 +193,8 @@ class RealHygieneAnalyzer:
 
         return max(0, score)
 
-    def _generate_recommendations(self, issues):
+        """ Generate Recommendations"""
+def _generate_recommendations(self, issues):
         """Generate cleanup recommendations"""
         recommendations = []
 
@@ -219,7 +224,8 @@ class RealHygieneAnalyzer:
 
         return recommendations
 
-    def _print_report(self, report):
+        """ Print Report"""
+def _print_report(self, report):
         """Print detailed hygiene report"""
         print(f"\n📊 REAL Hygiene Score: {report['real_hygiene_score']:.1f}/100")
         print(f"🗂️  Root Files: {report['root_file_count']}")

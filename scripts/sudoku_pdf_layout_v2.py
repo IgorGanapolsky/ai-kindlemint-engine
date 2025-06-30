@@ -30,16 +30,19 @@ from reportlab.platypus import (
 class NumberedCanvas(canvas.Canvas):
     """Canvas that adds page numbers."""
 
-    def __init__(self, *args, **kwargs):
+        """  Init  """
+def __init__(self, *args, **kwargs):
         canvas.Canvas.__init__(self, *args, **kwargs)
         self._saved_page_states = []
         self.page_offset = 0  # Start numbering after front matter
 
-    def showPage(self):
+        """Showpage"""
+def showPage(self):
         self._saved_page_states.append(dict(self.__dict__))
         self._startPage()
 
-    def save(self):
+        """Save"""
+def save(self):
         """Add page numbers to all pages."""
         len(self._saved_page_states)
         for state in self._saved_page_states:
@@ -49,7 +52,8 @@ class NumberedCanvas(canvas.Canvas):
             canvas.Canvas.showPage(self)
         canvas.Canvas.save(self)
 
-    def draw_page_number(self):
+        """Draw Page Number"""
+def draw_page_number(self):
         """Draw page number at bottom center."""
         self.setFont("Helvetica", 12)
         self.drawCentredString(
@@ -62,7 +66,8 @@ class NumberedCanvas(canvas.Canvas):
 class EnhancedSudokuPDFLayout:
     """Generate professional PDF layouts for Sudoku puzzle books with all elements."""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         input_dir,
         output_dir,
@@ -107,7 +112,8 @@ class EnhancedSudokuPDFLayout:
         # Setup styles
         self.setup_styles()
 
-    def load_puzzle_metadata(self):
+        """Load Puzzle Metadata"""
+def load_puzzle_metadata(self):
         """Load puzzle metadata from the input directory."""
         metadata_dir = self.input_dir / "metadata"
         if not metadata_dir.exists():
@@ -128,7 +134,8 @@ class EnhancedSudokuPDFLayout:
                 with open(puzzle_file) as f:
                     self.puzzles.append(json.load(f))
 
-    def setup_styles(self):
+        """Setup Styles"""
+def setup_styles(self):
         """Setup paragraph styles for the book."""
         self.styles = getSampleStyleSheet()
 
@@ -236,7 +243,8 @@ class EnhancedSudokuPDFLayout:
             )
         )
 
-    def create_title_page(self, story):
+        """Create Title Page"""
+def create_title_page(self, story):
         """Create the title page."""
         story.append(Spacer(1, 2 * inch))
 
@@ -272,7 +280,8 @@ class EnhancedSudokuPDFLayout:
 
         story.append(PageBreak())
 
-    def create_copyright_page(self, story):
+        """Create Copyright Page"""
+def create_copyright_page(self, story):
         """Create the enhanced copyright page with ISBN."""
         copyright_text = f"""
         <b>Large Print Sudoku Masters - Volume {self.volume_number}</b><br/>
@@ -301,7 +310,8 @@ class EnhancedSudokuPDFLayout:
         story.append(Paragraph(copyright_text, self.styles["Normal"]))
         story.append(PageBreak())
 
-    def create_instructions_page(self, story):
+        """Create Instructions Page"""
+def create_instructions_page(self, story):
         """Create the enhanced instructions page."""
         story.append(Paragraph("How to Play Sudoku", self.styles["SectionHeader"]))
 
@@ -355,7 +365,8 @@ class EnhancedSudokuPDFLayout:
 
         story.append(PageBreak())
 
-    def create_puzzle_page(self, story, puzzle_data, puzzle_number):
+        """Create Puzzle Page"""
+def create_puzzle_page(self, story, puzzle_data, puzzle_number):
         """Create a page for a single puzzle."""
         # Puzzle header
         story.append(Paragraph(f"Puzzle {puzzle_number}", self.styles["PuzzleNumber"]))
@@ -392,7 +403,8 @@ class EnhancedSudokuPDFLayout:
 
         story.append(PageBreak())
 
-    def create_solutions_section(self, story):
+        """Create Solutions Section"""
+def create_solutions_section(self, story):
         """Create the enhanced solutions section with answer explanations."""
         if not self.include_solutions:
             return
@@ -412,7 +424,8 @@ class EnhancedSudokuPDFLayout:
         for i, puzzle_data in enumerate(self.puzzles):
             self.create_solution_page(story, puzzle_data, i + 1)
 
-    def create_solution_page(self, story, puzzle_data, puzzle_number):
+        """Create Solution Page"""
+def create_solution_page(self, story, puzzle_data, puzzle_number):
         """Create a solution page with image and detailed explanations."""
         # Solution header
         story.append(
@@ -471,7 +484,8 @@ class EnhancedSudokuPDFLayout:
 
         story.append(PageBreak())
 
-    def get_puzzle_insight(self, puzzle_data):
+        """Get Puzzle Insight"""
+def get_puzzle_insight(self, puzzle_data):
         """Generate a specific insight for the puzzle based on its characteristics."""
         insights = {
             "easy": [
@@ -499,7 +513,8 @@ class EnhancedSudokuPDFLayout:
 
         return random.choice(insights.get(difficulty, insights["medium"]))
 
-    def add_solutions_page(self, story, puzzle_solutions):
+        """Add Solutions Page"""
+def add_solutions_page(self, story, puzzle_solutions):
         """Add a page with multiple solutions."""
         # Create 2x2 grid
         if len(puzzle_solutions) <= 2:
@@ -556,7 +571,8 @@ class EnhancedSudokuPDFLayout:
         story.append(table)
         story.append(PageBreak())
 
-    def create_marketing_page(self, story):
+        """Create Marketing Page"""
+def create_marketing_page(self, story):
         """Create the final marketing/call-to-action page."""
         story.append(Paragraph("Thank You!", self.styles["SectionHeader"]))
 
@@ -630,7 +646,8 @@ class EnhancedSudokuPDFLayout:
             )
         )
 
-    def generate_pdf(self):
+        """Generate Pdf"""
+def generate_pdf(self):
         """Generate the complete PDF book with page numbers."""
         output_file = self.output_dir / f"{self.title.replace(' ', '_')}_Interior.pdf"
 
@@ -673,6 +690,7 @@ class EnhancedSudokuPDFLayout:
         return output_file
 
 
+    """Main"""
 def main():
     """Main entry point for enhanced Sudoku PDF layout generator."""
     parser = argparse.ArgumentParser(

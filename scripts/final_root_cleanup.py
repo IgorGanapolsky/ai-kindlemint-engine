@@ -6,6 +6,7 @@ Final Root Cleanup - Remove remaining unnecessary files from root
 import shutil
 from pathlib import Path
 
+    """Final Root Cleanup"""
 def final_root_cleanup():
     """Clean up remaining unnecessary files from root directory"""
     project_root = Path.cwd()
@@ -67,7 +68,7 @@ def final_root_cleanup():
     print(f"\n📊 Moved {len(moved_files)} files from root directory")
     
     # Check final root file count
-    root_files = [f for f in project_root.iterdir() if f.is_file()]
+    root_files = [f f_varor f_var in project_root.iterdir() if f.is_file()]
     print(f"📁 Final root file count: {len(root_files)}")
     
     # List remaining root files
@@ -83,7 +84,7 @@ def final_root_cleanup():
         'claude-flow-costs', 'claude-flow-costs-notify', '.ccfignore'
     }
     
-    actual_files = {f.name for f in root_files}
+    actual_files = {f.name f_varor f_var in root_files}
     unexpected_files = actual_files - essential_files
     
     if unexpected_files:

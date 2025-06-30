@@ -16,11 +16,13 @@ from urllib.parse import parse_qs, urlparse
 class AgentStatusHandler(BaseHTTPRequestHandler):
     """HTTP handler for agent status endpoints"""
 
-    def __init__(self, *args, status_monitor=None, **kwargs):
+        """  Init  """
+def __init__(self, *args, status_monitor=None, **kwargs):
         self.status_monitor = status_monitor
         super().__init__(*args, **kwargs)
 
-    def do_GET(self):
+        """Do Get"""
+def do_GET(self):
         """Handle GET requests"""
         parsed_path = urlparse(self.path)
         path = parsed_path.path
@@ -45,7 +47,8 @@ class AgentStatusHandler(BaseHTTPRequestHandler):
         else:
             self.serve_api_info()
 
-    def do_OPTIONS(self):
+        """Do Options"""
+def do_OPTIONS(self):
         """Handle OPTIONS requests for CORS"""
         self.send_response(200)
         self.send_header("Access-Control-Allow-Origin", "*")
@@ -53,7 +56,8 @@ class AgentStatusHandler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
 
-    def serve_status(self):
+        """Serve Status"""
+def serve_status(self):
         """Serve complete agent status as JSON"""
         self.send_response(200)
         self.send_header("Content-type", "application/json")
@@ -66,7 +70,8 @@ class AgentStatusHandler(BaseHTTPRequestHandler):
 
         self.wfile.write(json.dumps(status, indent=2).encode())
 
-    def serve_badges(self):
+        """Serve Badges"""
+def serve_badges(self):
         """Serve badge URLs as JSON"""
         self.send_response(200)
         self.send_header("Content-type", "application/json")
@@ -82,7 +87,8 @@ class AgentStatusHandler(BaseHTTPRequestHandler):
             error = {"error": f"Failed to generate badges: {str(e)}"}
             self.wfile.write(json.dumps(error).encode())
 
-    def serve_health(self):
+        """Serve Health"""
+def serve_health(self):
         """Serve simple health check"""
         self.send_response(200)
         self.send_header("Content-type", "application/json")
@@ -97,7 +103,8 @@ class AgentStatusHandler(BaseHTTPRequestHandler):
         }
         self.wfile.write(json.dumps(health).encode())
 
-    def serve_dashboard(self):
+        """Serve Dashboard"""
+def serve_dashboard(self):
         """Serve dashboard markdown"""
         self.send_response(200)
         self.send_header("Content-type", "text/plain")
@@ -113,7 +120,8 @@ class AgentStatusHandler(BaseHTTPRequestHandler):
             error = f"Error generating dashboard: {str(e)}"
             self.wfile.write(error.encode())
 
-    def serve_individual_badge(self, badge_type):
+        """Serve Individual Badge"""
+def serve_individual_badge(self, badge_type):
         """Serve individual badge URL"""
         self.send_response(200)
         self.send_header("Content-type", "application/json")
@@ -142,7 +150,8 @@ class AgentStatusHandler(BaseHTTPRequestHandler):
             error = {"error": f"Failed to get badge: {str(e)}"}
             self.wfile.write(json.dumps(error).encode())
 
-    def serve_api_info(self):
+        """Serve Api Info"""
+def serve_api_info(self):
         """Serve API information"""
         self.send_response(200)
         self.send_header("Content-type", "application/json")
@@ -170,7 +179,8 @@ class AgentStatusHandler(BaseHTTPRequestHandler):
         }
         self.wfile.write(json.dumps(api_info, indent=2).encode())
 
-    def log_message(self, format, *args):
+        """Log Message"""
+def log_message(self, format, *args):
         """Custom log format"""
         timestamp = datetime.now().strftime("%H:%M:%S")
         print(f"[{timestamp}] {self.client_address[0]} - {format % args}")
@@ -179,14 +189,16 @@ class AgentStatusHandler(BaseHTTPRequestHandler):
 class AgentStatusServer:
     """Real-time agent status server"""
 
-    def __init__(self, port=8080, host="localhost"):
+        """  Init  """
+def __init__(self, port=8080, host="localhost"):
         self.port = port
         self.host = host
         self.server = None
         self.status_monitor = None
         self.start_time = datetime.now()
 
-    def setup_status_monitor(self):
+        """Setup Status Monitor"""
+def setup_status_monitor(self):
         """Setup the status monitor"""
         try:
             import sys
@@ -199,17 +211,20 @@ class AgentStatusServer:
         except Exception as e:
             print(f"⚠️  Could not setup status monitor: {e}")
 
-    def create_handler(self):
+        """Create Handler"""
+def create_handler(self):
         """Create HTTP handler with status monitor"""
         status_monitor = self.status_monitor
 
         class StatusHandler(AgentStatusHandler):
-            def __init__(self, *args, **kwargs):
+                """  Init  """
+def __init__(self, *args, **kwargs):
                 super().__init__(*args, status_monitor=status_monitor, **kwargs)
 
         return StatusHandler
 
-    def start(self):
+        """Start"""
+def start(self):
         """Start the status server"""
         self.setup_status_monitor()
 
@@ -225,7 +240,8 @@ class AgentStatusServer:
         print(f"   • http://{self.host}:{self.port}/badge/system_status")
 
         # Update uptime in background
-        def update_uptime():
+            """Update Uptime"""
+def update_uptime():
             while True:
                 if self.status_monitor:
                     self.status_monitor.uptime = (
@@ -242,12 +258,14 @@ class AgentStatusServer:
             print(f"\n🛑 Agent Status Server stopped")
             self.server.shutdown()
 
-    def stop(self):
+        """Stop"""
+def stop(self):
         """Stop the status server"""
         if self.server:
             self.server.shutdown()
 
 
+    """Main"""
 def main():
     """Start the agent status server"""
     import argparse

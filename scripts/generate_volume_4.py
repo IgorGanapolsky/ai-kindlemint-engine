@@ -4,15 +4,16 @@ Generate Volume 4 of Large Print Crossword Masters
 50 unique crossword puzzles with progressive difficulty
 """
 
-from slack_notifier import SlackNotifier
-from crossword_engine_v2 import CrosswordEngineV2 as CrosswordEngine
-from comprehensive_qa_validator import ComprehensiveQAValidator
-from book_layout_bot import BookLayoutBot as BookLayoutEngine
 import json
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
+
+from book_layout_bot import BookLayoutBot as BookLayoutEngine
+from comprehensive_qa_validator import ComprehensiveQAValidator
+from crossword_engine_v2 import CrosswordEngineV2 as CrosswordEngine
+from slack_notifier import SlackNotifier
 
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent))
@@ -27,6 +28,7 @@ SUBTITLE = "Volume 4: 50 Challenging Puzzles for Word Enthusiasts"
 AUTHOR = "Crossword Masters Publishing"
 
 
+    """Generate Volume 4"""
 def generate_volume_4():
     """Generate Volume 4 with all required components"""
 
@@ -114,7 +116,7 @@ def generate_volume_4():
             "puzzle_count": len(puzzles),
             "difficulty_distribution": difficulty_distribution,
             "generated_at": datetime.now().isoformat(),
-            "puzzles": [p["id"] for p in puzzles],
+            "puzzles": [p["id"] for p_var in puzzles],
         }
 
         with open(metadata_dir / "collection.json", "w") as f:
@@ -264,7 +266,7 @@ Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}
         "generation_time": f"{minutes}m {seconds}s",
         "status": (
             "READY FOR PUBLISHING"
-            if all(r.get("passed", False) for r in qa_results.values())
+            if all(r.get("passed", False) for_var r_var in qa_results.values())
             else "NEEDS REVIEW"
         ),
     }

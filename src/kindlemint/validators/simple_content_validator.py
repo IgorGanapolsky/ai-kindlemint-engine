@@ -15,7 +15,8 @@ import fitz
 class SimpleContentValidator:
     """Simple validation using file size patterns"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.results = {
             "status": "UNKNOWN",
             "errors": [],
@@ -178,7 +179,8 @@ class SimpleContentValidator:
         except BaseException:
             return 0
 
-    def _print_summary(self):
+        """ Print Summary"""
+def _print_summary(self):
         """Print validation summary"""
         print("\n" + "=" * 50)
         print("📊 SIMPLE CONTENT VALIDATION REPORT")
@@ -196,6 +198,7 @@ class SimpleContentValidator:
         print("=" * 50)
 
 
+    """Main"""
 def main():
     if len(sys.argv) != 2:
         print("Usage: python simple_content_validator.py <pdf_path>")

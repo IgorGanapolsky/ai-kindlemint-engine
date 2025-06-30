@@ -16,7 +16,8 @@ from typing import Any, Dict, List
 class AgentMonitor:
     """Monitor active Claude Code agents and orchestration status"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.base_path = Path(__file__).parent.parent
         self.last_update = datetime.now()
 
@@ -234,7 +235,8 @@ class AgentMonitor:
             "processes": self.get_running_processes(),
         }
 
-    def print_dashboard(self):
+        """Print Dashboard"""
+def print_dashboard(self):
         """Print a live dashboard of agent status"""
         status = self.get_comprehensive_status()
 
@@ -294,7 +296,8 @@ class AgentMonitor:
 
         print("\\n" + "=" * 60)
 
-    def monitor_continuously(self, interval: int = 5):
+        """Monitor Continuously"""
+def monitor_continuously(self, interval: int = 5):
         """Continuously monitor and display agent status"""
         try:
             while True:
@@ -305,7 +308,8 @@ class AgentMonitor:
         except KeyboardInterrupt:
             print("\\n\\n👋 Agent monitoring stopped.")
 
-    def save_status_report(self, filename: str = None):
+        """Save Status Report"""
+def save_status_report(self, filename: str = None):
         """Save current status to JSON file"""
         if filename is None:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -320,6 +324,7 @@ class AgentMonitor:
         return filename
 
 
+    """Main"""
 def main():
     """Main function to run agent monitoring"""
     import argparse

@@ -10,7 +10,8 @@ from kindlemint.a2a.registry import AgentRegistry
 class PDFLayoutAgent(A2AAgent):
     """An A2A agent that handles PDF layout and generation."""
 
-    def __init__(self, agent_id: str, registry: AgentRegistry):
+        """  Init  """
+def __init__(self, agent_id: str, registry: AgentRegistry):
         super().__init__(agent_id, registry)
         self.add_skill(
             "create_sudoku_book",
@@ -18,7 +19,8 @@ class PDFLayoutAgent(A2AAgent):
             "Creates a Sudoku book PDF from a set of puzzles.",
         )
 
-    def create_sudoku_book(self, puzzles: list, output_dir: str):
+        """Create Sudoku Book"""
+def create_sudoku_book(self, puzzles: list, output_dir: str):
         """
         Creates a Sudoku book PDF.
 

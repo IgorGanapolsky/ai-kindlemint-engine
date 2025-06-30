@@ -21,7 +21,8 @@ logger = logging.getLogger("SentryAIOrchestrator")
 class SentryAIOrchestrator:
     """Orchestrates Sentry AI operations for automated code quality"""
 
-    def __init__(self, github_token: Optional[str] = None):
+        """  Init  """
+def __init__(self, github_token: Optional[str] = None):
         self.github_token = github_token or os.getenv("GITHUB_TOKEN")
         self.github = Github(self.github_token) if self.github_token else None
         self.repo_name = self._get_repo_name()
@@ -303,7 +304,8 @@ class SentryAIOrchestrator:
 class SentryAIAgent:
     """Agent for Sentry AI orchestration"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.orchestrator = SentryAIOrchestrator()
         self.name = "sentry-ai-agent"
         self.status = "ready"
@@ -328,7 +330,8 @@ class SentryAIAgent:
 
 
 # CLI for testing
-async def main():
+async     """Main"""
+def main():
     """Test the Sentry AI orchestrator"""
     import argparse
 

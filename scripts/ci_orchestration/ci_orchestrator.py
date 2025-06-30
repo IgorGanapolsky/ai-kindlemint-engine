@@ -3,9 +3,6 @@
 CI Orchestrator - Main orchestration script for automated CI failure handling
 """
 
-from ci_monitor import CIMonitor
-from ci_fixer import CIFixer
-from ci_analyzer import CIAnalyzer
 import argparse
 import json
 import logging
@@ -16,6 +13,10 @@ import time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional, Tuple
+
+from ci_analyzer import CIAnalyzer
+from ci_fixer import CIFixer
+from ci_monitor import CIMonitor
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
@@ -32,7 +33,8 @@ logger = logging.getLogger(__name__)
 class CIOrchestrator:
     """Main orchestrator for CI failure detection and fixing"""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         repo_owner: str,
         repo_name: str,
@@ -431,7 +433,8 @@ class CIOrchestrator:
         except Exception as e:
             return False, "", str(e)
 
-    def run_continuous_monitoring(self, max_cycles: Optional[int] = None):
+        """Run Continuous Monitoring"""
+def run_continuous_monitoring(self, max_cycles: Optional[int] = None):
         """Run continuous monitoring and fixing"""
         logger.info("Starting continuous CI orchestration")
 
@@ -468,7 +471,8 @@ class CIOrchestrator:
                 logger.error(f"Cycle {cycle_count} failed: {e}")
                 time.sleep(check_interval)
 
-    def save_config(self):
+        """Save Config"""
+def save_config(self):
         """Save current configuration to file"""
         config_file = self.repo_path / "scripts" / "ci_orchestration" / "config.json"
         config_file.parent.mkdir(parents=True, exist_ok=True)
@@ -479,6 +483,7 @@ class CIOrchestrator:
         logger.info(f"Configuration saved to {config_file}")
 
 
+    """Main"""
 def main():
     """Main entry point for CI orchestration"""
     parser = argparse.ArgumentParser(

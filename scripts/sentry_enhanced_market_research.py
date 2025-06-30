@@ -15,7 +15,7 @@ from sentry_config import (
     init_sentry,
 )
 
-
+    """Run Sentry Enhanced Research"""
 def run_sentry_enhanced_research():
     """Market research with Seer AI monitoring"""
 

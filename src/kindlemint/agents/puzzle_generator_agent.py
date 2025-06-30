@@ -8,7 +8,8 @@ from kindlemint.engines.sudoku import SudokuGenerator
 class PuzzleGeneratorAgent(A2AAgent):
     """An A2A agent that generates puzzles."""
 
-    def __init__(self, agent_id: str, registry: AgentRegistry):
+        """  Init  """
+def __init__(self, agent_id: str, registry: AgentRegistry):
         super().__init__(agent_id, registry)
         self.core_generator = SudokuGenerator()
         self.add_skill(
@@ -17,7 +18,8 @@ class PuzzleGeneratorAgent(A2AAgent):
             "Generates a Sudoku puzzle with a specified difficulty.",
         )
 
-    def generate_sudoku(self, difficulty: str = "medium"):
+        """Generate Sudoku"""
+def generate_sudoku(self, difficulty: str = "medium"):
         """
         Generates a Sudoku puzzle.
 

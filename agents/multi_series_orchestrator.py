@@ -7,7 +7,7 @@ import json
 import logging
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Any, Dict, List
 
 # Add the current directory to Python path for imports
@@ -30,10 +30,7 @@ def lambda_handler(event: Dict[str, Any], context) -> Dict[str, Any]:
 
         # Import dependencies
         logger.debug(f"📦 IMPORT: Loading portfolio management dependencies")
-        from kindlemint.portfolio.portfolio_manager import (
-            PortfolioManager,
-            SeriesStatus,
-        )
+        from kindlemint.portfolio.portfolio_manager import PortfolioManager
 
         # Initialize portfolio manager
         logger.debug(f"🔗 INITIALIZATION: Creating PortfolioManager instance")
@@ -71,7 +68,7 @@ def lambda_handler(event: Dict[str, Any], context) -> Dict[str, Any]:
 
         # Generate summary
         successful_actions = len(
-            [r for r in execution_results if r["status"] == "success"]
+            [r for_var r_var in execution_results if r["status"] == "success"]
         )
         failed_actions = len(execution_results) - successful_actions
 
@@ -300,6 +297,7 @@ def invoke_book_generation(payload: Dict[str, Any]) -> bool:
         return False
 
 
+    """Send Series Completion Notification"""
 def send_series_completion_notification(series_data: Dict[str, Any]):
     """Send notification about series completion."""
     try:
@@ -357,7 +355,8 @@ if __name__ == "__main__":
     test_event = {"source": "manual_test"}
 
     class MockContext:
-        def __init__(self):
+            """  Init  """
+def __init__(self):
             self.function_name = "multi-series-orchestrator"
             self.memory_limit_in_mb = 1024
 

@@ -21,7 +21,8 @@ from reportlab.platypus import Image, PageBreak, Paragraph, SimpleDocTemplate, S
 class MarketAlignedSudokuPDF:
     """Generate truly large print Sudoku PDFs based on market research"""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         input_dir,
         output_dir,
@@ -55,7 +56,8 @@ class MarketAlignedSudokuPDF:
         self.load_puzzle_metadata()
         self.setup_styles()
 
-    def load_puzzle_metadata(self):
+        """Load Puzzle Metadata"""
+def load_puzzle_metadata(self):
         """Load puzzle metadata"""
         metadata_dir = self.input_dir / "metadata"
         collection_file = metadata_dir / "sudoku_collection.json"
@@ -74,7 +76,8 @@ class MarketAlignedSudokuPDF:
                 with open(puzzle_file) as f:
                     self.puzzles.append(json.load(f))
 
-    def setup_styles(self):
+        """Setup Styles"""
+def setup_styles(self):
         """Setup styles optimized for seniors and visual accessibility"""
         self.styles = getSampleStyleSheet()
 
@@ -162,7 +165,8 @@ class MarketAlignedSudokuPDF:
             )
         )
 
-    def generate_pdf(self):
+        """Generate Pdf"""
+def generate_pdf(self):
         """Generate the complete PDF with market-aligned features"""
         filename = f"{self.title.replace(':', '').replace(' ', '_')}_Interior.pdf"
         pdf_path = self.output_dir / filename
@@ -207,7 +211,8 @@ class MarketAlignedSudokuPDF:
 
         return str(pdf_path)
 
-    def create_title_page(self, story):
+        """Create Title Page"""
+def create_title_page(self, story):
         """Create an appealing title page"""
         story.append(Spacer(1, 2 * inch))
         story.append(Paragraph(self.title, self.styles["BookTitle"]))
@@ -225,7 +230,8 @@ class MarketAlignedSudokuPDF:
 
         story.append(PageBreak())
 
-    def create_welcome_page(self, story):
+        """Create Welcome Page"""
+def create_welcome_page(self, story):
         """Create a welcoming introduction"""
         story.append(
             Paragraph(
@@ -257,7 +263,8 @@ class MarketAlignedSudokuPDF:
 
         story.append(PageBreak())
 
-    def create_how_to_play_page(self, story):
+        """Create How To Play Page"""
+def create_how_to_play_page(self, story):
         """Create comprehensive how-to-play instructions"""
         story.append(Paragraph("How to Play Sudoku", self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.3 * inch))
@@ -284,7 +291,8 @@ class MarketAlignedSudokuPDF:
 
         story.append(PageBreak())
 
-    def create_tips_and_strategies_page(self, story):
+        """Create Tips And Strategies Page"""
+def create_tips_and_strategies_page(self, story):
         """Create tips page based on market research"""
         story.append(Paragraph("Tips for Success", self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.3 * inch))
@@ -308,7 +316,8 @@ class MarketAlignedSudokuPDF:
 
         story.append(PageBreak())
 
-    def create_cognitive_benefits_page(self, story):
+        """Create Cognitive Benefits Page"""
+def create_cognitive_benefits_page(self, story):
         """Add cognitive benefits information as per market research"""
         story.append(Paragraph("Brain Training Benefits", self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.3 * inch))
@@ -336,7 +345,8 @@ class MarketAlignedSudokuPDF:
 
         story.append(PageBreak())
 
-    def create_puzzle_sections(self, story):
+        """Create Puzzle Sections"""
+def create_puzzle_sections(self, story):
         """Create puzzle sections with solutions after each group"""
         # Group puzzles by difficulty or in sections of 10
         section_size = 10
@@ -371,7 +381,8 @@ class MarketAlignedSudokuPDF:
             for i, puzzle in enumerate(section_puzzles):
                 self.create_solution_page(story, puzzle, start_idx + i + 1)
 
-    def create_puzzle_page(self, story, puzzle_data, puzzle_number):
+        """Create Puzzle Page"""
+def create_puzzle_page(self, story, puzzle_data, puzzle_number):
         """Create a single puzzle page with TRUE large print"""
         # Puzzle header
         story.append(Paragraph(f"Puzzle {puzzle_number}", self.styles["PuzzleNumber"]))
@@ -416,7 +427,8 @@ class MarketAlignedSudokuPDF:
 
         story.append(PageBreak())
 
-    def create_puzzle_grid(self, story, puzzle_data):
+        """Create Puzzle Grid"""
+def create_puzzle_grid(self, story, puzzle_data):
         """Generate puzzle grid from data when image is missing - CRITICAL FALLBACK"""
         from reportlab.lib import colors
         from reportlab.platypus import Table, TableStyle
@@ -468,7 +480,8 @@ class MarketAlignedSudokuPDF:
         table.hAlign = "CENTER"
         story.append(table)
 
-    def create_solution_page(self, story, puzzle_data, puzzle_number):
+        """Create Solution Page"""
+def create_solution_page(self, story, puzzle_data, puzzle_number):
         """Create solution page with step-by-step explanations as market research suggests"""
         story.append(
             Paragraph(f"Solution - Puzzle {puzzle_number}", self.styles["PuzzleNumber"])
@@ -503,7 +516,8 @@ class MarketAlignedSudokuPDF:
 
         story.append(PageBreak())
 
-    def create_solution_grid(self, story, puzzle_data):
+        """Create Solution Grid"""
+def create_solution_grid(self, story, puzzle_data):
         """Generate solution grid from data when image is missing - CRITICAL FALLBACK"""
         from reportlab.lib import colors
         from reportlab.platypus import Table, TableStyle
@@ -582,7 +596,8 @@ class MarketAlignedSudokuPDF:
         table.hAlign = "CENTER"
         story.append(table)
 
-    def get_solving_explanation(self, difficulty, puzzle_number):
+        """Get Solving Explanation"""
+def get_solving_explanation(self, difficulty, puzzle_number):
         """Generate solving explanation based on difficulty level with much more variety"""
         explanations = {
             "easy": [
@@ -622,7 +637,8 @@ class MarketAlignedSudokuPDF:
         explanation_index = (puzzle_number - 1) % len(explanation_list)
         return explanation_list[explanation_index]
 
-    def get_solving_tips(self, difficulty, puzzle_number):
+        """Get Solving Tips"""
+def get_solving_tips(self, difficulty, puzzle_number):
         """Generate solving tips with variety based on difficulty level and puzzle number"""
         tips = {
             "easy": [
@@ -652,7 +668,8 @@ class MarketAlignedSudokuPDF:
         tip_index = (puzzle_number - 1) % len(tip_list)
         return tip_list[tip_index]
 
-    def create_about_author_page(self, story):
+        """Create About Author Page"""
+def create_about_author_page(self, story):
         """Add author information"""
         story.append(Paragraph("About the Author", self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.5 * inch))
@@ -671,7 +688,8 @@ class MarketAlignedSudokuPDF:
         story.append(Paragraph(about_text.strip(), self.styles["LargeBody"]))
         story.append(PageBreak())
 
-    def create_other_books_page(self, story):
+        """Create Other Books Page"""
+def create_other_books_page(self, story):
         """Cross-promote other volumes"""
         story.append(
             Paragraph("More Large Print Sudoku Masters", self.styles["SectionHeader"])
@@ -696,7 +714,8 @@ class MarketAlignedSudokuPDF:
 
         story.append(Paragraph(other_books.strip(), self.styles["LargeBody"]))
 
-    def create_copyright_page(self, story):
+        """Create Copyright Page"""
+def create_copyright_page(self, story):
         """Create copyright page"""
         copyright_text = f"""
         {self.title}
@@ -721,15 +740,18 @@ class MarketAlignedSudokuPDF:
 class NumberedCanvas(canvas.Canvas):
     """Canvas that adds page numbers"""
 
-    def __init__(self, *args, **kwargs):
+        """  Init  """
+def __init__(self, *args, **kwargs):
         canvas.Canvas.__init__(self, *args, **kwargs)
         self._saved_page_states = []
 
-    def showPage(self):
+        """Showpage"""
+def showPage(self):
         self._saved_page_states.append(dict(self.__dict__))
         self._startPage()
 
-    def save(self):
+        """Save"""
+def save(self):
         """Add page numbers to all pages"""
         for state in self._saved_page_states:
             self.__dict__.update(state)
@@ -738,7 +760,8 @@ class NumberedCanvas(canvas.Canvas):
             canvas.Canvas.showPage(self)
         canvas.Canvas.save(self)
 
-    def draw_page_number(self):
+        """Draw Page Number"""
+def draw_page_number(self):
         """Draw page number at bottom center"""
         self.setFont("Helvetica", 14)
         self.drawCentredString(
@@ -748,6 +771,7 @@ class NumberedCanvas(canvas.Canvas):
         )
 
 
+    """Main"""
 def main():
     parser = argparse.ArgumentParser(
         description="Generate market-aligned Sudoku PDF with true large print"

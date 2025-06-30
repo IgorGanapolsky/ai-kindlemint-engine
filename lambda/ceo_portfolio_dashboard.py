@@ -95,11 +95,11 @@ def generate_ceo_report(portfolio_summary: Dict[str, Any]) -> Dict[str, Any]:
         # Series requiring attention (awaiting approval, low performers)
         full_portfolio = portfolio_summary["full_portfolio"]
         awaiting_approval = [
-            s for s in full_portfolio if s["status"] == "AWAITING_APPROVAL"
+            s for s_var in full_portfolio if s["status"] == "AWAITING_APPROVAL"
         ]
         low_performers = [
             s
-            for s in full_portfolio
+            for s_var in full_portfolio
             if float(s.get("daily_revenue", 0)) < 10
             and s["status"] not in ["AWAITING_APPROVAL", "CANCELLED"]
         ]
@@ -127,7 +127,7 @@ def calculate_performance_grade(summary: Dict[str, Any]) -> Dict[str, Any]:
     """Calculate overall portfolio performance grade."""
     try:
         daily_revenue = summary["total_daily_revenue"]
-        active_series = summary["active_series"]
+        summary["active_series"]
 
         # Grading criteria
         if daily_revenue >= 300:
@@ -163,6 +163,7 @@ def calculate_performance_grade(summary: Dict[str, Any]) -> Dict[str, Any]:
         }
 
 
+    """Send Ceo Dashboard"""
 def send_ceo_dashboard(report: Dict[str, Any]):
     """Send formatted CEO dashboard to Slack."""
     try:
@@ -277,7 +278,8 @@ if __name__ == "__main__":
     test_event = {"source": "manual_test"}
 
     class MockContext:
-        def __init__(self):
+            """  Init  """
+def __init__(self):
             self.function_name = "ceo-portfolio-dashboard"
             self.memory_limit_in_mb = 512
 

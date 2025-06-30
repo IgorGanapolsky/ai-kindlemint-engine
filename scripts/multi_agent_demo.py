@@ -6,13 +6,13 @@ This script demonstrates the new multi-agent architecture in action,
 showing how specialized agents coordinate to generate books efficiently.
 """
 
-from kindlemint.agents.task_system import TaskPriority
-from kindlemint.agents.content_agents import (
-    EPUBGeneratorAgent,
-    PDFLayoutAgent,
-    PuzzleGeneratorAgent,
-    QualityAssuranceAgent,
-)
+import asyncio
+import logging
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Dict
+
 from kindlemint.agents import (
     AgentRegistry,
     HealthMonitor,
@@ -22,12 +22,13 @@ from kindlemint.agents import (
     create_puzzle_generation_task,
     create_qa_validation_task,
 )
-import asyncio
-import logging
-import sys
-from datetime import datetime
-from pathlib import Path
-from typing import Dict
+from kindlemint.agents.content_agents import (
+    EPUBGeneratorAgent,
+    PDFLayoutAgent,
+    PuzzleGeneratorAgent,
+    QualityAssuranceAgent,
+)
+from kindlemint.agents.task_system import TaskPriority
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -38,7 +39,8 @@ class MultiAgentBookGenerator:
     Demonstrates the multi-agent book generation system
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         """Initialize the multi-agent system"""
         # Core systems
         self.health_monitor = HealthMonitor(check_interval=30)
@@ -296,7 +298,7 @@ class MultiAgentBookGenerator:
         # Calculate metrics
         self.demo_metrics["end_time"] = datetime.now()
         self.demo_metrics["books_processed"] = len(books)
-        self.demo_metrics["books_succeeded"] = sum(1 for r in results if r is True)
+        self.demo_metrics["books_succeeded"] = sum(1 for_var r_var in results if r is True)
         self.demo_metrics["books_failed"] = (
             len(books) - self.demo_metrics["books_succeeded"]
         )
@@ -452,7 +454,8 @@ class MultiAgentBookGenerator:
         self.logger.info("=" * 60)
 
 
-async def main():
+async     """Main"""
+def main():
     """Main demo function"""
     print("🚀 KindleMint Multi-Agent System Demo")
     print("=" * 50)

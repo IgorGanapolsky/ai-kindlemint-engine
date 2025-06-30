@@ -20,7 +20,8 @@ logger = logging.getLogger(__name__)
 class ContextMemoryStore:
     """Persistent storage for context data with SQLite backend"""
 
-    def __init__(self, db_path: Optional[str] = None):
+        """  Init  """
+def __init__(self, db_path: Optional[str] = None):
         if db_path is None:
             # Use project data directory
             project_root = Path(__file__).parent.parent.parent.parent
@@ -34,7 +35,8 @@ class ContextMemoryStore:
         # Initialize database
         self._init_database()
 
-    def _init_database(self):
+        """ Init Database"""
+def _init_database(self):
         """Initialize the database with required tables"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -497,7 +499,7 @@ class ContextMemoryStore:
                 "dialogue_style": context.writing_style.dialogue_style,
                 "pacing_preference": context.writing_style.pacing_preference,
                 "genre_preferences": [
-                    g.value for g in context.writing_style.genre_preferences
+                    g.value for g_var in context.writing_style.genre_preferences
                 ],
                 "favorite_themes": context.writing_style.favorite_themes,
                 "writing_patterns": context.writing_style.writing_patterns,
@@ -526,12 +528,12 @@ class ContextMemoryStore:
             ],
             "success_patterns": {
                 "effective_genres": [
-                    g.value for g in context.success_patterns.effective_genres
+                    g.value for g_var in context.success_patterns.effective_genres
                 ],
                 "successful_themes": context.success_patterns.successful_themes,
                 "optimal_writing_times": context.success_patterns.optimal_writing_times,
                 "productive_moods": [
-                    m.value for m in context.success_patterns.productive_moods
+                    m.value for m_var in context.success_patterns.productive_moods
                 ],
                 "market_insights": context.success_patterns.market_insights,
                 "quality_indicators": context.success_patterns.quality_indicators,
@@ -575,7 +577,7 @@ class ContextMemoryStore:
             "pacing_preference", "balanced"
         )
         context.writing_style.genre_preferences = [
-            BookGenre(g) for g in style_data.get("genre_preferences", [])
+            BookGenre(g) for g_var in style_data.get("genre_preferences", [])
         ]
         context.writing_style.favorite_themes = style_data.get("favorite_themes", [])
         context.writing_style.writing_patterns = style_data.get("writing_patterns", {})

@@ -17,7 +17,8 @@ from reportlab.pdfgen import canvas
 class ProperCrosswordGenerator:
     """Generate real crosswords with filled grids and black squares"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.grid_size = 15
         self.output_dir = Path(
             "books/active_production/Large_Print_Crossword_Masters/volume_2_proper"
@@ -32,7 +33,8 @@ class ProperCrosswordGenerator:
         for dir in [self.paperback_dir, self.kindle_dir, self.hardcover_dir]:
             dir.mkdir(exist_ok=True)
 
-    def create_symmetric_pattern(self):
+        """Create Symmetric Pattern"""
+def create_symmetric_pattern(self):
         """Create symmetric black square pattern for crossword"""
         # More realistic crossword pattern
         pattern = []
@@ -45,9 +47,10 @@ class ProperCrosswordGenerator:
 
         return pattern
 
-    def generate_grid_with_content(self, puzzle_id):
+        """Generate Grid With Content"""
+def generate_grid_with_content(self, puzzle_id):
         """Generate a filled 15x15 grid with words"""
-        grid = [[" " for _ in range(self.grid_size)] for _ in range(self.grid_size)]
+        grid = [[" " for __var in range(self.grid_size)] for __var in range(self.grid_size)]
 
         # Apply black squares
         black_squares = self.create_symmetric_pattern()
@@ -61,7 +64,8 @@ class ProperCrosswordGenerator:
 
         return grid
 
-    def create_grid_image(self, grid, puzzle_id):
+        """Create Grid Image"""
+def create_grid_image(self, grid, puzzle_id):
         """Create high-quality grid image"""
         cell_size = 60
         margin = 40
@@ -129,7 +133,8 @@ class ProperCrosswordGenerator:
 
         return img_path, clue_positions
 
-    def generate_clues(self, puzzle_id, theme, difficulty):
+        """Generate Clues"""
+def generate_clues(self, puzzle_id, theme, difficulty):
         """Generate appropriate clues based on difficulty"""
         clues = {"across": [], "down": []}
 
@@ -189,7 +194,8 @@ class ProperCrosswordGenerator:
 
         return clues
 
-    def create_pdf_interior(self, puzzles_data):
+        """Create Pdf Interior"""
+def create_pdf_interior(self, puzzles_data):
         """Create the interior PDF exactly like Volume 1"""
         pdf_path = self.paperback_dir / "crossword_book_volume_2_FINAL.pdf"
 
@@ -322,7 +328,8 @@ class ProperCrosswordGenerator:
 
         return pdf_path
 
-    def create_metadata_files(self):
+        """Create Metadata Files"""
+def create_metadata_files(self):
         """Create all metadata files like Volume 1"""
 
         # Paperback metadata
@@ -395,7 +402,8 @@ class ProperCrosswordGenerator:
         with open(self.paperback_dir / "kdp_publishing_checklist.md", "w") as f:
             f.write(checklist)
 
-    def generate_volume_2(self):
+        """Generate Volume 2"""
+def generate_volume_2(self):
         """Generate complete Volume 2"""
         print("🎯 Generating Volume 2 with PROPER methods...")
 

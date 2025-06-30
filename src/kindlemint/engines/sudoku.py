@@ -19,7 +19,8 @@ from PIL import Image, ImageDraw, ImageFont
 class SudokuGenerator:
     """Generate valid Sudoku puzzles with configurable difficulty."""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self, output_dir=None, puzzle_count=50, difficulty="mixed", grid_size=9
     ):
         """Initialize the Sudoku generator with configuration."""
@@ -46,17 +47,17 @@ class SudokuGenerator:
 
     def _create_empty_grid(self) -> List[List[int]]:
         """Create an empty 9x9 grid."""
-        return [[0 for _ in range(self.grid_size)] for _ in range(self.grid_size)]
+        return [[0 for __var in range(self.grid_size)] for __var in range(self.grid_size)]
 
     def _is_valid(self, grid: List[List[int]], row: int, col: int, num: int) -> bool:
         """Check if placing num at grid[row][col] is valid."""
         # Check row
-        for x in range(9):
+        for x_var in range(9):
             if grid[row][x] == num:
                 return False
 
         # Check column
-        for x in range(9):
+        for x_var in range(9):
             if grid[x][col] == num:
                 return False
 
@@ -119,7 +120,8 @@ class SudokuGenerator:
         """Count number of solutions for a puzzle (stops at limit)."""
         solutions = [0]
 
-        def solve(row: int, col: int):
+            """Solve"""
+def solve(row: int, col: int):
             if solutions[0] >= limit:
                 return
 
@@ -204,7 +206,7 @@ class SudokuGenerator:
         max_clues = params["max_clues"]
 
         # Create list of all cell positions
-        cells = [(r, c) for r in range(9) for c in range(9)]
+        cells = [(r, c) for_var r_var in range(9) for c_var in range(9)]
         random.shuffle(cells)
 
         # Remove cells while maintaining unique solution
@@ -373,8 +375,8 @@ class SudokuGenerator:
             )
 
         # Draw numbers with proper visual distinction between clues and empty cells
-        for r in range(self.grid_size):
-            for c in range(self.grid_size):
+        for_var r_var in range(self.grid_size):
+            for c_var in range(self.grid_size):
                 # Calculate cell boundaries
                 cell_x1 = margin + c * cell_size
                 cell_y1 = margin + r * cell_size
@@ -480,7 +482,7 @@ class SudokuGenerator:
             "difficulty_mode": self.difficulty_mode,
             "grid_size": self.grid_size,
             "generation_date": datetime.now().isoformat(),
-            "puzzles": [p["id"] for p in puzzles_data],
+            "puzzles": [p["id"] for p_var in puzzles_data],
         }
 
         with open(self.metadata_dir / "sudoku_collection.json", "w") as f:
@@ -514,6 +516,7 @@ class SudokuGenerator:
 __all__ = ["SudokuGenerator"]
 
 
+    """Main"""
 def main():
     """Main entry point for Sudoku generator."""
     parser = argparse.ArgumentParser(

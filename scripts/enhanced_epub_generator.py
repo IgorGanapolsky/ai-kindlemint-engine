@@ -18,14 +18,16 @@ from scripts.formatter import Formatter
 class EnhancedKindleEpubGenerator:
     """Generate high-converting EPUB with all improvements"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.output_dir = Path(
             "books/active_production/Large_Print_Crossword_Masters/volume_1"
         )
         self.epub_dir = self.output_dir / "epub_enhanced_build"
         self.epub_dir.mkdir(parents=True, exist_ok=True)
 
-    def create_enhanced_epub(self):
+        """Create Enhanced Epub"""
+def create_enhanced_epub(self):
         """Create enhanced EPUB with all improvements"""
 
         print("📱 ENHANCED KINDLE EPUB GENERATOR")
@@ -72,7 +74,8 @@ class EnhancedEpubFormatter(Formatter):
     Formatter for enhanced EPUB generation.
     """
 
-    def __init__(self, output_dir=None):
+        """  Init  """
+def __init__(self, output_dir=None):
         self.generator = EnhancedKindleEpubGenerator()
         if output_dir:
             self.generator.output_dir = Path(output_dir)
@@ -81,7 +84,8 @@ class EnhancedEpubFormatter(Formatter):
         # Create and return path to the generated EPUB file
         return self.generator.create_enhanced_epub()
 
-    def clear_build_dir(self):
+        """Clear Build Dir"""
+def clear_build_dir(self):
         """Clear previous build"""
         import shutil
 
@@ -89,7 +93,8 @@ class EnhancedEpubFormatter(Formatter):
             shutil.rmtree(self.epub_dir)
         self.epub_dir.mkdir(parents=True, exist_ok=True)
 
-    def create_epub_structure(self):
+        """Create Epub Structure"""
+def create_epub_structure(self):
         """Create enhanced EPUB structure"""
         (self.epub_dir / "META-INF").mkdir()
         (self.epub_dir / "OEBPS").mkdir()
@@ -98,7 +103,8 @@ class EnhancedEpubFormatter(Formatter):
         (self.epub_dir / "OEBPS" / "styles").mkdir()
         (self.epub_dir / "OEBPS" / "text").mkdir()
 
-    def generate_grid_images(self):
+        """Generate Grid Images"""
+def generate_grid_images(self):
         """Generate 1200px crossword grid images"""
 
         print("🔢 Generating high-resolution crossword grids...")
@@ -149,12 +155,14 @@ class EnhancedEpubFormatter(Formatter):
 
         print(f"✅ Generated {5} high-resolution grid images")
 
-    def create_mimetype(self):
+        """Create Mimetype"""
+def create_mimetype(self):
         """Create mimetype file"""
         with open(self.epub_dir / "mimetype", "w") as f:
             f.write("application/epub+zip")
 
-    def create_container_xml(self):
+        """Create Container Xml"""
+def create_container_xml(self):
         """Create META-INF/container.xml"""
         container_xml = """<?xml version="1.0" encoding="UTF-8"?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
@@ -166,7 +174,8 @@ class EnhancedEpubFormatter(Formatter):
         with open(self.epub_dir / "META-INF" / "container.xml", "w") as f:
             f.write(container_xml)
 
-    def create_enhanced_content_opf(self):
+        """Create Enhanced Content Opf"""
+def create_enhanced_content_opf(self):
         """Create enhanced OPF with all resources"""
         book_id = str(uuid.uuid4())
 
@@ -224,7 +233,8 @@ class EnhancedEpubFormatter(Formatter):
         with open(self.epub_dir / "OEBPS" / "content.opf", "w") as f:
             f.write(content_opf)
 
-    def create_enhanced_navigation(self):
+        """Create Enhanced Navigation"""
+def create_enhanced_navigation(self):
         """Create enhanced navigation with full TOC"""
 
         # Enhanced nav.xhtml with all puzzles
@@ -327,7 +337,8 @@ class EnhancedEpubFormatter(Formatter):
         with open(self.epub_dir / "OEBPS" / "text" / "toc.ncx", "w") as f:
             f.write(ncx_content)
 
-    def create_enhanced_content(self):
+        """Create Enhanced Content"""
+def create_enhanced_content(self):
         """Create enhanced content with improved navigation"""
 
         # Enhanced title page
@@ -348,7 +359,8 @@ class EnhancedEpubFormatter(Formatter):
         # Enhanced cover page
         self.create_enhanced_cover_page()
 
-    def create_enhanced_title_page(self):
+        """Create Enhanced Title Page"""
+def create_enhanced_title_page(self):
         """Create enhanced title page"""
         title_html = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
@@ -383,7 +395,8 @@ class EnhancedEpubFormatter(Formatter):
         with open(self.epub_dir / "OEBPS" / "text" / "title.xhtml", "w") as f:
             f.write(title_html)
 
-    def create_enhanced_intro_page(self):
+        """Create Enhanced Intro Page"""
+def create_enhanced_intro_page(self):
         """Create enhanced introduction page"""
         intro_html = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
@@ -430,7 +443,8 @@ class EnhancedEpubFormatter(Formatter):
         with open(self.epub_dir / "OEBPS" / "text" / "introduction.xhtml", "w") as f:
             f.write(intro_html)
 
-    def create_enhanced_puzzles(self):
+        """Create Enhanced Puzzles"""
+def create_enhanced_puzzles(self):
         """Create enhanced puzzles with high-res grids and navigation"""
 
         puzzles_html = """<?xml version="1.0" encoding="UTF-8"?>
@@ -530,7 +544,8 @@ class EnhancedEpubFormatter(Formatter):
         with open(self.epub_dir / "OEBPS" / "text" / "puzzles.xhtml", "w") as f:
             f.write(puzzles_html)
 
-    def create_enhanced_solutions(self):
+        """Create Enhanced Solutions"""
+def create_enhanced_solutions(self):
         """Create enhanced solutions with navigation"""
 
         solutions_html = """<?xml version="1.0" encoding="UTF-8"?>
@@ -601,7 +616,8 @@ class EnhancedEpubFormatter(Formatter):
         with open(self.epub_dir / "OEBPS" / "text" / "solutions.xhtml", "w") as f:
             f.write(solutions_html)
 
-    def create_marketing_backmatter(self):
+        """Create Marketing Backmatter"""
+def create_marketing_backmatter(self):
         """Create marketing back-matter section"""
 
         marketing_html = """<?xml version="1.0" encoding="UTF-8"?>
@@ -675,7 +691,8 @@ class EnhancedEpubFormatter(Formatter):
         with open(self.epub_dir / "OEBPS" / "text" / "marketing.xhtml", "w") as f:
             f.write(marketing_html)
 
-    def create_enhanced_cover_page(self):
+        """Create Enhanced Cover Page"""
+def create_enhanced_cover_page(self):
         """Create enhanced cover page"""
         cover_html = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
@@ -694,7 +711,8 @@ class EnhancedEpubFormatter(Formatter):
         with open(self.epub_dir / "OEBPS" / "text" / "cover.xhtml", "w") as f:
             f.write(cover_html)
 
-    def create_enhanced_css(self):
+        """Create Enhanced Css"""
+def create_enhanced_css(self):
         """Create enhanced CSS with 115% font size and improved readability"""
 
         css_content = """/* Enhanced Kindle CSS - High Converting Edition */
@@ -987,7 +1005,8 @@ h4 {
         with open(self.epub_dir / "OEBPS" / "styles" / "enhanced.css", "w") as f:
             f.write(css_content)
 
-    def copy_new_cover(self):
+        """Copy New Cover"""
+def copy_new_cover(self):
         """Copy the new high-contrast cover"""
         import shutil
 
@@ -1003,7 +1022,8 @@ h4 {
             placeholder = Image.new("RGB", (2560, 1600), "#2c3e50")
             placeholder.save(cover_dest, "JPEG")
 
-    def package_enhanced_epub(self):
+        """Package Enhanced Epub"""
+def package_enhanced_epub(self):
         """Package the enhanced EPUB"""
 
         epub_file = self.output_dir / "CrosswordMasters_V1_Enhanced.epub"
@@ -1031,6 +1051,7 @@ h4 {
         return epub_file
 
 
+    """Main"""
 def main():
     """Generate enhanced EPUB via Formatter interface"""
     print("🚀 Enhanced EPUB Generation via Formatter...")

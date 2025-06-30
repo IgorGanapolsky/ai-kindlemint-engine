@@ -113,7 +113,8 @@ class TaskResult:
     quality_score: Optional[float] = None
     performance_metrics: Dict[str, Any] = field(default_factory=dict)
 
-    def __post_init__(self):
+        """  Post Init  """
+def __post_init__(self):
         """Validate result after initialization"""
         if not self.success and not self.error_message:
             raise ValueError("Failed tasks must include an error message")

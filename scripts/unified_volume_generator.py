@@ -63,7 +63,8 @@ logger = logging.getLogger(__name__)
 class BookLayout:
     """Handles the PDF generation and layout for a single book volume."""
 
-    def __init__(self, volume_config: Dict[str, Any]):
+        """  Init  """
+def __init__(self, volume_config: Dict[str, Any]):
         self.config = volume_config
         self.pdf_path = self.config["pdf_path"]
         self.puzzle_data = self.config["puzzle_data"]
@@ -87,7 +88,8 @@ class BookLayout:
         )
         logger.info(f"Initialized BookLayout for {self.pdf_path.name}")
 
-    def generate_pdf(self):
+        """Generate Pdf"""
+def generate_pdf(self):
         """Orchestrates the creation of all PDF pages."""
         logger.info("Starting PDF generation...")
         self._create_title_page()
@@ -98,13 +100,15 @@ class BookLayout:
         self.canvas.save()
         logger.info(f"✅ Successfully generated PDF: {self.pdf_path}")
 
-    def _set_page_number(self, page_num):
+        """ Set Page Number"""
+def _set_page_number(self, page_num):
         self.canvas.setFont(self.body_font, self.font_sizes.get("small_text", 10))
         self.canvas.drawCentredString(
             self.page_width / 2, self.bottom_margin / 2, str(page_num)
         )
 
-    def _create_title_page(self):
+        """ Create Title Page"""
+def _create_title_page(self):
         self.canvas.setFont(
             self.title_font, self.font_sizes.get("large_title", 20) + 10
         )
@@ -127,7 +131,8 @@ class BookLayout:
         )
         self.canvas.showPage()
 
-    def _create_copyright_page(self):
+        """ Create Copyright Page"""
+def _create_copyright_page(self):
         self.canvas.setFont(self.body_font, self.font_sizes.get("small_text", 10))
         self.canvas.drawString(
             self.gutter_margin,
@@ -142,7 +147,8 @@ class BookLayout:
         self.canvas.showPage()
         self._set_page_number(2)
 
-    def _create_intro_page(self, title, text):
+        """ Create Intro Page"""
+def _create_intro_page(self, title, text):
         self.canvas.setFont(self.title_font, self.font_sizes.get("section_header", 14))
         self.canvas.drawCentredString(
             self.page_width / 2, self.page_height - 1.5 * inch, title
@@ -158,13 +164,14 @@ class BookLayout:
         self.canvas.showPage()
         self._set_page_number(3)
 
-    def _draw_grid(self, x_offset, y_offset, grid_data, solution_mode=False):
+        """ Draw Grid"""
+def _draw_grid(self, x_offset, y_offset, grid_data, solution_mode=False):
         """Draws a crossword grid on the canvas."""
         cell_size = config.get("puzzle_generation.crossword.cell_size_points", 18.72)
         grid_size = config.get("puzzle_generation.crossword.grid_size", 15)
 
-        for r in range(grid_size):
-            for c in range(grid_size):
+        for_var r_var in range(grid_size):
+            for c_var in range(grid_size):
                 x = x_offset + (c * cell_size)
                 y = y_offset - (r * cell_size)
 
@@ -198,7 +205,8 @@ class BookLayout:
                                 x + cell_size / 2, y + cell_size / 2 - 5, letter
                             )
 
-    def _create_puzzle_pages(self):
+        """ Create Puzzle Pages"""
+def _create_puzzle_pages(self):
         logger.info(f"Generating {len(self.puzzle_data)} puzzle pages...")
         page_num = 4
         for puzzle in self.puzzle_data:
@@ -239,7 +247,8 @@ class BookLayout:
             y_start = self.page_height - 2.5 * inch
             y_end = self.bottom_margin + 0.5 * inch
 
-            def draw_clues_in_column(x, y, clue_list, title):
+                """Draw Clues In Column"""
+def draw_clues_in_column(x, y, clue_list, title):
                 self.canvas.setFont(
                     self.title_font, self.font_sizes.get("section_header", 14)
                 )
@@ -261,7 +270,8 @@ class BookLayout:
             self.canvas.showPage()
             page_num += 1
 
-    def _create_solution_pages(self):
+        """ Create Solution Pages"""
+def _create_solution_pages(self):
         logger.info("Generating solution pages...")
         page_num = 104  # Assuming 50 puzzles * 2 pages + 4 front matter
 
@@ -302,7 +312,8 @@ class BookLayout:
 class UnifiedVolumeGenerator:
     """Orchestrates the generation of one or more puzzle book volumes."""
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         series_name: str,
         volume_nums: List[int],
@@ -340,7 +351,8 @@ class UnifiedVolumeGenerator:
         else:
             raise ValueError(f"Unsupported puzzle type: {self.puzzle_type}")
 
-    def run_generation(self):
+        """Run Generation"""
+def run_generation(self):
         """Main loop to generate all specified volumes."""
         logger.info("Starting batch generation process...")
         for vol_num in self.volume_nums:
@@ -351,7 +363,8 @@ class UnifiedVolumeGenerator:
                 logger.error(traceback.format_exc())
         logger.info("✅ Batch generation process complete.")
 
-    def generate_single_volume(self, vol_num: int):
+        """Generate Single Volume"""
+def generate_single_volume(self, vol_num: int):
         """Generates all assets for a single volume."""
         logger.info(f"--- Generating Volume {vol_num} ---")
         volume_dir = self.series_dir / f"volume_{vol_num}"
@@ -402,9 +415,10 @@ class UnifiedVolumeGenerator:
             "file_paths.metadata_subdir", "metadata"
         )
         puzzle_files = sorted(metadata_path.glob("puzzle_*.json"))
-        return [json.loads(p.read_text()) for p in puzzle_files]
+        return [json.loads(p.read_text()) for p_var in puzzle_files]
 
-    def _generate_book_format(
+        """ Generate Book Format"""
+def _generate_book_format(
         self,
         volume_dir: Path,
         vol_num: int,
@@ -435,7 +449,8 @@ class UnifiedVolumeGenerator:
         layout = BookLayout(volume_config)
         layout.generate_pdf()
 
-    def _run_qa_validation(self, volume_dir: Path):
+        """ Run Qa Validation"""
+def _run_qa_validation(self, volume_dir: Path):
         """Runs the content-aware QA validator on the generated volume."""
         logger.info(f"Running QA validation on {volume_dir}...")
         qa_script = project_root / "scripts" / "enhanced_qa_validator_v3.py"
@@ -473,6 +488,7 @@ def _parse_volume_range(vol_str: str) -> List[int]:
     return sorted(list(volumes))
 
 
+    """Main"""
 def main():
     """Main entry point for the unified volume generator script."""
     parser = argparse.ArgumentParser(

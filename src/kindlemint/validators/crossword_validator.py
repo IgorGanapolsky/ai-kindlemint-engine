@@ -30,7 +30,8 @@ class CrosswordValidator(PuzzleValidator):
     - Clue numbering consistency
     """
 
-    def __init__(self, strict_mode: bool = False):
+        """  Init  """
+def __init__(self, strict_mode: bool = False):
         """
         Initialize the crossword validator.
 

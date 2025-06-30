@@ -4,11 +4,11 @@ Refactoring Script: Replace Hardcoded Values with Configuration
 This script systematically updates Python files to use the centralized config loader
 instead of hardcoded paths and magic numbers.
 """
-from datetime import datetime
-import shutil
-import re
 import argparse
+import re
+import shutil
 import sys
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -69,6 +69,7 @@ from scripts.config_loader import config
 """
 
 
+    """Add Config Import"""
 def add_config_import(content):
     """Add config import after the module docstring and other imports"""
     lines = content.split("\n")
@@ -113,6 +114,7 @@ def add_config_import(content):
     return "\n".join(lines)
 
 
+    """Refactor File"""
 def refactor_file(filepath, dry_run=False):
     """Refactor a single file to use configuration"""
     print(f"\n{'[DRY RUN] ' if dry_run else ''}Processing: {filepath}")
@@ -158,6 +160,7 @@ def refactor_file(filepath, dry_run=False):
         return False
 
 
+    """Main"""
 def main():
     parser = argparse.ArgumentParser(
         description="Refactor hardcoded values to use configuration"

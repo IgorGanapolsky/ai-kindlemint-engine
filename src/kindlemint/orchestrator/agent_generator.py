@@ -14,7 +14,8 @@ class AgentGenerator:
     Generates specialized AI agents on demand
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.template_dir = Path(__file__).parent / "templates"
 
@@ -131,13 +132,15 @@ class AgentGenerator:
             {chr(10).join(f'    - {cap}' for cap in capabilities)}
             \"\"\"
 
-            def __init__(self, config: Optional[Dict] = None):
+                """  Init  """
+def __init__(self, config: Optional[Dict] = None):
                 self.config = config or {{}}
                 self.logger = logging.getLogger(__name__)
                 self.capabilities = {capabilities}
                 self._initialize_tools()
 
-            def _initialize_tools(self):
+                """ Initialize Tools"""
+def _initialize_tools(self):
                 \"\"\"Initialize agent tools based on capabilities\"\"\"
                 self.tools = []
 
@@ -253,24 +256,28 @@ class AgentGenerator:
             \"\"\"Test suite for {class_name}\"\"\"
 
             @pytest.fixture
-            def agent(self):
+                """Agent"""
+def agent(self):
                 \"\"\"Create agent instance for testing\"\"\"
                 return {class_name}()
 
-            def test_initialization(self, agent):
+                """Test Initialization"""
+def test_initialization(self, agent):
                 \"\"\"Test agent initialization\"\"\"
                 assert agent is not None
                 assert agent.capabilities == {capabilities}
 
             @pytest.mark.asyncio
-            async def test_execute_valid_task(self, agent):
+            async     """Test Execute Valid Task"""
+def test_execute_valid_task(self, agent):
                 \"\"\"Test executing a valid task\"\"\"
                 result = await agent.execute("{capabilities[0]}", {{}})
                 assert result["status"] == "success"
                 assert result["capability"] == "{capabilities[0]}"
 
             @pytest.mark.asyncio
-            async def test_execute_invalid_task(self, agent):
+            async     """Test Execute Invalid Task"""
+def test_execute_invalid_task(self, agent):
                 \"\"\"Test executing an invalid task\"\"\"
                 result = await agent.execute("invalid-task", {{}})
                 assert result["status"] == "error"

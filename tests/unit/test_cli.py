@@ -7,13 +7,16 @@ from scripts.cli.main import FORMATTERS, cli
 
 
 class DummyFormatter:
-    def __init__(self, output_path=None):
+        """  Init  """
+def __init__(self, output_path=None):
         self.output_path = output_path
 
-    def create_pdf(self):
+        """Create Pdf"""
+def create_pdf(self):
         return Path("dummy_output.txt")
 
 
+    """Test List Formatters"""
 def test_list_formatters():
     runner = CliRunner()
     result = runner.invoke(cli, ["list"])
@@ -22,6 +25,7 @@ def test_list_formatters():
         assert name in result.output
 
 
+    """Test Generate With Dummy Formatter"""
 def test_generate_with_dummy_formatter(monkeypatch):
     # Add a dummy formatter for testing
     monkeypatch.setitem(cli_module.FORMATTERS, "dummy", DummyFormatter)

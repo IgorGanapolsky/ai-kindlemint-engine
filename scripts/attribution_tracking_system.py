@@ -32,7 +32,8 @@ class AttributionTrackingSystem:
     Moves beyond last-click to full customer journey analysis
     """
 
-    def __init__(self, book_config: Dict, book_artifacts: Dict):
+        """  Init  """
+def __init__(self, book_config: Dict, book_artifacts: Dict):
         """Initialize the Attribution Tracking System"""
         self.book_config = book_config
         self.book_artifacts = book_artifacts
@@ -1578,6 +1579,7 @@ class AttributionTrackingSystem:
         return {"attribution_analytics_dashboard": str(dashboard_file)}
 
 
+    """Main"""
 def main():
     """CLI interface for attribution tracking system"""
     import argparse

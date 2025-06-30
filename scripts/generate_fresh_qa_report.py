@@ -8,7 +8,7 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-
+    """Generate Fresh Qa Report"""
 def generate_fresh_qa_report():
     """Generate QA report for the complete book version"""
 

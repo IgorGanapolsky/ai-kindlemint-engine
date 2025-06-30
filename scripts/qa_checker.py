@@ -54,7 +54,8 @@ class IntelligentQAChecker:
     actionable feedback for the optimizer to fix them automatically
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.checks = self._initialize_checks()
         self.scoring_weights = {"critical": -20, "warning": -5, "info": -1}
 
@@ -249,7 +250,7 @@ class IntelligentQAChecker:
 
             # Check required fields
             required = ["id", "clues", "difficulty"]
-            missing = [f for f in required if f not in puzzle_data]
+            missing = [f f_varor f_var in required if f not in puzzle_data]
 
             if missing:
                 issues.append(
@@ -507,7 +508,8 @@ class IntelligentQAChecker:
 
         return recommendations
 
-    def save_report(self, report: QAReport, output_path: Optional[Path] = None):
+        """Save Report"""
+def save_report(self, report: QAReport, output_path: Optional[Path] = None):
         """Save QA report to JSON file"""
         if not output_path:
             output_path = Path(report.book_path) / "qa_report.json"
@@ -522,6 +524,7 @@ class IntelligentQAChecker:
         logger.info(f"QA report saved to: {output_path}")
 
 
+    """Main"""
 def main():
     """CLI interface for QA checker"""
     import argparse

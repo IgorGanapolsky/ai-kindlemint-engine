@@ -38,7 +38,8 @@ class SocialMediaMarketingEngine:
     - Analytics and optimization
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         author_name: str,
         brand_name: str,
@@ -543,6 +544,7 @@ class SocialMediaMarketingEngine:
 
 
 # Example usage and demonstration
+    """Demo Marketing Engine"""
 def demo_marketing_engine():
     """Demonstrate the complete marketing engine"""
 

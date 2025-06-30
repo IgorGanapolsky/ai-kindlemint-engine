@@ -53,7 +53,8 @@ class BotpressError(Exception):
 class BotpressAPIError(BotpressError):
     """Exception raised for errors in the Botpress API."""
 
-    def __init__(self, status_code: int, message: str):
+        """  Init  """
+def __init__(self, status_code: int, message: str):
         self.status_code = status_code
         self.message = message
         super().__init__(f"Botpress API Error ({status_code}): {message}")
@@ -125,7 +126,8 @@ class BotpressClient:
         cost_tracker (Optional[CostTracker]): Tracks API usage costs if enabled
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         api_key: Optional[str] = None,
         workspace_id: Optional[str] = None,
@@ -371,7 +373,8 @@ class BaseBot(ABC):
     of required methods for specific bot types.
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         client: BotpressClient,
         bot_id: Optional[str] = None,
@@ -489,7 +492,8 @@ class AuthorInterviewBot(BaseBot):
     their ideas, organize content, and develop their book structure.
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         client: BotpressClient,
         bot_id: Optional[str] = None,
@@ -686,7 +690,8 @@ class ReaderFeedbackBot(BaseBot):
     feedback, ratings, and suggestions for improvement.
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         client: BotpressClient,
         bot_id: Optional[str] = None,
@@ -853,7 +858,8 @@ class WritingCoachBot(BaseBot):
     helping overcome writer's block, and providing feedback on drafts.
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         client: BotpressClient,
         bot_id: Optional[str] = None,
@@ -1093,7 +1099,8 @@ class ConversationalMarketingBot(BaseBot):
     and facilitates webinar registrations through natural conversations.
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         client: BotpressClient,
         bot_id: Optional[str] = None,
@@ -1472,7 +1479,8 @@ class WebhookHandler:
     routing them to the appropriate handlers based on event type.
     """
 
-    def __init__(self, config: Optional[BotpressConfig] = None):
+        """  Init  """
+def __init__(self, config: Optional[BotpressConfig] = None):
         """
         Initialize the webhook handler.
 

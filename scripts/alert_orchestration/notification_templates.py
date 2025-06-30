@@ -12,7 +12,8 @@ from typing import Any, Dict, List, Optional
 class NotificationTemplate:
     """Base class for notification templates"""
 
-    def __init__(self, template_type: str, name: str):
+        """  Init  """
+def __init__(self, template_type: str, name: str):
         self.template_type = template_type
         self.name = name
 
@@ -24,7 +25,8 @@ class NotificationTemplate:
 class SlackBlockTemplate(NotificationTemplate):
     """Template for Slack Block Kit messages"""
 
-    def __init__(self, name: str, blocks_func: callable):
+        """  Init  """
+def __init__(self, name: str, blocks_func: callable):
         super().__init__("slack_blocks", name)
         self.blocks_func = blocks_func
 
@@ -40,7 +42,8 @@ class SlackBlockTemplate(NotificationTemplate):
 class SlackTextTemplate(NotificationTemplate):
     """Template for simple Slack text messages"""
 
-    def __init__(self, name: str, template: str):
+        """  Init  """
+def __init__(self, name: str, template: str):
         super().__init__("slack_text", name)
         self.template = template
 
@@ -555,11 +558,13 @@ def system_health_blocks(data: Dict[str, Any]) -> List[Dict]:
 class TemplateRegistry:
     """Registry for managing notification templates"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.templates = {}
         self._register_default_templates()
 
-    def _register_default_templates(self):
+        """ Register Default Templates"""
+def _register_default_templates(self):
         """Register default templates"""
         # Slack block templates
         self.register_template(SlackBlockTemplate("error_alert", error_alert_blocks))
@@ -599,7 +604,8 @@ class TemplateRegistry:
             )
         )
 
-    def register_template(self, template: NotificationTemplate):
+        """Register Template"""
+def register_template(self, template: NotificationTemplate):
         """Register a notification template"""
         self.templates[template.name] = template
 
@@ -633,6 +639,7 @@ def render_notification(
     return template_registry.render_template(template_name, data)
 
 
+    """Register Custom Template"""
 def register_custom_template(template: NotificationTemplate):
     """Register a custom notification template"""
     template_registry.register_template(template)

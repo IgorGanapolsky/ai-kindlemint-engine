@@ -4,7 +4,7 @@
 import tempfile
 from pathlib import Path
 
-
+    """Test Sudoku Generator Basics"""
 def test_sudoku_generator_basics():
     """Test basic sudoku generator functionality"""
     from kindlemint.engines.sudoku import SudokuGenerator
@@ -26,6 +26,7 @@ def test_sudoku_generator_basics():
     assert all(all(cell == 0 for cell in row) for row in grid)
 
 
+    """Test Wordsearch Engine"""
 def test_wordsearch_engine():
     """Test word search engine basics"""
     from kindlemint.engines.wordsearch import WordSearchGenerator
@@ -39,6 +40,7 @@ def test_wordsearch_engine():
     assert all(len(row) == 10 for row in generator.grid)
 
 
+    """Test Base Validator Simple"""
 def test_base_validator_simple():
     """Test base validator functionality"""
     from kindlemint.validators.base_validator import (
@@ -63,6 +65,7 @@ def test_base_validator_simple():
     assert not report.is_valid()  # Has errors
 
 
+    """Test Utils Functions"""
 def test_utils_functions():
     """Test utility functions for quick coverage"""
     from kindlemint.utils import ensure_directory, get_logger
@@ -78,6 +81,7 @@ def test_utils_functions():
         assert test_dir.exists()
 
 
+    """Test Agent Enums"""
 def test_agent_enums():
     """Test all agent-related enums"""
     from kindlemint.agents.agent_types import AgentCapability
@@ -96,6 +100,7 @@ def test_agent_enums():
     assert TaskPriority.HIGH.value == "high"
 
 
+    """Test Validator Imports"""
 def test_validator_imports():
     """Test validator module imports"""
     from kindlemint.validators import get_validator
@@ -104,6 +109,7 @@ def test_validator_imports():
     assert callable(get_validator)
 
 
+    """Test Engines Imports"""
 def test_engines_imports():
     """Test engines module imports"""
     from kindlemint.engines import get_engine

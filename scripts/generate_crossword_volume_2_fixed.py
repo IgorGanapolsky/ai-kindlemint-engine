@@ -4,7 +4,6 @@ Generate Volume 2 with UNIQUE crossword puzzles - PROPERLY TESTED
 Each puzzle has completely different clues
 """
 
-from reportlab.lib.units import inch
 import json
 import random
 from datetime import datetime
@@ -12,6 +11,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 from reportlab.lib.pagesizes import inch
+from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 
 # KDP 6x9 book dimensions (not letter size!)
@@ -22,7 +22,8 @@ BOOK_HEIGHT = 9 * inch
 class FixedCrosswordGenerator:
     """Generate crosswords with UNIQUE clues for each puzzle"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.grid_size = 15
         self.output_dir = Path(
             "books/active_production/Large_Print_Crossword_Masters/volume_2"
@@ -290,7 +291,8 @@ class FixedCrosswordGenerator:
             ],
         }
 
-    def create_symmetric_pattern(self):
+        """Create Symmetric Pattern"""
+def create_symmetric_pattern(self):
         """Create different symmetric patterns for variety"""
         patterns = [
             # Pattern 1
@@ -370,9 +372,10 @@ class FixedCrosswordGenerator:
         ]
         return random.choice(patterns)
 
-    def generate_grid_with_content(self, puzzle_id):
+        """Generate Grid With Content"""
+def generate_grid_with_content(self, puzzle_id):
         """Generate a filled 15x15 grid with black squares"""
-        grid = [[" " for _ in range(self.grid_size)] for _ in range(self.grid_size)]
+        grid = [[" " for __var in range(self.grid_size)] for __var in range(self.grid_size)]
 
         # Use different patterns for variety
         black_squares = self.create_symmetric_pattern()
@@ -383,7 +386,8 @@ class FixedCrosswordGenerator:
 
         return grid
 
-    def create_grid_image(self, grid, puzzle_id):
+        """Create Grid Image"""
+def create_grid_image(self, grid, puzzle_id):
         """Create high-quality grid image"""
         cell_size = 60
         margin = 40
@@ -441,7 +445,8 @@ class FixedCrosswordGenerator:
 
         return img_path, clue_positions
 
-    def generate_unique_clues(self, puzzle_id, theme, difficulty):
+        """Generate Unique Clues"""
+def generate_unique_clues(self, puzzle_id, theme, difficulty):
         """Generate COMPLETELY UNIQUE clues for each puzzle"""
         clues = {"across": [], "down": []}
 
@@ -506,7 +511,8 @@ class FixedCrosswordGenerator:
 
         return clues
 
-    def create_pdf_interior(self, puzzles_data):
+        """Create Pdf Interior"""
+def create_pdf_interior(self, puzzles_data):
         """Create the interior PDF"""
         pdf_path = self.paperback_dir / "crossword_book_volume_2_interior.pdf"
 
@@ -639,7 +645,8 @@ class FixedCrosswordGenerator:
 
         return pdf_path
 
-    def generate_all_puzzles(self):
+        """Generate All Puzzles"""
+def generate_all_puzzles(self):
         """Generate all 50 puzzles with UNIQUE content"""
         puzzles_data = []
 
@@ -734,7 +741,8 @@ class FixedCrosswordGenerator:
 
         return puzzles_data
 
-    def create_metadata(self):
+        """Create Metadata"""
+def create_metadata(self):
         """Create all required metadata files"""
         # Amazon KDP metadata
         kdp_metadata = {
@@ -790,7 +798,8 @@ Create a professional book cover for "Large Print Crossword Masters Volume 2":
 
         print("✅ Metadata files created")
 
-    def run(self):
+        """Run"""
+def run(self):
         """Run the complete generation process"""
         print("🚀 Starting Volume 2 generation with UNIQUE puzzles...")
 

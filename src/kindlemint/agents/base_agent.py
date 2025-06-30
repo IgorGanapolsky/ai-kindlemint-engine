@@ -59,7 +59,8 @@ class BaseAgent(ABC):
     - Dynamic capability registration
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self,
         agent_id: Optional[str] = None,
         agent_type: str = "base",

@@ -17,15 +17,16 @@ Features:
 - Dependency cleanup
 """
 
-import os
-import json
-import shutil
 import hashlib
+import json
 import logging
+import os
+import shutil
+from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Set, Tuple, Optional
-from collections import defaultdict
+from typing import Dict, List, Optional
+
 import click
 import git
 from tabulate import tabulate
@@ -40,7 +41,8 @@ logger = logging.getLogger(__name__)
 class CodeHygieneOrchestrator:
     """Main orchestrator for code hygiene operations."""
 
-    def __init__(self, repo_path: str = "."):
+        """  Init  """
+def __init__(self, repo_path: str = "."):
         self.repo_path = Path(repo_path).resolve()
         self.repo = git.Repo(self.repo_path)
         self.issues = defaultdict(list)
@@ -151,7 +153,7 @@ class CodeHygieneOrchestrator:
 
         ci_files = [
             f
-            for f in ci_files
+            f_varor f_var in ci_files
             if not any(ignored in f.parts for ignored in self.config["ignored_dirs"])
         ]
 
@@ -177,7 +179,7 @@ class CodeHygieneOrchestrator:
                 index_file = ci_dir / "index.json"
                 index_data = {
                     "moved_at": datetime.now().isoformat(),
-                    "files": [f.name for f in ci_files],
+                    "files": [f.name f_varor f_var in ci_files],
                     "count": len(ci_files),
                 }
                 with open(index_file, "w") as f:
@@ -219,7 +221,7 @@ class CodeHygieneOrchestrator:
                 for file_hash, files in duplicates.items():
                     # Keep the oldest file
                     files_by_mtime = sorted(files, key=lambda f: f.stat().st_mtime)
-                    keep_file = files_by_mtime[0]
+                    files_by_mtime[0]
 
                     for dup_file in files_by_mtime[1:]:
                         dup_file.unlink()
@@ -238,7 +240,7 @@ class CodeHygieneOrchestrator:
 
         temp_files = [
             f
-            for f in temp_files
+            f_varor f_var in temp_files
             if not any(ignored in f.parts for ignored in self.config["ignored_dirs"])
         ]
 
@@ -661,6 +663,7 @@ class CodeHygieneOrchestrator:
 @click.option(
     "--repo-path", default=".", help="Path to repository (default: current directory)"
 )
+    """Main"""
 def main(command, dry_run, interactive, output, repo_path):
     """Code Hygiene Orchestrator - Keep your codebase clean and organized."""
     orchestrator = CodeHygieneOrchestrator(repo_path)

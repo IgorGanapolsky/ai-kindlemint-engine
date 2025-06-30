@@ -64,14 +64,16 @@ class SentryAgentMonitor:
     Tracks prompts, model calls, tool usage, and helps debug AI failures.
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         """Initialize the agent monitor with Sentry"""
         # Initialize Sentry with OpenAI integration
         self._init_enhanced_sentry()
         self.active_agents: Dict[str, AgentContext] = {}
         self.trace_history: List[PromptTrace] = []
 
-    def _init_enhanced_sentry(self):
+        """ Init Enhanced Sentry"""
+def _init_enhanced_sentry(self):
         """Initialize Sentry with AI-specific integrations"""
         sentry_dsn = os.getenv("SENTRY_DSN")
 
@@ -115,7 +117,8 @@ class SentryAgentMonitor:
         print("✅ Sentry Agent Monitoring initialized")
         return True
 
-    def _before_send_filter(self, event, hint):
+        """ Before Send Filter"""
+def _before_send_filter(self, event, hint):
         """Filter sensitive information before sending to Sentry"""
         # Add custom filtering logic here if needed
         # For example, redact API keys, personal information, etc.
@@ -150,7 +153,8 @@ class SentryAgentMonitor:
 
         return AgentTransaction(transaction, context, self)
 
-    def track_prompt(self, agent_id: str, prompt_trace: PromptTrace):
+        """Track Prompt"""
+def track_prompt(self, agent_id: str, prompt_trace: PromptTrace):
         """Track a prompt/response pair for an agent"""
         self.trace_history.append(prompt_trace)
 
@@ -170,10 +174,11 @@ class SentryAgentMonitor:
             )
 
             # Store recent prompts in context (last 5)
-            recent_traces = [t.to_dict() for t in self.trace_history[-5:]]
+            recent_traces = [t.to_dict() for t_var in self.trace_history[-5:]]
             scope.set_context("recent_prompts", {"traces": recent_traces})
 
-    def track_tool_call(
+        """Track Tool Call"""
+def track_tool_call(
         self,
         agent_id: str,
         tool_name: str,
@@ -207,7 +212,8 @@ class SentryAgentMonitor:
             # Update tool usage context
             scope.set_context("last_tool_call", tool_data)
 
-    def capture_ai_error(
+        """Capture Ai Error"""
+def capture_ai_error(
         self, agent_id: str, error: Exception, context: Optional[Dict[str, Any]] = None
     ):
         """Capture AI-specific errors with enhanced context"""
@@ -222,7 +228,7 @@ class SentryAgentMonitor:
 
             # Add recent prompt history
             if self.trace_history:
-                recent_prompts = [t.to_dict() for t in self.trace_history[-3:]]
+                recent_prompts = [t.to_dict() for t_var in self.trace_history[-3:]]
                 scope.set_context("prompt_history", {"recent": recent_prompts})
 
             # Add custom error context
@@ -250,16 +256,19 @@ class SentryAgentMonitor:
 class AgentTransaction:
     """Context manager for AI agent transactions"""
 
-    def __init__(self, transaction, context: AgentContext, monitor: SentryAgentMonitor):
+        """  Init  """
+def __init__(self, transaction, context: AgentContext, monitor: SentryAgentMonitor):
         self.transaction = transaction
         self.context = context
         self.monitor = monitor
         self.start_time = time.time()
 
-    def __enter__(self):
+        """  Enter  """
+def __enter__(self):
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+        """  Exit  """
+def __exit__(self, exc_type, exc_val, exc_tb):
         if exc_type:
             self.monitor.capture_ai_error(
                 self.context.agent_id, exc_val, {"transaction": self.context.task_name}
@@ -278,7 +287,8 @@ class AgentTransaction:
 
         return False  # Don't suppress exceptions
 
-    def track_prompt(
+        """Track Prompt"""
+def track_prompt(
         self,
         prompt: str,
         response: str = None,
@@ -310,12 +320,14 @@ class AgentTransaction:
 
 
 # Decorator for monitoring AI functions
+    """Monitor Ai Agent"""
 def monitor_ai_agent(agent_type: str, task_name: str, model: str = None):
     """Decorator to automatically monitor AI agent functions"""
 
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+            """Wrapper"""
+def wrapper(*args, **kwargs):
             # Create agent context
             context = AgentContext(
                 agent_id=f"{agent_type}_{int(time.time() * 1000)}",
@@ -360,6 +372,7 @@ def get_agent_monitor() -> SentryAgentMonitor:
 
 
 # Example usage functions
+    """Example Monitored Ai Function"""
 def example_monitored_ai_function():
     """Example of how to use the agent monitoring"""
     monitor = get_agent_monitor()

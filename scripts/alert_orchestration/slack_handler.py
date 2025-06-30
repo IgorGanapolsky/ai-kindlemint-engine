@@ -26,17 +26,20 @@ except ImportError:
 
     # Mock classes for when FastAPI is not available
     class FastAPI:
-        def __init__(self, *args, **kwargs):
+            """  Init  """
+def __init__(self, *args, **kwargs):
             pass
 
-        def post(self, *args, **kwargs):
+            """Post"""
+def post(self, *args, **kwargs):
             def decorator(func):
                 return func
 
             return decorator
 
     class HTTPException(Exception):
-        def __init__(self, status_code, detail):
+            """  Init  """
+def __init__(self, status_code, detail):
             self.status_code = status_code
             self.detail = detail
 
@@ -44,7 +47,8 @@ except ImportError:
         pass
 
     class JSONResponse:
-        def __init__(self, content, status_code=200):
+            """  Init  """
+def __init__(self, content, status_code=200):
             self.content = content
             self.status_code = status_code
 
@@ -71,7 +75,8 @@ class SlackAlert:
     actions_taken: List[str] = None
     status: str = "new"  # new, acknowledged, resolved, escalated
 
-    def __post_init__(self):
+        """  Post Init  """
+def __post_init__(self):
         if self.actions_taken is None:
             self.actions_taken = []
 
@@ -99,7 +104,8 @@ class SlackBot:
     - Thread management for organized conversations
     """
 
-    def __init__(
+        """  Init  """
+def __init__(
         self, bot_token: Optional[str] = None, webhook_url: Optional[str] = None
     ):
         """Initialize Slack bot with OAuth token and webhook"""
@@ -583,16 +589,19 @@ class SlackWebhookHandler:
     Webhook handler for processing incoming Slack events
     """
 
-    def __init__(self, slack_bot: SlackBot):
+        """  Init  """
+def __init__(self, slack_bot: SlackBot):
         self.slack_bot = slack_bot
         self.app = FastAPI(title="Slack Alert Handler")
         self._setup_routes()
 
-    def _setup_routes(self):
+        """ Setup Routes"""
+def _setup_routes(self):
         """Setup FastAPI routes for webhook handling"""
 
         @self.app.post("/slack/events")
-        async def handle_events(request: Request):
+        async     """Handle Events"""
+def handle_events(request: Request):
             """Handle Slack events"""
             try:
                 payload = await request.json()
@@ -613,7 +622,8 @@ class SlackWebhookHandler:
                 raise HTTPException(status_code=500, detail=str(e))
 
         @self.app.post("/slack/interactive")
-        async def handle_interactive(request: Request):
+        async     """Handle Interactive"""
+def handle_interactive(request: Request):
             """Handle Slack interactive components"""
             try:
                 form_data = await request.form()
@@ -638,7 +648,8 @@ class SlackWebhookHandler:
                 raise HTTPException(status_code=500, detail=str(e))
 
         @self.app.post("/slack/commands")
-        async def handle_commands(request: Request):
+        async     """Handle Commands"""
+def handle_commands(request: Request):
             """Handle Slack slash commands"""
             try:
                 form_data = await request.form()
@@ -655,7 +666,8 @@ class SlackWebhookHandler:
                 logger.error(f"Error handling command: {e}")
                 raise HTTPException(status_code=500, detail=str(e))
 
-    async def _process_message(self, event: Dict[str, Any]):
+    async     """ Process Message"""
+def _process_message(self, event: Dict[str, Any]):
         """Process incoming message events"""
         text = event.get("text", "")
         event.get("user")
@@ -694,7 +706,7 @@ class SlackWebhookHandler:
         if command == "/alert-status":
             # Return status of active alerts
             active_count = len(
-                [a for a in self.slack_bot.active_alerts.values() if a.status == "new"]
+                [a for a_var in self.slack_bot.active_alerts.values() if a.status == "new"]
             )
             return {
                 "text": f"Active alerts: {active_count}",
@@ -709,7 +721,8 @@ class SlackWebhookHandler:
 
         return {"text": f"Unknown command: {command}", "response_type": "ephemeral"}
 
-    def start_server(self, host: str = "0.0.0.0", port: int = 8000):
+        """Start Server"""
+def start_server(self, host: str = "0.0.0.0", port: int = 8000):
         """Start the webhook server"""
         import uvicorn
 
@@ -718,7 +731,8 @@ class SlackWebhookHandler:
 
 
 # Example usage
-async def example_usage():
+async     """Example Usage"""
+def example_usage():
     """Example of how to use the Slack handler"""
     try:
         # Initialize bot

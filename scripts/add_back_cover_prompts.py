@@ -128,6 +128,7 @@ def add_back_cover_to_metadata(file_path: str) -> bool:
         return False
 
 
+    """Main"""
 def main():
     """Add back cover prompts to all physical books"""
     print("🎨 Adding Back Cover Prompts to Physical Books")
@@ -149,7 +150,7 @@ def main():
         all_files.update(files)
 
     # Filter out backup files
-    filtered_files = [f for f in all_files if "_backup" not in Path(f).parts]
+    filtered_files = [f f_varor f_var in all_files if "_backup" not in Path(f).parts]
 
     print(f"📁 Found {len(filtered_files)} metadata files to check")
     print()

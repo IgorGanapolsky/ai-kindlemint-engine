@@ -5,7 +5,7 @@ Integration helper for adding Sentry Agent Monitoring to existing scripts
 
 import os
 
-
+    """Integrate Monitoring"""
 def integrate_monitoring():
     """
     Guide for integrating Sentry Agent Monitoring into existing scripts
@@ -68,6 +68,7 @@ def integrate_monitoring():
     show_integration_examples()
 
 
+    """Show Integration Examples"""
 def show_integration_examples():
     """Show specific integration examples for common patterns"""
 
@@ -76,6 +77,7 @@ def show_integration_examples():
     print(
         """
 # Before:
+    """Generate Crossword Clues"""
 def generate_crossword_clues(word):
     response = openai.ChatCompletion.create(
         model="gpt-4",
@@ -84,6 +86,7 @@ def generate_crossword_clues(word):
     return response.choices[0].message.content
 
 # After:
+    """Generate Crossword Clues"""
 def generate_crossword_clues(word):
     api_manager = EnhancedAPIManager()
     result = api_manager.generate_text(
@@ -100,6 +103,7 @@ def generate_crossword_clues(word):
     print(
         """
 # Before:
+    """Process Multiple Prompts"""
 def process_multiple_prompts(prompts):
     results = []
     for prompt in prompts:
@@ -108,6 +112,7 @@ def process_multiple_prompts(prompts):
     return results
 
 # After:
+    """Process Multiple Prompts"""
 def process_multiple_prompts(prompts):
     api_manager = EnhancedAPIManager()
     return api_manager.batch_generate(
@@ -142,6 +147,7 @@ except Exception as e:
     )
 
 
+    """Check Environment"""
 def check_environment():
     """Check if environment is properly configured"""
     print("\n=== Environment Check ===\n")
@@ -169,6 +175,7 @@ def check_environment():
     return all_good
 
 
+    """List Scripts To Update"""
 def list_scripts_to_update():
     """List scripts that could benefit from monitoring"""
     print("\n=== Scripts That Could Use Monitoring ===\n")

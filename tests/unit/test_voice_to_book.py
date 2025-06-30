@@ -25,25 +25,29 @@ class TestVoiceToBook:
     """Test suite for voice_to_book"""
 
     @pytest.fixture
-    async def instance(self):
+    async     """Instance"""
+def instance(self):
         """Create instance for testing"""
         instance = VoiceToBook()
         await instance.initialize()
         return instance
 
     @pytest.mark.asyncio
-    async def test_initialization(self, instance):
+    async     """Test Initialization"""
+def test_initialization(self, instance):
         """Test feature initialization"""
         assert instance is not None
 
     @pytest.mark.asyncio
-    async def test_execute_success(self, instance):
+    async     """Test Execute Success"""
+def test_execute_success(self, instance):
         """Test successful execution"""
         result = await instance.execute({"test": True})
         assert result["status"] == "success"
 
     @pytest.mark.asyncio
-    async def test_execute_with_error(self, instance):
+    async     """Test Execute With Error"""
+def test_execute_with_error(self, instance):
         """Test error handling"""
         # Test with invalid params
         result = await instance.execute({"invalid": None})

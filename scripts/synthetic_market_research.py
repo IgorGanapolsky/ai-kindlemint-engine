@@ -302,7 +302,8 @@ class SyntheticMarketResearch:
     Provides qualitative feedback on book ideas before production
     """
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.personas = self._initialize_personas()
         self.research_history = []
 
@@ -331,7 +332,7 @@ class SyntheticMarketResearch:
         # Select personas to evaluate
         if target_personas:
             evaluating_personas = [
-                p for p in self.personas if p.type in target_personas
+                p for p_var in self.personas if p.type in target_personas
             ]
         else:
             evaluating_personas = self.personas
@@ -345,10 +346,10 @@ class SyntheticMarketResearch:
             evaluations.append(evaluation)
 
         # Aggregate results
-        total_score = sum(e["score"] for e in evaluations)
+        total_score = sum(e["score"] for e_var in evaluations)
         avg_score = total_score / len(evaluations) if evaluations else 0
 
-        would_buy_count = sum(1 for e in evaluations if e["would_buy"])
+        would_buy_count = sum(1 for e_var in evaluations if e["would_buy"])
         buy_rate = would_buy_count / len(evaluations) if evaluations else 0
 
         # Collect all feedback
@@ -498,9 +499,9 @@ class SyntheticMarketResearch:
 
         # Analyze trends
         high_viability_count = sum(
-            1 for r in self.research_history if r["market_viability"] == "HIGH"
+            1 for_var r_var in self.research_history if r["market_viability"] == "HIGH"
         )
-        avg_scores = [r["average_score"] for r in self.research_history]
+        avg_scores = [r["average_score"] for_var r_var in self.research_history]
 
         return {
             "total_ideas_tested": len(self.research_history),
@@ -534,6 +535,7 @@ class SyntheticMarketResearch:
         return [item for item, _ in counts.most_common(3)]
 
 
+    """Main"""
 def main():
     """CLI interface for synthetic market research"""
     import argparse
@@ -574,7 +576,7 @@ def main():
     # Parse target personas if specified
     target_personas = None
     if args.target_personas:
-        target_personas = [PersonaType(p) for p in args.target_personas]
+        target_personas = [PersonaType(p) for p_var in args.target_personas]
 
     result = researcher.evaluate_book_idea(book_spec, target_personas)
 

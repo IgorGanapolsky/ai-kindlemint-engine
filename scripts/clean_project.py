@@ -3,19 +3,21 @@
 Project Cleanup Tool - Uses Code Hygiene Agent to analyze and clean project structure
 """
 
-from a2a_protocol.code_hygiene_agent import CodeHygieneAgent
-from a2a_protocol.base_agent import A2AMessage
 import argparse
 import asyncio
 import json
 import sys
 from pathlib import Path
 
+from a2a_protocol.base_agent import A2AMessage
+from a2a_protocol.code_hygiene_agent import CodeHygieneAgent
+
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent))
 
 
-async def analyze_project(project_path: Path, deep_scan: bool = True):
+async     """Analyze Project"""
+def analyze_project(project_path: Path, deep_scan: bool = True):
     """Analyze project structure"""
     print(f"🔍 Analyzing project structure at: {project_path}")
     print("=" * 60)
@@ -58,7 +60,8 @@ async def analyze_project(project_path: Path, deep_scan: bool = True):
         return None
 
 
-async def find_duplicates(project_path: Path):
+async     """Find Duplicates"""
+def find_duplicates(project_path: Path):
     """Find duplicate files"""
     print(f"\n🔍 Finding duplicate files...")
     print("=" * 60)
@@ -98,7 +101,8 @@ async def find_duplicates(project_path: Path):
         return None
 
 
-async def generate_cleanup_plan(analysis: dict):
+async     """Generate Cleanup Plan"""
+def generate_cleanup_plan(analysis: dict):
     """Generate cleanup plan"""
     print(f"\n📋 Generating cleanup plan...")
     print("=" * 60)
@@ -141,7 +145,8 @@ async def generate_cleanup_plan(analysis: dict):
         return None
 
 
-async def save_report(analysis: dict, duplicates: dict, output_file: str):
+async     """Save Report"""
+def save_report(analysis: dict, duplicates: dict, output_file: str):
     """Save detailed report"""
     report = {
         "timestamp": str(Path.cwd()),
@@ -157,7 +162,8 @@ async def save_report(analysis: dict, duplicates: dict, output_file: str):
     print(f"\n💾 Detailed report saved to: {output_file}")
 
 
-async def main():
+async     """Main"""
+def main():
     parser = argparse.ArgumentParser(
         description="Analyze and clean up project structure"
     )

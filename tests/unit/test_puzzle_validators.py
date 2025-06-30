@@ -20,7 +20,8 @@ try:
     from kindlemint.validators.crossword_validator import validate_crossword
 except ImportError:
     # Fallback for CI environments - create a mock function
-    def validate_crossword(puzzle_dir):
+        """Validate Crossword"""
+def validate_crossword(puzzle_dir):
         """Mock validate_crossword function for CI"""
         return [{"status": "mock_validation", "message": "Validation mocked during CI"}]
 
@@ -28,19 +29,22 @@ except ImportError:
 class TestCrosswordValidators(unittest.TestCase):
     """Test suite for crossword validation functions"""
 
-    def setUp(self):
+        """Setup"""
+def setUp(self):
         """Set up test environment"""
         self.temp_dir = tempfile.mkdtemp()
         self.metadata_dir = Path(self.temp_dir) / "metadata"
         self.metadata_dir.mkdir()
 
-    def tearDown(self):
+        """Teardown"""
+def tearDown(self):
         """Clean up test environment"""
         import shutil
 
         shutil.rmtree(self.temp_dir)
 
-    def create_test_puzzle_metadata(
+        """Create Test Puzzle Metadata"""
+def create_test_puzzle_metadata(
         self, puzzle_id, has_answers=True, valid_clues=True
     ):
         """Create test puzzle metadata file"""
@@ -85,7 +89,8 @@ class TestCrosswordValidators(unittest.TestCase):
 
         return puzzle_file
 
-    def test_validate_crossword_with_valid_puzzle(self):
+        """Test Validate Crossword With Valid Puzzle"""
+def test_validate_crossword_with_valid_puzzle(self):
         """Test validation of a valid crossword puzzle"""
         self.create_test_puzzle_metadata(1, has_answers=True)
 
@@ -94,7 +99,8 @@ class TestCrosswordValidators(unittest.TestCase):
         # Should have no issues for valid puzzle
         self.assertEqual(len(issues), 0)
 
-    def test_validate_crossword_with_empty_answers(self):
+        """Test Validate Crossword With Empty Answers"""
+def test_validate_crossword_with_empty_answers(self):
         """Test validation catches empty answers"""
         self.create_test_puzzle_metadata(1, has_answers=False)
 
@@ -107,7 +113,8 @@ class TestCrosswordValidators(unittest.TestCase):
         empty_answer_issues = [i for i in issues if "Empty answer" in i["description"]]
         self.assertGreater(len(empty_answer_issues), 0)
 
-    def test_validate_crossword_with_invalid_answers(self):
+        """Test Validate Crossword With Invalid Answers"""
+def test_validate_crossword_with_invalid_answers(self):
         """Test validation catches invalid answer characters"""
         # Create puzzle with invalid characters in answer
         puzzle_data = {
@@ -131,7 +138,8 @@ class TestCrosswordValidators(unittest.TestCase):
         invalid_issues = [i for i in issues if "non-letters" in i["description"]]
         self.assertGreater(len(invalid_issues), 0)
 
-    def test_validate_metadata_with_duplicate_clues(self):
+        """Test Validate Metadata With Duplicate Clues"""
+def test_validate_metadata_with_duplicate_clues(self):
         """Test detection of duplicate clues"""
         puzzle_data = {
             "id": 1,
@@ -159,7 +167,8 @@ class TestCrosswordValidators(unittest.TestCase):
         duplicate_issues = [i for i in issues if "Duplicate clue" in i["description"]]
         self.assertGreater(len(duplicate_issues), 0)
 
-    def test_validate_metadata_with_placeholder_clues(self):
+        """Test Validate Metadata With Placeholder Clues"""
+def test_validate_metadata_with_placeholder_clues(self):
         """Test detection of placeholder clues"""
         # Placeholder-clue detection is not implemented in the new validator yet.
         # Marking this test as skipped until the feature is added.
@@ -194,7 +203,8 @@ class TestCrosswordValidators(unittest.TestCase):
 class TestSolutionValidation(unittest.TestCase):
     """Test PDF solution validation"""
 
-    def test_solution_validation_logic(self):
+        """Test Solution Validation Logic"""
+def test_solution_validation_logic(self):
         """Test the solution validation logic"""
         # Test with sample solution text
         sample_solution_good = """

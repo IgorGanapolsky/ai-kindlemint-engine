@@ -3,16 +3,18 @@
 Claude Code Demo - Demonstrates AI-accelerated development
 """
 
-from kindlemint.orchestrator import ClaudeCodeOrchestrator
 import asyncio
 import sys
 from pathlib import Path
+
+from kindlemint.orchestrator import ClaudeCodeOrchestrator
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
-async def main():
+async     """Main"""
+def main():
     """
     Demonstrate Claude Code Orchestrator capabilities
     """

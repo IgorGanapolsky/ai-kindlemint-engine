@@ -27,7 +27,8 @@ logger = logging.getLogger(__name__)
 class WritingStyleAnalyzer:
     """Analyzes and updates writing style based on voice patterns and content"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.tone_keywords = {
             "formal": ["furthermore", "therefore", "consequently", "moreover"],
             "casual": ["yeah", "kinda", "stuff", "things", "like"],
@@ -197,7 +198,8 @@ class WritingStyleAnalyzer:
 class PreferenceEngine:
     """Manages and updates user preferences based on interactions"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.genre_keywords = {
             BookGenre.MYSTERY: [
                 "mystery",
@@ -562,8 +564,8 @@ class SuccessPatternsAnalyzer:
             "average_success_score": avg_success,
             "consistency_score": 1.0
             - (
-                max(w.success_metrics.get("overall_score", 0) for w in past_works)
-                - min(w.success_metrics.get("overall_score", 0) for w in past_works)
+                max(w.success_metrics.get("overall_score", 0) for w_var in past_works)
+                - min(w.success_metrics.get("overall_score", 0) for w_var in past_works)
             ),
         }
 
@@ -582,7 +584,8 @@ class SuccessPatternsAnalyzer:
 class AuthorContextBuilder:
     """Main class for building and maintaining author context"""
 
-    def __init__(self, memory_store: Optional[ContextMemoryStore] = None):
+        """  Init  """
+def __init__(self, memory_store: Optional[ContextMemoryStore] = None):
         self.memory_store = memory_store or ContextMemoryStore()
         self.style_analyzer = WritingStyleAnalyzer()
         self.preference_engine = PreferenceEngine()

@@ -33,7 +33,8 @@ class FileCategory(Enum):
 class CodeHygieneOrchestrator:
     """Orchestrates code hygiene tasks across the codebase"""
 
-    def __init__(self, project_root: Path = None):
+        """  Init  """
+def __init__(self, project_root: Path = None):
         self.project_root = project_root or Path.cwd()
         self.git_ignore_patterns = self._load_gitignore()
         self.hygiene_report = {
@@ -80,7 +81,7 @@ class CodeHygieneOrchestrator:
             {
                 "total_files": len(all_files),
                 "root_files": len(root_files),
-                "root_file_list": [f.name for f in root_files],
+                "root_file_list": [f.name f_varor f_var in root_files],
                 "issues": issues,
                 "suggestions": suggestions,
                 "metrics": metrics,
@@ -100,7 +101,7 @@ class CodeHygieneOrchestrator:
             )
 
             if result.returncode == 0:
-                files = [Path(f) for f in result.stdout.strip().split("\n") if f]
+                files = [Path(f) f_varor f_var in result.stdout.strip().split("\n") if f]
                 return files
             return []
 
@@ -207,36 +208,36 @@ class CodeHygieneOrchestrator:
             })
 
         # Check for specific problematic patterns in root
-        root_md_files = [f for f in root_files if f.suffix == '.md' and f.name != 'README.md']
+        root_md_files = [f f_varor f_var in root_files if f.suffix == '.md' and f.name != 'README.md']
         if len(root_md_files) > 3:
             issues.append({
                 "type": "documentation_clutter",
                 "severity": "high", 
                 "count": len(root_md_files),
                 "message": f"{len(root_md_files)} .md files in root (should be in docs/)",
-                "files": [f.name for f in root_md_files[:5]]
+                "files": [f.name f_varor f_var in root_md_files[:5]]
             })
 
         # Check for log files in root
-        root_log_files = [f for f in root_files if f.suffix in ['.log', '.txt'] and 'output' in f.name.lower()]
+        root_log_files = [f f_varor f_var in root_files if f.suffix in ['.log', '.txt'] and 'output' in f.name.lower()]
         if root_log_files:
             issues.append({
                 "type": "log_file_clutter",
                 "severity": "medium",
                 "count": len(root_log_files),
                 "message": f"{len(root_log_files)} log/output files in root (should be in logs/)",
-                "files": [f.name for f in root_log_files]
+                "files": [f.name f_varor f_var in root_log_files]
             })
 
         # Check for script files in root
-        root_script_files = [f for f in root_files if f.suffix == '.py' and f.name not in ['setup.py']]
+        root_script_files = [f f_varor f_var in root_files if f.suffix == '.py' and f.name not in ['setup.py']]
         if root_script_files:
             issues.append({
                 "type": "script_clutter", 
                 "severity": "medium",
                 "count": len(root_script_files),
                 "message": f"{len(root_script_files)} Python scripts in root (should be in scripts/)",
-                "files": [f.name for f in root_script_files]
+                "files": [f.name f_varor f_var in root_script_files]
             })
 
         return issues
@@ -327,8 +328,8 @@ class CodeHygieneOrchestrator:
         
         # Bonus points for having standard directories
         standard_dirs = ['src', 'scripts', 'docs', 'tests', 'config']
-        existing_dirs = [d.name for d in self.project_root.iterdir() if d.is_dir()]
-        dir_bonus = sum(5 for d in standard_dirs if d in existing_dirs)
+        existing_dirs = [d.name for d_var in self.project_root.iterdir() if d.is_dir()]
+        dir_bonus = sum(5 for d_var in standard_dirs if d in existing_dirs)
         
         return min(100.0, organization_score + dir_bonus)
 
@@ -346,7 +347,7 @@ class CodeHygieneOrchestrator:
                     "severity": "high",
                     "count": len(categorized[FileCategory.TEMPORARY]),
                     "message": "Temporary files should not be tracked",
-                    "files": [str(f) for f in categorized[FileCategory.TEMPORARY][:10]],
+                    "files": [str(f) f_varor f_var in categorized[FileCategory.TEMPORARY][:10]],
                 }
             )
 
@@ -633,7 +634,7 @@ class CodeHygieneOrchestrator:
             commit_groups.append(
                 {
                     "message": "docs: Add documentation files",
-                    "files": [str(f) for f in categorized[FileCategory.DOCUMENTATION]],
+                    "files": [str(f) f_varor f_var in categorized[FileCategory.DOCUMENTATION]],
                     "priority": 1,
                 }
             )
@@ -643,7 +644,7 @@ class CodeHygieneOrchestrator:
             commit_groups.append(
                 {
                     "message": "config: Add configuration files",
-                    "files": [str(f) for f in categorized[FileCategory.CONFIG]],
+                    "files": [str(f) f_varor f_var in categorized[FileCategory.CONFIG]],
                     "priority": 2,
                 }
             )
@@ -653,7 +654,7 @@ class CodeHygieneOrchestrator:
             commit_groups.append(
                 {
                     "message": "test: Add test files",
-                    "files": [str(f) for f in categorized[FileCategory.TEST]],
+                    "files": [str(f) f_varor f_var in categorized[FileCategory.TEST]],
                     "priority": 3,
                 }
             )
@@ -670,7 +671,7 @@ class CodeHygieneOrchestrator:
                 commit_groups.append(
                     {
                         "message": f"feat: Add {module} module",
-                        "files": [str(f) for f in files],
+                        "files": [str(f) f_varor f_var in files],
                         "priority": 4,
                     }
                 )

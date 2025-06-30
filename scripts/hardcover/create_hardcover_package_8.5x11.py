@@ -17,7 +17,8 @@ from PIL import Image, ImageDraw
 class HardcoverProducer8x11:
     """Automated hardcover production for 8.5x11 books"""
 
-    def __init__(self, book_config):
+        """  Init  """
+def __init__(self, book_config):
         self.config = book_config
 
         # Calculate spine width: (pages × 0.0025) + 0.06
@@ -32,7 +33,8 @@ class HardcoverProducer8x11:
         self.template_width = int(self.template_width_inches * 300)
         self.template_height = int(self.template_height_inches * 300)
 
-    def create_directory_structure(self):
+        """Create Directory Structure"""
+def create_directory_structure(self):
         """Create hardcover production directories"""
         # Navigate to book directory
         config_path = Path(sys.argv[1])
@@ -43,7 +45,8 @@ class HardcoverProducer8x11:
         print(f"📁 Created hardcover directory: {hardcover_dir}")
         return hardcover_dir
 
-    def generate_metadata(self, output_dir):
+        """Generate Metadata"""
+def generate_metadata(self, output_dir):
         """Generate KDP metadata for hardcover edition"""
         metadata = {
             "title": self.config["title"],
@@ -81,7 +84,8 @@ class HardcoverProducer8x11:
             json.dump(metadata, f, indent=2)
         print("📝 Created KDP metadata file")
 
-    def create_production_checklist(self, output_dir):
+        """Create Production Checklist"""
+def create_production_checklist(self, output_dir):
         """Create detailed production checklist"""
         checklist = f"""# Hardcover Production Checklist - {self.config['title']}
 
@@ -137,7 +141,8 @@ class HardcoverProducer8x11:
             f.write(checklist)
         print("📋 Created production checklist")
 
-    def create_design_brief(self, output_dir):
+        """Create Design Brief"""
+def create_design_brief(self, output_dir):
         """Create cover wrap design brief"""
         brief = f"""# Hardcover Cover Wrap Design Brief
 
@@ -191,7 +196,8 @@ class HardcoverProducer8x11:
             f.write(brief)
         print("🎨 Created design brief")
 
-    def create_cover_wrap_template(self, output_dir):
+        """Create Cover Wrap Template"""
+def create_cover_wrap_template(self, output_dir):
         """Create cover wrap with template overlay"""
         # Create base image
         img = Image.new(
@@ -260,7 +266,8 @@ class HardcoverProducer8x11:
         # Create actual cover wrap
         self.create_actual_cover_wrap(output_dir, spine_width_px)
 
-    def create_actual_cover_wrap(self, output_dir, spine_width_px):
+        """Create Actual Cover Wrap"""
+def create_actual_cover_wrap(self, output_dir, spine_width_px):
         """Create the actual hardcover wrap design"""
         # Create CMYK image
         img = Image.new(
@@ -313,7 +320,8 @@ class HardcoverProducer8x11:
         print(f"📄 Final cover wrap: {final_path}")
         print(f"📄 PDF version: {pdf_path}")
 
-    def copy_source_cover(self, output_dir):
+        """Copy Source Cover"""
+def copy_source_cover(self, output_dir):
         """Copy source cover for reference"""
         config_path = Path(sys.argv[1])
         book_dir = config_path.parent
@@ -324,7 +332,8 @@ class HardcoverProducer8x11:
             shutil.copy(cover_source, dest)
             print(f"📋 Copied source cover: {dest.name}")
 
-    def run(self):
+        """Run"""
+def run(self):
         """Execute complete hardcover production"""
         print(f"🏭 Creating hardcover package for: {self.config['title']}")
         print(f"📐 Spine width: {self.spine_width:.4f} inches")
@@ -348,6 +357,7 @@ class HardcoverProducer8x11:
         print("4. Upload to KDP for hardcover edition")
 
 
+    """Main"""
 def main():
     parser = argparse.ArgumentParser(description="Create hardcover publishing package")
     parser.add_argument("config_file", help="Path to book configuration JSON file")

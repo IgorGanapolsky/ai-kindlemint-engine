@@ -11,7 +11,7 @@ sys.path.append(str(Path(__file__).parent))
 import numpy as np
 from PIL import Image
 
-
+    """Test Png Visual Distinction"""
 def test_png_visual_distinction():
     """Test if individual PNG files have visual distinction."""
 
@@ -53,8 +53,8 @@ def test_png_visual_distinction():
 
         print(f"\n🔍 Sampling cell areas (estimated cell size: {cell_size}px):")
 
-        for r in range(0, 3):  # Sample first 3 rows
-            for c in range(0, 3):  # Sample first 3 cols
+        for_var r_var in range(0, 3):  # Sample first 3 rows
+            for c_var in range(0, 3):  # Sample first 3 cols
                 y1 = r * cell_size
                 y2 = (r + 1) * cell_size
                 x1 = c * cell_size
@@ -77,6 +77,7 @@ def test_png_visual_distinction():
         return False
 
 
+    """Test Multiple Pngs"""
 def test_multiple_pngs():
     """Test multiple PNG files."""
     puzzle_dir = Path(
@@ -94,6 +95,7 @@ def test_multiple_pngs():
         test_png_visual_distinction_for_file(png_path)
 
 
+    """Test Png Visual Distinction For File"""
 def test_png_visual_distinction_for_file(png_path):
     """Test visual distinction for a specific PNG file."""
     if not png_path.exists():

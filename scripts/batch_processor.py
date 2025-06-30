@@ -44,13 +44,16 @@ try:
     from sentry_config import add_breadcrumb, capture_kdp_error, init_sentry
 except Exception:  # pragma: no cover – fallback stubs if Sentry not available
 
-    def init_sentry(*_, **__):
+        """Init Sentry"""
+def init_sentry(*_, **__):
         return False
 
-    def add_breadcrumb(*_, **__):
+        """Add Breadcrumb"""
+def add_breadcrumb(*_, **__):
         pass
 
-    def capture_kdp_error(*_, **__):
+        """Capture Kdp Error"""
+def capture_kdp_error(*_, **__):
         pass
 
 
@@ -65,19 +68,24 @@ except Exception:  # pragma: no cover – fallback if Slack notifier not availab
     class SlackNotifier:
         """Stub SlackNotifier when module not available"""
 
-        def __init__(self, *args, **kwargs):
+            """  Init  """
+def __init__(self, *args, **kwargs):
             self.enabled = False
 
-        def send_message(self, *args, **kwargs):
+            """Send Message"""
+def send_message(self, *args, **kwargs):
             return False
 
-        def send_batch_complete(self, *args, **kwargs):
+            """Send Batch Complete"""
+def send_batch_complete(self, *args, **kwargs):
             return False
 
-        def send_error(self, *args, **kwargs):
+            """Send Error"""
+def send_error(self, *args, **kwargs):
             return False
 
-        def send_book_complete(self, *args, **kwargs):
+            """Send Book Complete"""
+def send_book_complete(self, *args, **kwargs):
             return False
 
 
@@ -94,7 +102,8 @@ except Exception:  # pragma: no cover – fallback stub if validator missing
     class EnhancedQAValidator:  # type: ignore
         """Stub QA validator so downstream references don't break when missing."""
 
-        def __init__(self, *_, **__):
+            """  Init  """
+def __init__(self, *_, **__):
             raise ImportError(
                 "EnhancedQAValidator not available. "
                 "Ensure scripts/enhanced_qa_validator.py exists and is importable."
@@ -113,7 +122,8 @@ logger = logging.getLogger("BatchProcessor")
 class BatchProcessor:
     """Orchestrates the entire book generation workflow"""
 
-    def __init__(self, config_path: str, resume_file: Optional[str] = None):
+        """  Init  """
+def __init__(self, config_path: str, resume_file: Optional[str] = None):
         """Initialize the batch processor with configuration"""
         self.config_path = Path(config_path)
         self.resume_file = resume_file
@@ -203,14 +213,16 @@ class BatchProcessor:
             logger.error(f"Failed to load progress file: {e}")
             return {}
 
-    def _save_progress(self):
+        """ Save Progress"""
+def _save_progress(self):
         """Save current progress for potential resume"""
         progress_file = self.report_dir / "batch_progress.json"
         with open(progress_file, "w") as f:
             json.dump(self.results, f, indent=2)
         logger.info(f"Progress saved to {progress_file}")
 
-    def _import_module_from_path(self, module_path: str, module_name: str):
+        """ Import Module From Path"""
+def _import_module_from_path(self, module_path: str, module_name: str):
         """Dynamically import a module from file path"""
         try:
             spec = importlib.util.spec_from_file_location(module_name, module_path)
@@ -223,7 +235,8 @@ class BatchProcessor:
             )
             return None
 
-    def process_batch(self):
+        """Process Batch"""
+def process_batch(self):
         """Process all books in the batch configuration"""
         start_time = time.time()
         total_books = len(self.config["books"])
@@ -748,7 +761,8 @@ class BatchProcessor:
 
             # Create a custom EPUB generator instance
             class CustomEpubGenerator(epub_module.EnhancedKindleEpubGenerator):
-                def __init__(self, output_dir, book_config):
+                    """  Init  """
+def __init__(self, output_dir, book_config):
                     super().__init__()
                     self.output_dir = output_dir
                     self.epub_dir = output_dir / "epub_enhanced_build"
@@ -1367,6 +1381,7 @@ Batch ID: {self.batch_id}
         return str(report_file)
 
 
+    """Main"""
 def main():
     """Main entry point for batch processor"""
     parser = argparse.ArgumentParser(description="KindleMint Engine Batch Processor")

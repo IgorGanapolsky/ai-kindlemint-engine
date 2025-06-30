@@ -109,7 +109,8 @@ class MarketingAnalyticsDashboard:
     - Growth forecasting
     """
 
-    def __init__(self, author_name: str, brand_name: str):
+        """  Init  """
+def __init__(self, author_name: str, brand_name: str):
         self.author_name = author_name
         self.brand_name = brand_name
 
@@ -245,20 +246,20 @@ class MarketingAnalyticsDashboard:
     def _generate_summary_cards(self, today_start: datetime) -> List[Dict[str, any]]:
         """Generate summary metric cards"""
 
-        today_metrics = [m for m in self.metrics if m.timestamp >= today_start]
+        today_metrics = [m for m_var in self.metrics if m.timestamp >= today_start]
         yesterday_start = today_start - timedelta(days=1)
         yesterday_metrics = [
-            m for m in self.metrics if yesterday_start <= m.timestamp < today_start
+            m for m_var in self.metrics if yesterday_start <= m.timestamp < today_start
         ]
 
         cards = []
 
         # Total Engagement Card
         today_engagement = sum(
-            m.value for m in today_metrics if m.metric_type == MetricType.ENGAGEMENT
+            m.value for m_var in today_metrics if m.metric_type == MetricType.ENGAGEMENT
         )
         yesterday_engagement = sum(
-            m.value for m in yesterday_metrics if m.metric_type == MetricType.ENGAGEMENT
+            m.value for m_var in yesterday_metrics if m.metric_type == MetricType.ENGAGEMENT
         )
         engagement_change = today_engagement - yesterday_engagement
         engagement_change_pct = (
@@ -281,10 +282,10 @@ class MarketingAnalyticsDashboard:
 
         # Total Reach Card
         today_reach = sum(
-            m.value for m in today_metrics if m.metric_type == MetricType.REACH
+            m.value for m_var in today_metrics if m.metric_type == MetricType.REACH
         )
         yesterday_reach = sum(
-            m.value for m in yesterday_metrics if m.metric_type == MetricType.REACH
+            m.value for m_var in yesterday_metrics if m.metric_type == MetricType.REACH
         )
         reach_change = today_reach - yesterday_reach
         reach_change_pct = (
@@ -305,9 +306,9 @@ class MarketingAnalyticsDashboard:
 
         # Conversion Rate Card
         today_conversions = sum(
-            m.value for m in today_metrics if m.metric_type == MetricType.CONVERSION
+            m.value for m_var in today_metrics if m.metric_type == MetricType.CONVERSION
         )
-        today_clicks = sum(m.value for m in today_metrics if "click" in m.name.lower())
+        today_clicks = sum(m.value for m_var in today_metrics if "click" in m.name.lower())
         conversion_rate = (
             (today_conversions / today_clicks * 100) if today_clicks > 0 else 0
         )
@@ -326,10 +327,10 @@ class MarketingAnalyticsDashboard:
 
         # ROI Card
         today_revenue = sum(
-            m.value for m in today_metrics if m.metric_type == MetricType.REVENUE
+            m.value for m_var in today_metrics if m.metric_type == MetricType.REVENUE
         )
         today_cost = sum(
-            m.value for m in today_metrics if m.metric_type == MetricType.COST
+            m.value for m_var in today_metrics if m.metric_type == MetricType.COST
         )
         roi = ((today_revenue - today_cost) / today_cost * 100) if today_cost > 0 else 0
 
@@ -352,7 +353,7 @@ class MarketingAnalyticsDashboard:
 
         # Last 30 days data
         cutoff_date = datetime.now() - timedelta(days=30)
-        recent_metrics = [m for m in self.metrics if m.timestamp >= cutoff_date]
+        recent_metrics = [m for m_var in self.metrics if m.timestamp >= cutoff_date]
 
         # Group by day
         daily_data = defaultdict(
@@ -390,24 +391,24 @@ class MarketingAnalyticsDashboard:
         return {
             "engagement_trend": {
                 "data": [
-                    {"date": d["date"], "value": d["engagement"]} for d in chart_data
+                    {"date": d["date"], "value": d["engagement"]} for d_var in chart_data
                 ],
                 "title": "Engagement Trend (30 Days)",
             },
             "reach_trend": {
-                "data": [{"date": d["date"], "value": d["reach"]} for d in chart_data],
+                "data": [{"date": d["date"], "value": d["reach"]} for d_var in chart_data],
                 "title": "Reach Trend (30 Days)",
             },
             "conversion_trend": {
                 "data": [
-                    {"date": d["date"], "value": d["conversions"]} for d in chart_data
+                    {"date": d["date"], "value": d["conversions"]} for d_var in chart_data
                 ],
                 "title": "Conversions Trend (30 Days)",
             },
             "engagement_rate_trend": {
                 "data": [
                     {"date": d["date"], "value": d["engagement_rate"]}
-                    for d in chart_data
+                    for d_var in chart_data
                 ],
                 "title": "Engagement Rate Trend (30 Days)",
             },
@@ -419,22 +420,22 @@ class MarketingAnalyticsDashboard:
         platform_data = {}
 
         for platform in PlatformType:
-            platform_metrics = [m for m in self.metrics if m.platform == platform]
+            platform_metrics = [m for m_var in self.metrics if m.platform == platform]
 
             if platform_metrics:
                 engagement = sum(
                     m.value
-                    for m in platform_metrics
+                    for m_var in platform_metrics
                     if m.metric_type == MetricType.ENGAGEMENT
                 )
                 reach = sum(
                     m.value
-                    for m in platform_metrics
+                    for m_var in platform_metrics
                     if m.metric_type == MetricType.REACH
                 )
                 conversions = sum(
                     m.value
-                    for m in platform_metrics
+                    for m_var in platform_metrics
                     if m.metric_type == MetricType.CONVERSION
                 )
 
@@ -506,13 +507,13 @@ class MarketingAnalyticsDashboard:
 
         # Calculate funnel stages from metrics
         total_impressions = sum(
-            m.value for m in self.metrics if "impression" in m.name.lower()
+            m.value for m_var in self.metrics if "impression" in m.name.lower()
         )
-        total_clicks = sum(m.value for m in self.metrics if "click" in m.name.lower())
-        total_visits = sum(m.value for m in self.metrics if "visit" in m.name.lower())
-        total_leads = sum(m.value for m in self.metrics if "lead" in m.name.lower())
+        total_clicks = sum(m.value for m_var in self.metrics if "click" in m.name.lower())
+        total_visits = sum(m.value for m_var in self.metrics if "visit" in m.name.lower())
+        total_leads = sum(m.value for m_var in self.metrics if "lead" in m.name.lower())
         total_conversions = sum(
-            m.value for m in self.metrics if m.metric_type == MetricType.CONVERSION
+            m.value for m_var in self.metrics if m.metric_type == MetricType.CONVERSION
         )
 
         funnel_stages = [
@@ -587,12 +588,12 @@ class MarketingAnalyticsDashboard:
 
         # Check for unusual spikes or drops in the last hour
         one_hour_ago = datetime.now() - timedelta(hours=1)
-        recent_metrics = [m for m in self.metrics if m.timestamp >= one_hour_ago]
+        recent_metrics = [m for m_var in self.metrics if m.timestamp >= one_hour_ago]
 
         if recent_metrics:
             recent_engagement = sum(
                 m.value
-                for m in recent_metrics
+                for m_var in recent_metrics
                 if m.metric_type == MetricType.ENGAGEMENT
             )
 
@@ -622,7 +623,7 @@ class MarketingAnalyticsDashboard:
 
         # Check for platform-specific issues
         for platform in PlatformType:
-            platform_metrics = [m for m in recent_metrics if m.platform == platform]
+            platform_metrics = [m for m_var in recent_metrics if m.platform == platform]
             if not platform_metrics:
                 alerts.append(
                     {
@@ -642,14 +643,14 @@ class MarketingAnalyticsDashboard:
         week_ago = datetime.now() - timedelta(days=7)
         week_metrics = [
             m
-            for m in self.metrics
+            for m_var in self.metrics
             if m.timestamp >= week_ago and m.metric_type == MetricType.ENGAGEMENT
         ]
 
         if not week_metrics:
             return 100  # Default value
 
-        total_engagement = sum(m.value for m in week_metrics)
+        total_engagement = sum(m.value for m_var in week_metrics)
         hours_in_week = 24 * 7
 
         return total_engagement / hours_in_week
@@ -719,9 +720,9 @@ class MarketingAnalyticsDashboard:
             )
 
         # ROI recommendations
-        roi_metrics = [m for m in self.metrics if m.metric_type == MetricType.ROI]
+        roi_metrics = [m for m_var in self.metrics if m.metric_type == MetricType.ROI]
         if roi_metrics:
-            avg_roi = statistics.mean([m.value for m in roi_metrics])
+            avg_roi = statistics.mean([m.value for m_var in roi_metrics])
             if avg_roi < self.kpi_targets["roi"]:
                 recommendations.append(
                     {
@@ -766,15 +767,15 @@ class MarketingAnalyticsDashboard:
         platform_performance = {}
 
         for platform in PlatformType:
-            platform_metrics = [m for m in self.metrics if m.platform == platform]
+            platform_metrics = [m for m_var in self.metrics if m.platform == platform]
 
             engagement = sum(
                 m.value
-                for m in platform_metrics
+                for m_var in platform_metrics
                 if m.metric_type == MetricType.ENGAGEMENT
             )
             reach = sum(
-                m.value for m in platform_metrics if m.metric_type == MetricType.REACH
+                m.value for m_var in platform_metrics if m.metric_type == MetricType.REACH
             )
 
             if reach > 0:
@@ -790,7 +791,7 @@ class MarketingAnalyticsDashboard:
         # Engagement Rate KPI
         if self.content_performance:
             current_engagement = statistics.mean(
-                [c.engagement_rate for c in self.content_performance.values()]
+                [c.engagement_rate for c_var in self.content_performance.values()]
             )
             kpi_status["engagement_rate"] = {
                 "current": round(current_engagement, 2),
@@ -806,9 +807,9 @@ class MarketingAnalyticsDashboard:
             }
 
         # ROI KPI
-        roi_metrics = [m for m in self.metrics if m.metric_type == MetricType.ROI]
+        roi_metrics = [m for m_var in self.metrics if m.metric_type == MetricType.ROI]
         if roi_metrics:
-            current_roi = statistics.mean([m.value for m in roi_metrics])
+            current_roi = statistics.mean([m.value for m_var in roi_metrics])
             kpi_status["roi"] = {
                 "current": round(current_roi, 1),
                 "target": self.kpi_targets["roi"],
@@ -822,9 +823,9 @@ class MarketingAnalyticsDashboard:
 
         # Conversion Rate KPI
         conversions = sum(
-            m.value for m in self.metrics if m.metric_type == MetricType.CONVERSION
+            m.value for m_var in self.metrics if m.metric_type == MetricType.CONVERSION
         )
-        total_traffic = sum(m.value for m in self.metrics if "click" in m.name.lower())
+        total_traffic = sum(m.value for m_var in self.metrics if "click" in m.name.lower())
 
         if total_traffic > 0:
             current_conversion_rate = (conversions / total_traffic) * 100
@@ -867,7 +868,7 @@ class MarketingAnalyticsDashboard:
 
         # Filter metrics by timeframe
         filtered_metrics = [
-            m for m in self.metrics if start_date <= m.timestamp <= end_date
+            m for m_var in self.metrics if start_date <= m.timestamp <= end_date
         ]
 
         return {
@@ -902,16 +903,16 @@ class MarketingAnalyticsDashboard:
             return {"error": "No data available for selected timeframe"}
 
         total_engagement = sum(
-            m.value for m in metrics if m.metric_type == MetricType.ENGAGEMENT
+            m.value for m_var in metrics if m.metric_type == MetricType.ENGAGEMENT
         )
-        total_reach = sum(m.value for m in metrics if m.metric_type == MetricType.REACH)
+        total_reach = sum(m.value for m_var in metrics if m.metric_type == MetricType.REACH)
         total_conversions = sum(
-            m.value for m in metrics if m.metric_type == MetricType.CONVERSION
+            m.value for m_var in metrics if m.metric_type == MetricType.CONVERSION
         )
         total_revenue = sum(
-            m.value for m in metrics if m.metric_type == MetricType.REVENUE
+            m.value for m_var in metrics if m.metric_type == MetricType.REVENUE
         )
-        total_cost = sum(m.value for m in metrics if m.metric_type == MetricType.COST)
+        total_cost = sum(m.value for m_var in metrics if m.metric_type == MetricType.COST)
 
         # Calculate key metrics
         engagement_rate = (
@@ -990,7 +991,7 @@ class MarketingAnalyticsDashboard:
                     "timestamp": m.timestamp.isoformat(),
                     "metadata": m.metadata,
                 }
-                for m in self.metrics
+                for m_var in self.metrics
             ],
             "content_performance": [
                 {
@@ -1002,7 +1003,7 @@ class MarketingAnalyticsDashboard:
                     "reach": c.reach,
                     "conversion_value": c.conversion_value,
                 }
-                for c in self.content_performance.values()
+                for c_var in self.content_performance.values()
             ],
             "export_metadata": {
                 "exported_at": datetime.now().isoformat(),

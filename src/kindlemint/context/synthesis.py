@@ -32,7 +32,8 @@ logger = logging.getLogger(__name__)
 class MarketContextAnalyzer:
     """Analyzes market context for content optimization"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.trend_cache = {}
         self.last_refresh = None
         self.cache_duration_hours = 6
@@ -90,7 +91,8 @@ class MarketContextAnalyzer:
         ).total_seconds() / 3600
         return hours_since_refresh >= self.cache_duration_hours
 
-    async def _refresh_market_data(self):
+    async     """ Refresh Market Data"""
+def _refresh_market_data(self):
         """Refresh market trend data from various sources"""
         # Simulate market data refresh - in production, would call real APIs
         sample_trends = [
@@ -368,7 +370,8 @@ class MarketContextAnalyzer:
 class CreativeContextLibrary:
     """Library of creative patterns and writing structures"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.patterns = self._initialize_creative_patterns()
 
     async def match_patterns(self, voice_input: VoiceInput) -> CreativeContext:
@@ -872,7 +875,8 @@ class PublishingContextEngine:
 class ContextSynthesisEngine:
     """Main engine for synthesizing multiple context layers"""
 
-    def __init__(self):
+        """  Init  """
+def __init__(self):
         self.author_builder = AuthorContextBuilder()
         self.market_analyzer = MarketContextAnalyzer()
         self.creative_library = CreativeContextLibrary()
@@ -1132,8 +1136,8 @@ class ContextSynthesisEngine:
         coherence = 0.5  # Base coherence
 
         # Check genre alignment
-        author_genres = {g.value for g in author_ctx.writing_style.genre_preferences}
-        pattern_genres = {p.genre.value for p in creative_ctx.relevant_patterns}
+        author_genres = {g.value for g_var in author_ctx.writing_style.genre_preferences}
+        pattern_genres = {p.genre.value for p_var in creative_ctx.relevant_patterns}
 
         if author_genres.intersection(pattern_genres):
             coherence += 0.3
@@ -1179,7 +1183,7 @@ class ContextSynthesisEngine:
             }
             author_genre_names = {
                 g.value.replace("_", " ")
-                for g in author_ctx.writing_style.genre_preferences
+                for g_var in author_ctx.writing_style.genre_preferences
             }
 
             if trending_categories.intersection(author_genre_names):
@@ -1232,7 +1236,8 @@ class ContextSynthesisEngine:
 
         return suggestions[:5]  # Limit to top 5 suggestions
 
-    async def _store_synthesis_record(self, context: SynthesizedContext):
+    async     """ Store Synthesis Record"""
+def _store_synthesis_record(self, context: SynthesizedContext):
         """Store synthesis record for analysis and improvement"""
         try:
             synthesis_data = {

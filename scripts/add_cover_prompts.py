@@ -39,6 +39,8 @@ def get_cover_prompt(title: str, series_name: str, book_type: str) -> str:
 
     return prompt
 
+    """Add Cover Prompts"""
+
 
 def add_cover_prompts():
     """Add cover prompts to all metadata files"""

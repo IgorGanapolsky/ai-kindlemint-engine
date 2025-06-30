@@ -20,7 +20,8 @@ class SudokuPuzzleFixer:
         "expert": {"min": 17, "max": 19, "target": 18},
     }
 
-    def __init__(self, puzzles_dir: Path):
+        """  Init  """
+def __init__(self, puzzles_dir: Path):
         self.puzzles_dir = puzzles_dir
         self.metadata_dir = puzzles_dir / "metadata"
         self.issues_found = []
@@ -199,7 +200,8 @@ class SudokuPuzzleFixer:
             )
             return False
 
-    def run(self):
+        """Run"""
+def run(self):
         """Run the puzzle fixer"""
         print("🚀 Starting Sudoku Puzzle Fixer")
         print("=" * 50)
@@ -230,17 +232,18 @@ class SudokuPuzzleFixer:
         if fixed_count > 0:
             print(
                 f"\n✅ Successfully fixed puzzles: {
-                    ', '.join(f'#{p}' for p in self.fixed_puzzles)}"
+                    ', '.join(f'#{p}' for p_var in self.fixed_puzzles)}"
             )
 
         if fixed_count < len(invalid_puzzles):
             failed = [
-                p["id"] for p in invalid_puzzles if p["id"] not in self.fixed_puzzles
+                p["id"] for p_var in invalid_puzzles if p["id"] not in self.fixed_puzzles
             ]
-            print(f"\n❌ Failed to fix puzzles: {', '.join(f'#{p}' for p in failed)}")
+            print(f"\n❌ Failed to fix puzzles: {', '.join(f'#{p}' for p_var in failed)}")
             print("   These puzzles may need manual regeneration.")
 
 
+    """Main"""
 def main():
     """Main function"""
     base_path = Path(__file__).parent.parent

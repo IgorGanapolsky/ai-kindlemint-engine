@@ -41,7 +41,8 @@ except ImportError:
 class CompleteSudokuBookGenerator:
     """Generate complete Sudoku book with all required elements"""
 
-    def __init__(self, volume_path: Path):
+        """  Init  """
+def __init__(self, volume_path: Path):
         self.volume_path = volume_path
         self.puzzles_dir = volume_path / "puzzles"
         self.output_dir = volume_path / "paperback"
@@ -51,7 +52,8 @@ class CompleteSudokuBookGenerator:
         self.styles = getSampleStyleSheet()
         self.setup_custom_styles()
 
-    def setup_custom_styles(self):
+        """Setup Custom Styles"""
+def setup_custom_styles(self):
         """Setup custom paragraph styles for the book"""
         self.styles.add(
             ParagraphStyle(
@@ -97,7 +99,8 @@ class CompleteSudokuBookGenerator:
             )
         )
 
-    def create_title_page(self, story):
+        """Create Title Page"""
+def create_title_page(self, story):
         """Create the title page"""
         story.append(Spacer(1, 2 * inch))
 
@@ -120,7 +123,8 @@ class CompleteSudokuBookGenerator:
         story.append(author)
         story.append(PageBreak())
 
-    def create_copyright_page(self, story):
+        """Create Copyright Page"""
+def create_copyright_page(self, story):
         """Create the copyright page (Page 2)"""
         story.append(Spacer(1, 1 * inch))
 
@@ -149,7 +153,8 @@ class CompleteSudokuBookGenerator:
 
         story.append(PageBreak())
 
-    def load_puzzle_data(self):
+        """Load Puzzle Data"""
+def load_puzzle_data(self):
         """Load all puzzle data from JSON files"""
         puzzles = []
         metadata_dir = self.puzzles_dir / "metadata"
@@ -163,7 +168,8 @@ class CompleteSudokuBookGenerator:
 
         return sorted(puzzles, key=lambda x: x.get("id", 0))
 
-    def add_puzzle_pages(self, story, puzzles):
+        """Add Puzzle Pages"""
+def add_puzzle_pages(self, story, puzzles):
         """Add all puzzle pages to the book"""
         for i, puzzle in enumerate(puzzles, 1):
             # Puzzle number header
@@ -193,7 +199,8 @@ class CompleteSudokuBookGenerator:
 
             story.append(PageBreak())
 
-    def add_text_puzzle(self, story, puzzle):
+        """Add Text Puzzle"""
+def add_text_puzzle(self, story, puzzle):
         """Add a text-based puzzle representation"""
         if "initial_grid" in puzzle:
             grid_text = ""
@@ -207,7 +214,8 @@ class CompleteSudokuBookGenerator:
             placeholder = Paragraph("[ Sudoku Grid ]", self.styles["Normal"])
             story.append(placeholder)
 
-    def add_text_solution(self, story, puzzle):
+        """Add Text Solution"""
+def add_text_solution(self, story, puzzle):
         """Add a text-based solution representation"""
         if "solution_grid" in puzzle:
             solution_text = ""
@@ -221,7 +229,8 @@ class CompleteSudokuBookGenerator:
             placeholder = Paragraph("[ Solution Grid ]", self.styles["Normal"])
             story.append(placeholder)
 
-    def add_solutions_section(self, story, puzzles):
+        """Add Solutions Section"""
+def add_solutions_section(self, story, puzzles):
         """Add solutions section"""
         story.append(Spacer(1, 1 * inch))
 
@@ -260,7 +269,8 @@ class CompleteSudokuBookGenerator:
 
             story.append(PageBreak())
 
-    def add_final_teaser_page(self, story):
+        """Add Final Teaser Page"""
+def add_final_teaser_page(self, story):
         """Add the final teaser page (Page 104)"""
         story.append(Spacer(1, 2 * inch))
 
@@ -287,7 +297,8 @@ class CompleteSudokuBookGenerator:
             else:
                 story.append(Spacer(1, 15))
 
-    def generate_complete_book(self):
+        """Generate Complete Book"""
+def generate_complete_book(self):
         """Generate the complete book with all elements"""
         from datetime import datetime
 
@@ -346,6 +357,7 @@ class CompleteSudokuBookGenerator:
         return output_file
 
 
+    """Main"""
 def main():
     """Main function to generate the complete book"""
     base_path = Path(__file__).parent.parent
