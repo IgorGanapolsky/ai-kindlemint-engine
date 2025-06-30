@@ -51,9 +51,22 @@ AI-KindleMint-Engine is a comprehensive platform that:
 
 ## 🛠️ Core Capabilities
 
-### ✅ Fully Implemented
+### ✅ Orchestration Systems (COMPLETE)
+- **Unified Orchestrator** - Seamlessly integrates Claude Code + A2A
 - **Claude Code Orchestrator** - AI development acceleration
-- **Multi-Agent System** - Content, marketing, revenue agents
+- **A2A Protocol** - Agent-to-agent communication framework
+- **Task Routing** - Auto-selects optimal execution system
+- **Cross-System Workflows** - Coordinates complex operations
+- **API Management** - Handles OpenAI, Gemini, Slack integrations
+
+### ✅ AI Agent Systems (COMPLETE) 
+- **Multi-Agent Architecture** - Content, marketing, revenue agents
+- **Agent Registry** - Dynamic agent creation and management
+- **Skill Discovery** - Agents can find and use each other's capabilities
+- **Message Passing** - Async communication between agents
+- **Resource Sharing** - Agents share data and computational resources
+
+### ✅ Content Generation (COMPLETE)
 - **Puzzle Generators** - Crossword (v3), Sudoku, Word Search
 - **PDF Generation** - Professional layouts with ReportLab
 - **Quality Validation** - 14-point critical QA system
@@ -126,11 +139,40 @@ pip install -r requirements.txt
 # Install in development mode
 pip install -e .
 
-# Make Claude Code CLI executable
+# Make orchestration tools executable
 chmod +x claude-code
 ```
 
-### 2. Quick Start with Claude Code
+### 2. Configure API Keys
+
+```bash
+# Copy environment template
+cp .env.example .env
+
+# Edit .env with your API keys:
+# REQUIRED:
+# OPENAI_API_KEY=your_openai_key_here
+#
+# OPTIONAL:
+# GEMINI_API_KEY=your_gemini_key_here  
+# SLACK_WEBHOOK_URL=your_slack_webhook
+# SENTRY_DSN=your_sentry_dsn
+```
+
+### 3. Test Orchestration
+
+```bash
+# Test Claude Code orchestration
+./claude-code status
+
+# Test A2A agent system
+python -c "from kindlemint.a2a import AgentRegistry; print('A2A Ready!')"
+
+# Test unified orchestration
+python -c "from kindlemint.orchestrator import UnifiedOrchestrator; print('Unified Ready!')"
+```
+
+### 4. Quick Start Examples
 
 ```bash
 # Create your first AI agent
@@ -152,6 +194,127 @@ from features.voice_to_book import VoiceToBookPipeline
 
 pipeline = VoiceToBookPipeline()
 book = await pipeline.process_voice_file("my_expertise.mp3")
+```
+
+## 🤖 Dual Orchestration System
+
+### Overview
+AI-KindleMint-Engine uses **two integrated AI orchestration systems**:
+
+1. **Claude Code Orchestration** - AI-accelerated development system  
+2. **A2A (Agent-to-Agent) Protocol** - Decoupled agent communication
+3. **Unified Orchestrator** - Combines both systems seamlessly
+
+### Architecture
+```
+┌─────────────────────┐
+│  Unified Orchestrator │
+├─────────────────────┤
+│ ┌─────────────────┐ │   ┌─────────────────┐
+│ │ Claude Code     │ │   │ A2A Protocol    │
+│ │ Orchestrator    │ │◄──┤ Agent Registry  │
+│ │ - Task Management│ │   │ - Agent Spawning│
+│ │ - Code Generation│ │   │ - Message Passing│
+│ │ - Test Automation│ │   │ - Skill Discovery│
+│ └─────────────────┘ │   └─────────────────┘
+└─────────────────────┘
+```
+
+### Required API Keys
+
+**Core Requirements:**
+- `OPENAI_API_KEY` - Content generation, code assistance
+- `GEMINI_API_KEY` - Alternative AI provider (optional)
+
+**Optional Integrations:**
+- `SLACK_WEBHOOK_URL` - Notifications and monitoring
+- `SENTRY_DSN` - Error tracking and performance
+- `KDP_EMAIL/PASSWORD` - For manual reference only (no automation)
+
+**Production Setup (GitHub Secrets):**
+Our system uses **GitHub Secrets** for secure API key management:
+
+1. Go to **Settings → Secrets and variables → Actions**
+2. Add these repository secrets:
+   ```
+   OPENAI_API_KEY=your_openai_key_here
+   GEMINI_API_KEY=your_gemini_key_here (optional)
+   SLACK_WEBHOOK_URL=your_slack_webhook (optional)
+   SENTRY_DSN=your_sentry_dsn (optional)
+   ```
+
+**Local Development Setup:**
+For local testing only, you can use `.env`:
+```bash
+# Copy environment template (local development only)
+cp .env.example .env
+# Add keys to .env file
+```
+
+**CI/CD Integration:**
+GitHub Actions automatically loads secrets for:
+- QA validation workflows
+- Badge generation 
+- Orchestration tasks
+- Error monitoring
+
+### How Both Systems Work Together
+
+**Claude Code Orchestrator:**
+- Handles development tasks (coding, testing, optimization)
+- Generates complete features with documentation
+- Manages development workflows
+- Creates specialized AI agents
+
+**A2A Protocol:**
+- Manages puzzle generation agents
+- Handles PDF layout and formatting
+- Coordinates between independent agents
+- Provides async task execution
+
+**Unified Orchestrator:**
+- Routes tasks to appropriate system
+- Coordinates cross-system workflows  
+- Manages hybrid operations
+- Provides unified monitoring
+
+### Example Usage
+
+**Claude Code Development:**
+```bash
+# Generate complete feature with tests
+./claude-flow develop-feature payment_integration
+
+# Create specialized agent
+./claude-flow create-agent --type puzzle-validator
+
+# Optimize entire codebase
+./claude-flow optimize --auto-implement
+```
+
+**A2A Agent Coordination:**
+```python
+from kindlemint.a2a import AgentRegistry
+
+# Spawn puzzle generator
+registry = AgentRegistry()
+agent = registry.create_agent("puzzle_generator", {"type": "sudoku"})
+
+# Generate 100 puzzles
+result = await agent.execute_skill("generate_batch", {"count": 100})
+```
+
+**Unified Workflow:**
+```python
+from kindlemint.orchestrator import UnifiedOrchestrator
+
+orchestrator = UnifiedOrchestrator()
+
+# Auto-routes to best system
+task = await orchestrator.execute_task({
+    "type": "create_book",
+    "parameters": {"genre": "sudoku", "volume": 1}
+})
 ```
 
 ## 🚀 Key Features & Usage
