@@ -32,8 +32,10 @@
   "target_audience": "Expert solvers, cognitive athletes, challenge enthusiasts",
   "publication_date": "2025-06-30",
   "isbn": "KDP_AUTO_ASSIGNED",
-  "low_content_book": true,
-  "large_print_book": true,
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  },
   "printing_cost_estimate": "$4.05",
   "royalty_estimate": "$4.50 - $5.50",
   "market_position": "Premium expert-level offering",
@@ -47,5 +49,6 @@
   },
   "cover_design": {
     "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 5 - Hard Puzzles'. Deep purple and gold color scheme suggesting mastery. Complex Sudoku grid pattern with expert-level visual. Bold, authoritative typography with 'Volume 5' badge prominently displayed. Include crown or summit imagery for achievement. 'For Experienced Solvers' subtitle clearly visible. 'Large Print' feature highlighted."
-  }
+  },
+  "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 5. Sophisticated design with deep purple and gold color scheme. Highlight key features: '120 Hard Puzzles', 'For Experienced Solvers', 'Expert Strategy Compendium', 'Cognitive Mastery Training'. Include brief description of expert-level challenges, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
 }

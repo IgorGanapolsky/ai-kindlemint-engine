@@ -32,8 +32,10 @@
   "target_audience": "Experienced solvers, challenge seekers, cognitive athletes",
   "publication_date": "2025-06-30",
   "isbn": "KDP_AUTO_ASSIGNED",
-  "low_content_book": true,
-  "large_print_book": true,
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  },
   "printing_cost_estimate": "$3.85",
   "royalty_estimate": "$4.25 - $5.25",
   "market_position": "Premium challenge for advancing solvers",
@@ -47,5 +49,6 @@
   },
   "cover_design": {
     "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 4 - Rising Challenge'. Dynamic orange to red gradient suggesting increasing difficulty. Sudoku grid with complex pattern visible. Strong, bold typography with 'Volume 4' badge. Include upward arrow or mountain imagery for 'rising' theme. Professional design with 'Large Print' prominently featured. Convey advancement and achievement."
-  }
+  },
+  "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 4. Dynamic design with orange to red gradient theme. Highlight key features: '110 Medium to Hard Puzzles', 'Rising Challenge for Growth', 'Advanced Technique Tutorials', 'Expert Strategy Development'. Include brief description of skill advancement, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
 }

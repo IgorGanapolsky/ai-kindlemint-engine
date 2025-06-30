@@ -17,7 +17,7 @@
   ],
   "categories": [
     "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
-    "Health, Fitness & Dieting > Mental Health > Cognitive",
+    "Health, Fitness & Dieting > Mental Health",
     "Self-Help > Personal Transformation"
   ],
   "language": "en",
@@ -32,8 +32,10 @@
   "target_audience": "Seniors, intermediate solvers, cognitive development seekers",
   "publication_date": "2025-06-30",
   "isbn": "KDP_AUTO_ASSIGNED",
-  "low_content_book": true,
-  "large_print_book": true,
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  },
   "printing_cost_estimate": "$3.65",
   "royalty_estimate": "$3.75 - $4.75",
   "market_position": "Progressive difficulty for skill building",
@@ -47,5 +49,6 @@
   },
   "cover_design": {
     "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 2 - Easy to Medium'. Modern design with gradient from light blue (easy) to medium blue (medium difficulty). Feature Sudoku grid with progression visual. Bold, accessible typography with 'Volume 2' prominently displayed. Include progress bar or arrow showing skill advancement. Clean, professional layout with 'Building Confidence' subtitle. Add 'Large Print' badge."
-  }
+  },
+  "back_cover_dalle_prompt": "Professional paperback back cover for Large Print Sudoku Masters Volume 2. Modern design with blue gradient theme. Highlight key features: '100 Progressive Puzzles', 'Easy to Medium Difficulty', 'Confidence Building Approach', 'Advanced Technique Tutorials'. Include brief description of skill progression, author credentials, and testimonial space. Barcode placement at bottom right. Professional typography matching front cover design."
 }
