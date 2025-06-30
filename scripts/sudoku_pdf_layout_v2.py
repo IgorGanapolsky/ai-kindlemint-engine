@@ -6,6 +6,7 @@ Creates professional PDF interiors with all publishing standards
 
 import argparse
 import json
+import secrets
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -25,7 +26,6 @@ from reportlab.platypus import (
     Table,
     TableStyle,
 )
-import secrets
 
 
 class NumberedCanvas(canvas.Canvas):
