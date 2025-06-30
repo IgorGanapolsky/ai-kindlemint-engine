@@ -200,7 +200,10 @@
       "Bash(--output test_market_aligned_pdf )",
       "Bash(--title \"Large Print Sudoku Masters Test\" )",
       "Bash(--author \"Igor Ganapolsky\" )",
-      "Bash(--subtitle \"Market-Aligned Design Demo\")"
+      "Bash(--subtitle \"Market-Aligned Design Demo\")",
+      "WebFetch(domain:kdp.amazon.com)",
+      "WebFetch(domain:bookbolt.io)",
+      "WebFetch(domain:www.kdpcommunity.com)"
     ],
     "deny": []
   }
