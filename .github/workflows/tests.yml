@@ -43,7 +43,7 @@ jobs:
 
     - name: 🧪 Run basic tests with coverage
       run: |
-        python -m pytest tests/test_basic.py tests/test_dummy.py -v --cov=src/kindlemint --cov-report=xml --cov-report=term-missing
+        python -m pytest tests/test_basic.py tests/test_dummy.py tests/test_coverage.py -v --cov=src/kindlemint --cov-report=xml --cov-report=term-missing
       continue-on-error: false
 
     - name: 📊 Upload coverage to Codecov
