@@ -377,7 +377,26 @@ class MarketAlignedSudokuPDF:
         story.append(Paragraph(f"Puzzle {puzzle_number}", self.styles["PuzzleNumber"]))
         difficulty = puzzle_data.get("difficulty", "medium").title()
         story.append(Paragraph(f"Difficulty: {difficulty}", self.styles["LargeBody"]))
-        story.append(Spacer(1, 0.5 * inch))
+        story.append(Spacer(1, 0.2 * inch))
+
+        # Add clear instructions for customers - CRITICAL for usability
+        instructions = """
+        <b>INSTRUCTIONS:</b> Fill in the empty squares so that each row, each column, 
+        and each 3×3 box contains all numbers from 1 to 9. Each number can appear 
+        only once in each row, column, and 3×3 box.
+        """
+        story.append(Paragraph(instructions.strip(), self.styles["Instructions"]))
+        
+        # Add solving tip based on difficulty
+        if difficulty.lower() == "easy":
+            tip = "<b>💡 TIP:</b> Start with rows, columns, or boxes that have the most numbers already filled in!"
+        elif difficulty.lower() == "medium":
+            tip = "<b>💡 TIP:</b> Look for cells where only one number can fit by checking the row, column, and box constraints."
+        else:
+            tip = "<b>💡 TIP:</b> Use pencil marks to note possible numbers in each cell, then eliminate them systematically."
+        
+        story.append(Paragraph(tip, self.styles["LargeBody"]))
+        story.append(Spacer(1, 0.3 * inch))
 
         # Load and display puzzle image LARGE
         puzzles_dir = self.input_dir / "puzzles" / "puzzles"

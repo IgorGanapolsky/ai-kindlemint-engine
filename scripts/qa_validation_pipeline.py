@@ -327,7 +327,18 @@ class QAValidationPipeline:
                     }
                 )
 
-            # 4. Check for puzzle variety
+            # 4. Check for missing customer instructions (critical usability issue)
+            if not self._check_puzzle_instructions(text):
+                puzzle_score -= 40.0  # Major penalty for unusable books
+                issues.append(
+                    {
+                        "type": "missing_instructions",
+                        "message": "Puzzles lack customer instructions - book is unsellable",
+                        "severity": "critical",
+                    }
+                )
+
+            # 5. Check for puzzle variety
             variety_score = self._check_puzzle_variety(text)
             if variety_score < 50:  # Less than 50% unique puzzles
                 puzzle_score -= 20.0
@@ -339,7 +350,7 @@ class QAValidationPipeline:
                     }
                 )
 
-            # 5. Validate basic puzzle structure
+            # 6. Validate basic puzzle structure
             structure_valid = self._validate_puzzle_structure(pdf_path)
             if not structure_valid:
                 puzzle_score -= 10.0
@@ -444,6 +455,26 @@ class QAValidationPipeline:
         )
 
         return variety_score
+
+    def _check_puzzle_instructions(self, text: str) -> bool:
+        """Check if puzzles include customer instructions"""
+        # Look for instruction keywords that should be present
+        instruction_indicators = [
+            "INSTRUCTIONS:",
+            "fill in the empty squares",
+            "each row, each column",
+            "contains all numbers from 1 to 9",
+            "TIP:",
+        ]
+        
+        # Must have multiple instruction indicators for complete guidance
+        found_indicators = sum(
+            1 for indicator in instruction_indicators 
+            if indicator.lower() in text.lower()
+        )
+        
+        # Require at least 3 out of 5 key instruction elements
+        return found_indicators >= 3
 
     def _validate_puzzle_structure(self, pdf_path: Path) -> bool:
         """Validate PDF has proper puzzle structure"""
