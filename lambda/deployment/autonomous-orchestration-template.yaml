@@ -224,7 +224,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub 'kindlemint-ci-orchestration-${Environment}'
-      CodeUri: ../ci-orchestration/
+      CodeUri: ../ci-orchestration.zip
       Handler: ci_orchestration_function.lambda_handler
       Role: !GetAtt CIOrchestrationRole.Arn
       Runtime: python3.11
@@ -273,7 +273,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub 'kindlemint-alert-orchestration-${Environment}'
-      CodeUri: ../alert-orchestration/
+      CodeUri: ../alert-orchestration.zip
       Handler: alert_orchestration_function.lambda_handler
       Role: !GetAtt AlertOrchestrationRole.Arn
       Runtime: python3.11

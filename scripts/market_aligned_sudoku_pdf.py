@@ -397,6 +397,58 @@ class MarketAlignedSudokuPDF:
 
         story.append(PageBreak())
 
+    def create_puzzle_grid(self, story, puzzle_data):
+        """Generate puzzle grid from data when image is missing - CRITICAL FALLBACK"""
+        from reportlab.lib import colors
+        from reportlab.platypus import Table, TableStyle
+
+        # Get the initial grid with clues
+        initial_grid = puzzle_data.get("initial_grid", [[0] * 9] * 9)
+
+        # Convert grid to table data - show clues as numbers, empty cells as blank
+        table_data = []
+        for row in initial_grid:
+            table_row = []
+            for cell in row:
+                if cell == 0:
+                    table_row.append("")  # Empty cell
+                else:
+                    table_row.append(str(cell))  # Clue number
+            table_data.append(table_row)
+
+        # Create table with large cells for accessibility
+        table = Table(
+            table_data, colWidths=[0.6 * inch] * 9, rowHeights=[0.6 * inch] * 9
+        )
+
+        # Style the table to look like a proper Sudoku grid
+        table.setStyle(
+            TableStyle(
+                [
+                    # Grid lines
+                    ("GRID", (0, 0), (-1, -1), 2, colors.black),
+                    ("LINEABOVE", (0, 0), (-1, -1), 2, colors.black),
+                    ("LINEBELOW", (0, 0), (-1, -1), 2, colors.black),
+                    ("LINEBEFORE", (0, 0), (-1, -1), 2, colors.black),
+                    ("LINEAFTER", (0, 0), (-1, -1), 2, colors.black),
+                    # Thick lines for 3x3 boxes
+                    ("LINEABOVE", (0, 3), (-1, 3), 4, colors.black),
+                    ("LINEABOVE", (0, 6), (-1, 6), 4, colors.black),
+                    ("LINEBEFORE", (3, 0), (3, -1), 4, colors.black),
+                    ("LINEBEFORE", (6, 0), (6, -1), 4, colors.black),
+                    # Text formatting - large bold font for clues
+                    ("FONTNAME", (0, 0), (-1, -1), "Helvetica-Bold"),
+                    ("FONTSIZE", (0, 0), (-1, -1), 24),
+                    ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                    ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                ]
+            )
+        )
+
+        # Center the table
+        table.hAlign = "CENTER"
+        story.append(table)
+
     def create_solution_page(self, story, puzzle_data, puzzle_number):
         """Create solution page with step-by-step explanations as market research suggests"""
         story.append(
@@ -427,44 +479,159 @@ class MarketAlignedSudokuPDF:
 
         # Add solving tips specific to difficulty level
         story.append(Spacer(1, 0.2 * inch))
-        solving_tips = self.get_solving_tips(difficulty)
+        solving_tips = self.get_solving_tips(difficulty, puzzle_number)
         story.append(Paragraph(solving_tips, self.styles["Instructions"]))
 
         story.append(PageBreak())
 
+    def create_solution_grid(self, story, puzzle_data):
+        """Generate solution grid from data when image is missing - CRITICAL FALLBACK"""
+        from reportlab.lib import colors
+        from reportlab.platypus import Table, TableStyle
+
+        # Get the complete solution grid
+        solution_grid = puzzle_data.get("solution_grid", [[0] * 9] * 9)
+        initial_grid = puzzle_data.get("initial_grid", [[0] * 9] * 9)
+
+        # Convert grid to table data - show all numbers
+        table_data = []
+        for row_idx, row in enumerate(solution_grid):
+            table_row = []
+            for col_idx, cell in enumerate(row):
+                table_row.append(str(cell) if cell != 0 else "")
+            table_data.append(table_row)
+
+        # Create table with large cells for accessibility
+        table = Table(
+            table_data, colWidths=[0.5 * inch] * 9, rowHeights=[0.5 * inch] * 9
+        )
+
+        # Style the table to look like a proper Sudoku solution
+        table_style = [
+            # Grid lines
+            ("GRID", (0, 0), (-1, -1), 2, colors.black),
+            ("LINEABOVE", (0, 0), (-1, -1), 2, colors.black),
+            ("LINEBELOW", (0, 0), (-1, -1), 2, colors.black),
+            ("LINEBEFORE", (0, 0), (-1, -1), 2, colors.black),
+            ("LINEAFTER", (0, 0), (-1, -1), 2, colors.black),
+            # Thick lines for 3x3 boxes
+            ("LINEABOVE", (0, 3), (-1, 3), 4, colors.black),
+            ("LINEABOVE", (0, 6), (-1, 6), 4, colors.black),
+            ("LINEBEFORE", (3, 0), (3, -1), 4, colors.black),
+            ("LINEBEFORE", (6, 0), (6, -1), 4, colors.black),
+            # Text formatting - differentiate clues from solution
+            ("FONTSIZE", (0, 0), (-1, -1), 20),
+            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ]
+
+        # Make original clues bold, solution numbers lighter
+        for row_idx in range(9):
+            for col_idx in range(9):
+                if initial_grid[row_idx][col_idx] != 0:
+                    # Original clue - bold
+                    table_style.append(
+                        (
+                            "FONTNAME",
+                            (col_idx, row_idx),
+                            (col_idx, row_idx),
+                            "Helvetica-Bold",
+                        )
+                    )
+                else:
+                    # Solution number - regular weight, gray
+                    table_style.append(
+                        (
+                            "FONTNAME",
+                            (col_idx, row_idx),
+                            (col_idx, row_idx),
+                            "Helvetica",
+                        )
+                    )
+                    table_style.append(
+                        (
+                            "TEXTCOLOR",
+                            (col_idx, row_idx),
+                            (col_idx, row_idx),
+                            colors.grey,
+                        )
+                    )
+
+        table.setStyle(TableStyle(table_style))
+
+        # Center the table
+        table.hAlign = "CENTER"
+        story.append(table)
+
     def get_solving_explanation(self, difficulty, puzzle_number):
-        """Generate solving explanation based on difficulty level"""
+        """Generate solving explanation based on difficulty level with much more variety"""
         explanations = {
             "easy": [
                 "<b>Solving Strategy:</b> This easy puzzle can be solved using basic techniques. Start by looking for cells where only one number can fit. Scan each row, column, and 3×3 box to find obvious placements.",
                 "<b>Step-by-Step Approach:</b> Begin with the most filled rows, columns, and boxes. Look for cells where 8 out of 9 numbers are already placed. Use the elimination method - if a row already has numbers 1-8, the empty cell must be 9.",
-                "<b>Key Technique:</b> Focus on 'hidden singles' - cells where only one number can logically fit based on what's already in that row, column, and box. This puzzle uses fundamental Sudoku logic without requiring advanced techniques."
+                "<b>Key Technique:</b> Focus on 'hidden singles' - cells where only one number can logically fit based on what's already in that row, column, and box. This puzzle uses fundamental Sudoku logic without requiring advanced techniques.",
+                "<b>Scanning Method:</b> Look systematically through each number 1-9. For each number, check where it can legally be placed in each 3×3 box. Often you'll find only one possible location.",
+                "<b>Region Analysis:</b> Start with the most constrained regions - areas with the most numbers already filled in. These provide the quickest solving opportunities and momentum.",
+                "<b>Single Candidate:</b> Find cells where all but one number are eliminated by existing numbers in the same row, column, or box. These 'forced' moves are your primary solving tool.",
+                "<b>Elimination Process:</b> For each empty cell, write down what numbers CAN'T go there based on the row, column, and box constraints. When only one option remains, you've found your answer.",
+                "<b>Box-First Strategy:</b> Focus on completing individual 3×3 boxes before worrying about entire rows or columns. Completed boxes provide more constraints for adjacent areas.",
             ],
             "medium": [
                 "<b>Solving Strategy:</b> This medium puzzle requires a combination of basic techniques and some logical deduction. You'll need to use pencil marks (candidate numbers) to track possibilities in empty cells.",
                 "<b>Advanced Techniques:</b> Look for 'naked pairs' - when two cells in the same unit can only contain the same two numbers. Also use 'pointing pairs' - when a number in a box can only go in one row or column within that box.",
-                "<b>Systematic Approach:</b> After filling obvious cells, make pencil marks showing all possible numbers for each empty cell. Then eliminate candidates systematically using logical rules. This builds pattern recognition skills."
+                "<b>Systematic Approach:</b> After filling obvious cells, make pencil marks showing all possible numbers for each empty cell. Then eliminate candidates systematically using logical rules. This builds pattern recognition skills.",
+                "<b>Candidate Analysis:</b> Write small numbers in cell corners to track possibilities. When you fill a cell, immediately erase that number from all candidates in the same row, column, and box.",
+                "<b>Intersection Technique:</b> When a candidate in a box is restricted to one row or column, eliminate it from the rest of that row/column outside the box. This 'pointing' technique is crucial for medium puzzles.",
+                "<b>Hidden Pairs:</b> Look for two numbers that can only appear in two cells within a unit, even if those cells have other candidates. This eliminates the other candidates from those cells.",
+                "<b>Multiple Constraint:</b> Focus on cells that are constrained by multiple factors - cells at intersections of nearly-complete rows, columns, and boxes often yield breakthrough moves.",
+                "<b>Pattern Building:</b> As you solve, patterns emerge. Numbers often appear in diagonal lines or symmetric arrangements that can guide your next moves.",
             ],
             "hard": [
                 "<b>Solving Strategy:</b> This challenging puzzle requires advanced techniques beyond basic elimination. You'll need to use multiple solving strategies in combination and think several steps ahead.",
                 "<b>Expert Techniques:</b> Use 'X-Wing' patterns - when a number appears in only two rows and two columns, forming a rectangle. Also try 'Swordfish' patterns and 'coloring' techniques to track chains of logical deductions.",
-                "<b>Pattern Recognition:</b> Look for complex interdependencies between cells. This puzzle may require 'what-if' analysis - temporarily assuming a number goes in a cell and following the logical chain to see if it leads to a contradiction."
-            ]
+                "<b>Pattern Recognition:</b> Look for complex interdependencies between cells. This puzzle may require 'what-if' analysis - temporarily assuming a number goes in a cell and following the logical chain to see if it leads to a contradiction.",
+                "<b>Chain Logic:</b> Advanced puzzles often require following logical chains: if A is true, then B must be true, which forces C, etc. Track these chains carefully to avoid contradictions.",
+                "<b>Forcing Networks:</b> When a cell has only two candidates, explore what happens if each is true. If one assumption leads to a contradiction or forces the same result elsewhere, you've found your answer.",
+                "<b>Advanced Patterns:</b> Look for 'Swordfish' (three rows/columns with a number restricted to three positions) and 'XY-Wing' patterns that create elimination opportunities through complex logic.",
+                "<b>Constraint Propagation:</b> Each move in hard puzzles creates ripple effects. Fill one cell and immediately trace all the implications before making your next move.",
+                "<b>Systematic Elimination:</b> Use 'coloring' - mark candidates of the same number in different colors to spot when they form contradictory patterns that eliminate possibilities.",
+            ],
         }
-        
+
         explanation_list = explanations.get(difficulty, explanations["medium"])
         # Rotate explanations to provide variety
         explanation_index = (puzzle_number - 1) % len(explanation_list)
         return explanation_list[explanation_index]
 
-    def get_solving_tips(self, difficulty):
-        """Generate solving tips based on difficulty level"""
+    def get_solving_tips(self, difficulty, puzzle_number):
+        """Generate solving tips with variety based on difficulty level and puzzle number"""
         tips = {
-            "easy": "<b>💡 Helpful Tip:</b> When stuck, focus on the most constrained areas first. Look for rows, columns, or boxes that are nearly complete. These often provide the breakthrough you need to continue solving.",
-            "medium": "<b>💡 Pro Tip:</b> Use pencil marks liberally! Write small numbers in corners of cells to track possibilities. When a cell's candidates are reduced to just one number, you've found your next move.",
-            "hard": "<b>💡 Expert Tip:</b> Advanced puzzles often require 'chain logic' - following a series of if-then statements. If assuming X leads to a contradiction, then X must be false. This technique opens up many advanced solving paths."
+            "easy": [
+                "<b>💡 Helpful Tip:</b> When stuck, focus on the most constrained areas first. Look for rows, columns, or boxes that are nearly complete.",
+                "<b>💡 Scanning Tip:</b> Start with the number that appears most frequently in the grid. Look for where it can go in empty regions.",
+                "<b>💡 Logic Tip:</b> If a row needs only 2 numbers and you have 2 empty cells, check which numbers are blocked by columns and boxes.",
+                "<b>💡 Focus Tip:</b> Work on one 3×3 box at a time. Complete boxes give you more clues for adjacent areas.",
+                "<b>💡 Patience Tip:</b> Easy puzzles should flow naturally. If you're stuck for more than a minute, you might have made an error - double-check your work.",
+            ],
+            "medium": [
+                "<b>💡 Pro Tip:</b> Use pencil marks liberally! Write small numbers in corners of cells to track possibilities.",
+                "<b>💡 Elimination Tip:</b> Look for 'naked pairs' - two cells in the same unit that can only contain the same two numbers.",
+                "<b>💡 Pattern Tip:</b> When a number can only go in one row or column within a 3×3 box, it eliminates that number from the rest of that row/column.",
+                "<b>💡 Strategy Tip:</b> If you find a cell where only one number fits, fill it in immediately and scan for new opportunities this creates.",
+                "<b>💡 Progress Tip:</b> Medium puzzles require patience. Make a few moves, then re-scan the entire grid for new possibilities.",
+            ],
+            "hard": [
+                "<b>💡 Expert Tip:</b> Advanced puzzles often require 'chain logic' - following a series of if-then statements through multiple cells.",
+                "<b>💡 X-Wing Tip:</b> Look for numbers that appear in only two cells across two rows (or columns) - this creates elimination opportunities.",
+                "<b>💡 Advanced Tip:</b> Use 'coloring' technique - mark cells with the same candidate in different colors to spot contradictions.",
+                "<b>💡 Forcing Tip:</b> If a cell has only two possibilities, try assuming one is correct and follow the logical chain.",
+                "<b>💡 Persistence Tip:</b> Hard puzzles may require multiple advanced techniques in sequence. Don't give up after one method fails.",
+            ],
         }
-        return tips.get(difficulty, tips["medium"])
+
+        tip_list = tips.get(difficulty, tips["medium"])
+        tip_index = (puzzle_number - 1) % len(tip_list)
+        return tip_list[tip_index]
 
     def create_about_author_page(self, story):
         """Add author information"""
