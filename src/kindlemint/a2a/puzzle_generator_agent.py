@@ -67,7 +67,7 @@ class PuzzleGeneratorAgent(A2AAgent):
 
     def add_skill(self, name: str, handler, description: str):
         """Add a skill to the agent"""
-        self.skills[name] = Skill(name, description, handler)
+        self.skills[name] = Skill(name, handler, description)
 
     async def _generate_single_puzzle(self, request: Dict[str, Any]) -> Dict[str, Any]:
         """Generate a single Sudoku puzzle"""
@@ -86,7 +86,7 @@ class PuzzleGeneratorAgent(A2AAgent):
 
             # Generate puzzle
             puzzle_data = self.sudoku_engine.generate_puzzle(
-                difficulty=puzzle_req.difficulty, large_print=puzzle_req.large_print
+                difficulty=puzzle_req.difficulty
             )
 
             # Validate generated puzzle
@@ -136,8 +136,7 @@ class PuzzleGeneratorAgent(A2AAgent):
                 try:
                     # Generate individual puzzle
                     puzzle_data = self.sudoku_engine.generate_puzzle(
-                        difficulty=puzzle_req.difficulty,
-                        large_print=puzzle_req.large_print,
+                        difficulty=puzzle_req.difficulty
                     )
 
                     # Validate puzzle
@@ -260,14 +259,14 @@ class PuzzleGeneratorAgent(A2AAgent):
         """Validate that generated puzzle has correct structure"""
         try:
             # Check required fields
-            required_fields = ["puzzle", "solution", "difficulty", "clue_count"]
+            required_fields = ["grid", "solution", "difficulty", "clue_count"]
             for field in required_fields:
                 if field not in puzzle_data:
                     self.logger.error(f"Missing required field: {field}")
                     return False
 
             # Check puzzle grid
-            puzzle = puzzle_data["puzzle"]
+            puzzle = puzzle_data["grid"]
             solution = puzzle_data["solution"]
 
             if not isinstance(puzzle, list) or len(puzzle) != 9:
@@ -316,7 +315,7 @@ class PuzzleGeneratorAgent(A2AAgent):
         if request.format in ["json", "both"]:
             output.update(
                 {
-                    "puzzle": puzzle_data["puzzle"],
+                    "puzzle": puzzle_data["grid"],
                     "solution": puzzle_data["solution"],
                     "clue_count": puzzle_data["clue_count"],
                     "metadata": puzzle_data.get("metadata", {}),
