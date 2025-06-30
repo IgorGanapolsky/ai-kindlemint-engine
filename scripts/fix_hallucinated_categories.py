@@ -16,7 +16,7 @@ ACTUAL_KDP_CATEGORIES = {
         "Games > Puzzles",
     ],
     "crossword_books": [
-        "Crafts, Hobbies & Home > Games & Activities > Puzzles & Games", 
+        "Crafts, Hobbies & Home > Games & Activities > Puzzles & Games",
         "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers",
         "Games > Word Games",
     ],
