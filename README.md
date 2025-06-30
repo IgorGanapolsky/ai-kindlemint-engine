@@ -3,6 +3,14 @@
 **Transform expertise into profitable books at 10x speed using AI orchestration, voice-to-book technology, and automated publishing workflows.**
 
 [![Tests](https://github.com/IgorGanapolsky/ai-kindlemint-engine/workflows/Tests/badge.svg)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/tests.yml)
+[![GitHub Forks](https://img.shields.io/github/forks/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/network)
+[![GitHub Stars](https://img.shields.io/github/stars/IgorGanapolsky/ai-kindlemint-engine?style=social)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/pulls)
+[![Last Commit](https://img.shields.io/github/last-commit/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/commits/main)
+[![Contributors](https://img.shields.io/github/contributors/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/graphs/contributors)
+[![Code Size](https://img.shields.io/github/languages/code-size/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine)
+[![License](https://img.shields.io/github/license/IgorGanapolsky/ai-kindlemint-engine)](LICENSE)
 
 ## 🌟 What's New (June 2025)
 
