@@ -1,0 +1,322 @@
+{
+  "book_id": "025acc53cf91",
+  "timestamp": "2025-06-30T14:31:52.974061",
+  "overall_score": 80.0,
+  "passed": false,
+  "criteria": {
+    "duplicate_content": {
+      "score": 3.0280649926144756,
+      "threshold": 10,
+      "passed": true,
+      "details": [
+        {
+          "type": "duplicate_text",
+          "text": "Difficulty: Easy",
+          "occurrences": 100,
+          "lines": [
+            81,
+            84,
+            87,
+            90,
+            93
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "Solving Strategy: This easy puzzle can be solved u...",
+          "occurrences": 13,
+          "lines": [
+            113,
+            186,
+            293,
+            400,
+            507
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "basic techniques. Start by looking for cells where...",
+          "occurrences": 13,
+          "lines": [
+            114,
+            187,
+            294,
+            401,
+            508
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "number can fit. Scan each row, column, and 3\u00d73 box...",
+          "occurrences": 13,
+          "lines": [
+            115,
+            188,
+            295,
+            402,
+            509
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "obvious placements.",
+          "occurrences": 13,
+          "lines": [
+            116,
+            189,
+            296,
+            403,
+            510
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "\u25a0 Helpful Tip: When stuck, focus on the most",
+          "occurrences": 20,
+          "lines": [
+            117,
+            161,
+            244,
+            287,
+            367
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "constrained areas first. Look for rows, columns, o...",
+          "occurrences": 20,
+          "lines": [
+            118,
+            162,
+            245,
+            288,
+            368
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "boxes that are nearly complete.",
+          "occurrences": 20,
+          "lines": [
+            120,
+            163,
+            247,
+            290,
+            369
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "Step-by-Step Approach: Begin with the most filled ...",
+          "occurrences": 13,
+          "lines": [
+            123,
+            196,
+            303,
+            410,
+            517
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "columns, and boxes. Look for cells where 8 out of ...",
+          "occurrences": 13,
+          "lines": [
+            124,
+            197,
+            304,
+            411,
+            518
+          ]
+        }
+      ]
+    },
+    "text_cutoff": {
+      "score": 0,
+      "threshold": 0,
+      "passed": true,
+      "details": []
+    },
+    "white_space_ratio": {
+      "score": 0,
+      "threshold": 92,
+      "passed": true,
+      "details": []
+    },
+    "puzzle_integrity": {
+      "score": 80.0,
+      "threshold": 100,
+      "passed": false,
+      "details": [
+        {
+          "type": "low_variety",
+          "message": "Only 1.0% puzzle variety detected",
+          "severity": "moderate"
+        }
+      ]
+    },
+    "font_embedding": {
+      "score": 0.0,
+      "threshold": 100,
+      "passed": false,
+      "details": [
+        {
+          "type": "font_not_embedded",
+          "font": "Helvetica"
+        },
+        {
+          "type": "font_not_embedded",
+          "font": "Helvetica-Bold"
+        },
+        {
+          "type": "font_not_embedded",
+          "font": "ZapfDingbats"
+        }
+      ]
+    }
+  },
+  "validation_model": "qa_pipeline_v1",
+  "issues_found": [
+    {
+      "type": "duplicate_text",
+      "text": "Difficulty: Easy",
+      "occurrences": 100,
+      "lines": [
+        81,
+        84,
+        87,
+        90,
+        93
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "Solving Strategy: This easy puzzle can be solved u...",
+      "occurrences": 13,
+      "lines": [
+        113,
+        186,
+        293,
+        400,
+        507
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "basic techniques. Start by looking for cells where...",
+      "occurrences": 13,
+      "lines": [
+        114,
+        187,
+        294,
+        401,
+        508
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "number can fit. Scan each row, column, and 3\u00d73 box...",
+      "occurrences": 13,
+      "lines": [
+        115,
+        188,
+        295,
+        402,
+        509
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "obvious placements.",
+      "occurrences": 13,
+      "lines": [
+        116,
+        189,
+        296,
+        403,
+        510
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "\u25a0 Helpful Tip: When stuck, focus on the most",
+      "occurrences": 20,
+      "lines": [
+        117,
+        161,
+        244,
+        287,
+        367
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "constrained areas first. Look for rows, columns, o...",
+      "occurrences": 20,
+      "lines": [
+        118,
+        162,
+        245,
+        288,
+        368
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "boxes that are nearly complete.",
+      "occurrences": 20,
+      "lines": [
+        120,
+        163,
+        247,
+        290,
+        369
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "Step-by-Step Approach: Begin with the most filled ...",
+      "occurrences": 13,
+      "lines": [
+        123,
+        196,
+        303,
+        410,
+        517
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "columns, and boxes. Look for cells where 8 out of ...",
+      "occurrences": 13,
+      "lines": [
+        124,
+        197,
+        304,
+        411,
+        518
+      ]
+    },
+    {
+      "type": "low_variety",
+      "message": "Only 1.0% puzzle variety detected",
+      "severity": "moderate"
+    },
+    {
+      "type": "font_not_embedded",
+      "font": "Helvetica"
+    },
+    {
+      "type": "font_not_embedded",
+      "font": "Helvetica-Bold"
+    },
+    {
+      "type": "font_not_embedded",
+      "font": "ZapfDingbats"
+    }
+  ],
+  "recommendations": [
+    "Verify all puzzle clues have corresponding answers",
+    "Embed all fonts in PDF for consistent rendering"
+  ]
+}

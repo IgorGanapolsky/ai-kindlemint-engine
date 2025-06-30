@@ -35,6 +35,8 @@ def check_cloudformation_stack(stack_name: str, region: str = None) -> Dict[str,
         result = subprocess.run(
             [
                 "aws",
+                "--profile",
+                "kindlemint-keys",
                 "cloudformation",
                 "describe-stacks",
                 "--stack-name",
@@ -74,7 +76,17 @@ def check_lambda_functions(region: str = None) -> Dict[str, Any]:
 
     try:
         result = subprocess.run(
-            ["aws", "lambda", "list-functions", "--region", region, "--output", "json"],
+            [
+                "aws",
+                "--profile",
+                "kindlemint-keys",
+                "lambda",
+                "list-functions",
+                "--region",
+                region,
+                "--output",
+                "json",
+            ],
             capture_output=True,
             text=True,
             timeout=30,
@@ -123,7 +135,7 @@ def generate_status_summary() -> Dict[str, Any]:
     # Check CloudFormation stacks
     cf_stacks = [
         "Sentry-Monitoring-Stack",
-        "kindlemint-autonomous-orchestration-production",
+        "autonomous-orchestration-production",
     ]
 
     for stack_name in cf_stacks:

@@ -65,7 +65,9 @@ class LargePrintSudokuGenerator:
                 value = initial_grid[row][col]
                 if value != 0:
                     # Make clues bold and highly visible with dark black color
-                    self._draw_number(draw, row, col, str(value), font, color="#000000", bold=True)
+                    self._draw_number(
+                        draw, row, col, str(value), font, color="#000000", bold=True
+                    )
 
         # Save puzzle image
         puzzle_path = self.puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}.png"
@@ -103,10 +105,20 @@ class LargePrintSudokuGenerator:
                     initial_value = puzzle_data["initial_grid"][row][col]
                     if initial_value != 0:
                         # Original clues - bold and black
-                        self._draw_number(draw, row, col, str(value), font, color="#000000", bold=True)
+                        self._draw_number(
+                            draw, row, col, str(value), font, color="#000000", bold=True
+                        )
                     else:
                         # Solution numbers - lighter and regular weight
-                        self._draw_number(draw, row, col, str(value), font, color="#888888", bold=False)
+                        self._draw_number(
+                            draw,
+                            row,
+                            col,
+                            str(value),
+                            font,
+                            color="#888888",
+                            bold=False,
+                        )
 
         # Save solution image
         solution_path = self.puzzles_dir / f"sudoku_solution_{puzzle_id:03d}.png"
@@ -167,10 +179,19 @@ class LargePrintSudokuGenerator:
         if bold:
             # Create bold effect by drawing text multiple times with slight offsets
             # This makes clues much more prominent and visible
-            offsets = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+            offsets = [
+                (-1, -1),
+                (-1, 0),
+                (-1, 1),
+                (0, -1),
+                (0, 1),
+                (1, -1),
+                (1, 0),
+                (1, 1),
+            ]
             for dx, dy in offsets:
                 draw.text((text_x + dx, text_y + dy), number, fill=color, font=font)
-        
+
         # Draw the main number
         draw.text((text_x, text_y), number, fill=color, font=font)
 
@@ -179,11 +200,11 @@ class LargePrintSudokuGenerator:
         # Generate a complete valid Sudoku grid
         solution = self._generate_complete_grid()
 
-        # Remove numbers based on difficulty
+        # Remove numbers based on difficulty - optimized for customer satisfaction
         clue_counts = {
-            "easy": random.randint(36, 40),
-            "medium": random.randint(30, 35),
-            "hard": random.randint(24, 29),
+            "easy": random.randint(42, 46),  # Much more accessible for seniors
+            "medium": random.randint(32, 38),  # Balanced challenge
+            "hard": random.randint(26, 31),  # Still challenging but solvable
         }
 
         clue_count = clue_counts.get(difficulty, 32)

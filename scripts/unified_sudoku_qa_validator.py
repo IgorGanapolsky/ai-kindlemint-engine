@@ -15,6 +15,10 @@ import numpy as np
 import PyPDF2
 from PIL import Image
 
+# Add import for the SudokuValidator
+from kindlemint.validators.sudoku_validator import SudokuValidator
+
+
 
 class UnifiedSudokuQAValidator:
     """THE ONLY validator you should use for Sudoku books"""
@@ -220,35 +224,24 @@ class UnifiedSudokuQAValidator:
     def _validate_puzzle_data(self, puzzle_dir: Path):
         """Validate puzzle JSON/PNG consistency."""
         metadata_dir = puzzle_dir / "metadata"
-        puzzles_dir = puzzle_dir / "puzzles"
-
         if not metadata_dir.exists():
             self.report["warnings"].append("⚠️ No puzzle metadata found")
             return
 
-        json_files = list(metadata_dir.glob("sudoku_puzzle_*.json"))
+        # Use the SudokuValidator for thorough checks
+        sudoku_validator = SudokuValidator(strict_mode=False)
+        validation_result = sudoku_validator.validate_directory(metadata_dir)
 
-        # Check a sample
-        mismatches = 0
-        for json_file in json_files[:10]:
-            with open(json_file, "r") as f:
-                data = json.load(f)
+        self.report['content_validation'] = validation_result.to_dict()
 
-            puzzle_id = data.get("id", 0)
-            clue_count = data.get("clue_count", 0)
-
-            # Verify puzzle has appropriate blanks
-            grid = data.get("initial_grid", [])
-            actual_clues = sum(1 for row in grid for cell in row if cell != 0)
-
-            if actual_clues != clue_count:
-                mismatches += 1
-                self.report["errors"].append(
-                    f"❌ Puzzle {puzzle_id}: Metadata mismatch ({actual_clues} vs {clue_count} clues)"
-                )
-
-        if mismatches == 0:
-            self.report["passed"].append("✅ Puzzle data consistency OK")
+        if validation_result.has_errors():
+            for issue in validation_result.issues:
+                if issue.severity == 'ERROR':
+                    self.report['errors'].append(f"❌ Puzzle {issue.puzzle_id}: {issue.description}")
+                elif issue.severity == 'WARNING':
+                    self.report['warnings'].append(f"⚠️ Puzzle {issue.puzzle_id}: {issue.description}")
+        else:
+            self.report['passed'].append("✅ Puzzle data consistency OK")
 
     def _determine_final_status(self):
         """Determine overall PASS/FAIL status."""

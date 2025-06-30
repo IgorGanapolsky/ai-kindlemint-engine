@@ -6,6 +6,7 @@ Implements Option B: Hybrid Artifacts approach with multi-model validation
 
 import hashlib
 import json
+import os
 import subprocess
 from dataclasses import asdict, dataclass
 from datetime import datetime

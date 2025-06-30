@@ -416,7 +416,16 @@ class SudokuValidator(PuzzleValidator):
                 clue_count = sum(1 for row in grid for cell in row if cell != 0)
                 expected_range = self.DIFFICULTY_CLUE_RANGES[difficulty]
 
-                if clue_count < expected_range["min"]:
+                elif clue_count == 0:
+                    issues.append(
+                        self.create_issue(
+                            severity=IssueSeverity.ERROR,
+                            description=f"No clues found in puzzle",
+                            puzzle_id=puzzle_id,
+                            recommendation=f"Ensure puzzle has at least {expected_range['min']} clues.",
+                        )
+                    )
+                elif clue_count < expected_range["min"]:
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,

@@ -211,7 +211,18 @@
       "WebFetch(domain:api.github.com)",
       "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation wait stack-delete-complete --stack-name autonomous-orchestration-production --region us-east-1)",
       "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stack-events --stack-name autonomous-orchestration-production --region us-east-1 --max-items 10 --output table)",
-      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stack-events --stack-name autonomous-orchestration-production --region us-east-1 --max-items 5 --query 'StackEvents[?ResourceStatus==`CREATE_FAILED` || contains(ResourceStatusReason, `failed`)].[LogicalResourceId,ResourceStatusReason]' --output table)"
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stack-events --stack-name autonomous-orchestration-production --region us-east-1 --max-items 5 --query 'StackEvents[?ResourceStatus==`CREATE_FAILED` || contains(ResourceStatusReason, `failed`)].[LogicalResourceId,ResourceStatusReason]' --output table)",
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stack-events --stack-name autonomous-orchestration-production --region us-east-1 --query 'StackEvents[?ResourceStatus==`CREATE_FAILED`]' --output table)",
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stack-events --stack-name autonomous-orchestration-production --region us-east-1 --max-items 5 --output text)",
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation wait stack-create-complete --stack-name autonomous-orchestration-production --region us-east-1)",
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stack-events --stack-name autonomous-orchestration-production --region us-east-1 --max-items 3 --query 'StackEvents[?ResourceStatus==`CREATE_FAILED`].[LogicalResourceId,ResourceStatusReason]' --output text)",
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stack-events --stack-name autonomous-orchestration-production --region us-east-1 --max-items 8 --output table)",
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation create-stack )",
+      "Bash(--stack-name autonomous-orchestration-production )",
+      "Bash(--template-body file://minimal-infrastructure.yaml )",
+      "Bash(--parameters ParameterKey=Environment,ParameterValue=production )",
+      "Bash(--region us-east-1)",
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stacks --stack-name autonomous-orchestration-production --region us-east-1 --query 'Stacks[0].[StackStatus,StackId]' --output text)"
     ],
     "deny": []
   }
