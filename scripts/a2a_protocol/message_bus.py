@@ -113,7 +113,8 @@ class A2AMessageBus:
             future.set_result(response)
             del self.response_callbacks[response.correlation_id]
         else:
-            logger.warning(f"No callback found for response {response.correlation_id}")
+            logger.warning(
+                f"No callback found for response {response.correlation_id}")
 
     def get_message_history(self, limit: int = 100) -> List[Dict]:
         """Get recent message history"""
@@ -141,7 +142,8 @@ class A2AOrchestrator:
 
     async def generate_and_validate_puzzle(self, difficulty: str = "medium") -> Dict:
         """Orchestrate puzzle generation and validation"""
-        logger.info(f"Starting puzzle generation workflow for {difficulty} difficulty")
+        logger.info(
+            f"Starting puzzle generation workflow for {difficulty} difficulty")
 
         # For this demo, we'll simulate puzzle generation
         # In the full implementation, this would call the PuzzleGeneratorAgent
@@ -176,7 +178,8 @@ class A2AOrchestrator:
             sender_id=self.agent_id,
             receiver_id="puzzle-validator-001",
             action="validate_puzzle",
-            payload={"puzzle_grid": test_puzzle, "solution_grid": test_solution},
+            payload={"puzzle_grid": test_puzzle,
+                     "solution_grid": test_solution},
         )
 
         validation_response = await self.message_bus.send_message(validation_message)
@@ -250,7 +253,8 @@ async def demo_a2a_system():
     registry.register(validator)
 
     print(f"✅ Registered {len(registry.agents)} agents")
-    print(f"📋 Available capabilities: {list(registry.capabilities_index.keys())}")
+    print(
+        f"📋 Available capabilities: {list(registry.capabilities_index.keys())}")
 
     # Create orchestrator
     orchestrator = A2AOrchestrator(registry, message_bus)
@@ -263,11 +267,12 @@ async def demo_a2a_system():
     print(json.dumps(result, indent=2))
 
     # Show message history
-    print(f"\n📨 Message History ({len(message_bus.message_history)} messages):")
+    print(
+        f"\n📨 Message History ({len(message_bus.message_history)} messages):")
     for msg in message_bus.get_message_history(limit=5):
         print(
-            f"  - {msg['timestamp']}: {msg['sender']
-                                       } -> {msg['receiver']} ({msg['action']})"
+            f" - {msg['timestamp']}: {msg['sender']
+                                      } -> {msg['receiver']}({msg['action']})"
         )
 
     # Test with a blank puzzle (should fail)
@@ -280,7 +285,8 @@ async def demo_a2a_system():
         action="validate_puzzle",
         payload={
             "puzzle_grid": blank_puzzle,
-            "solution_grid": [[1, 2, 3, 4, 5, 6, 7, 8, 9]] * 9,  # Invalid solution
+            # Invalid solution
+            "solution_grid": [[1, 2, 3, 4, 5, 6, 7, 8, 9]] * 9,
         },
     )
 

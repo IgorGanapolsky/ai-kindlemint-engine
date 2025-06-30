@@ -3,9 +3,6 @@
 CI Orchestrator - Main orchestration script for automated CI failure handling
 """
 
-from ci_monitor import CIMonitor
-from ci_fixer import CIFixer
-from ci_analyzer import CIAnalyzer
 import argparse
 import json
 import logging
@@ -16,6 +13,10 @@ import time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional, Tuple
+
+from ci_analyzer import CIAnalyzer
+from ci_fixer import CIFixer
+from ci_monitor import CIMonitor
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
@@ -122,14 +123,16 @@ class CIOrchestrator:
 
             # Step 2: Analyze failures
             logger.info("Step 2: Analyzing failures")
-            analysis_results = self.analyzer.analyze_failure_report(failure_report_path)
+            analysis_results = self.analyzer.analyze_failure_report(
+                failure_report_path)
             analysis_report_path = "ci_analysis.json"
             self.analyzer.save_analysis(analysis_results, analysis_report_path)
 
             # Step 3: Apply fixes
             logger.info("Step 3: Applying fixes")
             fix_results = self._apply_fixes(analysis_results)
-            results["fixes_applied"] = fix_results.get("total_fixes_applied", 0)
+            results["fixes_applied"] = fix_results.get(
+                "total_fixes_applied", 0)
 
             # Step 4: Validate fixes
             if not self.dry_run and results["fixes_applied"] > 0:
@@ -166,10 +169,11 @@ class CIOrchestrator:
 
         finally:
             cycle_end = datetime.utcnow()
-            results["cycle_duration"] = (cycle_end - cycle_start).total_seconds()
+            results["cycle_duration"] = (
+                cycle_end - cycle_start).total_seconds()
             logger.info(
                 f"Orchestration cycle completed in {
-                    results['cycle_duration']:.2f} seconds"
+                    results['cycle_duration']: .2f} seconds"
             )
 
         return results
@@ -236,7 +240,8 @@ class CIOrchestrator:
             success, stdout, stderr = self._run_command(lint_cmd)
             validation_results["linting_passed"] = success
             if not success:
-                validation_results["errors"].append(f"Linting failed: {stderr}")
+                validation_results["errors"].append(
+                    f"Linting failed: {stderr}")
 
             # Try basic import tests
             logger.info("Running import validation")
@@ -372,7 +377,8 @@ class CIOrchestrator:
 
     def _send_notifications(self, results: Dict) -> Dict:
         """Send notifications about orchestration results"""
-        notification_results = {"slack_sent": False, "email_sent": False, "errors": []}
+        notification_results = {"slack_sent": False,
+                                "email_sent": False, "errors": []}
 
         # Send Slack notification
         slack_webhook = self.config["notifications"].get("slack_webhook")
@@ -382,16 +388,19 @@ class CIOrchestrator:
                 # Send to Slack (implementation depends on your Slack setup)
                 notification_results["slack_sent"] = True
             except Exception as e:
-                notification_results["errors"].append(f"Slack notification failed: {e}")
+                notification_results["errors"].append(
+                    f"Slack notification failed: {e}")
 
         # Send email notifications
-        email_recipients = self.config["notifications"].get("email_recipients", [])
+        email_recipients = self.config["notifications"].get(
+            "email_recipients", [])
         if email_recipients:
             try:
                 # Email implementation would go here
                 notification_results["email_sent"] = True
             except Exception as e:
-                notification_results["errors"].append(f"Email notification failed: {e}")
+                notification_results["errors"].append(
+                    f"Email notification failed: {e}")
 
         return notification_results
 
@@ -419,7 +428,7 @@ class CIOrchestrator:
             return f"Auto-fixed {fixes}/{failures} CI failures (cycle: {duration:.1f}s)"
         else:
             return f"Detected {
-                failures} CI failures - manual review needed (cycle: {duration:.1f}s)"
+                failures} CI failures - manual review needed(cycle: {duration: .1f}s)"
 
     def _run_command(self, command: str) -> Tuple[bool, str, str]:
         """Run a shell command and return success, stdout, stderr"""
@@ -450,7 +459,8 @@ class CIOrchestrator:
                 with open(cycle_file, "w") as f:
                     json.dump(results, f, indent=2)
 
-                logger.info(f"Cycle {cycle_count} complete: {results['summary']}")
+                logger.info(
+                    f"Cycle {cycle_count} complete: {results['summary']}")
 
                 # Check if we should stop
                 if max_cycles and cycle_count >= max_cycles:
@@ -458,7 +468,8 @@ class CIOrchestrator:
                     break
 
                 # Wait before next cycle
-                logger.info(f"Waiting {check_interval} seconds before next cycle")
+                logger.info(
+                    f"Waiting {check_interval} seconds before next cycle")
                 time.sleep(check_interval)
 
             except KeyboardInterrupt:
@@ -486,7 +497,8 @@ def main():
     )
 
     # Repository settings
-    parser.add_argument("--owner", default="igorganapolsky", help="Repository owner")
+    parser.add_argument("--owner", default="igorganapolsky",
+                        help="Repository owner")
     parser.add_argument(
         "--repo", default="ai-kindlemint-engine", help="Repository name"
     )
@@ -565,7 +577,8 @@ def main():
 
         # Print summary
         print(f"\n{'=' * 60}")
-        print(f"CI Orchestration Results - {'DRY RUN' if args.dry_run else 'APPLIED'}")
+        print(
+            f"CI Orchestration Results - {'DRY RUN' if args.dry_run else 'APPLIED'}")
         print(f"{'=' * 60}")
         print(f"Failures detected: {results['failures_detected']}")
         print(f"Fixes applied: {results['fixes_applied']}")

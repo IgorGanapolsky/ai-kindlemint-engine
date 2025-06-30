@@ -99,12 +99,14 @@ class PNGGenerationFixer:
 
         # Backup original if it exists
         if output_path.exists():
-            backup_path = self.puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}_BACKUP.png"
+            backup_path = self.puzzles_dir / \
+                f"sudoku_puzzle_{puzzle_id:03d}_BACKUP.png"
             shutil.copy2(output_path, backup_path)
 
         img.save(output_path, "PNG", dpi=(300, 300), optimize=False)
 
-        print(f"✅ Fixed Puzzle {puzzle_id}: Drew {clues_drawn} clues → {output_path}")
+        print(
+            f"✅ Fixed Puzzle {puzzle_id}: Drew {clues_drawn} clues → {output_path}")
         return clues_drawn
 
     def fix_all_puzzles(self):
@@ -141,7 +143,7 @@ class PNGGenerationFixer:
 
             if json_clues != declared_clues:
                 print(
-                    f"⚠️  Puzzle {puzzle_id}: JSON metadata inconsistent ({json_clues} vs {
+                    f"⚠️  Puzzle {puzzle_id}: JSON metadata inconsistent({json_clues} vs {
                         declared_clues})"
                 )
 
@@ -201,7 +203,8 @@ class PNGGenerationFixer:
         draw = ImageDraw.Draw(img)
 
         try:
-            font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
+            font = ImageFont.truetype(
+                "/System/Library/Fonts/Helvetica.ttc", 36)
         except BaseException:
             font = ImageFont.load_default()
 
@@ -245,7 +248,8 @@ class PNGGenerationFixer:
 
 def main():
     """Main entry point"""
-    book_dir = Path("books/active_production/Large_Print_Sudoku_Masters/volume_1")
+    book_dir = Path(
+        "books/active_production/Large_Print_Sudoku_Masters/volume_1")
 
     if not book_dir.exists():
         print(f"❌ Book directory not found: {book_dir}")

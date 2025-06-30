@@ -69,7 +69,8 @@ def check_templates():
                     if not template_path.exists():
                         needed_templates.add((page_count, template_name))
                 else:
-                    print(f"  ⚠️  {volume_dir.name}: Could not read page count")
+                    print(
+                        f"  ⚠️  {volume_dir.name}: Could not read page count")
             else:
                 print(f"  ⚠️  {volume_dir.name}: No interior PDF found")
 
@@ -81,7 +82,8 @@ def check_templates():
         print("\n❌ Templates to download from KDP Cover Calculator:")
         for page_count, template_name in sorted(needed_templates):
             spine_width = (page_count * 0.0025) + 0.06
-            print(f"   - {template_name} (spine width: {spine_width:.3f} inches)")
+            print(
+                f"   - {template_name} (spine width: {spine_width:.3f} inches)")
 
         print("\n📌 Download instructions:")
         print("   1. Go to https://kdp.amazon.com/en_US/cover-calculator")

@@ -79,7 +79,8 @@ def add_cover_prompts():
             if isinstance(series_data, dict):
                 series_name = series_data.get("name", "Puzzle Series")
             else:
-                series_name = str(series_data) if series_data else "Puzzle Series"
+                series_name = str(
+                    series_data) if series_data else "Puzzle Series"
 
             # Determine book type from path
             if "/paperback/" in file_path:
@@ -107,7 +108,8 @@ def add_cover_prompts():
             with open(file_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
 
-            print(f"✓ Added cover prompt: {os.path.relpath(file_path, base_dir)}")
+            print(
+                f"✓ Added cover prompt: {os.path.relpath(file_path, base_dir)}")
 
         except Exception as e:
             print(f"✗ Error processing {file_path}: {e}")

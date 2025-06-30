@@ -99,7 +99,8 @@ class BookLayout:
         logger.info(f"✅ Successfully generated PDF: {self.pdf_path}")
 
     def _set_page_number(self, page_num):
-        self.canvas.setFont(self.body_font, self.font_sizes.get("small_text", 10))
+        self.canvas.setFont(
+            self.body_font, self.font_sizes.get("small_text", 10))
         self.canvas.drawCentredString(
             self.page_width / 2, self.bottom_margin / 2, str(page_num)
         )
@@ -113,13 +114,15 @@ class BookLayout:
             self.page_height - 2.5 * inch,
             self.config["series_name"],
         )
-        self.canvas.setFont(self.title_font, self.font_sizes.get("title", 18) + 6)
+        self.canvas.setFont(
+            self.title_font, self.font_sizes.get("title", 18) + 6)
         self.canvas.drawCentredString(
             self.page_width / 2,
             self.page_height - 3.5 * inch,
             f"Volume {self.config['volume_num']}",
         )
-        self.canvas.setFont(self.body_font, self.font_sizes.get("subtitle", 14))
+        self.canvas.setFont(
+            self.body_font, self.font_sizes.get("subtitle", 14))
         self.canvas.drawCentredString(
             self.page_width / 2,
             self.page_height - 4.5 * inch,
@@ -128,7 +131,8 @@ class BookLayout:
         self.canvas.showPage()
 
     def _create_copyright_page(self):
-        self.canvas.setFont(self.body_font, self.font_sizes.get("small_text", 10))
+        self.canvas.setFont(
+            self.body_font, self.font_sizes.get("small_text", 10))
         self.canvas.drawString(
             self.gutter_margin,
             self.page_height - 2 * inch,
@@ -143,7 +147,8 @@ class BookLayout:
         self._set_page_number(2)
 
     def _create_intro_page(self, title, text):
-        self.canvas.setFont(self.title_font, self.font_sizes.get("section_header", 14))
+        self.canvas.setFont(
+            self.title_font, self.font_sizes.get("section_header", 14))
         self.canvas.drawCentredString(
             self.page_width / 2, self.page_height - 1.5 * inch, title
         )
@@ -160,7 +165,8 @@ class BookLayout:
 
     def _draw_grid(self, x_offset, y_offset, grid_data, solution_mode=False):
         """Draws a crossword grid on the canvas."""
-        cell_size = config.get("puzzle_generation.crossword.cell_size_points", 18.72)
+        cell_size = config.get(
+            "puzzle_generation.crossword.cell_size_points", 18.72)
         grid_size = config.get("puzzle_generation.crossword.grid_size", 15)
 
         for r in range(grid_size):
@@ -172,19 +178,23 @@ class BookLayout:
 
                 if cell_content == "#":
                     self.canvas.setFillColor(colors.black)
-                    self.canvas.rect(x, y, cell_size, cell_size, fill=1, stroke=0)
+                    self.canvas.rect(
+                        x, y, cell_size, cell_size, fill=1, stroke=0)
                 else:
                     self.canvas.setStrokeColor(colors.black)
-                    self.canvas.rect(x, y, cell_size, cell_size, fill=0, stroke=1)
+                    self.canvas.rect(
+                        x, y, cell_size, cell_size, fill=0, stroke=1)
 
                     # Draw clue number
                     for pos, num in grid_data.get("clue_positions", {}).items():
                         row, col = map(int, pos.split(","))
                         if r == row and c == col:
                             self.canvas.setFont(
-                                self.body_font, self.font_sizes.get("grid_numbers", 9)
+                                self.body_font, self.font_sizes.get(
+                                    "grid_numbers", 9)
                             )
-                            self.canvas.drawString(x + 2, y + cell_size - 10, str(num))
+                            self.canvas.drawString(
+                                x + 2, y + cell_size - 10, str(num))
                             break
 
                     # Draw solution letter
@@ -192,7 +202,8 @@ class BookLayout:
                         letter = grid_data["solution_grid"][r][c]
                         if letter.isalpha():
                             self.canvas.setFont(
-                                self.title_font, self.font_sizes.get("body", 12)
+                                self.title_font, self.font_sizes.get(
+                                    "body", 12)
                             )
                             self.canvas.drawCentredString(
                                 x + cell_size / 2, y + cell_size / 2 - 5, letter
@@ -205,7 +216,8 @@ class BookLayout:
             puzzle_id = puzzle.get("id") or puzzle.get("num") or "?"
 
             # Left page: Grid
-            self.canvas.setFont(self.title_font, self.font_sizes.get("title", 18))
+            self.canvas.setFont(
+                self.title_font, self.font_sizes.get("title", 18))
             self.canvas.drawCentredString(
                 self.page_width / 2,
                 self.page_height - 1.5 * inch,
@@ -222,7 +234,8 @@ class BookLayout:
             page_num += 1
 
             # Right page: Clues
-            self.canvas.setFont(self.title_font, self.font_sizes.get("title", 18))
+            self.canvas.setFont(
+                self.title_font, self.font_sizes.get("title", 18))
             self.canvas.drawCentredString(
                 self.page_width / 2,
                 self.page_height - 1.5 * inch,
@@ -245,7 +258,8 @@ class BookLayout:
                 )
                 self.canvas.drawString(x, y, title)
                 y -= 0.3 * inch
-                self.canvas.setFont(self.body_font, self.font_sizes.get("body", 12) - 1)
+                self.canvas.setFont(
+                    self.body_font, self.font_sizes.get("body", 12) - 1)
                 for item in clue_list:
                     num, clue, _ = item
                     self.canvas.drawString(x, y, f"{num}. {clue}")
@@ -266,7 +280,8 @@ class BookLayout:
         page_num = 104  # Assuming 50 puzzles * 2 pages + 4 front matter
 
         # Title page for solutions
-        self.canvas.setFont(self.title_font, self.font_sizes.get("large_title", 20))
+        self.canvas.setFont(
+            self.title_font, self.font_sizes.get("large_title", 20))
         self.canvas.drawCentredString(
             self.page_width / 2, self.page_height / 2, "Solutions"
         )
@@ -279,17 +294,20 @@ class BookLayout:
         solution_cell_size = 10  # smaller size for solution grids
 
         for i in range(0, len(self.puzzle_data), puzzles_per_page):
-            chunk = self.puzzle_data[i : i + puzzles_per_page]
+            chunk = self.puzzle_data[i: i + puzzles_per_page]
 
             for idx, puzzle in enumerate(chunk):
                 row = idx // 2
                 col = idx % 2
 
                 x_offset = self.gutter_margin + col * (self.page_width / 2)
-                y_offset = self.page_height - self.top_margin - (row * 3 * inch)
+                y_offset = self.page_height - \
+                    self.top_margin - (row * 3 * inch)
 
-                self.canvas.setFont(self.title_font, self.font_sizes.get("body", 12))
-                self.canvas.drawString(x_offset, y_offset, f"Puzzle {puzzle['id']}")
+                self.canvas.setFont(
+                    self.title_font, self.font_sizes.get("body", 12))
+                self.canvas.drawString(
+                    x_offset, y_offset, f"Puzzle {puzzle['id']}")
                 self._draw_grid(
                     x_offset, y_offset - 0.2 * inch, puzzle, solution_mode=True
                 )
@@ -321,7 +339,8 @@ class UnifiedVolumeGenerator:
         self.base_output_dir = config.get_path(
             "file_paths.base_output_dir", Path("books/active_production")
         )
-        self.series_dir = self.base_output_dir / self.series_name.replace(" ", "_")
+        self.series_dir = self.base_output_dir / \
+            self.series_name.replace(" ", "_")
         self.engine_script = self._get_engine_script()
 
         logger.info(
@@ -335,7 +354,8 @@ class UnifiedVolumeGenerator:
         if self.puzzle_type == "crossword":
             script_path = project_root / "scripts" / "crossword_engine_v3_fixed.py"
             if not script_path.exists():
-                raise FileNotFoundError(f"Crossword engine not found at {script_path}")
+                raise FileNotFoundError(
+                    f"Crossword engine not found at {script_path}")
             return script_path
         else:
             raise ValueError(f"Unsupported puzzle type: {self.puzzle_type}")
@@ -347,7 +367,8 @@ class UnifiedVolumeGenerator:
             try:
                 self.generate_single_volume(vol_num)
             except Exception as e:
-                logger.error(f"❌ Failed to generate Volume {vol_num}. Error: {e}")
+                logger.error(
+                    f"❌ Failed to generate Volume {vol_num}. Error: {e}")
                 logger.error(traceback.format_exc())
         logger.info("✅ Batch generation process complete.")
 
@@ -378,7 +399,8 @@ class UnifiedVolumeGenerator:
         self, volume_dir: Path, vol_num: int
     ) -> List[Dict[str, Any]]:
         """Calls the puzzle engine script and returns the generated data."""
-        logger.info(f"Running {self.puzzle_type} engine for Volume {vol_num}...")
+        logger.info(
+            f"Running {self.puzzle_type} engine for Volume {vol_num}...")
         puzzle_count = config.get("puzzle_generation.default_puzzle_count", 50)
         cmd = [
             sys.executable,
@@ -390,7 +412,8 @@ class UnifiedVolumeGenerator:
             "--difficulty",
             self.difficulty,
         ]
-        result = subprocess.run(cmd, capture_output=True, text=True, cwd=project_root)
+        result = subprocess.run(cmd, capture_output=True,
+                                text=True, cwd=project_root)
         if result.returncode != 0:
             logger.error(
                 f"Puzzle engine failed with code {result.returncode}:\n{result.stderr}"
@@ -440,11 +463,13 @@ class UnifiedVolumeGenerator:
         logger.info(f"Running QA validation on {volume_dir}...")
         qa_script = project_root / "scripts" / "enhanced_qa_validator_v3.py"
         if not qa_script.exists():
-            logger.warning("QA validator script not found, skipping validation.")
+            logger.warning(
+                "QA validator script not found, skipping validation.")
             return
 
         cmd = [sys.executable, str(qa_script), str(volume_dir), "--verbose"]
-        result = subprocess.run(cmd, capture_output=True, text=True, cwd=project_root)
+        result = subprocess.run(cmd, capture_output=True,
+                                text=True, cwd=project_root)
         if result.returncode != 0:
             logger.warning(
                 f"QA validation reported issues for {volume_dir.name}:\n{result.stdout}"
@@ -479,7 +504,8 @@ def main():
         description="Unified Puzzle Book Volume Generator.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument("--series", required=True, help="Name of the book series.")
+    parser.add_argument("--series", required=True,
+                        help="Name of the book series.")
     parser.add_argument(
         "--volumes",
         required=True,

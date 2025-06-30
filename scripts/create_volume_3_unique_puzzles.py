@@ -572,7 +572,8 @@ class CrosswordPuzzleGenerator:
         grid = self.generate_crossword_pattern(puzzle_num)
 
         # Place words
-        solution, placed_words = self.place_words_in_grid(grid, words, puzzle_num)
+        solution, placed_words = self.place_words_in_grid(
+            grid, words, puzzle_num)
 
         # Create clues with proper numbering
         across_clues = {}
@@ -630,12 +631,15 @@ def create_pdf(puzzles, output_path):
     # Title page
     c.setFont("Helvetica-Bold", 36)
     c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2 * 72, "Large Print")
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2.75 * 72, "Crossword Masters")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT -
+                        2.75 * 72, "Crossword Masters")
     c.setFont("Helvetica-Bold", 28)
     c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 3.75 * 72, "Volume 3")
     c.setFont("Helvetica", 20)
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 5 * 72, "50 Unique Puzzles")
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 5.5 * 72, "With Solutions")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT -
+                        5 * 72, "50 Unique Puzzles")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT -
+                        5.5 * 72, "With Solutions")
     c.showPage()
 
     # Copyright page
@@ -643,7 +647,8 @@ def create_pdf(puzzles, output_path):
     c.drawCentredString(
         PAGE_WIDTH / 2, PAGE_HEIGHT - 2 * 72, "Copyright © 2024 KindleMint Publishing"
     )
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2.5 * 72, "All rights reserved.")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT -
+                        2.5 * 72, "All rights reserved.")
     c.drawCentredString(
         PAGE_WIDTH / 2, PAGE_HEIGHT - 3.5 * 72, "ISBN: 979-8-12345-678-9"
     )
@@ -651,7 +656,8 @@ def create_pdf(puzzles, output_path):
 
     # Table of Contents
     c.setFont("Helvetica-Bold", 24)
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 1.5 * 72, "Table of Contents")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT -
+                        1.5 * 72, "Table of Contents")
     c.setFont("Helvetica", 14)
     y_position = PAGE_HEIGHT - 2.5 * 72
 
@@ -747,7 +753,8 @@ def create_pdf(puzzles, output_path):
                         c.setFillColor(black)
                         c.setFont("Helvetica", 8)
                         c.drawString(
-                            x + 2, y + CELL_SIZE - 10, puzzle["numbered_grid"][row][col]
+                            x + 2, y + CELL_SIZE -
+                            10, puzzle["numbered_grid"][row][col]
                         )
 
         # Clues
@@ -782,7 +789,8 @@ def create_pdf(puzzles, output_path):
     for puzzle_num, puzzle in enumerate(puzzles, 1):
         c.setFont("Helvetica-Bold", 16)
         c.drawCentredString(
-            PAGE_WIDTH / 2, PAGE_HEIGHT - 72, f"Solution for Puzzle {puzzle_num}"
+            PAGE_WIDTH / 2, PAGE_HEIGHT -
+            72, f"Solution for Puzzle {puzzle_num}"
         )
 
         # Draw solution grid
@@ -813,7 +821,8 @@ def create_pdf(puzzles, output_path):
         # List answers
         c.setFont("Helvetica-Bold", 12)
         c.drawString(MARGIN, grid_y - PUZZLE_HEIGHT - 30, "ACROSS ANSWERS:")
-        c.drawString(PAGE_WIDTH / 2, grid_y - PUZZLE_HEIGHT - 30, "DOWN ANSWERS:")
+        c.drawString(PAGE_WIDTH / 2, grid_y -
+                     PUZZLE_HEIGHT - 30, "DOWN ANSWERS:")
 
         c.setFont("Helvetica", 10)
         y_pos = grid_y - PUZZLE_HEIGHT - 50
@@ -851,20 +860,23 @@ def create_pdf(puzzles, output_path):
         # Display unique words
         for i, (num, clue) in enumerate(sorted(puzzle["across_clues"].items())):
             if i < len(across_words):
-                c.drawString(MARGIN, y_pos, f"{num}. {across_words[i]} - {clue}")
+                c.drawString(
+                    MARGIN, y_pos, f"{num}. {across_words[i]} - {clue}")
                 y_pos -= 15
 
         y_pos = grid_y - PUZZLE_HEIGHT - 50
         for i, (num, clue) in enumerate(sorted(puzzle["down_clues"].items())):
             if i < len(down_words):
-                c.drawString(PAGE_WIDTH / 2, y_pos, f"{num}. {down_words[i]} - {clue}")
+                c.drawString(PAGE_WIDTH / 2, y_pos,
+                             f"{num}. {down_words[i]} - {clue}")
                 y_pos -= 15
 
         c.showPage()
 
     # Final page
     c.setFont("Helvetica-Bold", 24)
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT / 2, "Thank you for solving!")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT /
+                        2, "Thank you for solving!")
     c.setFont("Helvetica", 16)
     c.drawCentredString(
         PAGE_WIDTH / 2, PAGE_HEIGHT / 2 - 40, "Look for more volumes coming soon!"
@@ -898,7 +910,8 @@ def main():
     )
     volume_dir = base_dir / series_name / "volume_3"
 
-    output_dir = volume_dir / config.get("file_paths.paperback_subdir", "paperback")
+    output_dir = volume_dir / \
+        config.get("file_paths.paperback_subdir", "paperback")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Generate PDF
@@ -912,7 +925,8 @@ def main():
     logger.info(f"Output: {output_path}")
 
     # Also copy to hardcover directory
-    hardcover_dir = volume_dir / config.get("file_paths.hardcover_subdir", "hardcover")
+    hardcover_dir = volume_dir / \
+        config.get("file_paths.hardcover_subdir", "hardcover")
     hardcover_dir.mkdir(parents=True, exist_ok=True)
 
     import shutil

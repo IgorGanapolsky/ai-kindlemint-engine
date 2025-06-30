@@ -166,7 +166,8 @@ class DatabaseConnectionStrategy(ResolutionStrategy):
         """Increase database connection pool size"""
         current_size = context.get("current_pool_size", 20)
         new_size = int(current_size * 1.5)
-        logger.info(f"Increasing connection pool from {current_size} to {new_size}")
+        logger.info(
+            f"Increasing connection pool from {current_size} to {new_size}")
         return await self._set_connection_pool_size(new_size)
 
     async def _set_connection_pool_size(self, size: int) -> bool:
@@ -390,7 +391,8 @@ class DiskSpaceStrategy(ResolutionStrategy):
         try:
             # Step 1: Clean temporary files
             temp_freed = await self._clean_temp_files(error_context)
-            actions_taken.append(f"Cleaned temporary files ({temp_freed}MB freed)")
+            actions_taken.append(
+                f"Cleaned temporary files ({temp_freed}MB freed)")
             freed_space += temp_freed
 
             # Step 2: Rotate and compress old logs
@@ -401,7 +403,8 @@ class DiskSpaceStrategy(ResolutionStrategy):
             # Step 3: Clear application cache if still needed
             if freed_space < 500:  # Need more space
                 cache_freed = await self._clear_cache_files(error_context)
-                actions_taken.append(f"Cleared cache files ({cache_freed}MB freed)")
+                actions_taken.append(
+                    f"Cleared cache files ({cache_freed}MB freed)")
                 freed_space += cache_freed
 
             return StrategyResult(
@@ -430,7 +433,8 @@ class DiskSpaceStrategy(ResolutionStrategy):
     async def rollback(self, rollback_info: Dict[str, Any]) -> bool:
         # Disk cleanup typically doesn't need rollback
         # Log the space that was freed for monitoring
-        logger.info(f"Disk cleanup freed {rollback_info.get('space_freed', 0)}MB")
+        logger.info(
+            f"Disk cleanup freed {rollback_info.get('space_freed', 0)}MB")
         return True
 
     async def _clean_temp_files(self, context: Dict) -> int:
@@ -677,7 +681,7 @@ strategy_registry = StrategyRegistry()
 
 # Convenience functions for external use
 def get_applicable_strategies(
-    error_context: Dict[str, Any]
+    error_context: Dict[str, Any],
 ) -> List[ResolutionStrategy]:
     """Get resolution strategies applicable to an error"""
     return strategy_registry.get_applicable_strategies(error_context)

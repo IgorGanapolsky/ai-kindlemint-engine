@@ -89,7 +89,8 @@ class MarketToPublishOrchestrator:
         print("-" * 30)
 
         self.current_stage = "market_research"
-        stage_data = {"start_time": datetime.now().isoformat(), "status": "running"}
+        stage_data = {"start_time": datetime.now().isoformat(),
+                      "status": "running"}
 
         try:
             # Trigger market research script
@@ -134,7 +135,8 @@ class MarketToPublishOrchestrator:
         print("-" * 30)
 
         self.current_stage = "opportunity_analysis"
-        stage_data = {"start_time": datetime.now().isoformat(), "status": "running"}
+        stage_data = {"start_time": datetime.now().isoformat(),
+                      "status": "running"}
 
         try:
             # Run the auto-reviewer
@@ -153,7 +155,8 @@ class MarketToPublishOrchestrator:
                         if task.get("status") == "pending"
                     ]
 
-            stage_data["selected_count"] = len(self.pipeline_state["selected_niches"])
+            stage_data["selected_count"] = len(
+                self.pipeline_state["selected_niches"])
             stage_data["status"] = "completed"
             print(
                 f"✅ Selected {stage_data['selected_count']
@@ -198,7 +201,8 @@ class MarketToPublishOrchestrator:
                 stage_data["content_plans"].append(plan)
 
             stage_data["status"] = "completed"
-            print(f"✅ Created {len(stage_data['content_plans'])} content plans")
+            print(
+                f"✅ Created {len(stage_data['content_plans'])} content plans")
 
         except Exception as e:
             stage_data["status"] = "failed"
@@ -272,7 +276,8 @@ class MarketToPublishOrchestrator:
                 print(f"  QA check: {book['title']}")
 
                 # Run the QA validator
-                qa_result = {"book": book["title"], "checks_passed": True, "issues": []}
+                qa_result = {"book": book["title"],
+                             "checks_passed": True, "issues": []}
 
                 # In real implementation, call actual QA scripts
                 stage_data["qa_results"].append(qa_result)

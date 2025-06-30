@@ -3,10 +3,11 @@ Compatibility wrapper for sudoku_generator during migration.
 This maintains backward compatibility while the code is migrated to the new structure.
 """
 
-from kindlemint.engines.sudoku import main
 import sys
 import warnings
 from pathlib import Path
+
+from kindlemint.engines.sudoku import main
 
 # Add src to path if needed
 src_path = Path(__file__).parent.parent / "src"

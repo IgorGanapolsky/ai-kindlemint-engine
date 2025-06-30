@@ -35,7 +35,8 @@ class SudokuContentValidator:
             doc = fitz.open(str(pdf_path))
 
             # Check puzzle pages (pages 3-102, assuming 100 puzzles)
-            puzzle_errors = self._check_puzzle_pages(doc, start_page=2, end_page=101)
+            puzzle_errors = self._check_puzzle_pages(
+                doc, start_page=2, end_page=101)
 
             # Check solution pages (pages 104-203, assuming 100 solutions)
             solution_errors = self._check_solution_pages(
@@ -94,7 +95,7 @@ class SudokuContentValidator:
                         if is_complete:
                             puzzle_num = page_num - start_page + 1
                             errors.append(
-                                f"Puzzle #{puzzle_num} (Page {
+                                f"Puzzle  # {puzzle_num} (Page {
                                     page_num + 1}): Shows complete solution instead of puzzle with blanks"
                             )
                         break
@@ -110,7 +111,8 @@ class SudokuContentValidator:
         """Check that solution pages contain complete grids"""
         errors = []
 
-        print(f"💡 Checking solution pages {start_page + 1} to {end_page + 1}...")
+        print(
+            f"💡 Checking solution pages {start_page + 1} to {end_page + 1}...")
 
         for page_num in range(start_page, min(end_page + 1, doc.page_count)):
             try:
@@ -132,7 +134,7 @@ class SudokuContentValidator:
                         if not is_complete:
                             solution_num = page_num - start_page + 1
                             errors.append(
-                                f"Solution #{solution_num} (Page {
+                                f"Solution  # {solution_num} (Page {
                                     page_num + 1}): Incomplete solution grid"
                             )
                         break

@@ -68,10 +68,12 @@ class CrosswordEngineV3:
 
         # --- Load settings from config, with overrides from arguments ---
         self.grid_size = (
-            grid_size or config.get_puzzle_setting("crossword", "grid_size") or 15
+            grid_size or config.get_puzzle_setting(
+                "crossword", "grid_size") or 15
         )
         self.puzzle_count = (
-            puzzle_count or config.get("puzzle_generation.default_puzzle_count") or 50
+            puzzle_count or config.get(
+                "puzzle_generation.default_puzzle_count") or 50
         )
         self.difficulty_mode = difficulty or "mixed"
         self.max_word_length = (
@@ -88,7 +90,8 @@ class CrosswordEngineV3:
             "file_paths.word_list_path"
         )
         self.backtracking_max_attempts = (
-            config.get_puzzle_setting("crossword", "backtracking_max_attempts") or 3
+            config.get_puzzle_setting(
+                "crossword", "backtracking_max_attempts") or 3
         )
         self.difficulty_distribution = config.get_puzzle_setting(
             "crossword", "difficulty_distribution"
@@ -101,7 +104,8 @@ class CrosswordEngineV3:
         # --- Create directory structure from config ---
         puzzles_subdir = config.get("file_paths.puzzles_subdir", "puzzles")
         metadata_subdir = config.get("file_paths.metadata_subdir", "metadata")
-        solutions_subdir = config.get("file_paths.solutions_subdir", "solutions")
+        solutions_subdir = config.get(
+            "file_paths.solutions_subdir", "solutions")
 
         self.puzzles_dir = self.output_dir / puzzles_subdir
         self.puzzles_dir.mkdir(exist_ok=True)
@@ -127,7 +131,8 @@ class CrosswordEngineV3:
                 for line in f:
                     word = line.strip().upper()
                     if (
-                        self.min_word_length <= len(word) <= self.max_word_length
+                        self.min_word_length <= len(
+                            word) <= self.max_word_length
                         and word.isalpha()
                     ):
                         word_dict[word] = True
@@ -1627,7 +1632,8 @@ class CrosswordEngineV3:
     def generate_grid_with_content(self, puzzle_id, theme, difficulty):
         """Generate a filled 15x15 grid with actual words"""
         # Create empty grid
-        grid = [[" " for _ in range(self.grid_size)] for _ in range(self.grid_size)]
+        grid = [[" " for _ in range(self.grid_size)]
+                for _ in range(self.grid_size)]
 
         # Apply black squares
         black_squares = self.create_symmetric_pattern(difficulty)
@@ -1679,14 +1685,16 @@ class CrosswordEngineV3:
 
         theme_word_list = self.theme_words.get(theme, [])
 
-        filled_grid = self._fill_grid(grid, across_slots, down_slots, theme_word_list)
+        filled_grid = self._fill_grid(
+            grid, across_slots, down_slots, theme_word_list)
 
         if not filled_grid:
             logger.warning(
                 f"Failed to fill grid for puzzle {
                     puzzle_id}. Retrying with simpler pattern."
             )
-            grid = [[" " for _ in range(self.grid_size)] for _ in range(self.grid_size)]
+            grid = [[" " for _ in range(self.grid_size)]
+                    for _ in range(self.grid_size)]
             black_squares = self.create_symmetric_pattern("EASY")
             for r, c in black_squares:
                 grid[r][c] = "#"
@@ -1894,12 +1902,14 @@ class CrosswordEngineV3:
                     is_intersection = False
                     if direction == "across":
                         if (i > 0 and grid[i - 1][j] not in (" ", "#")) or (
-                            i < self.grid_size - 1 and grid[i + 1][j] not in (" ", "#")
+                            i < self.grid_size -
+                                1 and grid[i + 1][j] not in (" ", "#")
                         ):
                             is_intersection = True
                     else:
                         if (j > 0 and grid[i][j - 1] not in (" ", "#")) or (
-                            j < self.grid_size - 1 and grid[i][j + 1] not in (" ", "#")
+                            j < self.grid_size -
+                                1 and grid[i][j + 1] not in (" ", "#")
                         ):
                             is_intersection = True
 
@@ -1908,13 +1918,15 @@ class CrosswordEngineV3:
 
     def _create_fallback_grid(self):
         """Create a simple grid with predefined words as a last resort"""
-        grid = [[" " for _ in range(self.grid_size)] for _ in range(self.grid_size)]
+        grid = [[" " for _ in range(self.grid_size)]
+                for _ in range(self.grid_size)]
         for i in range(0, self.grid_size, 4):
             for j in range(0, self.grid_size, 4):
                 grid[i][j] = "#"
                 grid[self.grid_size - 1 - i][self.grid_size - 1 - j] = "#"
 
-        words_across = ["PUZZLE", "CROSS", "WORD", "GAME", "PLAY", "FUN", "SOLVE"]
+        words_across = ["PUZZLE", "CROSS", "WORD",
+                        "GAME", "PLAY", "FUN", "SOLVE"]
         words_down = ["PENCIL", "CLUE", "GRID", "BOX", "WIN", "TRY", "MIND"]
 
         row = 1
@@ -1948,8 +1960,10 @@ class CrosswordEngineV3:
         # Load style settings from config
         cell_size = config.get("style_settings.images.grid_cell_size_px", 60)
         margin = config.get("style_settings.images.grid_margin_px", 40)
-        border_width = config.get("style_settings.images.grid_border_width_px", 2)
-        grid_line_color = config.get("style_settings.colors.grid_line_color", "black")
+        border_width = config.get(
+            "style_settings.images.grid_border_width_px", 2)
+        grid_line_color = config.get(
+            "style_settings.colors.grid_line_color", "black")
         black_square_color = config.get(
             "style_settings.colors.black_square_color", "black"
         )
@@ -1964,8 +1978,10 @@ class CrosswordEngineV3:
 
         # Load fonts from config paths
         font_paths = config.get("style_settings.fonts.grid_font_paths", [])
-        letter_font_size = config.get("style_settings.fonts.font_sizes.grid_letter", 36)
-        number_font_size = config.get("style_settings.fonts.font_sizes.grid_number", 20)
+        letter_font_size = config.get(
+            "style_settings.fonts.font_sizes.grid_letter", 36)
+        number_font_size = config.get(
+            "style_settings.fonts.font_sizes.grid_number", 20)
 
         font, number_font = None, None
         for path in font_paths:
@@ -1977,7 +1993,8 @@ class CrosswordEngineV3:
             except Exception:
                 continue
         if not font:
-            logger.warning("No valid font found in config paths. Using default font.")
+            logger.warning(
+                "No valid font found in config paths. Using default font.")
             font = ImageFont.load_default()
             number_font = font
 
@@ -2009,7 +2026,8 @@ class CrosswordEngineV3:
                     )
 
                     letter = grid[row][col]
-                    text_width, text_height = filled_draw.textsize(letter, font=font)
+                    text_width, text_height = filled_draw.textsize(
+                        letter, font=font)
                     filled_draw.text(
                         (
                             x + (cell_size - text_width) / 2,
@@ -2080,7 +2098,8 @@ class CrosswordEngineV3:
                     if len(word) >= self.min_word_length:
                         number = clue_positions.get((row, start_col))
                         if number:
-                            across_words.append((number, word, (row, start_col)))
+                            across_words.append(
+                                (number, word, (row, start_col)))
                 else:
                     col += 1
 
@@ -2218,7 +2237,8 @@ class CrosswordEngineV3:
     def validate_puzzle(self, grid, across_words, down_words, clues):
         """Validate that the puzzle meets quality standards"""
         validation = {"valid": True, "issues": []}
-        min_word_count = config.get_qa_threshold("min_word_count_per_puzzle") or 20
+        min_word_count = config.get_qa_threshold(
+            "min_word_count_per_puzzle") or 20
         balance_ratio = config.get_qa_threshold("word_balance_ratio") or 0.3
 
         total_words = len(across_words) + len(down_words)
@@ -2236,10 +2256,12 @@ class CrosswordEngineV3:
             validation["issues"].append("Unbalanced word distribution")
 
         all_words = [word for _, word, _ in across_words + down_words]
-        duplicates = [word for word, count in Counter(all_words).items() if count > 1]
+        duplicates = [word for word, count in Counter(
+            all_words).items() if count > 1]
         if duplicates:
             validation["valid"] = False
-            validation["issues"].append(f"Duplicate words: {', '.join(duplicates)}")
+            validation["issues"].append(
+                f"Duplicate words: {', '.join(duplicates)}")
 
         short_words = [
             word
@@ -2266,7 +2288,8 @@ class CrosswordEngineV3:
                         break
                 if not found:
                     validation["valid"] = False
-                    validation["issues"].append(f"Clue mismatch: {direction} {number}")
+                    validation["issues"].append(
+                        f"Clue mismatch: {direction} {number}")
 
         return validation
 
@@ -2311,7 +2334,8 @@ class CrosswordEngineV3:
 
     def generate_puzzles(self):
         """Generate the specified number of crossword puzzles"""
-        print(f"🔤 CROSSWORD ENGINE V3 - Generating {self.puzzle_count} puzzles")
+        print(
+            f"🔤 CROSSWORD ENGINE V3 - Generating {self.puzzle_count} puzzles")
         print(f"📁 Output directory: {self.puzzles_dir}")
 
         puzzles_data = []
@@ -2324,10 +2348,11 @@ class CrosswordEngineV3:
 
             print(
                 f"  Creating puzzle {
-                    puzzle_id}/{self.puzzle_count}: {theme} ({difficulty})"
+                    puzzle_id}/{self.puzzle_count}: {theme}({difficulty})"
             )
 
-            grid = self.generate_grid_with_content(puzzle_id, theme, difficulty)
+            grid = self.generate_grid_with_content(
+                puzzle_id, theme, difficulty)
             empty_grid_path, filled_grid_path, clue_positions = self.create_grid_images(
                 grid, puzzle_id
             )
@@ -2337,7 +2362,8 @@ class CrosswordEngineV3:
             clues = self.generate_clues(
                 puzzle_id, theme, difficulty, across_words, down_words
             )
-            validation = self.validate_puzzle(grid, across_words, down_words, clues)
+            validation = self.validate_puzzle(
+                grid, across_words, down_words, clues)
 
             if not validation["valid"]:
                 logger.warning(
@@ -2350,7 +2376,8 @@ class CrosswordEngineV3:
                     and attempts < self.backtracking_max_attempts
                 ):
                     attempts += 1
-                    grid = self.generate_grid_with_content(puzzle_id, theme, difficulty)
+                    grid = self.generate_grid_with_content(
+                        puzzle_id, theme, difficulty)
                     empty_grid_path, filled_grid_path, clue_positions = (
                         self.create_grid_images(grid, puzzle_id)
                     )
@@ -2390,7 +2417,8 @@ class CrosswordEngineV3:
                 },
             }
 
-            puzzle_meta_path = self.metadata_dir / f"puzzle_{puzzle_id:02d}.json"
+            puzzle_meta_path = self.metadata_dir / \
+                f"puzzle_{puzzle_id:02d}.json"
             with open(puzzle_meta_path, "w") as f:
                 json.dump(puzzle_data, f, indent=2)
 
@@ -2510,7 +2538,8 @@ def main():
     parser = argparse.ArgumentParser(
         description="Crossword Engine v3 Fixed - Generate high-quality crossword puzzles"
     )
-    parser.add_argument("--output", required=True, help="Output directory for puzzles")
+    parser.add_argument("--output", required=True,
+                        help="Output directory for puzzles")
     parser.add_argument(
         "--count",
         type=int,

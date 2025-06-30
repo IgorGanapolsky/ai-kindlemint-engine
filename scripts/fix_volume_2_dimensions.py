@@ -24,7 +24,8 @@ BOTTOM_MARGIN = 0.75 * inch
 def fix_volume_2_pdf():
     """Regenerate Volume 2 with correct dimensions"""
 
-    volume_dir = Path("books/active_production/Large_Print_Crossword_Masters/volume_2")
+    volume_dir = Path(
+        "books/active_production/Large_Print_Crossword_Masters/volume_2")
     volume_dir / "puzzles"
     output_pdf = volume_dir / "paperback" / "crossword_book_volume_2_FINAL_6x9.pdf"
 
@@ -53,7 +54,8 @@ def fix_volume_2_pdf():
     )
 
     story.append(Spacer(1, 2 * inch))
-    story.append(Paragraph("LARGE PRINT<br/>CROSSWORD<br/>MASTERS", title_style))
+    story.append(
+        Paragraph("LARGE PRINT<br/>CROSSWORD<br/>MASTERS", title_style))
     story.append(Spacer(1, 0.5 * inch))
     story.append(Paragraph("VOLUME 2", title_style))
     story.append(PageBreak())

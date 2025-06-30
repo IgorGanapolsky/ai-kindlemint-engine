@@ -4,14 +4,15 @@ Example: AI Workflow with Sentry Agent Monitoring
 Demonstrates how to integrate agent monitoring into existing workflows
 """
 
-from scripts.sentry_agent_monitoring import AgentContext, get_agent_monitor
-from scripts.crossword_clue_generator import CrosswordClueGenerator
-from scripts.api_manager_enhanced import EnhancedAPIManager
 import json
 import os
 import sys
 import time
 from typing import Any, Dict, List
+
+from scripts.api_manager_enhanced import EnhancedAPIManager
+from scripts.crossword_clue_generator import CrosswordClueGenerator
+from scripts.sentry_agent_monitoring import AgentContext, get_agent_monitor
 
 # Add project root to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -100,10 +101,12 @@ class MonitoredCrosswordWorkflow:
                 except Exception as e:
                     # Track individual word failures
                     self.monitor.capture_ai_error(
-                        context.agent_id, e, {"word": word, "step": "clue_generation"}
+                        context.agent_id, e, {
+                            "word": word, "step": "clue_generation"}
                     )
 
-                    results.append({"word": word, "error": str(e), "source": "error"})
+                    results.append(
+                        {"word": word, "error": str(e), "source": "error"})
 
             # Step 2: Validate all generated clues
             validation_results = self._validate_clues(results)
@@ -159,7 +162,7 @@ Make clues varied in style (definition, fill-in-blank, wordplay).
                 # Remove common prefixes
                 for prefix in ["1.", "2.", "3.", "-", "*", "•"]:
                     if cleaned.startswith(prefix):
-                        cleaned = cleaned[len(prefix) :].strip()
+                        cleaned = cleaned[len(prefix):].strip()
                         break
 
                 if cleaned:
@@ -179,13 +182,15 @@ Make clues varied in style (definition, fill-in-blank, wordplay).
         for result in results:
             if "error" in result:
                 validation["failed"] += 1
-                validation["issues"].append(f"{result['word']}: {result['error']}")
+                validation["issues"].append(
+                    f"{result['word']}: {result['error']}")
             elif "clues" in result:
                 if len(result["clues"]) >= 1:
                     validation["successful"] += 1
                 else:
                     validation["failed"] += 1
-                    validation["issues"].append(f"{result['word']}: No clues generated")
+                    validation["issues"].append(
+                        f"{result['word']}: No clues generated")
 
         validation["success_rate"] = (
             validation["successful"] / validation["total_words"]
@@ -282,7 +287,8 @@ def main():
     print(f"Words: {', '.join(test_words)}\n")
 
     # Run workflow with monitoring
-    result = workflow.generate_crossword_with_ai(words=test_words, difficulty="medium")
+    result = workflow.generate_crossword_with_ai(
+        words=test_words, difficulty="medium")
 
     # Display results
     print("\n=== Results ===")
@@ -299,7 +305,8 @@ def main():
     print("\n=== Validation Results ===")
     validation = result["validation"]
     print(f"Success rate: {validation['success_rate']:.1%}")
-    print(f"Successful: {validation['successful']}/{validation['total_words']}")
+    print(
+        f"Successful: {validation['successful']}/{validation['total_words']}")
 
     if validation["issues"]:
         print("\nIssues found:")

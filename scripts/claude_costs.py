@@ -40,13 +40,16 @@ Examples:
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
     # Init command
-    init_parser = subparsers.add_parser("init", help="Initialize cost tracking")
+    init_parser = subparsers.add_parser(
+        "init", help="Initialize cost tracking")
 
     # Status command
-    status_parser = subparsers.add_parser("status", help="Show current cost status")
+    status_parser = subparsers.add_parser(
+        "status", help="Show current cost status")
 
     # Track command
-    track_parser = subparsers.add_parser("track", help="Track current commit costs")
+    track_parser = subparsers.add_parser(
+        "track", help="Track current commit costs")
     track_parser.add_argument(
         "--model",
         default="claude-3-sonnet",
@@ -62,7 +65,8 @@ Examples:
     )
 
     # Details command
-    details_parser = subparsers.add_parser("details", help="Show detailed commit costs")
+    details_parser = subparsers.add_parser(
+        "details", help="Show detailed commit costs")
     details_parser.add_argument(
         "--last", type=int, default=10, help="Number of commits to show"
     )
@@ -95,7 +99,8 @@ Examples:
         print("=" * 50)
 
         if commit_costs.get("commits"):
-            print(f"Total tracked cost: {format_currency(commit_costs['total_cost'])}")
+            print(
+                f"Total tracked cost: {format_currency(commit_costs['total_cost'])}")
             print(f"Commits tracked: {len(commit_costs['commits'])}")
             print(f"First tracked: {commit_costs['first_tracked'][:10]}")
             print(f"Last updated: {commit_costs['last_updated'][:19]}")
@@ -115,8 +120,10 @@ Examples:
         print(
             f"  Full repo cost estimate: {format_currency(last_cost['full_repo_cost'])}"
         )
-        print(f"  Last worktree cost: {format_currency(last_cost['worktree_cost'])}")
-        print(f"  Savings potential: {format_currency(last_cost['savings_potential'])}")
+        print(
+            f"  Last worktree cost: {format_currency(last_cost['worktree_cost'])}")
+        print(
+            f"  Savings potential: {format_currency(last_cost['savings_potential'])}")
 
     elif args.command == "track":
         # Track current changes
@@ -152,7 +159,8 @@ Examples:
                 c = summary["most_expensive_commit"]
                 print(f"\nMost expensive commit:")
                 print(f"  {c['hash']} - {format_currency(c['cost'])}")
-                print(f"  Files: {c['files_changed']}, Tokens: {c['tokens']:,}")
+                print(
+                    f"  Files: {c['files_changed']}, Tokens: {c['tokens']:,}")
                 print(f"  {c['message'][:60]}...")
 
     elif args.command == "details":
@@ -163,13 +171,13 @@ Examples:
             print("No commits tracked yet.")
             return
 
-        commits = commit_costs["commits"][-args.last :]
+        commits = commit_costs["commits"][-args.last:]
 
         print(f"\n📋 Last {len(commits)} Commits with Claude Costs")
         print("=" * 80)
         print(
-            f"{'Hash':<10} {'Date':<20} {'Cost':<12} {
-                'Files':<8} {'Tokens':<10} Message"
+            f"{'Hash': < 10} {'Date': < 20} {'Cost': < 12} {
+                'Files': < 8} {'Tokens': < 10} Message"
         )
         print("-" * 80)
 
@@ -185,8 +193,8 @@ Examples:
             )
 
             print(
-                f"{commit['hash']:<10} {date:<20} {
-                    cost:<12} {commit['files_changed']:<8} "
+                f"{commit['hash']: < 10} {date: < 20} {
+                    cost: < 12} {commit['files_changed']: < 8} "
                 f"{commit['tokens']:<10,} {msg}"
             )
 
@@ -206,7 +214,8 @@ Examples:
             with open(output_path, "w", newline="") as f:
                 writer = csv.writer(f)
                 writer.writerow(
-                    ["Hash", "Timestamp", "Cost", "Tokens", "Files", "Model", "Message"]
+                    ["Hash", "Timestamp", "Cost", "Tokens",
+                        "Files", "Model", "Message"]
                 )
 
                 for commit in commit_costs.get("commits", []):

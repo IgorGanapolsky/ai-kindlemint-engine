@@ -190,7 +190,8 @@ class HardcoverProducer:
         front_cover = Image.open(cover_source).convert("RGB")
 
         # Create main canvas
-        canvas = Image.new("RGB", (self.template_width, self.template_height), "white")
+        canvas = Image.new("RGB", (self.template_width,
+                           self.template_height), "white")
 
         # Calculate cover areas
         front_width = int(6 * 300)  # 1800 pixels
@@ -293,9 +294,11 @@ class HardcoverProducer:
         spine_title_rotated = spine_title_img.rotate(90, expand=True)
 
         spine_title_y = front_y + spine_margin
-        spine_title_x = spine_x + (spine_width - spine_title_rotated.width) // 2
+        spine_title_x = spine_x + \
+            (spine_width - spine_title_rotated.width) // 2
         canvas.paste(
-            spine_title_rotated, (spine_title_x, spine_title_y), spine_title_rotated
+            spine_title_rotated, (spine_title_x,
+                                  spine_title_y), spine_title_rotated
         )
 
         # Publisher on spine
@@ -313,7 +316,8 @@ class HardcoverProducer:
 
         publisher_y = front_y + front_height - publisher_rotated.height - spine_margin
         publisher_x = spine_x + (spine_width - publisher_rotated.width) // 2
-        canvas.paste(publisher_rotated, (publisher_x, publisher_y), publisher_rotated)
+        canvas.paste(publisher_rotated, (publisher_x,
+                     publisher_y), publisher_rotated)
 
         # Back cover description
         lines = self.config["back_cover_description"].split("\n")
@@ -383,7 +387,8 @@ class HardcoverProducer:
             img.save(temp_img, "JPEG", quality=100)
 
             # Draw image
-            c.drawImage(str(temp_img), 0, 0, width=width_points, height=height_points)
+            c.drawImage(str(temp_img), 0, 0, width=width_points,
+                        height=height_points)
             c.save()
 
             # Clean up
@@ -425,8 +430,7 @@ class HardcoverProducer:
 
         print(f"✅ Hardcover package complete: {output_dir}")
         print(
-            f"💰 Pricing: ${self.config['hardcover_price_min']
-                :.2f} - ${self.config['hardcover_price_max']:.2f}"
+            f"💰 Pricing: ${self.config['hardcover_price_min']                : .2f} - ${self.config['hardcover_price_max']:.2f}"
         )
         print(f"📁 Production files only - scripts remain in scripts/hardcover/")
 
@@ -440,7 +444,8 @@ def load_book_config(config_file):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Create hardcover production package")
+    parser = argparse.ArgumentParser(
+        description="Create hardcover production package")
     parser.add_argument("config", help="Book configuration JSON file")
     args = parser.parse_args()
 

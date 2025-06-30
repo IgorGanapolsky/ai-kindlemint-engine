@@ -4,8 +4,6 @@ Claude Cost Scheduler
 Manages automated Claude cost notifications and reports
 """
 
-from scripts.claude_cost_tracker import ClaudeCostTracker
-from scripts.claude_cost_slack_notifier import ClaudeCostSlackNotifier
 import argparse
 import json
 import logging
@@ -18,6 +16,9 @@ from pathlib import Path
 from typing import Dict, Optional
 
 import schedule
+
+from scripts.claude_cost_slack_notifier import ClaudeCostSlackNotifier
+from scripts.claude_cost_tracker import ClaudeCostTracker
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -161,7 +162,8 @@ class ClaudeCostScheduler:
                 elif day == "sunday":
                     schedule.every().sunday.at(time_str).do(self._run_efficiency_report)
 
-                logger.info(f"Efficiency reports scheduled for {day}s at {time_str}")
+                logger.info(
+                    f"Efficiency reports scheduled for {day}s at {time_str}")
             elif freq == "daily":
                 schedule.every().day.at(self.config["efficiency_reports"]["time"]).do(
                     self._run_efficiency_report
@@ -216,11 +218,13 @@ class ClaudeCostScheduler:
 
             # Check weekly budget
             if config.get("weekly_limit"):
-                self.notifier.send_budget_alert(config["weekly_limit"], "weekly")
+                self.notifier.send_budget_alert(
+                    config["weekly_limit"], "weekly")
 
             # Check monthly budget
             if config.get("monthly_limit"):
-                self.notifier.send_budget_alert(config["monthly_limit"], "monthly")
+                self.notifier.send_budget_alert(
+                    config["monthly_limit"], "monthly")
 
         except Exception as e:
             logger.error(f"Error checking budgets: {e}")
@@ -253,9 +257,10 @@ class ClaudeCostScheduler:
                             if cost >= threshold:
                                 logger.info(
                                     f"Commit cost ${
-                                        cost:.4f} exceeds threshold ${threshold}"
+                                        cost: .4f} exceeds threshold ${threshold}"
                                 )
-                                self.notifier.send_commit_notification(current_hash)
+                                self.notifier.send_commit_notification(
+                                    current_hash)
                             break
 
                     last_commit_hash = current_hash
@@ -490,7 +495,8 @@ Examples:
         else:
             print(f"❌ Service installation not supported on {system}")
             print("   You can use cron to schedule the notifications:")
-            print(f"   0 9 * * * {sys.executable} {Path(__file__).resolve()} run")
+            print(
+                f"   0 9 * * * {sys.executable} {Path(__file__).resolve()} run")
 
 
 if __name__ == "__main__":

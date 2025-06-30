@@ -3,10 +3,11 @@
 Claude Code Demo - Demonstrates AI-accelerated development
 """
 
-from kindlemint.orchestrator import ClaudeCodeOrchestrator
 import asyncio
 import sys
 from pathlib import Path
+
+from kindlemint.orchestrator import ClaudeCodeOrchestrator
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -30,15 +31,18 @@ async def main():
     # Create a publishing specialist agent
     agent_result = await orchestrator.create_agent(
         agent_type="publishing-specialist",
-        capabilities=["content-generation", "market-analysis", "seo-optimization"],
+        capabilities=["content-generation",
+                      "market-analysis", "seo-optimization"],
         framework="langchain",
     )
-    print(f"✅ Publishing specialist agent created: {agent_result['agent_path']}")
+    print(
+        f"✅ Publishing specialist agent created: {agent_result['agent_path']}")
 
     # Create a revenue optimization agent
     revenue_agent = await orchestrator.create_agent(
         agent_type="revenue-optimizer",
-        capabilities=["pricing-strategy", "affiliate-integration", "upsell-generation"],
+        capabilities=["pricing-strategy",
+                      "affiliate-integration", "upsell-generation"],
     )
     print(f"✅ Revenue optimizer agent created: {revenue_agent['agent_path']}")
 
@@ -54,7 +58,8 @@ async def main():
             "output": "publishable_book",
         },
     )
-    print(f"✅ Voice-to-book feature developed: {voice_feature['files_created']}")
+    print(
+        f"✅ Voice-to-book feature developed: {voice_feature['files_created']}")
 
     # Develop social media atomization
     social_feature = await orchestrator.develop_feature(
@@ -64,7 +69,8 @@ async def main():
             "features": ["content_splitting", "scheduling", "analytics"],
         },
     )
-    print(f"✅ Social media atomization developed: {social_feature['files_created']}")
+    print(
+        f"✅ Social media atomization developed: {social_feature['files_created']}")
 
     print("\n3️⃣ Creating Integrations...")
     print("-" * 30)
@@ -79,7 +85,8 @@ async def main():
     stripe_integration = await orchestrator.integrate_service(
         service_name="Stripe Payment Processing", integration_type="payment"
     )
-    print(f"✅ Stripe integration created: {stripe_integration['files_created']}")
+    print(
+        f"✅ Stripe integration created: {stripe_integration['files_created']}")
 
     print("\n4️⃣ Generating Tests...")
     print("-" * 30)
@@ -93,7 +100,7 @@ async def main():
         f"✅ Generated {
             tests['total_tests']} tests with {
             tests['estimated_coverage'] *
-            100:.0f}% coverage"
+            100: .0f} % coverage"
     )
 
     print("\n5️⃣ Optimizing Codebase...")

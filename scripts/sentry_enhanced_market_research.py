@@ -23,7 +23,8 @@ def run_sentry_enhanced_research():
     if not init_sentry("market-research-engine"):
         print("⚠️ Running without Sentry monitoring")
 
-    add_breadcrumb("Starting market research automation", category="automation")
+    add_breadcrumb("Starting market research automation",
+                   category="automation")
 
     with SentryKDPOperation("market_research_full_cycle") as transaction:
 
@@ -39,11 +40,13 @@ def run_sentry_enhanced_research():
             "amazon_competitor_analysis", {"api": "serpapi"}
         ) as sub_transaction:
             try:
-                add_breadcrumb("Initializing SerpApi connection", category="api")
+                add_breadcrumb(
+                    "Initializing SerpApi connection", category="api")
 
                 serpapi_key = os.getenv("SERPAPI_API_KEY")
                 if not serpapi_key:
-                    raise ValueError("SERPAPI_API_KEY not found in environment")
+                    raise ValueError(
+                        "SERPAPI_API_KEY not found in environment")
 
                 add_breadcrumb("SerpApi key validated", category="api")
 
@@ -79,7 +82,8 @@ def run_sentry_enhanced_research():
                 product_count = len(data["organic_results"])
                 results["amazon_products"] = product_count
                 results["apis_tested"].append("SerpApi - SUCCESS")
-                results["operations_tracked"].append("amazon_competitor_analysis")
+                results["operations_tracked"].append(
+                    "amazon_competitor_analysis")
 
                 add_breadcrumb(
                     f"SerpApi success: {product_count} products found",
@@ -112,7 +116,8 @@ def run_sentry_enhanced_research():
                         "error_category": "api_request_failure",
                     },
                 )
-                results["apis_tested"].append(f"SerpApi - REQUEST_ERROR: {str(e)}")
+                results["apis_tested"].append(
+                    f"SerpApi - REQUEST_ERROR: {str(e)}")
                 print(f"❌ SerpApi request error: {e}")
 
             except ValueError as e:
@@ -124,7 +129,8 @@ def run_sentry_enhanced_research():
                         "error_category": "data_validation_failure",
                     },
                 )
-                results["apis_tested"].append(f"SerpApi - DATA_ERROR: {str(e)}")
+                results["apis_tested"].append(
+                    f"SerpApi - DATA_ERROR: {str(e)}")
                 print(f"❌ SerpApi data error: {e}")
 
             except Exception as e:
@@ -136,7 +142,8 @@ def run_sentry_enhanced_research():
                         "error_category": "unexpected_failure",
                     },
                 )
-                results["apis_tested"].append(f"SerpApi - UNEXPECTED_ERROR: {str(e)}")
+                results["apis_tested"].append(
+                    f"SerpApi - UNEXPECTED_ERROR: {str(e)}")
                 print(f"❌ SerpApi unexpected error: {e}")
 
         # SLACK INTEGRATION with Seer AI monitoring
@@ -150,7 +157,8 @@ def run_sentry_enhanced_research():
 
                 webhook_url = os.getenv("SLACK_WEBHOOK_URL")
                 if not webhook_url:
-                    raise ValueError("SLACK_WEBHOOK_URL not found in environment")
+                    raise ValueError(
+                        "SLACK_WEBHOOK_URL not found in environment")
 
                 # Prepare Seer AI-enhanced notification
                 api_count = len(
@@ -229,7 +237,8 @@ def run_sentry_enhanced_research():
                         "error_category": "notification_failure",
                     },
                 )
-                results["apis_tested"].append(f"Slack - REQUEST_ERROR: {str(e)}")
+                results["apis_tested"].append(
+                    f"Slack - REQUEST_ERROR: {str(e)}")
                 print(f"❌ Slack request error: {e}")
 
             except ValueError as e:
@@ -241,7 +250,8 @@ def run_sentry_enhanced_research():
                         "error_category": "configuration_failure",
                     },
                 )
-                results["apis_tested"].append(f"Slack - CONFIG_ERROR: {str(e)}")
+                results["apis_tested"].append(
+                    f"Slack - CONFIG_ERROR: {str(e)}")
                 print(f"❌ Slack config error: {e}")
 
             except Exception as e:
@@ -253,7 +263,8 @@ def run_sentry_enhanced_research():
                         "error_category": "unexpected_failure",
                     },
                 )
-                results["apis_tested"].append(f"Slack - UNEXPECTED_ERROR: {str(e)}")
+                results["apis_tested"].append(
+                    f"Slack - UNEXPECTED_ERROR: {str(e)}")
                 print(f"❌ Slack unexpected error: {e}")
 
         # SAVE RESULTS with Seer AI context
@@ -268,12 +279,14 @@ def run_sentry_enhanced_research():
             add_breadcrumb(
                 "Research results saved",
                 category="file_operation",
-                data={"filename": filename, "api_count": len(results["apis_tested"])},
+                data={"filename": filename, "api_count": len(
+                    results["apis_tested"])},
             )
 
             print(f"\n📊 SENTRY-ENHANCED SUMMARY:")
             print(f"✅ APIs tested: {len(results['apis_tested'])}")
-            print(f"🔍 Operations tracked: {len(results['operations_tracked'])}")
+            print(
+                f"🔍 Operations tracked: {len(results['operations_tracked'])}")
             for api_result in results["apis_tested"]:
                 print(f"   {api_result}")
             print(f"📁 Results saved: {filename}")

@@ -132,9 +132,11 @@ class TaskCoordinator:
         self.coordinator_active = True
 
         # Start coordination tasks
-        self.coordination_tasks.add(asyncio.create_task(self._task_scheduler()))
+        self.coordination_tasks.add(
+            asyncio.create_task(self._task_scheduler()))
         self.coordination_tasks.add(asyncio.create_task(self._task_monitor()))
-        self.coordination_tasks.add(asyncio.create_task(self._workflow_executor()))
+        self.coordination_tasks.add(
+            asyncio.create_task(self._workflow_executor()))
 
         self.logger.info("Task coordinator started")
 
@@ -163,7 +165,8 @@ class TaskCoordinator:
             Task ID
         """
         # Calculate task priority score
-        priority_score = self._calculate_priority_score(task.priority) + priority_boost
+        priority_score = self._calculate_priority_score(
+            task.priority) + priority_boost
 
         # Add to queue
         await self.task_queue.put((priority_score, datetime.now(), task))
@@ -463,7 +466,8 @@ class TaskCoordinator:
             success = await self.agent_registry.route_message(task_message)
 
             if success:
-                self.logger.info(f"Assigned task {task.task_id} to agent {agent_id}")
+                self.logger.info(
+                    f"Assigned task {task.task_id} to agent {agent_id}")
                 return True
             else:
                 # Assignment failed, reset task
@@ -522,7 +526,8 @@ class TaskCoordinator:
         execution.status = WorkflowStatus.RUNNING
         execution.started_at = datetime.now()
 
-        self.logger.info(f"Starting workflow execution {execution.execution_id}")
+        self.logger.info(
+            f"Starting workflow execution {execution.execution_id}")
 
         # Create tasks for initial steps (no dependencies)
         for step in workflow.steps:
@@ -571,7 +576,8 @@ class TaskCoordinator:
                 execution.completed_at = datetime.now()
                 execution.error_message = "One or more workflow steps failed"
 
-                self.logger.error(f"Workflow execution {execution.execution_id} failed")
+                self.logger.error(
+                    f"Workflow execution {execution.execution_id} failed")
 
             # Move to history
             self.execution_history.append(execution)

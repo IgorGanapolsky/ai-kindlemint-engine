@@ -105,8 +105,10 @@ class EnhancedQAChecker:
 
                                         # Check if text is too close to edges
                                         if (
-                                            bbox[0] < margin_threshold  # Left edge
-                                            or bbox[1] < margin_threshold  # Top edge
+                                            # Left edge
+                                            bbox[0] < margin_threshold
+                                            # Top edge
+                                            or bbox[1] < margin_threshold
                                             or bbox[2]
                                             > page_rect.width
                                             - margin_threshold  # Right edge
@@ -143,7 +145,8 @@ class EnhancedQAChecker:
 
                 # Render page as image for visual analysis
                 pix = page.get_pixmap(matrix=fitz.Matrix(2, 2))  # 2x zoom
-                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                img = Image.frombytes(
+                    "RGB", [pix.width, pix.height], pix.samples)
 
                 # Basic image analysis
                 width, height = img.size
@@ -152,7 +155,8 @@ class EnhancedQAChecker:
                 # Check for completely black or white regions (rendering issues)
                 img_array = list(img.getdata())
                 black_pixels = sum(1 for pixel in img_array if sum(pixel) < 30)
-                white_pixels = sum(1 for pixel in img_array if sum(pixel) > 750)
+                white_pixels = sum(
+                    1 for pixel in img_array if sum(pixel) > 750)
                 total_pixels = len(img_array)
 
                 black_ratio = black_pixels / total_pixels
@@ -168,7 +172,7 @@ class EnhancedQAChecker:
                             page_num +
                             1}: {
                             black_ratio *
-                            100:.1f}% black - may have rendering issues",
+                            100: .1f} % black - may have rendering issues",
                     )
 
                 if white_ratio > 0.9:
@@ -178,7 +182,7 @@ class EnhancedQAChecker:
                             page_num +
                             1}: {
                             white_ratio *
-                            100:.1f}% white - may lack content",
+                            100: .1f} % white - may lack content",
                     )
 
             doc.close()
@@ -249,7 +253,8 @@ class EnhancedQAChecker:
                     f"Page {page_num}: Number '{issue['number']}' - {issue['issue']}",
                 )
         else:
-            print(f"  ✅ Page {page_num}: Crossword numbers appear properly positioned")
+            print(
+                f"  ✅ Page {page_num}: Crossword numbers appear properly positioned")
 
     def check_file_properties(self, pdf_path):
         """Check basic file properties"""
@@ -259,7 +264,8 @@ class EnhancedQAChecker:
         checks = {}
 
         if not pdf_path.exists():
-            self.add_critical_issue("FILE_NOT_FOUND", "PDF file does not exist")
+            self.add_critical_issue(
+                "FILE_NOT_FOUND", "PDF file does not exist")
             return
 
         checks["file_exists"] = True
@@ -312,7 +318,8 @@ class EnhancedQAChecker:
                     print(f"  ✅ PDF not encrypted")
 
         except Exception as e:
-            self.add_critical_issue("PDF_CORRUPT", f"Cannot read PDF file: {e}")
+            self.add_critical_issue(
+                "PDF_CORRUPT", f"Cannot read PDF file: {e}")
 
         self.qa_results["content_checks"] = checks
 
@@ -345,7 +352,8 @@ class EnhancedQAChecker:
                 # Check for duplicates
                 lines = all_text.split("\n")
                 unique_lines = set(lines)
-                duplicate_ratio = 1 - (len(unique_lines) / len(lines)) if lines else 0
+                duplicate_ratio = 1 - \
+                    (len(unique_lines) / len(lines)) if lines else 0
 
                 checks["duplicate_content_ratio"] = duplicate_ratio
 
@@ -362,7 +370,7 @@ class EnhancedQAChecker:
                 else:
                     print(
                         f"  ✅ Content duplication: {
-                            duplicate_ratio * 100:.1f}% (acceptable)"
+                            duplicate_ratio * 100: .1f} % (acceptable)"
                     )
 
         except Exception as e:
@@ -424,7 +432,8 @@ class EnhancedQAChecker:
                         if value:
                             passed_checks += 1
 
-        critical_penalty = len(self.qa_results["issues_found"]) * 25  # Higher penalty
+        critical_penalty = len(
+            self.qa_results["issues_found"]) * 25  # Higher penalty
         warning_penalty = len(self.qa_results["warnings"]) * 5
 
         if total_checks > 0:
@@ -475,7 +484,8 @@ class EnhancedQAChecker:
                 print(f"   • {warning['description']}")
 
         # Save enhanced report
-        qa_report_path = pdf_path.parent / f"ENHANCED_QA_REPORT_{pdf_path.stem}.json"
+        qa_report_path = pdf_path.parent / \
+            f"ENHANCED_QA_REPORT_{pdf_path.stem}.json"
         with open(qa_report_path, "w") as f:
             json.dump(self.qa_results, f, indent=2)
 

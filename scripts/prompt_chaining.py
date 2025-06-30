@@ -80,7 +80,8 @@ class PromptChain:
         result = ChainResult(success=True)
 
         for i, step in enumerate(self.steps):
-            logger.info(f"Executing step {i + 1}/{len(self.steps)}: {step.name}")
+            logger.info(
+                f"Executing step {i + 1}/{len(self.steps)}: {step.name}")
 
             try:
                 step_output = self._execute_step(step)
@@ -197,7 +198,8 @@ class PromptChainLibrary:
                 - Be unique and memorable
 
                 Format: Return as a JSON list of strings.""",
-                input_keys=["puzzle_type", "target_audience", "difficulty", "theme"],
+                input_keys=["puzzle_type", "target_audience",
+                            "difficulty", "theme"],
                 output_key="title_options",
             ),
             # Step 2: Evaluate titles
@@ -245,7 +247,8 @@ class PromptChainLibrary:
                 - Appeal to {target_audience}
 
                 Return as a single string.""",
-                input_keys=["selected_title", "puzzle_type", "target_audience"],
+                input_keys=["selected_title",
+                            "puzzle_type", "target_audience"],
                 output_key="subtitle",
             ),
             # Step 5: Generate description
@@ -265,7 +268,8 @@ class PromptChainLibrary:
                 - Call to action
 
                 Return as formatted text.""",
-                input_keys=["selected_title", "subtitle", "puzzle_type", "difficulty"],
+                input_keys=["selected_title", "subtitle",
+                            "puzzle_type", "difficulty"],
                 output_key="description",
             ),
             # Step 6: Generate keywords

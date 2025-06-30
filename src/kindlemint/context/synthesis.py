@@ -109,7 +109,8 @@ class MarketContextAnalyzer:
                 category="business",
                 popularity_score=0.92,
                 growth_rate=0.35,
-                keywords=["artificial intelligence", "AI automation", "business AI"],
+                keywords=["artificial intelligence",
+                          "AI automation", "business AI"],
                 target_demographics=["entrepreneurs", "tech professionals"],
                 seasonal_factors={"q1": 1.1, "q4": 1.3},
                 competition_level="high",
@@ -447,7 +448,8 @@ class CreativeContextLibrary:
                     "stubborn_protagonist",
                     "equally_matched_love_interest",
                 ],
-                plot_devices=["forced_proximity", "misunderstanding", "grand_gesture"],
+                plot_devices=["forced_proximity",
+                              "misunderstanding", "grand_gesture"],
                 theme_elements=[
                     "love_conquers_all",
                     "personal_growth",
@@ -891,9 +893,11 @@ class ContextSynthesisEngine:
             # Build contexts in parallel for performance
             context_tasks = [
                 self.author_builder.build_context(user_id, voice_input),
-                self.market_analyzer.get_relevant_context(voice_input.intent.value),
+                self.market_analyzer.get_relevant_context(
+                    voice_input.intent.value),
                 self.creative_library.match_patterns(voice_input),
-                self.publishing_engine.optimize_for_platforms(voice_input.intent.value),
+                self.publishing_engine.optimize_for_platforms(
+                    voice_input.intent.value),
             ]
 
             author_ctx, market_ctx, creative_ctx, publishing_ctx = await asyncio.gather(
@@ -934,13 +938,14 @@ class ContextSynthesisEngine:
 
             self.logger.info(
                 f"Synthesized context for user {user_id} with quality score {
-                    synthesized_context.quality_score:.2f}"
+                    synthesized_context.quality_score: .2f}"
             )
 
             return synthesized_context
 
         except Exception as e:
-            self.logger.error(f"Failed to synthesize context for user {user_id}: {e}")
+            self.logger.error(
+                f"Failed to synthesize context for user {user_id}: {e}")
             # Return minimal context on error
             basic_author_ctx = AuthorContext(user_id=user_id)
             return SynthesizedContext(
@@ -1012,7 +1017,8 @@ class ContextSynthesisEngine:
         )
 
         # Publishing context quality
-        publishing_readiness = self._assess_publishing_readiness(context.publishing)
+        publishing_readiness = self._assess_publishing_readiness(
+            context.publishing)
         quality_factors.append(
             publishing_readiness * context.synthesis_weights.publishing_weight
         )
@@ -1132,8 +1138,10 @@ class ContextSynthesisEngine:
         coherence = 0.5  # Base coherence
 
         # Check genre alignment
-        author_genres = {g.value for g in author_ctx.writing_style.genre_preferences}
-        pattern_genres = {p.genre.value for p in creative_ctx.relevant_patterns}
+        author_genres = {
+            g.value for g in author_ctx.writing_style.genre_preferences}
+        pattern_genres = {
+            p.genre.value for p in creative_ctx.relevant_patterns}
 
         if author_genres.intersection(pattern_genres):
             coherence += 0.3
@@ -1228,7 +1236,8 @@ class ContextSynthesisEngine:
 
         # Publishing context suggestions
         if len(context.publishing.target_formats) < 2:
-            suggestions.append("Consider multiple publishing formats to maximize reach")
+            suggestions.append(
+                "Consider multiple publishing formats to maximize reach")
 
         return suggestions[:5]  # Limit to top 5 suggestions
 

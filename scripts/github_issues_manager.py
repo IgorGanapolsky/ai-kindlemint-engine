@@ -3,16 +3,18 @@
 GitHub Issues Manager - Automated issue and PR handling with monitoring
 """
 
-from kindlemint.agents.task_system import Task, TaskPriority, TaskType
-from kindlemint.agents.github_issues_agent import GitHubActionType, GitHubIssuesAgent
-from slack_notifier import SlackNotifier
-from sentry_config import init_sentry, track_kdp_operation
 import asyncio
 import os
 import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
+
+from sentry_config import init_sentry, track_kdp_operation
+from slack_notifier import SlackNotifier
+
+from kindlemint.agents.github_issues_agent import GitHubActionType, GitHubIssuesAgent
+from kindlemint.agents.task_system import Task, TaskPriority, TaskType
 
 # Add paths
 project_root = Path(__file__).parent.parent
@@ -44,7 +46,8 @@ class GitHubIssuesManager:
             # Generate report first
             report_task = Task(
                 task_type=TaskType.GENERATE_REPORTS,
-                input_data={"action_type": GitHubActionType.GENERATE_REPORT.value},
+                input_data={
+                    "action_type": GitHubActionType.GENERATE_REPORT.value},
                 priority=TaskPriority.NORMAL,
             )
 
@@ -192,7 +195,7 @@ class GitHubIssuesManager:
                 if "pr_number" in item:
                     action = item["result"].get("action_taken", "reviewed")
                     emoji = "✅" if action == "auto_approved_and_merged" else "👀"
-                    text = f"{emoji} PR #{
+                    text = f"{emoji} PR  # {
                         item['pr_number']}: {
                         item['title']}\n   Action: {action}"
                 else:
@@ -219,7 +222,7 @@ class GitHubIssuesManager:
         )
 
         self.slack_notifier.send_message(
-            text="GitHub Issues Report", blocks=blocks, color="#3498db"
+            text = "GitHub Issues Report", blocks = blocks, color = "#3498db"
         )
 
     def _send_error_notification(self, error_type: str, details: str):
@@ -242,7 +245,7 @@ class GitHubIssuesManager:
         ]
 
         self.slack_notifier.send_message(
-            text="GitHub Issues Error", blocks=blocks, color="#e74c3c"
+            text = "GitHub Issues Error", blocks = blocks, color = "#e74c3c"
         )
 
 
@@ -253,15 +256,16 @@ async def main():
     parser = argparse.ArgumentParser(description="GitHub Issues Manager")
     parser.add_argument(
         "--repo",
-        default="IgorGanapolsky/ai-kindlemint-engine",
-        help="GitHub repository",
+        default = "IgorGanapolsky/ai-kindlemint-engine",
+        help = "GitHub repository",
     )
     parser.add_argument(
-        "--process-all", action="store_true", help="Process all open issues and PRs"
+        "--process-all", action = "store_true", help = "Process all open issues and PRs"
     )
-    parser.add_argument("--review-pr", type=int, help="Review specific PR number")
+    parser.add_argument("--review-pr", type=int,
+                        help = "Review specific PR number")
     parser.add_argument(
-        "--analyze-issue", type=int, help="Analyze specific issue number"
+        "--analyze-issue", type =int, help="Analyze specific issue number"
     )
 
     args = parser.parse_args()

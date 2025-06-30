@@ -158,7 +158,7 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Cell at [{i},{
+                                    description=f"Cell at[{i}, {
                                         j}] must be between 0-9, found {cell}",
                                     puzzle_id=puzzle_id,
                                     location=f"grid[{i}][{j}]",
@@ -219,8 +219,8 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Solution cell at [{
-                                        i},{j}] must be an integer",
+                                    description=f"Solution cell at[{
+                                        i}, {j}] must be an integer",
                                     puzzle_id=puzzle_id,
                                     location=f"solution[{i}][{j}]",
                                 )
@@ -229,7 +229,7 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Solution cell at [{i},{
+                                    description=f"Solution cell at[{i}, {
                                         j}] must be between 1-9, found {cell}",
                                     puzzle_id=puzzle_id,
                                     location=f"solution[{i}][{j}]",
@@ -334,15 +334,15 @@ class SudokuValidator(PuzzleValidator):
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
                                         description=f"Duplicate value {
-                                            cell} in 3x3 box at [{box_i},{box_j}]",
+                                            cell} in 3x3 box at[{box_i}, {box_j}]",
                                         puzzle_id=puzzle_id,
                                         location=f"grid[{
                                             box_i *
                                             3 +
                                             i}][{
-                                            box_j *
-                                            3 +
-                                            j}]",
+                                                box_j *
+                                                3 +
+                                                j}]",
                                         recommendation="Remove duplicate or correct the value",
                                     )
                                 )
@@ -392,7 +392,7 @@ class SudokuValidator(PuzzleValidator):
                         issues.append(
                             self.create_issue(
                                 severity=IssueSeverity.ERROR,
-                                description=f"3x3 box at [{box_i},{
+                                description=f"3x3 box at[{box_i}, {
                                     box_j}] in solution is not complete or has duplicates",
                                 puzzle_id=puzzle_id,
                                 recommendation="Solution boxes must contain all digits 1-9 exactly once",
@@ -413,7 +413,7 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Grid clue at [{i},{j}] doesn't match solution: {
+                                    description=f"Grid clue at[{i}, {j}] doesn't match solution: {
                                         grid[i][j]} vs {solution[i][j]}",
                                     puzzle_id=puzzle_id,
                                     location=f"grid[{i}][{j}]",
@@ -425,7 +425,8 @@ class SudokuValidator(PuzzleValidator):
         if "difficulty" in puzzle_data and isinstance(puzzle_data["difficulty"], str):
             difficulty = puzzle_data["difficulty"].lower()
             if difficulty in self.DIFFICULTY_CLUE_RANGES:
-                clue_count = sum(1 for row in grid for cell in row if cell != 0)
+                clue_count = sum(
+                    1 for row in grid for cell in row if cell != 0)
                 expected_range = self.DIFFICULTY_CLUE_RANGES[difficulty]
 
                 if clue_count == 0:
@@ -442,7 +443,7 @@ class SudokuValidator(PuzzleValidator):
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
                             description=f"Too few clues for {difficulty} difficulty: {
-                                clue_count} (min: {expected_range['min']})",
+                                clue_count}(min: {expected_range['min']})",
                             puzzle_id=puzzle_id,
                             recommendation=f"Add more clues or change difficulty level",
                         )
@@ -452,7 +453,7 @@ class SudokuValidator(PuzzleValidator):
                         self.create_issue(
                             severity=IssueSeverity.WARNING,
                             description=f"Too many clues for {difficulty} difficulty: {
-                                clue_count} (max: {expected_range['max']})",
+                                clue_count}(max: {expected_range['max']})",
                             puzzle_id=puzzle_id,
                             recommendation=f"Remove some clues or change difficulty level",
                         )
@@ -560,8 +561,8 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Provided solution doesn't match computed solution at [{
-                                        i},{j}]",
+                                    description=f"Provided solution doesn't match computed solution at[{
+                                        i}, {j}]",
                                     puzzle_id=puzzle_id,
                                     location=f"solution[{i}][{j}]",
                                     recommendation="Correct the solution or the puzzle",

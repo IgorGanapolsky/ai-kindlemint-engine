@@ -112,7 +112,8 @@ class BookLayoutBot:
                 if puzzles_dir.exists():
                     puzzle_images = list(puzzles_dir.glob("puzzle_*.png"))
                     puzzle_images.sort(
-                        key=lambda p: int(re.search(r"puzzle_(\d+)", p.name).group(1))
+                        key=lambda p: int(
+                            re.search(r"puzzle_(\d+)", p.name).group(1))
                     )
 
             if puzzle_images:
@@ -151,7 +152,8 @@ class BookLayoutBot:
         print(f"📝 Creating PDF interior for '{self.title}'")
 
         # Determine output PDF path
-        series_name = re.sub(r"[^\w\s-]", "", self.title).strip().replace(" ", "_")
+        series_name = re.sub(
+            r"[^\w\s-]", "", self.title).strip().replace(" ", "_")
         pdf_filename = f"{series_name}_interior_FINAL.pdf"
         pdf_path = self.output_dir / pdf_filename
 
@@ -260,7 +262,8 @@ class BookLayoutFormatter(Formatter):
         # Author
         c.setFont("Helvetica", self.heading_font_size)
         c.drawCentredString(
-            self.page_width / 2, self.page_height - 6.5 * inch, f"By {self.author}"
+            self.page_width / 2, self.page_height -
+            6.5 * inch, f"By {self.author}"
         )
 
         # Page number (not visible on title page)
@@ -273,10 +276,13 @@ class BookLayoutFormatter(Formatter):
         c.setFont("Helvetica", self.body_font_size)
         year = datetime.now().year
         c.drawString(
-            1 * inch, self.page_height - 2 * inch, f"Copyright © {year} {self.author}"
+            1 * inch, self.page_height - 2 *
+            inch, f"Copyright © {year} {self.author}"
         )
-        c.drawString(1 * inch, self.page_height - 2.3 * inch, "All rights reserved.")
-        c.drawString(1 * inch, self.page_height - 3 * inch, "ISBN: [To be assigned]")
+        c.drawString(1 * inch, self.page_height -
+                     2.3 * inch, "All rights reserved.")
+        c.drawString(1 * inch, self.page_height - 3 *
+                     inch, "ISBN: [To be assigned]")
         c.drawString(1 * inch, self.page_height - 3.5 * inch, self.author)
 
         # Legal text
@@ -355,7 +361,8 @@ class BookLayoutFormatter(Formatter):
 
             c.drawString(1 * inch, y_pos, "Solutions")
             # Estimate solutions page (introduction + 2 pages per puzzle + 1)
-            solutions_page = self.current_page + 1 + (len(self.puzzles_data) * 2) + 1
+            solutions_page = self.current_page + \
+                1 + (len(self.puzzles_data) * 2) + 1
             c.drawString(6 * inch, y_pos, str(solutions_page))
 
         c.showPage()
@@ -411,7 +418,8 @@ class BookLayoutFormatter(Formatter):
 
         # Add page number
         c.setFont("Helvetica", self.small_font_size)
-        c.drawCentredString(self.page_width / 2, 0.5 * inch, str(self.current_page))
+        c.drawCentredString(self.page_width / 2, 0.5 *
+                            inch, str(self.current_page))
 
         c.showPage()
 
@@ -436,11 +444,13 @@ class BookLayoutFormatter(Formatter):
         # Puzzle header
         c.setFont("Helvetica-Bold", self.heading_font_size)
         c.drawCentredString(
-            self.page_width / 2, self.page_height - 1 * inch, f"Puzzle {puzzle_id}"
+            self.page_width / 2, self.page_height -
+            1 * inch, f"Puzzle {puzzle_id}"
         )
         c.setFont("Helvetica", self.body_font_size)
         c.drawCentredString(
-            self.page_width / 2, self.page_height - 1.3 * inch, f"Theme: {theme}"
+            self.page_width / 2, self.page_height -
+            1.3 * inch, f"Theme: {theme}"
         )
         c.drawCentredString(
             self.page_width / 2,
@@ -455,7 +465,8 @@ class BookLayoutFormatter(Formatter):
             grid_size = 5 * inch  # Large print!
             x_pos = (self.page_width - grid_size) / 2
             y_pos = (self.page_height - grid_size) / 2 - 0.5 * inch
-            c.drawImage(grid_path, x_pos, y_pos, width=grid_size, height=grid_size)
+            c.drawImage(grid_path, x_pos, y_pos,
+                        width=grid_size, height=grid_size)
         else:
             # Draw placeholder if image not found
             c.setFont("Helvetica", self.body_font_size)
@@ -467,7 +478,8 @@ class BookLayoutFormatter(Formatter):
 
         # Add page number
         c.setFont("Helvetica", self.small_font_size)
-        c.drawCentredString(self.page_width / 2, 0.5 * inch, str(self.current_page))
+        c.drawCentredString(self.page_width / 2, 0.5 *
+                            inch, str(self.current_page))
 
         c.showPage()
 
@@ -522,7 +534,8 @@ class BookLayoutFormatter(Formatter):
 
         # Add page number
         c.setFont("Helvetica", self.small_font_size)
-        c.drawCentredString(self.page_width / 2, 0.5 * inch, str(self.current_page))
+        c.drawCentredString(self.page_width / 2, 0.5 *
+                            inch, str(self.current_page))
 
         c.showPage()
 
@@ -543,7 +556,8 @@ class BookLayoutFormatter(Formatter):
 
         # Add page number
         c.setFont("Helvetica", self.small_font_size)
-        c.drawCentredString(self.page_width / 2, 0.5 * inch, str(self.current_page))
+        c.drawCentredString(self.page_width / 2, 0.5 *
+                            inch, str(self.current_page))
 
         c.showPage()
 
@@ -602,7 +616,8 @@ class BookLayoutFormatter(Formatter):
 
         # Add page number
         c.setFont("Helvetica", self.small_font_size)
-        c.drawCentredString(self.page_width / 2, 0.5 * inch, str(self.current_page))
+        c.drawCentredString(self.page_width / 2, 0.5 *
+                            inch, str(self.current_page))
 
         c.showPage()
 
@@ -698,7 +713,8 @@ def main():
         choices=["letter", "a4"],
         help="Page size (letter or a4)",
     )
-    parser.add_argument("--font-size", type=int, default=14, help="Base font size")
+    parser.add_argument("--font-size", type=int,
+                        default=14, help="Base font size")
     parser.add_argument(
         "--no-solutions",
         action="store_false",

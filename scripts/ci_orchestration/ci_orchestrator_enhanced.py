@@ -3,9 +3,6 @@
 Enhanced CI Orchestrator - Properly extracts and analyzes CI failures
 """
 
-from ci_monitor_enhanced import EnhancedCIMonitor
-from ci_fixer import CIFixer
-from ci_analyzer import CIAnalyzer
 import argparse
 import json
 import logging
@@ -14,6 +11,10 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional
+
+from ci_analyzer import CIAnalyzer
+from ci_fixer import CIFixer
+from ci_monitor_enhanced import EnhancedCIMonitor
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
@@ -81,7 +82,8 @@ class EnhancedCIOrchestrator:
                 "failure_info": failure,
                 "strategies": [self._strategy_to_dict(s) for s in prioritized],
                 "recommended_strategy": (
-                    self._strategy_to_dict(prioritized[0]) if prioritized else None
+                    self._strategy_to_dict(
+                        prioritized[0]) if prioritized else None
                 ),
             }
 
@@ -90,7 +92,8 @@ class EnhancedCIOrchestrator:
             # Update summary statistics
             failure_type = failure.get("failure_type", "unknown")
             analysis_results["summary"]["by_failure_type"][failure_type] = (
-                analysis_results["summary"]["by_failure_type"].get(failure_type, 0) + 1
+                analysis_results["summary"]["by_failure_type"].get(
+                    failure_type, 0) + 1
             )
 
             if prioritized:
@@ -102,7 +105,8 @@ class EnhancedCIOrchestrator:
 
                 stype = best_strategy.strategy_type
                 analysis_results["summary"]["by_strategy_type"][stype] = (
-                    analysis_results["summary"]["by_strategy_type"].get(stype, 0) + 1
+                    analysis_results["summary"]["by_strategy_type"].get(
+                        stype, 0) + 1
                 )
 
         # Save enhanced analysis
@@ -245,8 +249,8 @@ class EnhancedCIOrchestrator:
             print(f"\n⚠️  Found {len(puzzle_failures)} puzzle QA failures:")
             for pf in puzzle_failures[:3]:  # Show first 3
                 print(
-                    f"  - {pf['failure_info']['job_name']
-                           }: {pf['failure_info']['error_message']}"
+                    f" - {pf['failure_info']['job_name']
+                          }: {pf['failure_info']['error_message']}"
                 )
 
     def _print_fix_summary(self, fix_results: Dict):
@@ -270,8 +274,8 @@ class EnhancedCIOrchestrator:
                 print(
                     f"  {status_emoji} {
                         fix['failure']}: {
-                        fix['description']} ({
-                        fix['status']})"
+                        fix['description']}({
+                            fix['status']})"
                 )
 
 
@@ -280,7 +284,8 @@ def main():
     parser = argparse.ArgumentParser(
         description="Enhanced CI orchestrator with proper failure analysis"
     )
-    parser.add_argument("--owner", default="IgorGanapolsky", help="Repository owner")
+    parser.add_argument("--owner", default="IgorGanapolsky",
+                        help="Repository owner")
     parser.add_argument(
         "--repo", default="ai-kindlemint-engine", help="Repository name"
     )
@@ -296,7 +301,8 @@ def main():
 
     args = parser.parse_args()
 
-    orchestrator = EnhancedCIOrchestrator(args.owner, args.repo, dry_run=args.dry_run)
+    orchestrator = EnhancedCIOrchestrator(
+        args.owner, args.repo, dry_run=args.dry_run)
 
     orchestrator.run_complete_cycle()
 

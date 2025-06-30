@@ -4,17 +4,19 @@ Automated Code Hygiene Cleanup Script
 Run this to clean up the project automatically
 """
 
-from src.kindlemint.agents.code_hygiene_orchestrator import CodeHygieneOrchestrator
 import argparse
 import sys
 from pathlib import Path
+
+from src.kindlemint.agents.code_hygiene_orchestrator import CodeHygieneOrchestrator
 
 # Add parent directory to path
 sys.path.append(str(Path(__file__).parent.parent))
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Clean up project hygiene issues")
+    parser = argparse.ArgumentParser(
+        description="Clean up project hygiene issues")
     parser.add_argument(
         "--analyze", action="store_true", help="Only analyze, don't clean"
     )
@@ -41,7 +43,8 @@ def main():
     print(f"\n📊 Current Status:")
     print(f"   Hygiene Score: {report['metrics']['hygiene_score']:.1f}/100")
     print(f"   Untracked Files: {report['untracked_files']}")
-    print(f"   Organization Score: {report['metrics']['organization_score']:.1f}%")
+    print(
+        f"   Organization Score: {report['metrics']['organization_score']:.1f}%")
 
     # Show file categories
     print("\n📂 File Categories:")

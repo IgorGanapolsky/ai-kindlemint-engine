@@ -282,7 +282,8 @@ class MagneticMarketingEngine:
             with open(avatar_file, "r") as f:
                 avatar_data = json.load(f)
         else:
-            avatar_data = {"avatar_profile": {"demographics": "puzzle enthusiasts"}}
+            avatar_data = {"avatar_profile": {
+                "demographics": "puzzle enthusiasts"}}
 
         # Create the triangle
         magnetic_triangle = {
@@ -291,7 +292,7 @@ class MagneticMarketingEngine:
                 "core_promise": f"The ONLY {self.book_config.get('puzzle_type', 'puzzle')} book designed specifically for {avatar_data['avatar_profile'].get('demographics', 'your specific situation')}",
                 "unique_mechanism": f"The {self.series_name} Method™",
                 "proof_points": [
-                    f"Tested with 100+ {
+                    f"Tested with 100 + {
                         avatar_data['avatar_profile'].get(
                             'demographics', 'readers')}",
                     f"Guaranteed results in 30 days or money back",
@@ -479,7 +480,8 @@ Here's what you'll discover inside:
         benefit = "solved crosswords 50% faster"
         if "How I" in title and "(And You Can Too)" in title:
             try:
-                benefit = title.split("How I")[1].split("(And You Can Too)")[0].strip()
+                benefit = title.split("How I")[1].split(
+                    "(And You Can Too)")[0].strip()
             except IndexError:
                 benefit = "mastered the crossword solving system"
         elif "How I" in title:
@@ -495,7 +497,8 @@ I {benefit} - and now you can use the exact same method.
 Here's what you'll discover inside:
 
 • The "Corner Start" technique that unlocks 70% of any grid in under 5 minutes (Page 12)
-• Why starting with long answers is the #1 mistake most solvers make (Chapter 2)
+#1 mistake most solvers make (Chapter 2)
+• Why starting with long answers is the
 • The 3-clue pattern that appears in 95% of professional crosswords (you'll never get stuck again)
 • Large print format designed specifically for comfortable solving - no eye strain guaranteed
 
@@ -614,7 +617,8 @@ Order now and transform your results."""
         }
 
         # Select appropriate funnel
-        funnel_data = funnel_templates.get(book_theme, funnel_templates["crossword"])
+        funnel_data = funnel_templates.get(
+            book_theme, funnel_templates["crossword"])
 
         # Create complete funnel system
         funnel_system = {
@@ -997,7 +1001,7 @@ PLUS these exclusive bonuses:
 
         for bonus in template["bonus_stack"]:
             presentation_copy += f"✅ {bonus['item']
-                                      } ({bonus['value']} value)\n{bonus['description']}\n\n"
+                                      }({bonus['value']} value)\n{bonus['description']}\n\n"
 
         presentation_copy += f"""
 TOTAL VALUE: ${total_value:.2f}
@@ -1738,7 +1742,7 @@ Click "Add to Cart" now to claim your complete package...
                 "Featured in [MEDIA]",
             ],
             "achievements": [
-                f"#1 Bestseller in {
+                f"  # 1 Bestseller in {
                     self.book_config.get(
                         'puzzle_type',
                         'puzzle')} category",
@@ -1778,13 +1782,13 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Dan Kennedy's Magnetic Marketing for KindleMint"
+        description = "Dan Kennedy's Magnetic Marketing for KindleMint"
     )
     parser.add_argument(
-        "--book-config", required=True, help="Book configuration JSON file"
+        "--book-config", required = True, help = "Book configuration JSON file"
     )
     parser.add_argument(
-        "--artifacts-dir", required=True, help="Directory containing book artifacts"
+        "--artifacts-dir", required = True, help = "Directory containing book artifacts"
     )
 
     args = parser.parse_args()

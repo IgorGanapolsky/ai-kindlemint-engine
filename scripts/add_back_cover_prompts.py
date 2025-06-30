@@ -99,7 +99,8 @@ def add_back_cover_to_metadata(file_path: str) -> bool:
 
         # Check if back cover prompt already exists
         if "back_cover_dalle_prompt" in data["cover_design"]:
-            print(f"  ✓ Already has back cover prompt: {os.path.basename(file_path)}")
+            print(
+                f"  ✓ Already has back cover prompt: {os.path.basename(file_path)}")
             return False
 
         # Generate and add back cover prompt

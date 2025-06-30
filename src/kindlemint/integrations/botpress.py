@@ -106,7 +106,8 @@ class BotpressConfig:
             base_url=os.environ.get(
                 "BOTPRESS_BASE_URL", "https://api.botpress.cloud/v1"
             ),
-            timeout=int(os.environ.get("BOTPRESS_TIMEOUT", str(DEFAULT_TIMEOUT))),
+            timeout=int(os.environ.get(
+                "BOTPRESS_TIMEOUT", str(DEFAULT_TIMEOUT))),
             track_costs=os.environ.get("BOTPRESS_TRACK_COSTS", "true").lower()
             == "true",
             webhook_secret=os.environ.get("BOTPRESS_WEBHOOK_SECRET"),
@@ -147,7 +148,8 @@ class BotpressClient:
         if config:
             self.config = config
         elif api_key and workspace_id:
-            self.config = BotpressConfig(api_key=api_key, workspace_id=workspace_id)
+            self.config = BotpressConfig(
+                api_key=api_key, workspace_id=workspace_id)
         else:
             try:
                 self.config = BotpressConfig.from_env()
@@ -398,7 +400,8 @@ class BaseBot(ABC):
             try:
                 bot_details = self.client.get_bot(bot_id)
                 self.bot_name = bot_details.get("name", "Unknown Bot")
-                logger.info(f"Using existing bot: {self.bot_name} ({self.bot_id})")
+                logger.info(
+                    f"Using existing bot: {self.bot_name} ({self.bot_id})")
             except BotpressError as e:
                 logger.error(f"Failed to get bot details: {e}")
                 raise
@@ -412,7 +415,8 @@ class BaseBot(ABC):
                 )
                 self.bot_id = bot_details.get("id")
                 self.bot_name = bot_name
-                logger.info(f"Created new bot: {self.bot_name} ({self.bot_id})")
+                logger.info(
+                    f"Created new bot: {self.bot_name} ({self.bot_id})")
 
                 # Set up default flows
                 self._setup_default_flows()
@@ -420,7 +424,8 @@ class BaseBot(ABC):
                 logger.error(f"Failed to create bot: {e}")
                 raise
         else:
-            raise BotpressConfigError("Either bot_id or bot_name must be provided")
+            raise BotpressConfigError(
+                "Either bot_id or bot_name must be provided")
 
     def _get_default_description(self) -> str:
         """Get default description based on bot type."""
@@ -620,7 +625,8 @@ class AuthorInterviewBot(BaseBot):
 
         try:
             self.client.create_flow(self.bot_id, interview_flow)
-            logger.info(f"Created default interview flow for bot {self.bot_id}")
+            logger.info(
+                f"Created default interview flow for bot {self.bot_id}")
         except BotpressError as e:
             logger.error(f"Failed to create interview flow: {e}")
             # Continue without failing, as the bot can still function with default flows
@@ -1027,7 +1033,8 @@ class WritingCoachBot(BaseBot):
 
         try:
             self.client.create_flow(self.bot_id, coach_flow)
-            logger.info(f"Created default writing coach flow for bot {self.bot_id}")
+            logger.info(
+                f"Created default writing coach flow for bot {self.bot_id}")
         except BotpressError as e:
             logger.error(f"Failed to create writing coach flow: {e}")
 
@@ -1344,7 +1351,8 @@ class ConversationalMarketingBot(BaseBot):
 
         try:
             self.client.create_flow(self.bot_id, marketing_flow)
-            logger.info(f"Created default marketing flow for bot {self.bot_id}")
+            logger.info(
+                f"Created default marketing flow for bot {self.bot_id}")
         except BotpressError as e:
             logger.error(f"Failed to create marketing flow: {e}")
 
@@ -1550,7 +1558,8 @@ class WebhookHandler:
                 logger.error(f"Error in webhook handler for {event_type}: {e}")
                 raise BotpressWebhookError(f"Handler error: {str(e)}")
         else:
-            logger.warning(f"No handler registered for event type: {event_type}")
+            logger.warning(
+                f"No handler registered for event type: {event_type}")
             return {"status": "unhandled", "event_type": event_type}
 
 

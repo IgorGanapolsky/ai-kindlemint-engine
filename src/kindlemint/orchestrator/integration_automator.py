@@ -1063,14 +1063,16 @@ class IntegrationAutomator:
     ) -> Dict:
         """Write integration files to disk"""
 
-        integration_dir = Path("integrations") / service_name.lower().replace(" ", "_")
+        integration_dir = Path("integrations") / \
+            service_name.lower().replace(" ", "_")
         integration_dir.mkdir(parents=True, exist_ok=True)
 
         files_created = []
 
         # Write integration code
         code_path = (
-            integration_dir / f"{service_name.lower().replace(' ', '_')}_integration.py"
+            integration_dir /
+            f"{service_name.lower().replace(' ', '_')}_integration.py"
         )
         with open(code_path, "w") as f:
             f.write(code)

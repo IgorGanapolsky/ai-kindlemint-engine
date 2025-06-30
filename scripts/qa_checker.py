@@ -410,7 +410,8 @@ class IntelligentQAChecker:
 
         if all_clues:
             clue_counts = Counter(all_clues)
-            duplicates = [(c, count) for c, count in clue_counts.items() if count > 2]
+            duplicates = [(c, count)
+                          for c, count in clue_counts.items() if count > 2]
 
             if duplicates:
                 metrics["duplicate_clues"] = len(duplicates)
@@ -443,7 +444,8 @@ class IntelligentQAChecker:
         metrics = {"production_ready": True}
 
         # Check for required files
-        required_files = ["amazon_kdp_metadata.json", "*interior*.pdf", "*cover*.pdf"]
+        required_files = ["amazon_kdp_metadata.json",
+                          "*interior*.pdf", "*cover*.pdf"]
 
         for pattern in required_files:
             if not list(book_path.glob(pattern)):
@@ -498,7 +500,8 @@ class IntelligentQAChecker:
             )
 
         if metrics.get("duplicate_clues", 0) > 5:
-            recommendations.append("📝 Increase clue variety to reduce duplicates")
+            recommendations.append(
+                "📝 Increase clue variety to reduce duplicates")
 
         if not metrics.get("production_ready", True):
             recommendations.append(

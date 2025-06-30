@@ -3,8 +3,8 @@
 Massive Issue Fixer - Tackle the worst 2.6K DeepSource issues
 """
 
-import subprocess
 import os
+import subprocess
 from pathlib import Path
 
 
@@ -145,7 +145,8 @@ def fix_whitespace_issues():
     """Fix whitespace and formatting issues"""
     try:
         # Run black again to fix any remaining formatting
-        subprocess.run(["black", "--line-length", "88", "src/", "scripts/"], check=True)
+        subprocess.run(["black", "--line-length", "88",
+                       "src/", "scripts/"], check=True)
         print("   ✅ Fixed whitespace and formatting issues")
 
     except Exception as e:
@@ -182,4 +183,5 @@ if __name__ == "__main__":
     after_count = get_issue_count()
     print(f"   Issues: {after_count}")
     print(f"   Fixed: {before_count - after_count} issues")
-    print(f"   Reduction: {((before_count - after_count) / before_count * 100):.1f}%")
+    print(
+        f"   Reduction: {((before_count - after_count) / before_count * 100):.1f}%")

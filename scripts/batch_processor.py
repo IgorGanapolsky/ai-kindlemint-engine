@@ -105,7 +105,8 @@ except Exception:  # pragma: no cover – fallback stub if validator missing
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.StreamHandler(), logging.FileHandler("batch_processor.log")],
+    handlers=[logging.StreamHandler(), logging.FileHandler(
+        "batch_processor.log")],
 )
 logger = logging.getLogger("BatchProcessor")
 
@@ -150,7 +151,8 @@ class BatchProcessor:
         # Initialise Sentry (no-op if DSN not provided)
         self.sentry_enabled = init_sentry("batch_processor")
         if self.sentry_enabled:
-            add_breadcrumb("BatchProcessor initialised", category="initialisation")
+            add_breadcrumb("BatchProcessor initialised",
+                           category="initialisation")
 
         # Initialize Slack notifier
         self.slack_notifier = SlackNotifier()
@@ -213,7 +215,8 @@ class BatchProcessor:
     def _import_module_from_path(self, module_path: str, module_name: str):
         """Dynamically import a module from file path"""
         try:
-            spec = importlib.util.spec_from_file_location(module_name, module_path)
+            spec = importlib.util.spec_from_file_location(
+                module_name, module_path)
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
             return module
@@ -263,8 +266,8 @@ class BatchProcessor:
                     self.step_indicators['init']} STARTING BOOK: {
                     book_config.get(
                         'title',
-                        book_id)} ({
-                    i + 1}/{total_books})"
+                        book_id)}({
+                            i + 1}/{total_books})"
             )
 
             book_result = self.process_book(book_config)
@@ -307,7 +310,8 @@ class BatchProcessor:
 
     def process_book(self, book_config: Dict) -> Dict:
         """Process a single book through the entire workflow"""
-        book_id = book_config.get("id", f"book_{datetime.now().strftime('%H%M%S')}")
+        book_id = book_config.get(
+            "id", f"book_{datetime.now().strftime('%H%M%S')}")
         book_title = book_config.get("title", book_id)
 
         book_result = {
@@ -442,12 +446,14 @@ class BatchProcessor:
             #   profit_estimate: price_estimate - cost_estimate  (min 0)
             # These numbers can be refined later; they give Slack an immediate
             # sense of business impact.
-            cost_estimate = float(book_config.get("printing_cost_estimate", 0) or 0)
+            cost_estimate = float(book_config.get(
+                "printing_cost_estimate", 0) or 0)
             price_estimate = 0.0
             if book_config.get("create_epub", True):
                 price_estimate = float(book_config.get("kindle_price", 0) or 0)
             elif book_config.get("create_hardcover", True):
-                price_estimate = float(book_config.get("hardcover_price_max", 0) or 0)
+                price_estimate = float(book_config.get(
+                    "hardcover_price_max", 0) or 0)
 
             # Do NOT clamp to zero – negative profit highlights unprofitable books
             profit_estimate = round(price_estimate - cost_estimate, 2)
@@ -497,7 +503,8 @@ class BatchProcessor:
                         f"Failed to send Slack error notification: {slack_err}"
                     )
             if self.sentry_enabled:
-                capture_kdp_error(e, {"book_id": book_id, "stage": "process_book"})
+                capture_kdp_error(
+                    e, {"book_id": book_id, "stage": "process_book"})
 
         # Finalize book result
         book_result["end_time"] = datetime.now().isoformat()
@@ -517,10 +524,12 @@ class BatchProcessor:
                     add_breadcrumb(
                         "Sending book completion to Slack",
                         category="notification",
-                        data={"book_id": book_id, "status": book_result["status"]},
+                        data={"book_id": book_id,
+                              "status": book_result["status"]},
                     )
 
-                notification_sent = self.slack_notifier.send_book_complete(book_result)
+                notification_sent = self.slack_notifier.send_book_complete(
+                    book_result)
                 if notification_sent:
                     logger.info(
                         "Book completion notification sent to Slack successfully"
@@ -531,7 +540,8 @@ class BatchProcessor:
                     )
 
             except Exception as slack_error:
-                logger.error(f"Error sending Slack notification: {slack_error}")
+                logger.error(
+                    f"Error sending Slack notification: {slack_error}")
                 if self.sentry_enabled:
                     capture_kdp_error(
                         slack_error, {"operation": "slack_book_notification"}
@@ -557,7 +567,8 @@ class BatchProcessor:
             # Call the appropriate method based on step name
             method_name = f"_step_{step_name}"
             if hasattr(self, method_name) and callable(getattr(self, method_name)):
-                artifacts = getattr(self, method_name)(book_config, book_result)
+                artifacts = getattr(self, method_name)(
+                    book_config, book_result)
                 if artifacts:
                     book_result["artifacts"].update(artifacts)
             else:
@@ -602,7 +613,8 @@ class BatchProcessor:
             raise ValueError(f"Unsupported puzzle type: {puzzle_type}")
 
         if not script_path.exists():
-            raise FileNotFoundError(f"Puzzle generator script not found: {script_path}")
+            raise FileNotFoundError(
+                f"Puzzle generator script not found: {script_path}")
 
         # Prepare output directory
         series_name = book_config.get("series_name", "Default_Series")
@@ -656,7 +668,8 @@ class BatchProcessor:
             script_path = Path("scripts/book_layout_bot.py")
 
         if not script_path.exists():
-            raise FileNotFoundError(f"PDF layout script not found: {script_path}")
+            raise FileNotFoundError(
+                f"PDF layout script not found: {script_path}")
 
         # Prepare output directory
         series_name = book_config.get("series_name", "Default_Series")
@@ -836,7 +849,8 @@ class BatchProcessor:
             # Policy)
             interior_pdf_path = book_result["artifacts"].get("interior_pdf")
             if interior_pdf_path and Path(interior_pdf_path).exists():
-                hardcover_interior_pdf = output_dir / Path(interior_pdf_path).name
+                hardcover_interior_pdf = output_dir / \
+                    Path(interior_pdf_path).name
                 shutil.copy2(interior_pdf_path, hardcover_interior_pdf)
                 logger.info(
                     f"Copied interior PDF to hardcover directory: {
@@ -946,7 +960,8 @@ class BatchProcessor:
                 )
 
                 puzzle_type = book_config.get("puzzle_type", "").lower()
-                puzzles_dir = Path(book_result["artifacts"].get("puzzles_dir", ""))
+                puzzles_dir = Path(
+                    book_result["artifacts"].get("puzzles_dir", ""))
                 metadata_dir = puzzles_dir.parent / "metadata"
                 domain_issues = []
                 if puzzle_type == "sudoku":
@@ -957,12 +972,14 @@ class BatchProcessor:
                     domain_issues = validate_crossword(metadata_dir)
                 # Integrate domain issues into QA results
                 if domain_issues:
-                    qa_results.setdefault("issues_found", []).extend(domain_issues)
+                    qa_results.setdefault(
+                        "issues_found", []).extend(domain_issues)
                     # mark as not ready for publish
                     qa_results["publish_ready"] = False
                     # penalize score for domain issues
                     qa_results["overall_score"] = max(
-                        0, qa_results.get("overall_score", 0) - len(domain_issues) * 10
+                        0, qa_results.get("overall_score", 0) -
+                        len(domain_issues) * 10
                     )
                     qa_results["domain_issues"] = domain_issues
             except Exception as e:
@@ -1100,7 +1117,8 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
         except Exception as e:
             logger.error(f"Prospecting materials generation failed: {e}")
             logger.error(traceback.format_exc())
-            raise RuntimeError(f"Prospecting materials generation failed: {str(e)}")
+            raise RuntimeError(
+                f"Prospecting materials generation failed: {str(e)}")
 
     def _step_generate_magnetic_marketing(
         self, book_config: Dict, book_result: Dict
@@ -1203,7 +1221,8 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
         except Exception as e:
             logger.error(f"Magnetic marketing generation failed: {e}")
             logger.error(traceback.format_exc())
-            raise RuntimeError(f"Magnetic marketing generation failed: {str(e)}")
+            raise RuntimeError(
+                f"Magnetic marketing generation failed: {str(e)}")
 
     def generate_batch_report(self) -> str:
         """Generate a comprehensive batch report"""
@@ -1235,10 +1254,13 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
             if bres.get("publish_ready"):
                 kdp_ready_count += 1
 
-        avg_profit_per_book = (total_profit / books_processed) if books_processed else 0
+        avg_profit_per_book = (
+            total_profit / books_processed) if books_processed else 0
         avg_qa_score = (sum(qa_scores) / len(qa_scores)) if qa_scores else None
-        cost_per_book = (total_cost / books_processed) if books_processed else 0
-        roi_percentage = ((total_profit / total_cost) * 100) if total_cost else None
+        cost_per_book = (
+            total_cost / books_processed) if books_processed else 0
+        roi_percentage = ((total_profit / total_cost)
+                          * 100) if total_cost else None
         production_eff = (
             (total_time / books_processed) if books_processed else None
         )  # secs/book
@@ -1330,7 +1352,7 @@ Batch ID: {self.batch_id}
         print(f"🎯 BATCH PROCESSING COMPLETE: {self.batch_id}")
         print(
             f"📚 Books: {
-                books_succeeded}/{books_processed} successful ({success_rate:.1f}%)"
+                books_succeeded}/{books_processed} successful ({success_rate: .1f} %)"
         )
         print(f"⏱️ Total time: {hours:02d}:{minutes:02d}:{seconds:02d}")
         print(f"📄 Report: {report_file}")
@@ -1344,7 +1366,8 @@ Batch ID: {self.batch_id}
                     add_breadcrumb(
                         "Sending batch completion to Slack",
                         category="notification",
-                        data={"batch_id": self.batch_id, "success_rate": success_rate},
+                        data={"batch_id": self.batch_id,
+                              "success_rate": success_rate},
                     )
 
                 notification_sent = self.slack_notifier.send_batch_complete(
@@ -1362,17 +1385,20 @@ Batch ID: {self.batch_id}
             except Exception as e:
                 logger.error(f"Error sending Slack notification: {e}")
                 if self.sentry_enabled:
-                    capture_kdp_error(e, {"operation": "slack_batch_notification"})
+                    capture_kdp_error(
+                        e, {"operation": "slack_batch_notification"})
 
         return str(report_file)
 
 
 def main():
     """Main entry point for batch processor"""
-    parser = argparse.ArgumentParser(description="KindleMint Engine Batch Processor")
+    parser = argparse.ArgumentParser(
+        description="KindleMint Engine Batch Processor")
     parser.add_argument("config", help="Batch configuration JSON file")
     parser.add_argument("--resume", help="Resume from previous progress file")
-    parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
+    parser.add_argument("--verbose", action="store_true",
+                        help="Enable verbose logging")
     args = parser.parse_args()
 
     # Set logging level

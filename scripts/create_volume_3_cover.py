@@ -18,9 +18,12 @@ draw = ImageDraw.Draw(img)
 # Try to load fonts
 try:
     title_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 180)
-    subtitle_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 60)
-    volume_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 100)
-    publisher_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 50)
+    subtitle_font = ImageFont.truetype(
+        "/System/Library/Fonts/Helvetica.ttc", 60)
+    volume_font = ImageFont.truetype(
+        "/System/Library/Fonts/Helvetica.ttc", 100)
+    publisher_font = ImageFont.truetype(
+        "/System/Library/Fonts/Helvetica.ttc", 50)
 except BaseException:
     # Fallback
     title_font = ImageFont.load_default()
@@ -49,11 +52,13 @@ banner_points = [
 draw.polygon(banner_points, fill="#B87333")  # Copper
 
 # Volume text
-draw.text((width - 700, banner_y + 50), "VOLUME 3", fill="#1B4F36", font=volume_font)
+draw.text((width - 700, banner_y + 50), "VOLUME 3",
+          fill="#1B4F36", font=volume_font)
 
 # Subtitle band
 band_y = height // 2
-draw.rectangle([(0, band_y), (width, band_y + 300)], fill="#B87333")  # Copper band
+draw.rectangle([(0, band_y), (width, band_y + 300)],
+               fill="#B87333")  # Copper band
 
 # Subtitle text
 subtitle_lines = ["50 CHALLENGING", "CROSSWORD PUZZLES-", "MEDIUM TO HARD"]

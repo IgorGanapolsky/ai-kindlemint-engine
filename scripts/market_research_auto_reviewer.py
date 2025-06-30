@@ -152,7 +152,8 @@ class MarketResearchAutoReviewer:
 
         # Sort opportunities by score
         analysis["opportunities"].sort(key=lambda x: x["score"], reverse=True)
-        analysis["top_scores"] = [opp["score"] for opp in analysis["opportunities"][:5]]
+        analysis["top_scores"] = [opp["score"]
+                                  for opp in analysis["opportunities"][:5]]
 
         return analysis
 
@@ -211,12 +212,14 @@ class MarketResearchAutoReviewer:
 
         # Check if we have viable opportunities
         if analysis["viable_niches"] == 0:
-            decisions["reasoning"].append("No viable niches found with score >= 0.7")
+            decisions["reasoning"].append(
+                "No viable niches found with score >= 0.7")
             decisions["actions"].append("Request manual review for edge cases")
             return decisions
 
         # Select top niches
-        selected_count = min(self.max_niches_per_day, len(analysis["opportunities"]))
+        selected_count = min(self.max_niches_per_day,
+                             len(analysis["opportunities"]))
         decisions["selected_niches"] = analysis["opportunities"][:selected_count]
 
         # Determine if we should auto-merge
@@ -244,7 +247,8 @@ class MarketResearchAutoReviewer:
         # Add market insights
         rising_trends = analysis["market_trends"].get("rising", 0)
         if rising_trends > 0:
-            decisions["reasoning"].append(f"Found {rising_trends} rising market trends")
+            decisions["reasoning"].append(
+                f"Found {rising_trends} rising market trends")
 
         return decisions
 
@@ -261,7 +265,7 @@ class MarketResearchAutoReviewer:
         # Print selected niches
         print(
             f"\n✅ Selected {len(decisions['selected_niches'])
-                            } niches for content generation:"
+                            } niches for content generation: "
         )
         for niche in decisions["selected_niches"]:
             print(f"  • {niche['niche']} (score: {niche['score']})")

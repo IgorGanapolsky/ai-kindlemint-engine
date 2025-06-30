@@ -90,7 +90,8 @@ class ConfigLoader:
             return {}
         except yaml.YAMLError as e:
             logger.error(f"Error parsing YAML file {self.config_path}: {e}")
-            raise ValueError(f"Invalid YAML format in {self.config_path}") from e
+            raise ValueError(
+                f"Invalid YAML format in {self.config_path}") from e
 
     def _apply_env_overrides(self):
         """Overrides YAML settings with environment variables."""
@@ -98,7 +99,7 @@ class ConfigLoader:
         for key, value in os.environ.items():
             if key.startswith(prefix):
                 # Remove prefix and split by double underscore
-                path = key[len(prefix) :].lower().split("__")
+                path = key[len(prefix):].lower().split("__")
 
                 # Navigate the config dictionary and set the value
                 current_level = self._config
@@ -214,13 +215,15 @@ if __name__ == "__main__":
     print(
         f"Paperback Width: {config.get_kdp_spec('paperback', 'page_width_in')} inches"
     )
-    print(f"Hardcover Margin: {config.get_kdp_spec('hardcover', 'margin_in')} inches")
+    print(
+        f"Hardcover Margin: {config.get_kdp_spec('hardcover', 'margin_in')} inches")
 
     print("\n--- Puzzle Generation ---")
     print(
         f"Default Puzzle Count: {config.get('puzzle_generation.default_puzzle_count')}"
     )
-    print(f"Crossword Grid Size: {config.get_puzzle_setting('crossword', 'grid_size')}")
+    print(
+        f"Crossword Grid Size: {config.get_puzzle_setting('crossword', 'grid_size')}")
 
     print("\n--- File Paths ---")
     print(f"Base Output Dir: {config.get_path('file_paths.base_output_dir')}")
@@ -228,11 +231,13 @@ if __name__ == "__main__":
 
     print("\n--- API Settings ---")
     print(f"Sentry Enabled: {config.get_api_setting('sentry', 'enabled')}")
-    print(f"Slack Channel: {config.get_api_setting('slack', 'default_channel')}")
+    print(
+        f"Slack Channel: {config.get_api_setting('slack', 'default_channel')}")
 
     print("\n--- QA Validation ---")
     print(f"Min Passing Score: {config.get_qa_threshold('min_passing_score')}")
 
     print("\n--- Style Settings ---")
     print(f"Title Font: {config.get('style_settings.fonts.title_font')}")
-    print(f"Grid Cell Size: {config.get('style_settings.images.grid_cell_size_px')}px")
+    print(
+        f"Grid Cell Size: {config.get('style_settings.images.grid_cell_size_px')}px")

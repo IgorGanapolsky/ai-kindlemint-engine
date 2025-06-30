@@ -4,15 +4,16 @@ Generate Volume 4 of Large Print Crossword Masters
 50 unique crossword puzzles with progressive difficulty
 """
 
-from slack_notifier import SlackNotifier
-from crossword_engine_v2 import CrosswordEngineV2 as CrosswordEngine
-from comprehensive_qa_validator import ComprehensiveQAValidator
-from book_layout_bot import BookLayoutBot as BookLayoutEngine
 import json
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
+
+from book_layout_bot import BookLayoutBot as BookLayoutEngine
+from comprehensive_qa_validator import ComprehensiveQAValidator
+from crossword_engine_v2 import CrosswordEngineV2 as CrosswordEngine
+from slack_notifier import SlackNotifier
 
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent))
@@ -21,7 +22,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 # Configuration
 VOLUME_NUMBER = 4
 PUZZLE_COUNT = 50
-OUTPUT_BASE = Path("books/active_production/Large_Print_Crossword_Masters/volume_4")
+OUTPUT_BASE = Path(
+    "books/active_production/Large_Print_Crossword_Masters/volume_4")
 TITLE = "Large Print Crossword Masters"
 SUBTITLE = "Volume 4: 50 Challenging Puzzles for Word Enthusiasts"
 AUTHOR = "Crossword Masters Publishing"

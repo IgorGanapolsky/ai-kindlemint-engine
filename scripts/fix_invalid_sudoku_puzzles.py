@@ -157,7 +157,8 @@ class SudokuPuzzleFixer:
         print(f"   Issues: {', '.join(issues)}")
 
         # Get the solution
-        solution = puzzle_data.get("solution_grid", puzzle_data.get("solution", []))
+        solution = puzzle_data.get(
+            "solution_grid", puzzle_data.get("solution", []))
         if not solution:
             print(f"   ❌ No solution found for puzzle #{puzzle_id}")
             return False
@@ -237,7 +238,8 @@ class SudokuPuzzleFixer:
             failed = [
                 p["id"] for p in invalid_puzzles if p["id"] not in self.fixed_puzzles
             ]
-            print(f"\n❌ Failed to fix puzzles: {', '.join(f'#{p}' for p in failed)}")
+            print(
+                f"\n❌ Failed to fix puzzles: {', '.join(f'#{p}' for p in failed)}")
             print("   These puzzles may need manual regeneration.")
 
 

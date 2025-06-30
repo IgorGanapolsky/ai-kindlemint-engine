@@ -77,7 +77,8 @@ class SeriesStrategyEnforcer:
             print(f"    Missing: {violation['missing_file']}")
 
         print(f"\n🛠️  REQUIRED ACTION:")
-        print(f"Create {self.required_file} for each violated series directory")
+        print(
+            f"Create {self.required_file} for each violated series directory")
         print(
             f"Each file must contain comprehensive series strategy as per requirements"
         )
@@ -432,7 +433,8 @@ This comprehensive strategy provides the framework for building a successful, pr
         """Generate summary for management reporting"""
         total_series = len(self.compliant_series) + len(self.violations)
         compliance_rate = (
-            len(self.compliant_series) / total_series * 100 if total_series > 0 else 0
+            len(self.compliant_series) / total_series *
+            100 if total_series > 0 else 0
         )
 
         summary = {

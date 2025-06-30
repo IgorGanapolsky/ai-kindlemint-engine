@@ -202,11 +202,14 @@ class MarketingAnalyticsDashboard:
     def _classify_metric_type(self, metric_name: str) -> MetricType:
         """Classify metric into type category"""
 
-        engagement_metrics = ["likes", "comments", "shares", "saves", "engagement_rate"]
+        engagement_metrics = ["likes", "comments",
+                              "shares", "saves", "engagement_rate"]
         reach_metrics = ["views", "reach", "impressions", "followers"]
-        conversion_metrics = ["clicks", "downloads", "signups", "conversion_rate"]
+        conversion_metrics = ["clicks", "downloads",
+                              "signups", "conversion_rate"]
         revenue_metrics = ["revenue", "sales", "conversion_value"]
-        cost_metrics = ["spend", "cost", "cost_per_click", "cost_per_acquisition"]
+        cost_metrics = ["spend", "cost",
+                        "cost_per_click", "cost_per_acquisition"]
 
         if metric_name.lower() in engagement_metrics:
             return MetricType.ENGAGEMENT
@@ -307,7 +310,8 @@ class MarketingAnalyticsDashboard:
         today_conversions = sum(
             m.value for m in today_metrics if m.metric_type == MetricType.CONVERSION
         )
-        today_clicks = sum(m.value for m in today_metrics if "click" in m.name.lower())
+        today_clicks = sum(
+            m.value for m in today_metrics if "click" in m.name.lower())
         conversion_rate = (
             (today_conversions / today_clicks * 100) if today_clicks > 0 else 0
         )
@@ -331,7 +335,8 @@ class MarketingAnalyticsDashboard:
         today_cost = sum(
             m.value for m in today_metrics if m.metric_type == MetricType.COST
         )
-        roi = ((today_revenue - today_cost) / today_cost * 100) if today_cost > 0 else 0
+        roi = ((today_revenue - today_cost) /
+               today_cost * 100) if today_cost > 0 else 0
 
         cards.append(
             {
@@ -352,7 +357,8 @@ class MarketingAnalyticsDashboard:
 
         # Last 30 days data
         cutoff_date = datetime.now() - timedelta(days=30)
-        recent_metrics = [m for m in self.metrics if m.timestamp >= cutoff_date]
+        recent_metrics = [
+            m for m in self.metrics if m.timestamp >= cutoff_date]
 
         # Group by day
         daily_data = defaultdict(
@@ -419,7 +425,8 @@ class MarketingAnalyticsDashboard:
         platform_data = {}
 
         for platform in PlatformType:
-            platform_metrics = [m for m in self.metrics if m.platform == platform]
+            platform_metrics = [
+                m for m in self.metrics if m.platform == platform]
 
             if platform_metrics:
                 engagement = sum(
@@ -459,10 +466,12 @@ class MarketingAnalyticsDashboard:
         """Compare platform performance to industry benchmark"""
 
         benchmark = (
-            self.industry_benchmarks.get(platform, {}).get("engagement_rate", 5.0) / 100
+            self.industry_benchmarks.get(platform, {}).get(
+                "engagement_rate", 5.0) / 100
         )
         difference = actual_rate - benchmark
-        percentage_diff = (difference / benchmark * 100) if benchmark > 0 else 0
+        percentage_diff = (difference / benchmark *
+                           100) if benchmark > 0 else 0
 
         return {
             "benchmark": benchmark * 100,
@@ -508,9 +517,12 @@ class MarketingAnalyticsDashboard:
         total_impressions = sum(
             m.value for m in self.metrics if "impression" in m.name.lower()
         )
-        total_clicks = sum(m.value for m in self.metrics if "click" in m.name.lower())
-        total_visits = sum(m.value for m in self.metrics if "visit" in m.name.lower())
-        total_leads = sum(m.value for m in self.metrics if "lead" in m.name.lower())
+        total_clicks = sum(
+            m.value for m in self.metrics if "click" in m.name.lower())
+        total_visits = sum(
+            m.value for m in self.metrics if "visit" in m.name.lower())
+        total_leads = sum(
+            m.value for m in self.metrics if "lead" in m.name.lower())
         total_conversions = sum(
             m.value for m in self.metrics if m.metric_type == MetricType.CONVERSION
         )
@@ -548,7 +560,8 @@ class MarketingAnalyticsDashboard:
                 "stage": "Conversions",
                 "count": int(total_conversions),
                 "conversion_rate": (
-                    (total_conversions / total_leads * 100) if total_leads > 0 else 0
+                    (total_conversions / total_leads *
+                     100) if total_leads > 0 else 0
                 ),
             },
         ]
@@ -571,7 +584,8 @@ class MarketingAnalyticsDashboard:
 
         for i in range(1, len(stages)):
             current_rate = stages[i]["conversion_rate"]
-            previous_rate = 100.0 if i == 1 else stages[i - 1]["conversion_rate"]
+            previous_rate = 100.0 if i == 1 else stages[i -
+                                                        1]["conversion_rate"]
 
             drop = previous_rate - current_rate
             if drop > max_drop:
@@ -587,7 +601,8 @@ class MarketingAnalyticsDashboard:
 
         # Check for unusual spikes or drops in the last hour
         one_hour_ago = datetime.now() - timedelta(hours=1)
-        recent_metrics = [m for m in self.metrics if m.timestamp >= one_hour_ago]
+        recent_metrics = [
+            m for m in self.metrics if m.timestamp >= one_hour_ago]
 
         if recent_metrics:
             recent_engagement = sum(
@@ -622,7 +637,8 @@ class MarketingAnalyticsDashboard:
 
         # Check for platform-specific issues
         for platform in PlatformType:
-            platform_metrics = [m for m in recent_metrics if m.platform == platform]
+            platform_metrics = [
+                m for m in recent_metrics if m.platform == platform]
             if not platform_metrics:
                 alerts.append(
                     {
@@ -705,7 +721,8 @@ class MarketingAnalyticsDashboard:
         # Platform recommendations
         platform_performance = self._calculate_platform_performance()
         if platform_performance:
-            best_platform = max(platform_performance.items(), key=lambda x: x[1])[0]
+            best_platform = max(platform_performance.items(),
+                                key=lambda x: x[1])[0]
             recommendations.append(
                 {
                     "type": "platform_strategy",
@@ -719,7 +736,8 @@ class MarketingAnalyticsDashboard:
             )
 
         # ROI recommendations
-        roi_metrics = [m for m in self.metrics if m.metric_type == MetricType.ROI]
+        roi_metrics = [
+            m for m in self.metrics if m.metric_type == MetricType.ROI]
         if roi_metrics:
             avg_roi = statistics.mean([m.value for m in roi_metrics])
             if avg_roi < self.kpi_targets["roi"]:
@@ -766,7 +784,8 @@ class MarketingAnalyticsDashboard:
         platform_performance = {}
 
         for platform in PlatformType:
-            platform_metrics = [m for m in self.metrics if m.platform == platform]
+            platform_metrics = [
+                m for m in self.metrics if m.platform == platform]
 
             engagement = sum(
                 m.value
@@ -778,7 +797,8 @@ class MarketingAnalyticsDashboard:
             )
 
             if reach > 0:
-                platform_performance[platform.value] = (engagement / reach) * 100
+                platform_performance[platform.value] = (
+                    engagement / reach) * 100
 
         return platform_performance
 
@@ -801,12 +821,14 @@ class MarketingAnalyticsDashboard:
                     else "below_target"
                 ),
                 "progress": round(
-                    (current_engagement / self.kpi_targets["engagement_rate"]) * 100, 1
+                    (current_engagement /
+                     self.kpi_targets["engagement_rate"]) * 100, 1
                 ),
             }
 
         # ROI KPI
-        roi_metrics = [m for m in self.metrics if m.metric_type == MetricType.ROI]
+        roi_metrics = [
+            m for m in self.metrics if m.metric_type == MetricType.ROI]
         if roi_metrics:
             current_roi = statistics.mean([m.value for m in roi_metrics])
             kpi_status["roi"] = {
@@ -824,7 +846,8 @@ class MarketingAnalyticsDashboard:
         conversions = sum(
             m.value for m in self.metrics if m.metric_type == MetricType.CONVERSION
         )
-        total_traffic = sum(m.value for m in self.metrics if "click" in m.name.lower())
+        total_traffic = sum(
+            m.value for m in self.metrics if "click" in m.name.lower())
 
         if total_traffic > 0:
             current_conversion_rate = (conversions / total_traffic) * 100
@@ -837,7 +860,8 @@ class MarketingAnalyticsDashboard:
                     else "below_target"
                 ),
                 "progress": round(
-                    (current_conversion_rate / self.kpi_targets["conversion_rate"])
+                    (current_conversion_rate /
+                     self.kpi_targets["conversion_rate"])
                     * 100,
                     1,
                 ),
@@ -904,34 +928,37 @@ class MarketingAnalyticsDashboard:
         total_engagement = sum(
             m.value for m in metrics if m.metric_type == MetricType.ENGAGEMENT
         )
-        total_reach = sum(m.value for m in metrics if m.metric_type == MetricType.REACH)
+        total_reach = sum(
+            m.value for m in metrics if m.metric_type == MetricType.REACH)
         total_conversions = sum(
             m.value for m in metrics if m.metric_type == MetricType.CONVERSION
         )
         total_revenue = sum(
             m.value for m in metrics if m.metric_type == MetricType.REVENUE
         )
-        total_cost = sum(m.value for m in metrics if m.metric_type == MetricType.COST)
+        total_cost = sum(
+            m.value for m in metrics if m.metric_type == MetricType.COST)
 
         # Calculate key metrics
         engagement_rate = (
             (total_engagement / total_reach * 100) if total_reach > 0 else 0
         )
-        roi = ((total_revenue - total_cost) / total_cost * 100) if total_cost > 0 else 0
+        roi = ((total_revenue - total_cost) /
+               total_cost * 100) if total_cost > 0 else 0
 
         # Identify top achievements
         achievements = []
         if engagement_rate > self.kpi_targets["engagement_rate"]:
             achievements.append(
                 f"Exceeded engagement rate target by {
-                    engagement_rate - self.kpi_targets['engagement_rate']:.1f}%"
+                    engagement_rate - self.kpi_targets['engagement_rate']: .1f} %"
             )
 
         if roi > self.kpi_targets["roi"]:
             achievements.append(
                 f"Achieved {
-                    roi:.1f}% ROI, exceeding target by {
-                    roi - self.kpi_targets['roi']:.1f}%"
+                    roi: .1f} % ROI, exceeding target by {
+                    roi - self.kpi_targets['roi']: .1f} %"
             )
 
         # Identify challenges
@@ -939,8 +966,8 @@ class MarketingAnalyticsDashboard:
         if engagement_rate < self.kpi_targets["engagement_rate"]:
             challenges.append(
                 f"Engagement rate {
-                    engagement_rate:.1f}% below target of {
-                    self.kpi_targets['engagement_rate']}%"
+                    engagement_rate: .1f} % below target of {
+                    self.kpi_targets['engagement_rate']} %"
             )
 
         if roi < self.kpi_targets["roi"]:

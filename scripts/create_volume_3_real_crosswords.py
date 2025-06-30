@@ -667,7 +667,8 @@ class Volume3CrosswordGenerator:
                         c.setFillColor(colors.black)
                         c.setFont("Helvetica-Bold", 12)
                         c.drawCentredString(
-                            x + CELL_SIZE / 2, y + CELL_SIZE / 2 - 4, solution[row][col]
+                            x + CELL_SIZE / 2, y + CELL_SIZE /
+                            2 - 4, solution[row][col]
                         )
 
     def create_complete_book(self):
@@ -677,16 +678,21 @@ class Volume3CrosswordGenerator:
             output_dir.mkdir(parents=True, exist_ok=True)
             pdf_path = output_dir / "crossword_book_volume_3_FINAL.pdf"
 
-            c = canvas.Canvas(str(pdf_path), pagesize=(PAGE_WIDTH, PAGE_HEIGHT))
+            c = canvas.Canvas(str(pdf_path), pagesize=(
+                PAGE_WIDTH, PAGE_HEIGHT))
 
             # Title page
             c.setFont("Helvetica-Bold", 32)
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2 * inch, "LARGE PRINT")
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2.6 * inch, "CROSSWORD")
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 3.2 * inch, "MASTERS")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 2 * inch, "LARGE PRINT")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 2.6 * inch, "CROSSWORD")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 3.2 * inch, "MASTERS")
 
             c.setFont("Helvetica-Bold", 24)
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 4.2 * inch, "VOLUME 3")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 4.2 * inch, "VOLUME 3")
 
             c.setFont("Helvetica", 16)
             c.drawCentredString(
@@ -694,7 +700,8 @@ class Volume3CrosswordGenerator:
                 PAGE_HEIGHT - 5.2 * inch,
                 "50 Challenging Crossword Puzzles",
             )
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 5.6 * inch, "for Seniors")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 5.6 * inch, "for Seniors")
 
             c.setFont("Helvetica", 14)
             c.drawCentredString(
@@ -717,7 +724,8 @@ class Volume3CrosswordGenerator:
                 GUTTER, y_pos, "Introduction.........................................3"
             )
             y_pos -= 0.3 * inch
-            c.drawString(GUTTER, y_pos, "How to Solve Crosswords...................4")
+            c.drawString(
+                GUTTER, y_pos, "How to Solve Crosswords...................4")
             y_pos -= 0.3 * inch
             c.drawString(
                 GUTTER, y_pos, "Puzzles 1-50................................5-104"
@@ -806,7 +814,8 @@ class Volume3CrosswordGenerator:
                 print(f"  📝 Creating Volume 3 Puzzle {puzzle_num}/50")
 
                 # Create puzzle with actual words
-                grid, solution, placed_words = self.create_filled_grid(puzzle_num)
+                grid, solution, placed_words = self.create_filled_grid(
+                    puzzle_num)
                 numbers = self.assign_numbers(grid)
 
                 # Store for answer key
@@ -844,8 +853,10 @@ class Volume3CrosswordGenerator:
                 )
 
                 # Separate words by direction
-                across_words = [w for w in placed_words if w["direction"] == "across"]
-                down_words = [w for w in placed_words if w["direction"] == "down"]
+                across_words = [
+                    w for w in placed_words if w["direction"] == "across"]
+                down_words = [
+                    w for w in placed_words if w["direction"] == "down"]
 
                 # Sort by position
                 across_words.sort(key=lambda w: (w["row"], w["col"]))
@@ -853,12 +864,14 @@ class Volume3CrosswordGenerator:
 
                 # Across clues
                 c.setFont("Helvetica-Bold", 12)
-                c.drawString(GUTTER, PAGE_HEIGHT - TOP_MARGIN - 1 * inch, "ACROSS")
+                c.drawString(GUTTER, PAGE_HEIGHT -
+                             TOP_MARGIN - 1 * inch, "ACROSS")
 
                 c.setFont("Helvetica", 10)
                 y_pos = PAGE_HEIGHT - TOP_MARGIN - 1.3 * inch
                 for word_info in across_words[:20]:  # More clues for Volume 3
-                    clue_num = numbers.get((word_info["row"], word_info["col"]), "?")
+                    clue_num = numbers.get(
+                        (word_info["row"], word_info["col"]), "?")
                     clue_text = f"{clue_num}. {word_info['clue']}"
                     if len(clue_text) > 45:
                         clue_text = clue_text[:42] + "..."
@@ -876,7 +889,8 @@ class Volume3CrosswordGenerator:
                 c.setFont("Helvetica", 10)
                 y_pos = PAGE_HEIGHT - TOP_MARGIN - 1.3 * inch
                 for word_info in down_words[:20]:  # More clues for Volume 3
-                    clue_num = numbers.get((word_info["row"], word_info["col"]), "?")
+                    clue_num = numbers.get(
+                        (word_info["row"], word_info["col"]), "?")
                     clue_text = f"{clue_num}. {word_info['clue']}"
                     if len(clue_text) > 45:
                         clue_text = clue_text[:42] + "..."
@@ -967,7 +981,8 @@ class Volume3CrosswordGenerator:
                         c.drawString(
                             GUTTER + 0.3 * inch,
                             y_pos,
-                            "Down: " + ", ".join([w["word"] for w in down_words[:5]]),
+                            "Down: " + ", ".join([w["word"]
+                                                 for w in down_words[:5]]),
                         )
                         y_pos -= 0.4 * inch
 
@@ -1271,7 +1286,8 @@ class Volume3CrosswordGenerator:
                     puzzle_start = i * 10 + j * 1 + 1
                     if puzzle_start <= 50:
                         c.drawString(GUTTER, y_pos, f"Puzzle {puzzle_start}:")
-                        c.drawString(GUTTER + 2 * inch, y_pos, "Date: ___________")
+                        c.drawString(GUTTER + 2 * inch, y_pos,
+                                     "Date: ___________")
                         c.drawString(GUTTER + 3.5 * inch, y_pos, "Time: _____")
                         c.drawString(GUTTER + 4.5 * inch, y_pos, "✓ □")
                         y_pos -= 0.5 * inch
@@ -1304,11 +1320,13 @@ class Volume3CrosswordGenerator:
 
                             if puzzle["solution"][row][col] == "#":
                                 c.setFillColor(colors.black)
-                                c.rect(x, y, small_cell, small_cell, fill=1, stroke=0)
+                                c.rect(x, y, small_cell,
+                                       small_cell, fill=1, stroke=0)
                             else:
                                 c.setFillColor(colors.white)
                                 c.setStrokeColor(colors.black)
-                                c.rect(x, y, small_cell, small_cell, fill=1, stroke=1)
+                                c.rect(x, y, small_cell,
+                                       small_cell, fill=1, stroke=1)
 
                                 c.setFillColor(colors.black)
                                 c.setFont("Helvetica", 7)
@@ -1332,7 +1350,8 @@ class Volume3CrosswordGenerator:
             )
 
             c.setFont("Helvetica", 14)
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 3.8 * inch, "_" * 30)
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 3.8 * inch, "_" * 30)
 
             c.setFont("Helvetica", 16)
             c.drawCentredString(
@@ -1345,7 +1364,8 @@ class Volume3CrosswordGenerator:
                 PAGE_HEIGHT - 5 * inch,
                 "in Large Print Crossword Masters",
             )
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 5.4 * inch, "Volume 3")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 5.4 * inch, "Volume 3")
 
             c.setFont("Helvetica", 14)
             c.drawCentredString(
@@ -1693,11 +1713,13 @@ class Volume3CrosswordGenerator:
                                 numbers[(row, col)] = num
                                 c.setFillColor(colors.black)
                                 c.setFont("Helvetica", 8)
-                                c.drawString(x + 2, y + mini_cell_size - 10, str(num))
+                                c.drawString(
+                                    x + 2, y + mini_cell_size - 10, str(num))
                                 num += 1
 
                 # Clues - make them more visible with better positioning
-                clues_start_y = grid_y - (mini_grid_size * mini_cell_size) - 0.3 * inch
+                clues_start_y = grid_y - \
+                    (mini_grid_size * mini_cell_size) - 0.3 * inch
 
                 # Draw a subtle background for clues area
                 c.setFillColor(colors.Color(0.95, 0.95, 0.95))  # Light gray
@@ -1728,7 +1750,8 @@ class Volume3CrosswordGenerator:
                                     and (row, col + 1) not in pattern["black"]
                                 ):
                                     if (
-                                        across_clue_idx < len(pattern["clues_across"])
+                                        across_clue_idx < len(
+                                            pattern["clues_across"])
                                         and y_pos > BOTTOM_MARGIN + 0.3 * inch
                                     ):
                                         c.drawString(
@@ -1741,7 +1764,8 @@ class Volume3CrosswordGenerator:
                                         across_clue_idx += 1
 
                 c.setFont("Helvetica-Bold", 10)
-                c.drawString(PAGE_WIDTH / 2 + 0.1 * inch, clues_start_y, "DOWN")
+                c.drawString(PAGE_WIDTH / 2 + 0.1 *
+                             inch, clues_start_y, "DOWN")
                 c.setFont("Helvetica", 9)
                 y_pos = clues_start_y - 0.2 * inch
 
@@ -1757,7 +1781,8 @@ class Volume3CrosswordGenerator:
                                     and (row + 1, col) not in pattern["black"]
                                 ):
                                     if (
-                                        down_clue_idx < len(pattern["clues_down"])
+                                        down_clue_idx < len(
+                                            pattern["clues_down"])
                                         and y_pos > BOTTOM_MARGIN + 0.3 * inch
                                     ):
                                         c.drawString(
@@ -1883,7 +1908,8 @@ class Volume3CrosswordGenerator:
             c.setFont("Helvetica", 11)
             y_pos = PAGE_HEIGHT - TOP_MARGIN - 1.5 * inch
 
-            c.drawString(GUTTER, y_pos, "Track your progress and favorite puzzles:")
+            c.drawString(
+                GUTTER, y_pos, "Track your progress and favorite puzzles:")
             y_pos -= 0.5 * inch
 
             # Draw lines for notes
@@ -1993,7 +2019,8 @@ class Volume3CrosswordGenerator:
                     timeout=10,
                 )
                 if result.returncode == 0 and "Pages:" in result.stdout:
-                    page_count = int(result.stdout.split("Pages:")[1].split()[0])
+                    page_count = int(result.stdout.split(
+                        "Pages:")[1].split()[0])
                     qa_results["page_count"] = page_count
 
                     if page_count == 156:
@@ -2055,7 +2082,8 @@ class Volume3CrosswordGenerator:
 
         qa_dir = self.output_dir / "qa"
         qa_dir.mkdir(exist_ok=True)
-        qa_file = qa_dir / f"qa_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        qa_file = qa_dir / \
+            f"qa_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
 
         with open(qa_file, "w") as f:
             json.dump(qa_report, f, indent=2)

@@ -18,9 +18,12 @@ draw = ImageDraw.Draw(img)
 # Try to load fonts
 try:
     title_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 180)
-    subtitle_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 60)
-    volume_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 100)
-    publisher_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 50)
+    subtitle_font = ImageFont.truetype(
+        "/System/Library/Fonts/Helvetica.ttc", 60)
+    volume_font = ImageFont.truetype(
+        "/System/Library/Fonts/Helvetica.ttc", 100)
+    publisher_font = ImageFont.truetype(
+        "/System/Library/Fonts/Helvetica.ttc", 50)
 except BaseException:
     # Fallback
     title_font = ImageFont.load_default()
@@ -49,7 +52,8 @@ banner_points = [
 draw.polygon(banner_points, fill="#F39C12")
 
 # Volume text
-draw.text((width - 700, banner_y + 50), "VOLUME 2", fill="#2C3E50", font=volume_font)
+draw.text((width - 700, banner_y + 50), "VOLUME 2",
+          fill="#2C3E50", font=volume_font)
 
 # Subtitle band
 band_y = height // 2

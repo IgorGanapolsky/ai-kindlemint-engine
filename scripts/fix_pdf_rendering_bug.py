@@ -57,7 +57,7 @@ class SudokuRenderingFixer:
                     y = margin + r * cell_size + cell_size // 2
 
                     # Sample a small region around the center
-                    region = img_array[y - 10 : y + 10, x - 10 : x + 10]
+                    region = img_array[y - 10: y + 10, x - 10: x + 10]
                     if region.size > 0:
                         # If the region has darker pixels, likely contains a number
                         avg_brightness = np.mean(region)
@@ -71,7 +71,8 @@ class SudokuRenderingFixer:
 
     def diagnose_puzzle(self, puzzle_id):
         """Diagnose a specific puzzle for rendering issues"""
-        metadata_file = self.metadata_dir / f"sudoku_puzzle_{puzzle_id:03d}.json"
+        metadata_file = self.metadata_dir / \
+            f"sudoku_puzzle_{puzzle_id:03d}.json"
         png_file = self.puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}.png"
 
         if not metadata_file.exists():
@@ -127,7 +128,8 @@ class SudokuRenderingFixer:
         draw = ImageDraw.Draw(img)
 
         try:
-            font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
+            font = ImageFont.truetype(
+                "/System/Library/Fonts/Helvetica.ttc", 36)
         except BaseException:
             font = ImageFont.load_default()
 
@@ -171,7 +173,8 @@ class SudokuRenderingFixer:
                     draw.text((x, y), text, fill="black", font=font)
 
         # Save regenerated image
-        output_path = self.puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}_FIXED.png"
+        output_path = self.puzzles_dir / \
+            f"sudoku_puzzle_{puzzle_id:03d}_FIXED.png"
         img.save(output_path, "PNG", dpi=(300, 300))
 
         return output_path
@@ -216,7 +219,8 @@ class SudokuRenderingFixer:
 
 def main():
     """Main entry point"""
-    book_dir = Path("books/active_production/Large_Print_Sudoku_Masters/volume_1")
+    book_dir = Path(
+        "books/active_production/Large_Print_Sudoku_Masters/volume_1")
 
     if not book_dir.exists():
         print(f"❌ Book directory not found: {book_dir}")

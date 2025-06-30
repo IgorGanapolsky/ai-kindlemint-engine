@@ -4,11 +4,11 @@ REAL Repository Hygiene Analyzer
 Analyzes actual repository organization, not just untracked files
 """
 
-import os
-from pathlib import Path
-from collections import defaultdict
 import json
+import os
+from collections import defaultdict
 from datetime import datetime
+from pathlib import Path
 
 
 class RealHygieneAnalyzer:
@@ -115,7 +115,8 @@ class RealHygieneAnalyzer:
         issues = []
 
         docs_dir = self.project_root / "docs"
-        root_md_count = len(list(self.project_root.glob("*.md"))) - 1  # Exclude README
+        root_md_count = len(
+            list(self.project_root.glob("*.md"))) - 1  # Exclude README
 
         if root_md_count > 5 and not docs_dir.exists():
             issues.append(
@@ -176,7 +177,8 @@ class RealHygieneAnalyzer:
         # Penalize root clutter heavily
         root_file_count = len([f for f in root_files if f.is_file()])
         if root_file_count > 15:  # Reasonable limit
-            score -= min(30, (root_file_count - 15) * 2)  # -2 points per extra file
+            # -2 points per extra file
+            score -= min(30, (root_file_count - 15) * 2)
 
         # Penalize issues
         for issue in issues:
@@ -221,7 +223,8 @@ class RealHygieneAnalyzer:
 
     def _print_report(self, report):
         """Print detailed hygiene report"""
-        print(f"\n📊 REAL Hygiene Score: {report['real_hygiene_score']:.1f}/100")
+        print(
+            f"\n📊 REAL Hygiene Score: {report['real_hygiene_score']:.1f}/100")
         print(f"🗂️  Root Files: {report['root_file_count']}")
         print(f"⚠️  Issues Found: {report['total_issues']}")
 
@@ -247,7 +250,8 @@ class RealHygieneAnalyzer:
         if report["recommendations"]:
             print(f"\n💡 Recommendations:")
             for rec in report["recommendations"]:
-                print(f"   📋 {rec['description']} (Priority: {rec['priority']})")
+                print(
+                    f"   📋 {rec['description']} (Priority: {rec['priority']})")
 
 
 if __name__ == "__main__":

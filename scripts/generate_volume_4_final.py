@@ -4,7 +4,6 @@ Create crossword puzzles for Volume 4 with UNIQUE solutions for each puzzle
 Building on Volume 4's success with enhanced word variety
 """
 
-from volume_4_clue_generator import Volume4ClueGenerator
 import json
 import random
 import sys
@@ -14,6 +13,7 @@ from pathlib import Path
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import inch
 from reportlab.pdfgen import canvas
+from volume_4_clue_generator import Volume4ClueGenerator
 
 sys.path.append(str(Path(__file__).parent))
 
@@ -929,7 +929,8 @@ class Volume4CrosswordGenerator:
                         c.setFillColor(colors.black)
                         c.setFont("Helvetica-Bold", 12)
                         c.drawCentredString(
-                            x + CELL_SIZE / 2, y + CELL_SIZE / 2 - 4, solution[row][col]
+                            x + CELL_SIZE / 2, y + CELL_SIZE /
+                            2 - 4, solution[row][col]
                         )
 
     def create_complete_book(self):
@@ -944,16 +945,21 @@ class Volume4CrosswordGenerator:
                 / "Large_Print_Crossword_Masters_-_Volume_4_interior_FINAL.pdf"
             )
 
-            c = canvas.Canvas(str(pdf_path), pagesize=(PAGE_WIDTH, PAGE_HEIGHT))
+            c = canvas.Canvas(str(pdf_path), pagesize=(
+                PAGE_WIDTH, PAGE_HEIGHT))
 
             # Title page
             c.setFont("Helvetica-Bold", 32)
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2 * inch, "LARGE PRINT")
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2.6 * inch, "CROSSWORD")
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 3.2 * inch, "MASTERS")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 2 * inch, "LARGE PRINT")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 2.6 * inch, "CROSSWORD")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 3.2 * inch, "MASTERS")
 
             c.setFont("Helvetica-Bold", 24)
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 4.2 * inch, "VOLUME 3")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 4.2 * inch, "VOLUME 3")
 
             c.setFont("Helvetica", 16)
             c.drawCentredString(
@@ -961,7 +967,8 @@ class Volume4CrosswordGenerator:
                 PAGE_HEIGHT - 5.2 * inch,
                 "50 Challenging Crossword Puzzles",
             )
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 5.6 * inch, "for Seniors")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 5.6 * inch, "for Seniors")
 
             c.setFont("Helvetica", 14)
             c.drawCentredString(
@@ -984,7 +991,8 @@ class Volume4CrosswordGenerator:
                 GUTTER, y_pos, "Introduction.........................................3"
             )
             y_pos -= 0.3 * inch
-            c.drawString(GUTTER, y_pos, "How to Solve Crosswords...................4")
+            c.drawString(
+                GUTTER, y_pos, "How to Solve Crosswords...................4")
             y_pos -= 0.3 * inch
             c.drawString(
                 GUTTER, y_pos, "Puzzles 1-50................................5-104"
@@ -1069,7 +1077,8 @@ class Volume4CrosswordGenerator:
                 print(f"  📝 Creating Unique Puzzle {puzzle_num}/50")
 
                 # Create puzzle with actual words - UNIQUE for each puzzle
-                grid, solution, placed_words = self.create_filled_grid(puzzle_num)
+                grid, solution, placed_words = self.create_filled_grid(
+                    puzzle_num)
                 numbers = self.assign_numbers(grid, placed_words)
 
                 # Store for answer key
@@ -1107,8 +1116,10 @@ class Volume4CrosswordGenerator:
                 )
 
                 # Separate words by direction
-                across_words = [w for w in placed_words if w["direction"] == "across"]
-                down_words = [w for w in placed_words if w["direction"] == "down"]
+                across_words = [
+                    w for w in placed_words if w["direction"] == "across"]
+                down_words = [
+                    w for w in placed_words if w["direction"] == "down"]
 
                 # Sort by position
                 across_words.sort(key=lambda w: (w["row"], w["col"]))
@@ -1116,12 +1127,14 @@ class Volume4CrosswordGenerator:
 
                 # Across clues
                 c.setFont("Helvetica-Bold", 12)
-                c.drawString(GUTTER, PAGE_HEIGHT - TOP_MARGIN - 1 * inch, "ACROSS")
+                c.drawString(GUTTER, PAGE_HEIGHT -
+                             TOP_MARGIN - 1 * inch, "ACROSS")
 
                 c.setFont("Helvetica", 10)
                 y_pos = PAGE_HEIGHT - TOP_MARGIN - 1.3 * inch
                 for word_info in across_words[:20]:
-                    clue_num = numbers.get((word_info["row"], word_info["col"]), "?")
+                    clue_num = numbers.get(
+                        (word_info["row"], word_info["col"]), "?")
                     clue_text = f"{clue_num}. {word_info['clue']}"
                     if len(clue_text) > 45:
                         clue_text = clue_text[:42] + "..."
@@ -1139,7 +1152,8 @@ class Volume4CrosswordGenerator:
                 c.setFont("Helvetica", 10)
                 y_pos = PAGE_HEIGHT - TOP_MARGIN - 1.3 * inch
                 for word_info in down_words[:20]:
-                    clue_num = numbers.get((word_info["row"], word_info["col"]), "?")
+                    clue_num = numbers.get(
+                        (word_info["row"], word_info["col"]), "?")
                     clue_text = f"{clue_num}. {word_info['clue']}"
                     if len(clue_text) > 45:
                         clue_text = clue_text[:42] + "..."
@@ -1183,11 +1197,13 @@ class Volume4CrosswordGenerator:
 
                         if puzzle["solution"][row][col] == "#":
                             c.setFillColor(colors.black)
-                            c.rect(x, y, small_cell, small_cell, fill=1, stroke=0)
+                            c.rect(x, y, small_cell,
+                                   small_cell, fill=1, stroke=0)
                         else:
                             c.setFillColor(colors.white)
                             c.setStrokeColor(colors.black)
-                            c.rect(x, y, small_cell, small_cell, fill=1, stroke=1)
+                            c.rect(x, y, small_cell,
+                                   small_cell, fill=1, stroke=1)
 
                             # Add solution letter
                             c.setFillColor(colors.black)
@@ -1198,7 +1214,8 @@ class Volume4CrosswordGenerator:
                                 small_cell * 0.35
                             )  # Position text in lower third of cell
                             c.drawCentredString(
-                                x + small_cell / 2, text_y, puzzle["solution"][row][col]
+                                x + small_cell /
+                                2, text_y, puzzle["solution"][row][col]
                             )
 
                 # Add word lists below grid
@@ -1216,14 +1233,16 @@ class Volume4CrosswordGenerator:
                 )
                 down_words = sorted(
                     set(
-                        [w["word"] for w in puzzle["words"] if w["direction"] == "down"]
+                        [w["word"]
+                            for w in puzzle["words"] if w["direction"] == "down"]
                     )
                 )
 
                 # Display words in two columns
                 c.setFont("Helvetica-Bold", 10)
                 c.drawString(GUTTER + 0.5 * inch, y_pos, "ACROSS ANSWERS:")
-                c.drawString(PAGE_WIDTH / 2 + 0.1 * inch, y_pos, "DOWN ANSWERS:")
+                c.drawString(PAGE_WIDTH / 2 + 0.1 * inch,
+                             y_pos, "DOWN ANSWERS:")
 
                 y_pos -= 0.25 * inch
                 c.setFont("Helvetica", 9)
@@ -1254,7 +1273,8 @@ class Volume4CrosswordGenerator:
                                 else word_info["clue"]
                             )
                             c.drawString(
-                                GUTTER + 0.5 * inch, y_pos, f"{clue_num}. {across}"
+                                GUTTER + 0.5 *
+                                inch, y_pos, f"{clue_num}. {across}"
                             )
 
                     # Draw down word if available

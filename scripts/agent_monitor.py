@@ -147,21 +147,25 @@ class AgentMonitor:
                 status["system_status"] = line.split("Status:")[-1].strip()
             elif "Agents:" in line:
                 try:
-                    status["active_agents"] = int(line.split("Agents:")[-1].split()[0])
+                    status["active_agents"] = int(
+                        line.split("Agents:")[-1].split()[0])
                 except BaseException:
                     pass
             elif "Tasks:" in line:
                 try:
-                    status["queued_tasks"] = int(line.split("Tasks:")[-1].split()[0])
+                    status["queued_tasks"] = int(
+                        line.split("Tasks:")[-1].split()[0])
                 except BaseException:
                     pass
             elif "Memory:" in line:
                 try:
-                    status["memory_entries"] = int(line.split("Memory:")[-1].split()[0])
+                    status["memory_entries"] = int(
+                        line.split("Memory:")[-1].split()[0])
                 except BaseException:
                     pass
             elif "Terminal Pool:" in line:
-                status["terminal_pool"] = line.split("Terminal Pool:")[-1].strip()
+                status["terminal_pool"] = line.split(
+                    "Terminal Pool:")[-1].strip()
             elif "MCP Server:" in line:
                 status["mcp_server"] = line.split("MCP Server:")[-1].strip()
 
@@ -190,14 +194,16 @@ class AgentMonitor:
         for line in output.split("\\n"):
             if "entries:" in line:
                 try:
-                    stats["total_entries"] = int(line.split("entries:")[-1].strip())
+                    stats["total_entries"] = int(
+                        line.split("entries:")[-1].strip())
                 except BaseException:
                     pass
             elif "size:" in line:
                 try:
                     size_str = line.split("size:")[-1].strip()
                     if "MB" in size_str:
-                        stats["size_mb"] = float(size_str.replace("MB", "").strip())
+                        stats["size_mb"] = float(
+                            size_str.replace("MB", "").strip())
                 except BaseException:
                     pass
         return stats
@@ -213,12 +219,14 @@ class AgentMonitor:
                     pass
             elif "in_progress:" in line:
                 try:
-                    queue["in_progress"] = int(line.split("in_progress:")[-1].strip())
+                    queue["in_progress"] = int(
+                        line.split("in_progress:")[-1].strip())
                 except BaseException:
                     pass
             elif "completed:" in line:
                 try:
-                    queue["completed"] = int(line.split("completed:")[-1].strip())
+                    queue["completed"] = int(
+                        line.split("completed:")[-1].strip())
                 except BaseException:
                     pass
         return queue
@@ -246,11 +254,13 @@ class AgentMonitor:
         # System Status
         cf_status = status["claude_flow"]
         if "error" not in cf_status:
-            print(f"\\n🟢 System Status: {cf_status.get('system_status', 'Unknown')}")
+            print(
+                f"\\n🟢 System Status: {cf_status.get('system_status', 'Unknown')}")
             print(f"🤖 Active Agents: {cf_status.get('active_agents', 0)}")
             print(f"📋 Queued Tasks: {cf_status.get('queued_tasks', 0)}")
             print(f"💾 Memory Entries: {cf_status.get('memory_entries', 0)}")
-            print(f"🖥️  Terminal Pool: {cf_status.get('terminal_pool', 'Unknown')}")
+            print(
+                f"🖥️  Terminal Pool: {cf_status.get('terminal_pool', 'Unknown')}")
             print(f"🌐 MCP Server: {cf_status.get('mcp_server', 'Unknown')}")
         else:
             print(f"\\n❌ System Error: {cf_status['error']}")
@@ -260,7 +270,8 @@ class AgentMonitor:
         if agents:
             print(f"\\n👥 ACTIVE AGENTS ({len(agents)}):")
             for agent in agents:
-                print(f"   • {agent['name']} ({agent['type']}) - {agent['status']}")
+                print(
+                    f"   • {agent['name']} ({agent['type']}) - {agent['status']}")
         else:
             print("\\n👥 No active agents")
 
@@ -274,7 +285,8 @@ class AgentMonitor:
 
         # Task Queue
         queue = status["task_queue"]
-        total_tasks = queue["pending"] + queue["in_progress"] + queue["completed"]
+        total_tasks = queue["pending"] + \
+            queue["in_progress"] + queue["completed"]
         if total_tasks > 0:
             print(f"\\n📋 TASK QUEUE:")
             print(f"   • Pending: {queue['pending']}")
@@ -288,7 +300,7 @@ class AgentMonitor:
             for proc in processes[:5]:  # Show top 5
                 print(
                     f"   • PID {proc['pid']} - CPU: {proc['cpu']
-                                                     }% - Memory: {proc['memory']}%"
+                                                     } % - Memory: {proc['memory']} %"
                 )
                 print(f"     {proc['command']}")
 
@@ -300,7 +312,8 @@ class AgentMonitor:
             while True:
                 os.system("clear" if os.name == "posix" else "cls")
                 self.print_dashboard()
-                print(f"\\n🔄 Refreshing every {interval} seconds... (Ctrl+C to stop)")
+                print(
+                    f"\\n🔄 Refreshing every {interval} seconds... (Ctrl+C to stop)")
                 time.sleep(interval)
         except KeyboardInterrupt:
             print("\\n\\n👋 Agent monitoring stopped.")

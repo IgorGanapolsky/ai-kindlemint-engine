@@ -4,11 +4,11 @@ Refactoring Script: Replace Hardcoded Values with Configuration
 This script systematically updates Python files to use the centralized config loader
 instead of hardcoded paths and magic numbers.
 """
-from datetime import datetime
-import shutil
-import re
 import argparse
+import re
+import shutil
 import sys
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -129,7 +129,8 @@ def refactor_file(filepath, dry_run=False):
         for pattern, replacement in REPLACEMENTS.items():
             new_content, count = re.subn(pattern, replacement, content)
             if count > 0:
-                print(f"  - Replaced {count} instances of pattern: {pattern[:50]}...")
+                print(
+                    f"  - Replaced {count} instances of pattern: {pattern[:50]}...")
                 changes_made += count
                 content = new_content
 
@@ -137,7 +138,8 @@ def refactor_file(filepath, dry_run=False):
             if not dry_run:
                 # Create backup
                 backup_path = (
-                    filepath + f'.backup_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+                    filepath +
+                    f'.backup_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
                 )
                 shutil.copy2(filepath, backup_path)
                 print(f"  - Created backup: {backup_path}")

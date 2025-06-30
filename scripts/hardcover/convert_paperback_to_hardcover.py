@@ -32,14 +32,14 @@ class PaperbackToHardcoverConverter:
 
         print(f"📐 Conversion parameters:")
         print(
-            f"   Source: 8.5×11 inches ({
-                self.source_width:.0f}×{
-                self.source_height:.0f} points)"
+            f"   Source: 8.5×11 inches({
+                self.source_width: .0f}×{
+                self.source_height: .0f} points)"
         )
         print(
-            f"   Target: 6×9 inches ({
-                self.target_width:.0f}×{
-                self.target_height:.0f} points)"
+            f"   Target: 6×9 inches({
+                self.target_width: .0f}×{
+                self.target_height: .0f} points)"
         )
         print(f"   Scale factor: {self.scale_factor:.3f}")
 
@@ -158,7 +158,8 @@ class PaperbackToHardcoverConverter:
                 mat = mat.pretranslate(x_offset, y_offset)
 
                 # Copy page content with transformation
-                new_page.show_pdf_page(new_page.rect, source_doc, page_num, clip=None)
+                new_page.show_pdf_page(
+                    new_page.rect, source_doc, page_num, clip=None)
 
                 if (page_num + 1) % 10 == 0:
                     print(f"   ✅ Processed {page_num + 1} pages...")
@@ -196,7 +197,8 @@ def main():
     converter = PaperbackToHardcoverConverter()
 
     if args.preserve_text:
-        success = converter.convert_with_text_preservation(args.input, args.output)
+        success = converter.convert_with_text_preservation(
+            args.input, args.output)
     else:
         success = converter.convert_pdf(args.input, args.output)
 

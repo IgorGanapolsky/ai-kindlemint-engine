@@ -128,7 +128,8 @@ class ConsolidationAnalyzer:
 
     def find_volume_scripts(self):
         """Finds all scripts matching the target pattern."""
-        self.scripts_to_analyze = sorted(list(SCRIPTS_DIR.glob(TARGET_SCRIPT_PATTERN)))
+        self.scripts_to_analyze = sorted(
+            list(SCRIPTS_DIR.glob(TARGET_SCRIPT_PATTERN)))
         logger.info(
             f"Found {len(self.scripts_to_analyze)} volume creation scripts to analyze."
         )
@@ -192,7 +193,8 @@ class ConsolidationAnalyzer:
 
         # Ensure we don't suggest removing everything if all are similar
         if (
-            len(self.consolidation_plan["to_remove"]) == len(self.scripts_to_analyze)
+            len(self.consolidation_plan["to_remove"]) == len(
+                self.scripts_to_analyze)
             and self.scripts_to_analyze
         ):
             # Keep the most complex one for reference
@@ -201,7 +203,8 @@ class ConsolidationAnalyzer:
                 key=lambda item: len(item[1].get("functions", [])),
             )
             if most_complex_script[0] in self.consolidation_plan["to_remove"]:
-                self.consolidation_plan["to_remove"].remove(most_complex_script[0])
+                self.consolidation_plan["to_remove"].remove(
+                    most_complex_script[0])
                 self.consolidation_plan["to_keep_for_reference"].append(
                     most_complex_script[0]
                 )
@@ -251,7 +254,8 @@ class ConsolidationAnalyzer:
                 "No scripts identified for immediate removal. Review manually."
             )
 
-        report.append("\n### ⚠️ Scripts to Keep for Reference (Contains Unique Logic)")
+        report.append(
+            "\n### ⚠️ Scripts to Keep for Reference (Contains Unique Logic)")
         if self.consolidation_plan["to_keep_for_reference"]:
             for script in sorted(self.consolidation_plan["to_keep_for_reference"]):
                 report.append(f"- `scripts/{script}`")
@@ -303,7 +307,8 @@ class ConsolidationAnalyzer:
         logger.info("Starting script consolidation analysis...")
         self.find_volume_scripts()
         if not self.scripts_to_analyze:
-            logger.warning("No volume creation scripts found to analyze. Exiting.")
+            logger.warning(
+                "No volume creation scripts found to analyze. Exiting.")
             return
 
         self.analyze_scripts()

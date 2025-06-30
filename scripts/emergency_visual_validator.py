@@ -52,7 +52,8 @@ class EmergencyVisualValidator:
                         )
                         for issue in issues:
                             print(f"  • {issue}")
-                            self.critical_issues.append(f"Page {page_num}: {issue}")
+                            self.critical_issues.append(
+                                f"Page {page_num}: {issue}")
                     else:
                         print(f"✅ Page {page_num} looks correct")
 
@@ -116,7 +117,8 @@ class EmergencyVisualValidator:
             page = pdf[page_num]
 
             # Render page to high-res image
-            pix = page.get_pixmap(matrix=fitz.Matrix(3, 3))  # 3x scale for detail
+            pix = page.get_pixmap(matrix=fitz.Matrix(3, 3)
+                                  )  # 3x scale for detail
             img_data = pix.tobytes("png")
             img = Image.open(BytesIO(img_data))
             img_gray = np.array(img.convert("L"))
@@ -124,7 +126,7 @@ class EmergencyVisualValidator:
             # Extract puzzle grid area (center 60% of page)
             h, w = img_gray.shape
             grid_area = img_gray[
-                int(h * 0.2) : int(h * 0.8), int(w * 0.2) : int(w * 0.8)
+                int(h * 0.2): int(h * 0.8), int(w * 0.2): int(w * 0.8)
             ]
 
             # CRITICAL CHECK 1: Count filled cells
@@ -132,7 +134,7 @@ class EmergencyVisualValidator:
 
             if filled_cells > 45:  # More than half the grid filled
                 issues.append(
-                    f"Too many numbers visible ({
+                    f"Too many numbers visible({
                         filled_cells}/81 cells) - appears to show solution"
                 )
 
@@ -153,7 +155,8 @@ class EmergencyVisualValidator:
             bold_cells, regular_cells = self._analyze_number_styling(grid_area)
 
             if bold_cells == 0 and regular_cells > 0:
-                issues.append("No bold clues found - all numbers appear in same style")
+                issues.append(
+                    "No bold clues found - all numbers appear in same style")
 
             # CRITICAL CHECK 4: Validate grid completeness
             if filled_cells == 81:
@@ -254,7 +257,8 @@ class EmergencyVisualValidator:
                     if dark_pixels > cell.size * 0.05:  # Has a number
 
                         # Analyze thickness (bold detection)
-                        very_dark_pixels = np.sum(cell < 100)  # Very dark = bold
+                        very_dark_pixels = np.sum(
+                            cell < 100)  # Very dark = bold
                         thickness_ratio = (
                             very_dark_pixels / dark_pixels if dark_pixels > 0 else 0
                         )

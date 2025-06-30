@@ -393,17 +393,22 @@ class EmotionAnalyzer:
         voice_emotions = self._analyze_voice_emotions(voice_characteristics)
 
         # Determine creative mood
-        creative_mood = self._determine_creative_mood(text, voice_characteristics)
+        creative_mood = self._determine_creative_mood(
+            text, voice_characteristics)
 
         # Combine and synthesize
-        primary_emotion = self._determine_primary_emotion(text_emotions, voice_emotions)
-        intensity = self._calculate_emotion_intensity(text_emotions, voice_emotions)
-        secondary_emotions = self._get_secondary_emotions(text_emotions, voice_emotions)
+        primary_emotion = self._determine_primary_emotion(
+            text_emotions, voice_emotions)
+        intensity = self._calculate_emotion_intensity(
+            text_emotions, voice_emotions)
+        secondary_emotions = self._get_secondary_emotions(
+            text_emotions, voice_emotions)
         energy_level = self._calculate_energy_level(
             voice_characteristics, text_emotions
         )
         creative_intent = self._extract_creative_intent(text)
-        emotional_stability = self._assess_emotional_stability(voice_characteristics)
+        emotional_stability = self._assess_emotional_stability(
+            voice_characteristics)
         enthusiasm_score = self._calculate_enthusiasm(
             text_emotions, voice_characteristics
         )
@@ -558,7 +563,8 @@ class EmotionAnalyzer:
         voice_energy = (voice_chars.pace + voice_chars.confidence_level) / 2
 
         # Boost from energetic emotions in text
-        energetic_emotions = ["excited", "passionate", "energetic", "enthusiastic"]
+        energetic_emotions = ["excited",
+                              "passionate", "energetic", "enthusiastic"]
         text_energy_boost = sum(
             text_emotions.get(emotion, 0) for emotion in energetic_emotions
         )
@@ -664,7 +670,8 @@ class VoiceCharacteristicsExtractor:
         confidence_level = self._assess_confidence(audio_analysis, text)
 
         # Extract patterns
-        emphasis_patterns = self._extract_emphasis_patterns(audio_analysis, text)
+        emphasis_patterns = self._extract_emphasis_patterns(
+            audio_analysis, text)
         speech_markers = self._extract_speech_markers(audio_analysis, text)
         personality_indicators = self._extract_personality_indicators(
             audio_analysis, text
@@ -686,13 +693,15 @@ class VoiceCharacteristicsExtractor:
         """Analyze speaking pace (words per minute relative to normal)"""
         # Simulate pace analysis
         word_count = len(text.split())
-        duration_seconds = audio_analysis.get("duration", 30)  # Default 30 seconds
+        duration_seconds = audio_analysis.get(
+            "duration", 30)  # Default 30 seconds
 
         if duration_seconds > 0:
             words_per_minute = (word_count / duration_seconds) * 60
             # Normal pace is around 150 WPM, so calculate relative pace
             relative_pace = words_per_minute / 150
-            return min(max(relative_pace, 0.3), 3.0)  # Clamp between 0.3x and 3x
+            # Clamp between 0.3x and 3x
+            return min(max(relative_pace, 0.3), 3.0)
 
         return 1.0  # Default normal pace
 
@@ -738,7 +747,8 @@ class VoiceCharacteristicsExtractor:
 
         # Text-based confidence indicators
         text_lower = text.lower()
-        confident_words = ["definitely", "absolutely", "certainly", "confident", "sure"]
+        confident_words = ["definitely", "absolutely",
+                           "certainly", "confident", "sure"]
         uncertain_words = [
             "maybe",
             "perhaps",
@@ -749,12 +759,15 @@ class VoiceCharacteristicsExtractor:
             "uh",
         ]
 
-        confident_count = sum(1 for word in confident_words if word in text_lower)
-        uncertain_count = sum(1 for word in uncertain_words if word in text_lower)
+        confident_count = sum(
+            1 for word in confident_words if word in text_lower)
+        uncertain_count = sum(
+            1 for word in uncertain_words if word in text_lower)
 
         # Calculate confidence score
         voice_confidence = (
-            volume_consistency * (1 - pause_frequency) * (1 - filler_word_ratio)
+            volume_consistency * (1 - pause_frequency) *
+            (1 - filler_word_ratio)
         )
         text_confidence = max(0, confident_count - uncertain_count * 2) / max(
             len(text.split()), 1
@@ -794,10 +807,12 @@ class VoiceCharacteristicsExtractor:
         markers = {}
 
         # Breathing patterns
-        markers["breath_pattern"] = audio_analysis.get("breath_pattern", "normal")
+        markers["breath_pattern"] = audio_analysis.get(
+            "breath_pattern", "normal")
 
         # Pause patterns
-        markers["pause_pattern"] = audio_analysis.get("pause_pattern", "regular")
+        markers["pause_pattern"] = audio_analysis.get(
+            "pause_pattern", "regular")
 
         # Repetition patterns
         words = text.lower().split()
@@ -805,7 +820,8 @@ class VoiceCharacteristicsExtractor:
         for word in words:
             word_counts[word] = word_counts.get(word, 0) + 1
 
-        repeated_words = [word for word, count in word_counts.items() if count > 2]
+        repeated_words = [word for word,
+                          count in word_counts.items() if count > 2]
         markers["repetitive_words"] = repeated_words[:3]
 
         # Sentence structure patterns
@@ -849,7 +865,8 @@ class VoiceCharacteristicsExtractor:
         positive_language = self._assess_positive_language(text)
         collaborative_language = self._assess_collaborative_language(text)
 
-        indicators["agreeableness"] = (positive_language + collaborative_language) / 2
+        indicators["agreeableness"] = (
+            positive_language + collaborative_language) / 2
 
         return indicators
 
@@ -943,8 +960,10 @@ class VoiceCharacteristicsExtractor:
         ]
 
         text_lower = text.lower()
-        positive_count = sum(1 for word in positive_words if word in text_lower)
-        negative_count = sum(1 for word in negative_words if word in text_lower)
+        positive_count = sum(
+            1 for word in positive_words if word in text_lower)
+        negative_count = sum(
+            1 for word in negative_words if word in text_lower)
 
         # Calculate net positivity
         net_positive = positive_count - negative_count
@@ -953,7 +972,8 @@ class VoiceCharacteristicsExtractor:
         if word_count == 0:
             return 0.5  # Neutral
 
-        positivity_ratio = (net_positive / word_count) + 0.5  # Center around 0.5
+        positivity_ratio = (net_positive / word_count) + \
+            0.5  # Center around 0.5
         return min(max(positivity_ratio, 0.0), 1.0)
 
     def _assess_collaborative_language(self, text: str) -> float:

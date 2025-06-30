@@ -61,8 +61,8 @@ def update_difficulty_progression(puzzles_dir: Path):
 
             if old_difficulty != new_difficulty:
                 print(
-                    f"✅ Updated Puzzle {puzzle_id:3d}: {
-                      old_difficulty} → {new_difficulty}"
+                    f"✅ Updated Puzzle {puzzle_id: 3d}: {
+                        old_difficulty} → {new_difficulty}"
                 )
 
         except Exception as e:
@@ -87,7 +87,8 @@ def main():
 
     if not puzzles_dir.exists():
         print(f"❌ Puzzles directory not found: {puzzles_dir}")
-        print("Usage: python fix_difficulty_progression.py [puzzles_directory]")
+        print(
+            "Usage: python fix_difficulty_progression.py [puzzles_directory]")
         return 1
 
     print(f"🔄 Updating difficulty progression in: {puzzles_dir}")

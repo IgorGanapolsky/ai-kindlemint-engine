@@ -72,7 +72,8 @@ class EnhancedCIMonitor:
 
         try:
             # The logs endpoint returns a redirect to the log file
-            response = requests.get(url, headers=self.headers, allow_redirects=False)
+            response = requests.get(
+                url, headers=self.headers, allow_redirects=False)
 
             if response.status_code == 302:
                 # Follow the redirect to get the actual logs
@@ -110,7 +111,7 @@ class EnhancedCIMonitor:
 
         # GitHub Actions logs have a specific format
         # Each step starts with a timestamp and the step name
-        step_pattern = rf"\d{{4}}-\d{{2}}-\d{{2}}T\d{{2}}:\d{{2}}:\d{{2}}\.\d+Z {
+        step_pattern = rf"\d{{4}} -\d{{2}} -\d{{2}}T\d{{2}}: \d{{2}}: \d{{2}}\.\d+Z {
             re.escape(failed_step)}"
 
         lines = logs.split("\n")
@@ -262,7 +263,8 @@ class EnhancedCIMonitor:
 
     def monitor_failures(self, lookback_minutes: int = 60) -> List[Dict]:
         """Monitor recent CI failures with enhanced log extraction"""
-        logger.info(f"Monitoring CI failures for {self.repo_owner}/{self.repo_name}")
+        logger.info(
+            f"Monitoring CI failures for {self.repo_owner}/{self.repo_name}")
 
         # Get failed workflow runs
         failed_runs = self.get_workflow_runs(limit=20, status="failure")
@@ -272,7 +274,8 @@ class EnhancedCIMonitor:
         recent_failures = []
 
         for run in failed_runs:
-            run_time = datetime.strptime(run["created_at"], "%Y-%m-%dT%H:%M:%SZ")
+            run_time = datetime.strptime(
+                run["created_at"], "%Y-%m-%dT%H:%M:%SZ")
             if run_time >= cutoff_time:
                 # Get detailed job information
                 jobs = self.get_job_details(run["id"])
@@ -316,7 +319,8 @@ def main():
     """Test the enhanced CI monitor"""
     import argparse
 
-    parser = argparse.ArgumentParser(description="Monitor GitHub Actions for failures")
+    parser = argparse.ArgumentParser(
+        description="Monitor GitHub Actions for failures")
     parser.add_argument("--owner", required=True, help="Repository owner")
     parser.add_argument("--repo", required=True, help="Repository name")
     parser.add_argument(
@@ -333,7 +337,8 @@ def main():
     monitor.save_failures(failures, args.output)
 
     # Print summary
-    print(f"\nFound {len(failures)} failures in the last {args.lookback} minutes")
+    print(
+        f"\nFound {len(failures)} failures in the last {args.lookback} minutes")
     for failure in failures:
         print(f"\n- {failure['job_name']} ({failure['failure_type']})")
         print(f"  Step: {failure['failed_step']}")

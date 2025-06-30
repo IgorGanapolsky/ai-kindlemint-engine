@@ -183,7 +183,8 @@ class TestE2E{class_name}:
 
     async def analyze_coverage(self, test_files: List[str]) -> Dict[str, Any]:
         """Analyze test coverage for generated tests"""
-        self.logger.info(f"📊 Analyzing coverage for {len(test_files)} test files")
+        self.logger.info(
+            f"📊 Analyzing coverage for {len(test_files)} test files")
 
         # Simulate coverage analysis
         coverage_results = {}

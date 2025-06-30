@@ -41,12 +41,14 @@ def run_simple_research():
                 if "organic_results" in data:
                     results["amazon_products"] = len(data["organic_results"])
                     results["apis_tested"].append("SerpApi - SUCCESS")
-                    print(f"✅ SerpApi: Found {len(data['organic_results'])} products")
+                    print(
+                        f"✅ SerpApi: Found {len(data['organic_results'])} products")
                 else:
                     results["apis_tested"].append("SerpApi - No results")
                     print("⚠️ SerpApi: No organic results")
             else:
-                results["apis_tested"].append(f"SerpApi - HTTP {response.status_code}")
+                results["apis_tested"].append(
+                    f"SerpApi - HTTP {response.status_code}")
                 print(f"⚠️ SerpApi: HTTP {response.status_code}")
 
         except Exception as e:
@@ -68,7 +70,8 @@ def run_simple_research():
                 results["apis_tested"].append("Slack - SUCCESS")
                 print("✅ Slack: Notification sent")
             else:
-                results["apis_tested"].append(f"Slack - HTTP {response.status_code}")
+                results["apis_tested"].append(
+                    f"Slack - HTTP {response.status_code}")
                 print(f"⚠️ Slack: HTTP {response.status_code}")
         except Exception as e:
             results["apis_tested"].append(f"Slack - ERROR: {str(e)}")

@@ -30,7 +30,8 @@ try:
     from scripts.daily_tasks import run_daily_tasks
 except ImportError as e:
     run_daily_tasks = None
-    print(f"Warning: Could not import run_daily_tasks from scripts.daily_tasks: {e}")
+    print(
+        f"Warning: Could not import run_daily_tasks from scripts.daily_tasks: {e}")
     print("This function will not be available via kindlemint.cli.run_daily_tasks.")
 
 # 2. BookLayoutEngine from scripts.book_layout_bot

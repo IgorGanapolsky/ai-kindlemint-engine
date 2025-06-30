@@ -191,7 +191,8 @@ class PuzzleGeneratorAgent(A2AAgent):
             original_request = request.get("original_request", {})
 
             for attempt in range(max_retries):
-                self.logger.info(f"Regeneration attempt {attempt + 1}/{max_retries}")
+                self.logger.info(
+                    f"Regeneration attempt {attempt + 1}/{max_retries}")
 
                 # Try with slightly modified parameters
                 modified_request = original_request.copy()
@@ -283,16 +284,19 @@ class PuzzleGeneratorAgent(A2AAgent):
                     return False
 
             # Check that puzzle is not completely empty or completely filled
-            filled_cells = sum(1 for row in puzzle for cell in row if cell != 0)
+            filled_cells = sum(
+                1 for row in puzzle for cell in row if cell != 0)
             if filled_cells == 0:
                 self.logger.error("Puzzle is completely empty")
                 return False
             if filled_cells == 81:
-                self.logger.error("Puzzle is completely filled (solution, not puzzle)")
+                self.logger.error(
+                    "Puzzle is completely filled (solution, not puzzle)")
                 return False
 
             # Check solution is complete
-            solution_filled = sum(1 for row in solution for cell in row if cell != 0)
+            solution_filled = sum(
+                1 for row in solution for cell in row if cell != 0)
             if solution_filled != 81:
                 self.logger.error("Solution is not complete")
                 return False

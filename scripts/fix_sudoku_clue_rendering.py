@@ -112,15 +112,17 @@ class SudokuClueRenderingFixer:
                     cell_y2 = cell_y + cell_size - 2
 
                     # Very light gray to show it's an empty cell
-                    draw.rectangle([cell_x, cell_y, cell_x2, cell_y2], fill="#FAFAFA")
+                    draw.rectangle(
+                        [cell_x, cell_y, cell_x2, cell_y2], fill="#FAFAFA")
 
         # Save with high quality
-        output_path = self.puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}_FIXED.png"
+        output_path = self.puzzles_dir / \
+            f"sudoku_puzzle_{puzzle_id:03d}_FIXED.png"
         img.save(output_path, "PNG", dpi=(300, 300), optimize=False)
 
         print(
             f"✅ Fixed Puzzle {puzzle_id}: {
-                clues_drawn} clues rendered (empty cells left blank)"
+                clues_drawn} clues rendered(empty cells left blank)"
         )
         return output_path, clues_drawn
 
@@ -158,25 +160,29 @@ class SudokuClueRenderingFixer:
             expected_clues = puzzle_data.get("clue_count", 0)
             if clues_drawn == expected_clues:
                 # Replace original with fixed version
-                original_path = self.puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}.png"
+                original_path = self.puzzles_dir / \
+                    f"sudoku_puzzle_{puzzle_id:03d}.png"
                 if original_path.exists():
                     # Backup original
                     backup_path = (
-                        self.puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}_OLD.png"
+                        self.puzzles_dir /
+                        f"sudoku_puzzle_{puzzle_id:03d}_OLD.png"
                     )
                     shutil.move(str(original_path), str(backup_path))
 
                 # Move fixed to original name
                 shutil.move(str(fixed_path), str(original_path))
-                print(f"✓ Replaced puzzle {puzzle_id} with properly rendered version")
+                print(
+                    f"✓ Replaced puzzle {puzzle_id} with properly rendered version")
                 total_fixed += 1
             else:
                 print(
-                    f"❌ Puzzle {puzzle_id}: Clue count mismatch ({clues_drawn} vs {
+                    f"❌ Puzzle {puzzle_id}: Clue count mismatch({clues_drawn} vs {
                         expected_clues})"
                 )
 
-        print(f"\n📊 Summary: Fixed {total_fixed} puzzles with proper clue rendering")
+        print(
+            f"\n📊 Summary: Fixed {total_fixed} puzzles with proper clue rendering")
         print("\n🎯 Next steps:")
         print("1. Regenerate PDF with these new images")
         print("2. Run enhanced QA validation")

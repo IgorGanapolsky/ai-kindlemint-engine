@@ -107,7 +107,8 @@ class DeadCodeDetector:
         self.project_root = Path(self.config.get("project_root", os.getcwd()))
         self.exclude_patterns = self.config.get("exclude_patterns", [])
         self.entry_points = self.config.get("entry_points", [])
-        self.archive_dirs = self.config.get("archive_dirs", ["archive", "backup"])
+        self.archive_dirs = self.config.get(
+            "archive_dirs", ["archive", "backup"])
 
         # Analysis results
         self.file_ast_data: Dict[str, ASTAnalyzer] = {}
@@ -117,7 +118,8 @@ class DeadCodeDetector:
     def _load_config(self, config_path: Optional[str]) -> Dict[str, Any]:
         """Load configuration from YAML file"""
         if not config_path:
-            config_path = Path(__file__).parent / "config" / "cleanup_config.yaml"
+            config_path = Path(__file__).parent / \
+                "config" / "cleanup_config.yaml"
 
         try:
             with open(config_path, "r") as f:
@@ -402,7 +404,8 @@ class DeadCodeDetector:
         # Build a map of all class instantiations and references
         all_class_references = set()
         for analyzer in self.file_ast_data.values():
-            all_class_references.update(analyzer.function_calls.keys())  # Class() calls
+            all_class_references.update(
+                analyzer.function_calls.keys())  # Class() calls
             all_class_references.update(
                 analyzer.attribute_accesses.keys()
             )  # Class.method calls
@@ -423,10 +426,12 @@ class DeadCodeDetector:
                         file_path=file_path,
                         line_number=line_number,
                         confidence=confidence,
-                        reasons=["Class not instantiated or referenced anywhere"],
+                        reasons=[
+                            "Class not instantiated or referenced anywhere"],
                         dependencies=[],
                         last_modified=self._get_file_modified_time(file_path),
-                        size_impact=self._estimate_class_size(file_path, line_number),
+                        size_impact=self._estimate_class_size(
+                            file_path, line_number),
                     )
                     candidates.append(candidate)
 
@@ -588,7 +593,8 @@ class DeadCodeDetector:
         self.candidates.extend(self.correlate_with_coverage())
 
         # Sort by confidence and potential impact
-        self.candidates.sort(key=lambda x: (x.confidence, x.size_impact), reverse=True)
+        self.candidates.sort(key=lambda x: (
+            x.confidence, x.size_impact), reverse=True)
 
         # Generate report
         report = {
@@ -658,7 +664,8 @@ def main():
     output_path = detector.save_report(report, args.output)
 
     print(f"Dead code analysis complete. Report saved to: {output_path}")
-    print(f"Found {report['summary']['total_candidates']} dead code candidates")
+    print(
+        f"Found {report['summary']['total_candidates']} dead code candidates")
     print(
         f"Potential lines of code that could be removed: {
             report['summary']['potential_lines_saved']}"

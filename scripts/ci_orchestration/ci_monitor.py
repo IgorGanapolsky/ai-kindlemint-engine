@@ -67,7 +67,8 @@ class CIMonitor:
             if result.returncode == 0:
                 return result.stdout
             else:
-                logger.error(f"Failed to fetch logs for run {run_id}: {result.stderr}")
+                logger.error(
+                    f"Failed to fetch logs for run {run_id}: {result.stderr}")
                 # Fallback to API if CLI fails
                 return self._get_workflow_logs_api_fallback(run_id)
         except subprocess.TimeoutExpired:
@@ -86,7 +87,8 @@ class CIMonitor:
         for job in jobs:
             if job.get("conclusion") == "failure":
                 log_summary.append(f"Job: {job.get('name', 'Unknown')}")
-                log_summary.append(f"Status: {job.get('conclusion', 'Unknown')}")
+                log_summary.append(
+                    f"Status: {job.get('conclusion', 'Unknown')}")
 
                 # Get steps to find which step failed
                 steps = job.get("steps", [])
@@ -160,7 +162,8 @@ class CIMonitor:
             # Syntax errors
             elif "syntaxerror" in logs_lower:
                 failure_info["failure_type"] = "syntax_error"
-                syntax_match = self._extract_error_pattern(logs, r"SyntaxError: (.+)")
+                syntax_match = self._extract_error_pattern(
+                    logs, r"SyntaxError: (.+)")
                 if syntax_match:
                     failure_info["error_message"] = f"Syntax error: {syntax_match}"
                     failure_info["suggested_fix"] = "Fix syntax error in code"
@@ -178,7 +181,8 @@ class CIMonitor:
             # Type errors
             elif "typeerror" in logs_lower or "mypy" in logs_lower:
                 failure_info["failure_type"] = "type_error"
-                type_match = self._extract_error_pattern(logs, r"TypeError: (.+)")
+                type_match = self._extract_error_pattern(
+                    logs, r"TypeError: (.+)")
                 if type_match:
                     failure_info["error_message"] = f"Type error: {type_match}"
                     failure_info["suggested_fix"] = (
@@ -216,7 +220,8 @@ class CIMonitor:
 
     def monitor_failures(self, lookback_minutes: int = 60) -> List[Dict]:
         """Monitor recent CI failures"""
-        logger.info(f"Monitoring CI failures for {self.repo_owner}/{self.repo_name}")
+        logger.info(
+            f"Monitoring CI failures for {self.repo_owner}/{self.repo_name}")
 
         # Get failed workflow runs
         failed_runs = self.get_workflow_runs(limit=20, status="failure")
@@ -226,7 +231,8 @@ class CIMonitor:
         recent_failures = []
 
         for run in failed_runs:
-            run_time = datetime.strptime(run["created_at"], "%Y-%m-%dT%H:%M:%SZ")
+            run_time = datetime.strptime(
+                run["created_at"], "%Y-%m-%dT%H:%M:%SZ")
             if run_time >= cutoff_time:
                 # Get detailed job information
                 jobs = self.get_job_details(run["id"])
@@ -282,7 +288,8 @@ class CIMonitor:
 
             # Count by branch
             branch = failure["branch"]
-            summary["by_branch"][branch] = summary["by_branch"].get(branch, 0) + 1
+            summary["by_branch"][branch] = summary["by_branch"].get(
+                branch, 0) + 1
 
         return summary
 
@@ -291,13 +298,17 @@ def main():
     """Main entry point for CI monitoring"""
     import argparse
 
-    parser = argparse.ArgumentParser(description="Monitor GitHub Actions CI failures")
-    parser.add_argument("--owner", default="igorganapolsky", help="Repository owner")
+    parser = argparse.ArgumentParser(
+        description="Monitor GitHub Actions CI failures")
+    parser.add_argument("--owner", default="igorganapolsky",
+                        help="Repository owner")
     parser.add_argument(
         "--repo", default="ai-kindlemint-engine", help="Repository name"
     )
-    parser.add_argument("--lookback", type=int, default=60, help="Minutes to look back")
-    parser.add_argument("--output", default="ci_failures.json", help="Output file path")
+    parser.add_argument("--lookback", type=int, default=60,
+                        help="Minutes to look back")
+    parser.add_argument(
+        "--output", default="ci_failures.json", help="Output file path")
     parser.add_argument(
         "--watch", action="store_true", help="Continuous monitoring mode"
     )
@@ -323,7 +334,8 @@ def main():
                 failures = monitor.monitor_failures(args.lookback)
                 if failures:
                     monitor.save_failure_report(failures, args.output)
-                    logger.info(f"Found {len(failures)} failures - report saved")
+                    logger.info(
+                        f"Found {len(failures)} failures - report saved")
                 else:
                     logger.info("No recent failures found")
 

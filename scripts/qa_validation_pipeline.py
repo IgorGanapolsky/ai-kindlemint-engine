@@ -99,7 +99,8 @@ class QAValidationPipeline:
 
         # 4. Check puzzle integrity (for crossword books)
         if book_type == "crossword":
-            puzzle_score, puzzle_issues = self._check_puzzle_integrity(pdf_path)
+            puzzle_score, puzzle_issues = self._check_puzzle_integrity(
+                pdf_path)
             criteria_results["puzzle_integrity"] = {
                 "score": puzzle_score,
                 "threshold": self.qa_criteria["puzzle_integrity"]["threshold"],
@@ -124,7 +125,8 @@ class QAValidationPipeline:
         passed = overall_score >= self.min_passing_score
 
         # Generate recommendations
-        recommendations = self._generate_recommendations(criteria_results, issues)
+        recommendations = self._generate_recommendations(
+            criteria_results, issues)
 
         # Create QA result
         result = QAResult(
@@ -177,8 +179,10 @@ class QAValidationPipeline:
                         line_counts[line] = [i]
 
             # Calculate duplicate percentage
-            duplicate_lines = sum(1 for count in line_counts.values() if len(count) > 1)
-            duplicate_percentage = (duplicate_lines / len(lines)) * 100 if lines else 0
+            duplicate_lines = sum(
+                1 for count in line_counts.values() if len(count) > 1)
+            duplicate_percentage = (
+                duplicate_lines / len(lines)) * 100 if lines else 0
 
             # Collect specific duplicates
             for line, occurrences in line_counts.items():
@@ -192,11 +196,13 @@ class QAValidationPipeline:
                         }
                     )
 
-            return duplicate_percentage, duplicates[:10]  # Return top 10 duplicates
+            # Return top 10 duplicates
+            return duplicate_percentage, duplicates[:10]
 
         except Exception as e:
             return 0.0, [
-                {"type": "error", "message": f"Duplicate check failed: {str(e)}"}
+                {"type": "error",
+                    "message": f"Duplicate check failed: {str(e)}"}
             ]
 
     def _check_text_cutoff(self, pdf_path: Path) -> Tuple[int, List[Dict]]:
@@ -236,9 +242,11 @@ class QAValidationPipeline:
             for i, page in enumerate(pages):
                 if page.strip():
                     total_chars = len(page)
-                    white_chars = page.count(" ") + page.count("\n") + page.count("\t")
+                    white_chars = page.count(
+                        " ") + page.count("\n") + page.count("\t")
                     ws_ratio = (
-                        (white_chars / total_chars) * 100 if total_chars > 0 else 100
+                        (white_chars / total_chars) *
+                        100 if total_chars > 0 else 100
                     )
 
                     if ws_ratio > 92:
@@ -261,7 +269,8 @@ class QAValidationPipeline:
 
         except Exception as e:
             return 0.0, [
-                {"type": "error", "message": f"White space check failed: {str(e)}"}
+                {"type": "error",
+                    "message": f"White space check failed: {str(e)}"}
             ]
 
     def _check_puzzle_integrity(self, pdf_path: Path) -> Tuple[float, List[Dict]]:
@@ -364,7 +373,8 @@ class QAValidationPipeline:
 
         except Exception as e:
             return 0.0, [
-                {"type": "error", "message": f"Puzzle integrity check failed: {str(e)}"}
+                {"type": "error",
+                    "message": f"Puzzle integrity check failed: {str(e)}"}
             ]
 
     def _detect_blank_puzzles(self, text: str) -> bool:
@@ -373,7 +383,8 @@ class QAValidationPipeline:
         puzzle_indicators = ["Puzzle ", "Difficulty:", "Solution - Puzzle"]
         solution_indicators = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
-        puzzle_count = sum(text.count(indicator) for indicator in puzzle_indicators)
+        puzzle_count = sum(text.count(indicator)
+                           for indicator in puzzle_indicators)
         digit_density = (
             sum(text.count(digit) for digit in solution_indicators) / len(text)
             if text
@@ -449,7 +460,8 @@ class QAValidationPipeline:
 
         unique_patterns = len(set(difficulties))
         variety_score = (
-            min(100, (unique_patterns / len(difficulties)) * 100) if difficulties else 0
+            min(100, (unique_patterns / len(difficulties))
+                * 100) if difficulties else 0
         )
 
         return variety_score
@@ -526,7 +538,8 @@ class QAValidationPipeline:
                         )
 
             embedded_percentage = (
-                ((len(lines) - len(unembedded)) / len(lines) * 100) if lines else 100
+                ((len(lines) - len(unembedded)) /
+                 len(lines) * 100) if lines else 100
             )
 
             return embedded_percentage, unembedded
@@ -557,7 +570,8 @@ class QAValidationPipeline:
                     if criterion in ["duplicate_content", "white_space_ratio"]:
                         # Lower is better
                         score = max(
-                            0, 100 - (result["score"] - result["threshold"]) * 5
+                            0, 100 - (result["score"] -
+                                      result["threshold"]) * 5
                         )
                     else:
                         # Higher is better
@@ -586,10 +600,12 @@ class QAValidationPipeline:
             )
 
         if not criteria_results.get("puzzle_integrity", {}).get("passed", True):
-            recommendations.append("Verify all puzzle clues have corresponding answers")
+            recommendations.append(
+                "Verify all puzzle clues have corresponding answers")
 
         if not criteria_results.get("font_embedding", {}).get("passed", True):
-            recommendations.append("Embed all fonts in PDF for consistent rendering")
+            recommendations.append(
+                "Embed all fonts in PDF for consistent rendering")
 
         return recommendations
 
@@ -600,7 +616,8 @@ class QAValidationPipeline:
     def _print_qa_summary(self, result: QAResult):
         """Print colored QA summary to console"""
         print("\n" + "=" * 60)
-        print(f"📊 QA VALIDATION REPORT - {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+        print(
+            f"📊 QA VALIDATION REPORT - {datetime.now().strftime('%Y-%m-%d %H:%M')}")
         print("=" * 60)
 
         # Overall result
@@ -614,8 +631,8 @@ class QAValidationPipeline:
             status = "✅" if details["passed"] else "❌"
             print(
                 f"{status} {criterion}: {
-                    details['score']} (threshold: {
-                    details['threshold']})"
+                    details['score']}(threshold: {
+                        details['threshold']})"
             )
 
         # Issues summary
@@ -640,7 +657,8 @@ class QAValidationPipeline:
         qa_dir.mkdir(exist_ok=True)
 
         report_path = (
-            qa_dir / f"qa_validation_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            qa_dir /
+            f"qa_validation_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         )
 
         with open(report_path, "w") as f:

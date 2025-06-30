@@ -240,13 +240,15 @@ def _restore_backup(file_path):
         shutil.move(backup_path, file_path)
         return True
     else:
-        print(f"⚠️  Warning: Backup file not found, cannot restore: {backup_path}")
+        print(
+            f"⚠️  Warning: Backup file not found, cannot restore: {backup_path}")
         return False
 
 
 def _update_file_content(file_path, old_str, new_str):
     """Performs in-place string replacement in a file."""
-    print(f"✍️  Updating {file_path.name}: Replacing '{old_str}' with '{new_str}'")
+    print(
+        f"✍️  Updating {file_path.name}: Replacing '{old_str}' with '{new_str}'")
     with fileinput.FileInput(file_path, inplace=True) as file:
         for line in file:
             print(line.replace(old_str, new_str), end="")

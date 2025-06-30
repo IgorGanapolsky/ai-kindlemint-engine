@@ -3,10 +3,11 @@
 Regenerate ALL puzzle images with the fixed visual distinction code
 """
 
-from kindlemint.engines.sudoku import SudokuGenerator
 import json
 import sys
 from pathlib import Path
+
+from kindlemint.engines.sudoku import SudokuGenerator
 
 sys.path.append(str(Path(__file__).parent.parent / "src"))
 
@@ -29,7 +30,8 @@ def regenerate_all_puzzles():
     # Get all puzzle metadata files
     json_files = list(metadata_dir.glob("sudoku_puzzle_*.json"))
 
-    print(f"🔄 Regenerating {len(json_files)} puzzle images with FIXED renderer...")
+    print(
+        f"🔄 Regenerating {len(json_files)} puzzle images with FIXED renderer...")
 
     success_count = 0
 
@@ -62,7 +64,8 @@ def regenerate_all_puzzles():
         except Exception as e:
             print(f"❌ Failed to regenerate puzzle {puzzle_id}: {e}")
 
-    print(f"\n🎯 Successfully regenerated {success_count}/{len(json_files)} puzzles")
+    print(
+        f"\n🎯 Successfully regenerated {success_count}/{len(json_files)} puzzles")
     return success_count == len(json_files)
 
 

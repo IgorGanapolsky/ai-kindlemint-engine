@@ -72,7 +72,8 @@ class PerformanceProfiler:
 
     def _run_profiling(self):
         """Executes the crossword engine under the profiler."""
-        print(f"\nProfiling CrosswordEngineV3 with {self.puzzle_count} puzzle(s)...")
+        print(
+            f"\nProfiling CrosswordEngineV3 with {self.puzzle_count} puzzle(s)...")
 
         engine = CrosswordEngineV3(
             output_dir=str(TEMP_OUTPUT_DIR),
@@ -90,7 +91,8 @@ class PerformanceProfiler:
         end_time = time.time()
         self.total_duration = end_time - start_time
 
-        print(f"Profiling complete. Total time: {self.total_duration:.2f} seconds.")
+        print(
+            f"Profiling complete. Total time: {self.total_duration:.2f} seconds.")
 
     def _generate_report(self):
         """Analyzes profiler data and generates a Markdown report."""
@@ -169,7 +171,7 @@ The following functions are the most significant contributors to the total execu
 """
         for func in top_5_tottime:
             report_content += f"| `{func['function']
-                                    }` | `{func['tottime']:.4f}` | `{func['ncalls']}` |\n"
+                                    }` | `{func['tottime']: .4f}` | `{func['ncalls']}` |\n"
 
         report_content += """
 ### Top 5 Functions by Cumulative Time
@@ -181,7 +183,7 @@ The following functions are the most significant contributors to the total execu
 """
         for func in top_5_cumtime:
             report_content += f"| `{func['function']
-                                    }` | `{func['cumtime']:.4f}` | `{func['ncalls']}` |\n"
+                                    }` | `{func['cumtime']: .4f}` | `{func['ncalls']}` |\n"
 
         report_content += """
 ## 3. Recommendations

@@ -60,7 +60,8 @@ class SocialMediaMarketingEngine:
         self.engagement_bot = CommunityEngagementBot(
             author_name, brand_voice="professional"
         )
-        self.lead_generator = LeadGenerationEngine(author_name, brand_name, website_url)
+        self.lead_generator = LeadGenerationEngine(
+            author_name, brand_name, website_url)
         self.analytics = MarketingAnalyticsDashboard(author_name, brand_name)
 
         # Initialize platform optimizers
@@ -75,7 +76,8 @@ class SocialMediaMarketingEngine:
 
         # Register optimizers with atomizer
         for platform, optimizer in self.platform_optimizers.items():
-            self.content_atomizer.register_platform_optimizer(platform.value, optimizer)
+            self.content_atomizer.register_platform_optimizer(
+                platform.value, optimizer)
 
     def create_complete_marketing_campaign(
         self, book_content: Dict[str, str]
@@ -107,7 +109,8 @@ class SocialMediaMarketingEngine:
         authority_content = []
         for content in atomic_content[:20]:  # Top 20 pieces
             thought_leadership = (
-                self.authority_builder.generate_thought_leadership_content(content)
+                self.authority_builder.generate_thought_leadership_content(
+                    content)
             )
             authority_content.extend(thought_leadership)
 
@@ -145,11 +148,13 @@ class SocialMediaMarketingEngine:
 
         # Step 6: Generate authority building schedule
         print("📅 Creating authority building schedule...")
-        authority_schedule = self.authority_builder.generate_authority_schedule(days=90)
+        authority_schedule = self.authority_builder.generate_authority_schedule(
+            days=90)
 
         # Step 7: Create engagement strategy
         print("🤝 Setting up engagement strategy...")
-        engagement_schedule = self.engagement_bot.generate_engagement_schedule(days=30)
+        engagement_schedule = self.engagement_bot.generate_engagement_schedule(
+            days=30)
 
         # Step 8: Initialize analytics tracking
         print("📊 Setting up analytics...")
@@ -158,7 +163,8 @@ class SocialMediaMarketingEngine:
             content_id="campaign_setup",
             platform=PlatformType.LINKEDIN,  # Default platform
             content_type=atomic_content[0].content_type if atomic_content else None,
-            metrics={"setup_time": (datetime.now() - campaign_start_time).seconds},
+            metrics={"setup_time": (
+                datetime.now() - campaign_start_time).seconds},
         )
 
         campaign_data = {
@@ -271,7 +277,8 @@ class SocialMediaMarketingEngine:
         calendar = {}
 
         for day in range(1, 31):
-            date_key = (datetime.now() + timedelta(days=day - 1)).strftime("%Y-%m-%d")
+            date_key = (datetime.now() + timedelta(days=day - 1)
+                        ).strftime("%Y-%m-%d")
 
             # Plan content for each platform per day
             daily_content = {}
@@ -282,7 +289,8 @@ class SocialMediaMarketingEngine:
                 PlatformType.TWITTER,
             ]:
                 # Select content for this day/platform
-                content_index = (day - 1) * 3 + list(PlatformType).index(platform)
+                content_index = (day - 1) * 3 + \
+                    list(PlatformType).index(platform)
                 if content_index < len(atomic_content):
                     selected_content = atomic_content[content_index]
                     optimizer = self.platform_optimizers[platform]
@@ -453,21 +461,24 @@ class SocialMediaMarketingEngine:
             content_optimizations = self._optimize_content_strategy(
                 performance_data["content_performance"]
             )
-            optimization_report["optimizations_applied"].extend(content_optimizations)
+            optimization_report["optimizations_applied"].extend(
+                content_optimizations)
 
         # Platform optimization
         if "platform_performance" in performance_data:
             platform_optimizations = self._optimize_platform_strategy(
                 performance_data["platform_performance"]
             )
-            optimization_report["optimizations_applied"].extend(platform_optimizations)
+            optimization_report["optimizations_applied"].extend(
+                platform_optimizations)
 
         # Lead generation optimization
         if "lead_performance" in performance_data:
             lead_optimizations = self._optimize_lead_generation(
                 performance_data["lead_performance"]
             )
-            optimization_report["optimizations_applied"].extend(lead_optimizations)
+            optimization_report["optimizations_applied"].extend(
+                lead_optimizations)
 
         return optimization_report
 
@@ -478,7 +489,8 @@ class SocialMediaMarketingEngine:
 
         # Example optimization logic
         if content_performance.get("avg_engagement_rate", 0) < 3.0:
-            optimizations.append("Increase content frequency for top-performing types")
+            optimizations.append(
+                "Increase content frequency for top-performing types")
             optimizations.append("Add more visual elements to posts")
             optimizations.append("Include stronger calls-to-action")
 
@@ -494,8 +506,10 @@ class SocialMediaMarketingEngine:
             platform_performance.items(), key=lambda x: x[1].get("engagement_rate", 0)
         )
 
-        optimizations.append(f"Increase content frequency on {best_platform[0]}")
-        optimizations.append("Adapt successful content formats to other platforms")
+        optimizations.append(
+            f"Increase content frequency on {best_platform[0]}")
+        optimizations.append(
+            "Adapt successful content formats to other platforms")
 
         return optimizations
 
@@ -537,7 +551,8 @@ class SocialMediaMarketingEngine:
         }
 
         with open(filename, "w", encoding="utf-8") as f:
-            json.dump(campaign_export, f, indent=2, ensure_ascii=False, default=str)
+            json.dump(campaign_export, f, indent=2,
+                      ensure_ascii=False, default=str)
 
         print(f"✅ Campaign data exported to {filename}")
 

@@ -4,7 +4,6 @@ Generate Volume 2 with UNIQUE crossword puzzles - PROPERLY TESTED
 Each puzzle has completely different clues
 """
 
-from reportlab.lib.units import inch
 import json
 import random
 from datetime import datetime
@@ -12,6 +11,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 from reportlab.lib.pagesizes import inch
+from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 
 # KDP 6x9 book dimensions (not letter size!)
@@ -372,7 +372,8 @@ class FixedCrosswordGenerator:
 
     def generate_grid_with_content(self, puzzle_id):
         """Generate a filled 15x15 grid with black squares"""
-        grid = [[" " for _ in range(self.grid_size)] for _ in range(self.grid_size)]
+        grid = [[" " for _ in range(self.grid_size)]
+                for _ in range(self.grid_size)]
 
         # Use different patterns for variety
         black_squares = self.create_symmetric_pattern()
@@ -393,8 +394,10 @@ class FixedCrosswordGenerator:
         draw = ImageDraw.Draw(img)
 
         try:
-            font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
-            number_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 20)
+            font = ImageFont.truetype(
+                "/System/Library/Fonts/Helvetica.ttc", 36)
+            number_font = ImageFont.truetype(
+                "/System/Library/Fonts/Helvetica.ttc", 20)
         except BaseException:
             font = ImageFont.load_default()
             number_font = font
@@ -409,7 +412,8 @@ class FixedCrosswordGenerator:
                 y = margin + row * cell_size
 
                 if grid[row][col] == "#":
-                    draw.rectangle([x, y, x + cell_size, y + cell_size], fill="black")
+                    draw.rectangle(
+                        [x, y, x + cell_size, y + cell_size], fill="black")
                 else:
                     draw.rectangle(
                         [x, y, x + cell_size, y + cell_size], outline="black", width=2
@@ -515,9 +519,11 @@ class FixedCrosswordGenerator:
 
         # Title page
         c.setFont("Helvetica-Bold", 36)
-        c.drawCentredString(page_width / 2, page_height - 2 * inch, "LARGE PRINT")
+        c.drawCentredString(page_width / 2, page_height -
+                            2 * inch, "LARGE PRINT")
         c.setFont("Helvetica-Bold", 48)
-        c.drawCentredString(page_width / 2, page_height - 3 * inch, "CROSSWORD")
+        c.drawCentredString(page_width / 2, page_height -
+                            3 * inch, "CROSSWORD")
         c.drawCentredString(page_width / 2, page_height - 4 * inch, "MASTERS")
         c.setFont("Helvetica-Bold", 36)
         c.drawCentredString(page_width / 2, page_height - 5 * inch, "VOLUME 2")
@@ -537,7 +543,8 @@ class FixedCrosswordGenerator:
             page_height - 2 * inch,
             f"Copyright © {year} Crossword Masters Publishing",
         )
-        c.drawString(1 * inch, page_height - 2.3 * inch, "All rights reserved.")
+        c.drawString(1 * inch, page_height - 2.3 *
+                     inch, "All rights reserved.")
         c.showPage()
 
         # Puzzles with UNIQUE clues
@@ -570,7 +577,8 @@ class FixedCrosswordGenerator:
             c.showPage()
             c.setFont("Helvetica-Bold", 16)
             c.drawString(
-                1 * inch, page_height - 1 * inch, f"Puzzle {puzzle['id']} - Clues"
+                1 * inch, page_height - 1 *
+                inch, f"Puzzle {puzzle['id']} - Clues"
             )
 
             # ACROSS clues
@@ -597,7 +605,8 @@ class FixedCrosswordGenerator:
 
         # Answer key
         c.setFont("Helvetica-Bold", 24)
-        c.drawCentredString(page_width / 2, page_height - 1.5 * inch, "ANSWER KEY")
+        c.drawCentredString(page_width / 2, page_height -
+                            1.5 * inch, "ANSWER KEY")
         c.showPage()
 
         for puzzle in puzzles_data:

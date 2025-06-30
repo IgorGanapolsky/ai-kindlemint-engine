@@ -20,8 +20,10 @@ print(f"Actual clue count: {clue_count}")
 print(f'Difficulty: {data["difficulty"]}')
 
 # Check for empty rows/columns
-empty_rows = [i + 1 for i, row in enumerate(grid) if all(cell == 0 for cell in row)]
-empty_cols = [j + 1 for j in range(9) if all(grid[i][j] == 0 for i in range(9))]
+empty_rows = [i + 1 for i,
+              row in enumerate(grid) if all(cell == 0 for cell in row)]
+empty_cols = [
+    j + 1 for j in range(9) if all(grid[i][j] == 0 for i in range(9))]
 
 print(f'Empty rows: {empty_rows if empty_rows else "None"}')
 print(f'Empty columns: {empty_cols if empty_cols else "None"}')

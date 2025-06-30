@@ -167,9 +167,11 @@ class ErrorAnalyzer:
                         confidence=pattern_data["confidence"],
                         frequency=pattern_data.get("frequency", 0),
                         last_seen=datetime.fromisoformat(
-                            pattern_data.get("last_seen", datetime.now().isoformat())
+                            pattern_data.get(
+                                "last_seen", datetime.now().isoformat())
                         ),
-                        resolution_strategy=pattern_data.get("resolution_strategy", ""),
+                        resolution_strategy=pattern_data.get(
+                            "resolution_strategy", ""),
                         similar_errors=pattern_data.get("similar_errors", []),
                         metadata=pattern_data.get("metadata", {}),
                     )
@@ -189,7 +191,8 @@ class ErrorAnalyzer:
                 "last_updated": datetime.now().isoformat(),
                 "pattern_count": len(self.patterns),
                 "patterns": [
-                    {**asdict(pattern), "last_seen": pattern.last_seen.isoformat()}
+                    {**asdict(pattern),
+                     "last_seen": pattern.last_seen.isoformat()}
                     for pattern in self.patterns.values()
                 ],
             }
@@ -197,7 +200,8 @@ class ErrorAnalyzer:
             with open(self.patterns_file, "w") as f:
                 json.dump(data, f, indent=2, default=str)
 
-            logger.info(f"Saved {len(self.patterns)} patterns to {self.patterns_file}")
+            logger.info(
+                f"Saved {len(self.patterns)} patterns to {self.patterns_file}")
 
         except Exception as e:
             logger.error(f"Failed to save patterns: {e}")
@@ -217,7 +221,8 @@ class ErrorAnalyzer:
         context = error_data.get("context", {})
 
         # Classify error category
-        primary_category, confidence = self._classify_category(message, context)
+        primary_category, confidence = self._classify_category(
+            message, context)
         secondary_categories = self._get_secondary_categories(message, context)
 
         # Find similar patterns
@@ -227,10 +232,12 @@ class ErrorAnalyzer:
         root_cause = self._analyze_root_cause(error_data)
 
         # Assess business impact
-        business_impact = self._assess_business_impact(error_data, primary_category)
+        business_impact = self._assess_business_impact(
+            error_data, primary_category)
 
         # Determine resolution urgency
-        urgency = self._determine_urgency(error_data, primary_category, business_impact)
+        urgency = self._determine_urgency(
+            error_data, primary_category, business_impact)
 
         # Generate suggested actions
         suggested_actions = self._generate_action_suggestions(
@@ -239,7 +246,8 @@ class ErrorAnalyzer:
 
         # Store for learning
         if self.learning_enabled:
-            self._update_learning_data(error_data, primary_category, confidence)
+            self._update_learning_data(
+                error_data, primary_category, confidence)
 
         return ErrorClassification(
             error_id=error_id,
@@ -389,7 +397,8 @@ class ErrorAnalyzer:
             for keyword in ["config", "setting", "parameter", "missing"]
         ):
             root_cause["likely_causes"].append("Configuration error")
-            root_cause["evidence"].append("Configuration-related error message")
+            root_cause["evidence"].append(
+                "Configuration-related error message")
             root_cause["confidence"] += 0.3
 
         # Code issues
@@ -417,9 +426,11 @@ class ErrorAnalyzer:
 
                 # Peak hours analysis
                 if 9 <= hour <= 17:
-                    root_cause["contributing_factors"].append("Peak business hours")
+                    root_cause["contributing_factors"].append(
+                        "Peak business hours")
                 elif 0 <= hour <= 5:
-                    root_cause["contributing_factors"].append("Maintenance window")
+                    root_cause["contributing_factors"].append(
+                        "Maintenance window")
             except BaseException:
                 pass
 
@@ -545,11 +556,14 @@ class ErrorAnalyzer:
         # Add root cause specific suggestions
         for cause in root_cause.get("likely_causes", []):
             if "Network connectivity" in cause:
-                suggestions.append("Investigate network infrastructure and routing")
+                suggestions.append(
+                    "Investigate network infrastructure and routing")
             elif "Resource exhaustion" in cause:
-                suggestions.append("Scale resources or optimize resource usage")
+                suggestions.append(
+                    "Scale resources or optimize resource usage")
             elif "Configuration error" in cause:
-                suggestions.append("Review and validate configuration settings")
+                suggestions.append(
+                    "Review and validate configuration settings")
             elif "Code defect" in cause:
                 suggestions.append("Perform code review and testing")
 
@@ -663,7 +677,7 @@ class ErrorAnalyzer:
 
         # Calculate trend direction and strength
         first_half = counts[: len(counts) // 2]
-        second_half = counts[len(counts) // 2 :]
+        second_half = counts[len(counts) // 2:]
 
         first_avg = statistics.mean(first_half) if first_half else 0
         second_avg = statistics.mean(second_half) if second_half else 0
@@ -715,7 +729,8 @@ class ErrorAnalyzer:
         prediction = {
             "next_hour_estimate": max(0, historical_counts[-1] + recent_trend),
             "trend_confidence": min(
-                abs(recent_trend) / max(statistics.mean(historical_counts), 1), 1.0
+                abs(recent_trend) /
+                max(statistics.mean(historical_counts), 1), 1.0
             ),
             "recommendation": "monitor" if abs(recent_trend) < 2 else "investigate",
         }

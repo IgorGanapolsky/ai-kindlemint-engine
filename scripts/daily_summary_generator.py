@@ -93,7 +93,8 @@ class DailySummaryGenerator:
             today_reports = []
 
             for report_path in qa_reports:
-                mod_time = datetime.fromtimestamp(report_path.stat().st_mtime).date()
+                mod_time = datetime.fromtimestamp(
+                    report_path.stat().st_mtime).date()
                 if mod_time == today:
                     today_reports.append(report_path)
 
@@ -137,7 +138,8 @@ class DailySummaryGenerator:
         if market_dir.exists():
             # Get today's insights
             today_file = (
-                market_dir / f"reddit_insights_{datetime.now().strftime('%Y%m%d')}.json"
+                market_dir /
+                f"reddit_insights_{datetime.now().strftime('%Y%m%d')}.json"
             )
             if today_file.exists():
                 try:
@@ -146,11 +148,14 @@ class DailySummaryGenerator:
 
                     if "overall_trends" in data:
                         # Get top keywords
-                        top_keywords = data["overall_trends"].get("top_keywords", {})
-                        insights["trending_keywords"] = list(top_keywords.keys())[:5]
+                        top_keywords = data["overall_trends"].get(
+                            "top_keywords", {})
+                        insights["trending_keywords"] = list(
+                            top_keywords.keys())[:5]
 
                         # Get recommendations
-                        recs = data["overall_trends"].get("recommendations", [])
+                        recs = data["overall_trends"].get(
+                            "recommendations", [])
                         insights["hot_niches"] = [r["niche"] for r in recs[:3]]
 
                     insights["last_scrape"] = data.get("timestamp", "Unknown")
@@ -191,7 +196,8 @@ class DailySummaryGenerator:
             * revenue["assumptions"]["hardcover_profit"]
         )
         revenue["breakdown"]["kindle"] = (
-            formats["kindle"] * daily_sales * revenue["assumptions"]["kindle_profit"]
+            formats["kindle"] * daily_sales *
+            revenue["assumptions"]["kindle_profit"]
         )
 
         revenue["daily_estimate"] = sum(revenue["breakdown"].values())
@@ -278,7 +284,8 @@ class DailySummaryGenerator:
             )
 
         if market["hot_niches"]:
-            recommendations.append(f"🎯 Target hot niche: {market['hot_niches'][0]}")
+            recommendations.append(
+                f"🎯 Target hot niche: {market['hot_niches'][0]}")
 
         # Revenue recommendations
         if prod["total_books"] > 0 and not recommendations:
@@ -428,7 +435,7 @@ class DailySummaryGenerator:
         print(f"\n📚 Total Books: {summary['production']['total_books']}")
         print(
             f"💰 Monthly Revenue Estimate: ${
-                summary['revenue_estimate']['monthly_estimate']:,.2f}"
+                summary['revenue_estimate']['monthly_estimate']: , .2f}"
         )
         print(f"✅ QA Pass Rate: {summary['quality']['qa_pass_rate']:.0f}%")
 

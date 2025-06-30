@@ -96,7 +96,8 @@ class PDFGenerator:
         try:
             puzzles = request.get("puzzles", [])
 
-            self.logger.info(f"🧩 Creating puzzle pages for {len(puzzles)} puzzles")
+            self.logger.info(
+                f"🧩 Creating puzzle pages for {len(puzzles)} puzzles")
 
             pdf_path = await self._generate_puzzle_pages(puzzles, request)
 
@@ -115,7 +116,8 @@ class PDFGenerator:
         try:
             puzzles = request.get("puzzles", [])
 
-            self.logger.info(f"🔍 Creating solution pages for {len(puzzles)} puzzles")
+            self.logger.info(
+                f"🔍 Creating solution pages for {len(puzzles)} puzzles")
 
             pdf_path = await self._generate_solution_pages(puzzles, request)
 

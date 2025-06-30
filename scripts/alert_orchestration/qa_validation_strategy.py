@@ -44,7 +44,8 @@ class QAValidationStrategy(ResolutionStrategy):
 
             # Step 1: Identify specific validation failures
             failure_types = self._categorize_failures(failures)
-            actions_taken.append(f"Identified {len(failure_types)} failure types")
+            actions_taken.append(
+                f"Identified {len(failure_types)} failure types")
 
             # Step 2: Execute appropriate fixes based on failure types
             fixes_applied = 0
@@ -57,7 +58,8 @@ class QAValidationStrategy(ResolutionStrategy):
             if "incorrect_page_count" in failure_types:
                 if await self._regenerate_book(book_info):
                     fixes_applied += 1
-                    actions_taken.append("Regenerated book with correct page count")
+                    actions_taken.append(
+                        "Regenerated book with correct page count")
 
             if "puzzle_rendering_errors" in failure_types:
                 if await self._fix_puzzle_rendering(book_info):
@@ -212,7 +214,8 @@ class QAValidationStrategy(ResolutionStrategy):
             result = subprocess.run(cmd, capture_output=True, text=True)
 
             if result.returncode == 0:
-                logger.info(f"Successfully regenerated {book_type} volume {volume}")
+                logger.info(
+                    f"Successfully regenerated {book_type} volume {volume}")
                 return True
             else:
                 logger.error(f"Regeneration failed: {result.stderr}")

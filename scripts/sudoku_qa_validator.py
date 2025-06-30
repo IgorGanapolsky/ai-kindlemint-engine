@@ -47,7 +47,8 @@ class SudokuQAValidator:
         self._calculate_overall_score()
 
         # Save report
-        report_path = pdf_path.parent / f"SUDOKU_QA_REPORT_{pdf_path.stem}.json"
+        report_path = pdf_path.parent / \
+            f"SUDOKU_QA_REPORT_{pdf_path.stem}.json"
         with open(report_path, "w") as f:
             json.dump(self.qa_results, f, indent=2)
 
@@ -61,7 +62,8 @@ class SudokuQAValidator:
         checks = {}
 
         if not pdf_path.exists():
-            self._add_issue("FILE_NOT_FOUND", "PDF file does not exist", "CRITICAL")
+            self._add_issue("FILE_NOT_FOUND",
+                            "PDF file does not exist", "CRITICAL")
             return
 
         file_size = pdf_path.stat().st_size
@@ -102,7 +104,8 @@ class SudokuQAValidator:
                     print(f"  ✅ Page count: {num_pages} pages")
 
                 if pdf_reader.is_encrypted:
-                    self._add_issue("PDF_ENCRYPTED", "PDF is encrypted", "CRITICAL")
+                    self._add_issue("PDF_ENCRYPTED",
+                                    "PDF is encrypted", "CRITICAL")
                 else:
                     print(f"  ✅ PDF not encrypted")
 
@@ -159,15 +162,18 @@ class SudokuQAValidator:
             if checks["puzzles_found"] > 0:
                 print(f"  ✅ Found {checks['puzzles_found']} puzzle pages")
             else:
-                self._add_issue("NO_PUZZLES", "No puzzle pages detected", "CRITICAL")
+                self._add_issue(
+                    "NO_PUZZLES", "No puzzle pages detected", "CRITICAL")
 
             if checks["solutions_found"] > 0:
                 print(f"  ✅ Found {checks['solutions_found']} solution pages")
             else:
-                self._add_issue("NO_SOLUTIONS", "No solution pages found", "WARNING")
+                self._add_issue(
+                    "NO_SOLUTIONS", "No solution pages found", "WARNING")
 
             # Check grid coverage consistency
-            avg_coverage = sum(checks["grid_coverage"]) / len(checks["grid_coverage"])
+            avg_coverage = sum(checks["grid_coverage"]) / \
+                len(checks["grid_coverage"])
             if avg_coverage < 0.01:
                 self._add_issue("NO_CONTENT", "Pages appear blank", "CRITICAL")
             else:

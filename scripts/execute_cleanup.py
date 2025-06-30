@@ -148,7 +148,8 @@ def move_config_files(project_root: Path, dry_run: bool = True):
             target_path = config_dir / config_file.name
 
             if dry_run:
-                print(f"🔄 Would move: {config_file.name} → config/{config_file.name}")
+                print(
+                    f"🔄 Would move: {config_file.name} → config/{config_file.name}")
             else:
                 shutil.move(str(config_file), str(target_path))
                 print(f"✅ Moved: {config_file.name} → config/")
@@ -160,13 +161,15 @@ def move_config_files(project_root: Path, dry_run: bool = True):
 
 def remove_temp_files(project_root: Path, dry_run: bool = True):
     """Remove temporary files"""
-    temp_patterns = ["*.pyc", "*.pyo", "*.tmp", "*.temp", "*.bak", "*~", "debug_*"]
+    temp_patterns = ["*.pyc", "*.pyo", "*.tmp",
+                     "*.temp", "*.bak", "*~", "debug_*"]
     removed = []
 
     for pattern in temp_patterns:
         for temp_file in project_root.rglob(pattern):
             if dry_run:
-                print(f"🗑️  Would remove: {temp_file.relative_to(project_root)}")
+                print(
+                    f"🗑️  Would remove: {temp_file.relative_to(project_root)}")
             else:
                 temp_file.unlink()
                 print(f"✅ Removed: {temp_file.relative_to(project_root)}")
@@ -290,7 +293,8 @@ def main():
     if args.dry_run:
         print("\n⚠️  DRY RUN MODE - No changes will be made\n")
     else:
-        response = input("\n⚠️  This will reorganize your project. Continue? (y/N): ")
+        response = input(
+            "\n⚠️  This will reorganize your project. Continue? (y/N): ")
         if response.lower() != "y":
             print("❌ Cleanup cancelled")
             return
@@ -300,12 +304,14 @@ def main():
     # Create directory structure
     if args.create_dirs or args.all:
         print("\n📁 Creating directory structure...")
-        actions["directories_created"] = create_directory_structure(project_root)
+        actions["directories_created"] = create_directory_structure(
+            project_root)
 
     # Move test files
     if args.move_tests or args.all:
         print("\n🧪 Moving test files...")
-        actions["test_files_moved"] = move_test_files(project_root, args.dry_run)
+        actions["test_files_moved"] = move_test_files(
+            project_root, args.dry_run)
 
     # Consolidate requirements
     if args.consolidate_requirements or args.all:
@@ -317,17 +323,20 @@ def main():
     # Move config files
     if args.move_config or args.all:
         print("\n⚙️  Moving config files...")
-        actions["config_files_moved"] = move_config_files(project_root, args.dry_run)
+        actions["config_files_moved"] = move_config_files(
+            project_root, args.dry_run)
 
     # Remove temporary files
     if args.remove_temp or args.all:
         print("\n🗑️  Removing temporary files...")
-        actions["temp_files_removed"] = remove_temp_files(project_root, args.dry_run)
+        actions["temp_files_removed"] = remove_temp_files(
+            project_root, args.dry_run)
 
     # Move agent files
     if args.move_agents or args.all:
         print("\n🤖 Moving agent files...")
-        actions["agent_files_moved"] = move_agent_files(project_root, args.dry_run)
+        actions["agent_files_moved"] = move_agent_files(
+            project_root, args.dry_run)
 
     # Generate report
     if not args.dry_run:

@@ -88,7 +88,8 @@ except Exception as e:
 try:
     import google.generativeai as genai
 
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", os.getenv("GEMINI_BACKUP_KEY"))
+    GEMINI_API_KEY = os.getenv(
+        "GEMINI_API_KEY", os.getenv("GEMINI_BACKUP_KEY"))
     if GEMINI_API_KEY:
         genai.configure(api_key=GEMINI_API_KEY)
         GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-pro")
@@ -143,7 +144,8 @@ class EnhancedQAValidator:
         # Initialize Sentry if available
         if SENTRY_AVAILABLE:
             init_sentry("enhanced-qa-validator")
-            add_breadcrumb("EnhancedQAValidator initialized", category="initialization")
+            add_breadcrumb("EnhancedQAValidator initialized",
+                           category="initialization")
 
         # Check if we have at least one LLM available for validation
         if not OPENAI_AVAILABLE and not GEMINI_AVAILABLE:
@@ -196,7 +198,8 @@ class EnhancedQAValidator:
         print("=" * 70)
 
         if SENTRY_AVAILABLE:
-            add_breadcrumb(f"Starting QA for {pdf_path.name}", category="qa_run")
+            add_breadcrumb(
+                f"Starting QA for {pdf_path.name}", category="qa_run")
 
         try:
             # Basic file and PDF structure checks
@@ -309,7 +312,8 @@ class EnhancedQAValidator:
             )
             if SENTRY_AVAILABLE:
                 capture_kdp_error(
-                    e, {"qa_file": str(pdf_path), "stage": "pdf_structure_check"}
+                    e, {"qa_file": str(pdf_path),
+                        "stage": "pdf_structure_check"}
                 )
 
         self.qa_results["checks"]["pdf_structure"] = checks
@@ -410,7 +414,8 @@ class EnhancedQAValidator:
             )
 
         # Duplicate content check (line-based)
-        lines = [line.strip() for line in text_content.split("\n") if line.strip()]
+        lines = [line.strip()
+                 for line in text_content.split("\n") if line.strip()]
         if lines:
             unique_lines = set(lines)
             duplicate_ratio = 1 - (len(unique_lines) / len(lines))
@@ -422,15 +427,15 @@ class EnhancedQAValidator:
                     "High duplication",
                     f"Content is {
                         duplicate_ratio *
-                        100:.1f}% duplicate (threshold: {
-                        self.qa_criteria['duplicate_content_threshold'] *
-                        100:.1f}%)",
+                        100: .1f} % duplicate(threshold: {
+                            self.qa_criteria['duplicate_content_threshold'] *
+                            100: .1f} %)",
                     level="CRITICAL" if duplicate_ratio > 0.5 else "WARNING",
                 )
             else:
                 print(
                     f"  ✅ Content duplication: {
-                        duplicate_ratio * 100:.1f}% (acceptable)"
+                        duplicate_ratio * 100: .1f} % (acceptable)"
                 )
         else:
             checks["duplicate_content_ratio"] = 0.0
@@ -453,7 +458,8 @@ class EnhancedQAValidator:
 
             # More sophisticated check would validate answers against clues
             # For now, just check that clues have reasonable lengths
-            invalid_clues = [c for c in clues if len(c[1]) < 2 or len(c[2]) < 2]
+            invalid_clues = [c for c in clues if len(
+                c[1]) < 2 or len(c[2]) < 2]
             if invalid_clues:
                 self._add_issue(
                     "INVALID_CLUES",
@@ -507,7 +513,7 @@ class EnhancedQAValidator:
                             page_num +
                             1}: {
                             whitespace_ratio *
-                            100:.1f}% white - may lack content"
+                            100: .1f} % white - may lack content"
                     )
 
                 # Check for text near page edges (cut-off risk)
@@ -539,7 +545,8 @@ class EnhancedQAValidator:
                                         level="CRITICAL",
                                     )
                                     checks["text_cutoff_instances"] = (
-                                        checks.get("text_cutoff_instances", 0) + 1
+                                        checks.get(
+                                            "text_cutoff_instances", 0) + 1
                                     )
                                     cutoff_detected = True
 
@@ -558,8 +565,8 @@ class EnhancedQAValidator:
                 self._add_issue(
                     "EXCESSIVE_WHITESPACE",
                     "Excessive whitespace",
-                    f"{checks['pages_with_high_whitespace']} of {page_count} pages ({(
-                        1 - whitespace_compliance) * 100:.1f}%) have excessive whitespace",
+                    f"{checks['pages_with_high_whitespace']} of {page_count} pages({(
+                        1 - whitespace_compliance) * 100: .1f} % ) have excessive whitespace",
                     level="WARNING",
                 )
 
@@ -608,7 +615,8 @@ class EnhancedQAValidator:
         This is the core of the multi-model validation approach.
         """
         print("🧠 RUNNING MULTI-MODEL CONTENT VALIDATION...")
-        checks = {"models_used": [], "validation_results": {}, "consensus_score": 0}
+        checks = {"models_used": [],
+                  "validation_results": {}, "consensus_score": 0}
 
         # Skip if text content is too short
         if len(text_content) < 100:
@@ -629,7 +637,7 @@ class EnhancedQAValidator:
                 text_content[:1000]
                 + "\n...\n"
                 + text_content[
-                    len(text_content) // 2 - 500 : len(text_content) // 2 + 500
+                    len(text_content) // 2 - 500: len(text_content) // 2 + 500
                 ]
                 + "\n...\n"
                 + text_content[-1000:]
@@ -669,7 +677,8 @@ class EnhancedQAValidator:
             ]
             consensus_score = sum(quality_scores) / len(quality_scores)
             checks["consensus_score"] = round(consensus_score)
-            print(f"  📊 Multi-model consensus score: {checks['consensus_score']}/100")
+            print(
+                f"  📊 Multi-model consensus score: {checks['consensus_score']}/100")
 
             # Add issues and warnings from LLM validation
             for model, result in validation_results.items():
@@ -759,7 +768,7 @@ Your response must be in JSON format with the following structure:
             file_info = f"Filename: {
                 pdf_path.name}\nFile size: {
                 pdf_path.stat().st_size /
-                1024:.1f} KB"
+                1024: .1f} KB"
 
             # Call the OpenAI API
             response = OPENAI_VALIDATION_CLIENT.chat.completions.create(
@@ -918,7 +927,7 @@ Your response must be in JSON format with this structure:
                     "INVALID_PDF_VERSION",
                     "Invalid PDF version",
                     f"PDF version {
-                        pdf_version} outside KDP's supported range (1.3-1.7)",
+                        pdf_version} outside KDP's supported range(1.3-1.7)",
                     level="CRITICAL",
                 )
             else:
@@ -1035,7 +1044,8 @@ def main():
         description="Enhanced QA Validator - Multi-Model AI Content Quality Assurance"
     )
     parser.add_argument("pdf_path", help="Path to the PDF file to validate")
-    parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
+    parser.add_argument("--verbose", action="store_true",
+                        help="Enable verbose output")
     parser.add_argument(
         "--output", help="Path to save the QA report (default: same directory as PDF)"
     )

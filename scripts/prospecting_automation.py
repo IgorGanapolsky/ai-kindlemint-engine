@@ -111,7 +111,8 @@ class ProspectingAutomation:
 
                 # Generate insights based on puzzle themes
                 if puzzle_themes:
-                    quotables = self._generate_insights_from_themes(puzzle_themes)
+                    quotables = self._generate_insights_from_themes(
+                        puzzle_themes)
 
         # Fallback: Create generic puzzle wisdom quotes
         if not quotables:
@@ -1290,7 +1291,8 @@ def main():
     """CLI interface for prospecting automation"""
     import argparse
 
-    parser = argparse.ArgumentParser(description="KindleMint Prospecting Automation")
+    parser = argparse.ArgumentParser(
+        description="KindleMint Prospecting Automation")
     parser.add_argument(
         "--book-config", required=True, help="Book configuration JSON file"
     )

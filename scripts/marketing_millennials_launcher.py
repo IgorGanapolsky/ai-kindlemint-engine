@@ -85,8 +85,8 @@ def week_3_micro_series():
     print(f"📖 Series: {micro_series['series_name']}")
     print(
         f"💰 Bundle: ${
-            micro_series['bundle_price']} (Individual: ${
-            micro_series['books'][0]['price']})"
+            micro_series['bundle_price']}(Individual: ${
+                micro_series['books'][0]['price']})"
     )
     print(f"🎯 Target: {micro_series['target_revenue']}")
 

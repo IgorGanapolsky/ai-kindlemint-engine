@@ -3,13 +3,14 @@
 Project Cleanup Tool - Uses Code Hygiene Agent to analyze and clean project structure
 """
 
-from a2a_protocol.code_hygiene_agent import CodeHygieneAgent
-from a2a_protocol.base_agent import A2AMessage
 import argparse
 import asyncio
 import json
 import sys
 from pathlib import Path
+
+from a2a_protocol.base_agent import A2AMessage
+from a2a_protocol.code_hygiene_agent import CodeHygieneAgent
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent))
@@ -54,7 +55,8 @@ async def analyze_project(project_path: Path, deep_scan: bool = True):
 
         return response.payload
     else:
-        print(f"❌ Analysis failed: {response.payload.get('error', 'Unknown error')}")
+        print(
+            f"❌ Analysis failed: {response.payload.get('error', 'Unknown error')}")
         return None
 
 
@@ -119,7 +121,8 @@ async def generate_cleanup_plan(analysis: dict):
 
         print(f"\n📊 Cleanup Plan Summary:")
         print(f"   Files to move: {plan['estimated_impact']['files_to_move']}")
-        print(f"   Files to delete: {plan['estimated_impact']['files_to_delete']}")
+        print(
+            f"   Files to delete: {plan['estimated_impact']['files_to_delete']}")
         print(
             f"   Directories to create: {
                 plan['estimated_impact']['directories_to_create']}"

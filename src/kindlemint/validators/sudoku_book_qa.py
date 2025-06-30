@@ -151,7 +151,8 @@ class SudokuBookQAValidator:
 
                 # Check initial grid has blanks (zeros)
                 grid = data.get("initial_grid", [])
-                blank_count = sum(1 for row in grid for cell in row if cell == 0)
+                blank_count = sum(
+                    1 for row in grid for cell in row if cell == 0)
 
                 if blank_count == 0:
                     issues["all_filled"] += 1
@@ -168,28 +169,31 @@ class SudokuBookQAValidator:
                     "expert": {"min": 17, "max": 26},
                 }
 
-                expected_range = clue_ranges.get(difficulty, clue_ranges["medium"])
+                expected_range = clue_ranges.get(
+                    difficulty, clue_ranges["medium"])
 
                 if clue_count < expected_range["min"]:
                     issues["wrong_clues"] += 1
                     self.errors.append(
                         f"❌ CRITICAL: Puzzle {puzzle_id} has too few clues: {
-                            clue_count} (min: {expected_range['min']} for {difficulty})"
+                            clue_count}(min: {expected_range['min']} for {difficulty})"
                     )
                 elif clue_count > expected_range["max"]:
                     issues["wrong_clues"] += 1
                     self.warnings.append(
                         f"⚠️ Puzzle {puzzle_id} has many clues: {
-                            clue_count} (max: {expected_range['max']} for {difficulty})"
+                            clue_count}(max: {expected_range['max']} for {difficulty})"
                     )
 
                 # Check puzzle image exists and verify content matches JSON
-                puzzle_image = puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}.png"
+                puzzle_image = puzzles_dir / \
+                    f"sudoku_puzzle_{puzzle_id:03d}.png"
                 if not puzzle_image.exists():
                     issues["missing_images"] += 1
                 else:
                     # Analyze the image and verify it matches JSON metadata
-                    png_clues = self._validate_puzzle_image(puzzle_image, puzzle_id)
+                    png_clues = self._validate_puzzle_image(
+                        puzzle_image, puzzle_id)
 
                     # CRITICAL: Verify PNG content matches JSON metadata
                     if (
@@ -207,7 +211,8 @@ class SudokuBookQAValidator:
                     f"❌ CRITICAL: {issues['all_filled']} puzzles have no blank cells!"
                 )
             else:
-                self.passed_checks.append("✓ All checked puzzles have blank cells")
+                self.passed_checks.append(
+                    "✓ All checked puzzles have blank cells")
 
             # wrong_clues issues are now reported individually as errors/warnings above
             # No need for aggregate reporting here since specific errors were added
@@ -266,7 +271,7 @@ class SudokuBookQAValidator:
                         and x - 10 >= 0
                         and x + 10 < img_array.shape[1]
                     ):
-                        region = img_array[y - 10 : y + 10, x - 10 : x + 10]
+                        region = img_array[y - 10: y + 10, x - 10: x + 10]
                         if region.size > 0:
                             # If the region has darker pixels, likely contains a number
                             avg_brightness = np.mean(region)
@@ -276,7 +281,7 @@ class SudokuBookQAValidator:
             # Validate overall puzzle has blanks
             h, w = img_array.shape
             central = img_array[
-                int(h * 0.1) : int(h * 0.9), int(w * 0.1) : int(w * 0.9)
+                int(h * 0.1): int(h * 0.9), int(w * 0.1): int(w * 0.9)
             ]
 
             # Count very white pixels (potential blank cells)
@@ -293,7 +298,8 @@ class SudokuBookQAValidator:
             return filled_cells
 
         except Exception as e:
-            self.warnings.append(f"Could not analyze image {puzzle_id}: {str(e)}")
+            self.warnings.append(
+                f"Could not analyze image {puzzle_id}: {str(e)}")
             return -1
 
     def _is_complete_grid_in_text(self, text: str) -> bool:
@@ -327,7 +333,8 @@ class SudokuBookQAValidator:
                 - warning_details: List of warning messages
                 - passed_details: List of passed check messages
         """
-        total_checks = len(self.errors) + len(self.warnings) + len(self.passed_checks)
+        total_checks = len(self.errors) + \
+            len(self.warnings) + len(self.passed_checks)
 
         report = {
             "status": "PASS" if len(self.errors) == 0 else "FAIL",
@@ -346,7 +353,8 @@ class SudokuBookQAValidator:
         print("=" * 50)
 
         if report["status"] == "FAIL":
-            print(f"❌ STATUS: FAILED - {len(self.errors)} critical errors found!")
+            print(
+                f"❌ STATUS: FAILED - {len(self.errors)} critical errors found!")
         else:
             print("✅ STATUS: PASSED")
 
@@ -408,10 +416,12 @@ class SudokuBookQAValidator:
             # Check for backup files indicating a fix was applied
             pdf_dir = pdf_path.parent
             if any(pdf_dir.glob("*_OLD.pdf")):
-                self.passed_checks.append("✓ Found evidence of PDF fix being applied")
+                self.passed_checks.append(
+                    "✓ Found evidence of PDF fix being applied")
 
         except Exception as e:
-            self.warnings.append(f"Could not validate PDF visual rendering: {str(e)}")
+            self.warnings.append(
+                f"Could not validate PDF visual rendering: {str(e)}")
 
 
 def validate_sudoku_book(book_path: str) -> bool:

@@ -4,9 +4,10 @@ Configuration Usage Examples
 This script demonstrates best practices for using the centralized configuration
 system in the AI KindleMint Engine.
 """
-from config_loader import config
 import sys
 from pathlib import Path
+
+from config_loader import config
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -88,8 +89,10 @@ def example_4_reportlab_integration():
 
     # Convert inches to points (72 points = 1 inch)
     gutter = config.get("kdp_specifications.paperback.gutter_in") * inch
-    outer_margin = config.get("kdp_specifications.paperback.outer_margin_in") * inch
-    top_margin = config.get("kdp_specifications.paperback.top_margin_in") * inch
+    outer_margin = config.get(
+        "kdp_specifications.paperback.outer_margin_in") * inch
+    top_margin = config.get(
+        "kdp_specifications.paperback.top_margin_in") * inch
 
     print(f"Margins in points:")
     print(f"  Gutter: {gutter:.1f}pt ({gutter / inch:.3f} inches)")
@@ -133,7 +136,8 @@ def example_6_validation_thresholds():
     print(f"Critical issue penalty: {critical_penalty} points")
 
     # Get puzzle constraints
-    max_black_squares = config.get("puzzle_generation.crossword.max_black_square_ratio")
+    max_black_squares = config.get(
+        "puzzle_generation.crossword.max_black_square_ratio")
     print(f"\nMax black square ratio: {max_black_squares:.0%}")
 
     # Expected page count with tolerance

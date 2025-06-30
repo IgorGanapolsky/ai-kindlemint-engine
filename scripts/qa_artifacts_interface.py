@@ -333,11 +333,11 @@ class QAArtifactsInterface:
 
         for criterion, details in qa_result.get("criteria", {}).items():
             status = "✅" if details.get("passed", False) else "❌"
-            summary += f"- {status} **{criterion}**: {
+            summary += f"- {status} ** {criterion}**: {
                 details.get(
-                    'score', 0)} (threshold: {
-                details.get(
-                    'threshold', 0)})\n"
+                    'score', 0)}(threshold: {
+                        details.get(
+                            'threshold', 0)})\n"
 
         if qa_result.get("issues_found"):
             summary += (

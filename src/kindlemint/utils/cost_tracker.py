@@ -17,7 +17,8 @@ class ClaudeCostTracker:
 
     # Claude API pricing (as of 2025)
     CLAUDE_PRICING = {
-        "claude-3-opus": {"input": 15.00, "output": 75.00},  # per million tokens
+        # per million tokens
+        "claude-3-opus": {"input": 15.00, "output": 75.00},
         "claude-3-sonnet": {"input": 3.00, "output": 15.00},
         "claude-3-haiku": {"input": 0.25, "output": 1.25},
         "claude-2.1": {"input": 8.00, "output": 24.00},
@@ -175,11 +176,13 @@ class ClaudeCostTracker:
             "high": 4.0,  # Complex files generate more analysis/code
         }
 
-        output_multiplier = complexity_multipliers.get(file_analysis["complexity"], 2.0)
+        output_multiplier = complexity_multipliers.get(
+            file_analysis["complexity"], 2.0)
 
         # Calculate costs (convert from per million to actual tokens)
         input_cost = (tokens * pricing["input"]) / 1_000_000
-        output_cost = (tokens * output_multiplier * pricing["output"]) / 1_000_000
+        output_cost = (tokens * output_multiplier *
+                       pricing["output"]) / 1_000_000
 
         return input_cost + output_cost
 
@@ -192,7 +195,8 @@ class ClaudeCostTracker:
         file_analyses = []
 
         for file_path in changed_files:
-            if file_path and not file_path.startswith("."):  # Skip hidden files
+            # Skip hidden files
+            if file_path and not file_path.startswith("."):
                 analysis = self.analyze_file_complexity(file_path)
                 cost = self.calculate_file_cost(analysis, model)
 
@@ -271,7 +275,8 @@ class ClaudeCostTracker:
 
         # Quick estimation for full repo
         full_repo_tokens = 0
-        for file_path in all_files[:1000]:  # Limit to first 1000 files for performance
+        # Limit to first 1000 files for performance
+        for file_path in all_files[:1000]:
             if file_path and file_path.endswith(
                 (".py", ".js", ".ts", ".java", ".cpp", ".md")
             ):
@@ -348,7 +353,8 @@ class ClaudeCostTracker:
             "total_tokens": total_tokens,
             "average_cost_per_commit": total_cost / len(recent_commits),
             "most_expensive_commit": (
-                max(recent_commits, key=lambda c: c["cost"]) if recent_commits else None
+                max(recent_commits,
+                    key=lambda c: c["cost"]) if recent_commits else None
             ),
         }
 

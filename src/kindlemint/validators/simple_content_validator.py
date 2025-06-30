@@ -31,7 +31,8 @@ class SimpleContentValidator:
             doc = fitz.open(str(pdf_path))
 
             # Check puzzle pages (pages 3-102)
-            puzzle_errors = self._check_puzzle_pages(doc, start_page=2, end_page=101)
+            puzzle_errors = self._check_puzzle_pages(
+                doc, start_page=2, end_page=101)
 
             # Check solution pages (pages 104-203)
             solution_errors = self._check_solution_pages(
@@ -71,7 +72,8 @@ class SimpleContentValidator:
         print(f"🧩 Checking puzzle pages {start_page + 1} to {end_page + 1}...")
 
         # Sample check - only check first 5 puzzles for speed
-        sample_pages = list(range(start_page, min(start_page + 5, end_page + 1)))
+        sample_pages = list(
+            range(start_page, min(start_page + 5, end_page + 1)))
 
         for page_num in sample_pages:
             try:
@@ -95,13 +97,15 @@ class SimpleContentValidator:
                         if img_size > 35000:  # 35KB threshold
                             puzzle_num = page_num - start_page + 1
                             errors.append(
-                                f"Puzzle #{puzzle_num} (Page {page_num + 1}): Image too large ({
+                                # {puzzle_num} (Page {page_num + 1}): Image too large ({
+                                f"Puzzle
                                     img_size} bytes) - likely showing complete solution instead of puzzle with blanks"
                             )
                         break
 
             except Exception as e:
-                errors.append(f"Page {page_num + 1}: Error checking puzzle - {str(e)}")
+                errors.append(
+                    f"Page {page_num + 1}: Error checking puzzle - {str(e)}")
 
         return errors
 
@@ -109,7 +113,8 @@ class SimpleContentValidator:
         """Check solution pages using size heuristics"""
         errors = []
 
-        print(f"💡 Checking solution pages {start_page + 1} to {end_page + 1}...")
+        print(
+            f"💡 Checking solution pages {start_page + 1} to {end_page + 1}...")
 
         # Sample check - only check first 5 solutions for speed
         sample_pages = list(
@@ -136,8 +141,8 @@ class SimpleContentValidator:
                         if img_size < 35000:  # 35KB threshold
                             solution_num = page_num - start_page + 1
                             errors.append(
-                                f"Solution #{solution_num} (Page {
-                                    page_num + 1}): Image too small ({img_size} bytes) - likely incomplete solution"
+                                f"Solution  # {solution_num} (Page {
+                                    page_num + 1}): Image too small({img_size} bytes) - likely incomplete solution"
                             )
                         break
 

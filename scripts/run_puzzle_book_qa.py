@@ -4,11 +4,12 @@ Automated QA Runner for Puzzle Books
 Integrates with the build process to ensure quality before publication
 """
 
-from kindlemint.validators.sudoku_book_qa import SudokuBookQAValidator
 import json
 import sys
 from datetime import datetime
 from pathlib import Path
+
+from kindlemint.validators.sudoku_book_qa import SudokuBookQAValidator
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -22,7 +23,8 @@ def run_qa_checks():
     print("=" * 50)
 
     # Find all puzzle books in active production
-    active_production = Path(__file__).parent.parent / "books" / "active_production"
+    active_production = Path(__file__).parent.parent / \
+        "books" / "active_production"
 
     if not active_production.exists():
         print("❌ No active production directory found")

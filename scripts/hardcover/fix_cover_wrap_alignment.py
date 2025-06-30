@@ -38,7 +38,8 @@ class CoverWrapAlignmentFixer:
         print(f"📐 KDP Template Specifications:")
         print(f"   Canvas: {self.template_width} × {self.template_height} px")
         print(f'   Spine width: {self.spine_width_px} px (0.421")')
-        print(f"   Cover dimensions: {self.front_cover_width} × {self.cover_height} px")
+        print(
+            f"   Cover dimensions: {self.front_cover_width} × {self.cover_height} px")
 
     def load_font(self, size):
         """Load font with fallbacks"""
@@ -61,7 +62,8 @@ class CoverWrapAlignmentFixer:
         cover_source = Image.open(cover_source_path).convert("RGB")
 
         # Create main canvas with white background
-        canvas = Image.new("RGB", (self.template_width, self.template_height), "white")
+        canvas = Image.new("RGB", (self.template_width,
+                           self.template_height), "white")
 
         # === FRONT COVER (RIGHT SIDE) ===
         # Scale front cover to fit the front cover area exactly
@@ -86,7 +88,8 @@ class CoverWrapAlignmentFixer:
 
         # === SPINE (CENTER) ===
         # Create spine background by sampling from the front cover
-        spine_sample_x = max(0, cover_source.width // 4)  # Sample from left quarter
+        # Sample from left quarter
+        spine_sample_x = max(0, cover_source.width // 4)
         spine_sample = cover_source.crop(
             (spine_sample_x, 0, spine_sample_x + 100, cover_source.height)
         )
@@ -137,7 +140,8 @@ class CoverWrapAlignmentFixer:
         spine_title = "LARGE PRINT CROSSWORD MASTERS"
 
         # Create vertical text image
-        text_img = Image.new("RGBA", (400, self.spine_width_px - 20), (0, 0, 0, 0))
+        text_img = Image.new(
+            "RGBA", (400, self.spine_width_px - 20), (0, 0, 0, 0))
         text_draw = ImageDraw.Draw(text_img)
 
         # Draw title with proper spacing
@@ -152,13 +156,15 @@ class CoverWrapAlignmentFixer:
         # Rotate and position on spine
         text_rotated = text_img.rotate(90, expand=True)
         spine_text_y = self.cover_y + self.safe_margin
-        spine_text_x = self.spine_x + (self.spine_width_px - text_rotated.width) // 2
+        spine_text_x = self.spine_x + \
+            (self.spine_width_px - text_rotated.width) // 2
 
         canvas.paste(text_rotated, (spine_text_x, spine_text_y), text_rotated)
 
         # Publisher at bottom of spine
         publisher_text = "CROSSWORD MASTERS PUBLISHING"
-        pub_img = Image.new("RGBA", (300, self.spine_width_px - 20), (0, 0, 0, 0))
+        pub_img = Image.new(
+            "RGBA", (300, self.spine_width_px - 20), (0, 0, 0, 0))
         pub_draw = ImageDraw.Draw(pub_img)
         pub_draw.text(
             (10, (self.spine_width_px - 20) // 2),
@@ -172,7 +178,8 @@ class CoverWrapAlignmentFixer:
         pub_text_y = (
             self.cover_y + self.cover_height - pub_rotated.height - self.safe_margin
         )
-        pub_text_x = self.spine_x + (self.spine_width_px - pub_rotated.width) // 2
+        pub_text_x = self.spine_x + \
+            (self.spine_width_px - pub_rotated.width) // 2
 
         canvas.paste(pub_rotated, (pub_text_x, pub_text_y), pub_rotated)
 
@@ -211,7 +218,8 @@ class CoverWrapAlignmentFixer:
         line_height = 40
 
         for line in description_lines:
-            draw.text((back_text_x, desc_y), line, font=back_desc_font, fill="white")
+            draw.text((back_text_x, desc_y), line,
+                      font=back_desc_font, fill="white")
             desc_y += line_height
 
         # Barcode area (yellow area from template)
@@ -258,8 +266,10 @@ def main():
     fixer.create_corrected_cover_wrap(cover_source, output_dir)
 
     print(f"\n🎯 Alignment corrections applied:")
-    print(f"   ✅ Spine text properly centered within {fixer.spine_width_px}px width")
-    print(f"   ✅ Back cover text positioned with {fixer.safe_margin}px margins")
+    print(
+        f"   ✅ Spine text properly centered within {fixer.spine_width_px}px width")
+    print(
+        f"   ✅ Back cover text positioned with {fixer.safe_margin}px margins")
     print(f"   ✅ Barcode area positioned according to KDP template")
     print(f"   ✅ Front cover scaled and centered correctly")
     print(f"\n📄 Next: Export to PDF/X-1a for KDP upload")

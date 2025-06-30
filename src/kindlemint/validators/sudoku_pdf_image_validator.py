@@ -164,9 +164,9 @@ class SudokuPDFImageValidator:
                             self.warnings.append(
                                 f"⚠️ Page {
                                     page_num +
-                                    1}: Low resolution image ({
-                                    pix.width}x{
-                                    pix.height})"
+                                    1}: Low resolution image({
+                                        pix.width}x{
+                                        pix.height})"
                             )
 
                         # Check approximate file size
@@ -174,7 +174,7 @@ class SudokuPDFImageValidator:
                         if img_data and len(img_data["image"]) < min_expected_size:
                             self.warnings.append(
                                 f"⚠️ Page {
-                                    page_num + 1}: Small image size ({len(img_data['image'])} bytes)"
+                                    page_num + 1}: Small image size({len(img_data['image'])} bytes)"
                             )
 
                         pix = None  # Release pixmap
@@ -199,7 +199,8 @@ class SudokuPDFImageValidator:
                 - warning_details: List of warning messages
                 - passed_details: First 10 passed check messages
         """
-        total_checks = len(self.errors) + len(self.warnings) + len(self.passed_checks)
+        total_checks = len(self.errors) + \
+            len(self.warnings) + len(self.passed_checks)
 
         report = {
             "status": "PASS" if len(self.errors) == 0 else "FAIL",
@@ -218,7 +219,8 @@ class SudokuPDFImageValidator:
         print("=" * 50)
 
         if report["status"] == "FAIL":
-            print(f"❌ STATUS: FAILED - {len(self.errors)} critical errors found!")
+            print(
+                f"❌ STATUS: FAILED - {len(self.errors)} critical errors found!")
         else:
             print("✅ STATUS: PASSED")
 
@@ -260,7 +262,8 @@ def validate_sudoku_pdf(pdf_path: str) -> bool:
         print("Installing PyMuPDF...")
         import subprocess
 
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "PyMuPDF"])
+        subprocess.check_call(
+            [sys.executable, "-m", "pip", "install", "PyMuPDF"])
 
     validator = SudokuPDFImageValidator()
     report = validator.validate_pdf_images(Path(pdf_path))

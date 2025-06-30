@@ -4,13 +4,14 @@ Claude Cost Slack Notifier
 Sends Claude API cost tracking notifications to Slack
 """
 
-from scripts.slack_notifier import SlackNotifier
-from scripts.claude_cost_tracker import ClaudeCostTracker
 import subprocess
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+
+from scripts.claude_cost_tracker import ClaudeCostTracker
+from scripts.slack_notifier import SlackNotifier
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -88,7 +89,8 @@ class ClaudeCostSlackNotifier:
                 "type": "section",
                 "fields": [
                     {"type": "mrkdwn", "text": f"*Cost:*\n{emoji} ${cost:.4f}"},
-                    {"type": "mrkdwn", "text": f"*Tokens:*\n{commit_data['tokens']:,}"},
+                    {"type": "mrkdwn",
+                        "text": f"*Tokens:*\n{commit_data['tokens']:,}"},
                     {
                         "type": "mrkdwn",
                         "text": f"*Files:*\n{commit_data['files_changed']}",
@@ -360,7 +362,7 @@ class ClaudeCostSlackNotifier:
 
         return self.slack_notifier.send_message(
             text=f"Weekly Claude Cost Analysis: ${
-                current_cost:.2f} ({cost_change_pct:+.1f}% change)",
+                current_cost: .2f}({cost_change_pct: +.1f} % change)",
             blocks=blocks,
             color="#3498db",
         )
@@ -429,8 +431,8 @@ class ClaudeCostSlackNotifier:
 
         return self.slack_notifier.send_message(
             text=f"🚨 Claude Cost Budget Alert: ${
-                current_cost:.2f} exceeds ${
-                budget_limit:.2f} limit",
+                current_cost: .2f} exceeds ${
+                budget_limit: .2f} limit",
             blocks=blocks,
             color="#e74c3c",
         )
@@ -552,7 +554,7 @@ class ClaudeCostSlackNotifier:
 
         return self.slack_notifier.send_message(
             text=f"Claude Cost Efficiency Report: {
-                tokens_per_dollar:,.0f} tokens per dollar",
+                tokens_per_dollar: , .0f} tokens per dollar",
             blocks=blocks,
             color="#9b59b6",
         )
@@ -566,7 +568,8 @@ class ClaudeCostSlackNotifier:
             commit_date = datetime.fromisoformat(commit["timestamp"]).date()
             if (datetime.now().date() - commit_date).days < days:
                 day_str = commit_date.strftime("%a")
-                daily_costs[day_str] = daily_costs.get(day_str, 0) + commit["cost"]
+                daily_costs[day_str] = daily_costs.get(
+                    day_str, 0) + commit["cost"]
 
         # Sort by day of week
         days_order = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -584,8 +587,10 @@ class ClaudeCostSlackNotifier:
             )
 
         if summary["average_cost_per_commit"] > 0.50:
-            recommendations.append("• Review file sizes - large files increase costs")
-            recommendations.append("• Use Claude Haiku for simpler code changes")
+            recommendations.append(
+                "• Review file sizes - large files increase costs")
+            recommendations.append(
+                "• Use Claude Haiku for simpler code changes")
 
         if summary["commit_count"] > 20:
             recommendations.append(
@@ -604,7 +609,8 @@ class ClaudeCostSlackNotifier:
         current_tpd = current_week["total_tokens"] / max(
             current_week["total_cost"], 0.01
         )
-        insights.append(f"• Token efficiency: {current_tpd:,.0f} tokens per dollar")
+        insights.append(
+            f"• Token efficiency: {current_tpd:,.0f} tokens per dollar")
 
         # Cost trends
         if current_week["total_cost"] > 10:
@@ -650,10 +656,12 @@ class ClaudeCostSlackNotifier:
                     )
 
         # Sort by cost
-        sorted_patterns = sorted(file_costs.items(), key=lambda x: x[1], reverse=True)
+        sorted_patterns = sorted(
+            file_costs.items(), key=lambda x: x[1], reverse=True)
 
         for pattern, cost in sorted_patterns[:3]:
-            patterns.append(f"• {pattern.capitalize()}: ${cost:.2f} total cost")
+            patterns.append(
+                f"• {pattern.capitalize()}: ${cost:.2f} total cost")
 
         return patterns
 
@@ -682,7 +690,8 @@ class ClaudeCostSlackNotifier:
 
         if dow_costs:
             peak_day = max(dow_costs.items(), key=lambda x: x[1])
-            patterns.append(f"• Most expensive day: {peak_day[0]} (${peak_day[1]:.2f})")
+            patterns.append(
+                f"• Most expensive day: {peak_day[0]} (${peak_day[1]:.2f})")
 
         return patterns
 
@@ -709,7 +718,8 @@ class ClaudeCostSlackNotifier:
             )
 
         # Time-based optimization
-        recommendations.append("• Schedule non-urgent changes during off-peak hours")
+        recommendations.append(
+            "• Schedule non-urgent changes during off-peak hours")
 
         # File-based optimization
         if week_data["total_tokens"] > 500000:
@@ -732,7 +742,8 @@ if __name__ == "__main__":
         choices=["commit", "daily", "weekly", "budget", "efficiency"],
         help="Type of notification to send",
     )
-    parser.add_argument("--commit-hash", help="Commit hash for commit notification")
+    parser.add_argument(
+        "--commit-hash", help="Commit hash for commit notification")
     parser.add_argument(
         "--budget-limit", type=float, help="Budget limit for budget alerts"
     )
@@ -769,7 +780,8 @@ if __name__ == "__main__":
         if not args.budget_limit:
             print("❌ --budget-limit required for budget alerts")
             sys.exit(1)
-        success = notifier.send_budget_alert(args.budget_limit, args.budget_period)
+        success = notifier.send_budget_alert(
+            args.budget_limit, args.budget_period)
 
     elif args.notification_type == "efficiency":
         success = notifier.send_efficiency_report()

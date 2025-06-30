@@ -266,7 +266,8 @@ class PDFLayoutAgent(A2AAgent):
             await self._simulate_pdf_optimization(pdf_path, optimized_path)
 
             if Path(optimized_path).exists():
-                optimized_size = Path(optimized_path).stat().st_size / (1024 * 1024)
+                optimized_size = Path(
+                    optimized_path).stat().st_size / (1024 * 1024)
                 size_reduction = (
                     (original_size - optimized_size) / original_size
                 ) * 100

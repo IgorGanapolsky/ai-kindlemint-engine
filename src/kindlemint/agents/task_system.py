@@ -107,7 +107,8 @@ class TaskResult:
     agent_id: Optional[str] = None
     execution_time: Optional[float] = None
     output_data: Dict[str, Any] = field(default_factory=dict)
-    artifacts: Dict[str, str] = field(default_factory=dict)  # File paths, URLs, etc.
+    # File paths, URLs, etc.
+    artifacts: Dict[str, str] = field(default_factory=dict)
     error_message: Optional[str] = None
     error_details: Dict[str, Any] = field(default_factory=dict)
     quality_score: Optional[float] = None

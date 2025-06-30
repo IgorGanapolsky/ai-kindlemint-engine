@@ -75,7 +75,8 @@ def fix_json_file(file_path: Path, backup_dir: Path) -> bool:
                         print(f"  ERROR: Could not determine position of extra data")
                         return False
                 except Exception as inner_e:
-                    print(f"  ERROR: Failed to fix 'Extra data' error: {inner_e}")
+                    print(
+                        f"  ERROR: Failed to fix 'Extra data' error: {inner_e}")
                     return False
             else:
                 # Handle other JSON decode errors (likely string content)

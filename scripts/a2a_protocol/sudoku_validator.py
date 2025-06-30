@@ -27,13 +27,15 @@ class SudokuValidator:
         for i in range(9):
             row = grid[i]
             if not self._is_valid_group(row):
-                errors.append(f"Row {i + 1} contains duplicates or invalid numbers")
+                errors.append(
+                    f"Row {i + 1} contains duplicates or invalid numbers")
 
         # Check columns
         for j in range(9):
             col = [grid[i][j] for i in range(9)]
             if not self._is_valid_group(col):
-                errors.append(f"Column {j + 1} contains duplicates or invalid numbers")
+                errors.append(
+                    f"Column {j + 1} contains duplicates or invalid numbers")
 
         # Check 3x3 boxes
         for box_row in range(3):
@@ -44,7 +46,7 @@ class SudokuValidator:
                         box.append(grid[box_row * 3 + i][box_col * 3 + j])
                 if not self._is_valid_group(box):
                     errors.append(
-                        f"Box ({box_row + 1},{box_col +
+                        f"Box({box_row + 1}, {box_col +
                                               1}) contains duplicates or invalid numbers"
                     )
 
@@ -61,7 +63,7 @@ class SudokuValidator:
                 if puzzle[i][j] != 0:  # It's a clue
                     if puzzle[i][j] != solution[i][j]:
                         errors.append(
-                            f"Clue at position ({i + 1},{j +
+                            f"Clue at position({i + 1}, {j +
                                                          1}) doesn't match solution: "
                             f"puzzle has {puzzle[i][j]}, solution has {solution[i][j]}"
                         )

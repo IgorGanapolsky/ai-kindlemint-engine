@@ -195,7 +195,8 @@ def qa_resolution_success_blocks(data: Dict[str, Any]) -> List[Dict]:
                 f"*Time Taken:* {time_taken:.1f} seconds",
             },
         },
-        {"type": "section", "fields": [{"type": "mrkdwn", "text": "*Actions Taken:*"}]},
+        {"type": "section", "fields": [
+            {"type": "mrkdwn", "text": "*Actions Taken:*"}]},
     ]
 
     # List actions taken
@@ -233,7 +234,8 @@ def qa_summary_blocks(data: Dict[str, Any]) -> List[Dict]:
     auto_fixed = data.get("auto_fixed", 0)
     manual_fixes = data.get("manual_fixes_needed", 0)
 
-    pass_rate = (passed / total_validations * 100) if total_validations > 0 else 0
+    pass_rate = (passed / total_validations *
+                 100) if total_validations > 0 else 0
     auto_fix_rate = (auto_fixed / failed * 100) if failed > 0 else 0
 
     blocks = [

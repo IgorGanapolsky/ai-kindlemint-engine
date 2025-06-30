@@ -151,7 +151,8 @@ class EnhancedSudokuBookGenerator:
         """Create the title page"""
         story.append(Spacer(1, 2 * inch))
 
-        title = Paragraph("Large Print Sudoku Masters", self.styles["BookTitle"])
+        title = Paragraph("Large Print Sudoku Masters",
+                          self.styles["BookTitle"])
         story.append(title)
         story.append(Spacer(1, 0.5 * inch))
 
@@ -254,12 +255,14 @@ class EnhancedSudokuBookGenerator:
         """Add all puzzle pages to the book"""
         for i, puzzle in enumerate(puzzles, 1):
             # Puzzle number header
-            puzzle_header = Paragraph(f"Puzzle #{i}", self.styles["PuzzleNumber"])
+            puzzle_header = Paragraph(
+                f"Puzzle #{i}", self.styles["PuzzleNumber"])
             story.append(puzzle_header)
 
             # Add difficulty indicator
             difficulty = puzzle.get("difficulty", "medium").title()
-            diff_para = Paragraph(f"Difficulty: {difficulty}", self.styles["Normal"])
+            diff_para = Paragraph(
+                f"Difficulty: {difficulty}", self.styles["Normal"])
             story.append(diff_para)
             story.append(Spacer(1, 20))
 
@@ -269,7 +272,8 @@ class EnhancedSudokuBookGenerator:
             )
             if puzzle_image_path.exists():
                 try:
-                    img = Image(str(puzzle_image_path), width=6 * inch, height=6 * inch)
+                    img = Image(str(puzzle_image_path),
+                                width=6 * inch, height=6 * inch)
                     story.append(img)
                 except Exception as e:
                     print(f"Could not load puzzle image {i}: {e}")
@@ -323,7 +327,8 @@ class EnhancedSudokuBookGenerator:
         explanations = []
 
         # Add general approach
-        explanations.append(f"<b>Solving Approach for Puzzle #{puzzle_id}:</b>")
+        explanations.append(
+            f"<b>Solving Approach for Puzzle #{puzzle_id}:</b>")
         explanations.append("")
 
         # Add difficulty-specific strategy
@@ -332,7 +337,8 @@ class EnhancedSudokuBookGenerator:
                 "This easy puzzle can be solved using basic scanning techniques:"
             )
         elif difficulty == "medium":
-            explanations.append("This medium puzzle requires intermediate techniques:")
+            explanations.append(
+                "This medium puzzle requires intermediate techniques:")
         elif difficulty == "hard":
             explanations.append(
                 "This challenging puzzle needs advanced solving strategies:"
@@ -360,7 +366,8 @@ class EnhancedSudokuBookGenerator:
             row_counts = [sum(1 for cell in row if cell != 0) for row in grid]
             max_row = row_counts.index(max(row_counts)) + 1
 
-            col_counts = [sum(1 for i in range(9) if grid[i][j] != 0) for j in range(9)]
+            col_counts = [sum(1 for i in range(9) if grid[i][j] != 0)
+                          for j in range(9)]
             max_col = col_counts.index(max(col_counts)) + 1
 
             explanations.append(
@@ -370,7 +377,8 @@ class EnhancedSudokuBookGenerator:
                 f"• Column {max_col} has {
                     max(col_counts)} clues - check for singles here"
             )
-            explanations.append("• Look for 3×3 boxes with 6 or more clues filled")
+            explanations.append(
+                "• Look for 3×3 boxes with 6 or more clues filled")
 
         return explanations
 
@@ -404,7 +412,8 @@ class EnhancedSudokuBookGenerator:
             explanations = self.generate_solution_explanation(puzzle)
             for explanation in explanations:
                 if explanation:
-                    para = Paragraph(explanation, self.styles["SolutionExplanation"])
+                    para = Paragraph(
+                        explanation, self.styles["SolutionExplanation"])
                     story.append(para)
                 else:
                     story.append(Spacer(1, 6))
@@ -435,7 +444,8 @@ class EnhancedSudokuBookGenerator:
                         ("ALIGN", (0, 0), (-1, -1), "CENTER"),
                         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
                         ("FONTSIZE", (0, 0), (-1, -1), 12),
-                        ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#f0f0f0")),
+                        ("BACKGROUND", (0, 0), (-1, -1),
+                         colors.HexColor("#f0f0f0")),
                         # Add thicker lines for 3x3 boxes
                         ("LINEBELOW", (0, 2), (-1, 2), 2, colors.black),
                         ("LINEBELOW", (0, 5), (-1, 5), 2, colors.black),
@@ -527,7 +537,8 @@ class EnhancedSudokuBookGenerator:
         doc.build(story)
 
         print(f"✅ SUCCESS! Enhanced book generated: {output_file}")
-        print(f"📊 File size: {output_file.stat().st_size / 1024 / 1024:.1f} MB")
+        print(
+            f"📊 File size: {output_file.stat().st_size / 1024 / 1024:.1f} MB")
 
         return output_file
 

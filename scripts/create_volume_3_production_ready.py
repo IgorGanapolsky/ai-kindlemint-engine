@@ -876,14 +876,16 @@ class Volume3ProductionReady:
                     if length >= 3 and length <= 7 and length in self.word_lists:
                         words = self.word_lists[length]
                         # Use deterministic selection for variety
-                        word_idx = (puzzle_num * 7 + row * 3 + start_col) % len(words)
+                        word_idx = (puzzle_num * 7 + row *
+                                    3 + start_col) % len(words)
                         word = words[word_idx]
 
                         # Fill solution
                         for i, letter in enumerate(word):
                             solution[row][start_col + i] = letter
 
-                        clue = self.clues.get(word, f"Word meaning {word.lower()}")
+                        clue = self.clues.get(
+                            word, f"Word meaning {word.lower()}")
                         placed_words.append(
                             {
                                 "word": word,
@@ -1010,14 +1012,16 @@ class Volume3ProductionReady:
                     if (row, col) in numbers:
                         c.setFillColor(colors.black)
                         c.setFont("Helvetica", 7)
-                        c.drawString(x + 2, y + CELL_SIZE - 9, str(numbers[(row, col)]))
+                        c.drawString(x + 2, y + CELL_SIZE - 9,
+                                     str(numbers[(row, col)]))
 
                     # Add solution letter if provided
                     if solution and solution[row][col] not in ["#", "."]:
                         c.setFillColor(colors.black)
                         c.setFont("Helvetica-Bold", 14)
                         c.drawCentredString(
-                            x + CELL_SIZE / 2, y + CELL_SIZE / 2 - 4, solution[row][col]
+                            x + CELL_SIZE / 2, y + CELL_SIZE /
+                            2 - 4, solution[row][col]
                         )
 
     def create_complete_book(self):
@@ -1031,16 +1035,21 @@ class Volume3ProductionReady:
                 / "Large_Print_Crossword_Masters_-_Volume_3_interior_FINAL.pdf"
             )
 
-            c = canvas.Canvas(str(pdf_path), pagesize=(PAGE_WIDTH, PAGE_HEIGHT))
+            c = canvas.Canvas(str(pdf_path), pagesize=(
+                PAGE_WIDTH, PAGE_HEIGHT))
 
             # Page 1: Title
             c.setFont("Helvetica-Bold", 32)
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2 * inch, "LARGE PRINT")
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2.6 * inch, "CROSSWORD")
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 3.2 * inch, "MASTERS")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 2 * inch, "LARGE PRINT")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 2.6 * inch, "CROSSWORD")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 3.2 * inch, "MASTERS")
 
             c.setFont("Helvetica-Bold", 24)
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 4.2 * inch, "VOLUME 3")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 4.2 * inch, "VOLUME 3")
 
             c.setFont("Helvetica", 16)
             c.drawCentredString(
@@ -1048,7 +1057,8 @@ class Volume3ProductionReady:
                 PAGE_HEIGHT - 5.2 * inch,
                 "50 Challenging Crossword Puzzles",
             )
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 5.6 * inch, "for Seniors")
+            c.drawCentredString(
+                PAGE_WIDTH / 2, PAGE_HEIGHT - 5.6 * inch, "for Seniors")
 
             c.setFont("Helvetica", 14)
             c.drawCentredString(
@@ -1178,7 +1188,8 @@ class Volume3ProductionReady:
                 across_count = len(
                     [w for w in placed_words if w["direction"] == "across"]
                 )
-                down_count = len([w for w in placed_words if w["direction"] == "down"])
+                down_count = len(
+                    [w for w in placed_words if w["direction"] == "down"])
 
                 if across_count == 0 or down_count == 0:
                     print(
@@ -1230,12 +1241,14 @@ class Volume3ProductionReady:
 
                 # ACROSS clues
                 c.setFont("Helvetica-Bold", 12)
-                c.drawString(GUTTER, PAGE_HEIGHT - TOP_MARGIN - 1 * inch, "ACROSS")
+                c.drawString(GUTTER, PAGE_HEIGHT -
+                             TOP_MARGIN - 1 * inch, "ACROSS")
 
                 c.setFont("Helvetica", 10)
                 y_pos = PAGE_HEIGHT - TOP_MARGIN - 1.3 * inch
                 for word_info in across_words:
-                    num = numbers.get((word_info["row"], word_info["col"]), "?")
+                    num = numbers.get(
+                        (word_info["row"], word_info["col"]), "?")
                     clue_text = f"{num}. {word_info['clue']}"
                     c.drawString(GUTTER, y_pos, clue_text)
                     y_pos -= 0.25 * inch
@@ -1251,7 +1264,8 @@ class Volume3ProductionReady:
                 c.setFont("Helvetica", 10)
                 y_pos = PAGE_HEIGHT - TOP_MARGIN - 1.3 * inch
                 for word_info in down_words:
-                    num = numbers.get((word_info["row"], word_info["col"]), "?")
+                    num = numbers.get(
+                        (word_info["row"], word_info["col"]), "?")
                     clue_text = f"{num}. {word_info['clue']}"
                     c.drawString(PAGE_WIDTH / 2, y_pos, clue_text)
                     y_pos -= 0.25 * inch
@@ -1330,7 +1344,8 @@ class Volume3ProductionReady:
             import subprocess
 
             result = subprocess.run(
-                ["python", "scripts/production_qa_validator.py", str(pdf_path)],
+                ["python", "scripts/production_qa_validator.py",
+                    str(pdf_path)],
                 capture_output=True,
                 text=True,
             )

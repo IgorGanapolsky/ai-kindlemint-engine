@@ -123,7 +123,8 @@ class CIFixer:
         files_to_modify = strategy.get("files_to_modify", [])
         if "requirements.txt" in files_to_modify:
             # Extract package name from command
-            package_match = re.search(r"pip install ([^\s]+)", " ".join(commands))
+            package_match = re.search(
+                r"pip install ([^\s]+)", " ".join(commands))
             if package_match:
                 package_name = package_match.group(1)
                 return self._add_to_requirements(package_name)
@@ -160,7 +161,8 @@ class CIFixer:
                     full_path.write_text(content)
                     self.fixed_files.add(str(full_path))
                 else:
-                    logger.info(f"[DRY RUN] Would fix assertions in {file_path}")
+                    logger.info(
+                        f"[DRY RUN] Would fix assertions in {file_path}")
 
         return True
 
@@ -315,7 +317,8 @@ class CIFixer:
                 shutil.copy(pinned_file, pinned_file.with_suffix(".txt.bak"))
 
             # Move new file
-            shutil.move(self.repo_path / "requirements-pinned-new.txt", pinned_file)
+            shutil.move(self.repo_path /
+                        "requirements-pinned-new.txt", pinned_file)
             self.fixed_files.add(str(pinned_file))
 
         return success
@@ -437,7 +440,8 @@ class CIFixer:
             content = re.sub(r",(\s*[}\]])", r"\1", content)
 
             # Add missing quotes around keys
-            content = re.sub(r"(\s*)([a-zA-Z_]\w*)(\s*):", r'\1"\2"\3:', content)
+            content = re.sub(
+                r"(\s*)([a-zA-Z_]\w*)(\s*):", r'\1"\2"\3:', content)
 
             # Validate fixed JSON
             json.loads(content)
@@ -543,7 +547,8 @@ class CIFixer:
                 if 0 < line_num <= len(lines):
                     line = lines[line_num - 1]
                     if "# type: ignore" not in line:
-                        lines[line_num - 1] = line.rstrip() + "  # type: ignore"
+                        lines[line_num - 1] = line.rstrip() + \
+                            "  # type: ignore"
 
             if not self.dry_run:
                 full_path.write_text("\n".join(lines))
@@ -738,7 +743,8 @@ class CIFixer:
                     fixed_any = True
 
             except Exception as e:
-                logger.error(f"Failed to add import fallbacks to {test_file}: {e}")
+                logger.error(
+                    f"Failed to add import fallbacks to {test_file}: {e}")
 
         return fixed_any
 
@@ -779,7 +785,8 @@ class CIFixer:
                     fixed_any = True
 
             except Exception as e:
-                logger.error(f"Failed to fix API mismatches in {test_file}: {e}")
+                logger.error(
+                    f"Failed to fix API mismatches in {test_file}: {e}")
 
         return fixed_any
 
@@ -794,7 +801,8 @@ def main():
     parser.add_argument(
         "--analysis", default="ci_analysis.json", help="Input analysis file"
     )
-    parser.add_argument("--output", default="ci_fixes.json", help="Output fix report")
+    parser.add_argument("--output", default="ci_fixes.json",
+                        help="Output fix report")
     parser.add_argument(
         "--dry-run",
         action="store_true",

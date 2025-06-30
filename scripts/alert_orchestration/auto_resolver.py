@@ -162,7 +162,8 @@ class AutoResolver:
                     confidence=0.8,
                     safety_level="safe",
                     prerequisites=["service_responsive", "backup_available"],
-                    validation_steps=["check_service_health", "verify_connections"],
+                    validation_steps=[
+                        "check_service_health", "verify_connections"],
                     rollback_steps=["start_previous_version"],
                     execution_time_estimate=30,
                     metadata={"restart_type": "graceful"},
@@ -175,10 +176,12 @@ class AutoResolver:
                     confidence=0.7,
                     safety_level="safe",
                     prerequisites=["cache_accessible"],
-                    validation_steps=["verify_cache_cleared", "check_performance"],
+                    validation_steps=[
+                        "verify_cache_cleared", "check_performance"],
                     rollback_steps=["restore_cache_backup"],
                     execution_time_estimate=10,
-                    metadata={"cache_types": ["redis", "memcached", "application"]},
+                    metadata={"cache_types": [
+                        "redis", "memcached", "application"]},
                 ),
                 ResolutionAction(
                     id="optimize_queries",
@@ -187,8 +190,10 @@ class AutoResolver:
                     category="database_optimization",
                     confidence=0.6,
                     safety_level="medium",
-                    prerequisites=["database_accessible", "query_analysis_available"],
-                    validation_steps=["measure_query_performance", "check_index_usage"],
+                    prerequisites=["database_accessible",
+                                   "query_analysis_available"],
+                    validation_steps=[
+                        "measure_query_performance", "check_index_usage"],
                     rollback_steps=["revert_query_changes"],
                     execution_time_estimate=60,
                     metadata={"optimization_type": "index_hints"},
@@ -206,7 +211,8 @@ class AutoResolver:
                         "database_accessible",
                         "connection_pool_configurable",
                     ],
-                    validation_steps=["verify_pool_size", "check_connection_health"],
+                    validation_steps=["verify_pool_size",
+                                      "check_connection_health"],
                     rollback_steps=["restore_original_pool_size"],
                     execution_time_estimate=15,
                     metadata={"increase_factor": 1.5},
@@ -218,7 +224,8 @@ class AutoResolver:
                     category="query_management",
                     confidence=0.7,
                     safety_level="medium",
-                    prerequisites=["database_admin_access", "query_monitoring"],
+                    prerequisites=[
+                        "database_admin_access", "query_monitoring"],
                     validation_steps=[
                         "verify_queries_terminated",
                         "check_performance_improvement",
@@ -237,7 +244,8 @@ class AutoResolver:
                     confidence=0.9,
                     safety_level="safe",
                     prerequisites=["request_context_available"],
-                    validation_steps=["verify_retry_behavior", "check_success_rate"],
+                    validation_steps=[
+                        "verify_retry_behavior", "check_success_rate"],
                     rollback_steps=["remove_retry_logic"],
                     execution_time_estimate=5,
                     metadata={"max_retries": 3, "base_delay": 1},
@@ -290,7 +298,8 @@ class AutoResolver:
                     confidence=0.7,
                     safety_level="safe",
                     prerequisites=["auth_cache_accessible"],
-                    validation_steps=["verify_cache_cleared", "test_fresh_auth"],
+                    validation_steps=[
+                        "verify_cache_cleared", "test_fresh_auth"],
                     rollback_steps=["restore_auth_cache"],
                     execution_time_estimate=10,
                     metadata={"cache_scope": "authentication"},
@@ -360,8 +369,10 @@ class AutoResolver:
                     category="disk_management",
                     confidence=0.9,
                     safety_level="safe",
-                    prerequisites=["disk_cleanup_safe", "temporary_files_identified"],
-                    validation_steps=["verify_space_freed", "check_application_health"],
+                    prerequisites=["disk_cleanup_safe",
+                                   "temporary_files_identified"],
+                    validation_steps=["verify_space_freed",
+                                      "check_application_health"],
                     rollback_steps=["restore_critical_files"],
                     execution_time_estimate=30,
                     metadata={"cleanup_types": ["temp_files", "old_logs"]},
@@ -390,13 +401,14 @@ class AutoResolver:
 
         logger.info(
             f"Attempting auto-resolution for {
-                category} error (confidence: {confidence})"
+                category} error(confidence: {confidence})"
         )
 
         # Get applicable resolution strategies
         strategies = self.resolution_strategies.get(category, [])
         if not strategies:
-            logger.info(f"No resolution strategies available for category: {category}")
+            logger.info(
+                f"No resolution strategies available for category: {category}")
             return None
 
         # Filter strategies by confidence and safety
@@ -440,7 +452,8 @@ class AutoResolver:
         start_time = time.time()
         resolution_id = f"{action.id}_{int(start_time)}"
 
-        logger.info(f"Executing resolution: {action.name} (ID: {resolution_id})")
+        logger.info(
+            f"Executing resolution: {action.name} (ID: {resolution_id})")
 
         if self.dry_run:
             logger.info("DRY RUN: Simulating resolution execution")
@@ -450,7 +463,8 @@ class AutoResolver:
                 execution_time=action.execution_time_estimate,
                 output="Dry run simulation - no actual changes made",
                 error_message=None,
-                validation_results=[{"step": "dry_run", "result": "simulated_success"}],
+                validation_results=[
+                    {"step": "dry_run", "result": "simulated_success"}],
                 rollback_available=True,
                 impact_assessment={"risk_level": "none", "changes_made": []},
                 timestamp=datetime.now(),
@@ -581,7 +595,8 @@ class AutoResolver:
             increase_factor = action.metadata.get("increase_factor", 1.5)
             new_size = int(current_size * increase_factor)
 
-            logger.info(f"Increasing connection pool from {current_size} to {new_size}")
+            logger.info(
+                f"Increasing connection pool from {current_size} to {new_size}")
             await asyncio.sleep(1)
 
             return True, f"Connection pool increased to {new_size}", None
@@ -635,7 +650,8 @@ class AutoResolver:
         current_instances = context.get("current_instances", 2)
         new_instances = int(current_instances * scaling_factor)
 
-        logger.info(f"Scaling from {current_instances} to {new_instances} instances")
+        logger.info(
+            f"Scaling from {current_instances} to {new_instances} instances")
         await asyncio.sleep(3)
 
         return True, f"Scaled to {new_instances} instances", None

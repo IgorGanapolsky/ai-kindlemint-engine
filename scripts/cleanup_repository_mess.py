@@ -5,8 +5,8 @@ Repository Cleanup Script - Fix the REAL mess
 
 import os
 import shutil
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 
 def cleanup_repository():

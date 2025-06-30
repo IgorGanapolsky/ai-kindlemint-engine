@@ -6,9 +6,10 @@ Demonstrates the complete transformation of book content into a
 comprehensive content marketing ecosystem.
 """
 
-from kindlemint.social.core import demo_social_media_marketing
 import os
 import sys
+
+from kindlemint.social.core import demo_social_media_marketing
 
 # Add the source directory to the path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
@@ -31,9 +32,12 @@ def main():
         print("✅ TRANSFORMATION COMPLETE!")
         print()
         print("📈 Results Summary:")
-        print(f"   • {results['total_atomic_pieces']} atomic content pieces extracted")
-        print(f"   • {results['optimized_posts']} platform-optimized posts created")
-        print(f"   • {results['estimated_total_reach']:,} estimated total reach")
+        print(
+            f"   • {results['total_atomic_pieces']} atomic content pieces extracted")
+        print(
+            f"   • {results['optimized_posts']} platform-optimized posts created")
+        print(
+            f"   • {results['estimated_total_reach']:,} estimated total reach")
         print(f"   • 30-day content calendar generated")
         print(f"   • Authority building strategy developed")
         print()

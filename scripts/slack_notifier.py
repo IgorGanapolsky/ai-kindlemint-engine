@@ -59,7 +59,8 @@ class SlackNotifier:
         self.enabled = bool(self.webhook_url)
 
         if not self.enabled:
-            logger.warning("Slack notifications disabled - SLACK_WEBHOOK_URL not set")
+            logger.warning(
+                "Slack notifications disabled - SLACK_WEBHOOK_URL not set")
         else:
             logger.info("Slack notifier initialized")
 
@@ -106,7 +107,8 @@ class SlackNotifier:
                 add_breadcrumb(
                     "Sending Slack notification",
                     category="notification",
-                    data={"text": text[:50] + "..." if len(text) > 50 else text},
+                    data={"text": text[:50] +
+                          "..." if len(text) > 50 else text},
                 )
 
             # Send the message
@@ -261,7 +263,8 @@ class SlackNotifier:
 
         if roi_percentage is not None:
             roi_emoji = (
-                "🚀" if roi_percentage > 100 else ("✅" if roi_percentage > 0 else "❌")
+                "🚀" if roi_percentage > 100 else (
+                    "✅" if roi_percentage > 0 else "❌")
             )
             financial_fields.append(
                 {"type": "mrkdwn", "text": f"*ROI:*\n{roi_emoji} {roi_percentage:.1f}%"}
@@ -281,7 +284,8 @@ class SlackNotifier:
 
         if avg_qa_score is not None:
             qa_emoji = (
-                "✅" if avg_qa_score >= 85 else ("⚠️" if avg_qa_score >= 70 else "❌")
+                "✅" if avg_qa_score >= 85 else (
+                    "⚠️" if avg_qa_score >= 70 else "❌")
             )
             qa_fields.append(
                 {
@@ -299,7 +303,8 @@ class SlackNotifier:
             # Calculate quality improvement if previous data available
             if previous_success_rate is not None:
                 delta = success_rate - previous_success_rate
-                delta_emoji = "🔼" if delta > 0 else ("🔽" if delta < 0 else "➡️")
+                delta_emoji = "🔼" if delta > 0 else (
+                    "🔽" if delta < 0 else "➡️")
                 qa_fields.append(
                     {
                         "type": "mrkdwn",
@@ -345,7 +350,8 @@ class SlackNotifier:
                         with p.open("r") as fp:
                             return json.load(fp)
                     except Exception:
-                        logger.debug("Unable to load QA report JSON from %s", p)
+                        logger.debug(
+                            "Unable to load QA report JSON from %s", p)
             return None
 
         for book_id, book_result in batch_results.get("book_results", {}).items():
@@ -361,7 +367,8 @@ class SlackNotifier:
                 continue
 
             # Extract multi-model validation results
-            llm_validation = qa_data.get("checks", {}).get("llm_content_validation", {})
+            llm_validation = qa_data.get("checks", {}).get(
+                "llm_content_validation", {})
 
             # Get consensus score
             consensus_score = llm_validation.get("consensus_score")
@@ -375,11 +382,13 @@ class SlackNotifier:
 
                 # Get issues from this model
                 for issue in results.get("issues", []):
-                    model_validation_results[model].append(f"• {title}: {issue}")
+                    model_validation_results[model].append(
+                        f"• {title}: {issue}")
 
                 # Get warnings from this model (limited to 3 per model)
                 for warning in results.get("warnings", [])[:3]:
-                    model_validation_results[model].append(f"• {title}: {warning}")
+                    model_validation_results[model].append(
+                        f"• {title}: {warning}")
 
         # Add multi-model validation section if we have data
         if model_validation_results:
@@ -612,11 +621,11 @@ class SlackNotifier:
             # Financial impact
             if total_profit is not None:
                 if total_profit > 0:
-                    impact_text += f"• *Profitable batch* generating ${
-                        total_profit:.2f} in estimated revenue\n"
+                    impact_text += f"• * Profitable batch * generating ${
+                        total_profit: .2f} in estimated revenue\n"
                 else:
-                    impact_text += f"• *Unprofitable batch* with ${
-                        abs(total_profit):.2f} estimated loss\n"
+                    impact_text += f"• * Unprofitable batch * with ${
+                        abs(total_profit): .2f} estimated loss\n"
 
             # Quality impact
             if avg_qa_score is not None:
@@ -633,9 +642,10 @@ class SlackNotifier:
 
             # Production efficiency
             if production_efficiency is not None:
-                weekly_capacity = int((7 * 24 * 60 * 60) / production_efficiency)
+                weekly_capacity = int(
+                    (7 * 24 * 60 * 60) / production_efficiency)
                 impact_text += f"• Current capacity: *{
-                    weekly_capacity} books/week* at this efficiency\n"
+                    weekly_capacity} books/week * at this efficiency\n"
 
             # KDP readiness
             if kdp_ready_count is not None:
@@ -644,8 +654,8 @@ class SlackNotifier:
                         "• *All books ready for KDP* - proceed to publishing\n"
                     )
                 elif kdp_ready_count > 0:
-                    impact_text += f"• *{kdp_ready_count}/{
-                        books_processed} books ready for KDP* - partial publishing possible\n"
+                    impact_text += f"• * {kdp_ready_count}/{
+                        books_processed} books ready for KDP * - partial publishing possible\n"
                 else:
                     impact_text += (
                         "• *No books ready for KDP* - fix critical issues first\n"
@@ -684,7 +694,7 @@ class SlackNotifier:
         # Send the notification
         return self.send_message(
             text=f"📊 Executive Dashboard: Batch {
-                batch_id} - {books_succeeded}/{books_processed} books successful ({success_rate:.1f}%)",
+                batch_id} - {books_succeeded}/{books_processed} books successful ({success_rate: .1f} %)",
             blocks=blocks,
             color=color,
         )
@@ -727,7 +737,8 @@ class SlackNotifier:
                     "type": "section",
                     "fields": [
                         {"type": "mrkdwn", "text": f"*Type:*\n{error_type}"},
-                        {"type": "mrkdwn", "text": f"*Message:*\n{error_msg[:100]}..."},
+                        {"type": "mrkdwn",
+                            "text": f"*Message:*\n{error_msg[:100]}..."},
                     ],
                 }
             )
@@ -781,7 +792,8 @@ class SlackNotifier:
         """
         # Extract key metrics
         api_count = len(
-            [api for api in research_results.get("apis_tested", []) if "SUCCESS" in api]
+            [api for api in research_results.get(
+                "apis_tested", []) if "SUCCESS" in api]
         )
         products_found = research_results.get("amazon_products", 0)
 

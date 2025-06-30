@@ -148,13 +148,15 @@ class CIAnalyzer:
 
             # Try each pattern
             for pattern in pattern_info["patterns"]:
-                matches = re.findall(pattern, logs, re.MULTILINE | re.IGNORECASE)
+                matches = re.findall(
+                    pattern, logs, re.MULTILINE | re.IGNORECASE)
                 if matches:
                     # Call the specific analyzer
                     strategy = analyzer_func(matches, failure_info)
                     if strategy:
                         strategies.extend(
-                            strategy if isinstance(strategy, list) else [strategy]
+                            strategy if isinstance(
+                                strategy, list) else [strategy]
                         )
 
         # If no specific strategies, try generic approach
@@ -316,7 +318,8 @@ class CIAnalyzer:
                     confidence=0.7,
                     files_to_modify=list(flake8_files),
                     commands=[
-                        "autopep8 --in-place --aggressive " + " ".join(flake8_files)
+                        "autopep8 --in-place --aggressive " +
+                        " ".join(flake8_files)
                     ],
                     estimated_complexity="low",
                     auto_fixable=True,
@@ -333,7 +336,8 @@ class CIAnalyzer:
 
         # Extract file and line information
         type_error_pattern = r"File \"([^\"]+)\", line (\d+)"
-        file_matches = re.findall(type_error_pattern, failure_info.get("logs", ""))
+        file_matches = re.findall(
+            type_error_pattern, failure_info.get("logs", ""))
 
         for file_path, line_num in file_matches:
             strategies.append(
@@ -396,7 +400,8 @@ class CIAnalyzer:
                 strategy_type="update_pinned_versions",
                 description="Update pinned dependency versions",
                 confidence=0.6,
-                files_to_modify=["requirements-pinned.txt", "requirements-locked.txt"],
+                files_to_modify=["requirements-pinned.txt",
+                                 "requirements-locked.txt"],
                 commands=["pip install --upgrade -r requirements.txt"],
                 estimated_complexity="medium",
                 auto_fixable=True,
@@ -481,8 +486,8 @@ class CIAnalyzer:
             strategies.append(
                 FixStrategy(
                     strategy_type="fix_missing_clues",
-                    description=f"Fix missing clues (only {
-                        clue_percentage}% visible) in puzzle generation",
+                    description=f"Fix missing clues(only {
+                        clue_percentage} % visible) in puzzle generation",
                     confidence=0.9,
                     files_to_modify=[
                         "scripts/large_print_sudoku_generator.py",
@@ -504,8 +509,8 @@ class CIAnalyzer:
             strategies.append(
                 FixStrategy(
                     strategy_type="fix_repeated_solutions",
-                    description=f"Fix repeated solution explanations ({
-                        repeat_percentage}% identical)",
+                    description=f"Fix repeated solution explanations({
+                        repeat_percentage} % identical)",
                     confidence=0.85,
                     files_to_modify=["scripts/market_aligned_sudoku_pdf.py"],
                     commands=[
@@ -545,7 +550,8 @@ class CIAnalyzer:
 
         # Check for missing fallback methods (the exact issue we had)
         if any(
-            "create_puzzle_grid" in str(match) or "create_solution_grid" in str(match)
+            "create_puzzle_grid" in str(
+                match) or "create_solution_grid" in str(match)
             for match in matches
         ):
             strategies.append(
@@ -603,7 +609,7 @@ class CIAnalyzer:
                 strategies.append(
                     FixStrategy(
                         strategy_type="improve_content_quality",
-                        description=f"Improve content quality (current score: {
+                        description=f"Improve content quality(current score: {
                             score}/100)",
                         confidence=0.9,
                         files_to_modify=[
@@ -708,7 +714,8 @@ class CIAnalyzer:
 
                 stype = strategy.strategy_type
                 analysis_results["summary"]["by_strategy_type"][stype] = (
-                    analysis_results["summary"]["by_strategy_type"].get(stype, 0) + 1
+                    analysis_results["summary"]["by_strategy_type"].get(
+                        stype, 0) + 1
                 )
 
         return analysis_results

@@ -39,7 +39,8 @@ class EnhancedSudokuPDFValidator:
 
             # Validate each puzzle
             validated_count = 0
-            for page_num, puzzle_num in puzzle_pages[:10]:  # Check first 10 puzzles
+            # Check first 10 puzzles
+            for page_num, puzzle_num in puzzle_pages[:10]:
                 if self._validate_puzzle_page(
                     pdf_document, page_num, puzzle_num, metadata_dir
                 ):
@@ -126,12 +127,12 @@ class EnhancedSudokuPDFValidator:
 
                     if filled_cells == expected_clues:
                         self.passed_checks.append(
-                            f"✓ Puzzle {puzzle_num}: Correct number of clues ({
+                            f"✓ Puzzle {puzzle_num}: Correct number of clues({
                                 filled_cells})"
                         )
                     elif filled_cells == 81:
                         self.errors.append(
-                            f"❌ CRITICAL: Puzzle {puzzle_num} shows complete solution (81 cells) instead of {
+                            f"❌ CRITICAL: Puzzle {puzzle_num} shows complete solution(81 cells) instead of {
                                 expected_clues} clues!"
                         )
                         return False
@@ -164,11 +165,12 @@ class EnhancedSudokuPDFValidator:
         # Find and analyze the puzzle grid in the rendered page
         grid_region = self._find_grid_region(img_array)
         if grid_region is not None:
-            filled_cells = self._count_filled_cells_in_region(img_array, grid_region)
+            filled_cells = self._count_filled_cells_in_region(
+                img_array, grid_region)
 
             if filled_cells > expected_clues * 1.5:
                 self.errors.append(
-                    f"❌ Puzzle {puzzle_num}: Too many filled cells ({filled_cells} vs {
+                    f"❌ Puzzle {puzzle_num}: Too many filled cells({filled_cells} vs {
                         expected_clues} expected)"
                 )
                 return False
@@ -193,7 +195,7 @@ class EnhancedSudokuPDFValidator:
             for c in range(9):
                 # Extract cell region
                 cell = gray[
-                    r * cell_h : (r + 1) * cell_h, c * cell_w : (c + 1) * cell_w
+                    r * cell_h: (r + 1) * cell_h, c * cell_w: (c + 1) * cell_w
                 ]
 
                 # Check if cell has significant dark pixels (likely a number)
@@ -226,7 +228,7 @@ class EnhancedSudokuPDFValidator:
         for r in range(9):
             for c in range(9):
                 cell = gray[
-                    r * cell_h : (r + 1) * cell_h, c * cell_w : (c + 1) * cell_w
+                    r * cell_h: (r + 1) * cell_h, c * cell_w: (c + 1) * cell_w
                 ]
                 darkness = np.mean(cell)
                 cell_darkness.append(darkness)
@@ -248,7 +250,7 @@ class EnhancedSudokuPDFValidator:
     ) -> int:
         """Count filled cells in a specific region"""
         x, y, w, h = region
-        grid_img = img_array[y : y + h, x : x + w]
+        grid_img = img_array[y: y + h, x: x + w]
         return self._count_filled_cells_in_image(grid_img)
 
     def _generate_report(self) -> Dict:

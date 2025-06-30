@@ -228,7 +228,8 @@ def main():
 
         # Print service details
         for service_name, service_status in status.get("services", {}).items():
-            status_emoji = "✅" if service_status.get("status") == "available" else "❌"
+            status_emoji = "✅" if service_status.get(
+                "status") == "available" else "❌"
             print(
                 f"  {status_emoji} {service_name}: {
                     service_status.get('status', 'unknown')}"

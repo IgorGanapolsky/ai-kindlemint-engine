@@ -86,7 +86,8 @@ class AutonomousCodeCleaner:
         # Step 6: Rotate old cleanup reports (keep last 3)
         self._rotate_old_reports()
 
-        print(f"✅ CLEANUP COMPLETE! Saved {self.cleanup_results['bytes_saved']} bytes")
+        print(
+            f"✅ CLEANUP COMPLETE! Saved {self.cleanup_results['bytes_saved']} bytes")
         return self.cleanup_results
 
     def remove_cache_and_temp_files(self):
@@ -126,12 +127,14 @@ class AutonomousCodeCleaner:
                         )
                         removed_count += 1
                         bytes_saved += size
-                        print(f"   ✓ Removed: {file_path.relative_to(self.repo_path)}")
+                        print(
+                            f"   ✓ Removed: {file_path.relative_to(self.repo_path)}")
                     except Exception as e:
                         print(f"   ⚠️ Could not remove {file_path}: {e}")
 
         self.cleanup_results["bytes_saved"] += bytes_saved
-        print(f"   📊 Removed {removed_count} cache/temp files ({bytes_saved} bytes)")
+        print(
+            f"   📊 Removed {removed_count} cache/temp files ({bytes_saved} bytes)")
 
     def clean_archive_directories(self):
         """Clean up archive and backup directories"""
@@ -151,10 +154,12 @@ class AutonomousCodeCleaner:
 
                     # For archive directories, we'll be more selective
                     # Remove only obvious duplicates and very old files
-                    files_removed = self.clean_archive_directory_selective(archive_path)
+                    files_removed = self.clean_archive_directory_selective(
+                        archive_path)
 
                     if files_removed > 0:
-                        self.cleanup_results["directories_cleaned"].append(archive_dir)
+                        self.cleanup_results["directories_cleaned"].append(
+                            archive_dir)
                         print(
                             f"   ✓ Cleaned {archive_dir}: {files_removed} files removed"
                         )
@@ -280,7 +285,8 @@ class AutonomousCodeCleaner:
                         ]
                         if any(x in name_lower for x in removal_indicators):
                             # But keep if it's the only PDF in the directory
-                            pdf_count = len(list(remove_file.parent.glob("*.pdf")))
+                            pdf_count = len(
+                                list(remove_file.parent.glob("*.pdf")))
                             if pdf_count > 1:
                                 should_remove = True
 
@@ -314,7 +320,8 @@ class AutonomousCodeCleaner:
                             )
 
                         except Exception as e:
-                            print(f"   ⚠️ Could not remove duplicate {remove_file}: {e}")
+                            print(
+                                f"   ⚠️ Could not remove duplicate {remove_file}: {e}")
 
         print(f"   📊 Removed {duplicates_removed} duplicate files")
 

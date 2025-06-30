@@ -1443,7 +1443,8 @@ class CrosswordQAValidator:
                 continue
 
             # Check black square ratio
-            black_count = sum(cell == "#" for row in puzzle.grid for cell in row)
+            black_count = sum(
+                cell == "#" for row in puzzle.grid for cell in row)
             black_ratio = black_count / (15 * 15)
 
             if black_ratio > self.MAX_BLACK_SQUARE_RATIO:
@@ -1453,8 +1454,8 @@ class CrosswordQAValidator:
                         score=50,
                         category="structure",
                         message=f"Puzzle {
-                            puzzle.number}: Too many black squares ({
-                            black_ratio:.1%})",
+                            puzzle.number}: Too many black squares({
+                                black_ratio: .1 %})",
                     )
                 )
 
@@ -1562,7 +1563,7 @@ class CrosswordQAValidator:
                         score=25,
                         category="clues",
                         message=f"Puzzle {
-                            puzzle.number}: Too few DOWN clues ({down_count}/{total_clues})",
+                            puzzle.number}: Too few DOWN clues({down_count}/{total_clues})",
                         details={"across": across_count, "down": down_count},
                     )
                 )
@@ -1573,7 +1574,7 @@ class CrosswordQAValidator:
                         score=25,
                         category="clues",
                         message=f"Puzzle {
-                            puzzle.number}: Too few ACROSS clues ({across_count}/{total_clues})",
+                            puzzle.number}: Too few ACROSS clues({across_count}/{total_clues})",
                         details={"across": across_count, "down": down_count},
                     )
                 )
@@ -1583,7 +1584,7 @@ class CrosswordQAValidator:
                         passed=True,
                         score=100,
                         category="clues",
-                        message=f"Puzzle {puzzle.number}: Clue balance good ({across_count} across, {
+                        message=f"Puzzle {puzzle.number}: Clue balance good({across_count} across, {
                             down_count} down)",
                     )
                 )
@@ -1901,13 +1902,15 @@ class CrosswordQAValidator:
                 "Review grid patterns - ensure proper symmetry and connectivity"
             )
 
-        word_fails = [r for r in results if r.category == "words" and not r.passed]
+        word_fails = [r for r in results if r.category ==
+                      "words" and not r.passed]
         if word_fails:
             recommendations.append(
                 "Validate all words against dictionary before generation"
             )
 
-        clue_fails = [r for r in results if r.category == "clues" and not r.passed]
+        clue_fails = [r for r in results if r.category ==
+                      "clues" and not r.passed]
         if clue_fails:
             recommendations.append(
                 "Ensure balanced ACROSS/DOWN distribution (35-65% each)"
@@ -1965,8 +1968,8 @@ def main():
         print(f"\n⚠️  WARNINGS:")
         for warning in report["warnings"]:
             print(
-                f"  - [{warning['category']}] {warning['message']
-                                               } (score: {warning['score']})"
+                f" - [{warning['category']}] {warning['message']
+                                              }(score: {warning['score']})"
             )
 
     print(f"\n📊 Category Breakdown:")

@@ -154,7 +154,8 @@ class A2AAgent(ABC):
 
     def process_message(self, message: A2AMessage) -> A2AMessage:
         """Process an incoming A2A message"""
-        logger.info(f"Agent {self.agent_id} processing message: {message.action}")
+        logger.info(
+            f"Agent {self.agent_id} processing message: {message.action}")
 
         # Validate message
         if message.receiver_id != self.agent_id:
@@ -199,7 +200,8 @@ class A2AAgent(ABC):
             return message_bus.send(message)
         else:
             # Direct send (for testing)
-            logger.info(f"Direct message sent: {message.action} to {receiver_id}")
+            logger.info(
+                f"Direct message sent: {message.action} to {receiver_id}")
             return message
 
     def get_card(self) -> Dict[str, Any]:
@@ -217,7 +219,8 @@ class A2ARegistry:
 
     def __init__(self):
         self.agents: Dict[str, A2AAgent] = {}
-        self.capabilities_index: Dict[str, List[str]] = {}  # capability -> [agent_ids]
+        # capability -> [agent_ids]
+        self.capabilities_index: Dict[str, List[str]] = {}
         logger.info("A2A Registry initialized")
 
     def register(self, agent: A2AAgent):

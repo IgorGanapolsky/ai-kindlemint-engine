@@ -54,7 +54,8 @@ class MarketResearchEngine:
     """Enhanced market research with proper CSV output"""
 
     def __init__(self):
-        self.output_dir = Path("research") / datetime.now().strftime("%Y-%m-%d")
+        self.output_dir = Path("research") / \
+            datetime.now().strftime("%Y-%m-%d")
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
         # Initialize Sentry if available
@@ -79,7 +80,8 @@ class MarketResearchEngine:
         """Fetch Amazon product data via SerpAPI"""
         api_key = os.getenv("SERPAPI_API_KEY")
         if not api_key:
-            print(f"⚠️ SERPAPI_API_KEY not set, using mock data for: {keyword}")
+            print(
+                f"⚠️ SERPAPI_API_KEY not set, using mock data for: {keyword}")
             return self._generate_mock_data(keyword)
 
         try:
@@ -91,7 +93,8 @@ class MarketResearchEngine:
                 "num": 20,  # Get top 20 results
             }
 
-            add_breadcrumb(f"Fetching SerpAPI data for: {keyword}", category="api")
+            add_breadcrumb(
+                f"Fetching SerpAPI data for: {keyword}", category="api")
             response = requests.get(
                 "https://serpapi.com/search", params=params, timeout=30
             )
@@ -158,7 +161,8 @@ class MarketResearchEngine:
             try:
                 # Extract price
                 price_str = product.get("price", "$0")
-                price = float(price_str.replace("$", "").replace(",", "").split("-")[0])
+                price = float(price_str.replace(
+                    "$", "").replace(",", "").split("-")[0])
 
                 # Extract reviews
                 reviews = int(product.get("reviews", 0))
@@ -242,7 +246,8 @@ class MarketResearchEngine:
 
             # Progress tracking
             if (idx + 1) % 5 == 0:
-                print(f"⏳ Progress: {idx + 1}/{len(keywords)} keywords processed")
+                print(
+                    f"⏳ Progress: {idx + 1}/{len(keywords)} keywords processed")
 
         # Save to CSV
         csv_path = self.save_to_csv(all_data_points)
@@ -250,7 +255,8 @@ class MarketResearchEngine:
         # Generate summary
         self.generate_summary(all_data_points)
 
-        print(f"✅ Market research complete! Total data points: {len(all_data_points)}")
+        print(
+            f"✅ Market research complete! Total data points: {len(all_data_points)}")
         return csv_path
 
     def generate_summary(self, data_points: List[MarketDataPoint]):
@@ -279,7 +285,8 @@ class MarketResearchEngine:
                 for p in points
             ) / len(points)
 
-            opportunity_score = (total_sales * avg_price) / (avg_competition + 1)
+            opportunity_score = (total_sales * avg_price) / \
+                (avg_competition + 1)
 
             opportunities.append(
                 {

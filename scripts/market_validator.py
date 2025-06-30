@@ -95,7 +95,8 @@ class MarketValidator:
 
     def _calculate_scores(self, amazon_data: dict, reddit_data: dict) -> dict:
         """Calculates demand, competition, profitability, and overall viability scores."""
-        scores = {"demand": 0, "competition": 0, "profitability": 0, "overall": 0}
+        scores = {"demand": 0, "competition": 0,
+                  "profitability": 0, "overall": 0}
 
         # Demand Score (40% weight)
         # Based on Reddit mentions and inverse of search results (lower is better)
@@ -112,8 +113,10 @@ class MarketValidator:
             scores["competition"] = 100  # No competition is a good sign
         else:
             avg_bsr = sum(c["bsr"] for c in competitors) / len(competitors)
-            avg_reviews = sum(c["reviews"] for c in competitors) / len(competitors)
-            bsr_score = max(0, 100 - (avg_bsr / 100000) * 100)  # Lower BSR is harder
+            avg_reviews = sum(c["reviews"]
+                              for c in competitors) / len(competitors)
+            bsr_score = max(0, 100 - (avg_bsr / 100000)
+                            * 100)  # Lower BSR is harder
             review_score = max(
                 0, 100 - (avg_reviews / 500) * 100
             )  # More reviews is harder
@@ -126,7 +129,8 @@ class MarketValidator:
         else:
             avg_price = sum(c["price"] for c in competitors) / len(competitors)
             # Scale price from $5.99 (0 score) to $15.99 (100 score)
-            scores["profitability"] = min(100, max(0, ((avg_price - 5.99) / 10) * 100))
+            scores["profitability"] = min(
+                100, max(0, ((avg_price - 5.99) / 10) * 100))
 
         # Overall Viability Score
         scores["overall"] = (
@@ -256,44 +260,45 @@ class MarketValidator:
 
         print(
             f"\n🎯 Recommendation: {emoji} {
-                rec['decision']} (Viability Score: {
-                report['viability_score']}/100)"
+                rec['decision']}(Viability Score: {
+                    report['viability_score']}/100)"
         )
         print(f"   Reason: {rec['reason']}")
 
         print("\n💰 Estimated Monthly Revenue Potential:")
         print(
             f"   Range: {
-                report['revenue_estimation']['monthly_potential']} (Confidence: {
-                report['revenue_estimation']['confidence']})"
+                report['revenue_estimation']['monthly_potential']}(Confidence: {
+                    report['revenue_estimation']['confidence']})"
         )
 
         print("\n📈 Detailed Scores:")
-        print(f"   - Demand Score:       {report['detailed_scores']['demand']}/100")
         print(
-            f"   - Competition Score:    {report['detailed_scores']
-                                          ['competition']}/100 (Higher is better/less competition)"
+            f"   - Demand Score:       {report['detailed_scores']['demand']}/100")
+        print(
+            f" - Competition Score:    {report['detailed_scores']
+                                        ['competition']}/100 (Higher is better/less competition)"
         )
         print(
-            f"   - Profitability Score:  {
+            f" - Profitability Score:  {
                 report['detailed_scores']['profitability']}/100"
         )
 
         print("\n--- Raw Data ---")
         print("Amazon Data:")
         print(
-            f"  - Search Results: {report['market_data']
-                                   ['amazon']['search_results_count']}"
+            f" - Search Results: {report['market_data']
+                                  ['amazon']['search_results_count']}"
         )
         print(
-            f"  - Competitors Found: {len(report['market_data']
-                                          ['amazon']['top_competitors'])}"
+            f" - Competitors Found: {len(report['market_data']
+                                         ['amazon']['top_competitors'])}"
         )
         print("Reddit Data:")
         print(f"  - Mentions: {report['market_data']['reddit']['mentions']}")
         print(
-            f"  - Positive Sentiment: {report['market_data']
-                                       ['reddit']['positive_sentiment']:.1%}"
+            f" - Positive Sentiment: {report['market_data']
+                                      ['reddit']['positive_sentiment']: .1 %}"
         )
         print("=" * 60)
 

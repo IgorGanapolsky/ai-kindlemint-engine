@@ -153,9 +153,11 @@ class CIOrchestrationSetup:
             }
 
             # Test API access
-            response = requests.get("https://api.github.com/user", headers=headers)
+            response = requests.get(
+                "https://api.github.com/user", headers=headers)
             if response.status_code != 200:
-                logger.error(f"GitHub API access failed: {response.status_code}")
+                logger.error(
+                    f"GitHub API access failed: {response.status_code}")
                 return False
 
             user_data = response.json()
@@ -169,7 +171,8 @@ class CIOrchestrationSetup:
             )
             response = requests.get(repo_url, headers=headers)
             if response.status_code != 200:
-                logger.error(f"Repository access failed: {response.status_code}")
+                logger.error(
+                    f"Repository access failed: {response.status_code}")
                 return False
 
             logger.info("Repository access validated")
@@ -258,7 +261,8 @@ class CIOrchestrationSetup:
                 yaml.safe_load(f)
             logger.info("Workflow syntax is valid")
         except ImportError:
-            logger.warning("PyYAML not installed - skipping workflow validation")
+            logger.warning(
+                "PyYAML not installed - skipping workflow validation")
         except Exception as e:
             logger.error(f"Workflow validation failed: {e}")
             return False
@@ -300,7 +304,8 @@ class CIOrchestrationSetup:
         # Test dry run
         try:
             results = orchestrator.run_single_cycle()
-            logger.info(f"✅ Dry run completed: {results.get('summary', 'No summary')}")
+            logger.info(
+                f"✅ Dry run completed: {results.get('summary', 'No summary')}")
         except Exception as e:
             logger.error(f"Dry run failed: {e}")
             return False
@@ -370,7 +375,8 @@ WantedBy=multi-user.target
                 f.write(service_content)
 
             logger.info("Created systemd service file")
-            logger.info(f"To install: sudo cp {service_file} /etc/systemd/system/")
+            logger.info(
+                f"To install: sudo cp {service_file} /etc/systemd/system/")
             logger.info("Then: sudo systemctl enable ci-orchestration")
 
         # Create cron job suggestion
@@ -384,8 +390,8 @@ WantedBy=multi-user.target
 
         logger.info("Created cron job template")
         logger.info(
-            f"To install: crontab -l > /tmp/cron.bak && cat {
-                cron_file} >> /tmp/cron.bak && crontab /tmp/cron.bak"
+            f"To install: crontab - l > /tmp/cron.bak & & cat {
+                cron_file} >> /tmp/cron.bak & & crontab / tmp/cron.bak"
         )
 
         return True
@@ -436,8 +442,10 @@ WantedBy=multi-user.target
         print()
         print("🔧 Configuration Files:")
         print(f"   • Main config: {self.orchestration_path / 'config.json'}")
-        print(f"   • Logging: {self.orchestration_path / 'logging_config.json'}")
-        print(f"   • Workflows: {self.github_workflows_path / 'ci_autofixer.yml'}")
+        print(
+            f"   • Logging: {self.orchestration_path / 'logging_config.json'}")
+        print(
+            f"   • Workflows: {self.github_workflows_path / 'ci_autofixer.yml'}")
         print()
         print("🚀 GitHub Actions:")
         print("   The ci_autofixer.yml workflow will automatically:")
@@ -458,11 +466,13 @@ def main():
     """Main entry point"""
     import argparse
 
-    parser = argparse.ArgumentParser(description="Initialize CI orchestration system")
+    parser = argparse.ArgumentParser(
+        description="Initialize CI orchestration system")
     parser.add_argument(
         "--repo-path", help="Repository path (defaults to current directory)"
     )
-    parser.add_argument("--force", action="store_true", help="Force re-initialization")
+    parser.add_argument("--force", action="store_true",
+                        help="Force re-initialization")
 
     args = parser.parse_args()
 
@@ -471,7 +481,8 @@ def main():
 
     # Check if we're in the right directory
     if not (repo_path / ".git").exists():
-        logger.error("Not in a git repository. Please run from repository root.")
+        logger.error(
+            "Not in a git repository. Please run from repository root.")
         sys.exit(1)
 
     # Initialize setup

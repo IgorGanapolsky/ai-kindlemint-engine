@@ -1,13 +1,14 @@
 # scripts/a2a_orchestrator.py
 
-from scripts.large_print_sudoku_generator import LargePrintSudokuGenerator
-from kindlemint.agents.puzzle_validator_agent import PuzzleValidatorAgent
-from kindlemint.agents.puzzle_generator_agent import PuzzleGeneratorAgent
-from kindlemint.agents.pdf_layout_agent import PDFLayoutAgent
-from kindlemint.a2a.server import A2AServer
-from kindlemint.a2a.registry import AgentRegistry
 import sys
 from pathlib import Path
+
+from kindlemint.a2a.registry import AgentRegistry
+from kindlemint.a2a.server import A2AServer
+from kindlemint.agents.pdf_layout_agent import PDFLayoutAgent
+from kindlemint.agents.puzzle_generator_agent import PuzzleGeneratorAgent
+from kindlemint.agents.puzzle_validator_agent import PuzzleValidatorAgent
+from scripts.large_print_sudoku_generator import LargePrintSudokuGenerator
 
 # Add the scripts directory to the Python path
 sys.path.append(str(Path(__file__).parent))
@@ -21,8 +22,10 @@ class A2AOrchestrator:
         self.server = A2AServer(self.registry)
 
         # Instantiate and register agents
-        self.puzzle_generator = PuzzleGeneratorAgent("puzzle_generator", self.registry)
-        self.puzzle_validator = PuzzleValidatorAgent("puzzle_validator", self.registry)
+        self.puzzle_generator = PuzzleGeneratorAgent(
+            "puzzle_generator", self.registry)
+        self.puzzle_validator = PuzzleValidatorAgent(
+            "puzzle_validator", self.registry)
         self.pdf_layout = PDFLayoutAgent("pdf_layout", self.registry)
         self.image_renderer = LargePrintSudokuGenerator(
             "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles"
@@ -40,7 +43,8 @@ class A2AOrchestrator:
         print("   -> Requesting 100 'easy' puzzles from puzzle_generator...")
         puzzles = []
         for i in range(100):
-            puzzle_data = self.puzzle_generator.generate_sudoku(difficulty="easy")
+            puzzle_data = self.puzzle_generator.generate_sudoku(
+                difficulty="easy")
 
             # 2. Validate each puzzle
             validation_result = self.puzzle_validator.validate_sudoku(

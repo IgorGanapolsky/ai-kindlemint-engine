@@ -4,15 +4,16 @@ Create Volume 3 with 50 truly unique crossword puzzles.
 Uses predefined puzzle templates to ensure uniqueness.
 """
 
-from scripts.config_loader import config
-import sys
 import logging
 import random
+import sys
 from pathlib import Path
 
 from reportlab.lib.colors import black, white
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+
+from scripts.config_loader import config
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -23,7 +24,8 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 # Constants from config
 PAGE_WIDTH = config.get("kdp_specifications.paperback.page_width_in", 8.5) * 72
-PAGE_HEIGHT = config.get("kdp_specifications.paperback.page_height_in", 11) * 72
+PAGE_HEIGHT = config.get(
+    "kdp_specifications.paperback.page_height_in", 11) * 72
 MARGIN = config.get("kdp_specifications.paperback.top_margin_in", 0.75) * 72
 GRID_SIZE = config.get("puzzle_generation.crossword.grid_size", 15)
 CELL_SIZE = config.get("puzzle_generation.crossword.cell_size_pixels", 18)
@@ -479,12 +481,15 @@ def create_pdf(puzzles, output_path):
     # Title page
     c.setFont("Helvetica-Bold", 36)
     c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2 * 72, "Large Print")
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2.75 * 72, "Crossword Masters")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT -
+                        2.75 * 72, "Crossword Masters")
     c.setFont("Helvetica-Bold", 28)
     c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 3.75 * 72, "Volume 3")
     c.setFont("Helvetica", 20)
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 5 * 72, "50 Unique Puzzles")
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 5.5 * 72, "With Solutions")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT -
+                        5 * 72, "50 Unique Puzzles")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT -
+                        5.5 * 72, "With Solutions")
     c.showPage()
 
     # Copyright page
@@ -492,7 +497,8 @@ def create_pdf(puzzles, output_path):
     c.drawCentredString(
         PAGE_WIDTH / 2, PAGE_HEIGHT - 2 * 72, "Copyright © 2024 KindleMint Publishing"
     )
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 2.5 * 72, "All rights reserved.")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT -
+                        2.5 * 72, "All rights reserved.")
     c.drawCentredString(
         PAGE_WIDTH / 2, PAGE_HEIGHT - 3.5 * 72, "ISBN: 979-8-12345-678-9"
     )
@@ -500,13 +506,15 @@ def create_pdf(puzzles, output_path):
 
     # Table of Contents
     c.setFont("Helvetica-Bold", 24)
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT - 1.5 * 72, "Table of Contents")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT -
+                        1.5 * 72, "Table of Contents")
     c.setFont("Helvetica", 14)
     y_position = PAGE_HEIGHT - 2.5 * 72
 
     # List all 50 puzzles
     for i in range(1, 26):
-        c.drawString(MARGIN, y_position, f"Puzzle {i}: {puzzles[i - 1]['theme']}")
+        c.drawString(MARGIN, y_position,
+                     f"Puzzle {i}: {puzzles[i - 1]['theme']}")
         if i + 25 <= 50:
             c.drawString(
                 PAGE_WIDTH / 2,
@@ -565,7 +573,8 @@ def create_pdf(puzzles, output_path):
         # Puzzle page
         c.setFont("Helvetica-Bold", 18)
         c.drawCentredString(
-            PAGE_WIDTH / 2, PAGE_HEIGHT - 72, f"Puzzle {puzzle_num}: {puzzle['theme']}"
+            PAGE_WIDTH / 2, PAGE_HEIGHT -
+            72, f"Puzzle {puzzle_num}: {puzzle['theme']}"
         )
 
         # Draw grid
@@ -597,7 +606,8 @@ def create_pdf(puzzles, output_path):
                     ):
                         number = (row * 2) + 1
                         c.setFont("Helvetica", 8)
-                        c.drawString(x + 2, y + CELL_SIZE - 10, str(number % 20 + 1))
+                        c.drawString(x + 2, y + CELL_SIZE -
+                                     10, str(number % 20 + 1))
 
         # Clues
         c.setFont("Helvetica-Bold", 12)
@@ -637,7 +647,8 @@ def create_pdf(puzzles, output_path):
 
         c.setFont("Helvetica-Bold", 16)
         c.drawCentredString(
-            PAGE_WIDTH / 2, PAGE_HEIGHT - 72, f"Solution for Puzzle {puzzle_num}"
+            PAGE_WIDTH / 2, PAGE_HEIGHT -
+            72, f"Solution for Puzzle {puzzle_num}"
         )
 
         # Draw solution grid
@@ -668,13 +679,15 @@ def create_pdf(puzzles, output_path):
         # Answer lists
         c.setFont("Helvetica-Bold", 12)
         c.drawString(MARGIN, grid_y - PUZZLE_HEIGHT - 30, "ACROSS ANSWERS:")
-        c.drawString(PAGE_WIDTH / 2, grid_y - PUZZLE_HEIGHT - 30, "DOWN ANSWERS:")
+        c.drawString(PAGE_WIDTH / 2, grid_y -
+                     PUZZLE_HEIGHT - 30, "DOWN ANSWERS:")
 
         c.showPage()
 
     # Final page
     c.setFont("Helvetica-Bold", 24)
-    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT / 2, "Thank you for solving!")
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT /
+                        2, "Thank you for solving!")
     c.setFont("Helvetica", 16)
     c.drawCentredString(
         PAGE_WIDTH / 2, PAGE_HEIGHT / 2 - 40, "Look for more volumes coming soon!"
@@ -708,8 +721,10 @@ def main():
     )
     volume_dir = base_dir / series_name / "volume_3"
 
-    paperback_dir = volume_dir / config.get("file_paths.paperback_subdir", "paperback")
-    hardcover_dir = volume_dir / config.get("file_paths.hardcover_subdir", "hardcover")
+    paperback_dir = volume_dir / \
+        config.get("file_paths.paperback_subdir", "paperback")
+    hardcover_dir = volume_dir / \
+        config.get("file_paths.hardcover_subdir", "hardcover")
 
     paperback_dir.mkdir(parents=True, exist_ok=True)
     hardcover_dir.mkdir(parents=True, exist_ok=True)

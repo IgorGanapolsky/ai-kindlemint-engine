@@ -7,12 +7,14 @@ with the existing batch processing system for backward compatibility
 and gradual migration.
 """
 
-from kindlemint.agents.content_agents import (
-    EPUBGeneratorAgent,
-    PDFLayoutAgent,
-    PuzzleGeneratorAgent,
-    QualityAssuranceAgent,
-)
+import asyncio
+import json
+import logging
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List
+
 from kindlemint.agents import (
     AgentRegistry,
     HealthMonitor,
@@ -21,13 +23,12 @@ from kindlemint.agents import (
     TaskPriority,
     TaskType,
 )
-import asyncio
-import json
-import logging
-import sys
-from datetime import datetime
-from pathlib import Path
-from typing import Any, Dict, List
+from kindlemint.agents.content_agents import (
+    EPUBGeneratorAgent,
+    PDFLayoutAgent,
+    PuzzleGeneratorAgent,
+    QualityAssuranceAgent,
+)
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -75,7 +76,8 @@ class MultiAgentBatchProcessor:
         if not self.enable_multi_agent or self.system_started:
             return
 
-        self.logger.info("🚀 Starting enhanced multi-agent batch processing system")
+        self.logger.info(
+            "🚀 Starting enhanced multi-agent batch processing system")
 
         # Start core components
         await self.agent_registry.start()
@@ -123,7 +125,8 @@ class MultiAgentBatchProcessor:
 
         # Validate configuration
         if "books" not in batch_config:
-            raise ValueError("Invalid batch configuration: missing 'books' section")
+            raise ValueError(
+                "Invalid batch configuration: missing 'books' section")
 
         # Start system if using multi-agent
         if self.enable_multi_agent:
@@ -152,9 +155,11 @@ class MultiAgentBatchProcessor:
         Returns:
             Book processing result
         """
-        book_id = book_config.get("id", f"book_{datetime.now().strftime('%H%M%S')}")
+        book_id = book_config.get(
+            "id", f"book_{datetime.now().strftime('%H%M%S')}")
 
-        self.logger.info(f"📚 Processing book: {book_config.get('title', book_id)}")
+        self.logger.info(
+            f"📚 Processing book: {book_config.get('title', book_id)}")
 
         if self.enable_multi_agent and not self.system_started:
             await self.start_system()
@@ -226,7 +231,8 @@ class MultiAgentBatchProcessor:
             # Process books in parallel using multi-agent system
             tasks = []
             for book_config in books_config:
-                task = asyncio.create_task(self._process_book_multi_agent(book_config))
+                task = asyncio.create_task(
+                    self._process_book_multi_agent(book_config))
                 tasks.append(task)
 
             results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -254,7 +260,8 @@ class MultiAgentBatchProcessor:
         self, book_config: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Process a book using multi-agent system"""
-        book_id = book_config.get("id", f"book_{datetime.now().strftime('%H%M%S')}")
+        book_id = book_config.get(
+            "id", f"book_{datetime.now().strftime('%H%M%S')}")
         start_time = datetime.now()
 
         book_result = {
@@ -356,7 +363,8 @@ class MultiAgentBatchProcessor:
 
             # Mark as completed
             book_result["status"] = "completed"
-            book_result["qa_score"] = qa_result.output_data.get("overall_score", 0)
+            book_result["qa_score"] = qa_result.output_data.get(
+                "overall_score", 0)
             book_result["publish_ready"] = qa_result.output_data.get(
                 "publish_ready", False
             )
@@ -375,7 +383,8 @@ class MultiAgentBatchProcessor:
 
     async def _process_book_legacy(self, book_config: Dict[str, Any]) -> Dict[str, Any]:
         """Process a book using legacy system (compatibility mode)"""
-        book_id = book_config.get("id", f"book_{datetime.now().strftime('%H%M%S')}")
+        book_id = book_config.get(
+            "id", f"book_{datetime.now().strftime('%H%M%S')}")
         start_time = datetime.now()
 
         # Simulate legacy processing (would call existing scripts)
@@ -409,14 +418,16 @@ class MultiAgentBatchProcessor:
 
             await asyncio.sleep(1)
 
-        raise TimeoutError(f"Task {task_id} did not complete within {timeout} seconds")
+        raise TimeoutError(
+            f"Task {task_id} did not complete within {timeout} seconds")
 
     async def _generate_batch_report(
         self, results: List[Dict[str, Any]], batch_config: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Generate batch processing report"""
         end_time = datetime.now()
-        duration = (end_time - self.batch_metrics["start_time"]).total_seconds()
+        duration = (
+            end_time - self.batch_metrics["start_time"]).total_seconds()
 
         # Calculate metrics
         successful = sum(1 for r in results if r.get("status") == "completed")
@@ -508,7 +519,8 @@ async def main():
         print("\n🚀 Testing Multi-Agent Processing")
         print("-" * 40)
 
-        multi_agent_processor = MultiAgentBatchProcessor(enable_multi_agent=True)
+        multi_agent_processor = MultiAgentBatchProcessor(
+            enable_multi_agent=True)
         ma_results = await multi_agent_processor.process_batch_config(config_path)
 
         print(f"✅ Multi-Agent Results:")
@@ -531,7 +543,8 @@ async def main():
             f"   📚 Books: {legacy_results['books_succeeded']
                            }/{legacy_results['books_processed']}"
         )
-        print(f"   ⏱️ Duration: {legacy_results['total_duration_seconds']:.1f}s")
+        print(
+            f"   ⏱️ Duration: {legacy_results['total_duration_seconds']:.1f}s")
         print(f"   📈 Rate: {legacy_results['books_per_hour']:.1f} books/hour")
 
         # Performance comparison
@@ -553,7 +566,8 @@ async def main():
         if "multi_agent_metrics" in ma_results:
             metrics = ma_results["multi_agent_metrics"]
             print(f"   • Active Agents: {metrics['active_agents']}")
-            print(f"   • System Utilization: {metrics['system_utilization']:.1f}%")
+            print(
+                f"   • System Utilization: {metrics['system_utilization']:.1f}%")
             print(f"   • Tasks Processed: {metrics['tasks_processed']}")
 
     except Exception as e:

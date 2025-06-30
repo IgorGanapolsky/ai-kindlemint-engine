@@ -64,7 +64,8 @@ class WritingStyleAnalyzer:
         # Analyze tone
         tone_scores = {}
         for tone, keywords in self.tone_keywords.items():
-            score = sum(1 for keyword in keywords if keyword in text) / len(keywords)
+            score = sum(
+                1 for keyword in keywords if keyword in text) / len(keywords)
             tone_scores[tone] = score
 
         # Determine dominant tone
@@ -76,10 +77,12 @@ class WritingStyleAnalyzer:
         avg_words_per_sentence = len(words) / max(len(sentences), 1)
         avg_syllables = self._estimate_avg_syllables(words)
 
-        complexity = self._determine_complexity(avg_words_per_sentence, avg_syllables)
+        complexity = self._determine_complexity(
+            avg_words_per_sentence, avg_syllables)
 
         # Analyze voice characteristics for writing style
-        voice_style_indicators = self._extract_voice_style_indicators(voice_input)
+        voice_style_indicators = self._extract_voice_style_indicators(
+            voice_input)
 
         return {
             "tone": dominant_tone,
@@ -165,7 +168,8 @@ class WritingStyleAnalyzer:
                 characteristic_phrases.append(transition)
 
         # Creative expressions
-        creative_expressions = ["imagine", "picture this", "what if", "suddenly"]
+        creative_expressions = ["imagine",
+                                "picture this", "what if", "suddenly"]
         for expression in creative_expressions:
             if expression in text:
                 characteristic_phrases.append(expression)
@@ -552,7 +556,8 @@ class SuccessPatternsAnalyzer:
 
         avg_length = sum(work.length for work in past_works) / total_works
         avg_success = (
-            sum(work.success_metrics.get("overall_score", 0) for work in past_works)
+            sum(work.success_metrics.get("overall_score", 0)
+                for work in past_works)
             / total_works
         )
 
@@ -562,8 +567,10 @@ class SuccessPatternsAnalyzer:
             "average_success_score": avg_success,
             "consistency_score": 1.0
             - (
-                max(w.success_metrics.get("overall_score", 0) for w in past_works)
-                - min(w.success_metrics.get("overall_score", 0) for w in past_works)
+                max(w.success_metrics.get("overall_score", 0)
+                    for w in past_works)
+                - min(w.success_metrics.get("overall_score", 0)
+                      for w in past_works)
             ),
         }
 
@@ -668,7 +675,8 @@ class AuthorContextBuilder:
             return author_context
 
         except Exception as e:
-            self.logger.error(f"Error building author context for user {user_id}: {e}")
+            self.logger.error(
+                f"Error building author context for user {user_id}: {e}")
             # Return basic context on error
             return AuthorContext(
                 user_id=user_id,

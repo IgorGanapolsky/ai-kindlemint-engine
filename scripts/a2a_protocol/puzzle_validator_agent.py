@@ -3,7 +3,6 @@
 Puzzle Validator Agent - A2A implementation for validating Sudoku puzzles
 """
 
-from .sudoku_validator import SudokuValidator
 import json
 import logging
 
@@ -13,6 +12,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from .base_agent import A2AAgent, A2AMessage, AgentCapability
+from .sudoku_validator import SudokuValidator
 
 sys.path.append(str(Path(__file__).parent.parent))
 
@@ -173,7 +173,8 @@ class PuzzleValidatorAgent(A2AAgent):
         solution_grid = payload.get("solution_grid")
 
         if not puzzle_grid or not solution_grid:
-            raise ValueError("Missing required fields: puzzle_grid and solution_grid")
+            raise ValueError(
+                "Missing required fields: puzzle_grid and solution_grid")
 
         # Validate the puzzle
         errors = []
@@ -186,7 +187,7 @@ class PuzzleValidatorAgent(A2AAgent):
             valid = False
         elif clue_count < 17:  # Minimum for unique solution
             errors.append(
-                f"Too few clues ({
+                f"Too few clues({
                     clue_count}) - minimum 17 required for unique solution"
             )
             valid = False
@@ -209,7 +210,8 @@ class PuzzleValidatorAgent(A2AAgent):
                 valid = False
 
         # Calculate quality score
-        quality_score = self._calculate_quality_score(puzzle_grid, solution_grid)
+        quality_score = self._calculate_quality_score(
+            puzzle_grid, solution_grid)
 
         return {"valid": valid, "errors": errors, "quality_score": quality_score}
 
@@ -287,7 +289,8 @@ class PuzzleValidatorAgent(A2AAgent):
         recommendations = []
 
         if clue_count == 0:
-            recommendations.append("CRITICAL: Puzzle is completely blank - add clues!")
+            recommendations.append(
+                "CRITICAL: Puzzle is completely blank - add clues!")
         elif clue_count < 17:
             recommendations.append(
                 "Add more clues - minimum 17 required for unique solution"
@@ -367,7 +370,8 @@ class PuzzleValidatorAgent(A2AAgent):
         if avg_clues == 0:
             return 0.0
 
-        variance = sum((x - avg_clues) ** 2 for x in box_clues) / len(box_clues)
+        variance = sum((x - avg_clues) **
+                       2 for x in box_clues) / len(box_clues)
         std_dev = variance**0.5
 
         # Lower std_dev means better balance
@@ -441,4 +445,5 @@ if __name__ == "__main__":
     )
 
     quality_response = validator.process_message(quality_message)
-    print(f"\nQuality check result: {json.dumps(quality_response.payload, indent=2)}")
+    print(
+        f"\nQuality check result: {json.dumps(quality_response.payload, indent=2)}")

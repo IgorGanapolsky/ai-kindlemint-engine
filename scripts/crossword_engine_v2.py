@@ -58,7 +58,8 @@ class CrosswordEngineV2:
 
     def generate_grid_with_content(self, puzzle_id):
         """Generate a filled 15x15 grid with words"""
-        grid = [[" " for _ in range(self.grid_size)] for _ in range(self.grid_size)]
+        grid = [[" " for _ in range(self.grid_size)]
+                for _ in range(self.grid_size)]
 
         # Apply black squares
         black_squares = self.create_symmetric_pattern()
@@ -147,8 +148,10 @@ class CrosswordEngineV2:
 
         # Try to load font
         try:
-            font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
-            number_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 20)
+            font = ImageFont.truetype(
+                "/System/Library/Fonts/Helvetica.ttc", 36)
+            number_font = ImageFont.truetype(
+                "/System/Library/Fonts/Helvetica.ttc", 20)
         except BaseException:
             font = ImageFont.load_default()
             number_font = font
@@ -164,7 +167,8 @@ class CrosswordEngineV2:
 
                 if grid[row][col] == "#":
                     # Black square
-                    draw.rectangle([x, y, x + cell_size, y + cell_size], fill="black")
+                    draw.rectangle(
+                        [x, y, x + cell_size, y + cell_size], fill="black")
                 else:
                     # White square with border
                     draw.rectangle(
@@ -179,7 +183,8 @@ class CrosswordEngineV2:
                         text_height = text_bbox[3] - text_bbox[1]
                         text_x = x + (cell_size - text_width) // 2
                         text_y = y + (cell_size - text_height) // 2
-                        draw.text((text_x, text_y), text, fill="black", font=font)
+                        draw.text((text_x, text_y), text,
+                                  fill="black", font=font)
 
                     # Add number if this starts a word
                     needs_number = False
@@ -280,7 +285,8 @@ class CrosswordEngineV2:
 
     def generate_puzzles(self):
         """Generate the specified number of crossword puzzles"""
-        print(f"🔤 CROSSWORD ENGINE V2 - Generating {self.puzzle_count} puzzles")
+        print(
+            f"🔤 CROSSWORD ENGINE V2 - Generating {self.puzzle_count} puzzles")
         print(f"📁 Output directory: {self.puzzles_dir}")
 
         puzzles_data = []
@@ -298,7 +304,7 @@ class CrosswordEngineV2:
 
             print(
                 f"  Creating puzzle {
-                    puzzle_id}/{self.puzzle_count}: {theme} ({difficulty})"
+                    puzzle_id}/{self.puzzle_count}: {theme}({difficulty})"
             )
 
             # Generate grid with actual content
@@ -340,7 +346,8 @@ class CrosswordEngineV2:
             }
 
             # Save individual puzzle metadata
-            puzzle_meta_path = self.metadata_dir / f"puzzle_{puzzle_id:02d}.json"
+            puzzle_meta_path = self.metadata_dir / \
+                f"puzzle_{puzzle_id:02d}.json"
             with open(puzzle_meta_path, "w") as f:
                 json.dump(puzzle_data, f, indent=2)
 
@@ -456,7 +463,8 @@ def main():
     parser = argparse.ArgumentParser(
         description="Crossword Engine v2 - Generate crossword puzzles"
     )
-    parser.add_argument("--output", required=True, help="Output directory for puzzles")
+    parser.add_argument("--output", required=True,
+                        help="Output directory for puzzles")
     parser.add_argument(
         "--count", type=int, default=50, help="Number of puzzles to generate"
     )
@@ -469,7 +477,8 @@ def main():
     parser.add_argument(
         "--grid-size", type=int, default=15, help="Grid size (default: 15x15)"
     )
-    parser.add_argument("--word-count", type=int, help="Words per puzzle (optional)")
+    parser.add_argument("--word-count", type=int,
+                        help="Words per puzzle (optional)")
     parser.add_argument(
         "--max-word-length",
         type=int,

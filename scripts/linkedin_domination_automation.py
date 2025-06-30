@@ -214,7 +214,8 @@ class LinkedInDominationAutomation:
             for day in range(days):
                 post_date = datetime.now() + timedelta(days=day)
                 content_type = content_types[day % len(content_types)]
-                template = random.choice(content_templates[content_type]["templates"])
+                template = random.choice(
+                    content_templates[content_type]["templates"])
 
                 calendar.append(
                     {

@@ -6,13 +6,13 @@ This script demonstrates the new multi-agent architecture in action,
 showing how specialized agents coordinate to generate books efficiently.
 """
 
-from kindlemint.agents.task_system import TaskPriority
-from kindlemint.agents.content_agents import (
-    EPUBGeneratorAgent,
-    PDFLayoutAgent,
-    PuzzleGeneratorAgent,
-    QualityAssuranceAgent,
-)
+import asyncio
+import logging
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Dict
+
 from kindlemint.agents import (
     AgentRegistry,
     HealthMonitor,
@@ -22,12 +22,13 @@ from kindlemint.agents import (
     create_puzzle_generation_task,
     create_qa_validation_task,
 )
-import asyncio
-import logging
-import sys
-from datetime import datetime
-from pathlib import Path
-from typing import Dict
+from kindlemint.agents.content_agents import (
+    EPUBGeneratorAgent,
+    PDFLayoutAgent,
+    PuzzleGeneratorAgent,
+    QualityAssuranceAgent,
+)
+from kindlemint.agents.task_system import TaskPriority
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -111,7 +112,8 @@ class MultiAgentBookGenerator:
         )
 
         try:
-            book_id = book_config.get("id", f"book_{datetime.now().strftime('%H%M%S')}")
+            book_id = book_config.get(
+                "id", f"book_{datetime.now().strftime('%H%M%S')}")
 
             # Task 1: Generate puzzles
             puzzle_task = create_puzzle_generation_task(
@@ -132,7 +134,8 @@ class MultiAgentBookGenerator:
             )
 
             puzzle_task_id = await self.task_coordinator.submit_task(puzzle_task)
-            self.logger.info(f"📝 Submitted puzzle generation task: {puzzle_task_id}")
+            self.logger.info(
+                f"📝 Submitted puzzle generation task: {puzzle_task_id}")
 
             # Wait for puzzle generation to complete
             await self._wait_for_task_completion(puzzle_task_id, timeout=300)
@@ -199,7 +202,8 @@ class MultiAgentBookGenerator:
 
             # Display results
             self.logger.info("🎉 Book generation completed successfully!")
-            self.logger.info(f"   📁 PDF: {pdf_result.artifacts['interior_pdf']}")
+            self.logger.info(
+                f"   📁 PDF: {pdf_result.artifacts['interior_pdf']}")
             self.logger.info(
                 f"   🎯 QA Score: {qa_result.output_data['overall_score']}/100"
             )
@@ -218,7 +222,8 @@ class MultiAgentBookGenerator:
         Generate a book using workflow orchestration
         (Demonstrates high-level coordination)
         """
-        self.logger.info(f"📚 Generating book with workflow: {book_config['title']}")
+        self.logger.info(
+            f"📚 Generating book with workflow: {book_config['title']}")
 
         try:
             # Execute the book generation workflow
@@ -236,7 +241,8 @@ class MultiAgentBookGenerator:
 
             if result:
                 self.logger.info("🎉 Workflow completed successfully!")
-                self.logger.info(f"   📊 Results: {len(result)} steps completed")
+                self.logger.info(
+                    f"   📊 Results: {len(result)} steps completed")
                 return True
             else:
                 self.logger.error("❌ Workflow execution failed")
@@ -250,7 +256,8 @@ class MultiAgentBookGenerator:
         """
         Run a performance demonstration with multiple books
         """
-        self.logger.info("🏃 Starting Performance Demo - Processing Multiple Books")
+        self.logger.info(
+            "🏃 Starting Performance Demo - Processing Multiple Books")
 
         self.demo_metrics["start_time"] = datetime.now()
 
@@ -287,7 +294,8 @@ class MultiAgentBookGenerator:
         # Process books in parallel using individual tasks
         tasks = []
         for book in books:
-            task = asyncio.create_task(self.generate_book_individual_tasks(book))
+            task = asyncio.create_task(
+                self.generate_book_individual_tasks(book))
             tasks.append(task)
 
         # Wait for all books to complete
@@ -296,7 +304,8 @@ class MultiAgentBookGenerator:
         # Calculate metrics
         self.demo_metrics["end_time"] = datetime.now()
         self.demo_metrics["books_processed"] = len(books)
-        self.demo_metrics["books_succeeded"] = sum(1 for r in results if r is True)
+        self.demo_metrics["books_succeeded"] = sum(
+            1 for r in results if r is True)
         self.demo_metrics["books_failed"] = (
             len(books) - self.demo_metrics["books_succeeded"]
         )
@@ -313,7 +322,8 @@ class MultiAgentBookGenerator:
             max_concurrent_tasks=2,
         )
 
-        pdf_agent = PDFLayoutAgent(agent_id="pdf_layout_01", max_concurrent_tasks=1)
+        pdf_agent = PDFLayoutAgent(
+            agent_id="pdf_layout_01", max_concurrent_tasks=1)
 
         epub_agent = EPUBGeneratorAgent(
             agent_id="epub_generator_01", max_concurrent_tasks=2
@@ -360,7 +370,8 @@ class MultiAgentBookGenerator:
 
             await asyncio.sleep(2)
 
-        raise TimeoutError(f"Task {task_id} did not complete within {timeout} seconds")
+        raise TimeoutError(
+            f"Task {task_id} did not complete within {timeout} seconds")
 
     async def _monitor_workflow_progress(
         self, execution_id: str, timeout: int = 600
@@ -409,8 +420,10 @@ class MultiAgentBookGenerator:
         system_status = self.agent_registry.get_system_status()
         coordination_metrics = self.task_coordinator.get_coordination_metrics()
 
-        self.logger.info(f"⚡ System Utilization: {system_status['utilization']:.1f}%")
-        self.logger.info(f"📋 Active Tasks: {coordination_metrics['active_tasks']}")
+        self.logger.info(
+            f"⚡ System Utilization: {system_status['utilization']:.1f}%")
+        self.logger.info(
+            f"📋 Active Tasks: {coordination_metrics['active_tasks']}")
         self.logger.info(
             f"✅ Completed Tasks: {coordination_metrics['completed_tasks']}"
         )
@@ -425,13 +438,15 @@ class MultiAgentBookGenerator:
         self.logger.info("\n" + "=" * 60)
         self.logger.info("🏆 PERFORMANCE DEMO SUMMARY")
         self.logger.info("=" * 60)
-        self.logger.info(f"📚 Books Processed: {self.demo_metrics['books_processed']}")
-        self.logger.info(f"✅ Successful: {self.demo_metrics['books_succeeded']}")
+        self.logger.info(
+            f"📚 Books Processed: {self.demo_metrics['books_processed']}")
+        self.logger.info(
+            f"✅ Successful: {self.demo_metrics['books_succeeded']}")
         self.logger.info(f"❌ Failed: {self.demo_metrics['books_failed']}")
         self.logger.info(f"⏱️ Total Duration: {duration:.1f} seconds")
         self.logger.info(
             f"📈 Books per Minute: {
-                (self.demo_metrics['books_processed'] / duration * 60):.1f}"
+                (self.demo_metrics['books_processed'] / duration * 60): .1f}"
         )
 
         success_rate = (

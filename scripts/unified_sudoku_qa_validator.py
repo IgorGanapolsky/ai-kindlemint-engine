@@ -40,7 +40,8 @@ class UnifiedSudokuQAValidator:
         print("=" * 60)
 
         if not pdf_path.exists():
-            self.report["critical_errors"].append(f"PDF file not found: {pdf_path}")
+            self.report["critical_errors"].append(
+                f"PDF file not found: {pdf_path}")
             self.report["status"] = "FAILED"
             return self.report
 
@@ -105,7 +106,7 @@ class UnifiedSudokuQAValidator:
                     self.report["critical_errors"].append(f"❌ VISUAL: {issue}")
             else:
                 self.report["passed"].append(
-                    f"✅ Visual rendering looks correct ({
+                    f"✅ Visual rendering looks correct({
                         puzzle_pages_checked} pages checked)"
                 )
 
@@ -123,7 +124,7 @@ class UnifiedSudokuQAValidator:
 
         # Extract puzzle area (center of page)
         puzzle_area = img_array[
-            int(h * 0.2) : int(h * 0.8), int(w * 0.2) : int(w * 0.8)
+            int(h * 0.2): int(h * 0.8), int(w * 0.2): int(w * 0.8)
         ]
 
         # Count dark regions (numbers)
@@ -136,7 +137,7 @@ class UnifiedSudokuQAValidator:
         if dark_ratio > 0.15:  # Too many numbers
             issues.append(
                 f"Page {
-                    page_num}: Appears to show complete solution (too many numbers visible)"
+                    page_num}: Appears to show complete solution(too many numbers visible)"
             )
 
         # Check for contrast in cells
@@ -202,7 +203,8 @@ class UnifiedSudokuQAValidator:
                         f"⚠️ Only {num_pages} pages (expected 200+)"
                     )
                 else:
-                    self.report["passed"].append(f"✅ Page count OK: {num_pages}")
+                    self.report["passed"].append(
+                        f"✅ Page count OK: {num_pages}")
 
                 # Check for solutions section
                 solution_found = False
@@ -214,12 +216,14 @@ class UnifiedSudokuQAValidator:
                             break
 
                 if not solution_found:
-                    self.report["errors"].append("❌ No solutions section found")
+                    self.report["errors"].append(
+                        "❌ No solutions section found")
                 else:
                     self.report["passed"].append("✅ Solutions section exists")
 
         except Exception as e:
-            self.report["errors"].append(f"❌ Content validation error: {str(e)}")
+            self.report["errors"].append(
+                f"❌ Content validation error: {str(e)}")
 
     def _validate_puzzle_data(self, puzzle_dir: Path):
         """Validate puzzle JSON/PNG consistency."""
@@ -269,7 +273,8 @@ class UnifiedSudokuQAValidator:
             + len(self.report["warnings"])
             + len(self.report["passed"])
         )
-        self.report["summary"]["visual_checks"] = len(self.report["visual_validation"])
+        self.report["summary"]["visual_checks"] = len(
+            self.report["visual_validation"])
 
     def _save_report(self, pdf_path: Path):
         """Save the ONE unified report."""
@@ -324,4 +329,5 @@ if __name__ == "__main__":
     validator = UnifiedSudokuQAValidator()
     report = validator.validate_book(Path(sys.argv[1]))
 
-    sys.exit(0 if report["status"] in ["PASSED", "PASSED WITH WARNINGS"] else 1)
+    sys.exit(0 if report["status"] in [
+             "PASSED", "PASSED WITH WARNINGS"] else 1)

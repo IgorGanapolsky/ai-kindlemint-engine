@@ -181,7 +181,8 @@ class ArchitectureAnalyzer:
     def _load_config(self, config_path: Optional[str]) -> Dict[str, Any]:
         """Load configuration from YAML file"""
         if not config_path:
-            config_path = Path(__file__).parent / "config" / "cleanup_config.yaml"
+            config_path = Path(__file__).parent / \
+                "config" / "cleanup_config.yaml"
 
         try:
             with open(config_path, "r") as f:
@@ -255,7 +256,8 @@ class ArchitectureAnalyzer:
             tree = ast.parse(content, filename=str(file_path))
 
             # Calculate metrics
-            lines_of_code = len([line for line in content.split("\n") if line.strip()])
+            lines_of_code = len(
+                [line for line in content.split("\n") if line.strip()])
 
             complexity_calc = ComplexityCalculator()
             complexity_calc.visit(tree)
@@ -405,8 +407,8 @@ class ArchitectureAnalyzer:
                     severity="medium" if analysis.coupling_score < 15 else "high",
                     location=Path(module_path).name,
                     description=f"Module has {
-                        analysis.coupling_score} dependencies (threshold: {
-                        self.coupling_threshold})",
+                        analysis.coupling_score} dependencies(threshold: {
+                            self.coupling_threshold})",
                     impact="High coupling makes modules difficult to test, modify, and reuse",
                     remediation_steps=[
                         "Extract common dependencies to a service layer",
@@ -431,8 +433,8 @@ class ArchitectureAnalyzer:
                     severity="medium",
                     location=Path(module_path).name,
                     description=f"Module has low cohesion score: {
-                        analysis.cohesion_score:.2f} (threshold: {
-                        self.cohesion_threshold})",
+                        analysis.cohesion_score: .2f}(threshold: {
+                            self.cohesion_threshold})",
                     impact="Low cohesion indicates module does not have a single, well-defined purpose",
                     remediation_steps=[
                         "Split module into smaller, more focused modules",
@@ -452,7 +454,8 @@ class ArchitectureAnalyzer:
 
         # Large modules
         loc_threshold = self.config.get("god_object_loc_threshold", 500)
-        complexity_threshold = self.config.get("god_object_complexity_threshold", 50)
+        complexity_threshold = self.config.get(
+            "god_object_complexity_threshold", 50)
 
         for module_path, analysis in self.module_analyses.items():
             if (
@@ -532,7 +535,8 @@ class ArchitectureAnalyzer:
             threshold=self.complexity_threshold,
             status="good" if avg_complexity < self.complexity_threshold else "warning",
             description="Average cyclomatic complexity across all modules",
-            suggestions=["Refactor complex methods", "Break down large functions"],
+            suggestions=["Refactor complex methods",
+                         "Break down large functions"],
         )
         metrics.append(complexity_metric)
 
@@ -579,7 +583,8 @@ class ArchitectureAnalyzer:
                 threshold=0.3,
                 status="good" if density < 0.3 else "warning",
                 description="Density of the dependency graph (0=sparse, 1=complete)",
-                suggestions=["Reduce unnecessary dependencies", "Modularize better"],
+                suggestions=["Reduce unnecessary dependencies",
+                             "Modularize better"],
             )
             metrics.append(density_metric)
 
@@ -623,7 +628,8 @@ class ArchitectureAnalyzer:
             if self.dependency_graph.number_of_nodes() > 0:
                 # Use a layout algorithm
                 if self.dependency_graph.number_of_nodes() < 50:
-                    pos = nx.spring_layout(self.dependency_graph, k=3, iterations=50)
+                    pos = nx.spring_layout(
+                        self.dependency_graph, k=3, iterations=50)
                 else:
                     pos = nx.random_layout(self.dependency_graph)
 
@@ -644,7 +650,8 @@ class ArchitectureAnalyzer:
                     arrowsize=20,
                 )
 
-                plt.title("Module Dependency Graph", fontsize=16, fontweight="bold")
+                plt.title("Module Dependency Graph",
+                          fontsize=16, fontweight="bold")
                 plt.tight_layout()
 
                 # Save in multiple formats
@@ -652,7 +659,8 @@ class ArchitectureAnalyzer:
                     file_path = output_path / f"dependency_graph.{fmt}"
                     plt.savefig(
                         file_path,
-                        dpi=self.config.get("visualization", {}).get("dpi", 300),
+                        dpi=self.config.get(
+                            "visualization", {}).get("dpi", 300),
                     )
                     generated_files.append(str(file_path))
 
@@ -666,7 +674,8 @@ class ArchitectureAnalyzer:
                 complexities = [
                     self.module_analyses[m].cyclomatic_complexity for m in modules
                 ]
-                couplings = [self.module_analyses[m].coupling_score for m in modules]
+                couplings = [
+                    self.module_analyses[m].coupling_score for m in modules]
 
                 # Create scatter plot
                 plt.scatter(complexities, couplings, alpha=0.6, s=100)
@@ -708,7 +717,8 @@ class ArchitectureAnalyzer:
                     file_path = output_path / f"complexity_coupling.{fmt}"
                     plt.savefig(
                         file_path,
-                        dpi=self.config.get("visualization", {}).get("dpi", 300),
+                        dpi=self.config.get(
+                            "visualization", {}).get("dpi", 300),
                     )
                     generated_files.append(str(file_path))
 
@@ -729,7 +739,8 @@ class ArchitectureAnalyzer:
 
         # Analyze each module
         for file_path in python_files:
-            self.module_analyses[str(file_path)] = self.analyze_module(file_path)
+            self.module_analyses[str(
+                file_path)] = self.analyze_module(file_path)
 
         # Build dependency graph
         self.dependency_graph = self.build_dependency_graph()
