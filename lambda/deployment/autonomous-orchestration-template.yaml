@@ -220,7 +220,7 @@ Resources:
                 Resource: '*'
 
   # Lambda Functions
-  CIOrchestrationFunction:
+  CiOrchestrationFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub 'kindlemint-ci-orchestration-${Environment}'

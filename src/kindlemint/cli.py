@@ -120,3 +120,61 @@ else:
 def is_legacy_cli_available(name: str) -> bool:
     """Checks if a specific legacy CLI function/class is available."""
     return globals().get(name) is not None
+
+# -----------------------------------------------------
+# New: SEO Enhancement CLI Command
+# -----------------------------------------------------
+
+# We only register the command if the legacy click `cli` group is available.
+try:
+    if cli:  # noqa: C901  # pragma: no cover
+        # Import click lazily to avoid mandatory dependency during unit tests
+        import click  # type: ignore
+        import json
+        from typing import Any, Dict
+
+        from kindlemint.marketing.seo_engine_2025 import (
+            SEOOptimizedMarketing,
+        )
+
+        @cli.command("enhance-seo")
+        @click.option(
+            "--input",
+            "input_path",
+            type=click.Path(exists=True, dir_okay=False, readable=True, resolve_path=True),
+            required=True,
+            help="Path to the book metadata JSON file to enhance.",
+        )
+        def enhance_seo(input_path: str) -> None:  # pragma: no cover
+            """
+            Enhance book marketing metadata with 2025 SEO strategies.
+
+            The enhanced JSON will be written alongside the source file
+            with a *_seo.json suffix.
+            """
+
+            from pathlib import Path
+
+            input_file = Path(input_path)
+            with input_file.open("r", encoding="utf-8") as fp:
+                try:
+                    book_data: Dict[str, Any] = json.load(fp)
+                except json.JSONDecodeError as exc:  # pragma: no cover
+                    click.echo(f"❌ Failed to parse JSON: {exc}", err=True)
+                    raise SystemExit(1) from exc
+
+            engine = SEOOptimizedMarketing()
+            enhanced_data = engine.enhance_book_marketing(book_data)
+
+            output_file = input_file.with_name(f"{input_file.stem}_seo.json")
+            with output_file.open("w", encoding="utf-8") as fp:
+                json.dump(enhanced_data, fp, ensure_ascii=False, indent=2)
+
+            click.echo(f"✅ Enhanced metadata written to {output_file}")
+
+        # Make the command importable for unit tests
+        __all__.append("enhance_seo")
+except Exception as _exc:  # pragma: no cover
+    # Fail silently in environments without click or if import errors occur.
+    # The rest of the CLI remains functional.
+    print(f"Warning: Could not register 'enhance-seo' command: {_exc}")
