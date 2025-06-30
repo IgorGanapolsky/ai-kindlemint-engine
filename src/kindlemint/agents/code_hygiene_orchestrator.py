@@ -58,28 +58,29 @@ class CodeHygieneOrchestrator:
         return patterns
 
     def analyze_project_hygiene(self) -> Dict:
-        """Comprehensive project hygiene analysis"""
-        print("🔍 Analyzing project hygiene...")
+        """REAL comprehensive project hygiene analysis"""
+        print("🔍 Analyzing REAL project hygiene...")
 
-        # Get all untracked files
-        untracked = self._get_untracked_files()
+        # Get ALL repository files, not just untracked
+        all_files = self._get_all_repository_files()
+        
+        # Analyze root directory clutter
+        root_files = self._get_root_files()
+        
+        # Find hygiene issues in repository structure
+        issues = self._find_real_hygiene_issues(root_files, all_files)
 
-        # Categorize files
-        categorized = self._categorize_files(untracked)
+        # Generate real cleanup suggestions
+        suggestions = self._generate_real_cleanup_suggestions(issues, root_files)
 
-        # Find problematic patterns
-        issues = self._find_hygiene_issues(categorized)
-
-        # Generate suggestions
-        suggestions = self._generate_cleanup_suggestions(categorized, issues)
-
-        # Calculate metrics
-        metrics = self._calculate_hygiene_metrics(untracked, categorized, issues)
+        # Calculate REAL hygiene metrics
+        metrics = self._calculate_real_hygiene_metrics(root_files, issues, all_files)
 
         self.hygiene_report.update(
             {
-                "untracked_files": len(untracked),
-                "categorized_files": {k.value: len(v) for k, v in categorized.items()},
+                "total_files": len(all_files),
+                "root_files": len(root_files),
+                "root_file_list": [f.name for f in root_files],
                 "issues": issues,
                 "suggestions": suggestions,
                 "metrics": metrics,
@@ -164,6 +165,172 @@ class CodeHygieneOrchestrator:
             return FileCategory.DATA
 
         return FileCategory.UNKNOWN
+
+    def _get_all_repository_files(self) -> List[Path]:
+        """Get all files in the repository"""
+        all_files = []
+        for file_path in self.project_root.rglob("*"):
+            if file_path.is_file():
+                # Skip .git directory and other hidden system files
+                if not any(part.startswith('.git') for part in file_path.parts):
+                    all_files.append(file_path)
+        return all_files
+
+    def _get_root_files(self) -> List[Path]:
+        """Get all files in the root directory"""
+        root_files = []
+        for item in self.project_root.iterdir():
+            if item.is_file():
+                root_files.append(item)
+        return root_files
+
+    def _find_real_hygiene_issues(self, root_files: List[Path], all_files: List[Path]) -> List[Dict]:
+        """Find REAL hygiene issues in repository structure"""
+        issues = []
+        
+        # Check for excessive root clutter
+        if len(root_files) > 25:
+            issues.append({
+                "type": "root_clutter_critical",
+                "severity": "high",
+                "count": len(root_files),
+                "message": f"Too many files in root directory ({len(root_files)}). Should be < 20.",
+                "suggestion": "Move files to appropriate subdirectories"
+            })
+        elif len(root_files) > 15:
+            issues.append({
+                "type": "root_clutter_moderate", 
+                "severity": "medium",
+                "count": len(root_files),
+                "message": f"Moderate root clutter ({len(root_files)} files). Consider organizing.",
+                "suggestion": "Move non-essential files to subdirectories"
+            })
+
+        # Check for specific problematic patterns in root
+        root_md_files = [f for f in root_files if f.suffix == '.md' and f.name != 'README.md']
+        if len(root_md_files) > 3:
+            issues.append({
+                "type": "documentation_clutter",
+                "severity": "high", 
+                "count": len(root_md_files),
+                "message": f"{len(root_md_files)} .md files in root (should be in docs/)",
+                "files": [f.name for f in root_md_files[:5]]
+            })
+
+        # Check for log files in root
+        root_log_files = [f for f in root_files if f.suffix in ['.log', '.txt'] and 'output' in f.name.lower()]
+        if root_log_files:
+            issues.append({
+                "type": "log_file_clutter",
+                "severity": "medium",
+                "count": len(root_log_files),
+                "message": f"{len(root_log_files)} log/output files in root (should be in logs/)",
+                "files": [f.name for f in root_log_files]
+            })
+
+        # Check for script files in root
+        root_script_files = [f for f in root_files if f.suffix == '.py' and f.name not in ['setup.py']]
+        if root_script_files:
+            issues.append({
+                "type": "script_clutter", 
+                "severity": "medium",
+                "count": len(root_script_files),
+                "message": f"{len(root_script_files)} Python scripts in root (should be in scripts/)",
+                "files": [f.name for f in root_script_files]
+            })
+
+        return issues
+
+    def _generate_real_cleanup_suggestions(self, issues: List[Dict], root_files: List[Path]) -> List[Dict]:
+        """Generate REAL cleanup suggestions based on actual issues"""
+        suggestions = []
+        
+        for issue in issues:
+            if issue["type"] == "root_clutter_critical":
+                suggestions.append({
+                    "action": "aggressive_root_cleanup",
+                    "priority": "high",
+                    "message": f"Move {issue['count']} files from root to appropriate directories",
+                    "command": "python scripts/aggressive_repository_cleanup.py"
+                })
+            elif issue["type"] == "documentation_clutter":
+                suggestions.append({
+                    "action": "move_docs_to_docs_dir",
+                    "priority": "high", 
+                    "message": f"Move {issue['count']} .md files to docs/ directory",
+                    "files": issue.get("files", [])
+                })
+            elif issue["type"] == "log_file_clutter":
+                suggestions.append({
+                    "action": "move_logs_to_logs_dir",
+                    "priority": "medium",
+                    "message": f"Move {issue['count']} log files to logs/ directory",
+                    "files": issue.get("files", [])
+                })
+            elif issue["type"] == "script_clutter":
+                suggestions.append({
+                    "action": "move_scripts_to_scripts_dir", 
+                    "priority": "medium",
+                    "message": f"Move {issue['count']} Python scripts to scripts/ directory",
+                    "files": issue.get("files", [])
+                })
+
+        return suggestions
+
+    def _calculate_real_hygiene_metrics(self, root_files: List[Path], issues: List[Dict], all_files: List[Path]) -> Dict:
+        """Calculate REAL hygiene metrics based on repository organization"""
+        # Base score starts at 100
+        hygiene_score = 100.0
+        
+        # Deduct points for root clutter
+        root_file_count = len(root_files)
+        if root_file_count > 30:
+            hygiene_score -= 30
+        elif root_file_count > 25:
+            hygiene_score -= 20
+        elif root_file_count > 20:
+            hygiene_score -= 15
+        elif root_file_count > 15:
+            hygiene_score -= 10
+        elif root_file_count > 10:
+            hygiene_score -= 5
+
+        # Deduct points for specific issues
+        for issue in issues:
+            if issue["severity"] == "high":
+                hygiene_score -= 15
+            elif issue["severity"] == "medium":
+                hygiene_score -= 10
+            else:
+                hygiene_score -= 5
+
+        # Ensure score doesn't go below 0
+        hygiene_score = max(0, hygiene_score)
+
+        return {
+            "hygiene_score": hygiene_score,
+            "root_files": root_file_count,
+            "total_files": len(all_files),
+            "issues_count": len(issues),
+            "critical_issues": sum(1 for i in issues if i.get("severity") == "high"),
+            "organization_score": self._calculate_organization_score_real(root_files, all_files)
+        }
+
+    def _calculate_organization_score_real(self, root_files: List[Path], all_files: List[Path]) -> float:
+        """Calculate organization score based on file distribution"""
+        if len(all_files) == 0:
+            return 100.0
+        
+        # Calculate what percentage of files are properly organized (not in root)
+        non_root_files = len(all_files) - len(root_files)
+        organization_score = (non_root_files / len(all_files)) * 100
+        
+        # Bonus points for having standard directories
+        standard_dirs = ['src', 'scripts', 'docs', 'tests', 'config']
+        existing_dirs = [d.name for d in self.project_root.iterdir() if d.is_dir()]
+        dir_bonus = sum(5 for d in standard_dirs if d in existing_dirs)
+        
+        return min(100.0, organization_score + dir_bonus)
 
     def _find_hygiene_issues(
         self, categorized: Dict[FileCategory, List[Path]]
@@ -534,15 +701,17 @@ if __name__ == "__main__":
     # Analyze project
     report = orchestrator.analyze_project_hygiene()
 
-    print(f"\n📊 Hygiene Score: {report['metrics']['hygiene_score']:.1f}/100")
-    print(f"📁 Untracked Files: {report['untracked_files']}")
+    print(f"\n📊 REAL Hygiene Score: {report['metrics']['hygiene_score']:.1f}/100")
+    print(f"📁 Root Files: {report['root_files']}")
+    print(f"📁 Total Files: {report['total_files']}")
     print(f"⚠️  Issues Found: {report['metrics']['issues_count']}")
-
-    # Show categorized files
-    print("\n📂 File Categories:")
-    for category, count in report["categorized_files"].items():
-        if count > 0:
-            print(f"   {category}: {count} files")
+    
+    # Show root files
+    print(f"\n📂 Root Directory Files ({len(report['root_file_list'])}):")
+    for i, filename in enumerate(report['root_file_list'][:10]):
+        print(f"   {filename}")
+    if len(report['root_file_list']) > 10:
+        print(f"   ... and {len(report['root_file_list']) - 10} more")
 
     # Show issues
     if report["issues"]:
