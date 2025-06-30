@@ -16,9 +16,13 @@ name = "secrets"
 enabled = true
 
 [[transformers]]
-name = "black"
+name = "autopep8"
 enabled = true
 
 [[transformers]]
-name = "isort" 
+name = "isort"
+enabled = true
+
+[[transformers]]
+name = "black"
 enabled = true
