@@ -30,7 +30,8 @@ try:
     from scripts.daily_tasks import run_daily_tasks
 except ImportError as e:
     run_daily_tasks = None
-    print(f"Warning: Could not import run_daily_tasks from scripts.daily_tasks: {e}")
+    print(
+        f"Warning: Could not import run_daily_tasks from scripts.daily_tasks: {e}")
     print("This function will not be available via kindlemint.cli.run_daily_tasks.")
 
 # 2. BookLayoutEngine from scripts.book_layout_bot
@@ -74,6 +75,8 @@ except ImportError:
         from scripts.critical_metadata_qa import CriticalMetadataQA
 
             """Validate Metadata"""
+
+
 def validate_metadata(*args, **kwargs):
             """Wrapper for CriticalMetadataQA.validate_metadata."""
             qa = CriticalMetadataQA()
@@ -129,9 +132,10 @@ def is_legacy_cli_available(name: str) -> bool:
 try:
     if cli:  # noqa: C901  # pragma: no cover
         # Import click lazily to avoid mandatory dependency during unit tests
-        import click  # type: ignore
         import json
         from typing import Any, Dict
+
+        import click  # type: ignore
 
         from kindlemint.marketing.seo_engine_2025 import (
             SEOOptimizedMarketing,
