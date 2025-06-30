@@ -1,2 +1,0 @@
- # Auto-generated. Use requirements-locked.txt for pinned installs.
--r requirements-locked.txt

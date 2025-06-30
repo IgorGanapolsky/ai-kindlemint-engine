@@ -1,132 +1,50 @@
 {
-  "timestamp": "2025-06-30T18:05:01.382793",
+  "timestamp": "2025-06-30T19:05:20.834648",
   "repository": "igorganapolsky/ai-kindlemint-engine",
-  "total_failures": 7,
+  "total_failures": 2,
   "failures": [
     {
-      "job_name": "qa-check",
-      "job_id": 45072785314,
+      "job_name": "Run QA Checks",
+      "job_id": 45076346643,
       "status": "completed",
       "conclusion": "failure",
-      "failed_step": "Set up job",
+      "failed_step": "Run full test suite with JSON report",
       "failure_type": "unknown",
       "error_message": "",
       "suggested_fix": null,
-      "workflow_name": "Puzzle Book QA",
-      "workflow_id": 15980260515,
+      "workflow_name": "QA Checks",
+      "workflow_id": 15981393234,
       "branch": "main",
-      "commit_sha": "9cd0a9a05c3c44ef74c96e35aba5590a32edad6e",
-      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15980260515",
-      "created_at": "2025-06-30T18:03:30Z"
+      "commit_sha": "71ef0dccdff0296080927b4fa54f6c9d85eb92cb",
+      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15981393234",
+      "created_at": "2025-06-30T19:01:19Z"
     },
     {
-      "job_name": "qa-validation",
-      "job_id": 45072785467,
+      "job_name": "Run QA Checks",
+      "job_id": 45076339978,
       "status": "completed",
       "conclusion": "failure",
-      "failed_step": "Run Enhanced QA on each Book",
+      "failed_step": "Run full test suite with JSON report",
       "failure_type": "unknown",
       "error_message": "",
       "suggested_fix": null,
-      "workflow_name": "Production QA Validation",
-      "workflow_id": 15980260519,
+      "workflow_name": "QA Checks",
+      "workflow_id": 15981391294,
       "branch": "main",
-      "commit_sha": "9cd0a9a05c3c44ef74c96e35aba5590a32edad6e",
-      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15980260519",
-      "created_at": "2025-06-30T18:03:30Z"
-    },
-    {
-      "job_name": "\ud83e\uddea Setup & Unit Tests",
-      "job_id": 45072785313,
-      "status": "completed",
-      "conclusion": "failure",
-      "failed_step": "\ud83e\uddea Run Unit Tests",
-      "failure_type": "unknown",
-      "error_message": "",
-      "suggested_fix": null,
-      "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
-      "workflow_id": 15980260524,
-      "branch": "main",
-      "commit_sha": "9cd0a9a05c3c44ef74c96e35aba5590a32edad6e",
-      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15980260524",
-      "created_at": "2025-06-30T18:03:30Z"
-    },
-    {
-      "job_name": "\ud83d\udccb Generate Final Report",
-      "job_id": 45072834858,
-      "status": "completed",
-      "conclusion": "failure",
-      "failed_step": "\ud83c\udfaf Final Status Check",
-      "failure_type": "unknown",
-      "error_message": "",
-      "suggested_fix": null,
-      "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
-      "workflow_id": 15980260524,
-      "branch": "main",
-      "commit_sha": "9cd0a9a05c3c44ef74c96e35aba5590a32edad6e",
-      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15980260524",
-      "created_at": "2025-06-30T18:03:30Z"
-    },
-    {
-      "job_name": "qa-validation",
-      "job_id": 45072340735,
-      "status": "completed",
-      "conclusion": "failure",
-      "failed_step": "Run Enhanced QA on each Book",
-      "failure_type": "unknown",
-      "error_message": "",
-      "suggested_fix": null,
-      "workflow_name": "Production QA Validation",
-      "workflow_id": 15980126271,
-      "branch": "main",
-      "commit_sha": "919e34106c34797bd15080bf5d6e5a7e0445888c",
-      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15980126271",
-      "created_at": "2025-06-30T17:56:24Z"
-    },
-    {
-      "job_name": "\ud83e\uddea Setup & Unit Tests",
-      "job_id": 45072340713,
-      "status": "completed",
-      "conclusion": "failure",
-      "failed_step": "\ud83e\uddea Run Unit Tests",
-      "failure_type": "unknown",
-      "error_message": "",
-      "suggested_fix": null,
-      "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
-      "workflow_id": 15980126265,
-      "branch": "main",
-      "commit_sha": "919e34106c34797bd15080bf5d6e5a7e0445888c",
-      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15980126265",
-      "created_at": "2025-06-30T17:56:24Z"
-    },
-    {
-      "job_name": "\ud83d\udccb Generate Final Report",
-      "job_id": 45072384684,
-      "status": "completed",
-      "conclusion": "failure",
-      "failed_step": "\ud83c\udfaf Final Status Check",
-      "failure_type": "unknown",
-      "error_message": "",
-      "suggested_fix": null,
-      "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
-      "workflow_id": 15980126265,
-      "branch": "main",
-      "commit_sha": "919e34106c34797bd15080bf5d6e5a7e0445888c",
-      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15980126265",
-      "created_at": "2025-06-30T17:56:24Z"
+      "commit_sha": "a8ea4817313d0e5d643ac7d66a2589d29e682e51",
+      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15981391294",
+      "created_at": "2025-06-30T19:01:14Z"
     }
   ],
   "failure_summary": {
     "by_type": {
-      "unknown": 7
+      "unknown": 2
     },
     "by_workflow": {
-      "Puzzle Book QA": 1,
-      "Production QA Validation": 2,
-      "\ud83d\udd0d Comprehensive QA & Testing": 4
+      "QA Checks": 2
     },
     "by_branch": {
-      "main": 7
+      "main": 2
     }
   }
 }

@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-06-30T19:11:07.909539",
+  "repository": "IgorGanapolsky/ai-kindlemint-engine",
+  "total_failures": 0,
+  "analyzed_failures": [],
+  "summary": {
+    "auto_fixable": 0,
+    "manual_review": 0,
+    "by_strategy_type": {},
+    "by_failure_type": {}
+  }
+}

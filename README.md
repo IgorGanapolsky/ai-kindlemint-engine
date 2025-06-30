@@ -6,6 +6,8 @@
 [![codecov](https://codecov.io/gh/IgorGanapolsky/ai-kindlemint-engine/graph/badge.svg)](https://codecov.io/gh/IgorGanapolsky/ai-kindlemint-engine)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/YOUR_PROJECT_ID)](https://app.codacy.com/gh/IgorGanapolsky/ai-kindlemint-engine/dashboard?utm_source=gh&utm_medium=referral&utm_content=IgorGanapolsky/ai-kindlemint-engine&utm_campaign=Badge_grade)
+[![Hygiene Score](https://img.shields.io/badge/hygiene-80%25-yellow)](scripts/hygiene_cleanup.py)
 [![GitHub Forks](https://img.shields.io/github/forks/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/network)
 [![GitHub Stars](https://img.shields.io/github/stars/IgorGanapolsky/ai-kindlemint-engine?style=social)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/stargazers)
 [![GitHub Issues](https://img.shields.io/github/issues/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/issues)

@@ -1,0 +1,27 @@
+{
+  "timestamp": "2025-06-30T15:45:12.345291",
+  "issues": [],
+  "suggestions": [
+    {
+      "action": "staged_commits",
+      "priority": "medium",
+      "message": "Use staged commits to organize changes logically"
+    }
+  ],
+  "metrics": {
+    "hygiene_score": 95.0,
+    "untracked_files": 49,
+    "temporary_files": 0,
+    "organization_score": 89.79591836734694,
+    "issues_count": 0,
+    "critical_issues": 0
+  },
+  "untracked_files": 49,
+  "categorized_files": {
+    "source": 11,
+    "config": 7,
+    "unknown": 5,
+    "script": 12,
+    "test": 14
+  }
+}

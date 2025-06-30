@@ -15,7 +15,7 @@
    🚫 Fake badges: 4 detected
    - Coverage: Static placeholder with "95%"
    - Performance: Static placeholder
-   - Claude Code: Contains "enabled" 
+   - Claude Code: Contains "enabled"
    - Sentry: Contains "monitoring"
    - Bad link: fake-coverage-service.com doesn't exist
    ```
@@ -58,12 +58,12 @@ When fake badges are detected, the orchestration generates:
 1. Remove fake badges:
    - Coverage 95% → Use real Codecov integration
    - Performance Excellent → Remove (no metric)
-   
+
 2. Replace with real badges:
    - Tests: ✅ Already valid
    - SonarCloud: ✅ Already valid
    - Add: Real coverage from test runs
-   
+
 3. Setup required services:
    - Codecov: `codecov.yml` configuration
    - SonarCloud: Project setup needed

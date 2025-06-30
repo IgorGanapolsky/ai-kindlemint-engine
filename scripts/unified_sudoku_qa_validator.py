@@ -19,7 +19,6 @@ from PIL import Image
 from kindlemint.validators.sudoku_validator import SudokuValidator
 
 
-
 class UnifiedSudokuQAValidator:
     """THE ONLY validator you should use for Sudoku books"""
 
@@ -232,16 +231,20 @@ class UnifiedSudokuQAValidator:
         sudoku_validator = SudokuValidator(strict_mode=False)
         validation_result = sudoku_validator.validate_directory(metadata_dir)
 
-        self.report['content_validation'] = validation_result.to_dict()
+        self.report["content_validation"] = validation_result.to_dict()
 
-        if validation_result.has_errors():
+        if validation_result.has_errors:
             for issue in validation_result.issues:
-                if issue.severity == 'ERROR':
-                    self.report['errors'].append(f"❌ Puzzle {issue.puzzle_id}: {issue.description}")
-                elif issue.severity == 'WARNING':
-                    self.report['warnings'].append(f"⚠️ Puzzle {issue.puzzle_id}: {issue.description}")
+                if issue.severity == "ERROR":
+                    self.report["errors"].append(
+                        f"❌ Puzzle {issue.puzzle_id}: {issue.description}"
+                    )
+                elif issue.severity == "WARNING":
+                    self.report["warnings"].append(
+                        f"⚠️ Puzzle {issue.puzzle_id}: {issue.description}"
+                    )
         else:
-            self.report['passed'].append("✅ Puzzle data consistency OK")
+            self.report["passed"].append("✅ Puzzle data consistency OK")
 
     def _determine_final_status(self):
         """Determine overall PASS/FAIL status."""

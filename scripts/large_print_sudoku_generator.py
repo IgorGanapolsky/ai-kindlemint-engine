@@ -11,6 +11,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
+from kindlemint.engines.sudoku import SudokuGenerator as CoreSudokuGenerator
+
 
 class LargePrintSudokuGenerator:
     """Generate market-aligned large print Sudoku puzzles"""
@@ -59,7 +61,7 @@ class LargePrintSudokuGenerator:
         self._draw_grid(draw)
 
         # Add numbers with true large print - make clues BOLD and prominent
-        initial_grid = puzzle_data.get("initial_grid", [[0] * 9] * 9)
+        initial_grid = puzzle_data.get("grid", [[0] * 9] * 9)
         for row in range(self.grid_size):
             for col in range(self.grid_size):
                 value = initial_grid[row][col]
@@ -197,77 +199,15 @@ class LargePrintSudokuGenerator:
 
     def generate_sudoku_puzzle(self, difficulty="medium"):
         """Generate a Sudoku puzzle with the specified difficulty"""
-        # Generate a complete valid Sudoku grid
-        solution = self._generate_complete_grid()
-
-        # Remove numbers based on difficulty - optimized for customer satisfaction
-        clue_counts = {
-            "easy": random.randint(42, 46),  # Much more accessible for seniors
-            "medium": random.randint(32, 38),  # Balanced challenge
-            "hard": random.randint(26, 31),  # Still challenging but solvable
-        }
-
-        clue_count = clue_counts.get(difficulty, 32)
-        initial_grid = self._remove_numbers(solution, clue_count)
+        core_generator = CoreSudokuGenerator()
+        puzzle_data = core_generator.generate_puzzle(difficulty)
 
         return {
-            "initial_grid": initial_grid,
-            "solution_grid": solution,
+            "initial_grid": puzzle_data["grid"],
+            "solution_grid": puzzle_data["solution"],
             "difficulty": difficulty,
-            "clue_count": clue_count,
+            "clue_count": puzzle_data["clue_count"],
         }
-
-    def _generate_complete_grid(self):
-        """Generate a complete valid Sudoku grid"""
-        # Start with a base valid grid and shuffle it
-        base = [
-            [1, 2, 3, 4, 5, 6, 7, 8, 9],
-            [4, 5, 6, 7, 8, 9, 1, 2, 3],
-            [7, 8, 9, 1, 2, 3, 4, 5, 6],
-            [2, 3, 4, 5, 6, 7, 8, 9, 1],
-            [5, 6, 7, 8, 9, 1, 2, 3, 4],
-            [8, 9, 1, 2, 3, 4, 5, 6, 7],
-            [3, 4, 5, 6, 7, 8, 9, 1, 2],
-            [6, 7, 8, 9, 1, 2, 3, 4, 5],
-            [9, 1, 2, 3, 4, 5, 6, 7, 8],
-        ]
-
-        # Shuffle rows within each band
-        for band in range(3):
-            rows = list(range(band * 3, band * 3 + 3))
-            random.shuffle(rows)
-            for i, row in enumerate(rows):
-                if i != row % 3:
-                    base[band * 3 + i], base[row] = base[row], base[band * 3 + i]
-
-        # Shuffle columns within each stack
-        base = list(zip(*base))  # Transpose
-        for stack in range(3):
-            cols = list(range(stack * 3, stack * 3 + 3))
-            random.shuffle(cols)
-            for i, col in enumerate(cols):
-                if i != col % 3:
-                    base[stack * 3 + i], base[col] = base[col], base[stack * 3 + i]
-        base = list(zip(*base))  # Transpose back
-
-        # Convert back to list of lists
-        return [list(row) for row in base]
-
-    def _remove_numbers(self, solution, clue_count):
-        """Remove numbers from solution to create puzzle"""
-        puzzle = [row[:] for row in solution]
-        cells_to_remove = 81 - clue_count
-
-        # Get all cell positions
-        positions = [(r, c) for r in range(9) for c in range(9)]
-        random.shuffle(positions)
-
-        # Remove numbers
-        for i in range(cells_to_remove):
-            row, col = positions[i]
-            puzzle[row][col] = 0
-
-        return puzzle
 
     def generate_batch(self, count, difficulty="medium"):
         """Generate a batch of puzzles with metadata"""

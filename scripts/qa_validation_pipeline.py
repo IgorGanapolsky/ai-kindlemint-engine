@@ -466,13 +466,14 @@ class QAValidationPipeline:
             "contains all numbers from 1 to 9",
             "TIP:",
         ]
-        
+
         # Must have multiple instruction indicators for complete guidance
         found_indicators = sum(
-            1 for indicator in instruction_indicators 
+            1
+            for indicator in instruction_indicators
             if indicator.lower() in text.lower()
         )
-        
+
         # Require at least 3 out of 5 key instruction elements
         return found_indicators >= 3
 

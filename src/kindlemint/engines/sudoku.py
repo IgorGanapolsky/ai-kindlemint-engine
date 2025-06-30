@@ -256,22 +256,54 @@ class SudokuGenerator:
 
                     additional_attempts += 1
 
+        # Final check to ensure no empty rows or columns
+        for i in range(9):
+            if all(puzzle[i][j] == 0 for j in range(9)):
+                # This row is empty, so we need to add a clue back.
+                # Find a cell in this row that was removed and restore it.
+                for row, col in reversed(cells):
+                    if row == i:
+                        puzzle[row][col] = solution[row][col]
+                        break
+
+            if all(puzzle[j][i] == 0 for j in range(9)):
+                # This column is empty, so we need to add a clue back.
+                for row, col in reversed(cells):
+                    if col == i:
+                        puzzle[row][col] = solution[row][col]
+                        break
+
         return puzzle
 
     def generate_puzzle(self, difficulty: str = "medium") -> Dict:
-        """Generate a single Sudoku puzzle with solution."""
-        # Validate difficulty
-        if difficulty not in ["easy", "medium", "hard", "expert"]:
-            difficulty = "medium"
+        """
+        Generate a single, structurally valid Sudoku puzzle with a unique solution.
+        This method will loop until a valid puzzle is created.
+        """
+        while True:
+            if difficulty not in self.difficulty_params:
+                difficulty = "medium"
 
-        # Generate complete valid grid
-        solution = self._generate_complete_grid()
+            solution = self._generate_complete_grid()
+            puzzle = self._create_puzzle_from_solution(solution, difficulty)
 
-        # Create puzzle by removing cells
-        puzzle = self._create_puzzle_from_solution(solution, difficulty)
+            # Perform final, definitive validation
+            clue_count = sum(1 for row in puzzle for cell in row if cell != 0)
+            if clue_count < 17:  # Absolute minimum for a unique solution
+                continue
 
-        # Count clues
-        clue_count = sum(1 for row in puzzle for cell in row if cell != 0)
+            has_empty_row = any(all(cell == 0 for cell in row) for row in puzzle)
+            if has_empty_row:
+                continue
+
+            has_empty_col = any(
+                all(puzzle[i][j] == 0 for i in range(9)) for j in range(9)
+            )
+            if has_empty_col:
+                continue
+
+            # If all checks pass, we have a valid puzzle
+            break
 
         return {
             "grid": puzzle,

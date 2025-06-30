@@ -12,9 +12,9 @@ import pytest
 from scripts.a2a_protocol.base_agent import (
     A2AAgent,
     A2AMessage,
+    A2ARegistry,
     AgentCapability,
     AgentCard,
-    A2ARegistry,
 )
 from scripts.a2a_protocol.message_bus import A2AMessageBus, A2AOrchestrator
 from scripts.a2a_protocol.puzzle_validator_agent import PuzzleValidatorAgent

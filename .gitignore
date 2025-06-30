@@ -232,3 +232,23 @@ research/
 scripts/ci_orchestration/ci_orchestration_cycle_*.json
 scripts/ci_orchestration/ci_orchestration_results.json
 scripts/ci_orchestration/*.log
+
+# A2A Protocol
+a2a_registry.json
+
+# Temporary files
+temp_*.png
+temp_puzzle_image.png
+
+# Code Hygiene Patterns
+.ci_artifacts/
+ci_orchestration_cycle_*.json
+.archive/
+.misc/
+*.tmp
+*.temp
+*.bak
+full.txt
+input.txt
+output.txt
+.cleanup_backup_*/

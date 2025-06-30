@@ -81,7 +81,7 @@ python3 scripts/aws_status_checker.py
 
 ## 🎯 Next Steps
 
-1. **Commit Changes**: 
+1. **Commit Changes**:
    ```bash
    git add .
    git commit -m "Deploy AWS infrastructure with status monitoring"

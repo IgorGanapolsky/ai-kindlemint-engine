@@ -1,4 +1,5 @@
 """Automated cover generation agent using DALL-E 3 API."""
+
 import io
 import logging
 from pathlib import Path
@@ -15,17 +16,18 @@ from ..utils.api_manager import get_api_manager  # Added
 
 logger = logging.getLogger(__name__)
 
+
 class CoverAgent:
     """Generates professional book covers using DALL-E 3 API with quality analysis."""
 
-    def __init__(self): # Removed api_key parameter
+    def __init__(self):  # Removed api_key parameter
         """Initialize the cover generation agent."""
         # self.api_key = api_key or os.getenv("OPENAI_API_KEY") # Removed
         # if not self.api_key: # Removed
         #     raise ValueError("OpenAI API key not provided and OPENAI_API_KEY environment variable not set") # Removed
 
         # self.client = OpenAI(api_key=self.api_key) # Removed
-        self.api_manager = get_api_manager() # Added
+        self.api_manager = get_api_manager()  # Added
         self.cover_cache = {}
         self.fonts_dir = Path(__file__).parent.parent.parent / "assets" / "fonts"
         self.fonts_dir.mkdir(parents=True, exist_ok=True)  # Ensure directory exists
@@ -38,7 +40,9 @@ class CoverAgent:
         try:
             return ImageFont.truetype(str(font_path), size)
         except IOError:
-            logger.warning(f"Font file not found at {font_path}. Falling back to default font.")
+            logger.warning(
+                f"Font file not found at {font_path}. Falling back to default font."
+            )
             return ImageFont.load_default()
 
     def generate_professional_cover(
@@ -47,7 +51,7 @@ class CoverAgent:
         subtitle: str = "",
         niche: str = "non-fiction",
         num_options: int = 1,
-        output_path: str = "generated_cover.jpg"
+        output_path: str = "generated_cover.jpg",
     ) -> Tuple[str, float]:
         """Generate a professional book cover using DALL-E 3.
 
@@ -66,18 +70,26 @@ class CoverAgent:
 
             # Generate multiple cover options
             cover_options = []
-            for i in range(min(num_options, 4)):  # DALL-E 3 rate limits (assuming APIManager handles this)
+            for i in range(
+                min(num_options, 4)
+            ):  # DALL-E 3 rate limits (assuming APIManager handles this)
                 try:
-                    prompt = self._create_cover_prompt(book_title, subtitle, niche, variation=i)
+                    prompt = self._create_cover_prompt(
+                        book_title, subtitle, niche, variation=i
+                    )
                     # _generate_single_cover now uses APIManager
                     cover_data = self._generate_single_cover(prompt, f"option_{i+1}")
 
                     if cover_data:
                         # Analyze quality
-                        quality_score = self._analyze_cover_quality(cover_data["image"], book_title)
+                        quality_score = self._analyze_cover_quality(
+                            cover_data["image"], book_title
+                        )
                         cover_data["quality_score"] = quality_score
                         cover_options.append(cover_data)
-                        logger.info(f"Generated cover option {i+1} with quality score: {quality_score:.2f}")
+                        logger.info(
+                            f"Generated cover option {i+1} with quality score: {quality_score:.2f}"
+                        )
                     else:
                         logger.warning(f"Failed to generate cover option {i+1}")
 
@@ -87,7 +99,9 @@ class CoverAgent:
             # Select best option
             if cover_options:
                 best_cover = max(cover_options, key=lambda x: x["quality_score"])
-                logger.info(f"Selected best cover with quality score: {best_cover['quality_score']:.2f}")
+                logger.info(
+                    f"Selected best cover with quality score: {best_cover['quality_score']:.2f}"
+                )
 
                 # Save the final cover
                 final_path = self._save_cover_image(best_cover["image"], output_path)
@@ -100,7 +114,9 @@ class CoverAgent:
             logger.error(f"Error in cover generation process: {str(e)}")
             return "", 0.0
 
-    def _create_cover_prompt(self, title: str, subtitle: str, niche: str, variation: int = 0) -> str:
+    def _create_cover_prompt(
+        self, title: str, subtitle: str, niche: str, variation: int = 0
+    ) -> str:
         """Create a detailed prompt for DALL-E 3 cover generation.
 
         Args:

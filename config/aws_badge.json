@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "label": "AWS Infrastructure",
+  "message": "Operational (100.0%)",
+  "color": "brightgreen",
+  "cacheSeconds": 300
+}
