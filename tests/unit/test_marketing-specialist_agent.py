@@ -16,7 +16,7 @@ import sys
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from marketing-specialist_agent import MarketingSpecialistAgent
+MarketingSpecialistAgent = __import__("marketing-specialist_agent").MarketingSpecialistAgent
 
 
 class TestMarketingSpecialistAgent:
