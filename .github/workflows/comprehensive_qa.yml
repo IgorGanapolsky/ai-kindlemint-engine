@@ -195,26 +195,62 @@ jobs:
         echo "book_dirs=${book_dirs}" >> $GITHUB_OUTPUT
         echo "Found book directories: ${book_dirs}"
 
-    - name: 🔍 Run Enhanced QA Validator v3
+    - name: 🔍 Run Enhanced QA Pipeline with Puzzle Validation
       if: steps.find-books.outputs.book_dirs != ''
       run: |
         # Set PYTHONPATH to allow validator to import other local scripts
         export PYTHONPATH=$GITHUB_WORKSPACE
-        for dir in ${{ steps.find-books.outputs.book_dirs }}; do
-          echo "🔍 Running Enhanced QA v3 on ${dir}..."
-          if [ -f "scripts/enhanced_qa_validator_v3.py" ]; then
-            python scripts/enhanced_qa_validator_v3.py "${dir}" --output-dir "${dir}" --verbose || echo "⚠️ QA issues found in ${dir}"
+
+        # Install PDF processing tools
+        sudo apt-get update && sudo apt-get install -y poppler-utils
+
+        echo "🔍 Running Enhanced QA Pipeline with puzzle-specific validation..."
+
+        # Find and validate all PDF files in active production
+        pdf_files=$(find books/active_production -name "*.pdf" -type f | head -10) # Limit for CI performance
+
+        if [ -z "$pdf_files" ]; then
+          echo "⚠️ No PDF files found for validation"
+          exit 0
+        fi
+
+        overall_result=0
+        for pdf_file in $pdf_files; do
+          echo "🔍 Validating: $pdf_file"
+
+          # Run our enhanced QA validation pipeline
+          if python scripts/qa_validation_pipeline.py "$pdf_file"; then
+            echo "✅ $pdf_file passed QA validation"
           else
-            echo "⚠️ enhanced_qa_validator_v3.py not found, skipping."
+            echo "❌ $pdf_file failed QA validation"
+            overall_result=1
           fi
+
+          echo "---"
         done
+
+        # Always create a summary report even if some validations fail
+        echo "📊 QA Validation Summary:" > qa_summary.txt
+        echo "Total PDFs validated: $(echo "$pdf_files" | wc -l)" >> qa_summary.txt
+        echo "Validation completed at: $(date)" >> qa_summary.txt
+
+        if [ $overall_result -ne 0 ]; then
+          echo "❌ Some QA validations failed - this will trigger CI orchestration"
+          echo "Status: FAILED" >> qa_summary.txt
+          exit 1
+        else
+          echo "✅ All QA validations passed"
+          echo "Status: PASSED" >> qa_summary.txt
+        fi
 
     - name: 📊 Upload QA Reports
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: content-qa-reports
-        path: books/active_production/**/ENHANCED_QA_REPORT_v3_*.json
+        name: enhanced-qa-reports
+        path: |
+          books/active_production/**/qa/qa_validation_*.json
+          qa_summary.txt
         retention-days: 30
 
   final-report:

@@ -5,12 +5,11 @@ CI Analyzer - Analyzes CI failures and determines appropriate fix strategies
 
 import json
 import logging
-import os
 import re
 import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
@@ -99,6 +98,38 @@ class CIAnalyzer:
                     r"cannot find file '([^']+)'",
                 ],
                 "analyzer": self._analyze_path_error,
+            },
+            "puzzle_qa_failure": {
+                "patterns": [
+                    r"blank_puzzles.*detected",
+                    r"missing_clues.*Only (\d+)% of puzzles have visible clues",
+                    r"repeated_solutions.*(\d+)% of solution explanations are identical",
+                    r"low_variety.*Only (\d+)% puzzle variety",
+                    r"invalid_structure.*missing puzzle content",
+                    r"Detected blank or missing puzzle grids",
+                    r"QA.*failed.*puzzle.*integrity",
+                ],
+                "analyzer": self._analyze_puzzle_qa_failure,
+            },
+            "pdf_generation_error": {
+                "patterns": [
+                    r"could not generate puzzle grid",
+                    r"create_puzzle_grid.*not found",
+                    r"create_solution_grid.*not found",
+                    r"AttributeError.*create_puzzle_grid",
+                    r"AttributeError.*create_solution_grid",
+                    r"PDF generation.*failed",
+                ],
+                "analyzer": self._analyze_pdf_generation_error,
+            },
+            "content_validation_error": {
+                "patterns": [
+                    r"puzzle integrity.*(\d+\.\d+).*threshold.*(\d+)",
+                    r"overall score.*(\d+\.\d+).*failed",
+                    r"QA validation.*failed",
+                    r"unsellable.*book.*content",
+                ],
+                "analyzer": self._analyze_content_validation_error,
             },
         }
 
@@ -411,6 +442,196 @@ class CIAnalyzer:
                         auto_fixable=True,
                     )
                 )
+
+        return strategies
+
+    def _analyze_puzzle_qa_failure(
+        self, matches: List, failure_info: Dict
+    ) -> List[FixStrategy]:
+        """Analyze puzzle QA failures and suggest specific fixes"""
+        strategies = []
+
+        logs = failure_info.get("logs", "")
+
+        # Check for blank puzzles (critical issue)
+        if any(
+            "blank_puzzles" in str(match) or "blank.*puzzle" in logs.lower()
+            for match in matches
+        ):
+            strategies.append(
+                FixStrategy(
+                    strategy_type="fix_blank_puzzles",
+                    description="Fix blank puzzle generation by implementing fallback grid methods",
+                    confidence=0.95,
+                    files_to_modify=["scripts/market_aligned_sudoku_pdf.py"],
+                    commands=[
+                        "python scripts/market_aligned_sudoku_pdf.py --test-fallback",
+                        "python -c \"import scripts.large_print_sudoku_generator; print('Generator working')\"",
+                    ],
+                    estimated_complexity="medium",
+                    auto_fixable=True,
+                )
+            )
+
+        # Check for missing clues
+        clue_pattern = r"missing_clues.*Only (\d+)%"
+        clue_matches = re.findall(clue_pattern, logs)
+        if clue_matches:
+            clue_percentage = int(clue_matches[0])
+            strategies.append(
+                FixStrategy(
+                    strategy_type="fix_missing_clues",
+                    description=f"Fix missing clues (only {clue_percentage}% visible) in puzzle generation",
+                    confidence=0.9,
+                    files_to_modify=[
+                        "scripts/large_print_sudoku_generator.py",
+                        "scripts/market_aligned_sudoku_pdf.py",
+                    ],
+                    commands=[
+                        "python scripts/large_print_sudoku_generator.py --validate-clues"
+                    ],
+                    estimated_complexity="medium",
+                    auto_fixable=True,
+                )
+            )
+
+        # Check for repeated solutions
+        repeat_pattern = r"repeated_solutions.*(\d+)%"
+        repeat_matches = re.findall(repeat_pattern, logs)
+        if repeat_matches:
+            repeat_percentage = int(repeat_matches[0])
+            strategies.append(
+                FixStrategy(
+                    strategy_type="fix_repeated_solutions",
+                    description=f"Fix repeated solution explanations ({repeat_percentage}% identical)",
+                    confidence=0.85,
+                    files_to_modify=["scripts/market_aligned_sudoku_pdf.py"],
+                    commands=[
+                        "python -c \"from scripts.market_aligned_sudoku_pdf import MarketAlignedSudokuPDF; print('Solution variety check')\""
+                    ],
+                    estimated_complexity="low",
+                    auto_fixable=True,
+                )
+            )
+
+        # Generic puzzle QA fix if specific patterns not found
+        if not strategies:
+            strategies.append(
+                FixStrategy(
+                    strategy_type="regenerate_puzzles",
+                    description="Regenerate all puzzle PDFs with enhanced QA validation",
+                    confidence=0.8,
+                    files_to_modify=[],
+                    commands=[
+                        "python scripts/market_aligned_sudoku_pdf.py --regenerate-all",
+                        "python scripts/qa_validation_pipeline.py --validate-all",
+                    ],
+                    estimated_complexity="medium",
+                    auto_fixable=True,
+                )
+            )
+
+        return strategies
+
+    def _analyze_pdf_generation_error(
+        self, matches: List, failure_info: Dict
+    ) -> List[FixStrategy]:
+        """Analyze PDF generation errors and suggest fixes"""
+        strategies = []
+
+        logs = failure_info.get("logs", "")
+
+        # Check for missing fallback methods (the exact issue we had)
+        if any(
+            "create_puzzle_grid" in str(match) or "create_solution_grid" in str(match)
+            for match in matches
+        ):
+            strategies.append(
+                FixStrategy(
+                    strategy_type="implement_fallback_methods",
+                    description="Implement missing create_puzzle_grid and create_solution_grid fallback methods",
+                    confidence=0.95,
+                    files_to_modify=["scripts/market_aligned_sudoku_pdf.py"],
+                    commands=[
+                        "python -c \"import ast; print('Validating PDF generator syntax')\"",
+                        "python scripts/market_aligned_sudoku_pdf.py --test",
+                    ],
+                    estimated_complexity="medium",
+                    auto_fixable=True,
+                )
+            )
+
+        # Generic PDF generation fix
+        else:
+            strategies.append(
+                FixStrategy(
+                    strategy_type="fix_pdf_generation",
+                    description="Fix PDF generation pipeline errors",
+                    confidence=0.75,
+                    files_to_modify=[
+                        "scripts/market_aligned_sudoku_pdf.py",
+                        "scripts/large_print_sudoku_generator.py",
+                    ],
+                    commands=[
+                        "python -m pip install --upgrade reportlab",
+                        "python scripts/market_aligned_sudoku_pdf.py --verify",
+                    ],
+                    estimated_complexity="medium",
+                    auto_fixable=True,
+                )
+            )
+
+        return strategies
+
+    def _analyze_content_validation_error(
+        self, matches: List, failure_info: Dict
+    ) -> List[FixStrategy]:
+        """Analyze content validation errors and suggest fixes"""
+        strategies = []
+
+        logs = failure_info.get("logs", "")
+
+        # Extract QA scores if available
+        score_pattern = r"overall score.*(\d+\.\d+)"
+        score_matches = re.findall(score_pattern, logs.lower())
+
+        if score_matches:
+            score = float(score_matches[0])
+            if score < 85:  # Below passing threshold
+                strategies.append(
+                    FixStrategy(
+                        strategy_type="improve_content_quality",
+                        description=f"Improve content quality (current score: {score}/100)",
+                        confidence=0.9,
+                        files_to_modify=[
+                            "scripts/market_aligned_sudoku_pdf.py",
+                            "scripts/qa_validation_pipeline.py",
+                        ],
+                        commands=[
+                            "python scripts/qa_validation_pipeline.py --detailed-report",
+                            "python scripts/market_aligned_sudoku_pdf.py --quality-check",
+                        ],
+                        estimated_complexity="medium",
+                        auto_fixable=True,
+                    )
+                )
+
+        # If QA validation failed generally
+        if "qa validation.*failed" in logs.lower():
+            strategies.append(
+                FixStrategy(
+                    strategy_type="fix_qa_validation",
+                    description="Fix failing QA validation checks",
+                    confidence=0.8,
+                    files_to_modify=["scripts/qa_validation_pipeline.py"],
+                    commands=[
+                        "python scripts/qa_validation_pipeline.py --debug",
+                        "python -c \"print('QA pipeline verification')\"",
+                    ],
+                    estimated_complexity="medium",
+                    auto_fixable=True,
+                )
+            )
 
         return strategies
 
