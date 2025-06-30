@@ -1,0 +1,223 @@
+{
+  "file_path": "books/active_production/Large_Print_Sudoku_Masters/volume_4/paperback/Large_Print_Sudoku_Masters:_Volume_4_Interior.pdf",
+  "timestamp": "2025-06-29T15:36:39.449214",
+  "overall_score": 55,
+  "publish_ready": false,
+  "issues_found": [
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 1: The sample does not provide any actual Sudoku puzzles or solutions, making it impossible to verify puzzle integrity."
+    },
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 2: The content sample includes repeated sections, such as the repeated mention of 'Difficulty: Hard' for each puzzle without any variation or actual puzzle content."
+    }
+  ],
+  "warnings": [
+    {
+      "type": "WARNING",
+      "code": "High duplication",
+      "description": "Content is 27.1% duplicate (threshold: 10.0%)"
+    },
+    {
+      "type": "WARNING",
+      "code": "Invalid clues",
+      "description": "Found 1 potentially invalid clue-answer pairs"
+    },
+    {
+      "type": "WARNING",
+      "code": "Excessive whitespace",
+      "description": "106 of 106 pages (100.0%) have excessive whitespace"
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 1: The book's structure is not fully clear from the sample, as it lacks a table of contents or clear section headings."
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 2: The sample does not provide any information on the number of puzzles or their distribution across difficulty levels, aside from 'Hard'."
+    },
+    {
+      "type": "WARNING",
+      "code": "KDP check error",
+      "description": "KDP compliance check failed: 'Document' object has no attribute 'pdf_version'"
+    }
+  ],
+  "info": [],
+  "checks": {
+    "file_properties": {
+      "file_exists": true,
+      "file_size_bytes": 1934678
+    },
+    "pdf_structure": {
+      "page_count": 106,
+      "not_encrypted": true,
+      "fonts": {
+        "all_embedded": true,
+        "fonts": [
+          {
+            "name": "Helvetica",
+            "embedded": true,
+            "page": 1
+          },
+          {
+            "name": "Helvetica-Bold",
+            "embedded": true,
+            "page": 1
+          },
+          {
+            "name": "ZapfDingbats",
+            "embedded": true,
+            "page": 1
+          }
+        ]
+      }
+    },
+    "content_quality": {
+      "total_characters": 6041,
+      "total_words": 953,
+      "duplicate_content_ratio": 0.2710027100271003
+    },
+    "visual_layout": {
+      "pages_analyzed": 106,
+      "pages_with_high_whitespace": 106,
+      "text_cutoff_instances": 0,
+      "whitespace_ratio_by_page": {
+        "1": 0.9630908760810721,
+        "2": 0.9701818016768997,
+        "3": 0.944537284610814,
+        "4": 0.9821189839572193,
+        "5": 0.9717229484386347,
+        "6": 0.971638360731498,
+        "7": 0.9716197926982241,
+        "8": 0.9716301082722651,
+        "9": 0.9715970984353337,
+        "10": 0.9716177295834159,
+        "11": 0.9717188222090183,
+        "12": 0.9715702779428269,
+        "13": 0.9714898164653066,
+        "14": 0.9714176074470192,
+        "15": 0.9714712484320327,
+        "16": 0.9713598402323893,
+        "17": 0.9712835049844853,
+        "18": 0.9714547435135671,
+        "19": 0.9712319271142801,
+        "20": 0.9713763451508549,
+        "21": 0.9713825344952796,
+        "22": 0.9713350828546907,
+        "23": 0.9713247672806496,
+        "24": 0.9713619033471975,
+        "25": 0.9713350828546907,
+        "26": 0.9713206410510332,
+        "27": 0.9711968541625404,
+        "28": 0.9713350828546907,
+        "29": 0.9712876312141018,
+        "30": 0.9712463689179376,
+        "31": 0.9713020730177593,
+        "32": 0.9712463689179376,
+        "33": 0.9712690631808278,
+        "34": 0.9712649369512114,
+        "35": 0.9713763451508549,
+        "36": 0.9712917574437182,
+        "37": 0.9712835049844853,
+        "38": 0.9713206410510332,
+        "39": 0.9712257377698554,
+        "40": 0.9712051066217733,
+        "41": 0.97128969432891,
+        "42": 0.9711060771109791,
+        "43": 0.9712298639994719,
+        "44": 0.9713288935102661,
+        "45": 0.971386660724896,
+        "46": 0.9712731894104443,
+        "47": 0.97134746154354,
+        "48": 0.9713557140027729,
+        "49": 0.9712649369512114,
+        "50": 0.9713247672806496,
+        "51": 0.9713433353139236,
+        "52": 0.9712690631808278,
+        "53": 0.9712030435069651,
+        "54": 0.9712401795735129,
+        "55": 0.9713433353139236,
+        "56": 0.9711432131775269,
+        "57": 0.9712855680992936,
+        "58": 0.9712670000660196,
+        "59": 0.9712360533438965,
+        "60": 0.9712422426883212,
+        "61": 0.9712793787548689,
+        "62": 0.9711597180959926,
+        "63": 0.9712051066217733,
+        "64": 0.9711865385884993,
+        "65": 0.9713557140027729,
+        "66": 0.9712649369512114,
+        "67": 0.9712278008846637,
+        "68": 0.9712649369512114,
+        "69": 0.9712071697365815,
+        "70": 0.9712422426883212,
+        "71": 0.9712360533438965,
+        "72": 0.9712298639994719,
+        "73": 0.9712278008846637,
+        "74": 0.9713123885918004,
+        "75": 0.9714774377764573,
+        "76": 0.9713288935102661,
+        "77": 0.9713103254769921,
+        "78": 0.9713660295768138,
+        "79": 0.9713000099029511,
+        "80": 0.9713144517066086,
+        "81": 0.9712958836733346,
+        "82": 0.9712298639994719,
+        "83": 0.9712731894104443,
+        "84": 0.9712401795735129,
+        "85": 0.9713206410510332,
+        "86": 0.9712422426883212,
+        "87": 0.9712628738364032,
+        "88": 0.9712546213771704,
+        "89": 0.9712236746550472,
+        "90": 0.9712278008846637,
+        "91": 0.9711019508813626,
+        "92": 0.9711576549811844,
+        "93": 0.9711886017033076,
+        "94": 0.9712381164587047,
+        "95": 0.9713660295768138,
+        "96": 0.971250495147554,
+        "97": 0.9711762230144583,
+        "98": 0.9712731894104443,
+        "99": 0.971153528751568,
+        "100": 0.9712154221958144,
+        "101": 0.9713144517066086,
+        "102": 0.9711968541625404,
+        "103": 0.9711060771109791,
+        "104": 0.9711473394071434,
+        "105": 0.9640399088928501,
+        "106": 0.9965731663035584
+      },
+      "whitespace_compliance": 0.0
+    },
+    "llm_content_validation": {
+      "models_used": [
+        "gpt4o"
+      ],
+      "validation_results": {
+        "gpt4o": {
+          "quality_score": 78,
+          "issues": [
+            "Critical issue 1: The sample does not provide any actual Sudoku puzzles or solutions, making it impossible to verify puzzle integrity.",
+            "Critical issue 2: The content sample includes repeated sections, such as the repeated mention of 'Difficulty: Hard' for each puzzle without any variation or actual puzzle content."
+          ],
+          "warnings": [
+            "Warning 1: The book's structure is not fully clear from the sample, as it lacks a table of contents or clear section headings.",
+            "Warning 2: The sample does not provide any information on the number of puzzles or their distribution across difficulty levels, aside from 'Hard'."
+          ],
+          "feedback": "The book sample lacks critical content needed to assess the quality and integrity of the puzzles, such as actual Sudoku grids and solutions. Ensure that each puzzle is presented with its corresponding solution to verify uniqueness and correctness. Consider adding a table of contents for better navigation and clarity. Address the repetitive nature of the difficulty labels by providing varied content or additional context. Ensure all necessary sections are included to meet KDP's content guidelines, such as a complete and clear presentation of puzzles and solutions."
+        }
+      },
+      "consensus_score": 78
+    },
+    "kdp_compliance": {
+      "file_size_mb": 1.845052719116211
+    }
+  }
+}

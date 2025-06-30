@@ -1,0 +1,243 @@
+{
+  "file_path": "books/active_production/Large_Print_Sudoku_Masters/volume_6/paperback/Large_Print_Sudoku_Masters:_Volume_6_Interior.pdf",
+  "timestamp": "2025-06-29T15:26:02.278549",
+  "overall_score": 57,
+  "publish_ready": false,
+  "issues_found": [
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 1: Missing ISBN number."
+    },
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 2: Incomplete content sample with missing puzzle details."
+    }
+  ],
+  "warnings": [
+    {
+      "type": "WARNING",
+      "code": "High duplication",
+      "description": "Content is 27.4% duplicate (threshold: 10.0%)"
+    },
+    {
+      "type": "WARNING",
+      "code": "Invalid clues",
+      "description": "Found 1 potentially invalid clue-answer pairs"
+    },
+    {
+      "type": "WARNING",
+      "code": "Excessive whitespace",
+      "description": "126 of 126 pages (100.0%) have excessive whitespace"
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 1: Repetitive difficulty labeling without variation in the sample."
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 2: Potential formatting issues with the 'Thank You' section and bonus content links."
+    },
+    {
+      "type": "WARNING",
+      "code": "KDP check error",
+      "description": "KDP compliance check failed: 'Document' object has no attribute 'pdf_version'"
+    }
+  ],
+  "info": [],
+  "checks": {
+    "file_properties": {
+      "file_exists": true,
+      "file_size_bytes": 2472113
+    },
+    "pdf_structure": {
+      "page_count": 126,
+      "not_encrypted": true,
+      "fonts": {
+        "all_embedded": true,
+        "fonts": [
+          {
+            "name": "Helvetica",
+            "embedded": true,
+            "page": 1
+          },
+          {
+            "name": "Helvetica-Bold",
+            "embedded": true,
+            "page": 1
+          },
+          {
+            "name": "ZapfDingbats",
+            "embedded": true,
+            "page": 1
+          }
+        ]
+      }
+    },
+    "content_quality": {
+      "total_characters": 6851,
+      "total_words": 1057,
+      "duplicate_content_ratio": 0.27441860465116275
+    },
+    "visual_layout": {
+      "pages_analyzed": 126,
+      "pages_with_high_whitespace": 126,
+      "text_cutoff_instances": 0,
+      "whitespace_ratio_by_page": {
+        "1": 0.9626308014788407,
+        "2": 0.9697588631412161,
+        "3": 0.9437986895094739,
+        "4": 0.9821189839572193,
+        "5": 0.9712360533438965,
+        "6": 0.9711267082590612,
+        "7": 0.9711163926850201,
+        "8": 0.9711225820294448,
+        "9": 0.971124645144253,
+        "10": 0.9710771935036641,
+        "11": 0.9711782861292665,
+        "12": 0.9710132369446095,
+        "13": 0.9710916353073216,
+        "14": 0.9708791344820756,
+        "15": 0.9709183336634317,
+        "16": 0.9708688189080346,
+        "17": 0.9708358090711032,
+        "18": 0.9708750082524592,
+        "19": 0.9708523139895688,
+        "20": 0.9708626295636099,
+        "21": 0.9708915131709249,
+        "22": 0.9708131148082129,
+        "23": 0.9707594738231993,
+        "24": 0.9708172410378293,
+        "25": 0.9708296197266786,
+        "26": 0.9707264639862679,
+        "27": 0.9707264639862679,
+        "28": 0.9707636000528157,
+        "29": 0.9707656631676239,
+        "30": 0.9707924836601307,
+        "31": 0.9708131148082129,
+        "32": 0.9707429689047337,
+        "33": 0.970775978741665,
+        "34": 0.970775978741665,
+        "35": 0.9708172410378293,
+        "36": 0.9707161484122269,
+        "37": 0.9708316828414868,
+        "38": 0.9707388426751172,
+        "39": 0.9707182115270351,
+        "40": 0.9707182115270351,
+        "41": 0.970736779560309,
+        "42": 0.9707120221826104,
+        "43": 0.9706934541493365,
+        "44": 0.9707656631676239,
+        "45": 0.970833745956295,
+        "46": 0.9707182115270351,
+        "47": 0.9707883574305143,
+        "48": 0.970757410708391,
+        "49": 0.9707594738231993,
+        "50": 0.9707512213639664,
+        "51": 0.9707532844787746,
+        "52": 0.9707161484122269,
+        "53": 0.9708069254637882,
+        "54": 0.9708399353007197,
+        "55": 0.9709575328447877,
+        "56": 0.9708832607116921,
+        "57": 0.9708481877599525,
+        "58": 0.9709286492374728,
+        "59": 0.9708523139895688,
+        "60": 0.9708523139895688,
+        "61": 0.9709245230078564,
+        "62": 0.9708151779230211,
+        "63": 0.9708585033339935,
+        "64": 0.9708688189080346,
+        "65": 0.9709678484188288,
+        "66": 0.9707821680860896,
+        "67": 0.9708688189080346,
+        "68": 0.9708832607116921,
+        "69": 0.9708007361193636,
+        "70": 0.9708811975968838,
+        "71": 0.9709430910411303,
+        "72": 0.9708193041526375,
+        "73": 0.9708131148082129,
+        "74": 0.9709554697299795,
+        "75": 0.9710235525186506,
+        "76": 0.9710132369446095,
+        "77": 0.9709513435003632,
+        "78": 0.9709080180893906,
+        "79": 0.9709761008780616,
+        "80": 0.9708956394005414,
+        "81": 0.9709822902224863,
+        "82": 0.9708750082524592,
+        "83": 0.9709348385818974,
+        "84": 0.9708832607116921,
+        "85": 0.9708915131709249,
+        "86": 0.9708399353007197,
+        "87": 0.9707862943157061,
+        "88": 0.9708853238265003,
+        "89": 0.9707594738231993,
+        "90": 0.9708131148082129,
+        "91": 0.970854377104377,
+        "92": 0.9707966098897471,
+        "93": 0.9708626295636099,
+        "94": 0.9708626295636099,
+        "95": 0.9709637221892123,
+        "96": 0.9708770713672674,
+        "97": 0.9708399353007197,
+        "98": 0.9708770713672674,
+        "99": 0.9708667557932263,
+        "100": 0.9708605664488017,
+        "101": 0.9713061992473757,
+        "102": 0.9711390869479105,
+        "103": 0.9712030435069651,
+        "104": 0.971163844325609,
+        "105": 0.9711184557998284,
+        "106": 0.9711349607182941,
+        "107": 0.9711700336700336,
+        "108": 0.9710730672740476,
+        "109": 0.9710916353073216,
+        "110": 0.9711019508813626,
+        "111": 0.9711184557998284,
+        "112": 0.9710256156334588,
+        "113": 0.9711617812108008,
+        "114": 0.9712917574437182,
+        "115": 0.9713330197398825,
+        "116": 0.9712360533438965,
+        "117": 0.9712835049844853,
+        "118": 0.9713371459694989,
+        "119": 0.9712463689179376,
+        "120": 0.9712690631808278,
+        "121": 0.9712876312141018,
+        "122": 0.9712071697365815,
+        "123": 0.9711370238331023,
+        "124": 0.9712071697365815,
+        "125": 0.9640667293853569,
+        "126": 0.9965793556479831
+      },
+      "whitespace_compliance": 0.0
+    },
+    "llm_content_validation": {
+      "models_used": [
+        "gpt4o"
+      ],
+      "validation_results": {
+        "gpt4o": {
+          "quality_score": 82,
+          "issues": [
+            "Critical issue 1: Missing ISBN number.",
+            "Critical issue 2: Incomplete content sample with missing puzzle details."
+          ],
+          "warnings": [
+            "Warning 1: Repetitive difficulty labeling without variation in the sample.",
+            "Warning 2: Potential formatting issues with the 'Thank You' section and bonus content links."
+          ],
+          "feedback": "The book sample provides a clear structure with a consistent format for puzzle presentation. However, the sample is incomplete, which prevents a full assessment of puzzle integrity and content quality. The missing ISBN is a critical issue that must be resolved before publication. Additionally, ensure that all puzzles are included and correctly formatted. Consider varying the difficulty levels more frequently to maintain reader engagement. Verify that all hyperlinks and bonus content offers are functional and correctly formatted for print. Address these issues to meet the minimum quality standards for publication."
+        }
+      },
+      "consensus_score": 82
+    },
+    "kdp_compliance": {
+      "file_size_mb": 2.357590675354004
+    }
+  }
+}

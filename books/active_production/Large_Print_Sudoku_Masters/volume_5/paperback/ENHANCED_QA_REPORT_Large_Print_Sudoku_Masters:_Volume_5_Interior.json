@@ -1,0 +1,223 @@
+{
+  "file_path": "books/active_production/Large_Print_Sudoku_Masters/volume_5/paperback/Large_Print_Sudoku_Masters:_Volume_5_Interior.pdf",
+  "timestamp": "2025-06-29T15:41:18.433571",
+  "overall_score": 57,
+  "publish_ready": false,
+  "issues_found": [
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 1: Incomplete content sample provided, making it difficult to fully assess puzzle integrity."
+    },
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 2: Missing content in the 'How to Play Sudoku' section, which is cut off and incomplete."
+    }
+  ],
+  "warnings": [
+    {
+      "type": "WARNING",
+      "code": "High duplication",
+      "description": "Content is 27.1% duplicate (threshold: 10.0%)"
+    },
+    {
+      "type": "WARNING",
+      "code": "Invalid clues",
+      "description": "Found 1 potentially invalid clue-answer pairs"
+    },
+    {
+      "type": "WARNING",
+      "code": "Excessive whitespace",
+      "description": "106 of 106 pages (100.0%) have excessive whitespace"
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 1: Repetitive listing of puzzle difficulties without variation may affect reader engagement."
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 2: Ensure all puzzles have been thoroughly tested for unique solutions as claimed."
+    },
+    {
+      "type": "WARNING",
+      "code": "KDP check error",
+      "description": "KDP compliance check failed: 'Document' object has no attribute 'pdf_version'"
+    }
+  ],
+  "info": [],
+  "checks": {
+    "file_properties": {
+      "file_exists": true,
+      "file_size_bytes": 1926595
+    },
+    "pdf_structure": {
+      "page_count": 106,
+      "not_encrypted": true,
+      "fonts": {
+        "all_embedded": true,
+        "fonts": [
+          {
+            "name": "Helvetica",
+            "embedded": true,
+            "page": 1
+          },
+          {
+            "name": "Helvetica-Bold",
+            "embedded": true,
+            "page": 1
+          },
+          {
+            "name": "ZapfDingbats",
+            "embedded": true,
+            "page": 1
+          }
+        ]
+      }
+    },
+    "content_quality": {
+      "total_characters": 6031,
+      "total_words": 953,
+      "duplicate_content_ratio": 0.2710027100271003
+    },
+    "visual_layout": {
+      "pages_analyzed": 106,
+      "pages_with_high_whitespace": 106,
+      "text_cutoff_instances": 0,
+      "whitespace_ratio_by_page": {
+        "1": 0.9659812999273784,
+        "2": 0.9701673598732422,
+        "3": 0.9445145903479237,
+        "4": 0.9821189839572193,
+        "5": 0.9716651812240048,
+        "6": 0.971580593516868,
+        "7": 0.9715929722057173,
+        "8": 0.9717085066349772,
+        "9": 0.9715702779428269,
+        "10": 0.9715847197464844,
+        "11": 0.9716156664686076,
+        "12": 0.971580593516868,
+        "13": 0.9715145738430052,
+        "14": 0.9714114181025946,
+        "15": 0.9714547435135671,
+        "16": 0.9713660295768138,
+        "17": 0.9714052287581699,
+        "18": 0.9713887238397042,
+        "19": 0.9713825344952796,
+        "20": 0.9713557140027729,
+        "21": 0.9713969762989371,
+        "22": 0.9712298639994719,
+        "23": 0.9713041361325675,
+        "24": 0.9713598402323893,
+        "25": 0.9713557140027729,
+        "26": 0.9712958836733346,
+        "27": 0.9712979467881429,
+        "28": 0.9713536508879647,
+        "29": 0.9712443058031294,
+        "30": 0.9712628738364032,
+        "31": 0.9712236746550472,
+        "32": 0.9712793787548689,
+        "33": 0.9711762230144583,
+        "34": 0.9713165148214168,
+        "35": 0.9714196705618274,
+        "36": 0.9712339902290883,
+        "37": 0.9712979467881429,
+        "38": 0.9712835049844853,
+        "39": 0.9712731894104443,
+        "40": 0.9712587476067869,
+        "41": 0.9712628738364032,
+        "42": 0.9711886017033076,
+        "43": 0.9712855680992936,
+        "44": 0.9712958836733346,
+        "45": 0.9713660295768138,
+        "46": 0.9712917574437182,
+        "47": 0.9712938205585264,
+        "48": 0.9713288935102661,
+        "49": 0.9713020730177593,
+        "50": 0.9713041361325675,
+        "51": 0.9712835049844853,
+        "52": 0.9712546213771704,
+        "53": 0.9712236746550472,
+        "54": 0.9712257377698554,
+        "55": 0.9714114181025946,
+        "56": 0.9712071697365815,
+        "57": 0.9712752525252525,
+        "58": 0.9713227041658414,
+        "59": 0.9712381164587047,
+        "60": 0.971221611540239,
+        "61": 0.9712649369512114,
+        "62": 0.9711617812108008,
+        "63": 0.971221611540239,
+        "64": 0.9712339902290883,
+        "65": 0.9713206410510332,
+        "66": 0.9712236746550472,
+        "67": 0.9712958836733346,
+        "68": 0.9712711262956361,
+        "69": 0.9712422426883212,
+        "70": 0.9711617812108008,
+        "71": 0.9712876312141018,
+        "72": 0.9712628738364032,
+        "73": 0.9712917574437182,
+        "74": 0.9713309566250743,
+        "75": 0.9714568066283753,
+        "76": 0.971260810721595,
+        "77": 0.9713515877731564,
+        "78": 0.9713598402323893,
+        "79": 0.9712958836733346,
+        "80": 0.9713288935102661,
+        "81": 0.9713330197398825,
+        "82": 0.9712793787548689,
+        "83": 0.9712298639994719,
+        "84": 0.9712422426883212,
+        "85": 0.9712546213771704,
+        "86": 0.9712030435069651,
+        "87": 0.9712525582623622,
+        "88": 0.9712711262956361,
+        "89": 0.9711473394071434,
+        "90": 0.9712587476067869,
+        "91": 0.9712649369512114,
+        "92": 0.9711741598996501,
+        "93": 0.9712401795735129,
+        "94": 0.9712484320327458,
+        "95": 0.9713515877731564,
+        "96": 0.9712711262956361,
+        "97": 0.9711782861292665,
+        "98": 0.9712690631808278,
+        "99": 0.9712319271142801,
+        "100": 0.971250495147554,
+        "101": 0.9712835049844853,
+        "102": 0.9711886017033076,
+        "103": 0.9711886017033076,
+        "104": 0.9711390869479105,
+        "105": 0.9640419720076583,
+        "106": 0.9965731663035584
+      },
+      "whitespace_compliance": 0.0
+    },
+    "llm_content_validation": {
+      "models_used": [
+        "gpt4o"
+      ],
+      "validation_results": {
+        "gpt4o": {
+          "quality_score": 82,
+          "issues": [
+            "Critical issue 1: Incomplete content sample provided, making it difficult to fully assess puzzle integrity.",
+            "Critical issue 2: Missing content in the 'How to Play Sudoku' section, which is cut off and incomplete."
+          ],
+          "warnings": [
+            "Warning 1: Repetitive listing of puzzle difficulties without variation may affect reader engagement.",
+            "Warning 2: Ensure all puzzles have been thoroughly tested for unique solutions as claimed."
+          ],
+          "feedback": "The book appears to be well-organized with a clear structure, focusing on providing a large number of Sudoku puzzles. However, the sample provided is incomplete, particularly in the 'How to Play Sudoku' section, which is crucial for new players. This missing content must be addressed to ensure the book is comprehensive and user-friendly. Additionally, while the puzzles are consistently labeled as 'Hard,' consider varying the difficulty or providing a mix to cater to a broader audience. Ensure all puzzles are verified for unique solutions to maintain the integrity of the book. Address these issues to meet the minimum quality standards for publication."
+        }
+      },
+      "consensus_score": 82
+    },
+    "kdp_compliance": {
+      "file_size_mb": 1.8373441696166992
+    }
+  }
+}

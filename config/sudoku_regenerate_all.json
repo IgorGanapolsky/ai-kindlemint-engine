@@ -1,0 +1,151 @@
+{
+  "batch_name": "Regenerate All Sudoku Volumes with Fixes",
+  "description": "Regenerate all 6 volumes with proper puzzle images and explanations",
+  "delay_between_books": 1,
+  "books": [
+    {
+      "id": "sudoku_masters_v1_fixed",
+      "title": "Large Print Sudoku Masters: Volume 1",
+      "subtitle": "Beginner-Friendly Brain Training for Seniors and Visual Wellness",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 1,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 0,
+      "difficulty": "easy",
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "create_epub": false,
+      "create_hardcover": true,
+      "generate_prospecting": false,
+      "generate_magnetic_marketing": false,
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "978-1234567890"
+      }
+    },
+    {
+      "id": "sudoku_masters_v2_fixed",
+      "title": "Large Print Sudoku Masters: Volume 2",
+      "subtitle": "Gentle Progress - Building Confidence with Easy-Medium Puzzles",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 2,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 0,
+      "difficulty": "medium",
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "create_epub": false,
+      "create_hardcover": true,
+      "generate_prospecting": false,
+      "generate_magnetic_marketing": false,
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "978-1234567891"
+      }
+    },
+    {
+      "id": "sudoku_masters_v3_fixed",
+      "title": "Large Print Sudoku Masters: Volume 3",
+      "subtitle": "Building Confidence - Medium Difficulty Mental Challenges",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 3,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 0,
+      "difficulty": "medium",
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "create_epub": false,
+      "create_hardcover": true,
+      "generate_prospecting": false,
+      "generate_magnetic_marketing": false,
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "978-1234567892"
+      }
+    },
+    {
+      "id": "sudoku_masters_v4_fixed",
+      "title": "Large Print Sudoku Masters: Volume 4",
+      "subtitle": "Mental Challenge - Advanced Puzzles for Cognitive Excellence",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 4,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 0,
+      "difficulty": "hard",
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "create_epub": false,
+      "create_hardcover": true,
+      "generate_prospecting": false,
+      "generate_magnetic_marketing": false,
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "978-1234567893"
+      }
+    },
+    {
+      "id": "sudoku_masters_v5_fixed",
+      "title": "Large Print Sudoku Masters: Volume 5",
+      "subtitle": "Expert Level - Elite Puzzles for Cognitive Mastery",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 5,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 0,
+      "difficulty": "hard",
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "create_epub": false,
+      "create_hardcover": true,
+      "generate_prospecting": false,
+      "generate_magnetic_marketing": false,
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "978-1234567894"
+      }
+    },
+    {
+      "id": "sudoku_masters_v6_fixed",
+      "title": "Large Print Sudoku Masters: Volume 6",
+      "subtitle": "Master Collection - The Ultimate Cognitive Wellness Experience",
+      "series_name": "Large_Print_Sudoku_Masters",
+      "volume": 6,
+      "puzzle_type": "sudoku",
+      "puzzle_count": 0,
+      "difficulty": "mixed",
+      "author": "Igor Ganapolsky",
+      "publisher": "KindleMint Publishing",
+      "create_epub": false,
+      "create_hardcover": true,
+      "generate_prospecting": false,
+      "generate_magnetic_marketing": false,
+      "puzzle_params": {
+        "grid_size": 9
+      },
+      "pdf_params": {
+        "page_size": "letter",
+        "include_solutions": true,
+        "isbn": "978-1234567895"
+      }
+    }
+  ]
+}

@@ -182,7 +182,25 @@
       "Bash(--page-size letter )",
       "Bash(--include-solutions)",
       "Bash(export AWS_PROFILE=easy-smart)",
-      "Bash(npm run test:*)"
+      "Bash(npm run test:*)",
+      "Bash(for i in {2..6})",
+      "Bash(do)",
+      "Bash(echo:*)",
+      "Bash(--input \"books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles\" )",
+      "Bash(--output \"books/active_production/Large_Print_Sudoku_Masters/volume_1/paperback\" )",
+      "Bash(--title \"Large Print Sudoku Masters: Volume 1\" )",
+      "Bash(--author \"Igor Ganapolsky\" )",
+      "Bash(--subtitle \"Beginner-Friendly Brain Training for Seniors and Visual Wellness\" )",
+      "Bash(--page-size letter )",
+      "Bash(--isbn \"978-1234567890\" )",
+      "Bash(--output test_market_aligned )",
+      "Bash(--count 2 )",
+      "Bash(--difficulty easy)",
+      "Bash(--input test_market_aligned )",
+      "Bash(--output test_market_aligned_pdf )",
+      "Bash(--title \"Large Print Sudoku Masters Test\" )",
+      "Bash(--author \"Igor Ganapolsky\" )",
+      "Bash(--subtitle \"Market-Aligned Design Demo\")"
     ],
     "deny": []
   }

@@ -360,9 +360,11 @@ class EnhancedSudokuPDFLayout:
         )
 
         # Load puzzle image
-        puzzles_dir = self.input_dir / "puzzles"
+        puzzles_dir = self.input_dir / "puzzles" / "puzzles"
         if not puzzles_dir.exists():
-            puzzles_dir = self.input_dir.parent / "puzzles"
+            puzzles_dir = self.input_dir / "puzzles"
+            if not puzzles_dir.exists():
+                puzzles_dir = self.input_dir.parent / "puzzles"
 
         image_path = puzzles_dir / f"sudoku_puzzle_{puzzle_data['id']:03d}.png"
 
@@ -381,7 +383,7 @@ class EnhancedSudokuPDFLayout:
         story.append(PageBreak())
 
     def create_solutions_section(self, story):
-        """Create the enhanced solutions section with clear header."""
+        """Create the enhanced solutions section with answer explanations."""
         if not self.include_solutions:
             return
 
@@ -389,17 +391,41 @@ class EnhancedSudokuPDFLayout:
         story.append(Paragraph("SOLUTIONS", self.styles["SectionHeader"]))
         story.append(
             Paragraph(
-                "Check your answers here. Each solution shows the completed grid for the corresponding puzzle number.",
+                "Complete solutions with solving strategies and explanations for each puzzle.",
                 self.styles["Normal"],
             )
         )
+        story.append(Spacer(1, 0.5 * inch))
         story.append(PageBreak())
 
-        # Add solutions in a grid layout (4 per page)
-        puzzles_per_page = 4
-        current_page_puzzles = []
-
+        # Add each solution with explanation on its own page
         for i, puzzle_data in enumerate(self.puzzles):
+            self.create_solution_page(story, puzzle_data, i + 1)
+
+    def create_solution_page(self, story, puzzle_data, puzzle_number):
+        """Create a solution page with image and detailed explanations."""
+        # Solution header
+        story.append(
+            Paragraph(
+                f"Solution for Puzzle {puzzle_number}", self.styles["PuzzleNumber"]
+            )
+        )
+        story.append(
+            Paragraph(
+                f"Difficulty: {puzzle_data['difficulty'].title()}",
+                self.styles["Difficulty"],
+            )
+        )
+        story.append(Spacer(1, 0.3 * inch))
+
+        # Load solution image
+        solution_path = (
+            self.input_dir
+            / "puzzles"
+            / "puzzles"
+            / f"sudoku_solution_{puzzle_data['id']:03d}.png"
+        )
+        if not solution_path.exists():
             solution_path = (
                 self.input_dir
                 / "puzzles"
@@ -412,22 +438,91 @@ class EnhancedSudokuPDFLayout:
                     / f"sudoku_solution_{puzzle_data['id']:03d}.png"
                 )
 
-            if solution_path.exists():
-                # Create solution entry with puzzle number
-                solution_table_data = [
-                    [Paragraph(f"<b>Puzzle {i+1} Solution</b>", self.styles["Normal"])],
-                    [Image(str(solution_path), width=2.5 * inch, height=2.5 * inch)],
-                ]
-                current_page_puzzles.append(solution_table_data)
+        if solution_path.exists():
+            # Center the solution image
+            img = Image(str(solution_path), width=4 * inch, height=4 * inch)
+            img.hAlign = "CENTER"
+            story.append(img)
+        else:
+            story.append(
+                Paragraph(
+                    f"[Solution image not found: {solution_path}]",
+                    self.styles["Normal"],
+                )
+            )
 
-                # Create page when we have 4 solutions
-                if len(current_page_puzzles) == puzzles_per_page:
-                    self.add_solutions_page(story, current_page_puzzles)
-                    current_page_puzzles = []
+        story.append(Spacer(1, 0.5 * inch))
 
-        # Add remaining solutions
-        if current_page_puzzles:
-            self.add_solutions_page(story, current_page_puzzles)
+        # Add solving explanation based on difficulty
+        story.append(Paragraph("<b>Solving Strategy:</b>", self.styles["Normal"]))
+
+        if puzzle_data["difficulty"] == "easy":
+            explanation = [
+                "This puzzle can be solved using basic scanning techniques:",
+                "• Look for rows, columns, or 3×3 boxes with only one empty cell",
+                "• Find numbers that appear 8 times in the grid - the 9th position is obvious",
+                "• Use the process of elimination in each row, column, and box",
+                "• No advanced techniques required - just careful observation!",
+            ]
+        elif puzzle_data["difficulty"] == "medium":
+            explanation = [
+                "This puzzle requires intermediate solving techniques:",
+                "• Start with basic scanning and singles",
+                "• Look for hidden singles - numbers that can only go in one cell in a unit",
+                "• Use pencil marks to track candidates in empty cells",
+                "• Apply box/line reduction to eliminate possibilities",
+                "• Watch for naked pairs and triples to narrow down options",
+            ]
+        else:  # hard
+            explanation = [
+                "This challenging puzzle requires advanced techniques:",
+                "• Begin with all basic and intermediate strategies",
+                "• Look for X-Wing patterns across rows and columns",
+                "• Apply Swordfish technique for complex eliminations",
+                "• Use forcing chains to test possibilities",
+                "• Consider coloring or other advanced logical deductions",
+                "• Patience and systematic approach are essential!",
+            ]
+
+        for line in explanation:
+            story.append(Paragraph(line, self.styles["Instructions"]))
+
+        story.append(Spacer(1, 0.3 * inch))
+
+        # Add key insight
+        story.append(Paragraph("<b>Key Insight:</b>", self.styles["Normal"]))
+        key_insight = self.get_puzzle_insight(puzzle_data)
+        story.append(Paragraph(key_insight, self.styles["Instructions"]))
+
+        story.append(PageBreak())
+
+    def get_puzzle_insight(self, puzzle_data):
+        """Generate a specific insight for the puzzle based on its characteristics."""
+        insights = {
+            "easy": [
+                "Focus on the 3×3 boxes first - they often have the most clues to start with.",
+                "Look for rows or columns that are almost complete - filling these gives quick wins.",
+                "Start with the number that appears most frequently in the given clues.",
+                "The center box often provides good starting points in easier puzzles.",
+            ],
+            "medium": [
+                "This puzzle has a critical breakthrough in the middle rows - focus there first.",
+                "Pay attention to the interaction between boxes 4, 5, and 6 for key deductions.",
+                "The corner boxes have fewer clues but hold important constraints.",
+                "Using pencil marks becomes essential for tracking multiple possibilities.",
+            ],
+            "hard": [
+                "This puzzle requires patience - the initial clues are sparse but well-placed.",
+                "Look for the unique pattern in rows 3-5 that unlocks the middle section.",
+                "The breakthrough often comes from finding a hidden pair in the corner boxes.",
+                "Don't rush - systematic candidate elimination is more important than speed.",
+            ],
+        }
+
+        difficulty = puzzle_data.get("difficulty", "medium")
+        import random
+
+        return random.choice(insights.get(difficulty, insights["medium"]))
 
     def add_solutions_page(self, story, puzzle_solutions):
         """Add a page with multiple solutions."""

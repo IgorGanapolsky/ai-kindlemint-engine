@@ -1,0 +1,110 @@
+{
+  "media_domination": {
+    "kennedy_principle": "Be everywhere your customer is, with the right message for each medium",
+    "omni_presence_strategy": "Dominate 3-5 channels completely rather than dabbling in many",
+    "message_matching": "Each channel gets avatar-specific messaging"
+  },
+  "channel_strategies": {
+    "linkedin_outreach": {
+      "strategy": "Personal brand building + direct outreach",
+      "daily_actions": "10 connection requests, 5 value posts",
+      "content_mix": "50% educational, 30% personal, 20% promotional",
+      "goal": "1,000 targeted connections per month"
+    },
+    "email_marketing": {
+      "strategy": "Daily emails with valuable content + soft pitches",
+      "frequency": "5-7 emails per week",
+      "segments": "New subscribers, customers, VIP members",
+      "goal": "15-25% open rate, 3-7% click rate"
+    },
+    "direct_mail": {
+      "strategy": "Physical books to influencers and decision makers",
+      "target_list": "Top 100 influencers in space",
+      "package": "Book + personal letter + bonus materials",
+      "goal": "10% response rate for partnerships"
+    }
+  },
+  "media_calendar": {
+    "week_1_preparation": [
+      "Finalize all creative assets",
+      "Set up tracking systems",
+      "Create content calendar",
+      "Prepare email sequences"
+    ],
+    "week_2_soft_launch": [
+      "Begin organic content posting",
+      "Start email sequence to warm list",
+      "Launch retargeting campaigns",
+      "Begin podcast outreach"
+    ],
+    "week_3_full_launch": [
+      "Launch all paid advertising",
+      "Activate affiliate partners",
+      "Begin direct mail campaign",
+      "Increase content frequency"
+    ],
+    "week_4_optimization": [
+      "Analyze performance data",
+      "Double down on best performers",
+      "Pause underperforming channels",
+      "Plan next month's strategy"
+    ]
+  },
+  "budget_strategy": {
+    "total_monthly_budget": "$2,000",
+    "allocation": {
+      "facebook_ads": "$800 (40%)",
+      "google_ads": "$400 (20%)",
+      "linkedin_ads": "$300 (15%)",
+      "content_creation": "$200 (10%)",
+      "direct_mail": "$200 (10%)",
+      "tools_and_software": "$100 (5%)"
+    },
+    "roi_targets": {
+      "facebook_ads": "3:1 return",
+      "google_ads": "4:1 return",
+      "linkedin_ads": "2:1 return",
+      "content_marketing": "Long-term brand building",
+      "direct_mail": "Partnership opportunities"
+    }
+  },
+  "tracking_system": {
+    "metrics_by_channel": {
+      "facebook": [
+        "CPM",
+        "CTR",
+        "CPC",
+        "Conversion Rate",
+        "ROAS"
+      ],
+      "email": [
+        "Open Rate",
+        "Click Rate",
+        "Conversion Rate",
+        "Unsubscribe Rate"
+      ],
+      "content": [
+        "Organic Traffic",
+        "Time on Page",
+        "Email Signups",
+        "Social Shares"
+      ],
+      "podcast": [
+        "Downloads",
+        "Website Traffic",
+        "Email Signups",
+        "Book Sales"
+      ]
+    },
+    "attribution_model": "First touch + last touch + email attribution",
+    "reporting_frequency": "Daily dashboards + weekly deep dives",
+    "optimization_trigger": "If channel falls below 50% of target ROI for 1 week"
+  },
+  "kennedy_principles": [
+    "Be everywhere your customer is",
+    "Match message to medium",
+    "Test everything",
+    "Scale what works",
+    "Kill what doesn't"
+  ]
+}

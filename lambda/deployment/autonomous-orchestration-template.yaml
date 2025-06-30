@@ -34,7 +34,6 @@ Parameters:
 Globals:
   Function:
     Runtime: python3.11
-    Architecture: arm64  # 20% cost savings with Graviton2
     Timeout: 300
     MemorySize: 512
     Environment:
@@ -228,6 +227,9 @@ Resources:
       CodeUri: ../ci_orchestration_function.py
       Handler: ci_orchestration_function.lambda_handler
       Role: !GetAtt CIOrchestrationRole.Arn
+      Runtime: python3.11
+      Architectures:
+        - arm64
       MemorySize: 512  # Right-sized for CI operations
       Timeout: 300
       Environment:
@@ -258,7 +260,7 @@ Resources:
             Schedule: cron(0 */2 ? * SAT,SUN *)  # Every 2 hours on weekends
             Input: '{"source": "aws.events", "trigger": "weekend"}'
 
-      ReservedConcurrencyLimit: 2  # Cost control - limit concurrent executions
+      ReservedConcurrency: 2  # Cost control - limit concurrent executions
       DeadLetterQueue:
         Type: SQS
         TargetArn: !GetAtt DeadLetterQueue.Arn
@@ -275,6 +277,9 @@ Resources:
       CodeUri: ../alert_orchestration_function.py
       Handler: alert_orchestration_function.lambda_handler
       Role: !GetAtt AlertOrchestrationRole.Arn
+      Runtime: python3.11
+      Architectures:
+        - arm64
       MemorySize: 256  # Smaller memory for alert processing
       Timeout: 180
       Environment:
@@ -303,7 +308,7 @@ Resources:
             Schedule: cron(*/30 ? * SAT,SUN *)  # Every 30 min on weekends
             Input: '{"source": "aws.events", "trigger": "weekend"}'
 
-      ReservedConcurrencyLimit: 3  # Higher limit for alert processing
+      ReservedConcurrency: 3  # Higher limit for alert processing
       DeadLetterQueue:
         Type: SQS
         TargetArn: !GetAtt DeadLetterQueue.Arn

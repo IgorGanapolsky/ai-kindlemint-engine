@@ -1,0 +1,223 @@
+{
+  "file_path": "books/active_production/Large_Print_Sudoku_Masters/volume_3/paperback/Large_Print_Sudoku_Masters:_Volume_3_Interior.pdf",
+  "timestamp": "2025-06-29T15:29:48.839966",
+  "overall_score": 55,
+  "publish_ready": false,
+  "issues_found": [
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 1: The sample does not provide any actual Sudoku puzzles or solutions, making it impossible to verify puzzle integrity."
+    },
+    {
+      "type": "CRITICAL",
+      "code": "LLM gpt4o issue",
+      "description": "Critical issue 2: The content sample is incomplete, cutting off mid-sentence and lacking full context for evaluation."
+    }
+  ],
+  "warnings": [
+    {
+      "type": "WARNING",
+      "code": "High duplication",
+      "description": "Content is 27.0% duplicate (threshold: 10.0%)"
+    },
+    {
+      "type": "WARNING",
+      "code": "Invalid clues",
+      "description": "Found 1 potentially invalid clue-answer pairs"
+    },
+    {
+      "type": "WARNING",
+      "code": "Excessive whitespace",
+      "description": "106 of 106 pages (100.0%) have excessive whitespace"
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 1: The repetitive listing of puzzles with 'Difficulty: Medium' could be streamlined for better readability."
+    },
+    {
+      "type": "WARNING",
+      "code": "LLM gpt4o warning",
+      "description": "Warning 2: Ensure that the ISBN is correctly registered and matches the book title and author information."
+    },
+    {
+      "type": "WARNING",
+      "code": "KDP check error",
+      "description": "KDP compliance check failed: 'Document' object has no attribute 'pdf_version'"
+    }
+  ],
+  "info": [],
+  "checks": {
+    "file_properties": {
+      "file_exists": true,
+      "file_size_bytes": 2022113
+    },
+    "pdf_structure": {
+      "page_count": 106,
+      "not_encrypted": true,
+      "fonts": {
+        "all_embedded": true,
+        "fonts": [
+          {
+            "name": "Helvetica",
+            "embedded": true,
+            "page": 1
+          },
+          {
+            "name": "Helvetica-Bold",
+            "embedded": true,
+            "page": 1
+          },
+          {
+            "name": "ZapfDingbats",
+            "embedded": true,
+            "page": 1
+          }
+        ]
+      }
+    },
+    "content_quality": {
+      "total_characters": 6240,
+      "total_words": 952,
+      "duplicate_content_ratio": 0.2702702702702703
+    },
+    "visual_layout": {
+      "pages_analyzed": 106,
+      "pages_with_high_whitespace": 106,
+      "text_cutoff_instances": 0,
+      "whitespace_ratio_by_page": {
+        "1": 0.9632724301841948,
+        "2": 0.970165296758434,
+        "3": 0.9441948075526507,
+        "4": 0.9821189839572193,
+        "5": 0.9713763451508549,
+        "6": 0.9712649369512114,
+        "7": 0.9712814418696771,
+        "8": 0.971260810721595,
+        "9": 0.9712257377698554,
+        "10": 0.9712835049844853,
+        "11": 0.9713020730177593,
+        "12": 0.9711597180959926,
+        "13": 0.9711102033405955,
+        "14": 0.9710235525186506,
+        "15": 0.9710730672740476,
+        "16": 0.9710029213705684,
+        "17": 0.9710132369446095,
+        "18": 0.9710689410444312,
+        "19": 0.9709575328447877,
+        "20": 0.9710153000594177,
+        "21": 0.9710338680926917,
+        "22": 0.9709348385818974,
+        "23": 0.9708811975968838,
+        "24": 0.970901828744966,
+        "25": 0.9710111738298013,
+        "26": 0.9708750082524592,
+        "27": 0.9709038918597742,
+        "28": 0.9709761008780616,
+        "29": 0.9708419984155279,
+        "30": 0.9709100812041989,
+        "31": 0.9709265861226646,
+        "32": 0.9708646926784181,
+        "33": 0.9708131148082129,
+        "34": 0.9708853238265003,
+        "35": 0.9709534066151713,
+        "36": 0.9708667557932263,
+        "37": 0.9708605664488017,
+        "38": 0.9708915131709249,
+        "39": 0.9708254934970622,
+        "40": 0.9708646926784181,
+        "41": 0.9709286492374728,
+        "42": 0.9708770713672674,
+        "43": 0.9708585033339935,
+        "44": 0.9709203967782399,
+        "45": 0.9709884795669109,
+        "46": 0.9708894500561167,
+        "47": 0.9709265861226646,
+        "48": 0.9708956394005414,
+        "49": 0.9708419984155279,
+        "50": 0.9709389648115139,
+        "51": 0.9709327754670892,
+        "52": 0.970833745956295,
+        "53": 0.970872945137651,
+        "54": 0.9708956394005414,
+        "55": 0.9709451541559385,
+        "56": 0.9708564402191853,
+        "57": 0.9708378721859114,
+        "58": 0.9708626295636099,
+        "59": 0.9708193041526375,
+        "60": 0.9708440615303361,
+        "61": 0.9709059549745824,
+        "62": 0.9708193041526375,
+        "63": 0.9708089885785964,
+        "64": 0.9708873869413085,
+        "65": 0.9709616590744041,
+        "66": 0.9708172410378293,
+        "67": 0.9708915131709249,
+        "68": 0.9709534066151713,
+        "69": 0.9708481877599525,
+        "70": 0.9708193041526375,
+        "71": 0.9709100812041989,
+        "72": 0.9707842312008979,
+        "73": 0.9708688189080346,
+        "74": 0.9709265861226646,
+        "75": 0.9710338680926917,
+        "76": 0.9709761008780616,
+        "77": 0.9709327754670892,
+        "78": 0.9709657853040206,
+        "79": 0.9708894500561167,
+        "80": 0.9709183336634317,
+        "81": 0.9710111738298013,
+        "82": 0.9708667557932263,
+        "83": 0.9708481877599525,
+        "84": 0.9708399353007197,
+        "85": 0.9709513435003632,
+        "86": 0.9707883574305143,
+        "87": 0.9708564402191853,
+        "88": 0.9708935762857331,
+        "89": 0.9707945467749389,
+        "90": 0.9707986730045554,
+        "91": 0.9708997656301578,
+        "92": 0.9707615369380075,
+        "93": 0.9708213672674457,
+        "94": 0.9708708820228428,
+        "95": 0.971046246781541,
+        "96": 0.9708193041526375,
+        "97": 0.9708605664488017,
+        "98": 0.9709162705486235,
+        "99": 0.9708089885785964,
+        "100": 0.970833745956295,
+        "101": 0.970854377104377,
+        "102": 0.9708193041526375,
+        "103": 0.9707821680860896,
+        "104": 0.9707491582491582,
+        "105": 0.9640564138113158,
+        "106": 0.9965731663035584
+      },
+      "whitespace_compliance": 0.0
+    },
+    "llm_content_validation": {
+      "models_used": [
+        "gpt4o"
+      ],
+      "validation_results": {
+        "gpt4o": {
+          "quality_score": 78,
+          "issues": [
+            "Critical issue 1: The sample does not provide any actual Sudoku puzzles or solutions, making it impossible to verify puzzle integrity.",
+            "Critical issue 2: The content sample is incomplete, cutting off mid-sentence and lacking full context for evaluation."
+          ],
+          "warnings": [
+            "Warning 1: The repetitive listing of puzzles with 'Difficulty: Medium' could be streamlined for better readability.",
+            "Warning 2: Ensure that the ISBN is correctly registered and matches the book title and author information."
+          ],
+          "feedback": "The book appears to be well-organized in terms of structure, with a clear progression of puzzles. However, the sample provided is insufficient to fully assess the content quality, particularly the integrity of the puzzles and their solutions. It is crucial to include a few complete puzzles and their solutions in the sample to verify that each puzzle has a unique solution and matches the stated difficulty level. Additionally, ensure that the book's metadata, such as the ISBN, is correctly registered and consistent across all platforms. Streamlining the repetitive puzzle listings could improve the flow and readability of the content. Address these critical issues to meet the minimum quality standards for publication."
+        }
+      },
+      "consensus_score": 78
+    },
+    "kdp_compliance": {
+      "file_size_mb": 1.9284372329711914
+    }
+  }
+}

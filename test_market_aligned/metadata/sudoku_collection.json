@@ -1,0 +1,16 @@
+{
+  "puzzle_count": 2,
+  "difficulty_mode": "easy",
+  "grid_size": 9,
+  "generation_date": "2025-06-30T12:40:43.911021",
+  "puzzles": [
+    1,
+    2
+  ],
+  "features": {
+    "true_large_print": true,
+    "cell_size": 120,
+    "font_size": 72,
+    "one_per_page": true
+  }
+}

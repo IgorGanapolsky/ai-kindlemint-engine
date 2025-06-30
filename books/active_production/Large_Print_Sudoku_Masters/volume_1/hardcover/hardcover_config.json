@@ -1,0 +1,31 @@
+{
+  "title": "Large Print Sudoku Masters: Volume 1",
+  "subtitle": "Beginner-Friendly Brain Training for Seniors and Visual Wellness",
+  "author": "Igor Ganapolsky",
+  "publisher": "KindleMint Publishing",
+  "description": "Start your cognitive wellness journey with 100 carefully crafted large print Sudoku puzzles designed specifically for seniors and anyone who values visual accessibility. Each puzzle is printed in 16-point font with generous spacing, making it easy on the eyes while providing the perfect mental workout to keep your brain sharp and engaged.",
+  "keywords": [
+    "large print sudoku",
+    "sudoku for seniors",
+    "brain training",
+    "cognitive wellness",
+    "accessibility puzzles",
+    "mental fitness"
+  ],
+  "categories": [
+    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
+    "Health, Fitness & Dieting > Mental Health > Dementia",
+    "Self-Help > Aging"
+  ],
+  "language": "en",
+  "pages": 120,
+  "hardcover_price_min": 18.99,
+  "hardcover_price_max": 22.99,
+  "target_audience": "Seniors, vision-impaired adults, cognitive wellness enthusiasts",
+  "printing_cost_estimate": 4.5,
+  "royalty_min": 4.5,
+  "royalty_max": 7.5,
+  "cover_source": "default_cover.jpg",
+  "output_dir": "books/active_production/Large_Print_Sudoku_Masters/volume_1/hardcover",
+  "back_cover_description": "Large Print Sudoku Masters\nVolume 1: Beginner Level\n\n100 Vision-Friendly Brain Training Puzzles\n16-Point Font \u2022 Senior-Tested Design\nPerfect for Cognitive Wellness"
+}

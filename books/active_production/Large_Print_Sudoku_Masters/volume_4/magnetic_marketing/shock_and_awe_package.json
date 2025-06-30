@@ -1,0 +1,69 @@
+{
+  "shock_and_awe_package": {
+    "kennedy_principle": "Overwhelm with value to eliminate price resistance",
+    "core_product": {
+      "item": "Large Print Sudoku Masters: Volume 4",
+      "value": "$27.99",
+      "description": "Complete sudoku mastery system with 100+ puzzles"
+    },
+    "bonus_stack": [
+      {
+        "item": "The Logic Pattern Quick Reference",
+        "value": "$17.99",
+        "description": "Laminated card with all 5 advanced techniques"
+      },
+      {
+        "item": "Sudoku Timer & Tracker App",
+        "value": "$12.99",
+        "description": "Track your progress and beating times"
+      },
+      {
+        "item": "Video Training Series",
+        "value": "$97.00",
+        "description": "Watch over-the-shoulder solving demonstrations"
+      },
+      {
+        "item": "Monthly New Puzzle Pack",
+        "value": "$19.99",
+        "description": "Fresh puzzles delivered monthly for 3 months"
+      }
+    ],
+    "value_calculation": {
+      "core_value": "$27.99",
+      "bonus_value": "$147.97",
+      "total_value": "$175.96",
+      "your_investment": "$6.99",
+      "savings": "$168.97",
+      "value_multiplier": "25.2x"
+    }
+  },
+  "presentation_copy": "\n\ud83c\udf81 COMPLETE LARGE PRINT SUDOKU MASTERS: VOLUME 4 PACKAGE\n\nWhen you order Large Print Sudoku Masters: Volume 4 today, you don't just get the book...\n\n\u2705 Large Print Sudoku Masters: Volume 4 ($27.99 value)\nComplete sudoku mastery system with 100+ puzzles\n\nPLUS these exclusive bonuses:\n\n\u2705 The Logic Pattern Quick Reference ($17.99 value)\nLaminated card with all 5 advanced techniques\n\n\u2705 Sudoku Timer & Tracker App ($12.99 value)\nTrack your progress and beating times\n\n\u2705 Video Training Series ($97.00 value)\nWatch over-the-shoulder solving demonstrations\n\n\u2705 Monthly New Puzzle Pack ($19.99 value)\nFresh puzzles delivered monthly for 3 months\n\n\nTOTAL VALUE: $175.96\nYOUR INVESTMENT TODAY: Just $6.99\n\nThat's a savings of $168.97 - but only if you order now!\n\nThis complete package normally sells for $175.96, but for a limited time,\nyou can get everything for just $6.99.\n\nWhy such a crazy deal? Because I know that once you experience the power of the\nLarge_Print_Sudoku_Masters Method\u2122, you'll become a customer for life.\n\nClick \"Add to Cart\" now to claim your complete package...\n",
+  "delivery_sequence": {
+    "immediate": [
+      "Core book download",
+      "Bonus materials download",
+      "Welcome email with access instructions"
+    ],
+    "day_1": [
+      "Email coaching series begins",
+      "Facebook group invitation",
+      "Getting started guide"
+    ],
+    "day_7": [
+      "Check-in email with tips",
+      "Success stories from other users",
+      "Additional resources"
+    ],
+    "day_30": [
+      "Advanced techniques training",
+      "Invitation to VIP program",
+      "Satisfaction survey"
+    ]
+  },
+  "psychology_notes": [
+    "High perceived value reduces price sensitivity",
+    "Multiple bonuses create multiple reasons to buy",
+    "Immediate gratification with downloads",
+    "Future value with ongoing elements"
+  ]
+}
