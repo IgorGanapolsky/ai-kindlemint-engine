@@ -224,7 +224,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub 'kindlemint-ci-orchestration-${Environment}'
-      CodeUri: ../ci_orchestration_function.py
+      CodeUri: ../ci-orchestration/
       Handler: ci_orchestration_function.lambda_handler
       Role: !GetAtt CIOrchestrationRole.Arn
       Runtime: python3.11
@@ -273,7 +273,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub 'kindlemint-alert-orchestration-${Environment}'
-      CodeUri: ../alert_orchestration_function.py
+      CodeUri: ../alert-orchestration/
       Handler: alert_orchestration_function.lambda_handler
       Role: !GetAtt AlertOrchestrationRole.Arn
       Runtime: python3.11
@@ -307,7 +307,6 @@ Resources:
             Schedule: cron(*/30 ? * SAT,SUN *)  # Every 30 min on weekends
             Input: '{"source": "aws.events", "trigger": "weekend"}'
 
-      ReservedConcurrency: 3  # Higher limit for alert processing
       DeadLetterQueue:
         Type: SQS
         TargetArn: !GetAtt DeadLetterQueue.Arn

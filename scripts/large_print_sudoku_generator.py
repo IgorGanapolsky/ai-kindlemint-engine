@@ -58,13 +58,14 @@ class LargePrintSudokuGenerator:
         # Draw the grid with thick, clear lines
         self._draw_grid(draw)
 
-        # Add numbers with true large print
+        # Add numbers with true large print - make clues BOLD and prominent
         initial_grid = puzzle_data.get("initial_grid", [[0] * 9] * 9)
         for row in range(self.grid_size):
             for col in range(self.grid_size):
                 value = initial_grid[row][col]
                 if value != 0:
-                    self._draw_number(draw, row, col, str(value), font)
+                    # Make clues bold and highly visible with dark black color
+                    self._draw_number(draw, row, col, str(value), font, color="#000000", bold=True)
 
         # Save puzzle image
         puzzle_path = self.puzzles_dir / f"sudoku_puzzle_{puzzle_id:03d}.png"
@@ -92,16 +93,20 @@ class LargePrintSudokuGenerator:
         # Draw grid
         self._draw_grid(draw)
 
-        # Add all numbers
+        # Add all numbers with clear distinction between clues and solutions
         solution_grid = puzzle_data.get("solution_grid", [[0] * 9] * 9)
         for row in range(self.grid_size):
             for col in range(self.grid_size):
                 value = solution_grid[row][col]
                 if value != 0:
-                    # Show initial numbers in black, solved numbers in gray
+                    # Show initial clues in bold black, solved numbers in lighter gray
                     initial_value = puzzle_data["initial_grid"][row][col]
-                    color = "black" if initial_value != 0 else "#666666"
-                    self._draw_number(draw, row, col, str(value), font, color)
+                    if initial_value != 0:
+                        # Original clues - bold and black
+                        self._draw_number(draw, row, col, str(value), font, color="#000000", bold=True)
+                    else:
+                        # Solution numbers - lighter and regular weight
+                        self._draw_number(draw, row, col, str(value), font, color="#888888", bold=False)
 
         # Save solution image
         solution_path = self.puzzles_dir / f"sudoku_solution_{puzzle_id:03d}.png"
@@ -144,8 +149,8 @@ class LargePrintSudokuGenerator:
                 width=width,
             )
 
-    def _draw_number(self, draw, row, col, number, font, color="black"):
-        """Draw a number in a cell with perfect centering"""
+    def _draw_number(self, draw, row, col, number, font, color="black", bold=False):
+        """Draw a number in a cell with perfect centering and optional bold effect"""
         # Calculate cell center
         x = self.margin + col * self.cell_size + self.cell_size // 2
         y = self.margin + row * self.cell_size + self.cell_size // 2
@@ -155,10 +160,19 @@ class LargePrintSudokuGenerator:
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
 
-        # Draw centered number
-        draw.text(
-            (x - text_width // 2, y - text_height // 2), number, fill=color, font=font
-        )
+        # Calculate text position
+        text_x = x - text_width // 2
+        text_y = y - text_height // 2
+
+        if bold:
+            # Create bold effect by drawing text multiple times with slight offsets
+            # This makes clues much more prominent and visible
+            offsets = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+            for dx, dy in offsets:
+                draw.text((text_x + dx, text_y + dy), number, fill=color, font=font)
+        
+        # Draw the main number
+        draw.text((text_x, text_y), number, fill=color, font=font)
 
     def generate_sudoku_puzzle(self, difficulty="medium"):
         """Generate a Sudoku puzzle with the specified difficulty"""

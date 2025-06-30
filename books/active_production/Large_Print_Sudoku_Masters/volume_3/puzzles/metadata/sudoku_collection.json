@@ -1,8 +1,8 @@
 {
-  "puzzle_count": 100,
+  "puzzle_count": 110,
   "difficulty_mode": "medium",
   "grid_size": 9,
-  "generation_date": "2025-06-30T11:13:52.712156",
+  "generation_date": "2025-06-30T14:00:14.586655",
   "puzzles": [
     1,
     2,
@@ -103,6 +103,22 @@
     97,
     98,
     99,
-    100
-  ]
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110
+  ],
+  "features": {
+    "true_large_print": true,
+    "cell_size": 120,
+    "font_size": 72,
+    "one_per_page": true
+  }
 }

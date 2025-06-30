@@ -398,10 +398,16 @@ class MarketAlignedSudokuPDF:
         story.append(PageBreak())
 
     def create_solution_page(self, story, puzzle_data, puzzle_number):
-        """Create solution page right after puzzles as market research suggests"""
+        """Create solution page with step-by-step explanations as market research suggests"""
         story.append(
             Paragraph(f"Solution - Puzzle {puzzle_number}", self.styles["PuzzleNumber"])
         )
+        story.append(Spacer(1, 0.3 * inch))
+
+        # Add solving explanation based on difficulty
+        difficulty = puzzle_data.get("difficulty", "medium").lower()
+        solving_explanation = self.get_solving_explanation(difficulty, puzzle_number)
+        story.append(Paragraph(solving_explanation, self.styles["LargeBody"]))
         story.append(Spacer(1, 0.3 * inch))
 
         # Solution image
@@ -412,14 +418,53 @@ class MarketAlignedSudokuPDF:
         solution_path = solutions_dir / f"sudoku_solution_{puzzle_data['id']:03d}.png"
 
         if solution_path.exists():
-            img = Image(str(solution_path), width=4 * inch, height=4 * inch)
+            img = Image(str(solution_path), width=4.5 * inch, height=4.5 * inch)
             img.hAlign = "CENTER"
             story.append(img)
         else:
             # Generate solution grid from data
             self.create_solution_grid(story, puzzle_data)
 
+        # Add solving tips specific to difficulty level
+        story.append(Spacer(1, 0.2 * inch))
+        solving_tips = self.get_solving_tips(difficulty)
+        story.append(Paragraph(solving_tips, self.styles["Instructions"]))
+
         story.append(PageBreak())
+
+    def get_solving_explanation(self, difficulty, puzzle_number):
+        """Generate solving explanation based on difficulty level"""
+        explanations = {
+            "easy": [
+                "<b>Solving Strategy:</b> This easy puzzle can be solved using basic techniques. Start by looking for cells where only one number can fit. Scan each row, column, and 3×3 box to find obvious placements.",
+                "<b>Step-by-Step Approach:</b> Begin with the most filled rows, columns, and boxes. Look for cells where 8 out of 9 numbers are already placed. Use the elimination method - if a row already has numbers 1-8, the empty cell must be 9.",
+                "<b>Key Technique:</b> Focus on 'hidden singles' - cells where only one number can logically fit based on what's already in that row, column, and box. This puzzle uses fundamental Sudoku logic without requiring advanced techniques."
+            ],
+            "medium": [
+                "<b>Solving Strategy:</b> This medium puzzle requires a combination of basic techniques and some logical deduction. You'll need to use pencil marks (candidate numbers) to track possibilities in empty cells.",
+                "<b>Advanced Techniques:</b> Look for 'naked pairs' - when two cells in the same unit can only contain the same two numbers. Also use 'pointing pairs' - when a number in a box can only go in one row or column within that box.",
+                "<b>Systematic Approach:</b> After filling obvious cells, make pencil marks showing all possible numbers for each empty cell. Then eliminate candidates systematically using logical rules. This builds pattern recognition skills."
+            ],
+            "hard": [
+                "<b>Solving Strategy:</b> This challenging puzzle requires advanced techniques beyond basic elimination. You'll need to use multiple solving strategies in combination and think several steps ahead.",
+                "<b>Expert Techniques:</b> Use 'X-Wing' patterns - when a number appears in only two rows and two columns, forming a rectangle. Also try 'Swordfish' patterns and 'coloring' techniques to track chains of logical deductions.",
+                "<b>Pattern Recognition:</b> Look for complex interdependencies between cells. This puzzle may require 'what-if' analysis - temporarily assuming a number goes in a cell and following the logical chain to see if it leads to a contradiction."
+            ]
+        }
+        
+        explanation_list = explanations.get(difficulty, explanations["medium"])
+        # Rotate explanations to provide variety
+        explanation_index = (puzzle_number - 1) % len(explanation_list)
+        return explanation_list[explanation_index]
+
+    def get_solving_tips(self, difficulty):
+        """Generate solving tips based on difficulty level"""
+        tips = {
+            "easy": "<b>💡 Helpful Tip:</b> When stuck, focus on the most constrained areas first. Look for rows, columns, or boxes that are nearly complete. These often provide the breakthrough you need to continue solving.",
+            "medium": "<b>💡 Pro Tip:</b> Use pencil marks liberally! Write small numbers in corners of cells to track possibilities. When a cell's candidates are reduced to just one number, you've found your next move.",
+            "hard": "<b>💡 Expert Tip:</b> Advanced puzzles often require 'chain logic' - following a series of if-then statements. If assuming X leads to a contradiction, then X must be false. This technique opens up many advanced solving paths."
+        }
+        return tips.get(difficulty, tips["medium"])
 
     def create_about_author_page(self, story):
         """Add author information"""

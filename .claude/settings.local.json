@@ -204,7 +204,10 @@
       "WebFetch(domain:kdp.amazon.com)",
       "WebFetch(domain:bookbolt.io)",
       "WebFetch(domain:www.kdpcommunity.com)",
-      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stacks --stack-name autonomous-orchestration-production --region us-east-1 --query 'Stacks[0].StackStatus' --output text)"
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stacks --stack-name autonomous-orchestration-production --region us-east-1 --query 'Stacks[0].StackStatus' --output text)",
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stack-events --stack-name autonomous-orchestration-production --region us-east-1 --query 'StackEvents[?ResourceStatus==`CREATE_FAILED`].[LogicalResourceId,ResourceStatusReason]' --output table)",
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stack-events --stack-name autonomous-orchestration-production --region us-east-1 --max-items 20 --output table)",
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation delete-stack --stack-name autonomous-orchestration-production --region us-east-1)"
     ],
     "deny": []
   }
