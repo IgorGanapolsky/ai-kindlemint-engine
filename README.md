@@ -196,29 +196,25 @@ pipeline = VoiceToBookPipeline()
 book = await pipeline.process_voice_file("my_expertise.mp3")
 ```
 
-## 🤖 Dual Orchestration System
+## 🏗️ 3-Tier Orchestration Architecture
 
-### Overview
-AI-KindleMint-Engine uses **two integrated AI orchestration systems**:
+AI-KindleMint-Engine uses a **sophisticated 3-tier orchestration system**:
 
-1. **Claude Code Orchestration** - AI-accelerated development system  
-2. **A2A (Agent-to-Agent) Protocol** - Decoupled agent communication
-3. **Unified Orchestrator** - Combines both systems seamlessly
+1. **🤖 Claude Code Orchestration** - AI-accelerated development (Local)
+2. **🔗 A2A Protocol** - Agent-to-agent communication (Local)  
+3. **☁️ AWS Lambda Orchestration** - Production monitoring (Cloud)
+4. **🎯 Unified Orchestrator** - Master controller coordinating all systems
 
-### Architecture
-```
-┌─────────────────────┐
-│  Unified Orchestrator │
-├─────────────────────┤
-│ ┌─────────────────┐ │   ┌─────────────────┐
-│ │ Claude Code     │ │   │ A2A Protocol    │
-│ │ Orchestrator    │ │◄──┤ Agent Registry  │
-│ │ - Task Management│ │   │ - Agent Spawning│
-│ │ - Code Generation│ │   │ - Message Passing│
-│ │ - Test Automation│ │   │ - Skill Discovery│
-│ └─────────────────┘ │   └─────────────────┘
-└─────────────────────┘
-```
+**📖 [Complete Architecture Documentation](docs/ORCHESTRATION_ARCHITECTURE.md)**
+
+### What Each System Does
+
+**🤖 Claude Code** (Development): 10x faster coding with AI
+**🔗 A2A Protocol** (Content): Agent-based puzzle/PDF generation  
+**☁️ AWS Lambda** (Production): Real-time monitoring & alerts
+**🎯 Unified** (Control): Intelligent task routing across all systems
+
+**📖 [Detailed Architecture Guide](docs/ORCHESTRATION_ARCHITECTURE.md)**
 
 ### Required API Keys
 
@@ -484,11 +480,15 @@ See [Troubleshooting Guide](docs/troubleshooting.md) for more.
 
 ## 📚 Documentation
 
-- [Claude Code Orchestrator](CLAUDE_CODE_ORCHESTRATOR.md)
-- [Infrastructure Guide](INFRASTRUCTURE_IMPLEMENTATION_COMPLETE.md)
-- [Series Requirements](SERIES_REQUIREMENTS.md)
-- [Marketing Strategy](MARKETING_STRATEGY_2025.md)
-- [API Documentation](docs/api_reference.md)
+**🏗️ CORE ARCHITECTURE:**
+- [**Complete Orchestration Architecture**](docs/ORCHESTRATION_ARCHITECTURE.md) - **START HERE**
+- [Implementation Plan & Status](docs/plan.md)
+- [Claude Code Configuration](docs/CLAUDE.md)
+
+**📋 GUIDES:**
+- [Infrastructure Guide](docs/infrastructure/INFRASTRUCTURE_IMPLEMENTATION_COMPLETE.md)
+- [Series Requirements](docs/SERIES_REQUIREMENTS.md)
+- [Marketing Strategy](docs/MARKETING_STRATEGY_2025.md)
 
 ## 📄 License
 

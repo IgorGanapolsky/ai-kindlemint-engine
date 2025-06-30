@@ -1,5 +1,5 @@
 {
-  "total_cost": 0.762852,
+  "total_cost": 0.926991,
   "commits": [
     {
       "hash": "129ca252",
@@ -27,8 +27,17 @@
       "tokens": 11164,
       "files_changed": 4,
       "model": "claude-3-sonnet"
+    },
+    {
+      "hash": "eb93a5a2",
+      "timestamp": "2025-06-30T17:46:19.619538",
+      "message": "Check cost for commit eb93a5a2",
+      "cost": 0.164139,
+      "tokens": 5448,
+      "files_changed": 2,
+      "model": "claude-3-sonnet"
     }
   ],
   "first_tracked": "2025-06-30T17:40:57.694348",
-  "last_updated": "2025-06-30T17:44:24.276615"
+  "last_updated": "2025-06-30T17:46:19.619554"
 }

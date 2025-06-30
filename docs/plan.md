@@ -5,7 +5,9 @@
 
 ## 🎉 Major Accomplishments (June 30, 2025)
 
-### ✅ **Dual Orchestration System** - COMPLETE
+### ✅ **3-Tier Orchestration System** - COMPLETE
+
+**📖 [Complete Architecture Documentation](ORCHESTRATION_ARCHITECTURE.md)**
 
 **🤖 Claude Code Orchestrator:**
 - **AI-Accelerated Development** - 10x faster feature implementation
@@ -23,13 +25,20 @@
 - **Independent Task Execution** - Agents work autonomously
 - **Resource Sharing** - Coordinated data and computation sharing
 
+**☁️ AWS Lambda Orchestration:**
+- **Production Monitoring** - Real-time GitHub repo monitoring
+- **CI/CD Automation** - Automated build/test/deploy pipelines
+- **Alert Management** - Sentry error handling and Slack notifications
+- **Cost Optimization** - Business hours scheduling (96% cost reduction)
+- **Infrastructure** - DynamoDB, SNS, CloudWatch integration
+
 **🎯 Unified Orchestrator:**
-- **Seamless Integration** - Claude Code + A2A working together
-- **Intelligent Task Routing** - Auto-selects optimal execution system
-- **Cross-System Workflows** - Complex operations spanning both systems
-- **Unified Monitoring** - Single dashboard for all orchestration
+- **3-Tier Integration** - Claude Code + A2A + AWS Lambda coordination
+- **Intelligent Task Routing** - Auto-selects optimal execution system  
+- **Cross-System Workflows** - Complex operations spanning all systems
+- **Unified Monitoring** - Single dashboard for complete orchestration
 - **GitHub Secrets Integration** - Secure API key management
-- **Production-Ready** - Handles 100+ puzzle generation workflows
+- **Production-Ready** - Handles end-to-end book production workflows
 
 ### ✅ **Infrastructure & CI/CD** - COMPLETE
 - **GitHub Actions Pipeline** - Automated QA on every push/PR
