@@ -38,13 +38,22 @@ jobs:
     - name: 📥 Install minimal dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest
+        pip install pytest pytest-cov
         pip install -e .
 
-    - name: 🧪 Run basic tests only
+    - name: 🧪 Run basic tests with coverage
       run: |
-        python -m pytest tests/test_basic.py tests/test_dummy.py -v
+        python -m pytest tests/test_basic.py tests/test_dummy.py -v --cov=src/kindlemint --cov-report=xml --cov-report=term-missing
       continue-on-error: false
+
+    - name: 📊 Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      if: matrix.python-version == '3.11'  # Only upload once
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage.xml
+        fail_ci_if_error: false
+        verbose: true
 
 
     - name: 💬 Comment PR with test results

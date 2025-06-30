@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
 Badge Validation Orchestration Agent
-Validates that all README badges are working and show real metrics, not fake placeholders
+Validates that all README badges are working and show real metrics, not fake
 """
 
 import re
 import sys
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 try:
     import requests
@@ -41,6 +41,7 @@ class BadgeValidator:
             r"img\.shields\.io/github/",  # GitHub stats
             r"sonarcloud\.io/api/project_badges",  # Real SonarCloud
             r"codecov\.io/.*badge\.svg",  # Real Codecov
+            r"codecov\.io/gh/.*/branch/.*/graph/badge\.svg",  # Codecov graph badges
             r"snyk\.io/test/github",  # Real Snyk
         ]
 
@@ -99,7 +100,7 @@ class BadgeValidator:
             for term in self.forbidden_terms:
                 if term in text or term in image_url.lower():
                     issues.append(
-                        f"❌ FAKE BADGE: '{badge['text']}' contains placeholder term '{term}'"
+                        f"❌ FAKE BADGE: '{badge['text']}' contains placeholder term '{term}'"  # noqa: E501
                     )
 
             # Check for static shields.io badges (likely fake) - but NOT GitHub stats
@@ -109,23 +110,23 @@ class BadgeValidator:
                     for term in ["100%", "95%", "ready", "enabled"]
                 ):
                     issues.append(
-                        f"❌ STATIC BADGE: '{badge['text']}' appears to be a static placeholder"
+                        f"❌ STATIC BADGE: '{badge['text']}' appears to be a static placeholder"  # noqa: E501
                     )
 
             # Check for missing real service URLs
             if "codecov" in text.lower() and "codecov.io" not in image_url:
                 issues.append(
-                    f"❌ MISSING SERVICE: Codecov badge doesn't link to codecov.io"
+                    "❌ MISSING SERVICE: Codecov badge doesn't link to codecov.io"
                 )
 
             if "sonar" in text.lower() and "sonarcloud.io" not in image_url:
                 issues.append(
-                    f"❌ MISSING SERVICE: SonarCloud badge doesn't link to sonarcloud.io"
+                    "❌ MISSING SERVICE: SonarCloud badge doesn't link to sonarcloud.io"
                 )
 
         return issues
 
-    def validate_all_badges(self, readme_path: Path = None) -> Dict:
+    def validate_all_badges(self, readme_path: Path | None = None) -> Dict:
         """Main validation function"""
         if readme_path is None:
             readme_path = Path("README.md")
@@ -138,7 +139,7 @@ class BadgeValidator:
 
         print(f"📊 Found {len(badges)} badges to validate")
 
-        results = {
+        results: Dict[str, Any] = {
             "status": "success",
             "total_badges": len(badges),
             "valid_badges": 0,
@@ -214,7 +215,7 @@ class BadgeValidator:
                 print(f"  {issue}")
 
         if results["recommendations"]:
-            print(f"\n💡 RECOMMENDATIONS:")
+            print("\n💡 RECOMMENDATIONS:")
             for rec in results["recommendations"]:
                 print(f"  {rec}")
 
