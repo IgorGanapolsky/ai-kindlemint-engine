@@ -71,3 +71,4 @@ def test_os_environ():
     # Cleanup
     if test_key in os.environ:
         del os.environ[test_key]
+# SonarCloud test trigger
