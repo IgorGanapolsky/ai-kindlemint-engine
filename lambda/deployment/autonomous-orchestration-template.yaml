@@ -260,7 +260,6 @@ Resources:
             Schedule: cron(0 */2 ? * SAT,SUN *)  # Every 2 hours on weekends
             Input: '{"source": "aws.events", "trigger": "weekend"}'
 
-      ReservedConcurrency: 2  # Cost control - limit concurrent executions
       DeadLetterQueue:
         Type: SQS
         TargetArn: !GetAtt DeadLetterQueue.Arn

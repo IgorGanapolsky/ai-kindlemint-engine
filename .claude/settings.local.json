@@ -203,7 +203,8 @@
       "Bash(--subtitle \"Market-Aligned Design Demo\")",
       "WebFetch(domain:kdp.amazon.com)",
       "WebFetch(domain:bookbolt.io)",
-      "WebFetch(domain:www.kdpcommunity.com)"
+      "WebFetch(domain:www.kdpcommunity.com)",
+      "Bash(AWS_PROFILE=kindlemint-keys aws cloudformation describe-stacks --stack-name autonomous-orchestration-production --region us-east-1 --query 'Stacks[0].StackStatus' --output text)"
     ],
     "deny": []
   }
