@@ -25,6 +25,7 @@ from reportlab.platypus import (
     Table,
     TableStyle,
 )
+import secrets
 
 
 class NumberedCanvas(canvas.Canvas):
@@ -524,9 +525,8 @@ class EnhancedSudokuPDFLayout:
         }
 
         difficulty = puzzle_data.get("difficulty", "medium")
-        import random
 
-        return random.choice(insights.get(difficulty, insights["medium"]))
+        return secrets.choice(insights.get(difficulty, insights["medium"]))
 
     def add_solutions_page(self, story, puzzle_solutions):
         """Add a page with multiple solutions."""
