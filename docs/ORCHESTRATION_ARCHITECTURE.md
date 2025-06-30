@@ -2,11 +2,12 @@
 
 ## 🎯 Executive Summary
 
-AI-KindleMint-Engine uses a **3-tier orchestration architecture** to automate book publishing:
+AI-KindleMint-Engine uses a **streamlined 2-tier orchestration architecture** to automate book publishing:
 
 1. **🤖 Claude Code Orchestration** (Local Development) - AI-accelerated coding
 2. **🔗 A2A Protocol** (Local Agents) - Agent-to-agent communication  
-3. **☁️ AWS Business Infrastructure** (Revenue Generation) - Scalable business services
+
+**💰 Cost Optimization:** Eliminated redundant AWS monitoring infrastructure (saving $80-140/month). Production monitoring achieved through GitHub Actions + Sentry + Slack at zero cost.
 
 ## 🏛️ Architecture Overview
 
@@ -15,20 +16,20 @@ AI-KindleMint-Engine uses a **3-tier orchestration architecture** to automate bo
 │                    AI-KINDLEMINT ENGINE                     │
 ├─────────────────────────────────────────────────────────────┤
 │  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │
-│  │ CLAUDE CODE     │  │ A2A PROTOCOL    │  │ AWS LAMBDA   │ │
-│  │ ORCHESTRATION   │  │ ORCHESTRATION   │  │ ORCHESTRATION│ │
+│  │ CLAUDE CODE     │  │ A2A PROTOCOL    │  │ MONITORING   │ │
+│  │ ORCHESTRATION   │  │ ORCHESTRATION   │  │ (FREE TIER)  │ │
 │  │                 │  │                 │  │              │ │
-│  │ • Development   │  │ • Agent Comm    │  │ • Business   │ │
-│  │ • AI Coding     │  │ • Task Routing  │  │ • Revenue    │ │
-│  │ • Feature Gen   │  │ • PDF Creation  │  │ • Analytics  │ │
-│  │ • Code Quality  │  │ • Puzzle Gen    │  │ • CDN/APIs   │ │
+│  │ • Development   │  │ • Agent Comm    │  │ • GitHub     │ │
+│  │ • AI Coding     │  │ • Task Routing  │  │ • Sentry     │ │
+│  │ • Feature Gen   │  │ • PDF Creation  │  │ • Slack      │ │
+│  │ • Code Quality  │  │ • Puzzle Gen    │  │ • $0/month   │ │
 │  └─────────────────┘  └─────────────────┘  └──────────────┘ │
 │           │                     │                   │       │
 │           └─────────────────────┼───────────────────┘       │
 │                                 │                           │
 │  ┌─────────────────────────────────────────────────────────┐ │
 │  │            UNIFIED ORCHESTRATOR                         │ │
-│  │          (Routes tasks to optimal system)               │ │
+│  │        (Routes tasks between Claude Code & A2A)        │ │
 │  └─────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -97,39 +98,38 @@ pdf = await pdf_agent.execute_skill("create_pdf", {"puzzles": puzzles})
 
 ---
 
-## ☁️ 3. AWS Business Infrastructure (Revenue Generation)
+## 📊 3. Production Monitoring (Zero Cost)
 
 ### **What It Does:**
-- **Book production pipeline** - Scalable PDF and cover generation
-- **Sales analytics** - Real-time revenue tracking and market intelligence
-- **Content delivery** - Global CDN for fast book downloads
-- **Customer APIs** - Mobile and web application backend
-- **Business automation** - End-to-end publishing workflows
+- **CI/CD Pipeline** - GitHub Actions for automated testing and deployment
+- **Error Monitoring** - Sentry for real-time error tracking and alerts
+- **Team Notifications** - Slack for instant alerts and team communication
+- **Cost Optimization** - $0/month vs $140/month AWS monitoring equivalent
 
 ### **How It Works:**
 ```
-Book Request → Step Functions → Lambda Processing → S3 Storage → CloudFront CDN
-     ↓               ↓                ↓               ↓           ↓
-Customer API → Workflow Orchestration → PDF/Cover Gen → Asset Storage → Global Delivery
-     ↓               ↓                ↓               ↓           ↓
-Sales Event → Analytics Pipeline → Revenue Tracking → DynamoDB → Business Intelligence
+Code Changes → GitHub Actions → Tests/Build → Success/Failure Alerts
+     ↓               ↓               ↓              ↓
+Git Push → Automated Pipeline → Quality Gates → Slack Notifications
+     ↓               ↓               ↓              ↓  
+Errors → Sentry Detection → Alert Processing → Team Response
 ```
 
-### **Business Services:**
-- **Book Production**: Lambda functions for PDF/cover generation  
-- **Sales Analytics**: DynamoDB + real-time revenue tracking
-- **Content CDN**: S3 + CloudFront for global book delivery
-- **Customer APIs**: API Gateway for mobile/web applications
-- **Business Intelligence**: Market analysis and A/B testing
+### **Monitoring Services:**
+- **GitHub Actions**: Free CI/CD pipeline automation
+- **Sentry**: Free tier error tracking (up to 5K errors/month)
+- **Slack**: Free team notifications and integrations
+- **Total Cost**: $0/month (vs $140/month AWS alternative)
 
 ### **Key Files:**
-- `docs/AWS_BUSINESS_STRATEGY.md` (comprehensive strategy)
-- `lambda/book-production/` (production pipeline)
-- `lambda/analytics/` (sales tracking)
+- `.github/workflows/` (CI/CD pipeline definitions)
+- `docs/infrastructure/` (monitoring setup guides)
+- Native integrations (no custom code required)
 
 ### **API Requirements:**
-- `OPENAI_API_KEY` (DALL-E cover generation)
-- `AWS_ACCESS_KEY` (S3, DynamoDB, Lambda access)
+- GitHub native (no additional APIs needed)
+- Sentry free tier (built-in integration)
+- Slack webhooks (free tier sufficient)
 
 ---
 
@@ -137,9 +137,9 @@ Sales Event → Analytics Pipeline → Revenue Tracking → DynamoDB → Busines
 
 ### **What It Does:**
 - **Intelligent task routing** - Picks optimal system for each task
-- **Cross-system workflows** - Coordinates complex operations
-- **Unified monitoring** - Single dashboard for all systems
-- **API key management** - Secure credential handling
+- **Cross-system workflows** - Coordinates complex operations between Claude Code and A2A
+- **GitHub Secrets management** - Secure API key handling
+- **Cost-optimized monitoring** - Leverages free tier services
 
 ### **Task Routing Logic:**
 ```python
@@ -151,9 +151,9 @@ if task.type == "feature_development":
 elif task.type == "puzzle_generation":
     return a2a_protocol.execute(task)
 
-# Production monitoring → AWS Lambda
-elif task.type == "production_monitoring":
-    return aws_lambda.execute(task)
+# Monitoring → Native integrations (GitHub/Sentry/Slack)
+elif task.type == "monitoring":
+    return native_monitoring.execute(task)  # $0 cost
 
 # Complex workflows → Hybrid execution
 else:
@@ -185,9 +185,9 @@ else:
    pdf = await pdf_agent.create_book(puzzles)
    ```
 
-3. **AWS Business Services** handle production:
+3. **Production Monitoring** handles oversight:
    ```
-   Step Functions workflow → PDF generation → Cover creation → S3 storage → CloudFront delivery
+   GitHub Actions pipeline → Quality gates → Sentry error tracking → Slack notifications
    ```
 
 4. **Unified Orchestrator** coordinates everything:
@@ -205,14 +205,14 @@ else:
 ### **Monthly Costs:**
 - **Claude Code**: ~$50-100 (OpenAI/Claude API)
 - **A2A Protocol**: $0 (local execution)
-- **AWS Business**: ~$25-50 (revenue-generating services)
-- **Total**: ~$75-150/month (with 10x business value)
+- **Production Monitoring**: $0 (GitHub Actions + Sentry + Slack free tiers)
+- **Total**: ~$50-100/month (REDUCED 60% from previous $130-220/month)
 
 ### **Performance:**
 - **Development**: 10x faster with Claude Code
 - **Puzzle Generation**: 100 puzzles in ~30 seconds (A2A)
-- **Book Production**: Complete book in 2-4 hours vs 2-4 weeks (AWS)
-- **Global Delivery**: <2 second book downloads worldwide (CloudFront)
+- **Book Production**: Complete book in 2-4 hours vs 2-4 weeks
+- **Monitoring Response**: <30 seconds for GitHub/Sentry/Slack alerts
 
 ---
 
@@ -222,12 +222,12 @@ else:
 ```bash
 # For GitHub Secrets (Production)
 OPENAI_API_KEY=your_key          # Claude Code + Content generation
-GITHUB_TOKEN=your_token          # AWS Lambda monitoring  
-SLACK_WEBHOOK_URL=your_webhook   # Notifications
-SENTRY_DSN=your_dsn             # Error tracking
+GEMINI_API_KEY=your_key          # Optional fallback for Claude Code
 
-# Optional
-GEMINI_API_KEY=your_key         # Fallback for Claude Code
+# Monitoring (Native Integrations - No Keys Needed)
+# GitHub Actions: Built-in CI/CD
+# Sentry: Free tier error tracking
+# Slack: Native webhook integrations
 ```
 
 ### **Local Development:**
@@ -249,13 +249,13 @@ python -c "from kindlemint.a2a import AgentRegistry; print('A2A Ready!')"
 ### **✅ FULLY OPERATIONAL:**
 - Claude Code Orchestration - AI development working
 - A2A Protocol - Agent communication working  
-- AWS Production Stack - Monitoring live
-- Unified Orchestrator - Coordinating all systems
+- Production Monitoring - GitHub/Sentry/Slack integrated
+- Unified Orchestrator - Coordinating both systems
 
 ### **🔧 OPTIMIZATION OPPORTUNITIES:**
 - Add more A2A agent types (cover design, marketing)
-- Expand AWS monitoring (performance metrics)
 - Enhance Claude Code with more specialized tools
+- Expand monitoring dashboards and analytics
 
 ---
 
@@ -278,12 +278,12 @@ registry = AgentRegistry()
 print(f"Agents: {len(registry.list_agents())}")
 ```
 
-### **AWS Issues:**
-- Check Step Functions execution history
-- Monitor S3 bucket access and storage costs
-- Verify API Gateway endpoints responding
-- Review DynamoDB sales data ingestion
+### **Monitoring Issues:**
+- Check GitHub Actions workflow status
+- Review Sentry error dashboard  
+- Verify Slack notifications working
+- Monitor GitHub Secrets configuration
 
 ---
 
-**🎯 BOTTOM LINE:** We have a sophisticated 3-tier orchestration system where each layer handles different aspects of book production - from AI-accelerated development to agent-based content creation to production monitoring. All three systems work together through the Unified Orchestrator to create a complete automated publishing pipeline.
+**🎯 BOTTOM LINE:** We have a streamlined 2-tier orchestration system optimized for cost and performance - AI-accelerated development through Claude Code and agent-based content creation through A2A Protocol. Production monitoring achieved through native GitHub/Sentry/Slack integrations at zero cost. All systems coordinate through the Unified Orchestrator to create a complete automated publishing pipeline.

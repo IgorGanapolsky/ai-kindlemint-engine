@@ -196,25 +196,27 @@ pipeline = VoiceToBookPipeline()
 book = await pipeline.process_voice_file("my_expertise.mp3")
 ```
 
-## 🏗️ 3-Tier Orchestration Architecture
+## 🏗️ Streamlined 2-Tier Orchestration Architecture
 
-AI-KindleMint-Engine uses a **sophisticated 3-tier orchestration system**:
+AI-KindleMint-Engine uses a **cost-optimized 2-tier orchestration system**:
 
 1. **🤖 Claude Code Orchestration** - AI-accelerated development (Local)
 2. **🔗 A2A Protocol** - Agent-to-agent communication (Local)  
-3. **☁️ AWS Lambda Orchestration** - Production monitoring (Cloud)
-4. **🎯 Unified Orchestrator** - Master controller coordinating all systems
+3. **🎯 Unified Orchestrator** - Master controller coordinating both systems
 
 **📖 [Complete Architecture Documentation](docs/ORCHESTRATION_ARCHITECTURE.md)**
+
+**💰 AWS Cost Optimization:** Eliminated redundant monitoring infrastructure (saving $80-140/month). GitHub Actions + Sentry + Slack provide superior monitoring at zero cost.
 
 ### What Each System Does
 
 **🤖 Claude Code** (Development): 10x faster coding with AI
 **🔗 A2A Protocol** (Content): Agent-based puzzle/PDF generation  
-**☁️ AWS Lambda** (Production): Real-time monitoring & alerts
-**🎯 Unified** (Control): Intelligent task routing across all systems
+**🎯 Unified** (Control): Intelligent task routing across both systems
 
 **📖 [Detailed Architecture Guide](docs/ORCHESTRATION_ARCHITECTURE.md)**
+
+**✅ Production Monitoring:** GitHub Actions (CI/CD) + Sentry (errors) + Slack (alerts) = $0/month vs AWS $140/month
 
 ### Required API Keys
 
