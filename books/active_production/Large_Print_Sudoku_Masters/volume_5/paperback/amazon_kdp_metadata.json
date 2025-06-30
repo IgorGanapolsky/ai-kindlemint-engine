@@ -1,0 +1,51 @@
+{
+  "title": "Large Print Sudoku Masters: Volume 5",
+  "subtitle": "Hard Puzzles - For Experienced Solvers",
+  "author": "Igor Ganapolsky",
+  "description": "Challenge your mind with 120 expertly crafted hard Sudoku puzzles designed for experienced solvers who refuse to compromise on visual comfort. Each puzzle requires advanced solving techniques while maintaining our signature extra-large 20-point font. This volume includes a comprehensive guide to expert strategies, from coloring techniques to forcing chains. Perfect for maintaining peak cognitive performance at any age.",
+  "keywords": [
+    "large print sudoku",
+    "hard sudoku",
+    "expert sudoku puzzles",
+    "advanced brain training",
+    "cognitive mastery",
+    "challenging puzzles",
+    "mental athletics",
+    "expert strategies",
+    "vision-friendly challenges",
+    "16-point font puzzles"
+  ],
+  "categories": [
+    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
+    "Self-Help > Personal Growth > Success",
+    "Health, Fitness & Dieting > Mental Health > Cognitive Performance"
+  ],
+  "language": "en",
+  "pages": 248,
+  "format": "Paperback",
+  "binding": "Perfect Bound",
+  "dimensions": "8.5 x 11 inches",
+  "paper": "White",
+  "ink": "Black & White",
+  "spine_width": "0.5000 inches",
+  "price_range": "$16.99 - $18.99",
+  "target_audience": "Expert solvers, cognitive athletes, challenge enthusiasts",
+  "publication_date": "2025-06-30",
+  "isbn": "KDP_AUTO_ASSIGNED",
+  "low_content_book": true,
+  "large_print_book": true,
+  "printing_cost_estimate": "$4.05",
+  "royalty_estimate": "$4.50 - $5.50",
+  "market_position": "Premium expert-level offering",
+  "volume_features": {
+    "difficulty_level": "Hard",
+    "puzzle_count": 120,
+    "tips_included": true,
+    "solutions_placement": "After each section of 10 puzzles",
+    "font_size": "20-point for maximum readability",
+    "special_features": "Expert strategy compendium"
+  },
+  "cover_design": {
+    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 5 - Hard Puzzles'. Deep purple and gold color scheme suggesting mastery. Complex Sudoku grid pattern with expert-level visual. Bold, authoritative typography with 'Volume 5' badge prominently displayed. Include crown or summit imagery for achievement. 'For Experienced Solvers' subtitle clearly visible. 'Large Print' feature highlighted."
+  }
+}

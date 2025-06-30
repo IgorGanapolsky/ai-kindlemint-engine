@@ -15,13 +15,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
-from reportlab.platypus import (
-    Image,
-    PageBreak,
-    Paragraph,
-    SimpleDocTemplate,
-    Spacer,
-)
+from reportlab.platypus import Image, PageBreak, Paragraph, SimpleDocTemplate, Spacer
 
 
 class MarketAlignedSudokuPDF:

@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-06-30T12:56:55.502783",
+  "status": "FAILED - CRITICAL",
+  "critical_errors": [
+    "\u274c Visual validation failed: 'books/active_production/Large_Print_Sudoku_Masters/volume_1/paperback' is no file"
+  ],
+  "errors": [
+    "\u274c Content validation error: [Errno 21] Is a directory: 'books/active_production/Large_Print_Sudoku_Masters/volume_1/paperback'"
+  ],
+  "warnings": [],
+  "passed": [],
+  "visual_validation": {},
+  "content_validation": {},
+  "summary": {
+    "reason": "Critical visual rendering issues",
+    "total_checks": 2,
+    "visual_checks": 0
+  }
+}

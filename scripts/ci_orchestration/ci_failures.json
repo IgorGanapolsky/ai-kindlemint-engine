@@ -1,11 +1,27 @@
 {
-  "timestamp": "2025-06-30T16:04:24.609365",
+  "timestamp": "2025-06-30T16:59:33.742334",
   "repository": "igorganapolsky/ai-kindlemint-engine",
-  "total_failures": 1,
+  "total_failures": 3,
   "failures": [
     {
+      "job_name": "qa-check",
+      "job_id": 45068758325,
+      "status": "completed",
+      "conclusion": "failure",
+      "failed_step": "Set up job",
+      "failure_type": "unknown",
+      "error_message": "",
+      "suggested_fix": null,
+      "workflow_name": "Puzzle Book QA",
+      "workflow_id": 15979007147,
+      "branch": "main",
+      "commit_sha": "a71407c6327b4f45d90ef8f9e990db74f44407a8",
+      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15979007147",
+      "created_at": "2025-06-30T16:58:34Z"
+    },
+    {
       "job_name": "Run QA Checks",
-      "job_id": 45064450542,
+      "job_id": 45065092543,
       "status": "completed",
       "conclusion": "failure",
       "failed_step": "Run full test suite with JSON report",
@@ -13,22 +29,39 @@
       "error_message": "",
       "suggested_fix": null,
       "workflow_name": "QA Checks",
-      "workflow_id": 15977731384,
+      "workflow_id": 15977916505,
       "branch": "main",
-      "commit_sha": "25a59d06fbbe57b58a17a6eaa6c7bc8d81bd0ef4",
-      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15977731384",
-      "created_at": "2025-06-30T15:55:18Z"
+      "commit_sha": "1da290ec34354d88808572f6e6c5b613f821b099",
+      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15977916505",
+      "created_at": "2025-06-30T16:04:00Z"
+    },
+    {
+      "job_name": "Run QA Checks",
+      "job_id": 45065012853,
+      "status": "completed",
+      "conclusion": "failure",
+      "failed_step": "Run full test suite with JSON report",
+      "failure_type": "unknown",
+      "error_message": "",
+      "suggested_fix": null,
+      "workflow_name": "QA Checks",
+      "workflow_id": 15977892503,
+      "branch": "main",
+      "commit_sha": "d1e8112d967e37e9e42b5754f1e0868e6f87e660",
+      "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/15977892503",
+      "created_at": "2025-06-30T16:02:58Z"
     }
   ],
   "failure_summary": {
     "by_type": {
-      "unknown": 1
+      "unknown": 3
     },
     "by_workflow": {
-      "QA Checks": 1
+      "Puzzle Book QA": 1,
+      "QA Checks": 2
     },
     "by_branch": {
-      "main": 1
+      "main": 3
     }
   }
 }

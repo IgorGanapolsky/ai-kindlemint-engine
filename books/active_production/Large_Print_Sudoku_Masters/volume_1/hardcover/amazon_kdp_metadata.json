@@ -36,5 +36,10 @@
   "revenue_multiplier": "2-3x paperback profit",
   "market_position": "Premium offering in category",
   "gift_appeal": "High - premium hardcover presentation",
-  "season_relevance": "Year-round, especially holidays and gift occasions"
+  "season_relevance": "Year-round, especially holidays and gift occasions",
+  "low_content_book": true,
+  "large_print_book": true,
+  "cover_design": {
+    "dalle_prompt": "Professional hardcover book design for 'Large Print Sudoku Masters: Volume 1'. Elegant blue and silver color scheme with premium feel. Large, clear Sudoku grid as central element with some cells filled. Sophisticated typography with embossed effect. 'Volume 1' in elegant badge design. Include subtle brain wellness imagery. Hardcover spine visible at angle showing title. Premium gift-worthy appearance."
+  }
 }

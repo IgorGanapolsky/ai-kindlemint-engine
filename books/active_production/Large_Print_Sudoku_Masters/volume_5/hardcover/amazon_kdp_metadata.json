@@ -36,5 +36,10 @@
   "revenue_multiplier": "2-3x paperback profit",
   "market_position": "Premium offering in category",
   "gift_appeal": "High - premium hardcover presentation",
-  "season_relevance": "Year-round, especially holidays and gift occasions"
+  "season_relevance": "Year-round, especially holidays and gift occasions",
+  "low_content_book": true,
+  "large_print_book": true,
+  "cover_design": {
+    "dalle_prompt": "Professional hardcover book design for 'Large Print Sudoku Masters: Volume 5'. Deep purple and platinum color scheme suggesting expertise. Elite-level complex Sudoku grid with master-level visual. Sophisticated typography with 'Expert Level' subtitle. 'Volume 5' in premium platinum badge. Crown or achievement imagery for mastery. Luxury gift appearance."
+  }
 }

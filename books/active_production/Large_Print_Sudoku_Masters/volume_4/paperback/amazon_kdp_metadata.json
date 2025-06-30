@@ -1,0 +1,51 @@
+{
+  "title": "Large Print Sudoku Masters: Volume 4",
+  "subtitle": "Medium to Hard - Rising Challenge",
+  "author": "Igor Ganapolsky",
+  "description": "Ready for a greater challenge? This volume features 110 carefully curated puzzles that progress from medium to hard difficulty, perfect for solvers ready to level up their skills. All puzzles maintain our signature extra-large 20-point font for visual comfort. Master advanced techniques like X-Wing, Swordfish, and hidden pairs with our comprehensive strategy guide. Each section includes technique spotlights and practice exercises.",
+  "keywords": [
+    "large print sudoku",
+    "challenging sudoku",
+    "hard sudoku puzzles",
+    "advanced sudoku techniques",
+    "brain challenge",
+    "cognitive advancement",
+    "puzzle progression",
+    "mental agility",
+    "expert strategies",
+    "16-point font puzzles"
+  ],
+  "categories": [
+    "Crafts, Hobbies & Home > Games & Activities > Puzzles > Sudoku",
+    "Self-Help > Self-Esteem > Self-Confidence",
+    "Health, Fitness & Dieting > Mental Health > Cognitive Enhancement"
+  ],
+  "language": "en",
+  "pages": 232,
+  "format": "Paperback",
+  "binding": "Perfect Bound",
+  "dimensions": "8.5 x 11 inches",
+  "paper": "White",
+  "ink": "Black & White",
+  "spine_width": "0.4700 inches",
+  "price_range": "$15.99 - $17.99",
+  "target_audience": "Experienced solvers, challenge seekers, cognitive athletes",
+  "publication_date": "2025-06-30",
+  "isbn": "KDP_AUTO_ASSIGNED",
+  "low_content_book": true,
+  "large_print_book": true,
+  "printing_cost_estimate": "$3.85",
+  "royalty_estimate": "$4.25 - $5.25",
+  "market_position": "Premium challenge for advancing solvers",
+  "volume_features": {
+    "difficulty_level": "Medium to Hard (Progressive)",
+    "puzzle_count": 110,
+    "tips_included": true,
+    "solutions_placement": "After each section of 10 puzzles",
+    "font_size": "20-point for maximum readability",
+    "special_features": "Advanced technique tutorials"
+  },
+  "cover_design": {
+    "dalle_prompt": "Professional book cover for 'Large Print Sudoku Masters: Volume 4 - Rising Challenge'. Dynamic orange to red gradient suggesting increasing difficulty. Sudoku grid with complex pattern visible. Strong, bold typography with 'Volume 4' badge. Include upward arrow or mountain imagery for 'rising' theme. Professional design with 'Large Print' prominently featured. Convey advancement and achievement."
+  }
+}
