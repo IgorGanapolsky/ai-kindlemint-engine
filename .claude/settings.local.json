@@ -301,7 +301,8 @@
       "Bash(\"/repos/IgorGanapolsky/ai-kindlemint-engine/subscription\" )",
       "Bash(--field subscribed=true )",
       "Bash(--field ignored=false )",
-      "Bash(--field reason=\"watching\")"
+      "Bash(--field reason=\"watching\")",
+      "Bash(pytest:*)"
     ],
     "deny": []
   }
