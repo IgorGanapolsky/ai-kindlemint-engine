@@ -53,7 +53,8 @@ class Task:
     metadata: Dict[str, Any] = field(
         default_factory=dict
     )  # Additional task-specific metadata
-    required_capabilities: Optional[List[Any]] = None  # Required agent capabilities
+    # Required agent capabilities
+    required_capabilities: Optional[List[Any]] = None
 
     def update_status(
         self, new_status: TaskStatus, assigned_to: Optional[str] = None

@@ -110,6 +110,8 @@ class MarketingAnalyticsDashboard:
     """
 
     def __init__(self):
+
+
 def __init__(self, author_name: str, brand_name: str):
         self.author_name = author_name
         self.brand_name = brand_name

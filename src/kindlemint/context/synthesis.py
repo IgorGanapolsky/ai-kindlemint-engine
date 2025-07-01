@@ -33,6 +33,8 @@ class MarketContextAnalyzer:
     """Analyzes market context for content optimization"""
 
     def __init__(self):
+
+
 def __init__(self):
         self.trend_cache = {}
         self.last_refresh = None

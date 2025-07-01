@@ -16,6 +16,8 @@ class CoverDesignAgent(BaseAgent):
     """Agent responsible for creating book covers using AI image generation"""
 
     def __init__(self):
+
+
 def __init__(self, agent_id: str = "cover-design-agent"):
         capabilities = [AgentCapability.COVER_DESIGN]
         super().__init__(agent_id=agent_id, capabilities=capabilities)

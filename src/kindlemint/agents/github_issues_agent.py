@@ -210,7 +210,8 @@ This PR requires manual review to assess:
 
         if should_auto_approve:
             # Auto-approve and merge
-            self.logger.info(f"Auto-approving security PR #{pr_number} from {author}")
+            self.logger.info(
+                f"Auto-approving security PR #{pr_number} from {author}")
 
             # Approve PR
             await self._run_gh_command(
@@ -538,7 +539,8 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
 
     async def _initialize(self) -> None:
         """Initialize the agent"""
-        self.logger.info(f"Initializing GitHub Issues Agent for repo: {self.repo}")
+        self.logger.info(
+            f"Initializing GitHub Issues Agent for repo: {self.repo}")
         # Verify gh CLI is available
         gh_check = await self._run_gh_command(["--version"])
         if not gh_check:

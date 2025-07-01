@@ -18,6 +18,8 @@ class SudokuContentValidator:
     """Validates actual Sudoku content in PDFs and images"""
 
     def __init__(self):
+
+
 def __init__(self):
         self.results = {
             "status": "UNKNOWN",

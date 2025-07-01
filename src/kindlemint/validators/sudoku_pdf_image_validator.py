@@ -16,6 +16,8 @@ class SudokuPDFImageValidator:
     """Validates Sudoku PDFs have proper image rendering"""
 
     def __init__(self):
+
+
 def __init__(self):
         self.errors = []
         self.warnings = []

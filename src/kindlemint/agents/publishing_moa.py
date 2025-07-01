@@ -9,41 +9,51 @@ specialized agents to create books through a pipeline approach.
 class PlotAgent:
     """Agent responsible for designing plots"""
 
-        """Design"""
+    """Design"""
+
+
 def design(self, concept):
-        return f"Plot designed around concept: {concept}"
+    return f"Plot designed around concept: {concept}"
 
 
 class CharacterAgent:
     """Agent responsible for creating characters"""
 
-        """Create"""
+    """Create"""
+
+
 def create(self, plot):
-        return "Characters created based on plot"
+    return "Characters created based on plot"
 
 
 class DialogueAgent:
     """Agent responsible for writing dialogue"""
 
-        """Write"""
+    """Write"""
+
+
 def write(self, characters, plot):
-        return "Dialogue written for characters"
+    return "Dialogue written for characters"
 
 
 class StyleAgent:
     """Agent responsible for style refinement"""
 
-        """Refine"""
+    """Refine"""
+
+
 def refine(self, content):
-        return "Stylistically refined content"
+    return "Stylistically refined content"
 
 
 class MarketAgent:
     """Agent responsible for market optimization"""
 
-        """Align"""
+    """Align"""
+
+
 def align(self, content):
-        return "Market-optimized content"
+    return "Market-optimized content"
 
 
 class PublishingMoA:
@@ -55,34 +65,40 @@ class PublishingMoA:
     """
 
     def __init__(self):
+
+
 def __init__(self):
-        self.agents = {
-            "plot_architect": PlotAgent(),
-            "character_developer": CharacterAgent(),
-            "dialogue_specialist": DialogueAgent(),
-            "style_editor": StyleAgent(),
-            "market_optimizer": MarketAgent(),
-        }
+    self.agents = {
+        "plot_architect": PlotAgent(),
+        "character_developer": CharacterAgent(),
+        "dialogue_specialist": DialogueAgent(),
+        "style_editor": StyleAgent(),
+        "market_optimizer": MarketAgent(),
+    }
 
-        """Create Book"""
+    """Create Book"""
+
+
 def create_book(self, concept):
-        """
-        Create a book from a concept through the agent pipeline
+    """
+    Create a book from a concept through the agent pipeline
 
-        Args:
-            concept: Initial book concept
+    Args:
+        concept: Initial book concept
 
-        Returns:
-            Aggregated output from all agents
-        """
-        plot = self.agents["plot_architect"].design(concept)
-        characters = self.agents["character_developer"].create(plot)
-        dialogue = self.agents["dialogue_specialist"].write(characters, plot)
-        styled = self.agents["style_editor"].refine(dialogue)
-        optimized = self.agents["market_optimizer"].align(styled)
-        return self.aggregate_outputs(plot, characters, dialogue, styled, optimized)
+    Returns:
+        Aggregated output from all agents
+    """
+    plot = self.agents["plot_architect"].design(concept)
+    characters = self.agents["character_developer"].create(plot)
+    dialogue = self.agents["dialogue_specialist"].write(characters, plot)
+    styled = self.agents["style_editor"].refine(dialogue)
+    optimized = self.agents["market_optimizer"].align(styled)
+    return self.aggregate_outputs(plot, characters, dialogue, styled, optimized)
 
-        """Aggregate Outputs"""
+    """Aggregate Outputs"""
+
+
 def aggregate_outputs(self, *components):
-        """Aggregate outputs from all agents"""
-        return "\n\n".join(components)
+    """Aggregate outputs from all agents"""
+    return "\n\n".join(components)

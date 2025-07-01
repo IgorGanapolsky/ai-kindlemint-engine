@@ -70,6 +70,8 @@ class ContentAtomizer:
     """
 
     def __init__(self):
+
+
 def __init__(self):
         self.extraction_patterns = {
             ContentType.QUOTE: [r'"([^"]+)"', r'"([^"]+)"'],
