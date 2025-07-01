@@ -62,20 +62,16 @@ gh api \
       "Documentation Validation",
       "PR Status Summary",
       "PR Orchestrator / Analyze PR Intelligence",
-      "PR Orchestrator / Code Hygiene Check"
+      "PR Orchestrator / Code Hygiene Check",
+      "Code Hygiene Check"
     ]
   },
   "enforce_admins": false,
   "required_pull_request_reviews": {
     "required_approving_review_count": 1,
     "dismiss_stale_reviews": true,
-    "require_code_owner_reviews": true,
-    "require_last_push_approval": false,
-    "bypass_pull_request_allowances": {
-      "users": [],
-      "teams": [],
-      "apps": ["${ORCHESTRATOR_APP}"]
-    }
+    "require_code_owner_reviews": false,
+    "require_last_push_approval": false
   },
   "restrictions": null,
   "allow_force_pushes": false,
