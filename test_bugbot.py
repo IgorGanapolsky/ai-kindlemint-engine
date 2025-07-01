@@ -21,7 +21,7 @@ def fetch_data():
     try:
         import requests
 
-        response = requests.get("https://api.example.com")
+        response = requests.get("https://api.example.com", timeout=60)
     except:
         pass
 
