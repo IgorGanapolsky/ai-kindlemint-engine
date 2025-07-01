@@ -40,13 +40,19 @@ class GitHubIssuesAgent(BaseAgent):
         self.repo = repo or "IgorGanapolsky/ai-kindlemint-engine"
 
         # Security improvement patterns
-        self.security_bots = ["pixeebot", "dependabot", "snyk-bot", "deepsource-autofix[bot]", "seer-by-sentry"]
+        self.security_bots = [
+            "pixeebot",
+            "dependabot",
+            "snyk-bot",
+            "deepsource-autofix[bot]",
+            "seer-by-sentry",
+        ]
         self.auto_approve_patterns = [
             "Add timeout to requests calls",
             "Secure Source of Randomness",
             "Bump .* from .* to .*",  # Dependency updates
         ]
-        
+
         # Aggressive merge mode configuration
         self.aggressive_mode = True
         self.auto_merge_patterns = [
@@ -81,7 +87,7 @@ class GitHubIssuesAgent(BaseAgent):
                 return TaskResult(
                     task_id=task.task_id,
                     status=TaskStatus.FAILED,
-                    error=f"Unsupported action type: {action_type}"
+                    error=f"Unsupported action type: {action_type}",
                 )
 
         except Exception as e:
@@ -90,7 +96,7 @@ class GitHubIssuesAgent(BaseAgent):
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
                 error=str(e),
-                output={"error_type": type(e).__name__}
+                output={"error_type": type(e).__name__},
             )
 
     async def _review_pull_request(self, task: Task) -> TaskResult:
@@ -100,7 +106,7 @@ class GitHubIssuesAgent(BaseAgent):
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Missing pr_number"
+                error="Missing pr_number",
             )
 
         # Get PR details
@@ -120,7 +126,7 @@ class GitHubIssuesAgent(BaseAgent):
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Failed to fetch PR data"
+                error="Failed to fetch PR data",
             )
 
         # Generate review based on PR data
@@ -178,7 +184,7 @@ This PR requires manual review to assess:
                 "pr_number": pr_number,
                 "review": review,
                 "author": pr_data["author"]["login"],
-            }
+            },
         )
 
     async def _review_security_pr(self, task: Task) -> TaskResult:
@@ -203,7 +209,7 @@ This PR requires manual review to assess:
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Failed to fetch PR data"
+                error="Failed to fetch PR data",
             )
 
         author = pr_data["author"]["login"]
@@ -217,9 +223,17 @@ This PR requires manual review to assess:
             auto_approve
             and (
                 is_security_bot
-                or (self.aggressive_mode and any(pattern in title.lower() for pattern in self.auto_merge_patterns))
+                or (
+                    self.aggressive_mode
+                    and any(
+                        pattern in title.lower() for pattern in self.auto_merge_patterns
+                    )
+                )
             )
-            and any(pattern in title.lower() for pattern in self.auto_approve_patterns + self.auto_merge_patterns)
+            and any(
+                pattern in title.lower()
+                for pattern in self.auto_approve_patterns + self.auto_merge_patterns
+            )
         )
 
         if should_auto_approve:
@@ -253,7 +267,7 @@ This PR requires manual review to assess:
                     "--delete-branch",
                 ]
             )
-            
+
             if not merge_result:
                 # Try squash merge if regular merge fails
                 await self._run_gh_command(
@@ -311,7 +325,7 @@ This PR requires manual review before merging.
                 "author": author,
                 "is_security_bot": is_security_bot,
                 "action_taken": action_taken,
-            }
+            },
         )
 
     async def _analyze_issue(self, task: Task) -> TaskResult:
@@ -335,7 +349,7 @@ This PR requires manual review before merging.
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Failed to fetch issue data"
+                error="Failed to fetch issue data",
             )
 
         # Check if it's a Pixeebot activity dashboard
@@ -398,7 +412,7 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
                 "issue_number": issue_number,
                 "analysis": response,
                 "author": issue_data["author"]["login"],
-            }
+            },
         )
 
     async def _handle_pixeebot_dashboard(self, issue_data: Dict) -> str:
@@ -510,7 +524,7 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
             metrics={
                 "total_items": len(issues) + len(prs),
                 "security_items": report["summary"]["security_items"],
-            }
+            },
         )
 
     async def _run_gh_command(self, args: List[str]) -> Any:
@@ -534,7 +548,8 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
                 try:
                     return json.loads(output)
                 except json.JSONDecodeError:
-                    self.logger.warning(f"Failed to parse JSON: {output[:100]}")
+                    self.logger.warning(
+                        f"Failed to parse JSON: {output[:100]}")
                     return output
 
             return output

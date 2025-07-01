@@ -318,7 +318,7 @@ class BaseAgent(ABC):
                 f"Task {task.task_id} {'completed' if result.status == TaskStatus.COMPLETED else 'failed'} "
                 f"in {processing_time:.2f}s"
             )
-            
+
             return result
 
         except Exception as e:
