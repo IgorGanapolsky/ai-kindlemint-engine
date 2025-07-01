@@ -281,7 +281,8 @@
       "Bash(--subtitle \"100 Easy to Hard Progressive Puzzles\" )",
       "Bash(echo:*)",
       "WebFetch(domain:forum.cursor.com)",
-      "WebFetch(domain:www.instructa.ai)"
+      "WebFetch(domain:www.instructa.ai)",
+      "Bash(git branch:*)"
     ],
     "deny": []
   }

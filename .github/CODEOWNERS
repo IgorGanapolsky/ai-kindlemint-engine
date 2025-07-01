@@ -1,0 +1,53 @@
+# AI-KindleMint-Engine Code Ownership
+# These owners will be requested for review when someone opens a pull request
+# Order matters: later matches take precedence
+
+# Global owners - for all files
+* @IgorGanapolsky
+
+# Core AI/Orchestration Systems
+/src/kindlemint/orchestrator/ @IgorGanapolsky
+/src/kindlemint/agents/ @IgorGanapolsky
+/src/kindlemint/a2a/ @IgorGanapolsky
+
+# Critical Business Logic
+/src/kindlemint/engines/ @IgorGanapolsky
+/src/kindlemint/validators/ @IgorGanapolsky
+/src/kindlemint/utils/ @IgorGanapolsky
+
+# Scripts and Automation
+/scripts/orchestration/ @IgorGanapolsky
+/scripts/ai_*/ @IgorGanapolsky
+/scripts/critical_metadata_qa.py @IgorGanapolsky
+/scripts/massive_issue_fixer.py @IgorGanapolsky
+
+# Infrastructure and CI/CD
+/.github/workflows/ @IgorGanapolsky
+/.github/actions/ @IgorGanapolsky
+/lambda/ @IgorGanapolsky
+/deployment/ @IgorGanapolsky
+
+# Security-Sensitive Files
+/scripts/api_manager*.py @IgorGanapolsky
+/scripts/*_api*.py @IgorGanapolsky
+/.env.example @IgorGanapolsky
+/config/ @IgorGanapolsky
+
+# Documentation
+/docs/ @IgorGanapolsky
+/README.md @IgorGanapolsky
+/CLAUDE.md @IgorGanapolsky
+*.md @IgorGanapolsky
+
+# Configuration Files
+/pyproject.toml @IgorGanapolsky
+/setup.py @IgorGanapolsky
+/requirements*.txt @IgorGanapolsky
+/.pre-commit-config.yaml @IgorGanapolsky
+
+# Test Files - Can be reviewed by any contributor
+/tests/ @IgorGanapolsky
+
+# Assets and Resources
+/assets/ @IgorGanapolsky
+/books/ @IgorGanapolsky
