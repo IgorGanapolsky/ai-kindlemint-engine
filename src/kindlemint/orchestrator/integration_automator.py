@@ -13,8 +13,7 @@ class IntegrationAutomator:
     Automates creation of integrations with external services
     """
 
-        """  Init  """
-def __init__(self):
+    def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.integration_templates = {
             "KDP Publishing API": self._kdp_integration_template,
@@ -88,21 +87,7 @@ def __init__(self):
         self, integration_type: str, include_error_handling: bool
     ) -> str:
         """Template for KDP Publishing API integration"""
-
-        error_handling = (
-            """
-            except KDPAPIError as e:
-                self.logger.error(f"KDP API error: {e}")
-                return {"status": "error", "error": str(e)}
-            except Exception as e:
-                self.logger.error(f"Unexpected error: {e}")
-                return {"status": "error", "error": "Internal error"}"""
-            if include_error_handling
-            else ""
-        )
-
-        return dedent(
-            f"""
+        return "# KDP integration template implementation"
         \"\"\"
         KDP Publishing API Integration
         \"\"\"

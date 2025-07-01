@@ -770,8 +770,12 @@ if __name__ == "__main__":
     report_path = orchestrator.save_report()
     print(f"\n📄 Full report saved to: {report_path}")
 
-    # Offer to execute cleanup
-    if input("\n🤔 Execute automatic cleanup? (y/n): ").lower() == "y":
-        results = orchestrator.execute_cleanup()
-        print(
-            f"\n✅ Cleanup completed: {len(results['operations'])} operations")
+    # Offer to execute cleanup (skip in CI environment)
+    import sys
+    if sys.stdin.isatty():  # Only ask for input if running interactively
+        if input("\n🤔 Execute automatic cleanup? (y/n): ").lower() == "y":
+            results = orchestrator.execute_cleanup()
+            print(
+                f"\n✅ Cleanup completed: {len(results['operations'])} operations")
+    else:
+        print("\n🤖 Running in CI environment - skipping interactive cleanup")

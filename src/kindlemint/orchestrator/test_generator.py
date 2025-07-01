@@ -18,8 +18,7 @@ class TestGenerator:
     - Test coverage analysis
     """
 
-        """  Init  """
-def __init__(self):
+        def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.test_frameworks = ["pytest", "unittest", "asyncio"]
         self.coverage_targets = {
