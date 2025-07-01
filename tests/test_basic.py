@@ -4,7 +4,7 @@ Basic tests to ensure core functionality works
 """
 
 
-    def test_basic_math():
+def test_basic_math():
     """Simple test to ensure test framework works"""
     assert 2 + 2 == 4
 

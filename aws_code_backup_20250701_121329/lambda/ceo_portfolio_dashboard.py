@@ -162,8 +162,9 @@ def calculate_performance_grade(summary: Dict[str, Any]) -> Dict[str, Any]:
             "progress_percentage": 0,
         }
 
-
     """Send Ceo Dashboard"""
+
+
 def send_ceo_dashboard(report: Dict[str, Any]):
     """Send formatted CEO dashboard to Slack."""
     try:
@@ -246,7 +247,8 @@ def send_ceo_dashboard(report: Dict[str, Any]):
         if response.status_code == 200:
             logger.info("✅ CEO dashboard sent successfully")
         else:
-            logger.warning(f"Slack notification failed: {response.status_code}")
+            logger.warning(
+                f"Slack notification failed: {response.status_code}")
 
     except Exception as e:
         logger.error(f"Failed to send CEO dashboard: {e}")
@@ -254,7 +256,8 @@ def send_ceo_dashboard(report: Dict[str, Any]):
 
 def get_grade_color(grade: str) -> str:
     """Get Slack color for performance grade."""
-    colors = {"A+": "good", "A": "good", "B": "warning", "C": "warning", "D": "danger"}
+    colors = {"A+": "good", "A": "good",
+        "B": "warning", "C": "warning", "D": "danger"}
     return colors.get(grade, "warning")
 
 
@@ -279,6 +282,8 @@ if __name__ == "__main__":
 
     class MockContext:
             """  Init  """
+
+
 def __init__(self):
             self.function_name = "ceo-portfolio-dashboard"
             self.memory_limit_in_mb = 512

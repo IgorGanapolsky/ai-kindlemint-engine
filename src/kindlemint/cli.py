@@ -12,13 +12,13 @@ from typing import Any, Dict
 
 import click
 
+from kindlemint.marketing.seo_engine_2025 import SEOOptimizedMarketing
+
 # Add src to path to allow importing from kindlemint package
 # This is necessary for the CLI to find its own modules when run directly
 project_root = Path(__file__).resolve().parents[1]
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
-
-from kindlemint.marketing.seo_engine_2025 import SEOOptimizedMarketing
 
 
 @click.group()
@@ -31,7 +31,8 @@ def cli():
 @click.option(
     "--input",
     "input_path",
-    type=click.Path(exists=True, dir_okay=False, readable=True, resolve_path=True),
+    type=click.Path(exists=True, dir_okay=False,
+                    readable=True, resolve_path=True),
     required=True,
     help="Path to the book metadata JSON file to enhance.",
 )

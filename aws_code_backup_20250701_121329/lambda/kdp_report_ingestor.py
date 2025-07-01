@@ -152,7 +152,8 @@ def process_kdp_report(csv_content: str, report_date: str) -> Dict[str, Any]:
         total_royalties = Decimal("0.0")
 
         # Process each row in the CSV
-        for row_num, row in enumerate(csv_reader, start=2):  # Start at 2 (after header)
+        # Start at 2 (after header)
+        for row_num, row in enumerate(csv_reader, start=2):
             try:
                 # Extract and validate book data from CSV row
                 book_data = extract_book_data_from_csv_row(row)
@@ -178,7 +179,8 @@ def process_kdp_report(csv_content: str, report_date: str) -> Dict[str, Any]:
                             }
                         )
                 else:
-                    failed_books.append({"row": row_num, "error": "Invalid book data"})
+                    failed_books.append(
+                        {"row": row_num, "error": "Invalid book data"})
 
             except Exception as e:
                 logger.warning(f"Failed to process row {row_num}: {str(e)}")
@@ -226,15 +228,18 @@ def extract_book_data_from_csv_row(row: Dict[str, str]) -> Optional[Dict[str, An
 
         # Use ASIN as primary identifier, fallback to ISBN or title hash
         book_id = (
-            asin if asin else (isbn if isbn else generate_book_id_from_title(title))
+            asin if asin else (
+                isbn if isbn else generate_book_id_from_title(title))
         )
 
         if not book_id or not title:
-            logger.warning(f"Skipping row with missing book_id or title: {row}")
+            logger.warning(
+                f"Skipping row with missing book_id or title: {row}")
             return None
 
         # Extract numeric fields with error handling
-        sales_count = safe_int_conversion(row.get("Units Sold", row.get("Sales", "0")))
+        sales_count = safe_int_conversion(
+            row.get("Units Sold", row.get("Sales", "0")))
         pages_read = safe_int_conversion(
             row.get("Pages Read", row.get("KENP Read", "0"))
         )
@@ -282,7 +287,8 @@ def safe_decimal_conversion(value: str) -> Decimal:
     """Safely convert string to Decimal, handling currency symbols."""
     try:
         # Remove currency symbols and other non-numeric characters
-        cleaned = "".join(c for c_var in str(value) if c.isdigit() or c in ".-")
+        cleaned = "".join(c for c_var in str(
+            value) if c.isdigit() or c in ".-")
         return Decimal(cleaned) if cleaned else Decimal("0.0")
     except (ValueError, TypeError, Exception):
         return Decimal("0.0")
@@ -358,10 +364,12 @@ def update_book_memory(book_data: Dict[str, Any], report_date: str) -> bool:
         return True
 
     except ClientError as e:
-        logger.error(f"DynamoDB error updating book {book_data['book_id']}: {e}")
+        logger.error(
+            f"DynamoDB error updating book {book_data['book_id']}: {e}")
         return False
     except Exception as e:
-        logger.error(f"Unexpected error updating book {book_data['book_id']}: {e}")
+        logger.error(
+            f"Unexpected error updating book {book_data['book_id']}: {e}")
         return False
 
 
@@ -395,7 +403,8 @@ def create_error_response(status_code: int, message: str) -> Dict[str, Any]:
             "Access-Control-Allow-Origin": "*",
         },
         "body": json.dumps(
-            {"error": message, "timestamp": datetime.now(timezone.utc).isoformat()}
+            {"error": message, "timestamp": datetime.now(
+                timezone.utc).isoformat()}
         ),
     }
 
@@ -414,6 +423,8 @@ The Metabolic Reset,B07DEF789,18,950,45.00""",
     # Mock context
     class MockContext:
             """  Init  """
+
+
 def __init__(self):
             self.function_name = "kdp-report-ingestor"
             self.aws_request_id = "test-request-123"

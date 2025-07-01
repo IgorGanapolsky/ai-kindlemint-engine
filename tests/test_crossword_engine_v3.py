@@ -5,14 +5,16 @@ from pathlib import Path
 
 import pytest
 
+from kindlemint.engines.crossword import CrosswordEngine as CrosswordEngineV3
+
 # Add the project root to the Python path to allow importing from 'scripts'
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-sys.path.insert(0, str(project_root / "src"))  # enable `kindlemint` package import
+# enable `kindlemint` package import
+sys.path.insert(0, str(project_root / "src"))
 
 # Import new engine implementation from the migrated package.
 # Alias it as *CrosswordEngineV3* to minimise downstream changes.
-from kindlemint.engines.crossword import CrosswordEngine as CrosswordEngineV3
 
 # --- Fixtures ---
 
@@ -118,18 +120,21 @@ class TestGridGeneration:
 
     def test_grid_connectivity(self, engine_instance):
         """Test the grid connectivity check with a known disconnected grid."""
-        connected_grid = engine_instance.generate_grid_with_content(1, "Test", "EASY")
+        connected_grid = engine_instance.generate_grid_with_content(
+            1, "Test", "EASY")
         assert engine_instance._check_grid_connectivity(connected_grid) is True
 
         # Create a manually disconnected grid
-        disconnected_grid = [[" " for __var in range(15)] for __var in range(15)]
+        disconnected_grid = [
+            [" " for __var in range(15)] for __var in range(15)]
         disconnected_grid[0][0] = "A"
         disconnected_grid[14][14] = "B"
         # Add a wall of black squares
         for i in range(15):
             disconnected_grid[7][i] = "#"
 
-        assert engine_instance._check_grid_connectivity(disconnected_grid) is False
+        assert engine_instance._check_grid_connectivity(
+            disconnected_grid) is False
 
     def test_fallback_grid_creation(self, engine_instance):
         """Test that the fallback grid mechanism produces a valid grid."""
@@ -157,9 +162,11 @@ class TestWordAndClueLogic:
         }  # This is simplified, real logic is more complex
 
         # A more realistic extraction test
-        filled_grid = engine_instance.generate_grid_with_content(1, "Test", "EASY")
+        filled_grid = engine_instance.generate_grid_with_content(
+            1, "Test", "EASY")
         _, _, clue_pos = engine_instance.create_grid_images(filled_grid, 1)
-        across, down = engine_instance.extract_words_from_grid(filled_grid, clue_pos)
+        across, down = engine_instance.extract_words_from_grid(
+            filled_grid, clue_pos)
 
         assert isinstance(across, list)
         assert isinstance(down, list)
@@ -192,7 +199,8 @@ class TestWordAndClueLogic:
         clues = engine_instance.generate_clues(1, "Test", "EASY", across, down)
 
         # Test a valid puzzle
-        validation_pass = engine_instance.validate_puzzle(grid, across, down, clues)
+        validation_pass = engine_instance.validate_puzzle(
+            grid, across, down, clues)
         assert validation_pass["valid"] is True
 
         # Test with duplicate words

@@ -18,10 +18,13 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+
 class V3Orchestrator:
     """V3 Zero-Touch Publishing Engine orchestrator."""
 
         """  Init  """
+
+
 def __init__(self):
         """Initialize the V3 orchestrator."""
         self.s3_client = boto3.client('s3')
@@ -33,7 +36,8 @@ def __init__(self):
         self.openai_api_key = os.getenv('OPENAI_API_KEY')
 
         if not self.fargate_invoker_arn:
-            raise ValueError("FARGATE_INVOKER_ARN environment variable must be set")
+            raise ValueError(
+                "FARGATE_INVOKER_ARN environment variable must be set")
 
         if not self.openai_api_key:
             raise ValueError("OPENAI_API_KEY environment variable must be set")

@@ -10,6 +10,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from kindlemint.engines.crossword import CrosswordEngine
+from kindlemint.engines.sudoku import SudokuGenerator
+
 # Prefer new package code under `src`. Legacy `scripts` modules remain for
 # backward-compatibility but should be migrated and removed in future cleanup.
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
@@ -21,10 +24,8 @@ except ModuleNotFoundError:  # pragma: no cover
     # Legacy fallback (should be removed after migration completes)
     from scripts.book_layout_bot import BookLayoutEngine  # type: ignore
 
-from kindlemint.engines.crossword import CrosswordEngine
 
 # Use the modern Sudoku engine implementation
-from kindlemint.engines.sudoku import SudokuGenerator
 
 
 class TestBookGenerationPipeline(unittest.TestCase):
@@ -173,7 +174,8 @@ class TestBookGenerationPipeline(unittest.TestCase):
         puzzle = generator.generate_puzzle(difficulty="invalid_difficulty")
         # Should still generate a puzzle with default difficulty
         self.assertIsNotNone(puzzle)
-        self.assertIn(puzzle["difficulty"], ["easy", "medium", "hard", "expert"])
+        self.assertIn(puzzle["difficulty"], [
+                      "easy", "medium", "hard", "expert"])
 
     def test_batch_consistency(self):
         """Test that batch generation maintains consistency"""
