@@ -46,7 +46,10 @@ class GitHubIssuesAgent(BaseAgent):
             "dependabot",
             "snyk-bot",
             "deepsource-autofix[bot]",
+            "deepsource[bot]",
+            "app/deepsource",
             "seer-by-sentry",
+            "app/seer-by-sentry",
             "coderabbitai[bot]",
             "coderabbitai",
             "app/coderabbitai",
@@ -464,7 +467,7 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
         return response
 
     async def _handle_coderabbit_review(self, task: Task) -> TaskResult:
-        """Handle CodeRabbit AI review comments and suggestions"""
+        """Handle AI code review bot comments and suggestions (CodeRabbit, DeepSource, Seer, etc.)"""
         pr_number = task.parameters.get("pr_number")
         
         if not pr_number:
@@ -489,24 +492,25 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
                 error="Failed to fetch PR data"
             )
 
-        # Filter CodeRabbit reviews and comments
-        coderabbit_reviews = [
+        # Filter AI code review bot reviews and comments
+        ai_bot_reviews = [
             r for r in pr_data.get("reviews", [])
-            if r.get("author", {}).get("login", "").lower() in ["coderabbitai[bot]", "coderabbitai", "app/coderabbitai"]
+            if r.get("author", {}).get("login", "").lower() in [bot.lower() for bot in self.security_bots if "coderabbit" in bot.lower() or "seer" in bot.lower() or "deepsource" in bot.lower()]
         ]
 
         response_actions = []
         
-        for review in coderabbit_reviews:
+        for review in ai_bot_reviews:
             review_body = review.get("body", "")
             review_state = review.get("state", "")
             
-            # Auto-acknowledge CodeRabbit suggestions
+            # Auto-acknowledge AI bot suggestions
             if review_state in ["COMMENTED", "CHANGES_REQUESTED"]:
+                bot_name = review.get("author", {}).get("login", "AI Bot")
                 # Post acknowledgment comment
                 ack_comment = f"""## 🤖 AI Agent Acknowledgment
 
-Thank you **@coderabbitai** for the code review! Our automated system has processed your suggestions:
+Thank you **@{bot_name}** for the code review! Our automated system has processed your suggestions:
 
 ### Review Status: **{review_state}**
 - ✅ **Suggestions captured** and logged for team review
@@ -532,12 +536,13 @@ Thank you **@coderabbitai** for the code review! Our automated system has proces
                 response_actions.append(f"acknowledged_{review_state.lower()}")
             
             elif review_state == "APPROVED":
-                # Thank CodeRabbit for approval
-                approval_comment = f"""## 🎉 Thank you @coderabbitai!
+                bot_name = review.get("author", {}).get("login", "AI Bot")
+                # Thank AI bot for approval
+                approval_comment = f"""## 🎉 Thank you @{bot_name}!
 
 Your **APPROVAL** is appreciated! The AI team coordination is working effectively.
 
-✅ **Code quality validated** by CodeRabbit AI
+✅ **Code quality validated** by {bot_name}
 🚀 **Ready for merge** with confidence
 
 ---
@@ -556,7 +561,7 @@ Your **APPROVAL** is appreciated! The AI team coordination is working effectivel
             status=TaskStatus.COMPLETED,
             output={
                 "pr_number": pr_number,
-                "coderabbit_reviews": len(coderabbit_reviews),
+                "ai_bot_reviews": len(ai_bot_reviews),
                 "actions_taken": response_actions,
                 "status": "processed"
             }

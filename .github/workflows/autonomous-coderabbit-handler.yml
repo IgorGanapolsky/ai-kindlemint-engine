@@ -1,4 +1,4 @@
-name: Autonomous CodeRabbit Handler
+name: Autonomous AI Review Bot Handler
 
 on:
   pull_request_review:
@@ -12,16 +12,24 @@ permissions:
   issues: write
 
 jobs:
-  handle-coderabbit:
-    name: Handle CodeRabbit Reviews
+  handle-ai-reviews:
+    name: Handle AI Code Review Bots
     runs-on: ubuntu-latest
     
-    # Only run for CodeRabbit bot reviews and comments
+    # Only run for AI code review bots (CodeRabbit, DeepSource, Seer)
     if: >
       (github.event.review.user.login == 'coderabbitai[bot]' || 
        github.event.review.user.login == 'app/coderabbitai' ||
+       github.event.review.user.login == 'seer-by-sentry' ||
+       github.event.review.user.login == 'app/seer-by-sentry' ||
+       github.event.review.user.login == 'deepsource[bot]' ||
+       github.event.review.user.login == 'app/deepsource' ||
        github.event.comment.user.login == 'coderabbitai[bot]' ||
-       github.event.comment.user.login == 'app/coderabbitai')
+       github.event.comment.user.login == 'app/coderabbitai' ||
+       github.event.comment.user.login == 'seer-by-sentry' ||
+       github.event.comment.user.login == 'app/seer-by-sentry' ||
+       github.event.comment.user.login == 'deepsource[bot]' ||
+       github.event.comment.user.login == 'app/deepsource')
     
     steps:
       - name: Checkout code
@@ -62,8 +70,8 @@ jobs:
                   print('No PR number found, skipping...')
                   return
                   
-              print(f'🤖 CodeRabbit detected on PR #{pr_number}')
-              print(f'Reviewer: ${{ github.event.review.user.login || github.event.comment.user.login }}')
+              print(f'🤖 AI Review Bot detected on PR #{pr_number}')
+              print(f'Bot: ${{ github.event.review.user.login || github.event.comment.user.login }}')
               print(f'Review State: ${{ github.event.review.state || \"COMMENT\" }}')
               
               # Initialize GitHub agent
@@ -82,16 +90,16 @@ jobs:
               )
               
               # Execute the task
-              print(f'Processing CodeRabbit review for PR #{pr_number}...')
+              print(f'Processing AI review bot feedback for PR #{pr_number}...')
               result = await agent._execute_task(task)
               
               if result.status.value == 'completed':
                   actions = result.output.get('actions_taken', [])
-                  print(f'✅ Successfully handled CodeRabbit review')
+                  print(f'✅ Successfully handled AI review bot feedback')
                   print(f'Actions taken: {actions}')
                   print(f'Reviews processed: {result.output.get(\"coderabbit_reviews\", 0)}')
               else:
-                  print(f'❌ Failed to handle CodeRabbit review: {result.error}')
+                  print(f'❌ Failed to handle AI review bot feedback: {result.error}')
                   sys.exit(1)
           
           asyncio.run(main())
