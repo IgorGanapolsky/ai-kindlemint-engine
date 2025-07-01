@@ -1,0 +1,60 @@
+{
+  "timestamp": "2025-07-01T15:16:23.312309",
+  "issues": [
+    {
+      "type": "root_clutter_critical",
+      "severity": "high",
+      "count": 28,
+      "message": "Too many files in root directory (28). Should be < 20.",
+      "suggestion": "Move files to appropriate subdirectories"
+    }
+  ],
+  "suggestions": [
+    {
+      "action": "aggressive_root_cleanup",
+      "priority": "high",
+      "message": "Move 28 files from root to appropriate directories",
+      "command": "python scripts/aggressive_repository_cleanup.py"
+    }
+  ],
+  "metrics": {
+    "hygiene_score": 65.0,
+    "root_files": 28,
+    "total_files": 29108,
+    "issues_count": 1,
+    "critical_issues": 1,
+    "organization_score": 100.0
+  },
+  "total_files": 29108,
+  "root_files": 28,
+  "root_file_list": [
+    ".cursorignore",
+    "claude-code",
+    "last_commit_cost.json",
+    "KDP_AUTOMATION_SETUP.md",
+    "orchestration_system.log",
+    "CLEANUP_PLAN.md",
+    "LICENSE",
+    "test_sudoku.pdf",
+    "requirements.txt",
+    "claude-flow-costs-notify",
+    "commit_costs.json",
+    "hygiene_report_20250701_144829.json",
+    "hygiene_report_20250701_142709.json",
+    "hygiene_report_20250701_135458.json",
+    "hygiene_report_20250701_135527.json",
+    ".deepsource.toml",
+    "README.md",
+    "setup.py",
+    "claude-flow-costs",
+    "sonar-project.properties",
+    "claude-flow",
+    ".ccfignore",
+    ".gitignore",
+    "hygiene_report.json",
+    ".gitattributes",
+    ".env.example",
+    "cost_analytics.json",
+    "hygiene_report_20250701_142412.json"
+  ]
+}

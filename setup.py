@@ -16,7 +16,6 @@ setuptools.setup(
     ),
     install_requires=[
         # Alphabetical order for readability
-        "beautifulsoup4>=4.10.0",
         "click>=8.0.0",
         "google-api-python-client>=2.100.0",
         "google-auth-httplib2>=0.2.0",
@@ -27,7 +26,6 @@ setuptools.setup(
         "nova-act>=0.1.0",
         "openai>=1.3.0",
         "pillow>=10.0.0",
-        "playwright>=1.40.0",
         "psutil>=5.9.8",
         "PyMuPDF>=1.23.0",
         "PyPDF2>=3.0.0",

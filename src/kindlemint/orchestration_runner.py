@@ -29,6 +29,7 @@ from .agents.kdp_performance_agent import KDPPerformanceAgent
 from .agents.business_analytics_agent import BusinessAnalyticsAgent
 from .agents.market_research_agent import MarketResearchAgent
 from .agents.task_system import Task
+import uuid
 
 
 class OrchestrationSystem:
@@ -76,8 +77,9 @@ class OrchestrationSystem:
         try:
             # Create comprehensive analysis task
             analysis_task = Task(
+                task_id=str(uuid.uuid4()),
                 task_type="comprehensive_analysis",
-                task_data={
+                parameters={
                     "type": "comprehensive_analysis",
                     "scope": "initial_setup"
                 }
@@ -86,9 +88,9 @@ class OrchestrationSystem:
             # Execute through coordinator
             result = await self.coordinator._process_task(analysis_task)
             
-            if result.success:
+            if result and result.status == TaskStatus.COMPLETED:
                 self.logger.info("Initial comprehensive analysis completed successfully")
-                self.logger.info(f"Analysis results: {result.data}")
+                self.logger.info(f"Analysis results: {result.output}")
             else:
                 self.logger.error(f"Initial analysis failed: {result.error}")
                 

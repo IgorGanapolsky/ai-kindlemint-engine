@@ -19,7 +19,6 @@ from typing import Dict, List, Optional, Any, Tuple
 from urllib.parse import quote_plus
 
 import aiohttp
-from bs4 import BeautifulSoup
 
 from .agent_types import AgentCapability
 from .base_agent import BaseAgent
@@ -72,7 +71,7 @@ class MarketResearchAgent(BaseAgent):
     async def _execute_task(self, task: Task) -> TaskResult:
         """Execute market research task"""
         try:
-            task_type = task.task_data.get("type")
+            task_type = task.parameters.get("type")
             
             if task_type == "analyze_competitors":
                 return await self._analyze_competitors(task)
@@ -88,22 +87,23 @@ class MarketResearchAgent(BaseAgent):
                 return await self._trend_analysis(task)
             else:
                 return TaskResult(
-                    success=False,
+                    task_id=task.task_id,
+                    status=TaskStatus.FAILED,
                     error=f"Unknown task type: {task_type}"
                 )
                 
         except Exception as e:
             self.logger.error(f"Task execution failed: {e}")
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _analyze_competitors(self, task: Task) -> TaskResult:
         """Analyze competitors in a specific niche"""
-        niche = task.task_data.get("niche")
-        keywords = task.task_data.get("keywords", [])
-        depth = task.task_data.get("depth", "standard")  # standard, deep
+        niche = task.parameters.get("niche")
+        keywords = task.parameters.get("keywords", [])
+        depth = task.parameters.get("depth", "standard")  # standard, deep
         
         if not niche:
-            return TaskResult(success=False, error="Niche is required for competitor analysis")
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error="Niche is required for competitor analysis")
             
         try:
             # Search for competitor books
@@ -139,12 +139,13 @@ class MarketResearchAgent(BaseAgent):
                 json.dump(results, f, indent=2)
                 
             return TaskResult(
-                success=True,
-                data={"analysis": results, "file_path": str(filepath)}
+                task_id=task.task_id,
+                status=TaskStatus.COMPLETED,
+                output={"analysis": results, "file_path": str(filepath)}
             )
             
         except Exception as e:
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _search_competitor_books(self, niche: str, keywords: List[str]) -> List[Dict[str, Any]]:
         """Search for competitor books on Amazon"""
@@ -160,17 +161,9 @@ class MarketResearchAgent(BaseAgent):
                 # Amazon search URL
                 search_url = f"https://www.amazon.com/s?k={quote_plus(search_term)}&i=stripbooks"
                 
-                async with aiohttp.ClientSession(headers=headers) as session:
-                    async with session.get(search_url) as response:
-                        if response.status == 200:
-                            html = await response.text()
-                            soup = BeautifulSoup(html, 'html.parser')
-                            
-                            # Extract book information
-                            books = self._extract_books_from_search(soup)
-                            competitor_books.extend(books)
-                            
-                        await asyncio.sleep(3)  # Rate limiting
+                # Placeholder - should use official Amazon API
+                self.logger.warning(f"Amazon search disabled for '{search_term}' - implement official API integration")
+                await asyncio.sleep(1)  # Simulated delay
                         
             except Exception as e:
                 self.logger.error(f"Error searching for '{search_term}': {e}")
@@ -185,65 +178,11 @@ class MarketResearchAgent(BaseAgent):
                 
         return unique_books[:50]  # Limit to top 50
 
-    def _extract_books_from_search(self, soup: BeautifulSoup) -> List[Dict[str, Any]]:
-        """Extract book information from Amazon search results"""
-        books = []
-        
-        # Find book containers
-        book_containers = soup.find_all('div', {'data-component-type': 's-search-result'})
-        
-        for container in book_containers:
-            try:
-                book_data = {}
-                
-                # Extract ASIN
-                asin = container.get('data-asin')
-                if not asin:
-                    continue
-                    
-                book_data['asin'] = asin
-                
-                # Extract title
-                title_element = container.find('h2', class_='a-size-mini')
-                if title_element:
-                    title_link = title_element.find('a')
-                    if title_link:
-                        book_data['title'] = title_link.get_text(strip=True)
-                        
-                # Extract author
-                author_element = container.find('a', class_='a-size-base')
-                if author_element:
-                    book_data['author'] = author_element.get_text(strip=True)
-                    
-                # Extract price
-                price_element = container.find('span', class_='a-price-whole')
-                if price_element:
-                    book_data['price'] = price_element.get_text(strip=True)
-                    
-                # Extract rating
-                rating_element = container.find('span', class_='a-icon-alt')
-                if rating_element:
-                    rating_text = rating_element.get_text(strip=True)
-                    rating_match = re.search(r'(\d+\.?\d*)', rating_text)
-                    if rating_match:
-                        book_data['rating'] = float(rating_match.group(1))
-                        
-                # Extract review count
-                review_element = container.find('a', class_='a-size-base')
-                if review_element:
-                    review_text = review_element.get_text(strip=True)
-                    review_match = re.search(r'(\d+)', review_text)
-                    if review_match:
-                        book_data['review_count'] = int(review_match.group(1))
-                        
-                if book_data.get('title'):  # Only add if we have a title
-                    books.append(book_data)
-                    
-            except Exception as e:
-                self.logger.error(f"Error extracting book data: {e}")
-                continue
-                
-        return books
+    def _extract_books_from_search(self, data: Any) -> List[Dict[str, Any]]:
+        """Extract book information from API response"""
+        # Placeholder for API-based extraction
+        self.logger.warning("Book extraction disabled - implement official API integration")
+        return []
 
     async def _analyze_single_competitor(self, book: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze a single competitor book in detail"""
@@ -282,98 +221,49 @@ class MarketResearchAgent(BaseAgent):
         
         try:
             async with aiohttp.ClientSession(headers=headers) as session:
-                async with session.get(url) as response:
-                    if response.status == 200:
-                        html = await response.text()
-                        soup = BeautifulSoup(html, 'html.parser')
-                        
-                        return {
-                            'description': self._extract_description(soup),
-                            'page_count': self._extract_page_count(soup),
-                            'publication_date': self._extract_publication_date(soup),
-                            'publisher': self._extract_publisher(soup),
-                            'bsr_info': self._extract_bsr_info(soup),
-                            'categories': self._extract_categories(soup),
-                            'keywords_found': self._extract_keywords_from_description(soup)
-                        }
-                    else:
-                        return {'error': f'HTTP {response.status}'}
+                # Placeholder - should use official Amazon API
+                self.logger.warning(f"Product detail fetch disabled for {asin} - implement official API integration")
+                return {
+                    'error': 'Web scraping disabled - use Amazon Product Advertising API instead',
+                    'description': None,
+                    'page_count': None,
+                    'publication_date': None,
+                    'publisher': None,
+                    'bsr_info': {},
+                    'categories': [],
+                    'keywords_found': []
+                }
                         
         except Exception as e:
             return {'error': str(e)}
 
-    def _extract_description(self, soup: BeautifulSoup) -> Optional[str]:
-        """Extract book description"""
-        description_selectors = [
-            '#feature-bullets ul',
-            '#bookDescription_feature_div',
-            '#productDescription'
-        ]
-        
-        for selector in description_selectors:
-            element = soup.select_one(selector)
-            if element:
-                return element.get_text(strip=True)[:1000]  # Limit length
-        return None
+    def _extract_description(self, data: Dict) -> Optional[str]:
+        """Extract book description from API response"""
+        # Placeholder for API-based extraction
+        return data.get('description')
 
-    def _extract_page_count(self, soup: BeautifulSoup) -> Optional[int]:
-        """Extract page count from book details"""
-        details_section = soup.find('div', id='detailBullets_feature_div')
-        if details_section:
-            text = details_section.get_text()
-            page_match = re.search(r'(\d+)\s*pages', text, re.IGNORECASE)
-            if page_match:
-                return int(page_match.group(1))
-        return None
+    def _extract_page_count(self, data: Dict) -> Optional[int]:
+        """Extract page count from API response"""
+        # Placeholder for API-based extraction
+        return data.get('page_count')
 
-    def _extract_publication_date(self, soup: BeautifulSoup) -> Optional[str]:
-        """Extract publication date"""
-        details_section = soup.find('div', id='detailBullets_feature_div')
-        if details_section:
-            text = details_section.get_text()
-            # Look for date patterns
-            date_patterns = [
-                r'(\w+ \d{1,2}, \d{4})',
-                r'(\d{1,2}/\d{1,2}/\d{4})'
-            ]
-            for pattern in date_patterns:
-                match = re.search(pattern, text)
-                if match:
-                    return match.group(1)
-        return None
+    def _extract_publication_date(self, data: Dict) -> Optional[str]:
+        """Extract publication date from API response"""
+        # Placeholder for API-based extraction
+        return data.get('publication_date')
 
-    def _extract_publisher(self, soup: BeautifulSoup) -> Optional[str]:
-        """Extract publisher information"""
-        details_section = soup.find('div', id='detailBullets_feature_div')
-        if details_section:
-            text = details_section.get_text()
-            publisher_match = re.search(r'Publisher:\s*([^;]+)', text)
-            if publisher_match:
-                return publisher_match.group(1).strip()
-        return None
+    def _extract_publisher(self, data: Dict) -> Optional[str]:
+        """Extract publisher information from API response"""
+        # Placeholder for API-based extraction
+        return data.get('publisher')
 
-    def _extract_bsr_info(self, soup: BeautifulSoup) -> Dict[str, Any]:
-        """Extract Best Sellers Rank information"""
-        bsr_info = {}
-        
-        # Look for BSR in product details
-        details_section = soup.find('div', id='detailBullets_feature_div')
-        if details_section:
-            text = details_section.get_text()
-            
-            # Extract overall rank
-            overall_match = re.search(r'#([\d,]+)\s*in\s*Books', text)
-            if overall_match:
-                bsr_info['overall_rank'] = overall_match.group(1).replace(',', '')
-                
-            # Extract category ranks
-            category_matches = re.findall(r'#([\d,]+)\s*in\s*([^(]+)', text)
-            bsr_info['category_ranks'] = [
-                {'rank': match[0].replace(',', ''), 'category': match[1].strip()}
-                for match in category_matches
-            ]
-            
-        return bsr_info
+    def _extract_bsr_info(self, data: Dict) -> Dict[str, Any]:
+        """Extract Best Sellers Rank information from API response"""
+        # Placeholder for API-based extraction
+        return data.get('bsr_info', {
+            'overall_rank': None,
+            'category_ranks': []
+        })
 
     async def _identify_book_strengths(self, book_data: Dict[str, Any]) -> List[str]:
         """Identify competitive strengths of a book"""
@@ -443,11 +333,11 @@ class MarketResearchAgent(BaseAgent):
 
     async def _research_niche(self, task: Task) -> TaskResult:
         """Research a specific niche for opportunities"""
-        niche = task.task_data.get("niche")
-        depth = task.task_data.get("depth", "standard")
+        niche = task.parameters.get("niche")
+        depth = task.parameters.get("depth", "standard")
         
         if not niche:
-            return TaskResult(success=False, error="Niche is required for research")
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error="Niche is required for research")
             
         try:
             # Comprehensive niche research
@@ -469,12 +359,13 @@ class MarketResearchAgent(BaseAgent):
                 json.dump(research_results, f, indent=2)
                 
             return TaskResult(
-                success=True,
-                data={"research": research_results, "file_path": str(filepath)}
+                task_id=task.task_id,
+                status=TaskStatus.COMPLETED,
+                output={"research": research_results, "file_path": str(filepath)}
             )
             
         except Exception as e:
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _estimate_market_size(self, niche: str) -> Dict[str, Any]:
         """Estimate market size for a niche"""

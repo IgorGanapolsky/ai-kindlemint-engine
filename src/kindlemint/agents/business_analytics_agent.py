@@ -72,7 +72,7 @@ class BusinessAnalyticsAgent(BaseAgent):
     async def _execute_task(self, task: Task) -> TaskResult:
         """Execute analytics task"""
         try:
-            task_type = task.task_data.get("type")
+            task_type = task.parameters.get("type")
             
             if task_type == "generate_business_report":
                 return await self._generate_business_report(task)
@@ -88,18 +88,19 @@ class BusinessAnalyticsAgent(BaseAgent):
                 return await self._generate_strategic_recommendations(task)
             else:
                 return TaskResult(
-                    success=False,
+                    task_id=task.task_id,
+                    status=TaskStatus.FAILED,
                     error=f"Unknown task type: {task_type}"
                 )
                 
         except Exception as e:
             self.logger.error(f"Task execution failed: {e}")
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _generate_business_report(self, task: Task) -> TaskResult:
         """Generate comprehensive business intelligence report"""
-        report_type = task.task_data.get("report_type", "comprehensive")
-        time_period = task.task_data.get("time_period", "30d")
+        report_type = task.parameters.get("report_type", "comprehensive")
+        time_period = task.parameters.get("time_period", "30d")
         
         try:
             # Gather all performance data
@@ -130,8 +131,9 @@ class BusinessAnalyticsAgent(BaseAgent):
                 json.dump(dashboard, f, indent=2)
                 
             return TaskResult(
-                success=True,
-                data={
+                task_id=task.task_id,
+                status=TaskStatus.COMPLETED,
+                output={
                     "report": report,
                     "report_file": str(report_file),
                     "dashboard_file": str(dashboard_file)
@@ -139,7 +141,7 @@ class BusinessAnalyticsAgent(BaseAgent):
             )
             
         except Exception as e:
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _gather_performance_data(self, time_period: str) -> Dict[str, Any]:
         """Gather all performance data for analysis"""
@@ -563,19 +565,20 @@ class BusinessAnalyticsAgent(BaseAgent):
     async def _calculate_roi(self, task: Task) -> TaskResult:
         """Calculate ROI for specific books or periods"""
         try:
-            calculation_type = task.task_data.get("calculation_type", "portfolio")
-            time_period = task.task_data.get("time_period", "30d")
+            calculation_type = task.parameters.get("calculation_type", "portfolio")
+            time_period = task.parameters.get("time_period", "30d")
             
             performance_data = await self._gather_performance_data(time_period)
             roi_data = await self._calculate_portfolio_roi(performance_data)
             
             return TaskResult(
-                success=True,
-                data={"roi_analysis": roi_data, "time_period": time_period}
+                task_id=task.task_id,
+                status=TaskStatus.COMPLETED,
+                output={"roi_analysis": roi_data, "time_period": time_period}
             )
             
         except Exception as e:
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _create_executive_dashboard(self, report: Dict[str, Any]) -> Dict[str, Any]:
         """Create executive dashboard with key metrics"""

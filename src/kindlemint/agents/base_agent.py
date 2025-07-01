@@ -103,6 +103,9 @@ class BaseAgent(ABC):
         # Background tasks
         self._background_tasks: Set[asyncio.Task] = set()
         self._shutdown_event = asyncio.Event()
+        
+        # Agent registry reference (optional)
+        self.agent_registry = None
 
         self.logger.info(
             f"Agent {self.agent_id} initialized with capabilities: {self.capabilities}"
@@ -283,9 +286,10 @@ class BaseAgent(ABC):
         try:
             self.status = AgentStatus.BUSY
             self.current_tasks[task.task_id] = task
-            task.status = TaskStatus.RUNNING
-            task.assigned_agent = self.agent_id
-            task.start_time = datetime.now()
+            task.status = TaskStatus.IN_PROGRESS
+            task.assigned_to = self.agent_id
+            if not hasattr(task, 'start_time'):
+                task.start_time = datetime.now()
 
             self.logger.info(f"Processing task {task.task_id}")
 
@@ -294,8 +298,10 @@ class BaseAgent(ABC):
 
             # Update task status
             task.status = TaskStatus.COMPLETED if result.success else TaskStatus.FAILED
-            task.end_time = datetime.now()
-            task.result = result
+            if not hasattr(task, 'end_time'):
+                task.end_time = datetime.now()
+            if not hasattr(task, 'result'):
+                task.result = result
 
             # Update metrics
             processing_time = time.time() - task_start_time
@@ -311,8 +317,10 @@ class BaseAgent(ABC):
         except Exception as e:
             self.logger.error(f"Task {task.task_id} execution failed: {e}")
             task.status = TaskStatus.FAILED
-            task.end_time = datetime.now()
-            task.error = str(e)
+            if not hasattr(task, 'end_time'):
+                task.end_time = datetime.now()
+            if not hasattr(task, 'error'):
+                task.error = str(e)
 
             processing_time = time.time() - task_start_time
             self._update_metrics(

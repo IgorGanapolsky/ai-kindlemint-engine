@@ -1,0 +1,76 @@
+{
+  "timestamp": "2025-07-01T15:18:13.855259",
+  "issues": [
+    {
+      "type": "root_clutter_critical",
+      "severity": "high",
+      "count": 27,
+      "message": "Too many files in root directory (27). Should be < 20.",
+      "suggestion": "Move files to appropriate subdirectories"
+    },
+    {
+      "type": "script_clutter",
+      "severity": "medium",
+      "count": 1,
+      "message": "1 Python scripts in root (should be in scripts/)",
+      "files": [
+        "test_orchestration.py"
+      ]
+    }
+  ],
+  "suggestions": [
+    {
+      "action": "aggressive_root_cleanup",
+      "priority": "high",
+      "message": "Move 27 files from root to appropriate directories",
+      "command": "python scripts/aggressive_repository_cleanup.py"
+    },
+    {
+      "action": "move_scripts_to_scripts_dir",
+      "priority": "medium",
+      "message": "Move 1 Python scripts to scripts/ directory",
+      "files": [
+        "test_orchestration.py"
+      ]
+    }
+  ],
+  "metrics": {
+    "hygiene_score": 55.0,
+    "root_files": 27,
+    "total_files": 29092,
+    "issues_count": 2,
+    "critical_issues": 1,
+    "organization_score": 100.0
+  },
+  "total_files": 29092,
+  "root_files": 27,
+  "root_file_list": [
+    ".cursorignore",
+    "claude-code",
+    "last_commit_cost.json",
+    "CLEANUP_PLAN.md",
+    "LICENSE",
+    "requirements.txt",
+    "claude-flow-costs-notify",
+    "commit_costs.json",
+    "hygiene_report_20250701_144829.json",
+    "hygiene_report_20250701_142709.json",
+    "hygiene_report_20250701_135458.json",
+    "hygiene_report_20250701_135527.json",
+    ".deepsource.toml",
+    "README.md",
+    "setup.py",
+    "claude-flow-costs",
+    "sonar-project.properties",
+    "claude-flow",
+    ".ccfignore",
+    ".gitignore",
+    "hygiene_report.json",
+    ".gitattributes",
+    "test_orchestration.py",
+    ".env.example",
+    "cost_analytics.json",
+    "hygiene_report_20250701_151623.json",
+    "hygiene_report_20250701_142412.json"
+  ]
+}

@@ -13,6 +13,7 @@ The coordinator schedules tasks, manages workflows, and ensures data flows betwe
 import asyncio
 import json
 import logging
+import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Set
@@ -91,7 +92,7 @@ class AutomationCoordinator(BaseAgent):
     async def _execute_task(self, task: Task) -> TaskResult:
         """Execute coordination task"""
         try:
-            task_type = task.task_data.get("type")
+            task_type = task.parameters.get("type")
             
             if task_type == "execute_workflow":
                 return await self._execute_workflow(task)
@@ -107,13 +108,14 @@ class AutomationCoordinator(BaseAgent):
                 return await self._execute_comprehensive_analysis(task)
             else:
                 return TaskResult(
-                    success=False,
+                    task_id=task.task_id,
+                    status=TaskStatus.FAILED,
                     error=f"Unknown coordination task type: {task_type}"
                 )
                 
         except Exception as e:
             self.logger.error(f"Coordination task execution failed: {e}")
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _execute_comprehensive_analysis(self, task: Task) -> TaskResult:
         """Execute comprehensive analysis workflow across all agents"""
@@ -132,8 +134,9 @@ class AutomationCoordinator(BaseAgent):
             # Phase 1: Book Performance Monitoring
             self.logger.info("Phase 1: Book Performance Monitoring")
             performance_task = Task(
+                task_id=str(uuid.uuid4()),
                 task_type="monitor_all_books",
-                task_data={
+                parameters={
                     "type": "monitor_book",
                     "scope": "all_active_books"
                 },
@@ -152,8 +155,9 @@ class AutomationCoordinator(BaseAgent):
             
             for niche in active_niches[:3]:  # Limit to top 3 niches
                 research_task = Task(
+                    task_id=str(uuid.uuid4()),
                     task_type="research_niche",
-                    task_data={
+                    parameters={
                         "type": "research_niche",
                         "niche": niche,
                         "depth": "standard"
@@ -171,8 +175,9 @@ class AutomationCoordinator(BaseAgent):
             # Phase 3: Business Analytics
             self.logger.info("Phase 3: Business Intelligence Analysis")
             analytics_task = Task(
+                task_id=str(uuid.uuid4()),
                 task_type="generate_business_report",
-                task_data={
+                parameters={
                     "type": "generate_business_report",
                     "report_type": "comprehensive",
                     "time_period": "30d"
@@ -204,8 +209,9 @@ class AutomationCoordinator(BaseAgent):
             self.logger.info(f"Comprehensive analysis workflow completed: {workflow_id}")
             
             return TaskResult(
-                success=True,
-                data={
+                task_id=task.task_id,
+                status=TaskStatus.COMPLETED,
+                output={
                     "workflow_id": workflow_id,
                     "results": workflow_results,
                     "results_file": str(results_file)
@@ -215,7 +221,7 @@ class AutomationCoordinator(BaseAgent):
         except Exception as e:
             self.logger.error(f"Comprehensive analysis workflow failed: {e}")
             self.coordination_metrics["workflows_failed"] += 1
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _delegate_task_to_agent(self, agent_type: str, task: Task) -> Dict[str, Any]:
         """Delegate a task to a specific agent type"""
@@ -373,8 +379,9 @@ class AutomationCoordinator(BaseAgent):
             for book_id, book_info in books_to_monitor.items():
                 if book_info.get("asin"):
                     monitor_task = Task(
+                        task_id=str(uuid.uuid4()),
                         task_type="monitor_book",
-                        task_data={
+                        parameters={
                             "type": "monitor_book",
                             "book_id": book_id,
                             "asin": book_info["asin"]
@@ -399,12 +406,13 @@ class AutomationCoordinator(BaseAgent):
             }
             
             return TaskResult(
-                success=True,
-                data=monitoring_results
+                task_id=task.task_id,
+                status=TaskStatus.COMPLETED,
+                output=monitoring_results
             )
             
         except Exception as e:
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _get_books_for_monitoring(self) -> Dict[str, Dict]:
         """Get list of books that need performance monitoring"""
@@ -451,8 +459,9 @@ class AutomationCoordinator(BaseAgent):
     async def _schedule_daily_comprehensive_analysis(self) -> None:
         """Schedule daily comprehensive analysis"""
         task = Task(
+            task_id=str(uuid.uuid4()),
             task_type="comprehensive_analysis",
-            task_data={
+            parameters={
                 "type": "comprehensive_analysis",
                 "scope": "daily_report"
             },
@@ -467,8 +476,9 @@ class AutomationCoordinator(BaseAgent):
         
         for niche in niches:
             research_task = Task(
+                task_id=str(uuid.uuid4()),
                 task_type="research_market",
-                task_data={
+                parameters={
                     "type": "research_niche",
                     "niche": niche,
                     "depth": "deep"
@@ -482,8 +492,9 @@ class AutomationCoordinator(BaseAgent):
     async def _schedule_performance_monitoring(self) -> None:
         """Schedule regular performance monitoring"""
         monitoring_task = Task(
+            task_id=str(uuid.uuid4()),
             task_type="monitor_book_performance",
-            task_data={
+            parameters={
                 "type": "monitor_book_performance",
                 "scope": "all_active"
             },

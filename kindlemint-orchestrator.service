@@ -1,0 +1,28 @@
+[Unit]
+Description=KindleMint Orchestration System
+After=network.target
+
+[Service]
+Type=simple
+User=igorganapolsky
+WorkingDirectory=/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine
+Environment="PATH=/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/venv/bin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/venv/bin/python -m src.kindlemint.orchestration_runner
+Restart=always
+RestartSec=10
+StandardOutput=append:/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/logs/orchestration.log
+StandardError=append:/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/logs/orchestration-error.log
+
+# Email on failure
+OnFailure=email-admin@.service
+
+# Resource limits
+LimitNOFILE=65536
+MemoryLimit=2G
+
+# Watchdog
+WatchdogSec=300
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

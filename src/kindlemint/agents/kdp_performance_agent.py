@@ -13,12 +13,12 @@ import asyncio
 import json
 import logging
 import time
+import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 
 import aiohttp
-from bs4 import BeautifulSoup
 
 from .agent_types import AgentCapability
 from .base_agent import BaseAgent
@@ -69,7 +69,7 @@ class KDPPerformanceAgent(BaseAgent):
     async def _execute_task(self, task: Task) -> TaskResult:
         """Execute performance monitoring task"""
         try:
-            task_type = task.task_data.get("type")
+            task_type = task.parameters.get("type")
             
             if task_type == "monitor_book":
                 return await self._monitor_single_book(task)
@@ -81,21 +81,22 @@ class KDPPerformanceAgent(BaseAgent):
                 return await self._track_new_book(task)
             else:
                 return TaskResult(
-                    success=False,
+                    task_id=task.task_id,
+                    status=TaskStatus.FAILED,
                     error=f"Unknown task type: {task_type}"
                 )
                 
         except Exception as e:
             self.logger.error(f"Task execution failed: {e}")
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _monitor_single_book(self, task: Task) -> TaskResult:
         """Monitor performance metrics for a single book"""
-        book_id = task.task_data.get("book_id")
-        asin = task.task_data.get("asin")
+        book_id = task.parameters.get("book_id")
+        asin = task.parameters.get("asin")
         
         if not book_id or not asin:
-            return TaskResult(success=False, error="Missing book_id or ASIN")
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error="Missing book_id or ASIN")
             
         try:
             # Collect performance metrics
@@ -110,13 +111,14 @@ class KDPPerformanceAgent(BaseAgent):
                 self.active_books[book_id]["current_metrics"] = metrics
                 
             return TaskResult(
-                success=True,
-                data={"book_id": book_id, "metrics": metrics}
+                task_id=task.task_id,
+                status=TaskStatus.COMPLETED,
+                output={"book_id": book_id, "metrics": metrics}
             )
             
         except Exception as e:
             self.logger.error(f"Failed to monitor book {book_id}: {e}")
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _collect_book_metrics(self, asin: str, book_id: str) -> Dict[str, Any]:
         """Collect comprehensive book performance metrics"""
@@ -165,14 +167,15 @@ class KDPPerformanceAgent(BaseAgent):
                 async with session.get(url) as response:
                     if response.status == 200:
                         html = await response.text()
-                        soup = BeautifulSoup(html, 'html.parser')
-                        
+                        # Web scraping disabled - should use official API
+                        self.logger.warning(f"Web scraping disabled for {asin} - use official Amazon API")
                         return {
-                            "title": self._extract_title(soup),
-                            "availability": self._extract_availability(soup),
-                            "price": self._extract_price(soup),
-                            "rating": self._extract_rating(soup),
-                            "review_count": self._extract_review_count(soup)
+                            "error": "Web scraping disabled - use Amazon Product Advertising API",
+                            "title": None,
+                            "availability": None,
+                            "price": None,
+                            "rating": None,
+                            "review_count": None
                         }
                     else:
                         self.logger.warning(f"Failed to fetch Amazon page for {asin}: {response.status}")
@@ -182,85 +185,30 @@ class KDPPerformanceAgent(BaseAgent):
             self.logger.error(f"Error scraping Amazon page for {asin}: {e}")
             return {"error": str(e)}
 
-    def _extract_title(self, soup: BeautifulSoup) -> Optional[str]:
-        """Extract book title from Amazon page"""
-        title_selectors = [
-            '#productTitle',
-            '.product-title',
-            'h1[data-automation-id="title"]'
-        ]
-        
-        for selector in title_selectors:
-            element = soup.select_one(selector)
-            if element:
-                return element.get_text(strip=True)
-        return None
+    def _extract_title(self, data: Dict) -> Optional[str]:
+        """Extract book title from API response"""
+        # Placeholder for API-based extraction
+        return data.get('title')
 
-    def _extract_price(self, soup: BeautifulSoup) -> Optional[str]:
-        """Extract current price from Amazon page"""
-        price_selectors = [
-            '.a-price-whole',
-            '.a-price .a-offscreen',
-            '#price_inside_buybox'
-        ]
-        
-        for selector in price_selectors:
-            element = soup.select_one(selector)
-            if element:
-                return element.get_text(strip=True)
-        return None
+    def _extract_price(self, data: Dict) -> Optional[str]:
+        """Extract current price from API response"""
+        # Placeholder for API-based extraction
+        return data.get('price')
 
-    def _extract_rating(self, soup: BeautifulSoup) -> Optional[float]:
-        """Extract average rating from Amazon page"""
-        rating_selectors = [
-            '[data-hook="average-star-rating"] .a-offscreen',
-            '.reviewCountTextLinkedHistogram .a-offscreen'
-        ]
-        
-        for selector in rating_selectors:
-            element = soup.select_one(selector)
-            if element:
-                text = element.get_text(strip=True)
-                try:
-                    return float(text.split()[0])
-                except:
-                    continue
-        return None
+    def _extract_rating(self, data: Dict) -> Optional[float]:
+        """Extract average rating from API response"""
+        # Placeholder for API-based extraction
+        return data.get('rating')
 
-    def _extract_review_count(self, soup: BeautifulSoup) -> Optional[int]:
-        """Extract review count from Amazon page"""
-        review_selectors = [
-            '[data-hook="total-review-count"]',
-            '#acrCustomerReviewText'
-        ]
-        
-        for selector in review_selectors:
-            element = soup.select_one(selector)
-            if element:
-                text = element.get_text(strip=True)
-                try:
-                    # Extract number from text like "123 ratings"
-                    import re
-                    match = re.search(r'(\d+)', text)
-                    if match:
-                        return int(match.group(1))
-                except:
-                    continue
-        return None
+    def _extract_review_count(self, data: Dict) -> Optional[int]:
+        """Extract review count from API response"""
+        # Placeholder for API-based extraction
+        return data.get('review_count')
 
-    def _extract_availability(self, soup: BeautifulSoup) -> Optional[str]:
-        """Extract availability status from Amazon page"""
-        availability_selectors = [
-            '#availability span',
-            '.a-color-success',
-            '.a-color-price'
-        ]
-        
-        for selector in availability_selectors:
-            element = soup.select_one(selector)
-            if element:
-                return element.get_text(strip=True)
-        return None
+    def _extract_availability(self, data: Dict) -> Optional[str]:
+        """Extract availability status from API response"""
+        # Placeholder for API-based extraction
+        return data.get('availability')
 
     async def _get_bsr_data(self, asin: str) -> Dict[str, Any]:
         """Extract BSR data from product page"""
@@ -325,12 +273,12 @@ class KDPPerformanceAgent(BaseAgent):
 
     async def _track_new_book(self, task: Task) -> TaskResult:
         """Add a new book to monitoring"""
-        book_data = task.task_data.get("book_data", {})
+        book_data = task.parameters.get("book_data", {})
         
         required_fields = ["book_id", "asin", "title"]
         for field in required_fields:
             if field not in book_data:
-                return TaskResult(success=False, error=f"Missing required field: {field}")
+                return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=f"Missing required field: {field}")
         
         book_id = book_data["book_id"]
         
@@ -351,14 +299,15 @@ class KDPPerformanceAgent(BaseAgent):
         self.logger.info(f"Started tracking book: {book_id} ({book_data['title']})")
         
         return TaskResult(
-            success=True,
-            data={"message": f"Started tracking book {book_id}"}
+            task_id=task.task_id,
+            status=TaskStatus.COMPLETED,
+            output={"message": f"Started tracking book {book_id}"}
         )
 
     async def _generate_performance_report(self, task: Task) -> TaskResult:
         """Generate comprehensive performance report"""
-        report_type = task.task_data.get("report_type", "summary")
-        time_range = task.task_data.get("time_range", "7d")
+        report_type = task.parameters.get("report_type", "summary")
+        time_range = task.parameters.get("time_range", "7d")
         
         try:
             report = await self._create_performance_report(report_type, time_range)
@@ -369,12 +318,13 @@ class KDPPerformanceAgent(BaseAgent):
                 json.dump(report, f, indent=2)
                 
             return TaskResult(
-                success=True,
-                data={"report": report, "report_file": str(report_file)}
+                task_id=task.task_id,
+                status=TaskStatus.COMPLETED,
+                output={"report": report, "report_file": str(report_file)}
             )
             
         except Exception as e:
-            return TaskResult(success=False, error=str(e))
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error=str(e))
 
     async def _create_performance_report(self, report_type: str, time_range: str) -> Dict[str, Any]:
         """Create performance report based on collected data"""
@@ -540,8 +490,9 @@ class KDPPerformanceAgent(BaseAgent):
                     if book_data.get("monitoring_enabled", True) and book_data.get("asin"):
                         # Create monitoring task
                         task = Task(
+                            task_id=str(uuid.uuid4()),
                             task_type="monitor_book",
-                            task_data={
+                            parameters={
                                 "type": "monitor_book",
                                 "book_id": book_id,
                                 "asin": book_data["asin"]
@@ -566,11 +517,11 @@ class KDPPerformanceAgent(BaseAgent):
 
     async def _update_book_metadata(self, task: Task) -> TaskResult:
         """Update metadata for a tracked book"""
-        book_id = task.task_data.get("book_id")
-        updates = task.task_data.get("updates", {})
+        book_id = task.parameters.get("book_id")
+        updates = task.parameters.get("updates", {})
         
         if book_id not in self.active_books:
-            return TaskResult(success=False, error="Book not found in tracking list")
+            return TaskResult(task_id=task.task_id, status=TaskStatus.FAILED, error="Book not found in tracking list")
         
         # Update book data
         self.active_books[book_id].update(updates)
@@ -580,8 +531,9 @@ class KDPPerformanceAgent(BaseAgent):
         await self._save_active_books()
         
         return TaskResult(
-            success=True,
-            data={"message": f"Updated metadata for book {book_id}"}
+            task_id=task.task_id,
+            status=TaskStatus.COMPLETED,
+            output={"message": f"Updated metadata for book {book_id}"}
         )
 
     def get_book_performance_summary(self, book_id: str) -> Optional[Dict[str, Any]]:
