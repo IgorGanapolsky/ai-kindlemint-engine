@@ -21,10 +21,10 @@ from .message_protocol import AgentMessage
 
    def __init__(self, health_monitor: Optional[HealthMonitor] = None):
         """
-        Initialize agent registry
+        Initialize the Agent Registry with internal data structures for agent tracking, capability mapping, message routing, load balancing, and health monitoring.
 
-        Args:
-            health_monitor: Health monitoring system instance
+        Parameters:
+            health_monitor (Optional[HealthMonitor]): An optional health monitoring system instance. If not provided, a default HealthMonitor is created.
         """
         self.health_monitor = health_monitor or HealthMonitor()
 
@@ -156,13 +156,13 @@ from .message_protocol import AgentMessage
 
     async def unregister_agent(self, agent_id: str) -> bool:
         """
-        Unregister an agent from the registry
-
-        Args:
-            agent_id: Agent identifier to unregister
-
+        Unregisters an agent from the registry and removes all associated tracking data.
+        
+        Parameters:
+            agent_id (str): The unique identifier of the agent to unregister.
+        
         Returns:
-            True if unregistration successful
+            bool: True if the agent was successfully unregistered, False if the agent was not found or an error occurred.
         """
         try:
             if agent_id not in self.agents:
@@ -200,7 +200,16 @@ from .message_protocol import AgentMessage
             return False
 
     async def update_agent_status(self, agent_id: str, status: AgentStatus) -> bool:
-        """Update agent status"""
+        """
+        Updates the status of a registered agent.
+        
+        Parameters:
+            agent_id (str): The unique identifier of the agent.
+            status (AgentStatus): The new status to assign to the agent.
+        
+        Returns:
+            bool: True if the agent status was updated; False if the agent is not registered.
+        """
         if agent_id not in self.agents:
             return False
 
@@ -229,7 +238,16 @@ from .message_protocol import AgentMessage
         return True
 
     async def update_agent_load(self, agent_id: str, load_delta: int) -> bool:
-        """Update agent task load"""
+        """
+        Adjusts the current task load for a specified agent by a given delta.
+        
+        Parameters:
+            agent_id (str): The unique identifier of the agent.
+            load_delta (int): The amount to increment or decrement the agent's current load.
+        
+        Returns:
+            bool: True if the agent exists and the load was updated; False otherwise.
+        """
         if agent_id not in self.agents:
             return False
 
@@ -240,7 +258,17 @@ from .message_protocol import AgentMessage
     async def update_agent_performance(
         self, agent_id: str, task_success: bool, response_time: float
     ) -> bool:
-        """Update agent performance metrics"""
+        """
+        Updates the performance metrics for a specified agent, including task completion counts, success rate, and average response time.
+        
+        Parameters:
+            agent_id (str): The unique identifier of the agent to update.
+            task_success (bool): Indicates whether the agent's task was successful.
+            response_time (float): The response time for the completed task in seconds.
+        
+        Returns:
+            bool: True if the agent's performance metrics were updated; False if the agent is not registered.
+        """
         if agent_id not in self.agents:
             return False
 
@@ -422,7 +450,12 @@ from .message_protocol import AgentMessage
             return False
 
     async def _handle_direct_message(self, message: AgentMessage) -> bool:
-        """Handle direct message to specific agent"""
+        """
+        Attempts to deliver a direct message to a specific agent's message queue.
+        
+        Returns:
+            bool: True if the message was successfully enqueued; False if the recipient agent is not found or an error occurs.
+        """
         recipient_id = message.recipient_id
 
         if recipient_id not in self.message_queues:
@@ -441,7 +474,11 @@ from .message_protocol import AgentMessage
             return False
 
     async def _handle_broadcast_message(self, message: AgentMessage) -> bool:
-        """Handle broadcast message to multiple agents"""
+        """
+        Broadcasts a message to all agents or to those matching specified capabilities.
+        
+        If `message.target_capabilities` is provided, the message is sent to all agents possessing those capabilities; otherwise, it is broadcast to all registered agents. Returns True if at least one agent successfully receives the message, otherwise False.
+        """
         target_agents = set()
 
         # Route based on target capabilities if specified

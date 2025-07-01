@@ -34,6 +34,12 @@ class CodeHygieneOrchestrator:
     """Orchestrates code hygiene tasks across the codebase"""
 
     def __init__(self, project_root: Path = None):
+        """
+        Initialize the CodeHygieneOrchestrator with the project root directory, loading .gitignore patterns and preparing an initial hygiene report.
+
+        Parameters:
+            project_root (Path, optional): The root directory of the project. Defaults to the current working directory.
+        """
         self.project_root = project_root or Path.cwd()
         self.git_ignore_patterns = self._load_gitignore()
         self.hygiene_report = {
@@ -58,7 +64,12 @@ class CodeHygieneOrchestrator:
         return patterns
 
     def analyze_project_hygiene(self) -> Dict:
-        """REAL comprehensive project hygiene analysis"""
+        """
+        Performs a comprehensive analysis of the project's hygiene, identifying structural issues, generating cleanup suggestions, and calculating hygiene metrics.
+
+        Returns:
+            Dict: An updated hygiene report containing file counts, detected issues, cleanup suggestions, and calculated metrics.
+        """
         print("🔍 Analyzing REAL project hygiene...")
 
         # Get ALL repository files, not just untracked
@@ -92,7 +103,11 @@ class CodeHygieneOrchestrator:
         return self.hygiene_report
 
     def _get_untracked_files(self) -> List[Path]:
-        """Get all untracked files from git"""
+        """
+        Returns a list of untracked files in the git repository as Path objects.
+
+        If an error occurs while running the git command, returns an empty list.
+        """
         try:
             result = subprocess.run(
                 ["git", "ls-files", "--others", "--exclude-standard"],
@@ -170,7 +185,12 @@ class CodeHygieneOrchestrator:
         return FileCategory.UNKNOWN
 
     def _get_all_repository_files(self) -> List[Path]:
-        """Get all files in the repository"""
+        """
+        Recursively retrieves all files in the project directory, excluding those within `.git` directories and hidden system files.
+
+        Returns:
+            List[Path]: A list of file paths representing all non-hidden files in the repository.
+        """
         all_files = []
         for file_path in self.project_root.rglob("*"):
             if file_path.is_file():
@@ -180,7 +200,12 @@ class CodeHygieneOrchestrator:
         return all_files
 
     def _get_root_files(self) -> List[Path]:
-        """Get all files in the root directory"""
+        """
+        Return a list of all files located directly in the project's root directory.
+
+        Returns:
+            List[Path]: List of file paths found in the root directory.
+        """
         root_files = []
         for item in self.project_root.iterdir():
             if item.is_file():
@@ -190,7 +215,16 @@ class CodeHygieneOrchestrator:
     def _find_real_hygiene_issues(
         self, root_files: List[Path], all_files: List[Path]
     ) -> List[Dict]:
-        """Find REAL hygiene issues in repository structure"""
+        """
+        Identify significant hygiene issues in the repository's root directory structure, such as excessive file clutter, misplaced documentation, log files, and scripts.
+
+        Parameters:
+            root_files (List[Path]): List of files located directly in the project root directory.
+            all_files (List[Path]): List of all files in the repository.
+
+        Returns:
+            List[Dict]: A list of dictionaries describing detected hygiene issues, each including type, severity, count, message, and relevant file names or suggestions.
+        """
         issues = []
 
         # Check for excessive root clutter
@@ -267,7 +301,16 @@ class CodeHygieneOrchestrator:
     def _generate_real_cleanup_suggestions(
         self, issues: List[Dict], root_files: List[Path]
     ) -> List[Dict]:
-        """Generate REAL cleanup suggestions based on actual issues"""
+        """
+        Generate cleanup suggestions based on detected hygiene issues in the project.
+
+        Parameters:
+            issues (List[Dict]): List of identified hygiene issues.
+            root_files (List[Path]): List of files located in the project root directory.
+
+        Returns:
+            List[Dict]: A list of actionable cleanup suggestions, each specifying the recommended action, priority, message, and affected files or commands.
+        """
         suggestions = []
 
         for issue in issues:
@@ -313,7 +356,17 @@ class CodeHygieneOrchestrator:
     def _calculate_real_hygiene_metrics(
         self, root_files: List[Path], issues: List[Dict], all_files: List[Path]
     ) -> Dict:
-        """Calculate REAL hygiene metrics based on repository organization"""
+        """
+        Calculate repository hygiene metrics based on root file count, detected issues, and overall organization.
+
+        Parameters:
+            root_files (List[Path]): Files located in the project root directory.
+            issues (List[Dict]): List of detected hygiene issues, each with a severity level.
+            all_files (List[Path]): All files found in the repository.
+
+        Returns:
+            Dict: A dictionary containing the hygiene score, root file count, total file count, issue count, critical issue count, and organization score.
+        """
         # Base score starts at 100
         hygiene_score = 100.0
 
@@ -356,7 +409,16 @@ class CodeHygieneOrchestrator:
     def _calculate_organization_score_real(
         self, root_files: List[Path], all_files: List[Path]
     ) -> float:
-        """Calculate organization score based on file distribution"""
+        """
+        Compute the organization score as a percentage of files not in the project root, with bonus points for standard directories.
+
+        Parameters:
+            root_files (List[Path]): Files located directly in the project root directory.
+            all_files (List[Path]): All files within the project directory tree.
+
+        Returns:
+            float: Organization score from 0 to 100, reflecting file distribution and presence of standard directories.
+        """
         if len(all_files) == 0:
             return 100.0
 
@@ -375,7 +437,17 @@ class CodeHygieneOrchestrator:
     def _find_hygiene_issues(
         self, categorized: Dict[FileCategory, List[Path]]
     ) -> List[Dict]:
-        """Identify hygiene issues"""
+        """
+        Detects common code hygiene issues based on categorized files.
+
+        Analyzes the provided file categorization to identify tracked temporary files, build artifacts, excessive untracked files, and missing `.gitignore` patterns. Returns a list of detected issues with relevant details.
+
+        Parameters:
+            categorized (Dict[FileCategory, List[Path]]): Mapping of file categories to lists of files.
+
+        Returns:
+            List[Dict]: A list of dictionaries describing detected hygiene issues.
+        """
         issues = []
 
         # Check for temporary files
@@ -662,7 +734,12 @@ class CodeHygieneOrchestrator:
         }
 
     def generate_commit_plan(self) -> List[Dict]:
-        """Generate a plan for committing files in logical groups"""
+        """
+        Generate a commit plan that groups untracked files by logical categories such as documentation, configuration, tests, and source code modules.
+
+        Returns:
+            List[Dict]: A sorted list of commit group dictionaries, each containing a commit message, associated file paths, and priority.
+        """
         self.analyze_project_hygiene()
         categorized = self._categorize_files(self._get_untracked_files())
 

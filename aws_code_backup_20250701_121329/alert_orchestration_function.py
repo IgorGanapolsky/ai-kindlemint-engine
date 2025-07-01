@@ -22,8 +22,9 @@ logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context):
     """
-    Main Lambda handler for alert orchestration
-    Handles Sentry alerts, Slack notifications, and performance monitoring
+    AWS Lambda entry point for autonomous alert orchestration.
+
+    Determines the event source to trigger scheduled monitoring, process alert queues, handle webhooks, or perform manual checks. Coordinates alert fetching, analysis, resolution, escalation, and notification workflows. Returns an HTTP 200 response with orchestration results on success, or HTTP 500 with error details on failure.
     """
 
     try:
@@ -87,6 +88,9 @@ class AlertOrchestrationEngine:
 
 def __init__(self):
         # Environment configuration
+        """
+        Initializes the AlertOrchestrationEngine with environment credentials, AWS service clients, alert configuration, and processing statistics.
+        """
         self.sentry_dsn = os.environ.get("SENTRY_DSN")
         self.sentry_token = os.environ.get("SENTRY_AUTH_TOKEN")
         self.slack_webhook = os.environ.get("SLACK_WEBHOOK_URL")

@@ -86,13 +86,12 @@ def __init__(
         retry_delay_base: float = 2.0,
     ):
         """
-        Initialize task coordinator
+        Initializes the TaskCoordinator with workflow concurrency limits, default task timeout, and retry delay settings.
 
-        Args:
-            agent_registry: Agent registry for agent management
-            max_concurrent_workflows: Maximum concurrent workflow executions
-            task_timeout_default: Default task timeout in seconds
-            retry_delay_base: Base delay for exponential backoff retries
+        Parameters:
+            max_concurrent_workflows (int): Maximum number of workflows that can be executed concurrently.
+            task_timeout_default (int): Default timeout for individual tasks, in seconds.
+            retry_delay_base (float): Base value for exponential backoff when retrying failed tasks.
         """
         self.agent_registry = agent_registry
         self.max_concurrent_workflows = max_concurrent_workflows

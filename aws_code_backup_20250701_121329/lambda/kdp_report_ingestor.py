@@ -137,9 +137,14 @@ def extract_report_date_from_filename(filename: str) -> str:
 
 def process_kdp_report(csv_content: str, report_date: str) -> Dict[str, Any]:
     """
-    Process KDP sales report CSV and update DynamoDB memory.
+    Processes a KDP sales report in CSV format, updates DynamoDB records for each book, and returns a summary of the processing results.
 
-    Returns summary of processing results.
+    Parameters:
+        csv_content (str): The CSV content of the KDP sales report.
+        report_date (str): The date associated with the report.
+
+    Returns:
+        Dict[str, Any]: A summary dictionary containing counts of processed and failed books, totals for sales, pages read, royalties, lists of processed book IDs, and details of failed items.
     """
     try:
         # Parse CSV content
@@ -212,12 +217,9 @@ def process_kdp_report(csv_content: str, report_date: str) -> Dict[str, Any]:
 
 def extract_book_data_from_csv_row(row: Dict[str, str]) -> Optional[Dict[str, Any]]:
     """
-    Extract and normalize book data from a KDP CSV row.
+    Extracts and normalizes book data fields from a KDP CSV row.
 
-    Note: KDP CSV format may vary. Common fields include:
-    - Title, ASIN, ISBN-13, Sales, Pages Read, Royalties, etc.
-
-    Adjust field mappings based on actual KDP CSV format.
+    Attempts to map and convert relevant fields such as title, ASIN, ISBN-13, sales count, pages read, and royalties. Determines a unique book ID using ASIN, ISBN, or a generated hash from the title. Returns a dictionary with the extracted data and the original row for debugging, or `None` if critical fields are missing or extraction fails.
     """
     try:
         # Map CSV fields to our data structure
@@ -284,7 +286,12 @@ def safe_int_conversion(value: str) -> int:
 
 
 def safe_decimal_conversion(value: str) -> Decimal:
-    """Safely convert string to Decimal, handling currency symbols."""
+    """
+    Converts a string to a Decimal, removing currency symbols and non-numeric characters.
+
+    Returns:
+        Decimal: The numeric value as a Decimal, or Decimal("0.0") if conversion fails.
+    """
     try:
         # Remove currency symbols and other non-numeric characters
         cleaned = "".join(c for c_var in str(
@@ -296,9 +303,16 @@ def safe_decimal_conversion(value: str) -> Decimal:
 
 def update_book_memory(book_data: Dict[str, Any], report_date: str) -> bool:
     """
-    Update DynamoDB memory with book sales data and recalculate ROI.
+    Update or insert a book's sales data and ROI metrics in the DynamoDB table.
 
-    This is the critical function that closes our learning loop.
+    Calculates ROI based on royalties and a fixed estimated cost, then updates the book record with sales count, pages read, royalties, ROI, and timestamps. If the book is new, adds metadata such as title, creation date, niche, and topic.
+
+    Parameters:
+        book_data (Dict[str, Any]): Normalized book sales data to be stored.
+        report_date (str): The date associated with the sales report.
+
+    Returns:
+        bool: True if the update succeeds, False if an error occurs.
     """
     try:
         book_id = book_data["book_id"]
@@ -395,7 +409,16 @@ def create_success_response(data: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def create_error_response(status_code: int, message: str) -> Dict[str, Any]:
-    """Create an error Lambda response."""
+    """
+    Constructs an HTTP error response with the specified status code and error message for AWS Lambda.
+
+    Parameters:
+        status_code (int): The HTTP status code to return.
+        message (str): The error message to include in the response body.
+
+    Returns:
+        Dict[str, Any]: A dictionary representing the HTTP error response, including CORS headers and a UTC timestamp.
+    """
     return {
         "statusCode": status_code,
         "headers": {
@@ -426,6 +449,9 @@ The Metabolic Reset,B07DEF789,18,950,45.00""",
 
 
 def __init__(self):
+            """
+            Initialize the mock context with default function name and AWS request ID attributes.
+            """
             self.function_name = "kdp-report-ingestor"
             self.aws_request_id = "test-request-123"
 

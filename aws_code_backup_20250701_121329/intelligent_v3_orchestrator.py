@@ -26,7 +26,9 @@ class IntelligentV3Orchestrator:
 
 
 def __init__(self):
-        """Initialize intelligent orchestrator."""
+        """
+        Initializes the IntelligentV3Orchestrator with API keys, AWS clients, intelligence thresholds, and approval system settings.
+        """
         # API keys and configurations
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
         self.assets_bucket = os.getenv("ASSETS_BUCKET", "kindlemint-books")

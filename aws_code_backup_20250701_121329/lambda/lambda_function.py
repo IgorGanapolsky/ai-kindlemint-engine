@@ -142,6 +142,9 @@ if __name__ == "__main__":
 
 
 def __init__(self):
+            """
+            Initialize a mock AWS Lambda context with predefined function name, memory limit, and ARN attributes.
+            """
             self.function_name = "kindlemintEngineFn"
             self.memory_limit_in_mb = 512
             self.invoked_function_arn = (

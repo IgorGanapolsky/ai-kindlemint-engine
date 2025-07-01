@@ -68,14 +68,14 @@ class BaseAgent(ABC):
         heartbeat_interval: int = 30,
     ):
         """
-        Initialize base agent
+        Initializes a BaseAgent instance with specified identity, type, capabilities, concurrency, and heartbeat settings.
 
-        Args:
-            agent_id: Unique identifier (auto-generated if None)
-            agent_type: Type classification for the agent
-            capabilities: List of agent capabilities
-            max_concurrent_tasks: Maximum concurrent task limit
-            heartbeat_interval: Health check interval in seconds
+        Parameters:
+            agent_id (Optional[str]): Unique identifier for the agent. If not provided, one is auto-generated.
+            agent_type (str): Classification type for the agent.
+            capabilities (Optional[List[AgentCapability]]): List of capabilities assigned to the agent.
+            max_concurrent_tasks (int): Maximum number of tasks the agent can process concurrently.
+            heartbeat_interval (int): Interval in seconds for health checks and heartbeat updates.
         """
         self.agent_id = agent_id or f"{agent_type}_{uuid.uuid4().hex[:8]}"
         self.agent_type = agent_type
@@ -109,7 +109,12 @@ class BaseAgent(ABC):
         )
 
     async def start(self) -> None:
-        """Start the agent and begin processing tasks"""
+        """
+        Starts the agent, initializes background processing loops for tasks, messages, and health monitoring, and performs agent-specific initialization.
+
+        Raises:
+            Exception: If agent startup or initialization fails.
+        """
         try:
             self.status = AgentStatus.IDLE
             self.logger.info(f"Starting agent {self.agent_id}")
@@ -157,13 +162,13 @@ class BaseAgent(ABC):
 
     async def assign_task(self, task: Task) -> bool:
         """
-        Assign a task to this agent
+        Attempts to assign a task to the agent if it is able to accept it.
 
-        Args:
-            task: Task to execute
+        Parameters:
+            task (Task): The task to be assigned.
 
         Returns:
-            True if task was accepted, False otherwise
+            bool: True if the task was accepted and queued for execution; False otherwise.
         """
         if not self._can_accept_task(task):
             return False
@@ -179,13 +184,10 @@ class BaseAgent(ABC):
 
     async def send_message(self, message: AgentMessage) -> bool:
         """
-        Send message to another agent
-
-        Args:
-            message: Message to send
+        Attempts to send a message to another agent via the agent registry.
 
         Returns:
-            True if message was sent successfully
+            bool: True if the message was routed successfully; False otherwise.
         """
         try:
             if self.agent_registry:
@@ -208,7 +210,12 @@ class BaseAgent(ABC):
         return capability in self.capabilities
 
     def get_health_status(self) -> HealthStatus:
-        """Get current health status of the agent"""
+        """
+        Return the current health status of the agent, updating key metrics such as uptime, active tasks, and success rate.
+
+        Returns:
+            HealthStatus: The updated health status object for the agent.
+        """
         self.health_status.agent_id = self.agent_id
         self.health_status.status = self.status.value
         self.health_status.uptime = (
@@ -277,7 +284,11 @@ class BaseAgent(ABC):
                 self.logger.error(f"Error in task processor: {e}")
 
     async def _process_task(self, task: Task) -> None:
-        """Process a single task"""
+        """
+        Executes a single task, updates its status and metrics, and manages agent state.
+
+        This method sets the agent to BUSY, runs the task using the subclass-implemented `_execute_task`, updates the task's status and timing information based on the result, and records performance metrics. If an exception occurs during execution, the task is marked as failed and error details are recorded. The agent returns to IDLE status if no other tasks are active.
+        """
         task_start_time = time.time()
 
         try:
@@ -338,7 +349,11 @@ class BaseAgent(ABC):
                 self.logger.error(f"Error in message processor: {e}")
 
     async def _handle_message(self, message: AgentMessage) -> None:
-        """Handle incoming message"""
+        """
+        Dispatches an incoming message to the appropriate handler based on its type.
+
+        If a handler for the message type exists, it is invoked asynchronously. Logs an error if the handler raises an exception, or a warning if no handler is registered for the message type.
+        """
         handler = self.message_handlers.get(message.message_type)
         if handler:
             try:
@@ -351,7 +366,11 @@ class BaseAgent(ABC):
                 f"No handler for message type: {message.message_type}")
 
     async def _health_monitor(self) -> None:
-        """Background health monitoring"""
+        """
+        Periodically updates health metrics and sends heartbeat updates to the agent registry if available.
+
+        Runs in a background loop, updating CPU and memory usage statistics and notifying the agent registry of the agent's health status at the configured heartbeat interval.
+        """
         while not self._shutdown_event.is_set():
             try:
                 # Update health metrics

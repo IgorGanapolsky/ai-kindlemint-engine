@@ -33,6 +33,9 @@ class TacticalCommandCenter:
     """Command center for tactical orchestration operations"""
 
     def __init__(self):
+        """
+        Initialize the TacticalCommandCenter with orchestrators for tactical advantage, SEO, competitive intelligence, and professional quality assessments.
+        """
         self.advantage_orchestrator = TacticalAdvantageOrchestrator()
         self.seo_orchestrator = TacticalSEOOrchestrator()
         self.competitive_orchestrator = CompetitiveIntelligenceOrchestrator()
@@ -41,7 +44,18 @@ class TacticalCommandCenter:
     async def run_full_tactical_analysis(
         self, book_metadata: Dict, output_file: Optional[str] = None
     ) -> Dict:
-        """Run complete tactical analysis for competitive advantage"""
+        """
+        Run a comprehensive tactical advantage analysis using the provided book metadata.
+
+        Executes the master tactical advantage orchestration, optionally saves the resulting report to a JSON file, and displays an executive summary of key findings.
+
+        Parameters:
+            book_metadata (Dict): Metadata describing the book to be analyzed.
+            output_file (Optional[str]): Path to save the analysis report as JSON. If not provided, results are not saved.
+
+        Returns:
+            Dict: The tactical advantage analysis report.
+        """
         print("🎯 TACTICAL COMMAND CENTER - INITIATING FULL ANALYSIS")
         print("=" * 60)
 
@@ -67,7 +81,18 @@ class TacticalCommandCenter:
     async def run_seo_dominance(
         self, book_metadata: Dict, output_file: Optional[str] = None
     ) -> Dict:
-        """Run tactical SEO analysis for 2025 dominance"""
+        """
+        Performs a tactical SEO analysis for 2025 dominance using the provided book metadata.
+
+        Executes the SEO orchestrator to generate an SEO intelligence report, optionally saves the results to a file, and displays a summary of key SEO metrics.
+
+        Parameters:
+            book_metadata (Dict): Metadata describing the book to be analyzed.
+            output_file (Optional[str]): Path to save the SEO analysis report as JSON, if specified.
+
+        Returns:
+            Dict: The generated SEO analysis report.
+        """
         print("🔍 TACTICAL SEO DOMINANCE ANALYSIS")
         print("=" * 40)
 
@@ -85,7 +110,14 @@ class TacticalCommandCenter:
     async def run_competitive_intelligence(
         self, output_file: Optional[str] = None
     ) -> Dict:
-        """Run competitive intelligence analysis"""
+        """
+        Performs a competitive intelligence analysis and returns the resulting report.
+
+        If an output file is specified, saves the analysis results as JSON. Displays a summary of key competitive metrics.
+
+        Returns:
+            Dict: The competitive intelligence analysis report.
+        """
         print("🕵️ COMPETITIVE INTELLIGENCE ANALYSIS")
         print("=" * 40)
 
@@ -103,7 +135,16 @@ class TacticalCommandCenter:
     async def run_quality_assessment(
         self, book_project: Dict, output_file: Optional[str] = None
     ) -> Dict:
-        """Run professional quality assessment"""
+        """
+        Performs a professional quality assessment on the provided book project and returns the quality report.
+
+        Parameters:
+            book_project (Dict): Metadata and details of the book project to assess.
+            output_file (Optional[str]): Optional path to save the quality report as a JSON file.
+
+        Returns:
+            Dict: The generated professional quality assessment report.
+        """
         print("🎨 PROFESSIONAL QUALITY ASSESSMENT")
         print("=" * 40)
 
@@ -119,7 +160,11 @@ class TacticalCommandCenter:
         return quality_report
 
     def _display_executive_summary(self, tactical_report: Dict):
-        """Display executive summary of tactical analysis"""
+        """
+        Display a formatted executive summary of the tactical analysis report.
+
+        Prints key metrics including overall advantage score, market dominance potential, top strategic advantages, implementation timeline, and ROI projections based on the provided tactical report dictionary.
+        """
         print("\n📋 EXECUTIVE SUMMARY")
         print("-" * 30)
 
@@ -167,7 +212,9 @@ class TacticalCommandCenter:
             print(f"  Break-even: {roi.get('break_even', 'TBD')}")
 
     def _display_seo_summary(self, seo_report: Dict):
-        """Display SEO analysis summary"""
+        """
+        Display a formatted summary of the SEO analysis report, including advantage score, 2025 readiness, trend urgency, and top keywords.
+        """
         print(
             f"\n📈 SEO Advantage Score: {seo_report.get('competitive_advantage_score', 0):.2f}"
         )
@@ -185,7 +232,9 @@ class TacticalCommandCenter:
             print(f"Hot Keywords: {', '.join(trends['hot_keywords'][:3])}")
 
     def _display_competitive_summary(self, competitive_report: Dict):
-        """Display competitive analysis summary"""
+        """
+        Prints a summary of the competitive analysis report, including competitive score, threat level, and top market opportunities.
+        """
         print(
             f"\n🏆 Competitive Score: {competitive_report.get('competitive_advantage_score', 0):.2f}"
         )
@@ -206,7 +255,9 @@ class TacticalCommandCenter:
                 )
 
     def _display_quality_summary(self, quality_report: Dict):
-        """Display quality assessment summary"""
+        """
+        Prints a formatted summary of the professional quality assessment report, including overall quality score, certification level, compliance, and visual quality level.
+        """
         print(
             f"\n🎨 Overall Quality Score: {quality_report.get('overall_quality_score', 0):.2f}"
         )
@@ -227,7 +278,15 @@ class TacticalCommandCenter:
 
 
 def load_book_metadata(metadata_file: str) -> Dict:
-    """Load book metadata from file"""
+    """
+    Load book metadata from a JSON file.
+
+    Parameters:
+        metadata_file (str): Path to the JSON file containing book metadata.
+
+    Returns:
+        Dict: The loaded metadata as a dictionary, or an empty dictionary if loading fails.
+    """
     try:
         with open(metadata_file) as f:
             return json.load(f)
@@ -237,7 +296,12 @@ def load_book_metadata(metadata_file: str) -> Dict:
 
 
 def create_sample_metadata() -> Dict:
-    """Create sample book metadata for testing"""
+    """
+    Return a sample book metadata dictionary for testing tactical analyses.
+
+    Returns:
+        Dict: A hardcoded dictionary containing representative book metadata fields.
+    """
     return {
         "title": "Large Print Crossword Masters",
         "subtitle": "50 Easy, Relaxing Crossword Puzzles for Seniors - Volume 1",
@@ -259,7 +323,11 @@ def create_sample_metadata() -> Dict:
 
 
 async def main():
-    """Main command center interface"""
+    """
+    Parses command-line arguments and orchestrates the execution of tactical analyses based on user input.
+
+    This asynchronous entry point handles argument parsing, metadata loading (from file or sample), output file management, and dispatches the selected tactical analysis command. It prints status updates, handles errors gracefully, and displays the location of saved results upon completion.
+    """
     parser = argparse.ArgumentParser(
         description="Tactical Command Center - Competitive Advantage Orchestration"
     )

@@ -19,7 +19,9 @@ REPO="IgorGanapolsky/ai-kindlemint-engine"
 
 echo -e "${BLUE}📋 Repository: $REPO${NC}"
 
-# Function to set branch protection
+# setup_branch_protection configures GitHub branch protection rules for a specified branch and protection level using the GitHub CLI.
+#
+# Applies tailored protection settings for "executive", "technical", or "automated" levels, enforcing status checks, review requirements, and permissions according to enterprise policy.
 setup_branch_protection() {
     local branch=$1
     local protection_level=$2

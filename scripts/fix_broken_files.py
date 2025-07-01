@@ -8,7 +8,11 @@ from pathlib import Path
 
 
 def fix_broken_files():
-    """Fix files that got broken by the A2A cleanup"""
+    """
+    Repairs files affected by the A2A framework cleanup by removing A2A dependencies and restoring standalone functionality.
+
+    This function overwrites specific scripts and agent files to eliminate A2A framework references, replacing them with simplified, directly callable implementations. It updates the book generation script, agent classes, and the unified orchestrator to ensure the codebase operates independently of the A2A framework. Prints confirmation messages after each fix.
+    """
 
     # Fix generate_book.py - remove broken class definition
     generate_book_file = Path("scripts/generate_book.py")

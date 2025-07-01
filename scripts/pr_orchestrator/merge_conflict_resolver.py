@@ -46,6 +46,12 @@ class MergeConflictResolver:
     """Intelligently resolves merge conflicts"""
 
     def __init__(self, use_ai: bool = True):
+        """
+        Initializes the MergeConflictResolver with optional AI-based conflict resolution and sets up regex patterns for conflict type detection.
+
+        Parameters:
+            use_ai (bool): If True, enables AI-based resolution using OpenAI and Anthropic clients.
+        """
         self.use_ai = use_ai
         if use_ai:
             self.openai_client = openai.OpenAI(
@@ -66,7 +72,11 @@ class MergeConflictResolver:
         }
 
     def analyze_repository_conflicts(self) -> List[str]:
-        """Find all files with merge conflicts in the repository"""
+        """
+        Returns a list of file paths in the repository that currently have unresolved merge conflicts.
+
+        If no conflicts are found or an error occurs while running the Git command, returns an empty list.
+        """
         try:
             result = subprocess.run(
                 ["git", "diff", "--name-only", "--diff-filter=U"],
@@ -81,7 +91,21 @@ class MergeConflictResolver:
             return []
 
     def extract_conflict_blocks(self, file_content: str) -> List[Dict[str, str]]:
-        """Extract conflict blocks from file content"""
+        """
+        Extracts all Git merge conflict blocks from the provided file content.
+
+        Each conflict block is identified by Git conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`) and is parsed into its "ours" and "theirs" sections along with the starting and ending line numbers.
+
+        Parameters:
+            file_content (str): The full text content of a file potentially containing Git conflict markers.
+
+        Returns:
+            List[Dict[str, str]]: A list of dictionaries, each representing a conflict block with keys:
+                - "ours": The content from the current branch.
+                - "theirs": The content from the incoming branch.
+                - "start_line": The starting line index of the conflict block.
+                - "end_line": The ending line index of the conflict block.
+        """
         conflicts = []
         lines = file_content.split("\n")
 
@@ -119,7 +143,17 @@ class MergeConflictResolver:
         return conflicts
 
     def identify_conflict_type(self, conflict: Dict[str, str]) -> ConflictType:
-        """Identify the type of conflict"""
+        """
+        Determines the type of a merge conflict based on the content and file extension.
+
+        Analyzes the conflicting sections to classify the conflict as import statements, version numbers, dependency versions, whitespace, simple additions, configuration file merges, or semantic code conflicts.
+
+        Parameters:
+            conflict (dict): A dictionary containing "ours", "theirs", and optionally "file_path" keys representing the conflicting sections and file path.
+
+        Returns:
+            ConflictType: The identified type of merge conflict.
+        """
         ours = conflict["ours"]
         theirs = conflict["theirs"]
 
@@ -160,7 +194,12 @@ class MergeConflictResolver:
         return ConflictType.SEMANTIC
 
     def resolve_import_conflict(self, ours: str, theirs: str) -> Tuple[str, float]:
-        """Resolve import statement conflicts"""
+        """
+        Merges conflicting import statements from both sides, removing duplicates and formatting them by grouping and sorting direct and `from` imports.
+
+        Returns:
+            A tuple containing the merged import statements as a string and a confidence score of 0.95.
+        """
         # Combine all unique imports
         our_imports = set(line.strip()
                           for line in ours.split("\n") if line.strip())
@@ -189,7 +228,14 @@ class MergeConflictResolver:
         return "\n".join(result), 0.95
 
     def resolve_version_conflict(self, ours: str, theirs: str) -> Tuple[str, float]:
-        """Resolve version number conflicts"""
+        """
+        Resolves conflicts involving version numbers by selecting the higher version if both can be determined.
+
+        If both sides contain recognizable version numbers, returns the side with the higher version and a confidence score of 0.8. If version numbers cannot be extracted from both sides, defaults to the incoming changes with a confidence score of 0.6.
+
+        Returns:
+            A tuple containing the resolved version string and a confidence score.
+        """
         # Extract version numbers
         our_version = self.extract_version(ours)
         their_version = self.extract_version(theirs)
@@ -205,12 +251,29 @@ class MergeConflictResolver:
         return theirs, 0.6
 
     def extract_version(self, text: str) -> Optional[str]:
-        """Extract version number from text"""
+        """
+        Extracts a semantic version number (e.g., "1.2.3") from the given text.
+
+        Parameters:
+            text (str): The text to search for a version number.
+
+        Returns:
+            Optional[str]: The extracted version string if found, otherwise None.
+        """
         match = re.search(r"([\d]+\.[\d]+\.[\d]+)", text)
         return match.group(1) if match else None
 
     def compare_versions(self, v1: str, v2: str) -> int:
-        """Compare version strings"""
+        """
+        Compare two semantic version strings numerically.
+
+        Parameters:
+                v1 (str): The first version string (e.g., "1.2.3").
+                v2 (str): The second version string (e.g., "1.2.4").
+
+        Returns:
+                int: 1 if v1 is greater, -1 if v1 is less, or 0 if both versions are equal.
+        """
         v1_parts = list(map(int, v1.split(".")))
         v2_parts = list(map(int, v2.split(".")))
 
@@ -226,7 +289,12 @@ class MergeConflictResolver:
         return 0
 
     def resolve_whitespace_conflict(self, ours: str, theirs: str) -> Tuple[str, float]:
-        """Resolve whitespace-only conflicts"""
+        """
+        Resolves whitespace-only merge conflicts by preferring non-empty content.
+
+        Returns:
+            A tuple containing the resolved content and a confidence score. If both sides are only whitespace, returns an empty string with maximum confidence.
+        """
         # Prefer non-empty content
         if ours.strip():
             return ours, 0.9
@@ -237,7 +305,12 @@ class MergeConflictResolver:
             return "", 1.0
 
     def resolve_dependency_conflict(self, ours: str, theirs: str) -> Tuple[str, float]:
-        """Resolve dependency version conflicts"""
+        """
+        Resolves dependency version conflicts by merging dependency lists and selecting the highest version for each dependency.
+
+        Returns:
+            A tuple containing the merged dependency list as a string and a confidence score of 0.85.
+        """
         # Parse dependencies
         our_deps = self.parse_dependencies(ours)
         their_deps = self.parse_dependencies(theirs)
@@ -264,7 +337,15 @@ class MergeConflictResolver:
         return "\n".join(result), 0.85
 
     def parse_dependencies(self, text: str) -> Dict[str, str]:
-        """Parse dependency specifications"""
+        """
+        Parses dependency specifications from text and returns a mapping of dependency names to their version numbers.
+
+        Parameters:
+            text (str): Multiline string containing dependency specifications in the format 'name>=version' or similar.
+
+        Returns:
+            Dict[str, str]: Dictionary mapping dependency names to version strings.
+        """
         deps = {}
         for line in text.split("\n"):
             match = re.match(r"([\w-]+)\s*[=<>]+\s*([\d.]+)", line.strip())
@@ -275,7 +356,19 @@ class MergeConflictResolver:
     def resolve_with_ai(
         self, conflict: Dict[str, str], file_path: str, conflict_type: ConflictType
     ) -> Tuple[str, float, str]:
-        """Use AI to resolve complex conflicts"""
+        """
+        Uses an AI model to resolve complex merge conflicts by generating a merged version, confidence score, and explanation.
+
+        If AI is disabled or an error occurs, defaults to using the incoming branch's changes with a lower confidence score.
+
+        Parameters:
+            conflict (Dict[str, str]): Dictionary containing 'ours' and 'theirs' conflict blocks.
+            file_path (str): Path to the conflicted file.
+            conflict_type (ConflictType): The identified type of conflict.
+
+        Returns:
+            Tuple[str, float, str]: A tuple containing the resolved code, confidence score (0-1), and a brief explanation.
+        """
         if not self.use_ai:
             return conflict["theirs"], 0.5, "AI disabled, using incoming changes"
 
@@ -338,7 +431,18 @@ Consider:
     def resolve_conflict(
         self, conflict: Dict[str, str], file_path: str
     ) -> ConflictResolution:
-        """Resolve a single conflict"""
+        """
+        Resolves a single merge conflict by identifying its type and applying an appropriate resolution strategy.
+
+        Depending on the conflict type, uses pattern-based heuristics for common cases (such as imports, version numbers, whitespace, dependencies, or simple additions), or invokes AI assistance for complex or semantic conflicts. Returns a `ConflictResolution` object containing the resolved content, confidence score, and an explanation.
+
+        Parameters:
+            conflict (Dict[str, str]): A dictionary representing the conflict block, containing "ours" and "theirs" keys with conflicting content.
+            file_path (str): The path to the file containing the conflict.
+
+        Returns:
+            ConflictResolution: An object describing the resolution, including the resolved text, confidence score, and explanation.
+        """
         conflict_type = self.identify_conflict_type(conflict)
         conflict["file_path"] = file_path
 
@@ -399,7 +503,16 @@ Consider:
     def resolve_file_conflicts(
         self, file_path: str, min_confidence: float = 0.7
     ) -> List[ConflictResolution]:
-        """Resolve all conflicts in a file"""
+        """
+        Resolves all merge conflicts in the specified file and applies resolutions if confidence meets the threshold.
+
+        Parameters:
+            file_path (str): Path to the file containing merge conflicts.
+            min_confidence (float): Minimum confidence required to auto-apply resolutions (default is 0.7).
+
+        Returns:
+            List[ConflictResolution]: A list of resolution results for each conflict block in the file.
+        """
         with open(file_path, "r") as f:
             content = f.read()
 
@@ -423,7 +536,15 @@ Consider:
         conflicts: List[Dict],
         resolutions: List[ConflictResolution],
     ):
-        """Apply resolutions to file"""
+        """
+        Replaces merge conflict blocks in a file with their resolved content.
+
+        Parameters:
+            file_path (str): Path to the file being updated.
+            original_content (str): The original file content containing conflict markers.
+            conflicts (List[Dict]): List of conflict block metadata with line boundaries.
+            resolutions (List[ConflictResolution]): Corresponding resolutions for each conflict block.
+        """
         lines = original_content.split("\n")
 
         # Apply resolutions in reverse order to maintain line numbers
@@ -441,7 +562,16 @@ Consider:
     def resolve_all_conflicts(
         self, auto_apply: bool = False, min_confidence: float = 0.7
     ) -> Dict[str, List[ConflictResolution]]:
-        """Resolve all conflicts in the repository"""
+        """
+        Resolves all merge conflicts in the repository and returns the results per file.
+
+        Parameters:
+            auto_apply (bool): If True, automatically applies resolutions when all conflicts in a file meet the minimum confidence threshold.
+            min_confidence (float): Minimum confidence required to auto-apply resolutions.
+
+        Returns:
+            Dict[str, List[ConflictResolution]]: A mapping of file paths to lists of conflict resolution results for each file.
+        """
         conflicted_files = self.analyze_repository_conflicts()
         all_resolutions = {}
 
@@ -468,7 +598,17 @@ Consider:
     def generate_resolution_report(
         self, resolutions: Dict[str, List[ConflictResolution]]
     ) -> Dict:
-        """Generate a report of all resolutions"""
+        """
+        Generate a summary report of all merge conflict resolutions.
+
+        The report includes total files and conflicts, counts of auto-resolved and manual review files, resolution counts by conflict type, confidence level distribution, and per-file details such as conflict counts, minimum confidence, and explanations.
+
+        Parameters:
+            resolutions (Dict[str, List[ConflictResolution]]): Mapping of file paths to lists of conflict resolutions.
+
+        Returns:
+            Dict: A dictionary summarizing the resolution process, suitable for reporting or serialization.
+        """
         report = {
             "total_files": len(resolutions),
             "total_conflicts": sum(len(r) for r in resolutions.values()),

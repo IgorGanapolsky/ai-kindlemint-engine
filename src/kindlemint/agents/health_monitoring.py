@@ -83,7 +83,12 @@ class HealthStatus:
     resource_utilization: float = 0.0
 
     def calculate_health_level(self) -> HealthLevel:
-        """Calculate overall health level based on metrics"""
+        """
+        Determine the overall health level of the agent based on current metrics, health checks, and heartbeat freshness.
+
+        Returns:
+            HealthLevel: The computed health level, which may be UNHEALTHY, CRITICAL, WARNING, or HEALTHY depending on critical and warning thresholds for error rate, resource usage, response time, success rate, and heartbeat age.
+        """
 
         # Critical conditions
         if (
@@ -157,11 +162,9 @@ class HealthMonitor:
         alert_thresholds: Optional[Dict[str, float]] = None,
     ):
         """
-        Initialize health monitor
+        Initializes the HealthMonitor with a specified health check interval and optional custom alert thresholds.
 
-        Args:
-            check_interval: Health check interval in seconds
-            alert_thresholds: Custom thresholds for alerts
+        The monitor sets up internal structures for tracking agent health, monitoring state, alert history, alert callbacks, and system-wide metrics.
         """
         self.check_interval = check_interval
         self.alert_thresholds = alert_thresholds or self._default_thresholds()
@@ -238,7 +241,9 @@ class HealthMonitor:
         self, agent_id: str, health_status: HealthStatus
     ) -> None:
         """
-        Update health status for an agent
+        Updates the health status of a specified agent and triggers alerts if health levels or thresholds change.
+
+        If the agent is not already registered, it is added to the monitoring system. The method updates the agent's health status and last seen timestamp, recalculates the health level, and generates alerts if there are changes in health level or if any configured thresholds are exceeded.
         """
         if agent_id not in self.agent_health:
             await self.register_agent(agent_id)
@@ -326,7 +331,11 @@ class HealthMonitor:
                 await asyncio.sleep(self.check_interval)
 
     async def _perform_health_checks(self) -> None:
-        """Perform health checks on all agents"""
+        """
+        Performs health checks on all registered agents, evaluating heartbeat freshness and updating their health levels.
+
+        Agents with stale or missing heartbeats receive warnings or errors based on configured thresholds. Health levels are recalculated after checks.
+        """
         for agent_id in list(self.agent_health.keys()):
             health = self.agent_health[agent_id]
 
@@ -404,7 +413,11 @@ class HealthMonitor:
     async def _check_alert_thresholds(
         self, agent_id: str, health: HealthStatus
     ) -> None:
-        """Check if any metrics exceed alert thresholds"""
+        """
+        Checks an agent's health metrics against configured alert thresholds and generates alerts for exceeded limits.
+
+        Alerts are created for CPU usage, memory usage, error rate, and success rate if they cross warning or critical thresholds. Generated alerts are appended to the alert history and all registered alert callbacks are notified.
+        """
         alerts = []
 
         # CPU usage alerts

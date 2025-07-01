@@ -18,6 +18,11 @@ class A2AMessageBus:
     """Central message bus for A2A communication"""
 
     def __init__(self, registry: A2ARegistry):
+        """
+        Initialize the A2A message bus with the given agent registry.
+
+        Sets up the message queue, message history, response callbacks, and running state.
+        """
         self.registry = registry
         self.message_queue = asyncio.Queue()
         self.message_history: List[A2AMessage] = []
@@ -26,7 +31,9 @@ class A2AMessageBus:
         logger.info("A2A Message Bus initialized")
 
     async def start(self):
-        """Start the message bus"""
+        """
+        Starts the message bus and launches the asynchronous message processing loop.
+        """
         self.running = True
         logger.info("Message bus started")
 
@@ -34,12 +41,21 @@ class A2AMessageBus:
         asyncio.create_task(self._process_messages())
 
     async def stop(self):
-        """Stop the message bus"""
+        """
+        Stops the message bus, halting further message processing.
+        """
         self.running = False
         logger.info("Message bus stopped")
 
     async def send_message(self, message: A2AMessage) -> Optional[A2AMessage]:
-        """Send a message through the bus"""
+        """
+        Sends a message through the bus and, if it is a request, waits asynchronously for a response.
+
+        If the message is of type "request", waits up to 30 seconds for a corresponding response from the target agent. Returns the response message if received in time, or None on timeout or for non-request messages.
+
+        Returns:
+            Optional[A2AMessage]: The response message if available, otherwise None.
+        """
         # Add to history
         self.message_history.append(message)
 
@@ -66,7 +82,11 @@ class A2AMessageBus:
         return None
 
     async def _process_messages(self):
-        """Process messages from the queue"""
+        """
+        Continuously processes messages from the queue, dispatching them to target agents and handling responses or errors as needed.
+
+        Messages are retrieved from the queue and routed to the appropriate agent for processing. If the target agent is not found or an error occurs during processing, an error response is generated and delivered for request messages. The loop runs while the message bus is active.
+        """
         while self.running:
             try:
                 # Get message from queue
@@ -107,7 +127,11 @@ class A2AMessageBus:
                 logger.error(f"Error in message processing loop: {e}")
 
     async def _deliver_response(self, response: A2AMessage):
-        """Deliver a response to the waiting sender"""
+        """
+        Delivers a response message to the sender awaiting it by resolving the corresponding future.
+
+        If no matching callback is found for the response's correlation ID, logs a warning.
+        """
         if response.correlation_id in self.response_callbacks:
             future = self.response_callbacks[response.correlation_id]
             future.set_result(response)
@@ -117,7 +141,15 @@ class A2AMessageBus:
                 f"No callback found for response {response.correlation_id}")
 
     def get_message_history(self, limit: int = 100) -> List[Dict]:
-        """Get recent message history"""
+        """
+        Return a summary of the most recent messages sent through the message bus.
+
+        Parameters:
+            limit (int): Maximum number of recent messages to include in the result.
+
+        Returns:
+            List[Dict]: A list of dictionaries, each containing message ID, timestamp, sender, receiver, action, and type for up to the specified number of recent messages.
+        """
         return [
             {
                 "message_id": msg.message_id,
@@ -138,6 +170,11 @@ class A2AOrchestrator:
 
 
 def __init__(self, registry: A2ARegistry, message_bus: A2AMessageBus):
+        """
+        Initialize the A2AOrchestrator with the given agent registry and message bus.
+
+        Sets up the orchestrator's agent ID and prepares it to coordinate workflows between agents.
+        """
         self.registry = registry
         self.message_bus = message_bus
         self.agent_id = "orchestrator-001"

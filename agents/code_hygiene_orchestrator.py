@@ -42,6 +42,12 @@ class CodeHygieneOrchestrator:
     """Main orchestrator for code hygiene operations."""
 
     def __init__(self, repo_path: str = "."):
+        """
+        Initialize the CodeHygieneOrchestrator with repository path, configuration, and hygiene rule mappings.
+
+        Parameters:
+            repo_path (str): Path to the root of the repository to manage. Defaults to the current directory.
+        """
         self.repo_path = Path(repo_path).resolve()
         self.repo = git.Repo(self.repo_path)
         self.issues = defaultdict(list)
@@ -107,7 +113,18 @@ class CodeHygieneOrchestrator:
         }
 
     def clean(self, dry_run: bool = True, interactive: bool = False) -> Dict:
-        """Clean the codebase based on hygiene rules."""
+        """
+        Performs cleaning operations on the codebase according to defined hygiene rules.
+
+        Runs an analysis to detect hygiene issues, then applies fixes for each detected issue unless in dry run mode. If `interactive` is enabled, prompts for user confirmation before applying each fix. Returns a dictionary summarizing the cleaning status, actions taken, and statistics.
+
+        Parameters:
+            dry_run (bool): If True, simulates cleaning actions without making changes.
+            interactive (bool): If True, prompts for confirmation before applying each fix.
+
+        Returns:
+            Dict: A dictionary containing the cleaning status, list of actions taken, and statistics.
+        """
         logger.info(
             f"Cleaning codebase (dry_run={dry_run}, interactive={interactive})")
 
@@ -143,7 +160,17 @@ class CodeHygieneOrchestrator:
         }
 
     def _organize_ci_artifacts(self, analyze_only: bool = True) -> Optional[List[str]]:
-        """Organize CI orchestration artifacts into a dedicated directory."""
+        """
+        Finds CI/CD artifact files scattered throughout the repository and, if requested, moves them into a dedicated directory with an index.
+
+        When not in analysis mode, moves all detected CI artifact files to the configured `.ci_artifacts` directory and generates an `index.json` summarizing the moved files.
+
+        Parameters:
+            analyze_only (bool): If True, only detects and reports CI artifact files without making changes. If False, performs the organization and file moves.
+
+        Returns:
+            actions (List[str] or None): List of actions taken if files were moved; otherwise, None.
+        """
         ci_files = []
         actions = []
 
@@ -192,7 +219,14 @@ class CodeHygieneOrchestrator:
     def _find_and_handle_duplicates(
         self, analyze_only: bool = True
     ) -> Optional[List[str]]:
-        """Find and handle duplicate files."""
+        """
+        Identifies duplicate files in the repository and optionally removes them, keeping only the oldest copy in each duplicate group.
+
+        When analyzing, records the number and groups of duplicate files found. When fixing, deletes all but the oldest file in each duplicate set and logs the actions taken.
+
+        Returns:
+            actions (List[str], optional): Descriptions of files removed if duplicates are handled; otherwise, None.
+        """
         file_hashes = defaultdict(list)
         actions = []
 
@@ -232,7 +266,14 @@ class CodeHygieneOrchestrator:
         return actions if not analyze_only else None
 
     def _clean_temporary_files(self, analyze_only: bool = True) -> Optional[List[str]]:
-        """Clean temporary and backup files."""
+        """
+        Finds and optionally removes temporary and backup files matching configured patterns.
+
+        When `analyze_only` is True, reports the number of detected temporary or backup files. When `analyze_only` is False, deletes these files and returns a list of actions performed.
+
+        Returns:
+            actions (List[str] or None): List of removal actions if files were deleted; otherwise, None.
+        """
         temp_files = []
         actions = []
 
@@ -260,7 +301,17 @@ class CodeHygieneOrchestrator:
         return actions if not analyze_only else None
 
     def _archive_old_reports(self, analyze_only: bool = True) -> Optional[List[str]]:
-        """Archive old report and analysis files."""
+        """
+        Archives report and analysis files older than a configured number of days.
+
+        When analyzing, identifies old report files matching specific patterns that exceed the age threshold and records their count. When fixing, moves these files into a dated subdirectory under the archive directory and logs the actions taken.
+
+        Parameters:
+                analyze_only (bool): If True, only detects old reports without moving them. If False, archives the files.
+
+        Returns:
+                actions (List[str] or None): List of actions performed if files are archived; otherwise, None.
+        """
         old_reports = []
         actions = []
         cutoff_date = datetime.now() - \
@@ -402,7 +453,14 @@ class CodeHygieneOrchestrator:
         return actions if not analyze_only else None
 
     def _fix_naming_conventions(self, analyze_only: bool = True) -> Optional[List[str]]:
-        """Fix file naming convention issues."""
+        """
+        Detects Python files with non-snake_case names and optionally renames them to follow snake_case conventions.
+
+        When `analyze_only` is True, reports the number of files with naming issues. When False, renames offending files to snake_case if no naming conflict exists and returns a list of actions performed.
+
+        Returns:
+            actions (List[str] or None): List of renaming actions taken if fixing, or None if only analyzing.
+        """
         actions = []
         naming_issues = []
 
@@ -582,7 +640,12 @@ class CodeHygieneOrchestrator:
         return response.lower() == "y"
 
     def _generate_summary(self) -> str:
-        """Generate a summary of hygiene issues."""
+        """
+        Generate a formatted summary of detected code hygiene issues.
+
+        Returns:
+            str: A summary string listing the total number of issues, affected categories, and a table with category names, issue counts, and example descriptions.
+        """
         total_issues = sum(len(issues) for issues in self.issues.values())
 
         if total_issues == 0:
@@ -615,7 +678,11 @@ class CodeHygieneOrchestrator:
         return "\n".join(summary_lines)
 
     def generate_report(self, output_file: Optional[str] = None) -> str:
-        """Generate a detailed hygiene report."""
+        """
+        Generates a detailed markdown report summarizing detected code hygiene issues.
+
+        If an output file path is provided, the report is saved to that file. The report includes a summary, detailed issues by category, and recommended actions. Returns the report content as a string.
+        """
         report_lines = [
             f"# Code Hygiene Report",
             f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
@@ -670,7 +737,11 @@ class CodeHygieneOrchestrator:
     "--repo-path", default=".", help="Path to repository (default: current directory)"
 )
 def main(command, dry_run, interactive, output, repo_path):
-    """Code Hygiene Orchestrator - Keep your codebase clean and organized."""
+    """
+    Entry point for the Code Hygiene Orchestrator CLI, handling analysis, cleaning, and reporting commands.
+
+    Depending on the specified command, this function analyzes code hygiene issues, performs cleaning operations (with optional dry run and interactive confirmation), or generates a detailed hygiene report. Output is printed to the console or saved to a file as appropriate.
+    """
     orchestrator = CodeHygieneOrchestrator(repo_path)
 
     if command == "analyze":

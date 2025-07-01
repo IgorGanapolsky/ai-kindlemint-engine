@@ -15,6 +15,9 @@ class AgentGenerator:
     """
 
     def __init__(self):
+        """
+        Initialize the AgentGenerator with a logger and set the template directory path.
+        """
         self.logger = logging.getLogger(__name__)
         self.template_dir = Path(__file__).parent / "templates"
 
@@ -81,7 +84,19 @@ class AgentGenerator:
         specialized: bool,
         **kwargs,
     ) -> str:
-        """Generate the agent Python code"""
+        """
+        Generate Python source code for an AI agent class with specified capabilities, framework, and optional specialization.
+
+        Parameters:
+            agent_type (str): The type of agent to generate (e.g., "content-generator").
+            capabilities (List[str]): List of capability identifiers to include as async methods.
+            framework (str): The framework to use for agent construction (e.g., "langchain").
+            specialized (bool): Whether to include industry-specific processing methods.
+            **kwargs: Additional options such as industry or compliance details for specialization.
+
+        Returns:
+            str: The generated Python source code as a string, defining the agent class with methods for each capability and optional specialization.
+        """
 
         # Base imports
         imports = [
@@ -229,7 +244,16 @@ class AgentGenerator:
         return code
 
     def _generate_agent_tests(self, agent_type: str, capabilities: List[str]) -> str:
-        """Generate test code for the agent"""
+        """
+        Generate pytest-based test code for the dynamically created agent class.
+
+        Parameters:
+            agent_type (str): The type of agent to generate tests for.
+            capabilities (List[str]): List of capability names the agent supports.
+
+        Returns:
+            str: The generated Python test code as a string.
+        """
 
         class_name = f"{agent_type.title().replace('-', '')}Agent"
 
@@ -300,7 +324,17 @@ class AgentGenerator:
     def _generate_agent_docs(
         self, agent_type: str, capabilities: List[str], **kwargs
     ) -> str:
-        """Generate documentation for the agent"""
+        """
+        Generate Markdown documentation for a dynamically created agent class, including its overview, capabilities, usage example, method descriptions, and optional industry specialization details.
+
+        Parameters:
+                agent_type (str): The type of agent to document, used for class naming and description.
+                capabilities (List[str]): List of capability names to document as agent methods.
+                **kwargs: Optional parameters for specialization, such as 'specialized', 'industry', and 'compliance'.
+
+        Returns:
+                str: The complete Markdown documentation for the generated agent.
+        """
 
         class_name = f"{agent_type.title().replace('-', '')}Agent"
         cap_list = "\n".join(

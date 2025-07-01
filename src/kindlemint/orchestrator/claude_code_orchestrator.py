@@ -39,6 +39,9 @@ class ClaudeCodeTask:
     result: Optional[Dict[str, Any]] = None
 
     def __post_init__(self):
+        """
+        Set the creation timestamp to the current time if it was not provided during initialization.
+        """
         if self.created_at is None:
             self.created_at = datetime.now()
 
@@ -60,6 +63,9 @@ class ClaudeCodeOrchestrator:
     """
 
     def __init__(self):
+        """
+        Initialize the Claude Code Orchestrator with logging, task management structures, supported capabilities, and task statistics counters.
+        """
         self.logger = logging.getLogger(__name__)
         self.tasks = {}
         self.capabilities = {
@@ -83,7 +89,12 @@ class ClaudeCodeOrchestrator:
         self.logger.info("🚀 Claude Code Orchestrator initialized")
 
     async def execute_task(self, task: ClaudeCodeTask) -> Dict[str, Any]:
-        """Execute a Claude Code task"""
+        """
+        Asynchronously executes a Claude Code task, routing it to the appropriate handler based on task type and updating its status and result.
+
+        Returns:
+            A dictionary containing the success status, task ID, result or error details, and execution time in milliseconds.
+        """
         try:
             self.logger.info(f"🎯 Executing Claude Code task: {task.task_id}")
 

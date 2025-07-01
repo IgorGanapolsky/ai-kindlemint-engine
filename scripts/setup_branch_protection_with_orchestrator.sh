@@ -108,7 +108,7 @@ gh api \
 # Create required labels for orchestrator
 echo -e "\n${BLUE}🏷️  Creating orchestrator labels...${NC}"
 
-# Function to create label
+# create_label creates a GitHub label with the specified name, color, and description, overwriting any existing label with the same name.
 create_label() {
     local name=$1
     local color=$2

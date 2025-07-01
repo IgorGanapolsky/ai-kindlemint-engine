@@ -48,6 +48,9 @@ class PDFLayoutAgent(A2AAgent):
 
 
 def __init__(self, registry):
+        """
+        Initialize the PDFLayoutAgent with PDF generation capabilities and register its available skills.
+        """
         super().__init__("pdf_layout", registry)
         self.pdf_generator = PDFGenerator()
         self.logger = logging.getLogger(__name__)
@@ -83,7 +86,14 @@ def __init__(self, registry):
 
 
 def add_skill(self, name: str, handler, description: str):
-        """Add a skill to the agent"""
+        """
+        Registers a new skill with the agent, associating it with a handler function and description.
+
+        Parameters:
+            name (str): The unique name of the skill to register.
+            handler: The function that implements the skill's behavior.
+            description (str): A brief description of the skill's purpose.
+        """
         self.skills[name] = Skill(name, handler, description)
 
     async def _create_puzzle_book(self, request: Dict[str, Any]) -> Dict[str, Any]:

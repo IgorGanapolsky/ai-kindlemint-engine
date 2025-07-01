@@ -57,13 +57,24 @@ class Task:
     def update_status(
         self, new_status: TaskStatus, assigned_to: Optional[str] = None
     ) -> None:
-        """Update the status of the task"""
+        """
+        Update the task's status and optionally assign it to a new agent.
+
+        Parameters:
+            new_status (TaskStatus): The new status to set for the task.
+            assigned_to (Optional[str]): The agent ID to assign the task to, if provided.
+        """
         self.status = new_status
         if assigned_to:
             self.assigned_to = assigned_to
 
     def to_dict(self) -> Dict[str, Any]:
-        """Convert task to dictionary for serialization"""
+        """
+        Serialize the Task instance into a dictionary suitable for storage or transmission.
+
+        Returns:
+            dict: A dictionary representation of the task, with datetime fields in ISO format and status as a string.
+        """
         return {
             "task_id": self.task_id,
             "task_type": self.task_type,
@@ -79,7 +90,15 @@ class Task:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "Task":
-        """Create task from dictionary"""
+        """
+        Deserialize a dictionary into a Task instance, converting ISO-formatted date strings and status values as needed.
+
+        Parameters:
+            data (Dict[str, Any]): Dictionary containing task attributes, with date fields as ISO strings and status as a string.
+
+        Returns:
+            Task: A Task object populated with the provided data.
+        """
         created_at = datetime.fromisoformat(data["created_at"])
         status = TaskStatus(data["status"])
         due_date = (
@@ -123,7 +142,12 @@ class TaskResult:
     )  # Performance metrics (e.g., execution time)
 
     def to_dict(self) -> Dict[str, Any]:
-        """Convert task result to dictionary for serialization"""
+        """
+        Serialize the TaskResult instance into a dictionary with ISO-formatted timestamp and string status.
+
+        Returns:
+            dict: A dictionary representation of the task result suitable for serialization.
+        """
         return {
             "task_id": self.task_id,
             "status": self.status.value,
@@ -136,7 +160,15 @@ class TaskResult:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "TaskResult":
-        """Create task result from dictionary"""
+        """
+        Deserialize a dictionary into a TaskResult instance.
+
+        Parameters:
+            data (dict): Dictionary containing task result data, with status as a string and timestamp in ISO format.
+
+        Returns:
+            TaskResult: The deserialized TaskResult object.
+        """
         status = TaskStatus(data["status"])
         timestamp = datetime.fromisoformat(data["timestamp"])
 
