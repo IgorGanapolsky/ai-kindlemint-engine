@@ -8,7 +8,8 @@ setuptools.setup(
     name="ai_kindlemint_engine",
     version="0.1.0",
     description="AI KindleMint Engine for automated content generation and formatting",
-    packages=setuptools.find_packages(exclude=["tests", "scripts", "docs", "assets"]),
+    packages=setuptools.find_packages(
+        exclude=["tests", "scripts", "docs", "assets"]),
     install_requires=[
         # Alphabetical order for readability
         "beautifulsoup4>=4.10.0",
