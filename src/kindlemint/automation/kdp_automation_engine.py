@@ -14,12 +14,12 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import requests
+from security import safe_requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from security import safe_requests
 
 
 @dataclass
@@ -64,11 +64,11 @@ class AmazonProductAPI:
     def search_books(self, keyword: str, max_results: int = 10) -> List[Dict]:
         """
         Searches for books matching the given keyword using the Amazon Product Advertising API.
-        
+
         Parameters:
             keyword (str): The search term to query for books.
             max_results (int): The maximum number of results to return.
-        
+
         Returns:
             List[Dict]: A list of dictionaries containing book information such as title, BSR, price, reviews, and rating. Returns an empty list if the search fails.
         """
@@ -91,10 +91,10 @@ class AmazonProductAPI:
     def get_category_bestsellers(self, category: str) -> List[Dict]:
         """
         Retrieve a list of bestseller books for a given Amazon category.
-        
+
         Parameters:
             category (str): The Amazon category to search for bestsellers.
-        
+
         Returns:
             List[Dict]: A list of bestseller book data for the specified category, or an empty list if unavailable.
         """
@@ -119,19 +119,20 @@ class Helium10API:
     def analyze_keywords(self, keywords: List[str]) -> Dict:
         """
         Analyzes the competition and search volume for a list of keywords using the Helium 10 Cerebro API.
-        
+
         Parameters:
-        	keywords (List[str]): List of keywords to analyze.
-        
+                keywords (List[str]): List of keywords to analyze.
+
         Returns:
-        	Dict: JSON response containing keyword analysis data, or an empty dictionary if the API call fails.
+                Dict: JSON response containing keyword analysis data, or an empty dictionary if the API call fails.
         """
         try:
             response = requests.post(
                 f"{self.base_url}/cerebro",
                 headers={"Authorization": f"Bearer {self.api_key}"},
                 json={"keywords": keywords},
-            timeout=60)
+                timeout=60,
+            )
             return response.json()
         except Exception as e:
             logging.error(f"Helium 10 API failed: {e}")
@@ -140,10 +141,10 @@ class Helium10API:
     def get_trending_keywords(self, category: str = "books") -> List[str]:
         """
         Retrieve a list of trending keywords for a specified category from the Helium 10 API.
-        
+
         Parameters:
             category (str): The category to fetch trending keywords for. Defaults to "books".
-        
+
         Returns:
             List[str]: A list of trending keywords, or an empty list if the request fails.
         """
@@ -151,7 +152,8 @@ class Helium10API:
             response = safe_requests.get(
                 f"{self.base_url}/trends/{category}",
                 headers={"Authorization": f"Bearer {self.api_key}"},
-            timeout=60)
+                timeout=60,
+            )
             return response.json().get("keywords", [])
         except Exception as e:
             logging.error(f"Trending keywords failed: {e}")
@@ -171,20 +173,21 @@ class JungleScoutAPI:
     def estimate_sales(self, bsr: int, category: str = "books") -> Dict:
         """
         Estimates book sales based on Best Seller Rank (BSR) and category using the Jungle Scout API.
-        
+
         Parameters:
-        	bsr (int): The Best Seller Rank of the book.
-        	category (str): The product category to estimate sales for (default is "books").
-        
+                bsr (int): The Best Seller Rank of the book.
+                category (str): The product category to estimate sales for (default is "books").
+
         Returns:
-        	Dict: A dictionary containing sales estimate data, or an empty dictionary if the request fails.
+                Dict: A dictionary containing sales estimate data, or an empty dictionary if the request fails.
         """
         try:
             response = safe_requests.get(
                 f"{self.base_url}/sales_estimates",
                 headers={"Authorization": f"Bearer {self.api_key}"},
                 params={"bsr": bsr, "category": category},
-            timeout=60)
+                timeout=60,
+            )
             return response.json()
         except Exception as e:
             logging.error(f"Sales estimation failed: {e}")
@@ -197,7 +200,7 @@ class KDPBrowserBot:
     def __init__(self, headless: bool = True):
         """
         Initialize the KDPBrowserBot with an optional headless mode for browser automation.
-        
+
         Parameters:
             headless (bool): If True, runs the browser in headless mode. Defaults to True.
         """
@@ -221,7 +224,7 @@ class KDPBrowserBot:
     def login_to_kdp(self, email: str, password: str) -> bool:
         """
         Logs into the Amazon KDP account using the provided email and password.
-        
+
         Returns:
             bool: True if login is successful and the KDP dashboard is loaded, False otherwise.
         """
@@ -267,11 +270,11 @@ class KDPBrowserBot:
     def upload_book(self, pdf_path: str, metadata: BookMetadata) -> bool:
         """
         Automates the process of uploading a book to Amazon KDP using the provided PDF file and metadata.
-        
+
         Parameters:
             pdf_path (str): Path to the book's PDF file.
             metadata (BookMetadata): Metadata containing book details, keywords, categories, and pricing.
-        
+
         Returns:
             bool: True if the upload and submission process completes successfully, False otherwise.
         """
@@ -352,7 +355,7 @@ class KDPBrowserBot:
     def _upload_content(self, pdf_path: str):
         """
         Uploads the specified PDF file as book content during the KDP publishing process.
-        
+
         Parameters:
             pdf_path (str): Path to the PDF file to be uploaded.
         """
@@ -367,7 +370,7 @@ class KDPBrowserBot:
     def _set_pricing(self, price: float):
         """
         Sets the list price for the book in the KDP pricing form.
-        
+
         Parameters:
             price (float): The price to set for the book.
         """
@@ -405,7 +408,7 @@ class KDPAutomationEngine:
     def __init__(self, config: Dict[str, str]):
         """
         Initializes the KDPAutomationEngine with API clients and browser automation using the provided configuration.
-        
+
         The configuration dictionary should include API keys for Amazon Product Advertising, Helium 10, Jungle Scout, and an optional headless flag for browser automation.
         """
         self.amazon_api = AmazonProductAPI(
@@ -426,9 +429,9 @@ class KDPAutomationEngine:
     ) -> List[NicheOpportunity]:
         """
         Asynchronously discovers and ranks profitable book niches based on keyword trends and market data.
-        
+
         If no seed keywords are provided, trending keywords are retrieved automatically. For each keyword, the method gathers Amazon and Helium 10 data, calculates an opportunity score, and returns the top 10 niches as a ranked list of `NicheOpportunity` instances.
-         
+
         Returns:
             List[NicheOpportunity]: The top 10 profitable niches sorted by opportunity score.
         """
@@ -465,7 +468,7 @@ class KDPAutomationEngine:
     ) -> Optional[NicheOpportunity]:
         """
         Calculates and returns a NicheOpportunity for a given keyword using Amazon and Helium 10 data.
-        
+
         Returns:
             NicheOpportunity: An instance containing calculated metrics and opportunity score, or None if no Amazon data is available.
         """
@@ -506,12 +509,12 @@ class KDPAutomationEngine:
     def generate_book_metadata(self, niche: NicheOpportunity) -> BookMetadata:
         """
         Generate SEO-optimized book metadata for a given niche.
-        
+
         Uses an external SEO engine to enhance base metadata, producing a `BookMetadata` instance with an optimized title, subtitle, description, keywords, categories, price (minimum $7.99), author, and series.
-         
+
         Parameters:
             niche (NicheOpportunity): The niche opportunity for which to generate book metadata.
-        
+
         Returns:
             BookMetadata: The generated metadata optimized for marketing and KDP listing.
         """
@@ -548,10 +551,10 @@ class KDPAutomationEngine:
     async def auto_generate_and_publish(self, niche: NicheOpportunity) -> bool:
         """
         Performs the complete automation workflow for a given niche: generates book metadata and content, creates a PDF, logs into KDP, uploads the book, and submits it for review.
-        
+
         Parameters:
             niche (NicheOpportunity): The niche opportunity for which to generate and publish a book.
-        
+
         Returns:
             bool: True if the book was successfully published, False otherwise.
         """
@@ -600,10 +603,10 @@ class KDPAutomationEngine:
     async def run_full_automation(self, max_books: int = 3) -> List[Dict]:
         """
         Runs the full KDP automation pipeline to discover profitable niches, generate books, and publish them to KDP.
-        
+
         Parameters:
             max_books (int): The maximum number of books to generate and publish in this run.
-        
+
         Returns:
             List[Dict]: A list of dictionaries containing the niche keyword, opportunity score, success status, and timestamp for each attempted publication.
         """
@@ -649,10 +652,10 @@ class KDPAutomationEngine:
 def load_automation_config() -> Dict[str, str]:
     """
     Load required API keys and settings from environment variables for automation.
-    
+
     Raises:
         ValueError: If any required API key is missing.
-    
+
     Returns:
         config (Dict[str, str]): Dictionary containing API keys and configuration settings.
     """
@@ -681,7 +684,7 @@ def load_automation_config() -> Dict[str, str]:
 async def main():
     """
     Runs the command-line interface for the KDP automation engine, allowing users to discover profitable niches, publish a book, or execute the full automation pipeline.
-    
+
     Returns:
         int: Exit code indicating success (0) or failure (1).
     """
