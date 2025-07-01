@@ -21,6 +21,8 @@ class SudokuBookQAValidator:
     """Comprehensive QA validator for Sudoku puzzle books"""
 
     def __init__(self):
+
+
 def __init__(self):
         self.errors = []
         self.warnings = []

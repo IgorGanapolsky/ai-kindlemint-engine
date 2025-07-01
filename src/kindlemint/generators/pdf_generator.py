@@ -19,6 +19,8 @@ class PDFGenerator:
     """
 
     def __init__(self):
+
+
 def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.supported_formats = ["paperback", "hardcover"]

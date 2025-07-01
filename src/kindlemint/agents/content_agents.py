@@ -21,6 +21,8 @@ class PuzzleGeneratorAgent(BaseAgent):
     """
 
     def __init__(self):
+
+
 def __init__(
         self,
         agent_id: Optional[str] = None,
@@ -50,7 +52,8 @@ def __init__(
             "sudoku",
             "word_search",
         ]
-        self.scripts_dir = Path(__file__).parent.parent.parent.parent / "scripts"
+        self.scripts_dir = Path(
+            __file__).parent.parent.parent.parent / "scripts"
 
         # Script mappings
         self.puzzle_scripts = {

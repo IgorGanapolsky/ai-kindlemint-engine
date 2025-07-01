@@ -32,6 +32,8 @@ class GitHubIssuesAgent(BaseAgent):
     """Agent responsible for managing GitHub issues and pull requests"""
 
     def __init__(self):
+
+
 def __init__(self, agent_id: str = "github-issues-agent", repo: str = None):
         capabilities = [
             AgentCapability.BUSINESS_INTELLIGENCE  # Using BI for issue management

@@ -51,6 +51,8 @@ class ConfigLoader:
     _instance = None
 
         """  New  """
+
+
 def __new__(cls):
         if cls._instance is None:
             cls._instance = super(ConfigLoader, cls).__new__(cls)

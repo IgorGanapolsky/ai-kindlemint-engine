@@ -16,6 +16,8 @@ class SimpleContentValidator:
     """Simple validation using file size patterns"""
 
     def __init__(self):
+
+
 def __init__(self):
         self.results = {
             "status": "UNKNOWN",
