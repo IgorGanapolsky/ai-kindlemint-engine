@@ -41,8 +41,7 @@ logger = logging.getLogger(__name__)
 class CodeHygieneOrchestrator:
     """Main orchestrator for code hygiene operations."""
 
-        """  Init  """
-def __init__(self, repo_path: str = "."):
+    def __init__(self, repo_path: str = "."):
         self.repo_path = Path(repo_path).resolve()
         self.repo = git.Repo(self.repo_path)
         self.issues = defaultdict(list)
@@ -153,7 +152,7 @@ def __init__(self, repo_path: str = "."):
 
         ci_files = [
             f
-            f_varor f_var in ci_files
+            for f in ci_files
             if not any(ignored in f.parts for ignored in self.config["ignored_dirs"])
         ]
 
@@ -179,7 +178,7 @@ def __init__(self, repo_path: str = "."):
                 index_file = ci_dir / "index.json"
                 index_data = {
                     "moved_at": datetime.now().isoformat(),
-                    "files": [f.name f_varor f_var in ci_files],
+                    "files": [f.name for f in ci_files],
                     "count": len(ci_files),
                 }
                 with open(index_file, "w") as f:
@@ -221,8 +220,7 @@ def __init__(self, repo_path: str = "."):
                 for file_hash, files in duplicates.items():
                     # Keep the oldest file
                     files_by_mtime = sorted(files, key=lambda f: f.stat().st_mtime)
-                    files_by_mtime[0]
-
+                    
                     for dup_file in files_by_mtime[1:]:
                         dup_file.unlink()
                         actions.append(f"Removed duplicate: {dup_file}")
@@ -240,7 +238,7 @@ def __init__(self, repo_path: str = "."):
 
         temp_files = [
             f
-            f_varor f_var in temp_files
+            for f in temp_files
             if not any(ignored in f.parts for ignored in self.config["ignored_dirs"])
         ]
 
@@ -663,7 +661,6 @@ def __init__(self, repo_path: str = "."):
 @click.option(
     "--repo-path", default=".", help="Path to repository (default: current directory)"
 )
-    """Main"""
 def main(command, dry_run, interactive, output, repo_path):
     """Code Hygiene Orchestrator - Keep your codebase clean and organized."""
     orchestrator = CodeHygieneOrchestrator(repo_path)

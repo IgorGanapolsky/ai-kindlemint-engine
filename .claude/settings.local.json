@@ -296,7 +296,12 @@
       "Bash(./scripts/cleanup_failed_prs.sh:*)",
       "Bash(./scripts/complete_a2a_cleanup.sh:*)",
       "Bash(for pr in 69 68 67 64 63 60 57 56 55 54 52 51 50 47 44 38)",
-      "Bash(for pr in 37 36 35 34)"
+      "Bash(for pr in 37 36 35 34)",
+      "Bash(--method PUT )",
+      "Bash(\"/repos/IgorGanapolsky/ai-kindlemint-engine/subscription\" )",
+      "Bash(--field subscribed=true )",
+      "Bash(--field ignored=false )",
+      "Bash(--field reason=\"watching\")"
     ],
     "deny": []
   }

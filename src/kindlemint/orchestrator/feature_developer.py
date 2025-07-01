@@ -88,9 +88,8 @@ class FeatureDeveloper:
     def _voice_to_book_template(self, requirements: Dict) -> str:
         """Template for voice-to-book feature"""
 
-        return f"""
+        return dedent(f"""
         Voice to Book Pipeline - Convert voice recordings to publishable books
-        """
 
         import asyncio
         import logging
@@ -201,16 +200,13 @@ class FeatureDeveloper:
                     chapters.append(chapter)
 
                 return chapters
-        """
-        ).strip()
+        """).strip()
 
     def _affiliate_integration_template(self, requirements: Dict) -> str:
         """Template for affiliate integration feature"""
 
-        return dedent(
-            f"""
+        return dedent(f"""
         Affiliate Integration Engine - Monetize books with affiliate programs
-        """
 
         import asyncio
         import logging
@@ -314,16 +310,13 @@ class FeatureDeveloper:
                     "affiliate_link": product["affiliate_url"],
                     "commission_rate": product.get("commission_rate", 0.04)
                 }
-        """
-        ).strip()
+        """).strip()
 
     def _social_media_atomization_template(self, requirements: Dict) -> str:
         """Template for social media atomization feature"""
 
-        return dedent(
-            f"""
+        return dedent(f"""
         Social Media Atomization - Convert book content into social media posts
-        """
 
         import asyncio
         import logging
@@ -519,19 +512,13 @@ class FeatureDeveloper:
                     "facebook": "Share with someone who needs to see this!"
                 }
                 return ctas.get(platform, "Check out our book!")
-        """
-        ).strip()
+        """).strip()
 
     def _community_platform_template(self, requirements: Dict) -> str:
         """Template for community platform feature"""
 
-        def _community_platform_template(self, requirements: Dict) -> str:
-        """Template for community platform feature"""
-
-        return dedent(
-            f"""
+        return dedent(f"""
         Community Platform - Build and manage reader communities
-        """
 
         import asyncio
         import logging
@@ -726,10 +713,8 @@ class FeatureDeveloper:
                 Send event invitations to members
                 """
                 # Implementation for event invitations
-                self.logger.info(
-                    f"Sending invitations for event: {event['title']}")
-        """
-        ).strip()
+                self.logger.info(f"Sending invitations for event: {event['title']}")
+        """).strip()
 
     def _generic_feature_template(self, feature_name: str, requirements: Dict) -> str:
         """
@@ -756,7 +741,7 @@ class FeatureDeveloper:
             """
 
             def __init__(self, config: Optional[Dict] = None):
-                self.config = config or {{}}
+                self.config = config or {}
                 self.logger = logging.getLogger(__name__)
                 self.requirements = {requirements}
 
@@ -776,26 +761,26 @@ class FeatureDeveloper:
                 Execute the main feature functionality
                 """
                 self.logger.info(
-                    f"Executing {feature_name} with params: {{params}}")
+                    f"Executing {feature_name} with params: {params}")
 
                 try:
                     # Main implementation logic
                     result = await self._process(params)
 
-                    return {{
+                    return {
                         "status": "success",
-                        "feature": "{feature_name}",
+                        "feature": f"{feature_name}",
                         "result": result,
                         "timestamp": datetime.now().isoformat()
-                    }}
+                    }
 
                 except Exception as e:
-                    self.logger.error(f"Error in {feature_name}: {{e}}")
-                    return {{
+                    self.logger.error(f"Error in {feature_name}: {e}")
+                    return {
                         "status": "error",
-                        "feature": "{feature_name}",
+                        "feature": f"{feature_name}",
                         "error": str(e)
-                    }}
+                    }
 
             async def _setup_components(self):
                 """
@@ -809,10 +794,10 @@ class FeatureDeveloper:
                 Process the feature request
                 """
                 # Main processing logic
-                return {{
+                return {
                     "processed": True,
                     "params": params
-                }}
+                }
         """
         ).strip()
 
