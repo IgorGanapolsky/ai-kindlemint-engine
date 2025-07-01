@@ -9,8 +9,9 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-from kindlemint.utils.cost_tracker import ClaudeCostTracker
 from security import safe_command
+
+from kindlemint.utils.cost_tracker import ClaudeCostTracker
 
 
 def format_currency(amount: float) -> str:
@@ -265,7 +266,7 @@ Examples:
 
         try:
             result = safe_command.run(subprocess.run, [sys.executable, str(badge_script)],
-                                    capture_output=True, text=True, check=True)
+                                      capture_output=True, text=True, check=True)
             print(result.stdout)
         except subprocess.CalledProcessError as e:
             print(f"❌ Badge generation failed: {e.stderr}")
