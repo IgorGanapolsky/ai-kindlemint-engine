@@ -17,7 +17,9 @@ from PIL import Image
 class SudokuContentValidator:
     """Validates actual Sudoku content in PDFs and images"""
 
-        """  Init  """
+    def __init__(self):
+
+
 def __init__(self):
         self.results = {
             "status": "UNKNOWN",

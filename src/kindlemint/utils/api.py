@@ -29,7 +29,9 @@ class EnhancedAPIManager(APIManager):
     Automatically tracks all AI interactions for debugging.
     """
 
-        """  Init  """
+    def __init__(self):
+
+
 def __init__(self):
         super().__init__()
         self.monitor = get_agent_monitor()

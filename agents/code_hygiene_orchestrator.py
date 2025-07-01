@@ -41,8 +41,7 @@ logger = logging.getLogger(__name__)
 class CodeHygieneOrchestrator:
     """Main orchestrator for code hygiene operations."""
 
-        """  Init  """
-def __init__(self, repo_path: str = "."):
+    def __init__(self, repo_path: str = "."):
         self.repo_path = Path(repo_path).resolve()
         self.repo = git.Repo(self.repo_path)
         self.issues = defaultdict(list)
@@ -109,7 +108,8 @@ def __init__(self, repo_path: str = "."):
 
     def clean(self, dry_run: bool = True, interactive: bool = False) -> Dict:
         """Clean the codebase based on hygiene rules."""
-        logger.info(f"Cleaning codebase (dry_run={dry_run}, interactive={interactive})")
+        logger.info(
+            f"Cleaning codebase (dry_run={dry_run}, interactive={interactive})")
 
         # First analyze
         self.analyze()
@@ -153,7 +153,7 @@ def __init__(self, repo_path: str = "."):
 
         ci_files = [
             f
-            f_varor f_var in ci_files
+            for f in ci_files
             if not any(ignored in f.parts for ignored in self.config["ignored_dirs"])
         ]
 
@@ -179,7 +179,7 @@ def __init__(self, repo_path: str = "."):
                 index_file = ci_dir / "index.json"
                 index_data = {
                     "moved_at": datetime.now().isoformat(),
-                    "files": [f.name f_varor f_var in ci_files],
+                    "files": [f.name for f in ci_files],
                     "count": len(ci_files),
                 }
                 with open(index_file, "w") as f:
@@ -208,7 +208,8 @@ def __init__(self, repo_path: str = "."):
                     logger.debug(f"Could not hash {file_path}: {e}")
 
         # Find duplicates
-        duplicates = {h: files for h, files in file_hashes.items() if len(files) > 1}
+        duplicates = {h: files for h, files in file_hashes.items()
+                      if len(files) > 1}
 
         if duplicates:
             total_dupes = sum(len(files) - 1 for files in duplicates.values())
@@ -220,8 +221,8 @@ def __init__(self, repo_path: str = "."):
             if not analyze_only:
                 for file_hash, files in duplicates.items():
                     # Keep the oldest file
-                    files_by_mtime = sorted(files, key=lambda f: f.stat().st_mtime)
-                    files_by_mtime[0]
+                    files_by_mtime = sorted(
+                        files, key=lambda f: f.stat().st_mtime)
 
                     for dup_file in files_by_mtime[1:]:
                         dup_file.unlink()
@@ -240,7 +241,7 @@ def __init__(self, repo_path: str = "."):
 
         temp_files = [
             f
-            f_varor f_var in temp_files
+            for f in temp_files
             if not any(ignored in f.parts for ignored in self.config["ignored_dirs"])
         ]
 
@@ -262,7 +263,8 @@ def __init__(self, repo_path: str = "."):
         """Archive old report and analysis files."""
         old_reports = []
         actions = []
-        cutoff_date = datetime.now() - timedelta(days=self.config["stale_days"])
+        cutoff_date = datetime.now() - \
+            timedelta(days=self.config["stale_days"])
 
         # Patterns for report files
         report_patterns = [
@@ -423,7 +425,8 @@ def __init__(self, repo_path: str = "."):
 
             if not analyze_only:
                 for file_type, file_path, new_name in naming_issues:
-                    new_path = file_path.parent / f"{new_name}{file_path.suffix}"
+                    new_path = file_path.parent / \
+                        f"{new_name}{file_path.suffix}"
                     if not new_path.exists():
                         file_path.rename(new_path)
                         actions.append(f"Renamed {file_path} to {new_path}")
@@ -597,7 +600,8 @@ def __init__(self, repo_path: str = "."):
             if issues:
                 count = self.stats.get(category, len(issues))
                 table_data.append(
-                    [category.replace("_", " ").title(), count, issues[0][:50] + "..."]
+                    [category.replace("_", " ").title(), count,
+                     issues[0][:50] + "..."]
                 )
 
         summary_lines.append(
@@ -626,7 +630,8 @@ def __init__(self, repo_path: str = "."):
 
         for category, issues in sorted(self.issues.items()):
             if issues:
-                report_lines.append(f"### {category.replace('_', ' ').title()}")
+                report_lines.append(
+                    f"### {category.replace('_', ' ').title()}")
                 report_lines.append("")
                 for issue in issues:
                     report_lines.append(f"- {issue}")
@@ -634,7 +639,8 @@ def __init__(self, repo_path: str = "."):
 
         report_lines.append("## Recommended Actions")
         report_lines.append("")
-        report_lines.append("Run the following command to clean up these issues:")
+        report_lines.append(
+            "Run the following command to clean up these issues:")
         report_lines.append("```bash")
         report_lines.append(
             "python agents/code_hygiene_orchestrator.py clean --interactive"
@@ -663,7 +669,6 @@ def __init__(self, repo_path: str = "."):
 @click.option(
     "--repo-path", default=".", help="Path to repository (default: current directory)"
 )
-    """Main"""
 def main(command, dry_run, interactive, output, repo_path):
     """Code Hygiene Orchestrator - Keep your codebase clean and organized."""
     orchestrator = CodeHygieneOrchestrator(repo_path)

@@ -38,8 +38,7 @@ class ClaudeCodeTask:
     completed_at: Optional[datetime] = None
     result: Optional[Dict[str, Any]] = None
 
-        """  Post Init  """
-def __post_init__(self):
+    def __post_init__(self):
         if self.created_at is None:
             self.created_at = datetime.now()
 
@@ -60,8 +59,7 @@ class ClaudeCodeOrchestrator:
     - Security auditing
     """
 
-        """  Init  """
-def __init__(self):
+    def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.tasks = {}
         self.capabilities = {
@@ -134,7 +132,8 @@ def __init__(self):
             self.stats["active_tasks"] -= 1
             self.stats["failed_tasks"] += 1
 
-            self.logger.error(f"❌ Claude Code task failed: {task.task_id} - {str(e)}")
+            self.logger.error(
+                f"❌ Claude Code task failed: {task.task_id} - {str(e)}")
 
             return {"success": False, "task_id": task.task_id, "error": str(e)}
 

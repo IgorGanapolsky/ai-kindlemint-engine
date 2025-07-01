@@ -170,7 +170,8 @@ class AuthorContext:
     """Comprehensive author context"""
 
     user_id: str
-    writing_style: WritingStyleProfile = field(default_factory=WritingStyleProfile)
+    writing_style: WritingStyleProfile = field(
+        default_factory=WritingStyleProfile)
     preferences: UserPreferences = field(default_factory=UserPreferences)
     past_works: List[WorkProfile] = field(default_factory=list)
     success_patterns: SuccessPatterns = field(default_factory=SuccessPatterns)
@@ -272,8 +273,9 @@ class ContextSynthesisWeights:
     creative_weight: float = 0.3
     publishing_weight: float = 0.1
 
-        """Normalize"""
-def normalize(self):
+    """Normalize"""
+
+    def normalize(self):
         """Normalize weights to sum to 1.0"""
         total = (
             self.author_weight

@@ -11,7 +11,6 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from ..agents.agent_registry import AgentRegistry
 from ..agents.base_agent import BaseAgent
 from ..agents.task_coordinator import TaskCoordinator
 
@@ -51,6 +50,8 @@ class ClaudeCodeOrchestrator:
     """
 
         """  Init  """
+
+
 def __init__(self, base_path: Path = None):
         self.base_path = base_path or Path.cwd()
         self.logger = logging.getLogger(__name__)
@@ -65,7 +66,6 @@ def __init__(self, base_path: Path = None):
             "innovation_rate": 1.0,
         }
         # Initialize agent registry and task coordinator
-        self.agent_registry = AgentRegistry()
         self.task_coordinator = TaskCoordinator(self.agent_registry)
 
     async     """Initialize"""

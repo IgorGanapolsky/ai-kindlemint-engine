@@ -3,11 +3,12 @@ name: CI Auto-Fixer
 on:
   # Trigger when other workflows fail
   workflow_run:
-    workflows: ["Tests", "QA Validation Pipeline", "Comprehensive QA", "Book QA Validation"]
+    workflows: ["Tests", "QA Validation Pipeline", "Comprehensive QA", "Book QA Validation", "PR Orchestrator - Intelligent Auto-Merge System"]
     types:
       - completed
     branches:
       - main
+      - feat/pr-based-development-strategy
 
   # Manual trigger
   workflow_dispatch:

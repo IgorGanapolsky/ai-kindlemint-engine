@@ -7,7 +7,7 @@ This test file uses what actually exists to boost coverage from 10% to 25%+
 import json
 import tempfile
 
-    """Test Kindlemint Package Imports"""
+
 def test_kindlemint_package_imports():
     """Test all package imports work - covers __init__ files"""
     import kindlemint
@@ -23,7 +23,6 @@ def test_kindlemint_package_imports():
     assert AgentCapability.CONTENT_GENERATION.value == "content_generation"
 
 
-    """Test Sudoku Generator Comprehensive"""
 def test_sudoku_generator_comprehensive():
     """Comprehensive test for sudoku generator - boost from 16% to 40%+"""
     from kindlemint.engines.sudoku import SudokuGenerator
@@ -54,8 +53,10 @@ def test_sudoku_generator_comprehensive():
     assert gen1._is_valid(grid, 0, 1, 2) == True  # Different number OK
 
     # Test difficulty selection
-    assert gen3._get_difficulty_for_puzzle(0) in ["easy", "medium", "hard", "expert"]
-    assert gen3._get_difficulty_for_puzzle(10) in ["easy", "medium", "hard", "expert"]
+    assert gen3._get_difficulty_for_puzzle(
+        0) in ["easy", "medium", "hard", "expert"]
+    assert gen3._get_difficulty_for_puzzle(
+        10) in ["easy", "medium", "hard", "expert"]
 
     # Test output directory creation
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -65,7 +66,6 @@ def test_sudoku_generator_comprehensive():
         assert gen_with_output.metadata_dir.exists()
 
 
-    """Test Base Validator Structures"""
 def test_base_validator_structures():
     """Test validator data structures - boost base_validator coverage"""
     from kindlemint.validators.base_validator import (
@@ -121,7 +121,6 @@ def test_base_validator_structures():
     assert loaded["puzzle_type"] == "sudoku"
 
 
-    """Test Agent Capability Enum"""
 def test_agent_capability_enum():
     """Test agent capabilities enum comprehensively"""
     from kindlemint.agents.agent_types import AgentCapability
@@ -145,7 +144,6 @@ def test_agent_capability_enum():
         assert "_" in cap.value  # Uses underscores
 
 
-    """Test Message Protocol Enums"""
 def test_message_protocol_enums():
     """Test message protocol enums"""
     from kindlemint.agents.message_protocol import MessagePriority, MessageType
@@ -164,7 +162,6 @@ def test_message_protocol_enums():
     assert MessagePriority.CRITICAL.value == "critical"
 
 
-    """Test Task System Enums"""
 def test_task_system_enums():
     """Test task system enums and basic structures"""
     from kindlemint.agents.task_system import TaskPriority, TaskStatus, TaskType
@@ -190,7 +187,6 @@ def test_task_system_enums():
     assert TaskType.DESIGN_COVER.value == "design_cover"
 
 
-    """Test Utils Module Coverage"""
 def test_utils_module_coverage():
     """Test utils module imports and basic functionality"""
     # Test what actually exists in utils
@@ -209,7 +205,6 @@ def test_utils_module_coverage():
         pass
 
 
-    """Test Crossword Validator Init"""
 def test_crossword_validator_init():
     """Test crossword validator initialization"""
     from kindlemint.validators.crossword_validator import CrosswordValidator

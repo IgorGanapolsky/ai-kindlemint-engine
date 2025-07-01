@@ -20,8 +20,7 @@ logger = logging.getLogger(__name__)
 class ContextMemoryStore:
     """Persistent storage for context data with SQLite backend"""
 
-        """  Init  """
-def __init__(self, db_path: Optional[str] = None):
+    def __init__(self, db_path: Optional[str] = None):
         if db_path is None:
             # Use project data directory
             project_root = Path(__file__).parent.parent.parent.parent
@@ -35,8 +34,7 @@ def __init__(self, db_path: Optional[str] = None):
         # Initialize database
         self._init_database()
 
-        """ Init Database"""
-def _init_database(self):
+    def _init_database(self):
         """Initialize the database with required tables"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -130,10 +128,12 @@ def _init_database(self):
 
                 conn.commit()
 
-            self.logger.info(f"Context memory database initialized at {self.db_path}")
+            self.logger.info(
+                f"Context memory database initialized at {self.db_path}")
 
         except Exception as e:
-            self.logger.error(f"Failed to initialize context memory database: {e}")
+            self.logger.error(
+                f"Failed to initialize context memory database: {e}")
             raise
 
     async def store_author_context(self, user_id: str, context: AuthorContext) -> bool:
@@ -162,7 +162,8 @@ def _init_database(self):
             return True
 
         except Exception as e:
-            self.logger.error(f"Failed to store author context for user {user_id}: {e}")
+            self.logger.error(
+                f"Failed to store author context for user {user_id}: {e}")
             return False
 
     async def get_author_context(self, user_id: str) -> Optional[AuthorContext]:
@@ -239,7 +240,8 @@ def _init_database(self):
             return None
 
         except Exception as e:
-            self.logger.error(f"Failed to retrieve vibecode session {session_id}: {e}")
+            self.logger.error(
+                f"Failed to retrieve vibecode session {session_id}: {e}")
             return None
 
     async def store_voice_input(self, voice_input: VoiceInput) -> bool:
@@ -302,7 +304,8 @@ def _init_database(self):
                     # Calculate productivity metrics
                     start_dt = datetime.fromisoformat(start_time)
                     end_dt = (
-                        datetime.fromisoformat(end_time) if end_time else datetime.now()
+                        datetime.fromisoformat(
+                            end_time) if end_time else datetime.now()
                     )
                     duration_minutes = (end_dt - start_dt).total_seconds() / 60
 
@@ -429,7 +432,8 @@ def _init_database(self):
                 }
 
         except Exception as e:
-            self.logger.error(f"Failed to get user statistics for {user_id}: {e}")
+            self.logger.error(
+                f"Failed to get user statistics for {user_id}: {e}")
             return {}
 
     async def cleanup_old_data(self, days_to_keep: int = 90) -> bool:
@@ -579,8 +583,10 @@ def _init_database(self):
         context.writing_style.genre_preferences = [
             BookGenre(g) for g_var in style_data.get("genre_preferences", [])
         ]
-        context.writing_style.favorite_themes = style_data.get("favorite_themes", [])
-        context.writing_style.writing_patterns = style_data.get("writing_patterns", {})
+        context.writing_style.favorite_themes = style_data.get(
+            "favorite_themes", [])
+        context.writing_style.writing_patterns = style_data.get(
+            "writing_patterns", {})
 
         # Reconstruct preferences
         prefs_data = data.get("preferences", {})
@@ -590,8 +596,10 @@ def _init_database(self):
         context.preferences.target_audience = prefs_data.get(
             "target_audience", "general"
         )
-        context.preferences.content_rating = prefs_data.get("content_rating", "pg")
-        context.preferences.publishing_goals = prefs_data.get("publishing_goals", [])
+        context.preferences.content_rating = prefs_data.get(
+            "content_rating", "pg")
+        context.preferences.publishing_goals = prefs_data.get(
+            "publishing_goals", [])
         context.preferences.market_focus = prefs_data.get("market_focus", [])
         context.preferences.collaboration_style = prefs_data.get(
             "collaboration_style", "guided"
@@ -599,11 +607,14 @@ def _init_database(self):
         context.preferences.feedback_frequency = prefs_data.get(
             "feedback_frequency", "regular"
         )
-        context.preferences.quality_focus = prefs_data.get("quality_focus", "balanced")
+        context.preferences.quality_focus = prefs_data.get(
+            "quality_focus", "balanced")
 
         # Reconstruct other fields
-        context.current_mood = CreativeMood(data.get("current_mood", "focused"))
-        context.session_intent = Intent(data.get("session_intent", "explore_ideas"))
+        context.current_mood = CreativeMood(
+            data.get("current_mood", "focused"))
+        context.session_intent = Intent(
+            data.get("session_intent", "explore_ideas"))
         context.creative_energy = data.get("creative_energy", 0.5)
         context.last_updated = datetime.fromisoformat(
             data.get("last_updated", datetime.now().isoformat())

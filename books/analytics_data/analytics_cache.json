@@ -1,0 +1,31 @@
+{
+  "last_performance_summary": {
+    "portfolio_overview": {
+      "total_books": 0,
+      "active_books": 0,
+      "monitoring_coverage": 0,
+      "data_points_collected": 0
+    },
+    "financial_snapshot": {
+      "estimated_monthly_revenue": 0,
+      "estimated_annual_revenue": 0,
+      "revenue_per_book_avg": 25,
+      "calculation_method": "industry_average_estimate",
+      "note": "Estimates based on industry averages. Actual revenue may vary significantly."
+    },
+    "performance_highlights": {
+      "top_performers": [],
+      "performance_scores": {},
+      "ranking_criteria": [
+        "rating",
+        "review_count",
+        "availability"
+      ]
+    },
+    "alerts": [],
+    "key_insights": [
+      "Monitoring 0 books across your portfolio"
+    ]
+  },
+  "last_updated": "2025-07-01T15:31:28.224788"
+}

@@ -18,7 +18,8 @@ Usage:
 
     client = BotpressClient(api_key="your_api_key")
     author_bot = AuthorInterviewBot(client)
-    content = author_bot.conduct_interview(author_id="auth123", book_topic="puzzle books")
+    content = author_bot.conduct_interview(
+        author_id="auth123", book_topic="puzzle books")
 """
 
 import json
@@ -53,7 +54,9 @@ class BotpressError(Exception):
 class BotpressAPIError(BotpressError):
     """Exception raised for errors in the Botpress API."""
 
-        """  Init  """
+    def __init__(self):
+
+
 def __init__(self, status_code: int, message: str):
         self.status_code = status_code
         self.message = message
@@ -107,7 +110,8 @@ class BotpressConfig:
             base_url=os.environ.get(
                 "BOTPRESS_BASE_URL", "https://api.botpress.cloud/v1"
             ),
-            timeout=int(os.environ.get("BOTPRESS_TIMEOUT", str(DEFAULT_TIMEOUT))),
+            timeout=int(os.environ.get(
+                "BOTPRESS_TIMEOUT", str(DEFAULT_TIMEOUT))),
             track_costs=os.environ.get("BOTPRESS_TRACK_COSTS", "true").lower()
             == "true",
             webhook_secret=os.environ.get("BOTPRESS_WEBHOOK_SECRET"),
@@ -126,7 +130,9 @@ class BotpressClient:
         cost_tracker (Optional[CostTracker]): Tracks API usage costs if enabled
     """
 
-        """  Init  """
+    def __init__(self):
+
+
 def __init__(
         self,
         api_key: Optional[str] = None,
@@ -149,7 +155,8 @@ def __init__(
         if config:
             self.config = config
         elif api_key and workspace_id:
-            self.config = BotpressConfig(api_key=api_key, workspace_id=workspace_id)
+            self.config = BotpressConfig(
+                api_key=api_key, workspace_id=workspace_id)
         else:
             try:
                 self.config = BotpressConfig.from_env()
@@ -373,7 +380,7 @@ class BaseBot(ABC):
     of required methods for specific bot types.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         client: BotpressClient,
@@ -492,7 +499,7 @@ class AuthorInterviewBot(BaseBot):
     their ideas, organize content, and develop their book structure.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         client: BotpressClient,
@@ -690,7 +697,7 @@ class ReaderFeedbackBot(BaseBot):
     feedback, ratings, and suggestions for improvement.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         client: BotpressClient,
@@ -858,7 +865,7 @@ class WritingCoachBot(BaseBot):
     helping overcome writer's block, and providing feedback on drafts.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         client: BotpressClient,
@@ -1099,7 +1106,7 @@ class ConversationalMarketingBot(BaseBot):
     and facilitates webinar registrations through natural conversations.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         client: BotpressClient,
@@ -1479,7 +1486,7 @@ class WebhookHandler:
     routing them to the appropriate handlers based on event type.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(self, config: Optional[BotpressConfig] = None):
         """
         Initialize the webhook handler.

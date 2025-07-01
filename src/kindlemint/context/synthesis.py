@@ -32,7 +32,9 @@ logger = logging.getLogger(__name__)
 class MarketContextAnalyzer:
     """Analyzes market context for content optimization"""
 
-        """  Init  """
+    def __init__(self):
+
+
 def __init__(self):
         self.trend_cache = {}
         self.last_refresh = None
@@ -370,7 +372,7 @@ def _refresh_market_data(self):
 class CreativeContextLibrary:
     """Library of creative patterns and writing structures"""
 
-        """  Init  """
+    def __init__(self):
 def __init__(self):
         self.patterns = self._initialize_creative_patterns()
 
@@ -875,7 +877,7 @@ class PublishingContextEngine:
 class ContextSynthesisEngine:
     """Main engine for synthesizing multiple context layers"""
 
-        """  Init  """
+    def __init__(self):
 def __init__(self):
         self.author_builder = AuthorContextBuilder()
         self.market_analyzer = MarketContextAnalyzer()

@@ -1,32 +1,19 @@
-# src/kindlemint/agents/puzzle_generator_agent.py
+"""
+Puzzle Generator Agent - Simplified without A2A framework
+Generates puzzles directly
+"""
 
-from kindlemint.a2a.agent import A2AAgent
-from kindlemint.a2a.registry import AgentRegistry
-from kindlemint.engines.sudoku import SudokuGenerator
+from scripts.sudoku_generator_engine import SudokuGenerator
 
 
-class PuzzleGeneratorAgent(A2AAgent):
-    """An A2A agent that generates puzzles."""
+class PuzzleGeneratorAgent:
+    """A simplified agent that generates puzzles."""
 
-        """  Init  """
-def __init__(self, agent_id: str, registry: AgentRegistry):
-        super().__init__(agent_id, registry)
+    def __init__(self, agent_id=None, registry=None):
+        """Initialize the puzzle generator agent"""
+        self.agent_id = agent_id or "puzzle_generator"
         self.core_generator = SudokuGenerator()
-        self.add_skill(
-            "generate_sudoku",
-            self.generate_sudoku,
-            "Generates a Sudoku puzzle with a specified difficulty.",
-        )
 
-        """Generate Sudoku"""
-def generate_sudoku(self, difficulty: str = "medium"):
-        """
-        Generates a Sudoku puzzle.
-
-        Args:
-            difficulty: The difficulty of the puzzle (e.g., 'easy', 'medium', 'hard').
-
-        Returns:
-            A dictionary containing the puzzle grid, solution, and other metadata.
-        """
+    def generate_sudoku(self, difficulty="medium"):
+        """Generate a Sudoku puzzle with specified difficulty"""
         return self.core_generator.generate_puzzle(difficulty)

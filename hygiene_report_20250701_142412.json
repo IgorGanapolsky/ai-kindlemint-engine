@@ -1,0 +1,48 @@
+{
+  "timestamp": "2025-07-01T14:24:11.141942",
+  "issues": [
+    {
+      "type": "root_clutter_moderate",
+      "severity": "medium",
+      "count": 23,
+      "message": "Moderate root clutter (23 files). Consider organizing.",
+      "suggestion": "Move non-essential files to subdirectories"
+    }
+  ],
+  "suggestions": [],
+  "metrics": {
+    "hygiene_score": 75.0,
+    "root_files": 23,
+    "total_files": 29058,
+    "issues_count": 1,
+    "critical_issues": 0,
+    "organization_score": 100.0
+  },
+  "total_files": 29058,
+  "root_files": 23,
+  "root_file_list": [
+    ".cursorignore",
+    "claude-code",
+    "last_commit_cost.json",
+    "KDP_AUTOMATION_SETUP.md",
+    "LICENSE",
+    "test_sudoku.pdf",
+    "requirements.txt",
+    "claude-flow-costs-notify",
+    "commit_costs.json",
+    "hygiene_report_20250701_135458.json",
+    "hygiene_report_20250701_135527.json",
+    ".deepsource.toml",
+    "README.md",
+    "setup.py",
+    "claude-flow-costs",
+    "sonar-project.properties",
+    "claude-flow",
+    ".ccfignore",
+    ".gitignore",
+    "hygiene_report.json",
+    ".gitattributes",
+    ".env.example",
+    "cost_analytics.json"
+  ]
+}

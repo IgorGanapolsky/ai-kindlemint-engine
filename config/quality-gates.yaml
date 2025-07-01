@@ -1,0 +1,102 @@
+# AI-KindleMint-Engine Quality Gates Configuration
+# These thresholds must be met for PRs to be merged
+
+quality_gates:
+  # Test Coverage Requirements
+  coverage:
+    minimum: 80          # Minimum required coverage
+    target: 90           # Target we're aiming for
+    new_code_minimum: 85 # Higher standard for new code
+    exclude_patterns:
+      - "**/__init__.py"
+      - "**/test_*.py"
+      - "**/conftest.py"
+      - "scripts/experiments/**"
+      
+  # Code Quality Metrics
+  code_quality:
+    complexity:
+      max_cyclomatic: 10      # Maximum cyclomatic complexity per function
+      max_cognitive: 15       # Maximum cognitive complexity
+      max_file_complexity: 50 # Maximum complexity per file
+    duplication:
+      max_percent: 5          # Maximum code duplication
+      min_tokens: 50          # Minimum tokens to consider duplication
+    maintainability:
+      min_index: "B"          # Minimum maintainability index (A-F)
+    lines:
+      max_per_function: 50    # Maximum lines per function
+      max_per_file: 500       # Maximum lines per file
+      
+  # Security Requirements
+  security:
+    vulnerability_threshold: 0  # Zero tolerance for security vulnerabilities
+    dependency_check: true      # Check dependencies for vulnerabilities
+    secret_scanning: true       # Scan for hardcoded secrets
+    bandit_confidence: "medium" # Minimum confidence for Bandit issues
+    
+  # Performance Standards
+  performance:
+    max_response_time: 1000    # Maximum response time in ms
+    max_memory_usage: 512      # Maximum memory usage in MB
+    benchmark_regression: 5    # Maximum allowed performance regression %
+    puzzle_generation:
+      sudoku_max_time: 100     # ms per puzzle
+      crossword_max_time: 500  # ms per puzzle
+      
+  # Documentation Requirements
+  documentation:
+    required_for:
+      - public_apis           # All public functions/classes
+      - complex_functions     # Functions with complexity > 7
+      - configuration_changes # Any config file changes
+    min_docstring_length: 10  # Minimum characters in docstring
+    readme_required: true     # README must be present and updated
+    
+  # Testing Standards
+  testing:
+    unit_test_required: true        # Unit tests required for all new code
+    integration_test_required: true # Integration tests for new features
+    test_naming_convention: "test_*" # Test function naming pattern
+    max_test_duration: 300          # Maximum test duration in seconds
+    flakiness_threshold: 1          # Maximum test flakiness %
+    
+  # PR Size Limits
+  pr_standards:
+    max_files_changed: 50      # Maximum files per PR
+    max_lines_changed: 1000    # Maximum lines changed
+    require_issue_link: true   # Must link to an issue
+    require_description: true  # Must have description
+    
+  # Build and CI Requirements
+  ci_requirements:
+    max_build_time: 600        # Maximum build time in seconds
+    required_checks:
+      - "Tests / Test Python 3.11"
+      - "Tests / Test Python 3.12"
+      - "Code Quality Checks"
+      - "Business Logic Validation"
+      - "Documentation Validation"
+    allow_failure_on:
+      - "Performance Validation" # Can fail without blocking
+      
+# Severity levels for different violation types
+severity_mapping:
+  security: "blocker"
+  test_failure: "blocker"
+  coverage_below_minimum: "blocker"
+  complexity_exceeded: "critical"
+  documentation_missing: "major"
+  style_violation: "minor"
+  
+# Automated fix settings
+auto_fix:
+  enabled: true
+  confidence_threshold: 0.9
+  allowed_categories:
+    - "formatting"
+    - "imports"
+    - "simple_refactoring"
+  excluded_categories:
+    - "security"
+    - "logic_changes"

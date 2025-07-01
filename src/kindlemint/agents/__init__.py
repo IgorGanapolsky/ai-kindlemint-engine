@@ -5,7 +5,6 @@ This package implements a scalable multi-agent architecture for automated
 book publishing with specialized agents for different aspects of the pipeline.
 """
 
-from .agent_registry import AgentRegistry
 from .base_agent import AgentCapability, AgentStatus, BaseAgent
 from .github_issues_agent import GitHubActionType, GitHubIssuesAgent
 from .health_monitoring import HealthMonitor, HealthStatus
@@ -22,7 +21,6 @@ __all__ = [
     "Task",
     "TaskResult",
     "TaskStatus",
-    "AgentRegistry",
     "HealthStatus",
     "HealthMonitor",
     "GitHubIssuesAgent",

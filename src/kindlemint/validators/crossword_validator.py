@@ -30,8 +30,7 @@ class CrosswordValidator(PuzzleValidator):
     - Clue numbering consistency
     """
 
-        """  Init  """
-def __init__(self, strict_mode: bool = False):
+    def __init__(self, strict_mode: bool = False):
         """
         Initialize the crossword validator.
 
@@ -403,8 +402,8 @@ def __init__(self, strict_mode: bool = False):
                                 issues.append(
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
-                                        description=f"Grid cell at [{
-                                            i},{j}] is not a string",
+                                        description=f"Grid cell at[{
+                                            i}, {j}] is not a string",
                                         puzzle_id=puzzle_id,
                                         location=f"grid[{i}][{j}]",
                                     )
@@ -413,8 +412,8 @@ def __init__(self, strict_mode: bool = False):
                                 issues.append(
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
-                                        description=f"Invalid grid cell value at [{
-                                            i},{j}]: '{cell}'",
+                                        description=f"Invalid grid cell value at[{
+                                            i}, {j}]: '{cell}'",
                                         puzzle_id=puzzle_id,
                                         location=f"grid[{i}][{j}]",
                                         recommendation="Cell should be empty, '#', or a letter",
@@ -467,8 +466,8 @@ def __init__(self, strict_mode: bool = False):
                                 issues.append(
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
-                                        description=f"Solution cell at [{
-                                            i},{j}] is not a string",
+                                        description=f"Solution cell at[{
+                                            i}, {j}] is not a string",
                                         puzzle_id=puzzle_id,
                                         location=f"solution[{i}][{j}]",
                                     )
@@ -477,8 +476,8 @@ def __init__(self, strict_mode: bool = False):
                                 issues.append(
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
-                                        description=f"Invalid solution cell value at [{
-                                            i},{j}]: '{cell}'",
+                                        description=f"Invalid solution cell value at[{
+                                            i}, {j}]: '{cell}'",
                                         puzzle_id=puzzle_id,
                                         location=f"solution[{i}][{j}]",
                                         recommendation="Cell should be '#' or a letter",
@@ -515,8 +514,8 @@ def __init__(self, strict_mode: bool = False):
                                         issues.append(
                                             self.create_issue(
                                                 severity=IssueSeverity.ERROR,
-                                                description=f"Empty solution cell at [{
-                                                    i},{j}]",
+                                                description=f"Empty solution cell at[{
+                                                    i}, {j}]",
                                                 puzzle_id=puzzle_id,
                                                 location=f"solution[{i}][{j}]",
                                                 recommendation="Fill in all solution cells",

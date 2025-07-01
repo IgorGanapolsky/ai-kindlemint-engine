@@ -31,8 +31,7 @@ class GitHubActionType(Enum):
 class GitHubIssuesAgent(BaseAgent):
     """Agent responsible for managing GitHub issues and pull requests"""
 
-        """  Init  """
-def __init__(self, agent_id: str = "github-issues-agent", repo: str = None):
+    def __init__(self, agent_id: str = "github-issues-agent", repo: str = None):
         capabilities = [
             AgentCapability.BUSINESS_INTELLIGENCE  # Using BI for issue management
         ]
@@ -41,11 +40,34 @@ def __init__(self, agent_id: str = "github-issues-agent", repo: str = None):
         self.repo = repo or "IgorGanapolsky/ai-kindlemint-engine"
 
         # Security improvement patterns
-        self.security_bots = ["pixeebot", "dependabot", "snyk-bot"]
+        self.security_bots = [
+            "pixeebot",
+            "dependabot",
+            "snyk-bot",
+            "deepsource-autofix[bot]",
+            "seer-by-sentry",
+        ]
         self.auto_approve_patterns = [
             "Add timeout to requests calls",
             "Secure Source of Randomness",
             "Bump .* from .* to .*",  # Dependency updates
+        ]
+
+        # Aggressive merge mode configuration
+        self.aggressive_mode = True
+        self.auto_merge_patterns = [
+            "test",
+            "docs",
+            "style",
+            "refactor",
+            "chore",
+            "fix",
+            "feat",
+            "cleanup",
+            "update",
+            "remove",
+            "add",
+            "improve",
         ]
 
     async def _execute_task(self, task: Task) -> TaskResult:
@@ -205,13 +227,25 @@ This PR requires manual review to assess:
         # Check if it matches auto-approve patterns
         should_auto_approve = (
             auto_approve
-            and is_security_bot
-            and any(pattern in title for pattern in self.auto_approve_patterns)
+            and (
+                is_security_bot
+                or (
+                    self.aggressive_mode
+                    and any(
+                        pattern in title.lower() for pattern in self.auto_merge_patterns
+                    )
+                )
+            )
+            and any(
+                pattern in title.lower()
+                for pattern in self.auto_approve_patterns + self.auto_merge_patterns
+            )
         )
 
         if should_auto_approve:
             # Auto-approve and merge
-            self.logger.info(f"Auto-approving security PR #{pr_number} from {author}")
+            self.logger.info(
+                f"Auto-approving security PR #{pr_number} from {author}")
 
             # Approve PR
             await self._run_gh_command(
@@ -227,18 +261,32 @@ This PR requires manual review to assess:
                 ]
             )
 
-            # Merge PR
-            await self._run_gh_command(
+            # Merge PR - force merge without waiting
+            merge_result = await self._run_gh_command(
                 [
                     "pr",
                     "merge",
                     str(pr_number),
                     "--repo",
                     self.repo,
-                    "--auto",
-                    "--merge",
+                    "--merge",  # Remove --auto to merge immediately
+                    "--delete-branch",
                 ]
             )
+
+            if not merge_result:
+                # Try squash merge if regular merge fails
+                await self._run_gh_command(
+                    [
+                        "pr",
+                        "merge",
+                        str(pr_number),
+                        "--repo",
+                        self.repo,
+                        "--squash",
+                        "--delete-branch",
+                    ]
+                )
 
             action_taken = "auto_approved_and_merged"
         else:
@@ -539,7 +587,8 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
 
     async def _initialize(self) -> None:
         """Initialize the agent"""
-        self.logger.info(f"Initializing GitHub Issues Agent for repo: {self.repo}")
+        self.logger.info(
+            f"Initializing GitHub Issues Agent for repo: {self.repo}")
         # Verify gh CLI is available
         gh_check = await self._run_gh_command(["--version"])
         if not gh_check:

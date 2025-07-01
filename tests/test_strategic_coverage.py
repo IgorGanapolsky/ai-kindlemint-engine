@@ -8,7 +8,9 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-    """Test Sudoku Generator Advanced"""
+"""Test Sudoku Generator Advanced"""
+
+
 def test_sudoku_generator_advanced():
     """Push sudoku.py from 19% to 35%+"""
     from kindlemint.engines.sudoku import SudokuGenerator
@@ -48,7 +50,6 @@ def test_sudoku_generator_advanced():
     assert "initial_grid" in puzzle
 
 
-    """Test Config Loader Advanced"""
 def test_config_loader_advanced():
     """Push config.py from 48% to 70%+"""
     from kindlemint.utils.config import ConfigLoader
@@ -73,7 +74,8 @@ def test_config_loader_advanced():
 
             # Test nested get
             assert loader.get("api_settings.openai.api_key") == "test-key"
-            assert loader.get("api_settings.serpapi.base_url") == "https://api.test.com"
+            assert loader.get(
+                "api_settings.serpapi.base_url") == "https://api.test.com"
 
             # Test get with default
             assert loader.get("missing.key", "default") == "default"
@@ -89,13 +91,13 @@ def test_config_loader_advanced():
 
             # Test environment override
             with patch.dict(
-                "os.environ", {"KINDLEMINT_API_SETTINGS__OPENAI__API_KEY": "env-key"}
+                "os.environ", {
+                    "KINDLEMINT_API_SETTINGS__OPENAI__API_KEY": "env-key"}
             ):
                 loader._apply_env_overrides()
                 assert loader.config["api_settings"]["openai"]["api_key"] == "env-key"
 
 
-    """Test Base Validator Advanced"""
 def test_base_validator_advanced():
     """Push base_validator from 57% to 80%+"""
     from kindlemint.validators.base_validator import (
@@ -135,7 +137,8 @@ def test_base_validator_advanced():
 
     # Test issue filtering
     errors = [i for i in report.issues if i.severity == IssueSeverity.ERROR]
-    warnings = [i for i in report.issues if i.severity == IssueSeverity.WARNING]
+    warnings = [i for i in report.issues if i.severity ==
+                IssueSeverity.WARNING]
     assert len(errors) == 1
     assert len(warnings) == 1
 
@@ -151,7 +154,6 @@ def test_base_validator_advanced():
         Path(f.name).unlink()
 
 
-    """Test Api Provider Coverage"""
 def test_api_provider_coverage():
     """Boost api.py from 17% to 40%+"""
     from kindlemint.utils.api import APIProvider
@@ -165,8 +167,7 @@ def test_api_provider_coverage():
         from kindlemint.utils.api import with_ai_monitoring
 
         @with_ai_monitoring
-            """Test Function"""
-def test_function():
+        def test_function():
             return "result"
 
         result = test_function()
@@ -175,7 +176,6 @@ def test_function():
         pass
 
 
-    """Test Cost Tracker Coverage"""
 def test_cost_tracker_coverage():
     """Boost cost_tracker.py from 14% to 30%+"""
     from kindlemint.utils.cost_tracker import ClaudeCostTracker
@@ -183,7 +183,8 @@ def test_cost_tracker_coverage():
     tracker = ClaudeCostTracker()
 
     # Test adding usage
-    tracker.add_usage(model="claude-3-opus", input_tokens=1000, output_tokens=500)
+    tracker.add_usage(model="claude-3-opus",
+                      input_tokens=1000, output_tokens=500)
 
     # Test cost calculation
     cost = tracker.calculate_cost(
@@ -200,7 +201,6 @@ def test_cost_tracker_coverage():
     assert "claude-3-opus" in summary
 
 
-    """Test Crossword Validator Advanced"""
 def test_crossword_validator_advanced():
     """Boost crossword_validator from 11% to 25%+"""
     from kindlemint.validators.crossword_validator import CrosswordValidator
@@ -225,7 +225,6 @@ def test_crossword_validator_advanced():
     assert hasattr(validator, "_validate_clues")
 
 
-    """Test Wordsearch Validator Coverage"""
 def test_wordsearch_validator_coverage():
     """Boost wordsearch_validator from 13% to 30%+"""
     from kindlemint.validators.wordsearch_validator import WordSearchValidator

@@ -23,3 +23,8 @@ class AgentCapability(Enum):
     BUSINESS_INTELLIGENCE = "business_intelligence"
     TASK_COORDINATION = "task_coordination"
     RESOURCE_MANAGEMENT = "resource_management"
+    PERFORMANCE_MONITORING = "performance_monitoring"
+    SALES_TRACKING = "sales_tracking"
+    MARKET_ANALYTICS = "market_analytics"
+    KDP_INTEGRATION = "kdp_integration"
+    BUSINESS_REPORTING = "business_reporting"

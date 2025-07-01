@@ -100,8 +100,7 @@ class AgentMessage:
         None  # Route to agents with these capabilities
     )
 
-        """  Post Init  """
-def __post_init__(self):
+    def __post_init__(self):
         """Validate message after initialization"""
         if not self.sender_id:
             raise ValueError("sender_id is required")
@@ -199,7 +198,8 @@ def __post_init__(self):
             priority=Priority.LOW,
             correlation_id=self.message_id,
             subject=f"ACK: {self.subject}",
-            payload={"acknowledged": True, "original_message_id": self.message_id},
+            payload={"acknowledged": True,
+                     "original_message_id": self.message_id},
             requires_acknowledgment=False,
         )
 

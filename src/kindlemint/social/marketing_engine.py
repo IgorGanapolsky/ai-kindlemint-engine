@@ -38,7 +38,9 @@ class SocialMediaMarketingEngine:
     - Analytics and optimization
     """
 
-        """  Init  """
+    def __init__(self):
+
+
 def __init__(
         self,
         author_name: str,
@@ -61,7 +63,8 @@ def __init__(
         self.engagement_bot = CommunityEngagementBot(
             author_name, brand_voice="professional"
         )
-        self.lead_generator = LeadGenerationEngine(author_name, brand_name, website_url)
+        self.lead_generator = LeadGenerationEngine(
+            author_name, brand_name, website_url)
         self.analytics = MarketingAnalyticsDashboard(author_name, brand_name)
 
         # Initialize platform optimizers
@@ -76,7 +79,8 @@ def __init__(
 
         # Register optimizers with atomizer
         for platform, optimizer in self.platform_optimizers.items():
-            self.content_atomizer.register_platform_optimizer(platform.value, optimizer)
+            self.content_atomizer.register_platform_optimizer(
+                platform.value, optimizer)
 
     def create_complete_marketing_campaign(
         self, book_content: Dict[str, str]

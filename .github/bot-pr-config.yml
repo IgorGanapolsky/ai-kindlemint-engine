@@ -1,0 +1,102 @@
+# Bot PR Configuration - Enterprise Security Model
+# Redirects automated PRs to appropriate branches based on CTO strategy
+
+# DeepSource Configuration
+# Redirect style/format PRs to develop branch
+deepsource:
+  target_branch: develop
+  auto_merge_threshold: 90
+  allowed_pr_types:
+    - style
+    - format
+    - lint
+    - autopep8
+    - black
+    - isort
+  
+# Dependabot Configuration  
+# Redirect dependency updates to develop branch
+dependabot:
+  target_branch: develop
+  auto_merge_threshold: 95
+  allowed_pr_types:
+    - dependency-update
+    - security-update
+    - version-bump
+
+# Renovate Configuration
+# Redirect dependency management to develop branch  
+renovate:
+  target_branch: develop
+  auto_merge_threshold: 95
+  allowed_pr_types:
+    - dependency-update
+    - lock-file-maintenance
+    - pin-dependencies
+
+# Pixeebot Configuration
+# Redirect security hardening to staging branch (higher scrutiny)
+pixeebot:
+  target_branch: staging
+  auto_merge_threshold: 85
+  allowed_pr_types:
+    - security-hardening
+    - vulnerability-fix
+    - codeql-fix
+
+# GitHub Actions Bot Configuration
+# Redirect workflow updates to staging branch
+github-actions:
+  target_branch: staging  
+  auto_merge_threshold: 80
+  allowed_pr_types:
+    - workflow-update
+    - action-version-bump
+    - ci-improvement
+
+# Branch-specific rules
+branch_rules:
+  develop:
+    - Bot PRs with confidence > 85%
+    - Style and formatting changes
+    - Dependency updates (non-security)
+    - Documentation updates
+    - Test additions
+    
+  staging:
+    - Feature PRs with tests
+    - Security-related changes  
+    - Workflow modifications
+    - Integration testing changes
+    
+  main:
+    - Release PRs only
+    - Critical hotfixes
+    - Executive-approved changes
+    - Production deployments
+
+# Auto-merge criteria by branch
+auto_merge_rules:
+  develop:
+    min_confidence: 85
+    max_files_changed: 50
+    max_lines_changed: 500
+    required_checks:
+      - "Quick Validation Checks"
+      - "Code Quality Checks"
+    
+  staging:
+    min_confidence: 90
+    max_files_changed: 25
+    max_lines_changed: 200
+    required_checks:
+      - "Quick Validation Checks"
+      - "Code Quality Checks"
+      - "Test Suite / test (3.11)"
+      - "Test Suite / test (3.12)"
+    requires_review: true
+    
+  main:
+    auto_merge_enabled: false
+    requires_executive_approval: true
+    required_reviewers: ["IgorGanapolsky"]

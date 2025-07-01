@@ -15,14 +15,11 @@ from .base_agent import AgentCapability, AgentStatus
 from .health_monitoring import HealthMonitor, HealthStatus
 from .message_protocol import AgentMessage
 
-
-class AgentRegistry:
-    """
+  """
     Centralized registry for agent discovery and communication routing
     """
 
-        """  Init  """
-def __init__(self, health_monitor: Optional[HealthMonitor] = None):
+   def __init__(self, health_monitor: Optional[HealthMonitor] = None):
         """
         Initialize agent registry
 
@@ -45,7 +42,8 @@ def __init__(self, health_monitor: Optional[HealthMonitor] = None):
         self.broadcast_subscribers: Set[str] = set()
 
         # Load balancing
-        self.agent_load: Dict[str, int] = defaultdict(int)  # Current task count
+        self.agent_load: Dict[str, int] = defaultdict(
+            int)  # Current task count
         self.agent_performance: Dict[str, Dict[str, float]] = defaultdict(dict)
 
         # Registry state
@@ -168,7 +166,8 @@ def __init__(self, health_monitor: Optional[HealthMonitor] = None):
         """
         try:
             if agent_id not in self.agents:
-                self.logger.warning(f"Agent {agent_id} not found for unregistration")
+                self.logger.warning(
+                    f"Agent {agent_id} not found for unregistration")
                 return False
 
             # Remove from capability mappings
@@ -209,7 +208,8 @@ def __init__(self, health_monitor: Optional[HealthMonitor] = None):
         self.agent_status[agent_id] = status
 
         if old_status != status:
-            self.logger.debug(f"Agent {agent_id} status: {old_status} -> {status}")
+            self.logger.debug(
+                f"Agent {agent_id} status: {old_status} -> {status}")
 
         return True
 
@@ -233,7 +233,8 @@ def __init__(self, health_monitor: Optional[HealthMonitor] = None):
         if agent_id not in self.agents:
             return False
 
-        self.agent_load[agent_id] = max(0, self.agent_load[agent_id] + load_delta)
+        self.agent_load[agent_id] = max(
+            0, self.agent_load[agent_id] + load_delta)
         return True
 
     async def update_agent_performance(
@@ -254,7 +255,8 @@ def __init__(self, health_monitor: Optional[HealthMonitor] = None):
         # Calculate success rate
         total_tasks = perf["tasks_completed"] + perf["tasks_failed"]
         if total_tasks > 0:
-            perf["success_rate"] = (perf["tasks_completed"] / total_tasks) * 100
+            perf["success_rate"] = (
+                perf["tasks_completed"] / total_tasks) * 100
 
         # Update average response time (exponential moving average)
         alpha = 0.1  # Smoothing factor
@@ -424,15 +426,18 @@ def __init__(self, health_monitor: Optional[HealthMonitor] = None):
         recipient_id = message.recipient_id
 
         if recipient_id not in self.message_queues:
-            self.logger.warning(f"Agent {recipient_id} not found for message routing")
+            self.logger.warning(
+                f"Agent {recipient_id} not found for message routing")
             return False
 
         try:
             await self.message_queues[recipient_id].put(message)
-            self.logger.debug(f"Routed message {message.message_id} to {recipient_id}")
+            self.logger.debug(
+                f"Routed message {message.message_id} to {recipient_id}")
             return True
         except Exception as e:
-            self.logger.error(f"Failed to route message to {recipient_id}: {e}")
+            self.logger.error(
+                f"Failed to route message to {recipient_id}: {e}")
             return False
 
     async def _handle_broadcast_message(self, message: AgentMessage) -> bool:
@@ -444,9 +449,11 @@ def __init__(self, health_monitor: Optional[HealthMonitor] = None):
             for capability_name in message.target_capabilities:
                 try:
                     capability = AgentCapability(capability_name)
-                    target_agents.update(self.capability_map.get(capability, set()))
+                    target_agents.update(
+                        self.capability_map.get(capability, set()))
                 except ValueError:
-                    self.logger.warning(f"Unknown capability: {capability_name}")
+                    self.logger.warning(
+                        f"Unknown capability: {capability_name}")
         else:
             # Broadcast to all agents
             target_agents = set(self.agents.keys())
@@ -459,7 +466,8 @@ def __init__(self, health_monitor: Optional[HealthMonitor] = None):
                     await self.message_queues[agent_id].put(message)
                     success_count += 1
                 except Exception as e:
-                    self.logger.error(f"Failed to broadcast to {agent_id}: {e}")
+                    self.logger.error(
+                        f"Failed to broadcast to {agent_id}: {e}")
 
         self.logger.debug(
             f"Broadcast message {message.message_id} to {

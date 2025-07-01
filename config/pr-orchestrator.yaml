@@ -1,0 +1,265 @@
+# PR Orchestrator Configuration
+# Intelligent auto-merge system with safety gates
+
+orchestrator:
+  enabled: true
+  version: "1.0.0"
+  
+  # Global settings
+  global:
+    # Minimum time PR must be open before auto-merge (in hours)
+    min_pr_age_hours: 1
+    
+    # Maximum PR size for auto-merge
+    max_changes:
+      additions: 500
+      deletions: 300
+      files: 20
+    
+    # Required checks that must pass
+    required_checks:
+      - "Quick Validation Checks"
+      - "Code Quality Checks"
+      - "Test Suite / test (3.11)"
+      - "Test Suite / test (3.12)"
+      - "Business Logic Validation"
+      - "PR Status Summary"
+    
+    # Hygiene score thresholds
+    hygiene:
+      minimum_score: 70
+      preferred_score: 85
+      auto_fix_enabled: true
+      auto_fix_threshold: 80
+
+  # PR type-specific configurations
+  pr_types:
+    docs:
+      auto_merge: true
+      min_confidence: 80
+      required_approvals: 0
+      hygiene_threshold: 60
+      allowed_files:
+        - "*.md"
+        - "*.rst"
+        - "*.txt"
+        - "docs/**"
+      
+    test:
+      auto_merge: true
+      min_confidence: 85
+      required_approvals: 0
+      hygiene_threshold: 70
+      allowed_files:
+        - "test_*.py"
+        - "*_test.py"
+        - "tests/**"
+        - "spec/**"
+      
+    dependency:
+      auto_merge: true
+      min_confidence: 90
+      required_approvals: 0
+      hygiene_threshold: 65
+      trusted_authors:
+        - "dependabot[bot]"
+        - "renovate[bot]"
+        - "github-actions[bot]"
+      allowed_files:
+        - "requirements*.txt"
+        - "package*.json"
+        - "Pipfile*"
+        - "poetry.lock"
+        - "yarn.lock"
+        - "Gemfile*"
+      
+    bugfix:
+      auto_merge: true
+      min_confidence: 75
+      required_approvals: 1
+      hygiene_threshold: 80
+      max_changes:
+        additions: 200
+        deletions: 150
+      
+    hotfix:
+      auto_merge: true
+      min_confidence: 70
+      required_approvals: 1
+      hygiene_threshold: 75
+      fast_track: true
+      
+    feature:
+      auto_merge: false  # Features require manual review by default
+      min_confidence: 85
+      required_approvals: 2
+      hygiene_threshold: 85
+      
+    refactor:
+      auto_merge: false
+      min_confidence: 80
+      required_approvals: 1
+      hygiene_threshold: 90
+      
+    ci:
+      auto_merge: true
+      min_confidence: 85
+      required_approvals: 0
+      hygiene_threshold: 70
+      allowed_files:
+        - ".github/**"
+        - ".gitlab-ci.yml"
+        - "Jenkinsfile"
+        - ".circleci/**"
+
+  # Safety gates and overrides
+  safety_gates:
+    # Labels that prevent auto-merge
+    blocking_labels:
+      - "do-not-merge"
+      - "work-in-progress"
+      - "wip"
+      - "hold"
+      - "needs-review"
+      - "breaking-change"
+      - "security"
+    
+    # Labels that enable auto-merge
+    enabling_labels:
+      - "auto-merge"
+      - "safe-to-merge"
+      - "trivial"
+    
+    # Authors with special privileges
+    trusted_authors:
+      - "dependabot[bot]"
+      - "renovate[bot]"
+      - "github-actions[bot]"
+      - "pr-orchestrator[bot]"
+    
+    # Paths that require manual review
+    protected_paths:
+      - ".github/workflows/**"
+      - "security/**"
+      - "auth/**"
+      - "**/secrets*"
+      - "**/credentials*"
+      - "**/*.key"
+      - "**/*.pem"
+
+  # Conflict resolution settings
+  conflict_resolution:
+    enabled: true
+    auto_resolve_simple: true
+    min_confidence: 0.7
+    use_ai: true
+    
+    # Types of conflicts to auto-resolve
+    auto_resolvable:
+      - "import_statements"
+      - "whitespace"
+      - "version_numbers"
+      - "dependency_version"
+      - "simple_addition"
+    
+    # Always require manual review for these
+    manual_review_required:
+      - "semantic"
+      - "complex"
+      - "security_related"
+
+  # Monitoring and reporting
+  monitoring:
+    # Slack/Discord webhook for notifications
+    webhook_url: "${PR_ORCHESTRATOR_WEBHOOK_URL}"
+    
+    # What to notify about
+    notifications:
+      auto_merge_success: true
+      auto_merge_failure: true
+      manual_review_required: true
+      hygiene_fixes_applied: true
+      conflict_resolution: true
+    
+    # Metrics to track
+    metrics:
+      - total_prs_processed
+      - auto_merge_success_rate
+      - average_merge_time
+      - hygiene_improvements
+      - conflicts_resolved
+
+  # Override commands (via PR comments)
+  commands:
+    merge:
+      description: "Force merge the PR"
+      syntax: "/merge"
+      permissions: ["write", "maintain", "admin"]
+      
+    hold:
+      description: "Prevent auto-merge"
+      syntax: "/hold"
+      permissions: ["write", "maintain", "admin"]
+      
+    analyze:
+      description: "Re-run PR analysis"
+      syntax: "/analyze"
+      permissions: ["read", "write", "maintain", "admin"]
+      
+    hygiene:
+      description: "Run hygiene check and fixes"
+      syntax: "/hygiene"
+      permissions: ["write", "maintain", "admin"]
+      
+    override:
+      description: "Override auto-merge decision"
+      syntax: "/override [merge|block] [reason]"
+      permissions: ["maintain", "admin"]
+
+  # Advanced features
+  advanced:
+    # Semantic diff analysis
+    semantic_analysis:
+      enabled: true
+      providers:
+        - "openai"
+        - "anthropic"
+      
+    # Learn from manual merge decisions
+    learning_mode:
+      enabled: true
+      feedback_collection: true
+      
+    # Progressive rollout
+    rollout:
+      enabled: true
+      percentage: 100  # Start with 100% for all PRs
+      
+    # A/B testing different merge strategies
+    ab_testing:
+      enabled: false
+      experiments: []
+
+# Feature flags
+feature_flags:
+  auto_merge_enabled: true
+  hygiene_enforcement: true
+  conflict_resolution: true
+  ai_assistance: true
+  learning_mode: true
+  
+# Environment-specific overrides
+environments:
+  production:
+    min_confidence_boost: 10
+    additional_checks:
+      - "security-scan"
+      - "performance-test"
+    
+  staging:
+    min_confidence_reduction: 5
+    faster_merge: true
+    
+  development:
+    min_confidence_reduction: 10
+    skip_hygiene: false

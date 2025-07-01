@@ -59,8 +59,7 @@ class BaseAgent(ABC):
     - Dynamic capability registration
     """
 
-        """  Init  """
-def __init__(
+    def __init__(
         self,
         agent_id: Optional[str] = None,
         agent_type: str = "base",
@@ -97,7 +96,6 @@ def __init__(
 
         # Communication
         self.message_handlers: Dict[MessageType, callable] = {}
-        self.agent_registry: Optional["AgentRegistry"] = None
 
         # Logging
         self.logger = logging.getLogger(f"agent.{self.agent_id}")
@@ -105,6 +103,9 @@ def __init__(
         # Background tasks
         self._background_tasks: Set[asyncio.Task] = set()
         self._shutdown_event = asyncio.Event()
+
+        # Agent registry reference (optional)
+        self.agent_registry = None
 
         self.logger.info(
             f"Agent {self.agent_id} initialized with capabilities: {self.capabilities}"
@@ -117,9 +118,12 @@ def __init__(
             self.logger.info(f"Starting agent {self.agent_id}")
 
             # Start background tasks
-            self._background_tasks.add(asyncio.create_task(self._task_processor()))
-            self._background_tasks.add(asyncio.create_task(self._message_processor()))
-            self._background_tasks.add(asyncio.create_task(self._health_monitor()))
+            self._background_tasks.add(
+                asyncio.create_task(self._task_processor()))
+            self._background_tasks.add(
+                asyncio.create_task(self._message_processor()))
+            self._background_tasks.add(
+                asyncio.create_task(self._health_monitor()))
 
             # Agent-specific initialization
             await self._initialize()
@@ -169,7 +173,8 @@ def __init__(
 
         try:
             await self.task_queue.put(task)
-            self.logger.info(f"Task {task.task_id} assigned to agent {self.agent_id}")
+            self.logger.info(
+                f"Task {task.task_id} assigned to agent {self.agent_id}")
             return True
         except Exception as e:
             self.logger.error(f"Failed to assign task {task.task_id}: {e}")
@@ -189,7 +194,8 @@ def __init__(
             if self.agent_registry:
                 return await self.agent_registry.route_message(message)
             else:
-                self.logger.warning("No agent registry available for message routing")
+                self.logger.warning(
+                    "No agent registry available for message routing")
                 return False
         except Exception as e:
             self.logger.error(f"Failed to send message: {e}")
@@ -208,7 +214,8 @@ def __init__(
         """Get current health status of the agent"""
         self.health_status.agent_id = self.agent_id
         self.health_status.status = self.status.value
-        self.health_status.uptime = (datetime.now() - self.start_time).total_seconds()
+        self.health_status.uptime = (
+            datetime.now() - self.start_time).total_seconds()
         self.health_status.active_tasks = len(self.current_tasks)
         self.health_status.success_rate = self.metrics.success_rate
         self.health_status.last_heartbeat = datetime.now()
@@ -279,9 +286,10 @@ def __init__(
         try:
             self.status = AgentStatus.BUSY
             self.current_tasks[task.task_id] = task
-            task.status = TaskStatus.RUNNING
-            task.assigned_agent = self.agent_id
-            task.start_time = datetime.now()
+            task.status = TaskStatus.IN_PROGRESS
+            task.assigned_to = self.agent_id
+            if not hasattr(task, "start_time"):
+                task.start_time = datetime.now()
 
             self.logger.info(f"Processing task {task.task_id}")
 
@@ -289,29 +297,39 @@ def __init__(
             result = await self._execute_task(task)
 
             # Update task status
-            task.status = TaskStatus.COMPLETED if result.success else TaskStatus.FAILED
-            task.end_time = datetime.now()
-            task.result = result
+            task.status = (
+                TaskStatus.COMPLETED
+                if result.status == TaskStatus.COMPLETED
+                else TaskStatus.FAILED
+            )
+            if not hasattr(task, "end_time"):
+                task.end_time = datetime.now()
+            if not hasattr(task, "result"):
+                task.result = result
 
             # Update metrics
             processing_time = time.time() - task_start_time
             self._update_metrics(
-                success=result.success, processing_time=processing_time
+                success=(result.status == TaskStatus.COMPLETED),
+                processing_time=processing_time,
             )
 
             self.logger.info(
-                f"Task {task.task_id} {'completed' if result.success else 'failed'} "
+                f"Task {task.task_id} {'completed' if result.status == TaskStatus.COMPLETED else 'failed'} "
                 f"in {processing_time:.2f}s"
             )
 
         except Exception as e:
             self.logger.error(f"Task {task.task_id} execution failed: {e}")
             task.status = TaskStatus.FAILED
-            task.end_time = datetime.now()
-            task.error = str(e)
+            if not hasattr(task, "end_time"):
+                task.end_time = datetime.now()
+            if not hasattr(task, "error"):
+                task.error = str(e)
 
             processing_time = time.time() - task_start_time
-            self._update_metrics(success=False, processing_time=processing_time)
+            self._update_metrics(
+                success=False, processing_time=processing_time)
 
         finally:
             # Clean up
@@ -339,9 +357,11 @@ def __init__(
             try:
                 await handler(message)
             except Exception as e:
-                self.logger.error(f"Error handling message {message.message_id}: {e}")
+                self.logger.error(
+                    f"Error handling message {message.message_id}: {e}")
         else:
-            self.logger.warning(f"No handler for message type: {message.message_type}")
+            self.logger.warning(
+                f"No handler for message type: {message.message_type}")
 
     async def _health_monitor(self) -> None:
         """Background health monitoring"""

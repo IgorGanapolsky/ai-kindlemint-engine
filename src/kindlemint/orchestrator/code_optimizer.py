@@ -1,6 +1,4 @@
-"""
-Code Optimizer - Analyzes and optimizes codebase for performance, security, and maintainability
-"""
+"""Code Optimizer - Analyzes and optimizes codebase for performance, security, and maintainability"""
 
 import ast
 import logging
@@ -15,8 +13,7 @@ class CodeOptimizer:
     Optimizes code for performance, security, scalability, and maintainability
     """
 
-        """  Init  """
-def __init__(self):
+    def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.optimization_strategies = {
             "performance": self._optimize_performance,
@@ -299,12 +296,10 @@ def __init__(self):
         """Analyze AST for performance issues"""
 
         class PerformanceAnalyzer(ast.NodeVisitor):
-                """  Init  """
-def __init__(self):
+            def __init__(self):
                 self.issues = []
 
-                """Visit For"""
-def visit_For(self, node):
+            def visit_For(self, node):
                 # Check for list append in loop
                 if isinstance(node.body[0], ast.Expr):
                     expr = node.body[0].value
@@ -334,9 +329,9 @@ def visit_For(self, node):
 
         # Check for hardcoded secrets
         secret_patterns = [
-            (r'password\s*=\s*["\'][^"\']+["\']', "hardcoded_secrets"),
-            (r'api_key\s*=\s*["\'][^"\']+["\']', "hardcoded_secrets"),
-            (r'secret\s*=\s*["\'][^"\']+["\']', "hardcoded_secrets"),
+            (r'password\s*=\s*["\"][^"\"]+["\"]', "hardcoded_secrets"),
+            (r'api_key\s*=\s*["\"][^"\"]+["\"]', "hardcoded_secrets"),
+            (r'secret\s*=\s*["\"][^"\"]+["\"]', "hardcoded_secrets"),
         ]
 
         for pattern, issue_type in secret_patterns:
@@ -355,8 +350,8 @@ def visit_For(self, node):
 
         # Check for SQL injection vulnerabilities
         sql_patterns = [
-            (r'execute\s*\(\s*["\'].*%s.*["\']', "sql_injection"),
-            (r'execute\s*\(\s*f["\']', "sql_injection"),
+            (r'execute\s*\(\s*["\"]%s.*["\"]', "sql_injection"),
+            (r'execute\s*\(\s*f["\"]', "sql_injection"),
         ]
 
         for pattern, issue_type in sql_patterns:
@@ -381,25 +376,21 @@ def visit_For(self, node):
         """Analyze AST for scalability issues"""
 
         class ScalabilityAnalyzer(ast.NodeVisitor):
-                """  Init  """
-def __init__(self):
+            def __init__(self):
                 self.issues = []
                 self.in_loop = False
 
-                """Visit For"""
-def visit_For(self, node):
+            def visit_For(self, node):
                 self.in_loop = True
                 self.generic_visit(node)
                 self.in_loop = False
 
-                """Visit While"""
-def visit_While(self, node):
+            def visit_While(self, node):
                 self.in_loop = True
                 self.generic_visit(node)
                 self.in_loop = False
 
-                """Visit Call"""
-def visit_Call(self, node):
+            def visit_Call(self, node):
                 # Check for database calls in loops
                 if self.in_loop:
                     if hasattr(node.func, "attr"):
@@ -425,12 +416,10 @@ def visit_Call(self, node):
         """Analyze code for maintainability issues"""
 
         class MaintainabilityAnalyzer(ast.NodeVisitor):
-                """  Init  """
-def __init__(self):
+            def __init__(self):
                 self.issues = []
 
-                """Visit Functiondef"""
-def visit_FunctionDef(self, node):
+            def visit_FunctionDef(self, node):
                 # Check function length
                 if len(node.body) > 20:
                     self.issues.append(
@@ -479,13 +468,7 @@ def visit_FunctionDef(self, node):
         elif pattern == "generator_expression":
             return "# Use generator expression:\n# result = (process(item) for item in items)"
         elif pattern == "caching":
-            return """# Add caching:
-from functools import lru_cache
-
-@lru_cache(maxsize=128)
-    """Expensive Function"""
-def expensive_function(param):
-    # function body"""
+            return """# Add caching:\nfrom functools import lru_cache\n\n@lru_cache(maxsize=128)\ndef expensive_function(param):\n    # function body"""
 
         return "# Optimization needed"
 
@@ -493,19 +476,10 @@ def expensive_function(param):
         """Generate security fix code"""
 
         if issue_type == "hardcoded_secrets":
-            return """# Use environment variables:
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-password = os.getenv('DATABASE_PASSWORD')"""
+            return """# Use environment variables:\nimport os\nfrom dotenv import load_dotenv\n\nload_dotenv()\npassword = os.getenv('DATABASE_PASSWORD')"""
 
         elif issue_type == "sql_injection":
-            return """# Use parameterized queries:
-cursor.execute(
-    "SELECT * FROM users WHERE id = %s",
-    (user_id,)
-)"""
+            return """# Use parameterized queries:\ncursor.execute(\n    "SELECT * FROM users WHERE id = %s",\n    (user_id,)\n)"""
 
         return "# Security fix needed"
 
@@ -513,27 +487,10 @@ cursor.execute(
         """Generate scalability solution code"""
 
         if pattern == "batch_processing":
-            return """# Batch processing example:
-# Collect items
-items_to_process = []
-for item in items:
-    items_to_process.append(item)
-
-# Process in batch
-if items_to_process:
-    Model.objects.bulk_create(items_to_process)"""
+            return """# Batch processing example:\n# Collect items\nitems_to_process = []\nfor item in items:\n    items_to_process.append(item)\n\n# Process in batch\nif items_to_process:\n    Model.objects.bulk_create(items_to_process)"""
 
         elif pattern == "connection_pooling":
-            return """# Connection pooling example:
-from sqlalchemy import create_engine
-from sqlalchemy.pool import QueuePool
-
-engine = create_engine(
-    DATABASE_URL,
-    poolclass=QueuePool,
-    pool_size=10,
-    max_overflow=20
-)"""
+            return """# Connection pooling example:\nfrom sqlalchemy import create_engine\nfrom sqlalchemy.pool import QueuePool\n\nengine = create_engine(\n    DATABASE_URL,\n    poolclass=QueuePool,\n    pool_size=10,\n    max_overflow=20\n)"""
 
         return "# Scalability improvement needed"
 
@@ -541,44 +498,10 @@ engine = create_engine(
         """Generate refactored code for maintainability"""
 
         if issue_type == "extract_method":
-            return """# Extract to smaller methods:
-    """Process Data"""
-def process_data(data):
-    validated_data = _validate_data(data)
-    transformed_data = _transform_data(validated_data)
-    return _save_data(transformed_data)
-
-    """ Validate Data"""
-def _validate_data(data):
-    # validation logic
-    pass
-
-    """ Transform Data"""
-def _transform_data(data):
-    # transformation logic
-    pass
-
-    """ Save Data"""
-def _save_data(data):
-    # save logic
-    pass"""
+            return """# Extract to smaller methods:\ndef process_data(data):\n    validated_data = _validate_data(data)\n    transformed_data = _transform_data(validated_data)\n    return _save_data(transformed_data)\n\ndef _validate_data(data):\n    # validation logic\n    pass\n\ndef _transform_data(data):\n    # transformation logic\n    pass\n\ndef _save_data(data):\n    # save logic\n    pass"""
 
         elif issue_type == "add_docstrings":
-            return '''def function_name(param1: str, param2: int) -> Dict:
-    """
-    Brief description of function.
-
-    Args:
-        param1: Description of param1
-        param2: Description of param2
-
-    Returns:
-        Description of return value
-
-    Raises:
-        ValueError: When invalid input provided
-    """
-    # function body'''
+            return '''def function_name(param1: str, param2: int) -> Dict:\n    """\n    Brief description of function.\n\n    Args:\n        param1: Description of param1\n        param2: Description of param2\n\n    Returns:\n        Description of return value\n\n    Raises:\n        ValueError: When invalid input provided\n    """\n    # function body'''
 
         return "# Refactoring needed"
 
@@ -593,8 +516,7 @@ def _save_data(data):
                 # In a real implementation, this would modify the actual files
                 # For now, we'll just count as implemented
                 self.logger.info(
-                    f"Implementing optimization in {
-                        optimization.get('file', 'unknown')}"
+                    f"Implementing optimization in {optimization.get('file', 'unknown')}"
                 )
                 implemented += 1
             except Exception as e:

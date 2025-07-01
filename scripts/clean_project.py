@@ -1,158 +1,80 @@
 #!/usr/bin/env python3
 """
-Project Cleanup Tool - Uses Code Hygiene Agent to analyze and clean project structure
+Project Cleanup Tool - Uses Code Hygiene Orchestrator to analyze and clean project structure
 """
 
 import argparse
-import asyncio
 import json
 import sys
 from pathlib import Path
 
-from a2a_protocol.base_agent import A2AMessage
-from a2a_protocol.code_hygiene_agent import CodeHygieneAgent
-
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent))
 
+try:
+    from agents.code_hygiene_orchestrator import CodeHygieneOrchestrator
+except ImportError:
+    print("Error: Could not import CodeHygieneOrchestrator")
+    sys.exit(1)
 
-async     """Analyze Project"""
+
 def analyze_project(project_path: Path, deep_scan: bool = True):
     """Analyze project structure"""
     print(f"🔍 Analyzing project structure at: {project_path}")
     print("=" * 60)
 
-    agent = CodeHygieneAgent(project_root=project_path)
+    orchestrator = CodeHygieneOrchestrator(project_path)
+    result = orchestrator.analyze()
 
-    # Create analysis request
-    msg = A2AMessage.create_request(
-        sender_id="cli",
-        receiver_id="code-hygiene-001",
-        action="analyze_structure",
-        payload={"deep_scan": deep_scan},
-    )
-
-    response = agent.process_message(msg)
-
-    if response.payload["status"] == "success":
+    if result["issues"]:
         # Print summary
         print(f"\n📊 Analysis Summary:")
-        print(f"   Total files: {response.payload['total_files']}")
-        print(f"   Issues found: {response.payload['issues_found']}")
+        print(result["summary"])
 
-        print(f"\n📁 File Categories:")
-        for category, count in response.payload["file_categories"].items():
-            print(f"   - {category}: {count} files")
+        print(f"\n📁 Issues Found:")
+        for category, issues in result["issues"].items():
+            print(f"   - {category}: {len(issues)} issues")
+            for issue in issues[:3]:  # Show first 3 issues per category
+                print(f"     * {issue}")
 
-        print(f"\n⚠️  Top Issues:")
-        for issue in response.payload["analysis"][:10]:
-            print(f"   - {issue['path']}: {issue['suggested_action']}")
-            if issue["issues"]:
-                print(f"     Issues: {', '.join(issue['issues'])}")
+        print(f"\n📊 Statistics:")
+        for category, count in result["stats"].items():
+            print(f"   - {category}: {count}")
 
-        print(f"\n💡 Recommendations:")
-        for rec in response.payload["recommendations"]:
-            print(f"   - {rec}")
-
-        return response.payload
+        return result
     else:
-        print(f"❌ Analysis failed: {response.payload.get('error', 'Unknown error')}")
-        return None
+        print("✅ No issues found!")
+        return result
 
 
-async     """Find Duplicates"""
-def find_duplicates(project_path: Path):
-    """Find duplicate files"""
-    print(f"\n🔍 Finding duplicate files...")
+def clean_project(project_path: Path, dry_run: bool = True):
+    """Clean project using hygiene orchestrator"""
+    print(f"\n🧹 Cleaning project...")
     print("=" * 60)
 
-    agent = CodeHygieneAgent(project_root=project_path)
+    orchestrator = CodeHygieneOrchestrator(project_path)
+    result = orchestrator.clean(dry_run=dry_run, interactive=False)
 
-    msg = A2AMessage.create_request(
-        sender_id="cli",
-        receiver_id="code-hygiene-001",
-        action="find_duplicates",
-        payload={"similarity_threshold": 1.0},
-    )
-
-    response = agent.process_message(msg)
-
-    if response.payload["status"] == "success":
-        duplicates = response.payload
-
-        print(f"\n📊 Duplicate Summary:")
-        print(f"   Total duplicates: {duplicates['total_duplicates']}")
-        print(f"   Space wasted: {duplicates['space_wasted'] / 1024:.2f} KB")
-
-        if duplicates["duplicate_groups"]:
-            print(f"\n🔄 Duplicate Groups:")
-            for group in duplicates["duplicate_groups"][:10]:
-                print(f"\n   Group (hash: {group['hash'][:8]}...):")
-                for file in group["files"]:
-                    print(f"     - {file}")
-
-        return duplicates
+    if result["actions"]:
+        print(f"\n✅ Applied {len(result['actions'])} fixes:")
+        for action in result["actions"][:10]:  # Show first 10 actions
+            print(f"   - {action}")
+        if len(result["actions"]) > 10:
+            print(f"   ... and {len(result['actions']) - 10} more")
     else:
-        print(
-            f"❌ Duplicate detection failed: {
-                response.payload.get(
-                    'error', 'Unknown error')}"
-        )
-        return None
+        print("✅ No cleanup actions needed!")
+
+    return result
 
 
-async     """Generate Cleanup Plan"""
-def generate_cleanup_plan(analysis: dict):
-    """Generate cleanup plan"""
-    print(f"\n📋 Generating cleanup plan...")
-    print("=" * 60)
-
-    agent = CodeHygieneAgent()
-
-    msg = A2AMessage.create_request(
-        sender_id="cli",
-        receiver_id="code-hygiene-001",
-        action="generate_cleanup_plan",
-        payload={"analysis": analysis, "auto_fix": False},
-    )
-
-    response = agent.process_message(msg)
-
-    if response.payload["status"] == "success":
-        plan = response.payload
-
-        print(f"\n📊 Cleanup Plan Summary:")
-        print(f"   Files to move: {plan['estimated_impact']['files_to_move']}")
-        print(f"   Files to delete: {plan['estimated_impact']['files_to_delete']}")
-        print(
-            f"   Directories to create: {
-                plan['estimated_impact']['directories_to_create']}"
-        )
-
-        print(f"\n📝 Planned Actions:")
-        for action in plan["actions"][:20]:
-            print(f"   - {action['type']}: {action['file']}")
-            if action.get("target"):
-                print(f"     To: {action['target']}")
-
-        return plan
-    else:
-        print(
-            f"❌ Plan generation failed: {
-                response.payload.get(
-                    'error', 'Unknown error')}"
-        )
-        return None
-
-
-async     """Save Report"""
-def save_report(analysis: dict, duplicates: dict, output_file: str):
+def save_report(analysis: dict, output_file: str):
     """Save detailed report"""
+    from datetime import datetime
+
     report = {
-        "timestamp": str(Path.cwd()),
+        "timestamp": datetime.now().isoformat(),
         "project_path": str(Path.cwd()),
         "analysis": analysis,
-        "duplicates": duplicates,
         "version": "1.0.0",
     }
 
@@ -162,10 +84,9 @@ def save_report(analysis: dict, duplicates: dict, output_file: str):
     print(f"\n💾 Detailed report saved to: {output_file}")
 
 
-async     """Main"""
 def main():
     parser = argparse.ArgumentParser(
-        description="Analyze and clean up project structure"
+        description="Analyze and clean up project structure using Code Hygiene Orchestrator"
     )
     parser.add_argument(
         "--path",
@@ -174,13 +95,12 @@ def main():
         help="Project path to analyze (default: current directory)",
     )
     parser.add_argument(
-        "--deep-scan", action="store_true", help="Perform deep scan of all files"
+        "--clean", action="store_true", help="Run cleanup after analysis"
     )
     parser.add_argument(
-        "--find-duplicates", action="store_true", help="Find duplicate files"
-    )
-    parser.add_argument(
-        "--generate-plan", action="store_true", help="Generate cleanup plan"
+        "--dry-run",
+        action="store_true",
+        help="Show what would be cleaned without making changes",
     )
     parser.add_argument(
         "--output",
@@ -201,30 +121,23 @@ def main():
     print("=" * 60)
 
     # Run analysis
-    analysis = await analyze_project(project_path, args.deep_scan)
+    analysis = analyze_project(project_path)
     if not analysis:
         return
 
-    # Find duplicates if requested
-    duplicates = None
-    if args.find_duplicates:
-        duplicates = await find_duplicates(project_path)
-
-    # Generate cleanup plan if requested
-    if args.generate_plan and analysis:
-        await generate_cleanup_plan(analysis)
+    # Run cleanup if requested
+    if args.clean:
+        clean_project(project_path, dry_run=args.dry_run)
 
     # Save report
-    await save_report(analysis, duplicates, args.output)
+    save_report(analysis, args.output)
 
     print(f"\n✅ Analysis complete!")
     print(f"\n💡 Next steps:")
     print(f"   1. Review the hygiene report: {args.output}")
-    print(f"   2. Create missing directories (tests, config, docs, etc.)")
-    print(f"   3. Move files to appropriate locations")
-    print(f"   4. Remove temporary and duplicate files")
-    print(f"   5. Update imports after reorganization")
+    print(f"   2. Run with --clean to apply fixes")
+    print(f"   3. Use --dry-run to preview changes first")
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

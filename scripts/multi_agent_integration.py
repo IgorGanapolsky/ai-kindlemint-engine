@@ -16,7 +16,6 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from kindlemint.agents import (
-    AgentRegistry,
     HealthMonitor,
     Task,
     TaskCoordinator,
@@ -44,6 +43,8 @@ class MultiAgentBatchProcessor:
     """
 
         """  Init  """
+
+
 def __init__(self, enable_multi_agent: bool = True):
         """
         Initialize the enhanced batch processor
@@ -57,7 +58,6 @@ def __init__(self, enable_multi_agent: bool = True):
         # Multi-agent components (only if enabled)
         if self.enable_multi_agent:
             self.health_monitor = HealthMonitor()
-            self.agent_registry = AgentRegistry(self.health_monitor)
             self.task_coordinator = TaskCoordinator(self.agent_registry)
             self.agents = []
             self.system_started = False

@@ -20,7 +20,9 @@ class PuzzleGeneratorAgent(BaseAgent):
     Specialized agent for generating puzzles (crossword, sudoku, word search)
     """
 
-        """  Init  """
+    def __init__(self):
+
+
 def __init__(
         self,
         agent_id: Optional[str] = None,
@@ -50,7 +52,8 @@ def __init__(
             "sudoku",
             "word_search",
         ]
-        self.scripts_dir = Path(__file__).parent.parent.parent.parent / "scripts"
+        self.scripts_dir = Path(
+            __file__).parent.parent.parent.parent / "scripts"
 
         # Script mappings
         self.puzzle_scripts = {
@@ -239,7 +242,7 @@ class PDFLayoutAgent(BaseAgent):
     Specialized agent for PDF layout and formatting
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         agent_id: Optional[str] = None,
@@ -440,7 +443,7 @@ class EPUBGeneratorAgent(BaseAgent):
     Specialized agent for EPUB generation
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         agent_id: Optional[str] = None,
@@ -522,7 +525,7 @@ def __init__(
 
             # Create custom EPUB generator
             class CustomEpubGenerator(self.epub_module.EnhancedKindleEpubGenerator):
-                    """  Init  """
+                def __init__(self):
 def __init__(self, output_dir, book_config):
                     super().__init__()
                     self.output_dir = output_dir
@@ -621,7 +624,7 @@ class QualityAssuranceAgent(BaseAgent):
     Specialized agent for quality assurance and validation
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         agent_id: Optional[str] = None,

@@ -1,0 +1,24 @@
+{
+  "workflows": {
+    "comprehensive_analysis": {
+      "schedule": "daily_2am",
+      "enabled": true,
+      "timeout_minutes": 60
+    },
+    "performance_monitoring": {
+      "schedule": "hourly",
+      "enabled": true,
+      "timeout_minutes": 30
+    },
+    "market_research": {
+      "schedule": "weekly_sunday_3am",
+      "enabled": true,
+      "timeout_minutes": 120
+    }
+  },
+  "agent_coordination": {
+    "max_concurrent_tasks": 5,
+    "task_timeout_minutes": 30,
+    "retry_attempts": 3
+  }
+}

@@ -1,33 +1,19 @@
-# src/kindlemint/agents/puzzle_validator_agent.py
+"""
+Puzzle Validator Agent - Simplified without A2A framework
+Validates puzzles directly
+"""
 
-from kindlemint.a2a.agent import A2AAgent
-from kindlemint.a2a.registry import AgentRegistry
-from kindlemint.validators.sudoku_validator import SudokuValidator
+from scripts.sudoku_validator import SudokuValidator
 
 
-class PuzzleValidatorAgent(A2AAgent):
-    """An A2A agent that validates puzzles."""
+class PuzzleValidatorAgent:
+    """A simplified agent that validates puzzles."""
 
-        """  Init  """
-def __init__(self, agent_id: str, registry: AgentRegistry):
-        super().__init__(agent_id, registry)
+    def __init__(self, agent_id=None, registry=None):
+        """Initialize the puzzle validator agent"""
+        self.agent_id = agent_id or "puzzle_validator"
         self.core_validator = SudokuValidator()
-        self.add_skill(
-            "validate_sudoku",
-            self.validate_sudoku,
-            "Validates a Sudoku puzzle.",
-        )
 
-        """Validate Sudoku"""
-def validate_sudoku(self, puzzle_data: dict, puzzle_id: str):
-        """
-        Validates a Sudoku puzzle.
-
-        Args:
-            puzzle_data: The puzzle data to validate.
-            puzzle_id: The ID of the puzzle being validated.
-
-        Returns:
-            A list of validation issues.
-        """
-        return self.core_validator.validate_puzzle(puzzle_data, puzzle_id)
+    def validate_sudoku(self, puzzle_data):
+        """Validate a Sudoku puzzle"""
+        return self.core_validator.validate(puzzle_data)

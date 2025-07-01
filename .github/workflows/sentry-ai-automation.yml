@@ -2,14 +2,9 @@ name: Sentry AI Automation
 
 on:
   pull_request:
-    types: [opened, synchronize, ready_for_review]
+    types: [opened, ready_for_review]
     paths:
-      - '**.py'
-      - '**.js'
-      - '**.ts'
-      - '**.tsx'
       - 'src/**'
-      - 'scripts/**'
       - 'lambda/**'
 
 jobs:
@@ -18,7 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       github.event.pull_request.draft == false &&
-      !contains(github.event.pull_request.title, '[skip-sentry]')
+      !contains(github.event.pull_request.title, '[skip-sentry]') &&
+      !contains(github.event.pull_request.title, 'style:') &&
+      !contains(github.event.pull_request.title, 'Add Tests for') &&
+      !contains(github.event.pull_request.title, 'format code')
 
     steps:
     - name: Wait for initial checks

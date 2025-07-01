@@ -13,8 +13,7 @@ class IntegrationAutomator:
     Automates creation of integrations with external services
     """
 
-        """  Init  """
-def __init__(self):
+    def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.integration_templates = {
             "KDP Publishing API": self._kdp_integration_template,
@@ -88,32 +87,18 @@ def __init__(self):
         self, integration_type: str, include_error_handling: bool
     ) -> str:
         """Template for KDP Publishing API integration"""
-
-        error_handling = (
-            """
-            except KDPAPIError as e:
-                self.logger.error(f"KDP API error: {e}")
-                return {"status": "error", "error": str(e)}
-            except Exception as e:
-                self.logger.error(f"Unexpected error: {e}")
-                return {"status": "error", "error": "Internal error"}"""
-            if include_error_handling
-            else ""
-        )
-
-        return dedent(
-            f"""
+        return "# KDP integration template implementation"
         \"\"\"
         KDP Publishing API Integration
         \"\"\"
 
         import asyncio
         import logging
-        from typing import Dict, Optional
-        from datetime import datetime
-        import aiohttp
         from dataclasses import dataclass
+        from datetime import datetime
+        from typing import Dict, Optional
 
+        import aiohttp
 
         @dataclass
         class KDPBook:
@@ -125,13 +110,14 @@ def __init__(self):
             categories: List[str]
             isbn: Optional[str] = None
 
-
         class KDPPublishingAPI:
             \"\"\"
             Integration with Amazon KDP Publishing API
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
+
+
 def __init__(self, api_key: str, api_secret: str):
                 self.api_key = api_key
                 self.api_secret = api_secret
@@ -312,10 +298,11 @@ def __init__(self, api_key: str, api_secret: str):
         Stripe Payment Processing Integration
         \"\"\"
 
-        import stripe
         import logging
-        from typing import Dict, Optional
         from datetime import datetime
+        from typing import Dict, Optional
+
+        import stripe
 
 
         class StripePaymentProcessor:
@@ -323,7 +310,7 @@ def __init__(self, api_key: str, api_secret: str):
             Integration with Stripe for payment processing
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, api_key: str):
                 self.api_key = api_key
                 stripe.api_key = api_key
@@ -441,8 +428,9 @@ def __init__(self, api_key: str):
 
         import logging
         from typing import Dict, List, Optional
+
         from sendgrid import SendGridAPIClient
-        from sendgrid.helpers.mail import Mail, Email, To, Content
+        from sendgrid.helpers.mail import Content, Email, Mail, To
 
 
         class SendGridEmailAutomation:
@@ -450,7 +438,7 @@ def __init__(self, api_key: str):
             Integration with SendGrid for email automation
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, api_key: str):
                 self.api_key = api_key
                 self.client = SendGridAPIClient(api_key)
@@ -562,6 +550,7 @@ def __init__(self, api_key: str):
         import asyncio
         import logging
         from typing import Dict, Optional
+
         import aiohttp
 
 
@@ -570,7 +559,7 @@ def __init__(self, api_key: str):
             Integration with Botpress for conversational AI
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, bot_url: str, auth_token: Optional[str] = None):
                 self.bot_url = bot_url
                 self.auth_token = auth_token
@@ -675,12 +664,13 @@ def __init__(self, bot_url: str, auth_token: Optional[str] = None):
         Amazon Affiliate API Integration
         \"\"\"
 
-        import logging
-        from typing import Dict, List
-        import hmac
-        import hashlib
         import base64
+        import hashlib
+        import hmac
+        import logging
         from datetime import datetime
+        from typing import Dict, List
+
         import aiohttp
 
 
@@ -689,7 +679,7 @@ def __init__(self, bot_url: str, auth_token: Optional[str] = None):
             Integration with Amazon Product Advertising API
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, access_key: str, secret_key: str, partner_tag: str):
                 self.access_key = access_key
                 self.secret_key = secret_key
@@ -790,9 +780,10 @@ def __init__(self, access_key: str, secret_key: str, partner_tag: str):
         OpenAI API Integration
         \"\"\"
 
-        import openai
         import logging
         from typing import Dict, List, Optional
+
+        import openai
 
 
         class OpenAIIntegration:
@@ -800,7 +791,7 @@ def __init__(self, access_key: str, secret_key: str, partner_tag: str):
             Integration with OpenAI API for AI-powered features
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, api_key: str):
                 self.api_key = api_key
                 openai.api_key = api_key
@@ -888,6 +879,7 @@ def __init__(self, api_key: str):
         import asyncio
         import logging
         from typing import Dict, Optional
+
         import aiohttp
 
 
@@ -896,7 +888,7 @@ def __init__(self, api_key: str):
             Integration with {service_name}
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, api_key: str, base_url: str):
                 self.api_key = api_key
                 self.base_url = base_url
@@ -1016,15 +1008,21 @@ def __init__(self, api_key: str, base_url: str):
         Tests for {service_name} Integration
         \"\"\"
 
-        import pytest
         import asyncio
-        from unittest.mock import Mock, patch
         import sys
         from pathlib import Path
+        from unittest.mock import Mock, patch
+
+        import pytest
 
         sys.path.insert(0, str(Path(__file__).parent))
 
-        from {service_name.lower().replace(' ', '_')}_integration import {class_name}Integration
+        from {service_name.lower import (
+            '',
+            '_' }_integration,
+            .replace,
+            {class_name}Integration,
+        )
 
 
         class Test{class_name}Integration:
@@ -1119,10 +1117,17 @@ def test_error_handling(self, integration):
 ## Usage
 
 ```python
-from {service_name.lower().replace(' ', '_')}_integration import {service_name.replace(' ', '')}Integration
-
-# Initialize
-integration = {service_name.replace(' ', '')}Integration(api_key="your_key")
+from {service_name.lower import (  # Initialize
+    ',
+    '',
+    '' }Integration,
+    '_' }_integration,
+    .replace,
+    =,
+    api_key="your_key",
+    integration,
+    {service_name.replace,
+)
 
 # Use the integration
 result = await integration.make_request("endpoint")
