@@ -488,20 +488,26 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
     async def _handle_openhands_notification(self, task: Task) -> TaskResult:
         """Handle OpenHands AI notifications about CI/CD failures and repository issues"""
         pr_number = task.parameters.get("pr_number")
-        notification_type = task.parameters.get("notification_type", "ci_cd_failure")
-        
+        notification_type = task.parameters.get(
+            "notification_type", "ci_cd_failure")
+
         if not pr_number:
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Missing pr_number"
+                error="Missing pr_number",
             )
 
         # Get PR details and comments
         pr_data = await self._run_gh_command(
             [
-                "pr", "view", str(pr_number), "--repo", self.repo,
-                "--json", "title,body,author,comments,statusCheckRollup"
+                "pr",
+                "view",
+                str(pr_number),
+                "--repo",
+                self.repo,
+                "--json",
+                "title,body,author,comments,statusCheckRollup",
             ]
         )
 
@@ -509,38 +515,43 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Failed to fetch PR data"
+                error="Failed to fetch PR data",
             )
 
         # Find OpenHands comments
         openhands_comments = [
-            c for c in pr_data.get("comments", [])
-            if c.get("author", {}).get("login", "").lower() in ["openhands-ai[bot]", "openhands-ai", "app/openhands-ai"]
+            c
+            for c in pr_data.get("comments", [])
+            if c.get("author", {}).get("login", "").lower()
+            in ["openhands-ai[bot]", "openhands-ai", "app/openhands-ai"]
         ]
 
         failed_checks = []
         critical_failures = []
-        
+
         # Parse the latest OpenHands comment for CI/CD failures
         if openhands_comments:
             latest_comment = openhands_comments[-1]
             comment_body = latest_comment.get("body", "")
-            
+
             # Extract failing checks from the comment
-            lines = comment_body.split('\n')
+            lines = comment_body.split("\n")
             for line in lines:
                 line = line.strip()
-                if line.startswith('◦') or line.startswith('-') or line.startswith('•'):
+                if line.startswith("◦") or line.startswith("-") or line.startswith("•"):
                     # This is a failing check
-                    check_name = line.strip('◦-• ').strip()
+                    check_name = line.strip("◦-• ").strip()
                     failed_checks.append(check_name)
-                    
+
                     # Categorize critical failures
-                    if any(keyword in check_name.lower() for keyword in ['security', 'test', 'qa', 'validation']):
+                    if any(
+                        keyword in check_name.lower()
+                        for keyword in ["security", "test", "qa", "validation"]
+                    ):
                         critical_failures.append(check_name)
 
         response_actions = []
-        
+
         # Handle different types of failures
         if failed_checks:
             # Post acknowledgment and action plan
@@ -579,12 +590,28 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
 
             # Categorize failures
             categories = {
-                "Security": [f for f in failed_checks if any(k in f.lower() for k in ['security', 'audit', 'scan'])],
-                "Testing": [f for f in failed_checks if any(k in f.lower() for k in ['test', 'qa', 'check'])],
-                "Code Quality": [f for f in failed_checks if any(k in f.lower() for k in ['quality', 'hygiene', 'lint'])],
-                "Infrastructure": [f for f in failed_checks if any(k in f.lower() for k in ['deploy', 'build', 'pipeline'])]
+                "Security": [
+                    f
+                    for f in failed_checks
+                    if any(k in f.lower() for k in ["security", "audit", "scan"])
+                ],
+                "Testing": [
+                    f
+                    for f in failed_checks
+                    if any(k in f.lower() for k in ["test", "qa", "check"])
+                ],
+                "Code Quality": [
+                    f
+                    for f in failed_checks
+                    if any(k in f.lower() for k in ["quality", "hygiene", "lint"])
+                ],
+                "Infrastructure": [
+                    f
+                    for f in failed_checks
+                    if any(k in f.lower() for k in ["deploy", "build", "pipeline"])
+                ],
             }
-            
+
             for category, failures in categories.items():
                 if failures:
                     action_comment += f"\n**{category}**: {len(failures)} issues\n"
@@ -600,18 +627,27 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
 *Working in coordination with OpenHands AI for optimal repository health*
 """
 
-            await self._run_gh_command([
-                "pr", "comment", str(pr_number), "--repo", self.repo,
-                "--body", action_comment
-            ])
-            
+            await self._run_gh_command(
+                [
+                    "pr",
+                    "comment",
+                    str(pr_number),
+                    "--repo",
+                    self.repo,
+                    "--body",
+                    action_comment,
+                ]
+            )
+
             response_actions.append("acknowledged_failures")
             response_actions.append("initiated_auto_remediation")
 
             # Trigger actual remediation workflows if needed
             if critical_failures:
                 # This could trigger other automation workflows
-                self.logger.info(f"Critical failures detected in PR #{pr_number}: {critical_failures}")
+                self.logger.info(
+                    f"Critical failures detected in PR #{pr_number}: {critical_failures}"
+                )
                 response_actions.append("escalated_critical_failures")
 
         return TaskResult(
@@ -623,26 +659,31 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
                 "failed_checks": len(failed_checks),
                 "critical_failures": len(critical_failures),
                 "actions_taken": response_actions,
-                "status": "processed"
-            }
+                "status": "processed",
+            },
         )
 
     async def _handle_coderabbit_review(self, task: Task) -> TaskResult:
         """Handle CodeRabbit AI review comments and suggestions"""
         pr_number = task.parameters.get("pr_number")
-        
+
         if not pr_number:
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Missing pr_number"
+                error="Missing pr_number",
             )
 
         # Get PR details and review comments
         pr_data = await self._run_gh_command(
             [
-                "pr", "view", str(pr_number), "--repo", self.repo,
-                "--json", "title,body,author,reviews,comments"
+                "pr",
+                "view",
+                str(pr_number),
+                "--repo",
+                self.repo,
+                "--json",
+                "title,body,author,reviews,comments",
             ]
         )
 
@@ -650,21 +691,23 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Failed to fetch PR data"
+                error="Failed to fetch PR data",
             )
 
         # Filter CodeRabbit reviews and comments
         coderabbit_reviews = [
-            r for r in pr_data.get("reviews", [])
-            if r.get("author", {}).get("login", "").lower() in ["coderabbitai[bot]", "coderabbitai", "app/coderabbitai"]
+            r
+            for r in pr_data.get("reviews", [])
+            if r.get("author", {}).get("login", "").lower()
+            in ["coderabbitai[bot]", "coderabbitai", "app/coderabbitai"]
         ]
 
         response_actions = []
-        
+
         for review in coderabbit_reviews:
             review_body = review.get("body", "")
             review_state = review.get("state", "")
-            
+
             # Auto-acknowledge CodeRabbit suggestions
             if review_state in ["COMMENTED", "CHANGES_REQUESTED"]:
                 # Post acknowledgment comment
@@ -687,14 +730,21 @@ Thank you **@coderabbitai** for the code review! Our automated system has proces
 ---
 *Generated by KindleMint AI Development Team Orchestrator*
 """
-                
-                await self._run_gh_command([
-                    "pr", "comment", str(pr_number), "--repo", self.repo,
-                    "--body", ack_comment
-                ])
-                
+
+                await self._run_gh_command(
+                    [
+                        "pr",
+                        "comment",
+                        str(pr_number),
+                        "--repo",
+                        self.repo,
+                        "--body",
+                        ack_comment,
+                    ]
+                )
+
                 response_actions.append(f"acknowledged_{review_state.lower()}")
-            
+
             elif review_state == "APPROVED":
                 # Thank CodeRabbit for approval
                 approval_comment = f"""## 🎉 Thank you @coderabbitai!
@@ -707,12 +757,19 @@ Your **APPROVAL** is appreciated! The AI team coordination is working effectivel
 ---
 *KindleMint AI Development Team*
 """
-                
-                await self._run_gh_command([
-                    "pr", "comment", str(pr_number), "--repo", self.repo,
-                    "--body", approval_comment
-                ])
-                
+
+                await self._run_gh_command(
+                    [
+                        "pr",
+                        "comment",
+                        str(pr_number),
+                        "--repo",
+                        self.repo,
+                        "--body",
+                        approval_comment,
+                    ]
+                )
+
                 response_actions.append("thanked_for_approval")
 
         return TaskResult(
@@ -722,8 +779,8 @@ Your **APPROVAL** is appreciated! The AI team coordination is working effectivel
                 "pr_number": pr_number,
                 "coderabbit_reviews": len(coderabbit_reviews),
                 "actions_taken": response_actions,
-                "status": "processed"
-            }
+                "status": "processed",
+            },
         )
 
     async def _generate_issues_report(self, task: Task) -> TaskResult:
