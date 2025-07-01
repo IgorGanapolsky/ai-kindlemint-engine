@@ -278,7 +278,8 @@
       "Bash(--output \"books/active_production/Large_Print_Sudoku_Masters/volume_1/paperback\" )",
       "Bash(--title \"Large Print Sudoku Masters\" )",
       "Bash(--author \"Crossword Masters Publishing\" )",
-      "Bash(--subtitle \"100 Easy to Hard Progressive Puzzles\" )"
+      "Bash(--subtitle \"100 Easy to Hard Progressive Puzzles\" )",
+      "Bash(echo:*)"
     ],
     "deny": []
   }

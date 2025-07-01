@@ -19,12 +19,12 @@ jobs:
       with:
         python-version: '3.11'
         
-    - name: 📊 Update Claude cost badge
+    - name: 📊 Update Claude cost badges
       run: |
         # Check if cost tracking files exist
         if [ -f "commit_costs.json" ]; then
-          echo "📈 Updating cost badge..."
-          python3 scripts/generate_cost_badge.py
+          echo "📈 Updating cost badges with comprehensive analytics..."
+          python3 scripts/generate_cost_badges.py
         else
           echo "📋 No cost data found, skipping badge update"
         fi

@@ -1,0 +1,55 @@
+{
+  "periods": {
+    "today": {
+      "cost": 0.0,
+      "commits": 0,
+      "tokens": 0
+    },
+    "yesterday": {
+      "cost": 0.926991,
+      "commits": 4,
+      "tokens": 28052
+    },
+    "week": {
+      "cost": 0.926991,
+      "commits": 4,
+      "tokens": 28052
+    },
+    "month": {
+      "cost": 0.0,
+      "commits": 0,
+      "tokens": 0
+    },
+    "last_month": {
+      "cost": 0.926991,
+      "commits": 4,
+      "tokens": 28052
+    },
+    "year": {
+      "cost": 0.926991,
+      "commits": 4,
+      "tokens": 28052
+    },
+    "all_time": {
+      "cost": 0.926991,
+      "commits": 4,
+      "tokens": 28052
+    }
+  },
+  "daily_average": 0.0,
+  "monthly_projection": 0.0,
+  "trends": {
+    "month_over_month": -100.0,
+    "week_over_week": 0.0
+  },
+  "last_commit": {
+    "hash": "eb93a5a2",
+    "timestamp": "2025-06-30T17:46:19.619538",
+    "message": "Check cost for commit eb93a5a2",
+    "cost": 0.164139,
+    "tokens": 5448,
+    "files_changed": 2,
+    "model": "claude-3-sonnet"
+  },
+  "updated": "2025-07-01T11:14:43.616099"
+}

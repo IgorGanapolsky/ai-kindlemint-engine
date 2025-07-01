@@ -244,13 +244,13 @@ Examples:
             print(f"❌ Unsupported export format. Use .csv or .json")
     
     elif args.command == "badge":
-        # Update cost badge in README
+        # Update cost badges in README with comprehensive analytics
         import subprocess
         import sys
         from pathlib import Path
         
         script_dir = Path(__file__).parent
-        badge_script = script_dir / "generate_cost_badge.py"
+        badge_script = script_dir / "generate_cost_badges.py"
         
         try:
             result = subprocess.run([sys.executable, str(badge_script)], 

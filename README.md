@@ -8,7 +8,9 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
 [![DeepSource](https://app.deepsource.com/gh/IgorGanapolsky/ai-kindlemint-engine.svg/?label=active+issues&show_trend=true&token=e1KFLsz4tIohxYmQbe-qJoBp)](https://app.deepsource.com/gh/IgorGanapolsky/ai-kindlemint-engine/)
 [![Hygiene Score](https://img.shields.io/badge/hygiene-76%25-green)](scripts/real_hygiene_analyzer.py)
-![Claude Cost](https://img.shields.io/badge/Claude%20Cost-%240.9270-yellow)
+<!-- Claude Cost Tracking -->
+[![Claude Monthly Cost](https://img.shields.io/badge/This_Month-%240.00-green?style=for-the-badge)](./CLAUDE_COSTS.md) [![Budget Status](https://img.shields.io/badge/Budget-0%25-green?style=for-the-badge)](./CLAUDE_COSTS.md#budget) [![Cost Trend](https://img.shields.io/badge/Trend-%E2%96%BC%20100%25-green?style=for-the-badge)](./CLAUDE_COSTS.md#trends)
+[![Daily Average](https://img.shields.io/badge/Daily_Avg-%240.00-informational?style=flat-square)](./CLAUDE_COSTS.md#daily) [![Weekly Cost](https://img.shields.io/badge/Last_7_Days-%240.93-informational?style=flat-square)](./CLAUDE_COSTS.md#weekly) [![YTD Cost](https://img.shields.io/badge/Year_to_Date-%240.93-informational?style=flat-square)](./CLAUDE_COSTS.md#yearly)
 [![Cursor Bugbot](https://img.shields.io/badge/Cursor%20Bugbot-Enabled-blueviolet)](https://docs.cursor.com/bugbot)
 [![GitHub Forks](https://img.shields.io/github/forks/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/network)
 [![GitHub Stars](https://img.shields.io/github/stars/IgorGanapolsky/ai-kindlemint-engine?style=social)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/stargazers)
