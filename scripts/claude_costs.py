@@ -36,6 +36,7 @@ Examples:
   claude_costs summary --days 7        # Show 7-day summary
   claude_costs details --last 5        # Show last 5 commits
   claude_costs export costs.csv        # Export costs to CSV
+  claude_costs badge                   # Update cost badge in README
         """,
     )
 
@@ -72,6 +73,9 @@ Examples:
     # Export command
     export_parser = subparsers.add_parser("export", help="Export cost data")
     export_parser.add_argument("output", help="Output file (csv or json)")
+
+    # Badge command
+    badge_parser = subparsers.add_parser("badge", help="Update cost badge in README")
 
     args = parser.parse_args()
 
@@ -238,6 +242,22 @@ Examples:
 
         else:
             print(f"❌ Unsupported export format. Use .csv or .json")
+    
+    elif args.command == "badge":
+        # Update cost badge in README
+        import subprocess
+        import sys
+        from pathlib import Path
+        
+        script_dir = Path(__file__).parent
+        badge_script = script_dir / "generate_cost_badge.py"
+        
+        try:
+            result = subprocess.run([sys.executable, str(badge_script)], 
+                                  capture_output=True, text=True, check=True)
+            print(result.stdout)
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Badge generation failed: {e.stderr}")
 
 
 if __name__ == "__main__":
