@@ -68,7 +68,7 @@ class GitHubIssuesAgent(BaseAgent):
             "type hints",
             "error handling",
         ]
-        
+
         # Aggressive merge mode configuration
         self.aggressive_mode = True
         self.auto_merge_patterns = [
@@ -114,7 +114,7 @@ class GitHubIssuesAgent(BaseAgent):
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
                 error=str(e),
-                output={"error_type": type(e).__name__}
+                output={"error_type": type(e).__name__},
             )
 
     async def _review_pull_request(self, task: Task) -> TaskResult:
@@ -124,7 +124,7 @@ class GitHubIssuesAgent(BaseAgent):
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Missing pr_number"
+                error="Missing pr_number",
             )
 
         # Get PR details
@@ -144,7 +144,7 @@ class GitHubIssuesAgent(BaseAgent):
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Failed to fetch PR data"
+                error="Failed to fetch PR data",
             )
 
         # Generate review based on PR data
@@ -202,7 +202,7 @@ This PR requires manual review to assess:
                 "pr_number": pr_number,
                 "review": review,
                 "author": pr_data["author"]["login"],
-            }
+            },
         )
 
     async def _review_security_pr(self, task: Task) -> TaskResult:
@@ -227,7 +227,7 @@ This PR requires manual review to assess:
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Failed to fetch PR data"
+                error="Failed to fetch PR data",
             )
 
         author = pr_data["author"]["login"]
@@ -241,9 +241,17 @@ This PR requires manual review to assess:
             auto_approve
             and (
                 is_security_bot
-                or (self.aggressive_mode and any(pattern in title.lower() for pattern in self.auto_merge_patterns))
+                or (
+                    self.aggressive_mode
+                    and any(
+                        pattern in title.lower() for pattern in self.auto_merge_patterns
+                    )
+                )
             )
-            and any(pattern in title.lower() for pattern in self.auto_approve_patterns + self.auto_merge_patterns)
+            and any(
+                pattern in title.lower()
+                for pattern in self.auto_approve_patterns + self.auto_merge_patterns
+            )
         )
 
         if should_auto_approve:
@@ -277,7 +285,7 @@ This PR requires manual review to assess:
                     "--delete-branch",
                 ]
             )
-            
+
             if not merge_result:
                 # Try squash merge if regular merge fails
                 await self._run_gh_command(
@@ -335,7 +343,7 @@ This PR requires manual review before merging.
                 "author": author,
                 "is_security_bot": is_security_bot,
                 "action_taken": action_taken,
-            }
+            },
         )
 
     async def _analyze_issue(self, task: Task) -> TaskResult:
@@ -359,7 +367,7 @@ This PR requires manual review before merging.
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Failed to fetch issue data"
+                error="Failed to fetch issue data",
             )
 
         # Check if it's a Pixeebot activity dashboard
@@ -422,7 +430,7 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
                 "issue_number": issue_number,
                 "analysis": response,
                 "author": issue_data["author"]["login"],
-            }
+            },
         )
 
     async def _handle_pixeebot_dashboard(self, issue_data: Dict) -> str:
@@ -469,19 +477,24 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
     async def _handle_coderabbit_review(self, task: Task) -> TaskResult:
         """Handle AI code review bot comments and suggestions (CodeRabbit, DeepSource, Seer, etc.)"""
         pr_number = task.parameters.get("pr_number")
-        
+
         if not pr_number:
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Missing pr_number"
+                error="Missing pr_number",
             )
 
         # Get PR details and review comments
         pr_data = await self._run_gh_command(
             [
-                "pr", "view", str(pr_number), "--repo", self.repo,
-                "--json", "title,body,author,reviews,comments"
+                "pr",
+                "view",
+                str(pr_number),
+                "--repo",
+                self.repo,
+                "--json",
+                "title,body,author,reviews,comments",
             ]
         )
 
@@ -489,21 +502,29 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
             return TaskResult(
                 task_id=task.task_id,
                 status=TaskStatus.FAILED,
-                error="Failed to fetch PR data"
+                error="Failed to fetch PR data",
             )
 
         # Filter AI code review bot reviews and comments
         ai_bot_reviews = [
-            r for r in pr_data.get("reviews", [])
-            if r.get("author", {}).get("login", "").lower() in [bot.lower() for bot in self.security_bots if "coderabbit" in bot.lower() or "seer" in bot.lower() or "deepsource" in bot.lower()]
+            r
+            for r in pr_data.get("reviews", [])
+            if r.get("author", {}).get("login", "").lower()
+            in [
+                bot.lower()
+                for bot in self.security_bots
+                if "coderabbit" in bot.lower()
+                or "seer" in bot.lower()
+                or "deepsource" in bot.lower()
+            ]
         ]
 
         response_actions = []
-        
+
         for review in ai_bot_reviews:
             review_body = review.get("body", "")
             review_state = review.get("state", "")
-            
+
             # Auto-acknowledge AI bot suggestions
             if review_state in ["COMMENTED", "CHANGES_REQUESTED"]:
                 bot_name = review.get("author", {}).get("login", "AI Bot")
@@ -527,14 +548,21 @@ Thank you **@{bot_name}** for the code review! Our automated system has processe
 ---
 *Generated by KindleMint AI Development Team Orchestrator*
 """
-                
-                await self._run_gh_command([
-                    "pr", "comment", str(pr_number), "--repo", self.repo,
-                    "--body", ack_comment
-                ])
-                
+
+                await self._run_gh_command(
+                    [
+                        "pr",
+                        "comment",
+                        str(pr_number),
+                        "--repo",
+                        self.repo,
+                        "--body",
+                        ack_comment,
+                    ]
+                )
+
                 response_actions.append(f"acknowledged_{review_state.lower()}")
-            
+
             elif review_state == "APPROVED":
                 bot_name = review.get("author", {}).get("login", "AI Bot")
                 # Thank AI bot for approval
@@ -548,12 +576,19 @@ Your **APPROVAL** is appreciated! The AI team coordination is working effectivel
 ---
 *KindleMint AI Development Team*
 """
-                
-                await self._run_gh_command([
-                    "pr", "comment", str(pr_number), "--repo", self.repo,
-                    "--body", approval_comment
-                ])
-                
+
+                await self._run_gh_command(
+                    [
+                        "pr",
+                        "comment",
+                        str(pr_number),
+                        "--repo",
+                        self.repo,
+                        "--body",
+                        approval_comment,
+                    ]
+                )
+
                 response_actions.append("thanked_for_approval")
 
         return TaskResult(
@@ -563,8 +598,8 @@ Your **APPROVAL** is appreciated! The AI team coordination is working effectivel
                 "pr_number": pr_number,
                 "ai_bot_reviews": len(ai_bot_reviews),
                 "actions_taken": response_actions,
-                "status": "processed"
-            }
+                "status": "processed",
+            },
         )
 
     async def _generate_issues_report(self, task: Task) -> TaskResult:
@@ -635,7 +670,7 @@ Your **APPROVAL** is appreciated! The AI team coordination is working effectivel
             metrics={
                 "total_items": len(issues) + len(prs),
                 "security_items": report["summary"]["security_items"],
-            }
+            },
         )
 
     async def _run_gh_command(self, args: List[str]) -> Any:
@@ -659,7 +694,8 @@ Your **APPROVAL** is appreciated! The AI team coordination is working effectivel
                 try:
                     return json.loads(output)
                 except json.JSONDecodeError:
-                    self.logger.warning(f"Failed to parse JSON: {output[:100]}")
+                    self.logger.warning(
+                        f"Failed to parse JSON: {output[:100]}")
                     return output
 
             return output
