@@ -297,8 +297,12 @@ class BaseAgent(ABC):
             result = await self._execute_task(task)
 
             # Update task status
-            task.status = TaskStatus.COMPLETED if result.status == TaskStatus.COMPLETED else TaskStatus.FAILED
-            if not hasattr(task, 'end_time'):
+            task.status = (
+                TaskStatus.COMPLETED
+                if result.status == TaskStatus.COMPLETED
+                else TaskStatus.FAILED
+            )
+            if not hasattr(task, "end_time"):
                 task.end_time = datetime.now()
             if not hasattr(task, "result"):
                 task.result = result
@@ -306,7 +310,8 @@ class BaseAgent(ABC):
             # Update metrics
             processing_time = time.time() - task_start_time
             self._update_metrics(
-                success=(result.status == TaskStatus.COMPLETED), processing_time=processing_time
+                success=(result.status == TaskStatus.COMPLETED),
+                processing_time=processing_time,
             )
 
             self.logger.info(
