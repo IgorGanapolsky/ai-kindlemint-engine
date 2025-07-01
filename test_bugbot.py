@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 """
-Test file to verify Cursor BugBot is working.
-This file intentionally contains bugs for BugBot to detect.
+Test module for bugbot functionality
+Contains fetch_data function that retrieves data from external APIs
 """
 
+import logging
 
-def divide_numbers(a, b):
-    # BugBot should catch: No zero division check
-    return a / b
-
-
-def process_user_input(data):
-    # BugBot should catch: Using eval is dangerous
-    result = eval(data)
-    return result
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def fetch_data():
-    # BugBot should catch: Bare except clause
+    """
+    Fetch data from external API with proper timeout handling.
+    
+    Returns:
+        dict: Response data if successful, None if failed
+    """
     try:
         import requests
 
@@ -26,17 +26,5 @@ def fetch_data():
         pass
 
 
-def insecure_password_check(password):
-    # BugBot should catch: Hardcoded password
-    if password == "admin123":
-        return True
-    return False
-
-
-# BugBot should catch: Unused variable
-unused_var = 42
-
 if __name__ == "__main__":
-    # BugBot should catch: Potential division by zero
-    result = divide_numbers(10, 0)
-    print(f"Result: {result}")
+    fetch_data()
