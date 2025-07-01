@@ -1,0 +1,130 @@
+name: Autonomous CodeRabbit Handler
+
+on:
+  pull_request_review:
+    types: [submitted]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  handle-coderabbit:
+    name: Handle CodeRabbit Reviews
+    runs-on: ubuntu-latest
+    
+    # Only run for CodeRabbit bot reviews and comments
+    if: >
+      (github.event.review.user.login == 'coderabbitai[bot]' || 
+       github.event.review.user.login == 'app/coderabbitai' ||
+       github.event.comment.user.login == 'coderabbitai[bot]' ||
+       github.event.comment.user.login == 'app/coderabbitai')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          pip install asyncio
+          
+      - name: Handle CodeRabbit Review
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -c "
+          import asyncio
+          import os
+          import sys
+          sys.path.insert(0, 'src')
+          
+          from kindlemint.agents.github_issues_agent import GitHubIssuesAgent, GitHubActionType
+          from kindlemint.agents.task_system import Task
+          
+          async def main():
+              # Get PR number from context
+              pr_number = None
+              
+              if '${{ github.event.pull_request.number }}':
+                  pr_number = ${{ github.event.pull_request.number }}
+              elif '${{ github.event.issue.number }}' and '${{ github.event.issue.pull_request }}':
+                  pr_number = ${{ github.event.issue.number }}
+              
+              if not pr_number:
+                  print('No PR number found, skipping...')
+                  return
+                  
+              print(f'🤖 CodeRabbit detected on PR #{pr_number}')
+              print(f'Reviewer: ${{ github.event.review.user.login || github.event.comment.user.login }}')
+              print(f'Review State: ${{ github.event.review.state || \"COMMENT\" }}')
+              
+              # Initialize GitHub agent
+              agent = GitHubIssuesAgent()
+              
+              # Create task to handle CodeRabbit review
+              task = Task(
+                  task_id=f'coderabbit_handler_{pr_number}',
+                  task_type='github_coderabbit_handler',
+                  parameters={
+                      'action_type': GitHubActionType.HANDLE_CODERABBIT.value,
+                      'pr_number': pr_number,
+                      'review_state': '${{ github.event.review.state || \"COMMENT\" }}',
+                      'reviewer': '${{ github.event.review.user.login || github.event.comment.user.login }}'
+                  }
+              )
+              
+              # Execute the task
+              print(f'Processing CodeRabbit review for PR #{pr_number}...')
+              result = await agent._execute_task(task)
+              
+              if result.status.value == 'completed':
+                  actions = result.output.get('actions_taken', [])
+                  print(f'✅ Successfully handled CodeRabbit review')
+                  print(f'Actions taken: {actions}')
+                  print(f'Reviews processed: {result.output.get(\"coderabbit_reviews\", 0)}')
+              else:
+                  print(f'❌ Failed to handle CodeRabbit review: {result.error}')
+                  sys.exit(1)
+          
+          asyncio.run(main())
+          "
+          
+      - name: Update PR with CodeRabbit Status
+        if: github.event.review
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const reviewState = context.payload.review.state;
+            const reviewer = context.payload.review.user.login;
+            
+            // Add label based on CodeRabbit review
+            let labelToAdd = '';
+            if (reviewState === 'APPROVED') {
+              labelToAdd = 'coderabbit-approved';
+            } else if (reviewState === 'CHANGES_REQUESTED') {
+              labelToAdd = 'coderabbit-changes-requested';
+            } else {
+              labelToAdd = 'coderabbit-reviewed';
+            }
+            
+            try {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                labels: [labelToAdd, 'ai-reviewed']
+              });
+              
+              console.log(`Added label: ${labelToAdd}`);
+            } catch (error) {
+              console.log(`Label may already exist: ${error.message}`);
+            }

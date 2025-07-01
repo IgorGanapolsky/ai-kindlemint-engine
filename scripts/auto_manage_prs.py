@@ -42,7 +42,7 @@ async def auto_manage_pr(agent: GitHubIssuesAgent, pr_number: int) -> dict:
     # Process the task
     result = await agent._process_task(task)
     
-    if result.status == TaskStatus.COMPLETED:
+    if result and result.status == TaskStatus.COMPLETED:
         print(f"✅ PR #{pr_number}: Successfully reviewed")
         
         # For security and bot PRs, try auto-merge
@@ -58,14 +58,15 @@ async def auto_manage_pr(agent: GitHubIssuesAgent, pr_number: int) -> dict:
         
         merge_result = await agent._process_task(merge_task)
         
-        if merge_result.status == TaskStatus.COMPLETED:
+        if merge_result and merge_result.status == TaskStatus.COMPLETED:
             action = merge_result.output.get("action_taken", "unknown")
             if action == "auto_approved_and_merged":
                 print(f"🚀 PR #{pr_number}: Auto-merged!")
             else:
                 print(f"📋 PR #{pr_number}: {action}")
     else:
-        print(f"❌ PR #{pr_number}: Review failed - {result.error}")
+        error_msg = result.error if result else "No result returned"
+        print(f"❌ PR #{pr_number}: Review failed - {error_msg}")
     
     return result
 
@@ -92,7 +93,7 @@ async def process_pr_backlog(pr_numbers: list):
             
             results["processed"] += 1
             
-            if result.status == TaskStatus.COMPLETED:
+            if result and result.status == TaskStatus.COMPLETED:
                 if hasattr(result, 'output') and result.output and result.output.get("action_taken") == "auto_approved_and_merged":
                     results["auto_merged"] += 1
                 else:
@@ -126,7 +127,7 @@ async def process_pr_backlog(pr_numbers: list):
 async def main():
     """Main entry point"""
     # Default PR backlog from the user's screenshot
-    default_prs = [77, 76, 75, 74, 73, 72, 71, 70, 33]
+    default_prs = [76, 75, 74, 73, 72, 71, 70, 33]
     
     # Check if specific PRs were provided as arguments
     if len(sys.argv) > 1:
