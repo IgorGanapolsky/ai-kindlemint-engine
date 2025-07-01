@@ -10,6 +10,7 @@ from datetime import datetime
 from pathlib import Path
 
 from kindlemint.utils.cost_tracker import ClaudeCostTracker
+from security import safe_command
 
 
 def format_currency(amount: float) -> str:
@@ -263,7 +264,7 @@ Examples:
         badge_script = script_dir / "generate_cost_badges.py"
 
         try:
-            result = subprocess.run([sys.executable, str(badge_script)],
+            result = safe_command.run(subprocess.run, [sys.executable, str(badge_script)],
                                     capture_output=True, text=True, check=True)
             print(result.stdout)
         except subprocess.CalledProcessError as e:
