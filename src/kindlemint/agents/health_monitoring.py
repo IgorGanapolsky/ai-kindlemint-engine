@@ -110,8 +110,7 @@ class HealthStatus:
 
         # Check for stale heartbeat
         if self.last_heartbeat:
-            heartbeat_age = (datetime.now() -
-                             self.last_heartbeat).total_seconds()
+            heartbeat_age = (datetime.now() - self.last_heartbeat).total_seconds()
             if heartbeat_age > 300:  # 5 minutes
                 return HealthLevel.CRITICAL
             elif heartbeat_age > 120:  # 2 minutes
@@ -332,15 +331,12 @@ class HealthMonitor:
 
             # Check heartbeat freshness
             if health.last_heartbeat:
-                heartbeat_age = (datetime.now() -
-                                 health.last_heartbeat).total_seconds()
+                heartbeat_age = (datetime.now() - health.last_heartbeat).total_seconds()
 
                 if heartbeat_age > self.alert_thresholds["heartbeat_critical"]:
-                    health.add_error(
-                        f"No heartbeat for {heartbeat_age:.0f} seconds")
+                    health.add_error(f"No heartbeat for {heartbeat_age:.0f} seconds")
                 elif heartbeat_age > self.alert_thresholds["heartbeat_warning"]:
-                    health.add_warning(
-                        f"Stale heartbeat: {heartbeat_age:.0f} seconds")
+                    health.add_warning(f"Stale heartbeat: {heartbeat_age:.0f} seconds")
 
             # Update health level
             health.update_health_level()
@@ -413,40 +409,34 @@ class HealthMonitor:
                 ("cpu_critical", f"CPU usage {health.metrics.cpu_usage:.1f}%")
             )
         elif health.metrics.cpu_usage > self.alert_thresholds["cpu_usage_warning"]:
-            alerts.append(
-                ("cpu_warning", f"CPU usage {health.metrics.cpu_usage:.1f}%"))
+            alerts.append(("cpu_warning", f"CPU usage {health.metrics.cpu_usage:.1f}%"))
 
         # Memory usage alerts
         if health.metrics.memory_usage > self.alert_thresholds["memory_usage_critical"]:
             alerts.append(
-                ("memory_critical",
-                 f"Memory usage {health.metrics.memory_usage:.1f}%")
+                ("memory_critical", f"Memory usage {health.metrics.memory_usage:.1f}%")
             )
         elif (
             health.metrics.memory_usage > self.alert_thresholds["memory_usage_warning"]
         ):
             alerts.append(
-                ("memory_warning",
-                 f"Memory usage {health.metrics.memory_usage:.1f}%")
+                ("memory_warning", f"Memory usage {health.metrics.memory_usage:.1f}%")
             )
 
         # Error rate alerts
         if health.metrics.error_rate > self.alert_thresholds["error_rate_critical"]:
             alerts.append(
-                ("error_critical",
-                 f"Error rate {health.metrics.error_rate:.1f}%")
+                ("error_critical", f"Error rate {health.metrics.error_rate:.1f}%")
             )
         elif health.metrics.error_rate > self.alert_thresholds["error_rate_warning"]:
             alerts.append(
-                ("error_warning",
-                 f"Error rate {health.metrics.error_rate:.1f}%")
+                ("error_warning", f"Error rate {health.metrics.error_rate:.1f}%")
             )
 
         # Success rate alerts
         if health.success_rate < self.alert_thresholds["success_rate_critical"]:
             alerts.append(
-                ("success_critical",
-                 f"Success rate {health.success_rate:.1f}%")
+                ("success_critical", f"Success rate {health.success_rate:.1f}%")
             )
         elif health.success_rate < self.alert_thresholds["success_rate_warning"]:
             alerts.append(

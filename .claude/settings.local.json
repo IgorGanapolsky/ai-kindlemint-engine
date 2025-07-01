@@ -302,7 +302,10 @@
       "Bash(--field subscribed=true )",
       "Bash(--field ignored=false )",
       "Bash(--field reason=\"watching\")",
-      "Bash(pytest:*)"
+      "Bash(pytest:*)",
+      "Bash(git merge:*)",
+      "Bash(for pr in 48 46 45 43 42 41 40 39)",
+      "Bash(do gh pr edit $pr --base develop)"
     ],
     "deny": []
   }

@@ -9,7 +9,7 @@ import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional, List
 
 
 class TaskStatus(Enum):
@@ -32,31 +32,17 @@ class Task:
     """
 
     task_id: str  # Unique identifier for the task
-    task_type: (
-        # Category or type of task (e.g., "content_generation", "image_processing")
-        str
-    )
-    parameters: Dict[str, Any] = field(
-        default_factory=dict
-    )  # Input parameters for the task
-    created_at: datetime = field(
-        default_factory=datetime.now
-    )  # Timestamp of task creation
+    task_type: str  # Category or type of task (e.g., "content_generation", "image_processing")
+    parameters: Dict[str, Any] = field(default_factory=dict)  # Input parameters for the task
+    created_at: datetime = field(default_factory=datetime.now)  # Timestamp of task creation
     status: TaskStatus = TaskStatus.PENDING  # Current status of the task
-    # ID of the agent currently assigned to the task
-    assigned_to: Optional[str] = None
+    assigned_to: Optional[str] = None  # ID of the agent currently assigned to the task
     priority: int = 5  # Task priority (1-10, 10 being highest)
     due_date: Optional[datetime] = None  # Optional deadline for the task
-    dependencies: List[str] = field(
-        default_factory=list
-    )  # List of task_ids this task depends on
-    metadata: Dict[str, Any] = field(
-        default_factory=dict
-    )  # Additional task-specific metadata
+    dependencies: List[str] = field(default_factory=list)  # List of task_ids this task depends on
+    metadata: Dict[str, Any] = field(default_factory=dict)  # Additional task-specific metadata
 
-    def update_status(
-        self, new_status: TaskStatus, assigned_to: Optional[str] = None
-    ) -> None:
+    def update_status(self, new_status: TaskStatus, assigned_to: Optional[str] = None) -> None:
         """Update the status of the task"""
         self.status = new_status
         if assigned_to:
@@ -82,10 +68,7 @@ class Task:
         """Create task from dictionary"""
         created_at = datetime.fromisoformat(data["created_at"])
         status = TaskStatus(data["status"])
-        due_date = (
-            datetime.fromisoformat(
-                data["due_date"]) if data["due_date"] else None
-        )
+        due_date = datetime.fromisoformat(data["due_date"]) if data["due_date"] else None
 
         return cls(
             task_id=data["task_id"],
@@ -109,18 +92,11 @@ class TaskResult:
 
     task_id: str  # ID of the task this result belongs to
     status: TaskStatus  # Final status of the task (COMPLETED or FAILED)
-    timestamp: datetime = field(
-        default_factory=datetime.now
-    )  # Time of result generation
-    output: Dict[str, Any] = field(
-        default_factory=dict)  # Output data from the task
+    timestamp: datetime = field(default_factory=datetime.now)  # Time of result generation
+    output: Dict[str, Any] = field(default_factory=dict)  # Output data from the task
     error: Optional[str] = None  # Error message if task failed
-    logs: List[str] = field(
-        default_factory=list
-    )  # Log messages generated during task execution
-    metrics: Dict[str, Any] = field(
-        default_factory=dict
-    )  # Performance metrics (e.g., execution time)
+    logs: List[str] = field(default_factory=list)  # Log messages generated during task execution
+    metrics: Dict[str, Any] = field(default_factory=dict)  # Performance metrics (e.g., execution time)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert task result to dictionary for serialization"""
