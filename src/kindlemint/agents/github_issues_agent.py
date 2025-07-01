@@ -117,11 +117,10 @@ class GitHubIssuesAgent(BaseAgent):
         except Exception as e:
             self.logger.error(f"GitHub task failed: {e}")
             return TaskResult(
-                success=False,
                 task_id=task.task_id,
-                agent_id=self.agent_id,
-                error_message=str(e),
-                error_details={"type": type(e).__name__},
+                status=TaskStatus.FAILED,
+                error=str(e),
+                output={"error_type": type(e).__name__},
             )
 
     async def _review_pull_request(self, task: Task) -> TaskResult:
@@ -129,10 +128,9 @@ class GitHubIssuesAgent(BaseAgent):
         pr_number = task.parameters.get("pr_number")
         if not pr_number:
             return TaskResult(
-                success=False,
                 task_id=task.task_id,
-                agent_id=self.agent_id,
-                error_message="Missing pr_number",
+                status=TaskStatus.FAILED,
+                error="Missing pr_number",
             )
 
         # Get PR details
@@ -150,10 +148,9 @@ class GitHubIssuesAgent(BaseAgent):
 
         if not pr_data:
             return TaskResult(
-                success=False,
                 task_id=task.task_id,
-                agent_id=self.agent_id,
-                error_message="Failed to fetch PR data",
+                status=TaskStatus.FAILED,
+                error="Failed to fetch PR data",
             )
 
         # Generate review based on PR data
@@ -234,10 +231,9 @@ This PR requires manual review to assess:
 
         if not pr_data:
             return TaskResult(
-                success=False,
                 task_id=task.task_id,
-                agent_id=self.agent_id,
-                error_message="Failed to fetch PR data",
+                status=TaskStatus.FAILED,
+                error="Failed to fetch PR data",
             )
 
         author = pr_data["author"]["login"]
@@ -375,10 +371,9 @@ This PR requires manual review before merging.
 
         if not issue_data:
             return TaskResult(
-                success=False,
                 task_id=task.task_id,
-                agent_id=self.agent_id,
-                error_message="Failed to fetch issue data",
+                status=TaskStatus.FAILED,
+                error="Failed to fetch issue data",
             )
 
         # Check if it's a Pixeebot activity dashboard
@@ -391,7 +386,7 @@ This PR requires manual review before merging.
             # Generate issue analysis based on data
             title = issue_data.get("title", "")
             body = issue_data.get("body", "")
-            labels = [l["name"] for l_var in issue_data.get("labels", [])]
+            labels = [l["name"] for l in issue_data.get("labels", [])]
 
             # Simple categorization logic
             category = "question"  # default
@@ -664,7 +659,7 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
         )
 
     async def _handle_coderabbit_review(self, task: Task) -> TaskResult:
-        """Handle CodeRabbit AI review comments and suggestions"""
+        """Handle AI code review bot comments and suggestions (CodeRabbit, DeepSource, Seer, etc.)"""
         pr_number = task.parameters.get("pr_number")
 
         if not pr_number:
@@ -694,26 +689,33 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
                 error="Failed to fetch PR data",
             )
 
-        # Filter CodeRabbit reviews and comments
-        coderabbit_reviews = [
+        # Filter AI code review bot reviews and comments
+        ai_bot_reviews = [
             r
             for r in pr_data.get("reviews", [])
             if r.get("author", {}).get("login", "").lower()
-            in ["coderabbitai[bot]", "coderabbitai", "app/coderabbitai"]
+            in [
+                bot.lower()
+                for bot in self.security_bots
+                if "coderabbit" in bot.lower()
+                or "seer" in bot.lower()
+                or "deepsource" in bot.lower()
+            ]
         ]
 
         response_actions = []
 
-        for review in coderabbit_reviews:
+        for review in ai_bot_reviews:
             review_body = review.get("body", "")
             review_state = review.get("state", "")
 
-            # Auto-acknowledge CodeRabbit suggestions
+            # Auto-acknowledge AI bot suggestions
             if review_state in ["COMMENTED", "CHANGES_REQUESTED"]:
+                bot_name = review.get("author", {}).get("login", "AI Bot")
                 # Post acknowledgment comment
                 ack_comment = f"""## 🤖 AI Agent Acknowledgment
 
-Thank you **@coderabbitai** for the code review! Our automated system has processed your suggestions:
+Thank you **@{bot_name}** for the code review! Our automated system has processed your suggestions:
 
 ### Review Status: **{review_state}**
 - ✅ **Suggestions captured** and logged for team review
@@ -746,12 +748,13 @@ Thank you **@coderabbitai** for the code review! Our automated system has proces
                 response_actions.append(f"acknowledged_{review_state.lower()}")
 
             elif review_state == "APPROVED":
-                # Thank CodeRabbit for approval
-                approval_comment = f"""## 🎉 Thank you @coderabbitai!
+                bot_name = review.get("author", {}).get("login", "AI Bot")
+                # Thank AI bot for approval
+                approval_comment = f"""## 🎉 Thank you @{bot_name}!
 
 Your **APPROVAL** is appreciated! The AI team coordination is working effectively.
 
-✅ **Code quality validated** by CodeRabbit AI
+✅ **Code quality validated** by {bot_name}
 🚀 **Ready for merge** with confidence
 
 ---
@@ -777,7 +780,7 @@ Your **APPROVAL** is appreciated! The AI team coordination is working effectivel
             status=TaskStatus.COMPLETED,
             output={
                 "pr_number": pr_number,
-                "coderabbit_reviews": len(coderabbit_reviews),
+                "ai_bot_reviews": len(ai_bot_reviews),
                 "actions_taken": response_actions,
                 "status": "processed",
             },
@@ -819,7 +822,7 @@ Your **APPROVAL** is appreciated! The AI team coordination is working effectivel
             "repository": self.repo,
             "summary": {
                 "open_issues": len([i for i in issues if i["state"] == "OPEN"]),
-                "open_prs": len([p for p_var in prs if p["state"] == "OPEN"]),
+                "open_prs": len([p for p in prs if p["state"] == "OPEN"]),
                 "security_items": 0,
             },
             "issues": issues,
@@ -871,13 +874,12 @@ Your **APPROVAL** is appreciated! The AI team coordination is working effectivel
 
             # Parse JSON output if applicable
             output = stdout.decode().strip()
-            if output and args[-1] in [
-                "--json",
-                "number,title,author,labels,createdAt,state",
-            ]:
+            if output and "--json" in args:
                 try:
                     return json.loads(output)
                 except json.JSONDecodeError:
+                    self.logger.warning(
+                        f"Failed to parse JSON: {output[:100]}")
                     return output
 
             return output
