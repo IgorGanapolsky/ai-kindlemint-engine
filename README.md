@@ -12,14 +12,11 @@
 [![Claude Monthly Cost](https://img.shields.io/badge/This_Month-%240.00-green?style=for-the-badge)](./CLAUDE_COSTS.md) [![Budget Status](https://img.shields.io/badge/Budget-0%25-green?style=for-the-badge)](./CLAUDE_COSTS.md#budget) [![Cost Trend](https://img.shields.io/badge/Trend-%E2%96%BC%20100%25-green?style=for-the-badge)](./CLAUDE_COSTS.md#trends)
 [![Daily Average](https://img.shields.io/badge/Daily_Avg-%240.00-informational?style=flat-square)](./CLAUDE_COSTS.md#daily) [![Weekly Cost](https://img.shields.io/badge/Last_7_Days-%240.93-informational?style=flat-square)](./CLAUDE_COSTS.md#weekly) [![YTD Cost](https://img.shields.io/badge/Year_to_Date-%240.93-informational?style=flat-square)](./CLAUDE_COSTS.md#yearly)
 [![Cursor Bugbot](https://img.shields.io/badge/Cursor%20Bugbot-Enabled-blueviolet)](https://docs.cursor.com/bugbot)
-[![GitHub Forks](https://img.shields.io/github/forks/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/network)
-[![GitHub Stars](https://img.shields.io/github/stars/IgorGanapolsky/ai-kindlemint-engine?style=social)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/stargazers)
 [![GitHub Issues](https://img.shields.io/github/issues/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/pulls)
 [![Last Commit](https://img.shields.io/github/last-commit/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/commits/main)
 [![Contributors](https://img.shields.io/github/contributors/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/graphs/contributors)
 [![Code Size](https://img.shields.io/github/languages/code-size/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## 🌟 What's New (June 2025)
 
