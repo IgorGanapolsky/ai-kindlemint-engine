@@ -307,7 +307,9 @@
       "Bash(for pr in 48 46 45 43 42 41 40 39)",
       "Bash(do gh pr edit $pr --base develop)",
       "Bash(/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/scripts/setup_always_on.sh)",
-      "Bash(pgrep:*)"
+      "Bash(pgrep:*)",
+      "Bash(launchctl:*)",
+      "Bash(./scripts/emergency_cleanup.sh:*)"
     ],
     "deny": []
   }

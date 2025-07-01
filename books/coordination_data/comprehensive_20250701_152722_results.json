@@ -1,0 +1,80 @@
+{
+  "workflow_id": "comprehensive_20250701_152722",
+  "started_at": "2025-07-01T15:27:22.678511",
+  "tasks_executed": [
+    "book_performance_monitoring",
+    "market_research_large print sudoku puzzles",
+    "market_research_large print crossword puzzles",
+    "market_research_test series",
+    "business_analytics"
+  ],
+  "results": {
+    "performance_monitoring": {
+      "agent_type": "kdp_performance_monitor",
+      "task_type": "monitor_all_books",
+      "status": "completed",
+      "timestamp": "2025-07-01T15:27:24.679646",
+      "simulated": true,
+      "message": "Task delegated to kdp_performance_monitor - actual implementation would use agent registry"
+    },
+    "market_research_large print sudoku puzzles": {
+      "agent_type": "market_research",
+      "task_type": "research_niche",
+      "status": "completed",
+      "timestamp": "2025-07-01T15:27:26.681051",
+      "simulated": true,
+      "message": "Task delegated to market_research - actual implementation would use agent registry"
+    },
+    "market_research_large print crossword puzzles": {
+      "agent_type": "market_research",
+      "task_type": "research_niche",
+      "status": "completed",
+      "timestamp": "2025-07-01T15:27:38.682930",
+      "simulated": true,
+      "message": "Task delegated to market_research - actual implementation would use agent registry"
+    },
+    "market_research_test series": {
+      "agent_type": "market_research",
+      "task_type": "research_niche",
+      "status": "completed",
+      "timestamp": "2025-07-01T15:27:50.682465",
+      "simulated": true,
+      "message": "Task delegated to market_research - actual implementation would use agent registry"
+    },
+    "business_analytics": {
+      "agent_type": "business_analytics",
+      "task_type": "generate_business_report",
+      "status": "completed",
+      "timestamp": "2025-07-01T15:28:02.677385",
+      "simulated": true,
+      "message": "Task delegated to business_analytics - actual implementation would use agent registry"
+    }
+  },
+  "comprehensive_summary": {
+    "workflow_overview": {
+      "workflow_id": "comprehensive_20250701_152722",
+      "total_tasks": 5,
+      "execution_time": 0.0,
+      "success_rate": 100.0
+    },
+    "key_findings": [
+      "Book performance monitoring completed",
+      "Market research completed for 3 niches",
+      "Business intelligence analysis completed"
+    ],
+    "recommendations": [
+      "Review individual agent reports for detailed insights",
+      "Monitor performance trends over time",
+      "Consider expanding successful niches",
+      "Address any identified market gaps"
+    ],
+    "action_items": [
+      "Schedule follow-up analysis in 7 days",
+      "Update book metadata based on market research",
+      "Optimize pricing based on competitive analysis",
+      "Plan new book releases for identified opportunities"
+    ]
+  },
+  "completed_at": "2025-07-01T15:28:02.677454",
+  "success": true
+}

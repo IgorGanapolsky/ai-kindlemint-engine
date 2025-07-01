@@ -1,6 +1,6 @@
 {
-  "workflows_executed": 1,
+  "workflows_executed": 2,
   "workflows_failed": 1,
-  "total_tasks_coordinated": 5,
+  "total_tasks_coordinated": 10,
   "average_workflow_time": 0.0
 }

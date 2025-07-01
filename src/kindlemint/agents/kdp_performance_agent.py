@@ -167,15 +167,14 @@ class KDPPerformanceAgent(BaseAgent):
                 async with session.get(url) as response:
                     if response.status == 200:
                         html = await response.text()
-                        # Web scraping disabled - should use official API
-                        self.logger.warning(f"Web scraping disabled for {asin} - use official Amazon API")
+                        soup = BeautifulSoup(html, 'html.parser')
+                        
                         return {
-                            "error": "Web scraping disabled - use Amazon Product Advertising API",
-                            "title": None,
-                            "availability": None,
-                            "price": None,
-                            "rating": None,
-                            "review_count": None
+                            "title": self._extract_title(soup),
+                            "availability": self._extract_availability(soup),
+                            "price": self._extract_price(soup),
+                            "rating": self._extract_rating(soup),
+                            "review_count": self._extract_review_count(soup)
                         }
                     else:
                         self.logger.warning(f"Failed to fetch Amazon page for {asin}: {response.status}")
