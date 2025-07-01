@@ -1,24 +1,24 @@
 {
-  "timestamp": "2025-07-01T16:16:08.092177",
+  "timestamp": "2025-07-01T16:21:15.675207",
   "repository": "igorganapolsky/ai-kindlemint-engine",
-  "total_failures": 18,
+  "total_failures": 9,
   "analyzed_failures": [
     {
       "failure_info": {
-        "job_name": "hygiene-check",
-        "job_id": 45148340940,
+        "job_name": "Analyze PR Intelligence",
+        "job_id": 45148633246,
         "status": "completed",
         "conclusion": "failure",
         "failed_step": "Set up job",
         "failure_type": "unknown",
         "error_message": "",
         "suggested_fix": null,
-        "workflow_name": "Code Hygiene Check",
-        "workflow_id": 16004685181,
+        "workflow_name": "PR Orchestrator - Intelligent Auto-Merge System",
+        "workflow_id": 16004771755,
         "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "a825c47fb49b3487adc510a6b32029d1464f7084",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004685181",
-        "created_at": "2025-07-01T16:15:20Z"
+        "commit_sha": "405c01d457088f3bf0426b1d3f2bfc7ff80c6c0d",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004771755",
+        "created_at": "2025-07-01T16:19:34Z"
       },
       "strategies": [
         {
@@ -44,7 +44,7 @@
     {
       "failure_info": {
         "job_name": "Analyze PR Intelligence",
-        "job_id": 45148340920,
+        "job_id": 45148631113,
         "status": "completed",
         "conclusion": "failure",
         "failed_step": "Set up job",
@@ -52,315 +52,11 @@
         "error_message": "",
         "suggested_fix": null,
         "workflow_name": "PR Orchestrator - Intelligent Auto-Merge System",
-        "workflow_id": 16004685172,
+        "workflow_id": 16004771063,
         "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "a825c47fb49b3487adc510a6b32029d1464f7084",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004685172",
-        "created_at": "2025-07-01T16:15:20Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "\ud83e\uddea Test Market Research Components",
-        "job_id": 45148340848,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "\ud83d\udd27 Test Script Syntax",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "Test Market Research Workflow",
-        "workflow_id": 16004685166,
-        "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "a825c47fb49b3487adc510a6b32029d1464f7084",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004685166",
-        "created_at": "2025-07-01T16:15:20Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "qa-validation",
-        "job_id": 45148340863,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "Install dependencies",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "QA Validation Pipeline",
-        "workflow_id": 16004685154,
-        "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "a825c47fb49b3487adc510a6b32029d1464f7084",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004685154",
-        "created_at": "2025-07-01T16:15:20Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "Run QA Checks",
-        "job_id": 45148340827,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "Install dependencies",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "QA Checks",
-        "workflow_id": 16004685153,
-        "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "a825c47fb49b3487adc510a6b32029d1464f7084",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004685153",
-        "created_at": "2025-07-01T16:15:20Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "SonarCloud Analysis",
-        "job_id": 45148340872,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "\ud83d\udce6 Install dependencies",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "SonarCloud Analysis",
-        "workflow_id": 16004685161,
-        "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "a825c47fb49b3487adc510a6b32029d1464f7084",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004685161",
-        "created_at": "2025-07-01T16:15:20Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "\ud83e\uddea Setup & Unit Tests",
-        "job_id": 45148340873,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "\ud83d\udce6 Install Dependencies",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
-        "workflow_id": 16004685171,
-        "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "a825c47fb49b3487adc510a6b32029d1464f7084",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004685171",
-        "created_at": "2025-07-01T16:15:20Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "\ud83d\udccb Generate Final Report",
-        "job_id": 45148369036,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "\ud83c\udfaf Final Status Check",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
-        "workflow_id": 16004685171,
-        "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "a825c47fb49b3487adc510a6b32029d1464f7084",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004685171",
-        "created_at": "2025-07-01T16:15:20Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "Run QA Checks",
-        "job_id": 45148288042,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "Install dependencies",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "QA Checks",
-        "workflow_id": 16004669284,
-        "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "c079d0204344d980d0f33fb6fb73bde32fdcefbe",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004669284",
-        "created_at": "2025-07-01T16:14:34Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "qa-validation",
-        "job_id": 45148288035,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "Install dependencies",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "QA Validation Pipeline",
-        "workflow_id": 16004669292,
-        "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "c079d0204344d980d0f33fb6fb73bde32fdcefbe",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004669292",
-        "created_at": "2025-07-01T16:14:34Z"
+        "commit_sha": "405c01d457088f3bf0426b1d3f2bfc7ff80c6c0d",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004771063",
+        "created_at": "2025-07-01T16:19:32Z"
       },
       "strategies": [
         {
@@ -386,7 +82,7 @@
     {
       "failure_info": {
         "job_name": "Analyze PR Intelligence",
-        "job_id": 45148288020,
+        "job_id": 45148629019,
         "status": "completed",
         "conclusion": "failure",
         "failed_step": "Set up job",
@@ -394,11 +90,11 @@
         "error_message": "",
         "suggested_fix": null,
         "workflow_name": "PR Orchestrator - Intelligent Auto-Merge System",
-        "workflow_id": 16004669287,
+        "workflow_id": 16004770373,
         "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "c079d0204344d980d0f33fb6fb73bde32fdcefbe",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004669287",
-        "created_at": "2025-07-01T16:14:34Z"
+        "commit_sha": "405c01d457088f3bf0426b1d3f2bfc7ff80c6c0d",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004770373",
+        "created_at": "2025-07-01T16:19:30Z"
       },
       "strategies": [
         {
@@ -423,20 +119,20 @@
     },
     {
       "failure_info": {
-        "job_name": "hygiene-check",
-        "job_id": 45148288053,
+        "job_name": "Analyze PR Intelligence",
+        "job_id": 45148626701,
         "status": "completed",
         "conclusion": "failure",
         "failed_step": "Set up job",
         "failure_type": "unknown",
         "error_message": "",
         "suggested_fix": null,
-        "workflow_name": "Code Hygiene Check",
-        "workflow_id": 16004669289,
+        "workflow_name": "PR Orchestrator - Intelligent Auto-Merge System",
+        "workflow_id": 16004769715,
         "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "c079d0204344d980d0f33fb6fb73bde32fdcefbe",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004669289",
-        "created_at": "2025-07-01T16:14:34Z"
+        "commit_sha": "405c01d457088f3bf0426b1d3f2bfc7ff80c6c0d",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004769715",
+        "created_at": "2025-07-01T16:19:27Z"
       },
       "strategies": [
         {
@@ -461,20 +157,20 @@
     },
     {
       "failure_info": {
-        "job_name": "Code Quality Enforcement",
-        "job_id": 45148287981,
+        "job_name": "Analyze PR Intelligence",
+        "job_id": 45148623867,
         "status": "completed",
         "conclusion": "failure",
-        "failed_step": "\ud83d\udce6 Install dependencies",
+        "failed_step": "Set up job",
         "failure_type": "unknown",
         "error_message": "",
         "suggested_fix": null,
-        "workflow_name": "Quality Gate",
-        "workflow_id": 16004669271,
+        "workflow_name": "PR Orchestrator - Intelligent Auto-Merge System",
+        "workflow_id": 16004768846,
         "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "c079d0204344d980d0f33fb6fb73bde32fdcefbe",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004669271",
-        "created_at": "2025-07-01T16:14:34Z"
+        "commit_sha": "405c01d457088f3bf0426b1d3f2bfc7ff80c6c0d",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004768846",
+        "created_at": "2025-07-01T16:19:25Z"
       },
       "strategies": [
         {
@@ -499,20 +195,20 @@
     },
     {
       "failure_info": {
-        "job_name": "\ud83e\uddea Test Market Research Components",
-        "job_id": 45148287904,
+        "job_name": "Analyze PR Intelligence",
+        "job_id": 45148622205,
         "status": "completed",
         "conclusion": "failure",
-        "failed_step": "\ud83d\udd27 Test Script Syntax",
+        "failed_step": "Set up job",
         "failure_type": "unknown",
         "error_message": "",
         "suggested_fix": null,
-        "workflow_name": "Test Market Research Workflow",
-        "workflow_id": 16004669270,
+        "workflow_name": "PR Orchestrator - Intelligent Auto-Merge System",
+        "workflow_id": 16004768298,
         "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "c079d0204344d980d0f33fb6fb73bde32fdcefbe",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004669270",
-        "created_at": "2025-07-01T16:14:34Z"
+        "commit_sha": "405c01d457088f3bf0426b1d3f2bfc7ff80c6c0d",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004768298",
+        "created_at": "2025-07-01T16:19:23Z"
       },
       "strategies": [
         {
@@ -537,20 +233,20 @@
     },
     {
       "failure_info": {
-        "job_name": "SonarCloud Analysis",
-        "job_id": 45148287980,
+        "job_name": "Analyze PR Intelligence",
+        "job_id": 45148619836,
         "status": "completed",
         "conclusion": "failure",
-        "failed_step": "\ud83d\udce6 Install dependencies",
+        "failed_step": "Set up job",
         "failure_type": "unknown",
         "error_message": "",
         "suggested_fix": null,
-        "workflow_name": "SonarCloud Analysis",
-        "workflow_id": 16004669278,
+        "workflow_name": "PR Orchestrator - Intelligent Auto-Merge System",
+        "workflow_id": 16004767625,
         "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "c079d0204344d980d0f33fb6fb73bde32fdcefbe",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004669278",
-        "created_at": "2025-07-01T16:14:34Z"
+        "commit_sha": "405c01d457088f3bf0426b1d3f2bfc7ff80c6c0d",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004767625",
+        "created_at": "2025-07-01T16:19:21Z"
       },
       "strategies": [
         {
@@ -575,20 +271,20 @@
     },
     {
       "failure_info": {
-        "job_name": "\ud83e\uddea Setup & Unit Tests",
-        "job_id": 45148287942,
+        "job_name": "Analyze PR Intelligence",
+        "job_id": 45148617912,
         "status": "completed",
         "conclusion": "failure",
-        "failed_step": "\ud83d\udce6 Install Dependencies",
+        "failed_step": "Set up job",
         "failure_type": "unknown",
         "error_message": "",
         "suggested_fix": null,
-        "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
-        "workflow_id": 16004669277,
+        "workflow_name": "PR Orchestrator - Intelligent Auto-Merge System",
+        "workflow_id": 16004766978,
         "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "c079d0204344d980d0f33fb6fb73bde32fdcefbe",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004669277",
-        "created_at": "2025-07-01T16:14:34Z"
+        "commit_sha": "405c01d457088f3bf0426b1d3f2bfc7ff80c6c0d",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004766978",
+        "created_at": "2025-07-01T16:19:20Z"
       },
       "strategies": [
         {
@@ -613,58 +309,20 @@
     },
     {
       "failure_info": {
-        "job_name": "\ud83d\udccb Generate Final Report",
-        "job_id": 45148313585,
+        "job_name": "Analyze PR Intelligence",
+        "job_id": 45148615605,
         "status": "completed",
         "conclusion": "failure",
-        "failed_step": "\ud83c\udfaf Final Status Check",
+        "failed_step": "Set up job",
         "failure_type": "unknown",
         "error_message": "",
         "suggested_fix": null,
-        "workflow_name": "\ud83d\udd0d Comprehensive QA & Testing",
-        "workflow_id": 16004669277,
+        "workflow_name": "PR Orchestrator - Intelligent Auto-Merge System",
+        "workflow_id": 16004766288,
         "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "c079d0204344d980d0f33fb6fb73bde32fdcefbe",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004669277",
-        "created_at": "2025-07-01T16:14:34Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "\ud83d\udcda Book Quality Validation",
-        "job_id": 45148288043,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "\ud83d\udd0d Run Enhanced QA Validator v2",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "Book QA Validation",
-        "workflow_id": 16004669273,
-        "branch": "feat/pr-based-development-strategy",
-        "commit_sha": "c079d0204344d980d0f33fb6fb73bde32fdcefbe",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004669273",
-        "created_at": "2025-07-01T16:14:34Z"
+        "commit_sha": "405c01d457088f3bf0426b1d3f2bfc7ff80c6c0d",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16004766288",
+        "created_at": "2025-07-01T16:19:17Z"
       },
       "strategies": [
         {
@@ -690,9 +348,9 @@
   ],
   "summary": {
     "auto_fixable": 0,
-    "manual_review": 18,
+    "manual_review": 9,
     "by_strategy_type": {
-      "manual_review": 18
+      "manual_review": 9
     }
   }
 }

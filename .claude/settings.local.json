@@ -285,7 +285,9 @@
       "Bash(git branch:*)",
       "Bash(./scripts/delete_all_aws_resources.sh:*)",
       "Bash(./scripts/setup_branch_protection.sh:*)",
-      "Bash(./scripts/remove_aws_code.sh:*)"
+      "Bash(./scripts/remove_aws_code.sh:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(./scripts/remove_a2a_framework.sh:*)"
     ],
     "deny": []
   }

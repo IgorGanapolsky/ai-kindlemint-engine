@@ -40,7 +40,8 @@ echo -e "${YELLOW}📋 Configuring protection for branch: ${BRANCH}${NC}"
 echo -e "${BLUE}🤖 Checking for PR Orchestrator App...${NC}"
 
 # Note: In a real setup, you'd register a GitHub App. For now, we'll use github-actions
-ORCHESTRATOR_APP="github-actions"
+ORCHESTRATOR_APP="${ORCHESTRATOR_APP:-github-actions}"
+# TODO: Create dedicated GitHub App for PR orchestrator with proper permissions
 
 # Enable branch protection with orchestrator support
 gh api \
@@ -134,8 +135,18 @@ create_label "needs-manual-review" "E99695" "PR requires manual review"
 # Create webhook secret for monitoring
 WEBHOOK_SECRET=$(openssl rand -hex 32)
 echo -e "\n${YELLOW}🔐 Generated webhook secret for monitoring:${NC}"
-echo "PR_ORCHESTRATOR_WEBHOOK_SECRET=${WEBHOOK_SECRET}"
-echo "Add this to your repository secrets!"
+
+# Automatically add the secret to GitHub
+echo -e "${BLUE}🔒 Adding webhook secret to GitHub repository...${NC}"
+if gh secret set PR_ORCHESTRATOR_WEBHOOK_SECRET --body="${WEBHOOK_SECRET}" 2>/dev/null; then
+    echo -e "${GREEN}✅ Webhook secret added to repository secrets${NC}"
+else
+    echo -e "${YELLOW}⚠️  Could not add secret automatically. Please add manually:${NC}"
+    echo "PR_ORCHESTRATOR_WEBHOOK_SECRET=${WEBHOOK_SECRET}"
+    echo ""
+    echo "Run this command to add it:"
+    echo "gh secret set PR_ORCHESTRATOR_WEBHOOK_SECRET --body=\"${WEBHOOK_SECRET}\""
+fi
 
 # Display current protection status
 echo -e "\n${YELLOW}📊 Current Protection Status:${NC}"

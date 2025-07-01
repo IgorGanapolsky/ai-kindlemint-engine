@@ -1,7 +1,5 @@
 # src/kindlemint/agents/puzzle_validator_agent.py
 
-from kindlemint.a2a.agent import A2AAgent
-from kindlemint.a2a.registry import AgentRegistry
 from kindlemint.validators.sudoku_validator import SudokuValidator
 
 

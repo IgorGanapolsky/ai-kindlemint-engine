@@ -20,8 +20,7 @@ from scripts.a2a_protocol.puzzle_validator_agent import PuzzleValidatorAgent
 class TestAgent(A2AAgent):
     """Concrete test agent for testing base functionality"""
 
-        """ Define Capabilities"""
-def _define_capabilities(self):
+    def _define_capabilities(self):
         return [
             AgentCapability(
                 name="test_capability",
@@ -31,22 +30,19 @@ def _define_capabilities(self):
             )
         ]
 
-        """ Register Handlers"""
-def _register_handlers(self):
+    def _register_handlers(self):
         return {
             "test_action": self._handle_test_action,
         }
 
-        """ Handle Test Action"""
-def _handle_test_action(self, payload):
+    def _handle_test_action(self, payload):
         return {"status": "success", "result": "test completed"}
 
 
 class TestA2AMessage:
     """Test A2A Message data structure"""
 
-        """Test Message Creation"""
-def test_message_creation(self):
+    def test_message_creation(self):
         """Test creating an A2A message"""
         msg = A2AMessage(
             message_id="test-123",
@@ -64,8 +60,7 @@ def test_message_creation(self):
         assert msg.action == "validate"
         assert msg.payload == {"data": "test"}
 
-        """Test Message With Correlation"""
-def test_message_with_correlation(self):
+    def test_message_with_correlation(self):
         """Test message with correlation ID"""
         msg = A2AMessage(
             message_id="test-456",
@@ -83,8 +78,7 @@ def test_message_with_correlation(self):
 class TestAgentCapability:
     """Test Agent Capability structure"""
 
-        """Test Capability Creation"""
-def test_capability_creation(self):
+    def test_capability_creation(self):
         """Test creating an agent capability"""
         cap = AgentCapability(
             name="validate_puzzle",
@@ -101,8 +95,7 @@ def test_capability_creation(self):
 class TestAgentCard:
     """Test Agent Card structure"""
 
-        """Test Agent Card Creation"""
-def test_agent_card_creation(self):
+    def test_agent_card_creation(self):
         """Test creating an agent card"""
         cap = AgentCapability(
             name="test_cap",
@@ -129,8 +122,7 @@ def test_agent_card_creation(self):
 class TestA2AAgent:
     """Test base A2A Agent class"""
 
-        """Test Agent Initialization"""
-def test_agent_initialization(self):
+    def test_agent_initialization(self):
         """Test agent initialization"""
         agent = TestAgent(
             agent_id="test-agent",
@@ -143,8 +135,7 @@ def test_agent_initialization(self):
         assert agent.name == "Test Agent"
         assert agent.description == "Test agent for unit tests"
 
-        """Test Agent Card Generation"""
-def test_agent_card_generation(self):
+    def test_agent_card_generation(self):
         """Test agent card generation"""
         agent = TestAgent(
             agent_id="test-agent",
@@ -159,8 +150,7 @@ def test_agent_card_generation(self):
         assert card_dict["description"] == "Test agent for unit tests"
         assert card_dict["version"] == "1.0.0"
 
-        """Test Process Message Success"""
-def test_process_message_success(self):
+    def test_process_message_success(self):
         """Test successful message processing"""
         agent = TestAgent(
             agent_id="test-agent",
@@ -186,13 +176,11 @@ class TestPuzzleValidatorAgent:
     """Test Puzzle Validator Agent"""
 
     @pytest.fixture
-        """Validator Agent"""
-def validator_agent(self):
+    def validator_agent(self):
         """Create a puzzle validator agent"""
         return PuzzleValidatorAgent()
 
-        """Test Validator Initialization"""
-def test_validator_initialization(self, validator_agent):
+    def test_validator_initialization(self, validator_agent):
         """Test validator agent initialization"""
         assert validator_agent.agent_id == "puzzle-validator-001"
         assert validator_agent.name == "Puzzle Validator"

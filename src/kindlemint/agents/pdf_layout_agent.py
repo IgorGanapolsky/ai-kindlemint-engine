@@ -3,8 +3,6 @@
 import subprocess
 from pathlib import Path
 
-from kindlemint.a2a.agent import A2AAgent
-from kindlemint.a2a.registry import AgentRegistry
 
 
 class PDFLayoutAgent(A2AAgent):

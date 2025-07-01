@@ -245,21 +245,69 @@ jobs:
           confidence = 0
           should_merge = False
           
-          # Type-specific rules
-          if pr_type == 'docs' and hygiene_score > 60:
+          # SAFETY CHECK 1: Minimum PR age requirement
+          from datetime import datetime, timezone
+          pr_age_hours = (datetime.now(timezone.utc) - pr.created_at).total_seconds() / 3600
+          min_age_hours = 1  # Minimum 1 hour before auto-merge
+          
+          # SAFETY CHECK 2: Verify ALL required status checks have passed
+          last_commit = list(pr.get_commits())[-1]
+          all_checks = list(last_commit.get_check_runs())
+          required_checks = [
+              'Quick Validation Checks',
+              'Code Quality Checks',
+              'Test Suite / test (3.11)',
+              'Test Suite / test (3.12)',
+              'Business Logic Validation',
+              'Documentation Validation'
+          ]
+          
+          for required_check in required_checks:
+              check_found = False
+              for check in all_checks:
+                  if required_check in check.name and check.conclusion == 'success':
+                      check_found = True
+                      break
+              if not check_found:
+                  checks_passed = False
+                  break
+          
+          # SAFETY CHECK 3: Security vulnerability scan
+          has_security_issues = False
+          security_labels = ['security', 'vulnerability', 'cve', 'critical-security']
+          for label in metadata.get('labels', []):
+              if any(sec in label.lower() for sec in security_labels):
+                  has_security_issues = True
+                  break
+          
+          # SAFETY CHECK 4: Conflict detection
+          if pr.mergeable_state != 'clean':
+              should_merge = False
+              confidence = 0
+          
+          # Type-specific rules with enhanced safety
+          if pr_age_hours < min_age_hours:
+              should_merge = False
+              confidence = 0
+          elif has_security_issues:
+              should_merge = False
+              confidence = 0
+          elif pr_type == 'docs' and hygiene_score > 60 and checks_passed:
               should_merge = True
               confidence = 90
-          elif pr_type == 'test' and hygiene_score > 70:
+          elif pr_type == 'test' and hygiene_score > 70 and checks_passed:
               should_merge = True
               confidence = 85
           elif pr_type == 'dependency' and metadata['author'] in ['dependabot[bot]', 'renovate[bot]']:
-              should_merge = True
-              confidence = 95
+              # Additional check for dependency updates
+              if not any('security' in l.lower() for l in metadata.get('labels', [])):
+                  should_merge = True
+                  confidence = 95
           elif pr_type == 'bugfix' and hygiene_score > 80 and metadata['additions'] < 200:
-              should_merge = approved
+              should_merge = approved and checks_passed
               confidence = 80 if approved else 40
           elif pr_type == 'feature':
-              if hygiene_score > 85 and priority_score > 70 and approved:
+              if hygiene_score > 85 and priority_score > 70 and approved and checks_passed:
                   should_merge = True
                   confidence = 75
           
@@ -272,14 +320,24 @@ jobs:
               should_merge = False
               confidence = 0
           
+          # SAFETY CHECK 5: Maximum confidence cap for auto-merge
+          # Never allow 100% confidence for auto-merge to maintain human oversight
+          confidence = min(confidence, 95)
+          
           # High hygiene score bonus
-          if hygiene_score > 90:
+          if hygiene_score > 90 and checks_passed:
               confidence = min(confidence + 10, 95)
           
           # Never auto-merge if hygiene is too low
           if hygiene_score < 60:
               should_merge = False
               confidence = 0
+          
+          # SAFETY CHECK 6: Require higher confidence for larger PRs
+          if metadata['additions'] + metadata['deletions'] > 500:
+              confidence = max(0, confidence - 20)
+              if confidence < 70:
+                  should_merge = False
           
           decision = 'merge' if should_merge else 'wait'
           
@@ -303,7 +361,7 @@ jobs:
           "
           
       - name: Upload Analysis Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pr-analysis-${{ github.event.pull_request.number }}
           path: |
@@ -329,7 +387,7 @@ jobs:
           python-version: '3.11'
           
       - name: Download Analysis
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: pr-analysis-${{ github.event.pull_request.number }}
           

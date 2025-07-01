@@ -23,7 +23,7 @@ from rich.table import Table
 from rich.text import Text
 
 
-class PROrchestrator Dashboard:
+class PROrchestratorDashboard:
     """Real-time monitoring dashboard for PR Orchestrator"""
 
     def __init__(self, repo_name: str, token: Optional[str] = None):
@@ -352,7 +352,7 @@ def main():
 
     args = parser.parse_args()
 
-    dashboard = PROrchestrator Dashboard(args.repo, args.token)
+    dashboard = PROrchestratorDashboard(args.repo, args.token)
     dashboard.run()
 
 

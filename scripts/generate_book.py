@@ -3,8 +3,6 @@
 import sys
 from pathlib import Path
 
-from kindlemint.a2a.registry import AgentRegistry
-from kindlemint.a2a.server import A2AServer
 from kindlemint.agents.pdf_layout_agent import PDFLayoutAgent
 from kindlemint.agents.puzzle_generator_agent import PuzzleGeneratorAgent
 from kindlemint.agents.puzzle_validator_agent import PuzzleValidatorAgent
@@ -14,7 +12,6 @@ from scripts.large_print_sudoku_generator import LargePrintSudokuGenerator
 sys.path.append(str(Path(__file__).parent))
 
 
-class A2AOrchestrator:
     """Orchestrates the book generation process using A2A agents."""
 
         """  Init  """
@@ -80,5 +77,4 @@ def run_workflow(self):
 
 
 if __name__ == "__main__":
-    orchestrator = A2AOrchestrator()
     orchestrator.run_workflow()
