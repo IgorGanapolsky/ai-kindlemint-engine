@@ -287,7 +287,16 @@
       "Bash(./scripts/setup_branch_protection.sh:*)",
       "Bash(./scripts/remove_aws_code.sh:*)",
       "Bash(git check-ignore:*)",
-      "Bash(./scripts/remove_a2a_framework.sh:*)"
+      "Bash(./scripts/remove_a2a_framework.sh:*)",
+      "Bash(--field allow_auto_merge=true )",
+      "Bash(--field allow_merge_commit=true )",
+      "Bash(--field allow_squash_merge=true )",
+      "Bash(--field delete_branch_on_merge=true)",
+      "Bash(./scripts/setup_branch_protection_with_orchestrator.sh:*)",
+      "Bash(./scripts/cleanup_failed_prs.sh:*)",
+      "Bash(./scripts/complete_a2a_cleanup.sh:*)",
+      "Bash(for pr in 69 68 67 64 63 60 57 56 55 54 52 51 50 47 44 38)",
+      "Bash(for pr in 37 36 35 34)"
     ],
     "deny": []
   }

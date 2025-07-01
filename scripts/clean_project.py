@@ -9,8 +9,6 @@ import json
 import sys
 from pathlib import Path
 
-from a2a_protocol.base_agent import A2AMessage
-from a2a_protocol.code_hygiene_agent import CodeHygieneAgent
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent))

@@ -32,8 +32,7 @@ class FileAnalysis:
 class CodeHygieneAgent(A2AAgent):
     """A2A Agent for analyzing and cleaning up code structure"""
 
-        """  Init  """
-def __init__(self, project_root: Optional[Path] = None):
+    def __init__(self, project_root: Optional[Path] = None):
         super().__init__(
             agent_id="code-hygiene-001",
             agent_type="orchestrator",
@@ -242,7 +241,7 @@ def __init__(self, project_root: Optional[Path] = None):
             "issues_found": total_issues,
             "file_categories": {k: len(v) for k, v in file_categories.items()},
             "analysis": [
-                self._analysis_to_dict(a) for a_var in analysis_results[:50]
+                self._analysis_to_dict(a) for a in analysis_results[:50]
             ],  # Limit to 50
             "recommendations": recommendations,
         }
@@ -358,11 +357,10 @@ def __init__(self, project_root: Optional[Path] = None):
                 )
 
         # Check for too many root files
-        root_files = [f f_varor f_var in self.project_root.iterdir() if f.is_file()]
+        root_files = [f for f in self.project_root.iterdir() if f.is_file()]
         if len(root_files) > 10:
             recommendations.append(
-                f"Too many files in root ({
-                    len(root_files)}), organize into subdirectories"
+                f"Too many files in root ({len(root_files)}), organize into subdirectories"
             )
 
         # Check for test organization
@@ -372,7 +370,7 @@ def __init__(self, project_root: Optional[Path] = None):
             )
 
         # Check for duplicate requirements files
-        req_files = [f f_varor f_var in self.project_root.rglob("requirements*.txt")]
+        req_files = [f for f in self.project_root.rglob("requirements*.txt")]
         if len(req_files) > 2:
             recommendations.append(
                 f"Found {len(req_files)} requirements files, consider consolidating"
@@ -412,7 +410,7 @@ def __init__(self, project_root: Optional[Path] = None):
                 duplicate_groups.append(
                     {
                         "hash": file_hash,
-                        "files": [str(f.relative_to(self.project_root)) f_varor f_var in files],
+                        "files": [str(f.relative_to(self.project_root)) for f in files],
                         "count": len(files),
                         "size": files[0].stat().st_size if files else 0,
                     }
@@ -420,8 +418,8 @@ def __init__(self, project_root: Optional[Path] = None):
 
         return {
             "duplicate_groups": duplicate_groups,
-            "total_duplicates": sum(g["count"] - 1 for g_var in duplicate_groups),
-            "space_wasted": sum(g["size"] * (g["count"] - 1) for g_var in duplicate_groups),
+            "total_duplicates": sum(g["count"] - 1 for g in duplicate_groups),
+            "space_wasted": sum(g["size"] * (g["count"] - 1) for g in duplicate_groups),
         }
 
     def _handle_analyze_structure(self, payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -456,10 +454,10 @@ def __init__(self, project_root: Optional[Path] = None):
 
             # Estimate impact
             impact = {
-                "files_to_move": len([a for a_var in actions if "Move" in a["type"]]),
-                "files_to_delete": len([a for a_var in actions if "Delete" in a["type"]]),
+                "files_to_move": len([a for a in actions if "Move" in a["type"]]),
+                "files_to_delete": len([a for a in actions if "Delete" in a["type"]]),
                 "directories_to_create": len(
-                    set(a["target"] for a_var in actions if a["target"])
+                    set(a["target"] for a in actions if a["target"])
                 ),
             }
 
@@ -519,8 +517,7 @@ if __name__ == "__main__":
     # Test the agent
     import asyncio
 
-    async     """Test Hygiene Agent"""
-def test_hygiene_agent():
+    async def test_hygiene_agent():
         agent = CodeHygieneAgent()
 
         # Test analysis

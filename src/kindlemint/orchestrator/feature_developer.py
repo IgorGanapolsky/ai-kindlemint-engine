@@ -14,8 +14,7 @@ class FeatureDeveloper:
     Develops complete features including implementation, tests, and documentation
     """
 
-        """  Init  """
-def __init__(self):
+    def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.feature_templates = {
             "voice_to_book": self._voice_to_book_template,
@@ -66,9 +65,13 @@ def __init__(self):
         }
 
     async def _generate_implementation(
-        self, feature_name: str, requirements: Dict
+        self,
+        feature_name: str,
+        requirements: Dict
     ) -> Dict:
-        """Generate feature implementation"""
+        """
+        Generate feature implementation
+        """
 
         # Check if we have a template for this feature
         if feature_name in self.feature_templates:
@@ -85,11 +88,9 @@ def __init__(self):
     def _voice_to_book_template(self, requirements: Dict) -> str:
         """Template for voice-to-book feature"""
 
-        return dedent(
-            """
-        \"\"\"
+        return f"""
         Voice to Book Pipeline - Convert voice recordings to publishable books
-        \"\"\"
+        """
 
         import asyncio
         import logging
@@ -104,21 +105,20 @@ def __init__(self):
 
 
         class VoiceToBookPipeline:
-            \"\"\"
+            """
             Complete pipeline for converting voice to books
-            \"\"\"
+            """
 
-                """  Init  """
-def __init__(self, whisper_model: str = "base"):
+            def __init__(self, whisper_model: str = "base"):
                 self.logger = logging.getLogger(__name__)
                 self.whisper_model = whisper.load_model(whisper_model)
                 self.voice_processor = VoiceProcessor()
                 self.content_generator = ContentGenerator()
 
             async def process_voice_file(self, audio_path: Path) -> Dict:
-                \"\"\"
+                """
                 Process a voice recording file
-                \"\"\"
+                """
                 self.logger.info(f"Processing voice file: {audio_path}")
 
                 # Load and preprocess audio
@@ -151,9 +151,9 @@ def __init__(self, whisper_model: str = "base"):
                 }
 
             async def _build_author_context(self, transcript: str, intent: Dict) -> AuthorContext:
-                \"\"\"
+                """
                 Build author context from transcript and intent
-                \"\"\"
+                """
                 return AuthorContext(
                     expertise=intent.get("expertise", []),
                     tone=intent.get("tone", "professional"),
@@ -162,9 +162,9 @@ def __init__(self, whisper_model: str = "base"):
                 )
 
             async def create_book(self, voice_data: Dict, book_type: str = "guide") -> Dict:
-                \"\"\"
+                """
                 Create a complete book from voice data
-                \"\"\"
+                """
                 # Generate chapters
                 chapters = await self._generate_chapters(voice_data, book_type)
 
@@ -180,9 +180,9 @@ def __init__(self, whisper_model: str = "base"):
                 return book
 
             async def _generate_chapters(self, voice_data: Dict, book_type: str) -> List[Dict]:
-                \"\"\"
+                """
                 Generate book chapters from voice data
-                \"\"\"
+                """
                 # Implementation for chapter generation
                 chapters = []
 
@@ -208,10 +208,9 @@ def __init__(self, whisper_model: str = "base"):
         """Template for affiliate integration feature"""
 
         return dedent(
-            """
-        \"\"\"
+            f"""
         Affiliate Integration Engine - Monetize books with affiliate programs
-        \"\"\"
+        """
 
         import asyncio
         import logging
@@ -221,12 +220,11 @@ def __init__(self, whisper_model: str = "base"):
 
 
         class AffiliateIntegrationEngine:
-            \"\"\"
+            """
             Manages affiliate program integrations
-            \"\"\"
+            """
 
-                """  Init  """
-def __init__(self):
+            def __init__(self):
                 self.logger = logging.getLogger(__name__)
                 self.affiliate_apis = {
                     "amazon": "https://webservices.amazon.com/paapi5/",
@@ -236,9 +234,9 @@ def __init__(self):
 
             async def find_relevant_products(self, book_content: Dict,
                                            affiliate_program: str = "amazon") -> List[Dict]:
-                \"\"\"
+                """
                 Find relevant affiliate products for book content
-                \"\"\"
+                """
                 # Extract keywords from book
                 keywords = await self._extract_product_keywords(book_content)
 
@@ -254,9 +252,9 @@ def __init__(self):
 
             async def generate_affiliate_content(self, products: List[Dict],
                                                content_type: str = "review") -> Dict:
-                \"\"\"
+                """
                 Generate affiliate content for products
-                \"\"\"
+                """
                 content = {
                     "type": content_type,
                     "products": [],
@@ -274,9 +272,9 @@ def __init__(self):
                 return content
 
             async def _extract_product_keywords(self, book_content: Dict) -> List[str]:
-                \"\"\"
+                """
                 Extract product-relevant keywords from book
-                \"\"\"
+                """
                 # Implementation for keyword extraction
                 keywords = []
                 # NLP processing to find product mentions
@@ -284,9 +282,9 @@ def __init__(self):
 
             async def _search_affiliate_products(self, keywords: List[str],
                                                program: str) -> List[Dict]:
-                \"\"\"
+                """
                 Search affiliate program for products
-                \"\"\"
+                """
                 products = []
                 api_url = self.affiliate_apis.get(program)
 
@@ -298,17 +296,17 @@ def __init__(self):
 
             async def _rank_products(self, products: List[Dict],
                                     book_content: Dict) -> List[Dict]:
-                \"\"\"
+                """
                 Rank products by relevance to book content
-                \"\"\"
+                """
                 # Ranking algorithm implementation
                 return sorted(products, key=lambda x: x.get("relevance_score", 0),
                             reverse=True)
 
             async def _generate_product_review(self, product: Dict) -> Dict:
-                \"\"\"
+                """
                 Generate a product review
-                \"\"\"
+                """
                 return {
                     "product_id": product["id"],
                     "title": f"Review: {product['name']}",
@@ -323,10 +321,9 @@ def __init__(self):
         """Template for social media atomization feature"""
 
         return dedent(
-            """
-        \"\"\"
+            f"""
         Social Media Atomization - Convert book content into social media posts
-        \"\"\"
+        """
 
         import asyncio
         import logging
@@ -337,12 +334,11 @@ def __init__(self):
 
 
         class SocialMediaAtomizer:
-            \"\"\"
+            """
             Atomizes book content for social media platforms
-            \"\"\"
+            """
 
-                """  Init  """
-def __init__(self):
+            def __init__(self):
                 self.logger = logging.getLogger(__name__)
                 self.platform_limits = {
                     "twitter": {"chars": 280, "images": 4},
@@ -353,9 +349,9 @@ def __init__(self):
 
             async def atomize_book(self, book_content: Dict,
                                  platforms: List[str] = None) -> Dict:
-                \"\"\"
+                """
                 Atomize book content for specified platforms
-                \"\"\"
+                """
                 platforms = platforms or list(self.platform_limits.keys())
 
                 atomized_content = {}
@@ -383,9 +379,9 @@ def __init__(self):
                 return atomized_content
 
             async def _extract_key_messages(self, book_content: Dict) -> List[str]:
-                \"\"\"
+                """
                 Extract key messages from book content
-                \"\"\"
+                """
                 messages = []
 
                 # Extract from chapters
@@ -401,15 +397,15 @@ def __init__(self):
                                          key=lambda x: x[1],
                                          reverse=True)[:3]
 
-                    messages.extend([s[0] for s_var in top_sentences])
+                    messages.extend([s[0] for s in top_sentences])
 
                 return messages
 
             async def _generate_platform_posts(self, messages: List[str],
                                              platform: str) -> List[Dict]:
-                \"\"\"
+                """
                 Generate platform-specific posts
-                \"\"\"
+                """
                 posts = []
                 char_limit = self.platform_limits[platform]["chars"]
 
@@ -433,9 +429,9 @@ def __init__(self):
 
             async def _create_posting_schedule(self, posts: List[Dict],
                                              platform: str) -> List[Dict]:
-                \"\"\"
+                """
                 Create optimal posting schedule
-                \"\"\"
+                """
                 schedule = []
 
                 # Optimal posting times by platform
@@ -468,9 +464,9 @@ def __init__(self):
                 return schedule
 
             async def _score_sentences(self, sentences: List[str]) -> List[tuple]:
-                \"\"\"
+                """
                 Score sentences by importance
-                \"\"\"
+                """
                 # Simple scoring based on length and keywords
                 scored = []
                 for sentence in sentences:
@@ -482,9 +478,9 @@ def __init__(self):
 
             async def _add_engagement_elements(self, post: Dict,
                                              platform: str) -> Dict:
-                \"\"\"
+                """
                 Add engagement elements to post
-                \"\"\"
+                """
                 # Add hashtags
                 post["hashtags"] = await self._generate_hashtags(post["content"])
 
@@ -494,9 +490,9 @@ def __init__(self):
                 return post
 
             async def _create_thread(self, message: str, platform: str) -> Dict:
-                \"\"\"
+                """
                 Create a thread for long content
-                \"\"\"
+                """
                 # Implementation for thread creation
                 return {
                     "content": message[:self.platform_limits[platform]["chars"]],
@@ -506,16 +502,16 @@ def __init__(self):
                 }
 
             async def _generate_hashtags(self, content: str) -> List[str]:
-                \"\"\"
+                """
                 Generate relevant hashtags
-                \"\"\"
+                """
                 # Hashtag generation logic
                 return ["#BookMarketing", "#ContentCreation", "#Publishing"]
 
             async def _generate_cta(self, platform: str) -> str:
-                \"\"\"
+                """
                 Generate platform-specific call-to-action
-                \"\"\"
+                """
                 ctas = {
                     "twitter": "RT if you found this helpful!",
                     "instagram": "Save this post for later 📌",
@@ -529,11 +525,13 @@ def __init__(self):
     def _community_platform_template(self, requirements: Dict) -> str:
         """Template for community platform feature"""
 
+        def _community_platform_template(self, requirements: Dict) -> str:
+        """Template for community platform feature"""
+
         return dedent(
-            """
-        \"\"\"
+            f"""
         Community Platform - Build and manage reader communities
-        \"\"\"
+        """
 
         import asyncio
         import logging
@@ -551,19 +549,17 @@ def __init__(self):
             engagement_score: float = 0.0
             books_read: List[str] = None
 
-                """  Post Init  """
-def __post_init__(self):
+            def __post_init__(self):
                 if self.books_read is None:
                     self.books_read = []
 
 
         class CommunityPlatform:
-            \"\"\"
+            """
             Manages reader communities and engagement
-            \"\"\"
+            """
 
-                """  Init  """
-def __init__(self):
+            def __init__(self):
                 self.logger = logging.getLogger(__name__)
                 self.members: Dict[str, CommunityMember] = {}
                 self.discussions: List[Dict] = []
@@ -571,9 +567,9 @@ def __init__(self):
 
             async def create_community(self, book_series: str,
                                      community_type: str = "readers") -> Dict:
-                \"\"\"
+                """
                 Create a new community for a book series
-                \"\"\"
+                """
                 community = {
                     "id": f"community_{book_series}_{datetime.now().timestamp()}",
                     "name": f"{book_series} {community_type.title()} Community",
@@ -593,9 +589,9 @@ def __init__(self):
                 return community
 
             async def add_member(self, member_data: Dict) -> CommunityMember:
-                \"\"\"
+                """
                 Add a new member to the community
-                \"\"\"
+                """
                 member = CommunityMember(
                     id=member_data.get("id", f"member_{datetime.now().timestamp()}"),
                     name=member_data["name"],
@@ -612,9 +608,9 @@ def __init__(self):
 
             async def create_discussion(self, topic: str, author_id: str,
                                       category: str = "general") -> Dict:
-                \"\"\"
+                """
                 Create a new discussion thread
-                \"\"\"
+                """
                 discussion = {
                     "id": f"discussion_{datetime.now().timestamp()}",
                     "topic": topic,
@@ -634,9 +630,9 @@ def __init__(self):
                 return discussion
 
             async def schedule_event(self, event_data: Dict) -> Dict:
-                \"\"\"
+                """
                 Schedule a community event
-                \"\"\"
+                """
                 event = {
                     "id": f"event_{datetime.now().timestamp()}",
                     "title": event_data["title"],
@@ -656,17 +652,17 @@ def __init__(self):
                 return event
 
             async def calculate_engagement(self, member_id: str) -> float:
-                \"\"\"
+                """
                 Calculate member engagement score
-                \"\"\"
+                """
                 member = self.members.get(member_id)
                 if not member:
                     return 0.0
 
                 # Engagement factors
-                discussions_created = sum(1 for d_var in self.discussions
+                discussions_created = sum(1 for d in self.discussions
                                         if d["author_id"] == member_id)
-                events_attended = sum(1 for e_var in self.events
+                events_attended = sum(1 for e in self.events
                                     if member_id in e.get("registered_members", []))
                 books_read = len(member.books_read)
 
@@ -682,9 +678,9 @@ def __init__(self):
                 return member.engagement_score
 
             async def _get_community_features(self, community_type: str) -> List[str]:
-                \"\"\"
+                """
                 Get features for community type
-                \"\"\"
+                """
                 features_map = {
                     "readers": ["discussions", "book_clubs", "author_qa", "reviews"],
                     "writers": ["workshops", "critiques", "resources", "challenges"],
@@ -694,11 +690,10 @@ def __init__(self):
 
                 return features_map.get(community_type, features_map["readers"])
 
-            async     """ Initialize Community Spaces"""
-def _initialize_community_spaces(self, community: Dict):
-                \"\"\"
+            async def _initialize_community_spaces(self, community: Dict):
+                """
                 Initialize community spaces and channels
-                \"\"\"
+                """
                 # Create default discussion categories
                 categories = ["announcements", "general", "book_discussions",
                             "recommendations"]
@@ -710,42 +705,41 @@ def _initialize_community_spaces(self, community: Dict):
                         category
                     )
 
-            async     """ Send Welcome Sequence"""
-def _send_welcome_sequence(self, member: CommunityMember):
-                \"\"\"
+            async def _send_welcome_sequence(self, member: CommunityMember):
+                """
                 Send welcome emails/messages to new member
-                \"\"\"
+                """
                 # Implementation for welcome sequence
                 self.logger.info(f"Sending welcome sequence to {member.name}")
 
-            async     """ Notify Discussion Created"""
-def _notify_discussion_created(self, discussion: Dict):
-                \"\"\"
+            async def _notify_discussion_created(self, discussion: Dict):
+                """
                 Notify members about new discussion
-                \"\"\"
+                """
                 # Implementation for notifications
                 self.logger.info(f"Notifying members about discussion: {discussion['topic']}")
 
-            async     """ Send Event Invitations"""
-def _send_event_invitations(self, event: Dict):
-                \"\"\"
+            async def _send_event_invitations(self, event: Dict):
+                """
                 Send event invitations to members
-                \"\"\"
+                """
                 # Implementation for event invitations
                 self.logger.info(f"Sending invitations for event: {event['title']}")
         """
         ).strip()
 
     def _generic_feature_template(self, feature_name: str, requirements: Dict) -> str:
-        """Generic template for any feature"""
+        """
+        Generic template for any feature
+        """
 
         class_name = "".join(word.title() for word in feature_name.split("_"))
 
         return dedent(
             f"""
-        \"\"\"
+        """
         {class_name} - Implementation for {feature_name.replace('_', ' ')}
-        \"\"\"
+        """
 
         import asyncio
         import logging
@@ -754,20 +748,19 @@ def _send_event_invitations(self, event: Dict):
 
 
         class {class_name}:
-            \"\"\"
+            """
             Implements {feature_name.replace('_', ' ')} functionality
-            \"\"\"
+            """
 
-                """  Init  """
-def __init__(self, config: Optional[Dict] = None):
+            def __init__(self, config: Optional[Dict] = None):
                 self.config = config or {{}}
                 self.logger = logging.getLogger(__name__)
                 self.requirements = {requirements}
 
             async def initialize(self) -> bool:
-                \"\"\"
+                """
                 Initialize the feature
-                \"\"\"
+                """
                 self.logger.info(f"Initializing {feature_name}")
 
                 # Setup required components
@@ -776,9 +769,9 @@ def __init__(self, config: Optional[Dict] = None):
                 return True
 
             async def execute(self, params: Dict) -> Dict:
-                \"\"\"
+                """
                 Execute the main feature functionality
-                \"\"\"
+                """
                 self.logger.info(f"Executing {feature_name} with params: {{params}}")
 
                 try:
@@ -800,18 +793,17 @@ def __init__(self, config: Optional[Dict] = None):
                         "error": str(e)
                     }}
 
-            async     """ Setup Components"""
-def _setup_components(self):
-                \"\"\"
+            async def _setup_components(self):
+                """
                 Setup required components
-                \"\"\"
+                """
                 # Component setup implementation
                 pass
 
             async def _process(self, params: Dict) -> Dict:
-                \"\"\"
+                """
                 Process the feature request
-                \"\"\"
+                """
                 # Main processing logic
                 return {{
                     "processed": True,
@@ -821,13 +813,15 @@ def _setup_components(self):
         ).strip()
 
     async def _generate_tests(self, feature_name: str, implementation: Dict) -> Dict:
-        """Generate tests for the feature"""
+        """
+        Generate tests for the feature
+        """
 
         test_code = dedent(
             f"""
-        \"\"\"
+        """
         Tests for {feature_name} feature
-        \"\"\"
+        """
 
         import pytest
         import asyncio
@@ -840,35 +834,41 @@ def _setup_components(self):
 
 
         class Test{feature_name.title().replace('_', '')}:
-            \"\"\"Test suite for {feature_name}\"\"\"
+            """
+            Test suite for {feature_name}
+            """
 
             @pytest.fixture
-            async     """Instance"""
-def instance(self):
-                \"\"\"Create instance for testing\"\"\"
+            async def instance(self):
+                """
+                Create instance for testing
+                """
                 instance = {feature_name.title().replace('_', '')}()
                 await instance.initialize()
                 return instance
 
             @pytest.mark.asyncio
-            async     """Test Initialization"""
-def test_initialization(self, instance):
-                \"\"\"Test feature initialization\"\"\"
+            async def test_initialization(self, instance):
+                """
+                Test feature initialization
+                """
                 assert instance is not None
 
             @pytest.mark.asyncio
-            async     """Test Execute Success"""
-def test_execute_success(self, instance):
-                \"\"\"Test successful execution\"\"\"
-                result = await instance.execute({{"test": True}})
+            async def test_execute_success(self, instance):
+                """
+                Test successful execution
+                """
+                result = await instance.execute({"test": True})
                 assert result["status"] == "success"
 
             @pytest.mark.asyncio
-            async     """Test Execute With Error"""
-def test_execute_with_error(self, instance):
-                \"\"\"Test error handling\"\"\"
+            async def test_execute_with_error(self, instance):
+                """
+                Test error handling
+                """
                 # Test with invalid params
-                result = await instance.execute({{"invalid": None}})
+                result = await instance.execute({"invalid": None})
                 # Should handle gracefully
                 assert result["status"] in ["success", "error"]
         """
@@ -881,9 +881,14 @@ def test_execute_with_error(self, instance):
         }
 
     async def _generate_documentation(
-        self, feature_name: str, requirements: Dict, implementation: Dict
+        self,
+        feature_name: str,
+        requirements: Dict,
+        implementation: Dict
     ) -> str:
-        """Generate documentation for the feature"""
+        """
+        Generate documentation for the feature
+        """
 
         return dedent(
             f"""
@@ -947,7 +952,9 @@ def test_execute_with_error(self, instance):
         tests: Optional[Dict],
         docs: Optional[str],
     ) -> Dict:
-        """Write all feature files to disk"""
+        """
+        Write all feature files to disk
+        """
 
         feature_dir = Path("features") / feature_name
         feature_dir.mkdir(parents=True, exist_ok=True)

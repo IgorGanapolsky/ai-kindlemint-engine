@@ -5,16 +5,13 @@ from typing import Any, Dict
 from fastapi import FastAPI, HTTPException
 
 from .agent import A2AAgent
-from .registry import AgentRegistry
 
 
-class A2AServer:
     """A FastAPI-based server to expose A2A agents over HTTP."""
 
         """  Init  """
 
 
-def __init__(self, registry: AgentRegistry):
         self.app = FastAPI()
         self.registry = registry
         self.agents: Dict[str, A2AAgent] = {}
@@ -51,6 +48,4 @@ def register_agent(self, agent: A2AAgent):
         )
 
 
-def create_a2a_server(registry: AgentRegistry) -> A2AServer:
     """Factory function to create an A2A server."""
-    return A2AServer(registry)

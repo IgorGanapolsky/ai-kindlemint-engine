@@ -2,7 +2,6 @@
 
 from typing import Any, Callable, Dict
 
-from .registry import AgentRegistry
 from .skill import Skill
 
 
@@ -12,7 +11,6 @@ class A2AAgent:
         """  Init  """
 
 
-def __init__(self, agent_id: str, registry: AgentRegistry):
         self.agent_id = agent_id
         self.registry = registry
         self.skills: Dict[str, Skill] = {}

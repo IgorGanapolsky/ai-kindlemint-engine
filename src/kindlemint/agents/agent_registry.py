@@ -16,7 +16,6 @@ from .health_monitoring import HealthMonitor, HealthStatus
 from .message_protocol import AgentMessage
 
 
-class AgentRegistry:
     """
     Centralized registry for agent discovery and communication routing
     """

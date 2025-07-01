@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 
-class AgentRegistry:
     """A central registry for discovering and managing A2A agents."""
 
     _instance = None
@@ -17,7 +16,6 @@ class AgentRegistry:
 
 def __new__(cls, registry_file: Optional[str] = None):
         if cls._instance is None:
-            cls._instance = super(AgentRegistry, cls).__new__(cls)
             if registry_file:
                 cls._registry_file = Path(registry_file)
                 cls._instance._load_registry()

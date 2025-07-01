@@ -14,7 +14,6 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional, Set
 
-from .agent_registry import AgentRegistry
 from .base_agent import AgentCapability
 from .message_protocol import AgentMessage, MessageType, Priority, create_task_request
 from .task_system import Task, TaskPriority, TaskResult, TaskStatus, TaskType
@@ -80,7 +79,6 @@ class TaskCoordinator:
         """  Init  """
 def __init__(
         self,
-        agent_registry: AgentRegistry,
         max_concurrent_workflows: int = 10,
         task_timeout_default: int = 1800,  # 30 minutes
         retry_delay_base: float = 2.0,

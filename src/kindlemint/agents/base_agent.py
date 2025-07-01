@@ -97,7 +97,6 @@ def __init__(
 
         # Communication
         self.message_handlers: Dict[MessageType, callable] = {}
-        self.agent_registry: Optional["AgentRegistry"] = None
 
         # Logging
         self.logger = logging.getLogger(f"agent.{self.agent_id}")

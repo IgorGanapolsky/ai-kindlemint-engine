@@ -14,7 +14,6 @@ from pathlib import Path
 from typing import Dict
 
 from kindlemint.agents import (
-    AgentRegistry,
     HealthMonitor,
     TaskCoordinator,
     create_book_generation_workflow,
@@ -44,7 +43,6 @@ def __init__(self):
         """Initialize the multi-agent system"""
         # Core systems
         self.health_monitor = HealthMonitor(check_interval=30)
-        self.agent_registry = AgentRegistry(self.health_monitor)
         self.task_coordinator = TaskCoordinator(self.agent_registry)
 
         # Agents

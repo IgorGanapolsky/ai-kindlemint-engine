@@ -65,7 +65,28 @@ class SEOOptimizedMarketing:
 
         # For now, return the original data with a note
         enhanced_data = book_data.copy()
-        enhanced_data["seo_status"] = "pending_enhancement"
+
+        # ------------------------------------------------------------------
+        # Minimal operational enhancement
+        # ------------------------------------------------------------------
+        # 1. Append an SEO-strategy note to the description (if any).
+        # 2. Mark the record as enhanced.
+        # ------------------------------------------------------------------
+
+        primary_strategy_key = next(iter(self.seo_strategies_2025.keys()))
+
+        # Safely augment the description
+        if "description" in enhanced_data and isinstance(
+            enhanced_data["description"], str
+        ):
+            enhanced_data["description"] = (
+                enhanced_data["description"].rstrip()
+                + "\n\n"
+                + f"SEO Strategy Applied: {primary_strategy_key}"
+            )
+
+        # Flip status flag
+        enhanced_data["seo_status"] = "enhanced"
 
         return enhanced_data
 

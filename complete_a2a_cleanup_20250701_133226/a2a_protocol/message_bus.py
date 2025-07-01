@@ -17,8 +17,7 @@ logger = logging.getLogger(__name__)
 class A2AMessageBus:
     """Central message bus for A2A communication"""
 
-        """  Init  """
-def __init__(self, registry: A2ARegistry):
+    def __init__(self, registry: A2ARegistry):
         self.registry = registry
         self.message_queue = asyncio.Queue()
         self.message_history: List[A2AMessage] = []
@@ -26,8 +25,7 @@ def __init__(self, registry: A2ARegistry):
         self.running = False
         logger.info("A2A Message Bus initialized")
 
-    async     """Start"""
-def start(self):
+    async def start(self):
         """Start the message bus"""
         self.running = True
         logger.info("Message bus started")
@@ -35,8 +33,7 @@ def start(self):
         # Start message processing loop
         asyncio.create_task(self._process_messages())
 
-    async     """Stop"""
-def stop(self):
+    async def stop(self):
         """Stop the message bus"""
         self.running = False
         logger.info("Message bus stopped")
@@ -68,8 +65,7 @@ def stop(self):
 
         return None
 
-    async     """ Process Messages"""
-def _process_messages(self):
+    async def _process_messages(self):
         """Process messages from the queue"""
         while self.running:
             try:
@@ -110,8 +106,7 @@ def _process_messages(self):
             except Exception as e:
                 logger.error(f"Error in message processing loop: {e}")
 
-    async     """ Deliver Response"""
-def _deliver_response(self, response: A2AMessage):
+    async def _deliver_response(self, response: A2AMessage):
         """Deliver a response to the waiting sender"""
         if response.correlation_id in self.response_callbacks:
             future = self.response_callbacks[response.correlation_id]
