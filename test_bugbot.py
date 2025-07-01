@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 def fetch_data():
     """
     Fetch data from external API with proper timeout handling.
-    
+
     Returns:
         dict: Response data if successful, None if failed
     """
