@@ -40,13 +40,19 @@ class GitHubIssuesAgent(BaseAgent):
         self.repo = repo or "IgorGanapolsky/ai-kindlemint-engine"
 
         # Security improvement patterns
-        self.security_bots = ["pixeebot", "dependabot", "snyk-bot", "deepsource-autofix[bot]", "seer-by-sentry"]
+        self.security_bots = [
+            "pixeebot",
+            "dependabot",
+            "snyk-bot",
+            "deepsource-autofix[bot]",
+            "seer-by-sentry",
+        ]
         self.auto_approve_patterns = [
             "Add timeout to requests calls",
             "Secure Source of Randomness",
             "Bump .* from .* to .*",  # Dependency updates
         ]
-        
+
         # Aggressive merge mode configuration
         self.aggressive_mode = True
         self.auto_merge_patterns = [
@@ -223,9 +229,17 @@ This PR requires manual review to assess:
             auto_approve
             and (
                 is_security_bot
-                or (self.aggressive_mode and any(pattern in title.lower() for pattern in self.auto_merge_patterns))
+                or (
+                    self.aggressive_mode
+                    and any(
+                        pattern in title.lower() for pattern in self.auto_merge_patterns
+                    )
+                )
             )
-            and any(pattern in title.lower() for pattern in self.auto_approve_patterns + self.auto_merge_patterns)
+            and any(
+                pattern in title.lower()
+                for pattern in self.auto_approve_patterns + self.auto_merge_patterns
+            )
         )
 
         if should_auto_approve:
@@ -259,7 +273,7 @@ This PR requires manual review to assess:
                     "--delete-branch",
                 ]
             )
-            
+
             if not merge_result:
                 # Try squash merge if regular merge fails
                 await self._run_gh_command(
