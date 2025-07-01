@@ -115,9 +115,12 @@ class BaseAgent(ABC):
             self.logger.info(f"Starting agent {self.agent_id}")
 
             # Start background tasks
-            self._background_tasks.add(asyncio.create_task(self._task_processor()))
-            self._background_tasks.add(asyncio.create_task(self._message_processor()))
-            self._background_tasks.add(asyncio.create_task(self._health_monitor()))
+            self._background_tasks.add(
+                asyncio.create_task(self._task_processor()))
+            self._background_tasks.add(
+                asyncio.create_task(self._message_processor()))
+            self._background_tasks.add(
+                asyncio.create_task(self._health_monitor()))
 
             # Agent-specific initialization
             await self._initialize()
@@ -167,7 +170,8 @@ class BaseAgent(ABC):
 
         try:
             await self.task_queue.put(task)
-            self.logger.info(f"Task {task.task_id} assigned to agent {self.agent_id}")
+            self.logger.info(
+                f"Task {task.task_id} assigned to agent {self.agent_id}")
             return True
         except Exception as e:
             self.logger.error(f"Failed to assign task {task.task_id}: {e}")
@@ -187,7 +191,8 @@ class BaseAgent(ABC):
             if self.agent_registry:
                 return await self.agent_registry.route_message(message)
             else:
-                self.logger.warning("No agent registry available for message routing")
+                self.logger.warning(
+                    "No agent registry available for message routing")
                 return False
         except Exception as e:
             self.logger.error(f"Failed to send message: {e}")
@@ -206,7 +211,8 @@ class BaseAgent(ABC):
         """Get current health status of the agent"""
         self.health_status.agent_id = self.agent_id
         self.health_status.status = self.status.value
-        self.health_status.uptime = (datetime.now() - self.start_time).total_seconds()
+        self.health_status.uptime = (
+            datetime.now() - self.start_time).total_seconds()
         self.health_status.active_tasks = len(self.current_tasks)
         self.health_status.success_rate = self.metrics.success_rate
         self.health_status.last_heartbeat = datetime.now()
@@ -309,7 +315,8 @@ class BaseAgent(ABC):
             task.error = str(e)
 
             processing_time = time.time() - task_start_time
-            self._update_metrics(success=False, processing_time=processing_time)
+            self._update_metrics(
+                success=False, processing_time=processing_time)
 
         finally:
             # Clean up
@@ -337,9 +344,11 @@ class BaseAgent(ABC):
             try:
                 await handler(message)
             except Exception as e:
-                self.logger.error(f"Error handling message {message.message_id}: {e}")
+                self.logger.error(
+                    f"Error handling message {message.message_id}: {e}")
         else:
-            self.logger.warning(f"No handler for message type: {message.message_type}")
+            self.logger.warning(
+                f"No handler for message type: {message.message_type}")
 
     async def _health_monitor(self) -> None:
         """Background health monitoring"""
