@@ -315,7 +315,8 @@
       "Bash(PYTHONPATH=/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine python -c \"\nimport asyncio\nimport sys\nfrom pathlib import Path\nsys.path.insert(0, str(Path.cwd()))\nfrom src.kindlemint.agents.github_issues_agent import GitHubIssuesAgent\nfrom src.kindlemint.agents.task_system import Task\nimport uuid\n\nasync def cleanup_duplicate_issues():\n    agent = GitHubIssuesAgent()\n    await agent.start()\n    \n    task = Task(\n        task_id=str(uuid.uuid4()),\n        task_type=''analyze_issue'',\n        parameters={''action_type'': ''generate_report''}\n    )\n    \n    result = await agent._process_task(task)\n    await agent.stop()\n    return result\n\nasyncio.run(cleanup_duplicate_issues())\n\")",
       "Bash(gh issue close:*)",
       "Bash(for issue in 93 92 91 90 87 85 83 81 80 79 78)",
-      "Bash(do gh issue close $issue --comment \"🤖 **Auto-closed by AI Orchestration**: Duplicate merge report. Consolidated reporting system now prevents spam.\")"
+      "Bash(do gh issue close $issue --comment \"🤖 **Auto-closed by AI Orchestration**: Duplicate merge report. Consolidated reporting system now prevents spam.\")",
+      "Bash(git remote:*)"
     ],
     "deny": []
   }
