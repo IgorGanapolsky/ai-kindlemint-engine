@@ -130,7 +130,7 @@ class Helium10API:
                 f"{self.base_url}/cerebro",
                 headers={"Authorization": f"Bearer {self.api_key}"},
                 json={"keywords": keywords},
-            )
+            timeout=60)
             return response.json()
         except Exception as e:
             logging.error(f"Helium 10 API failed: {e}")
@@ -150,7 +150,7 @@ class Helium10API:
             response = requests.get(
                 f"{self.base_url}/trends/{category}",
                 headers={"Authorization": f"Bearer {self.api_key}"},
-            )
+            timeout=60)
             return response.json().get("keywords", [])
         except Exception as e:
             logging.error(f"Trending keywords failed: {e}")
@@ -183,7 +183,7 @@ class JungleScoutAPI:
                 f"{self.base_url}/sales_estimates",
                 headers={"Authorization": f"Bearer {self.api_key}"},
                 params={"bsr": bsr, "category": category},
-            )
+            timeout=60)
             return response.json()
         except Exception as e:
             logging.error(f"Sales estimation failed: {e}")
