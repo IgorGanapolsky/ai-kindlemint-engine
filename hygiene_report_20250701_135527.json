@@ -1,0 +1,86 @@
+{
+  "timestamp": "2025-07-01T13:55:27.176220",
+  "issues": [
+    {
+      "type": "root_clutter_critical",
+      "severity": "high",
+      "count": 29,
+      "message": "Too many files in root directory (29). Should be < 20.",
+      "suggestion": "Move files to appropriate subdirectories"
+    },
+    {
+      "type": "documentation_clutter",
+      "severity": "high",
+      "count": 8,
+      "message": "8 .md files in root (should be in docs/)",
+      "files": [
+        "A2A_REMOVAL_COMPLETE.md",
+        "COMPLETE_A2A_CLEANUP.md",
+        "CLAUDE_COSTS.md",
+        "PR_ORCHESTRATOR_QUICKSTART.md",
+        "AWS_MIGRATION_COMPLETE.md"
+      ]
+    }
+  ],
+  "suggestions": [
+    {
+      "action": "aggressive_root_cleanup",
+      "priority": "high",
+      "message": "Move 29 files from root to appropriate directories",
+      "command": "python scripts/aggressive_repository_cleanup.py"
+    },
+    {
+      "action": "move_docs_to_docs_dir",
+      "priority": "high",
+      "message": "Move 8 .md files to docs/ directory",
+      "files": [
+        "A2A_REMOVAL_COMPLETE.md",
+        "COMPLETE_A2A_CLEANUP.md",
+        "CLAUDE_COSTS.md",
+        "PR_ORCHESTRATOR_QUICKSTART.md",
+        "AWS_MIGRATION_COMPLETE.md"
+      ]
+    }
+  ],
+  "metrics": {
+    "hygiene_score": 50.0,
+    "root_files": 29,
+    "total_files": 29041,
+    "issues_count": 2,
+    "critical_issues": 2,
+    "organization_score": 100.0
+  },
+  "total_files": 29041,
+  "root_files": 29,
+  "root_file_list": [
+    ".cursorignore",
+    "claude-code",
+    "last_commit_cost.json",
+    "LICENSE",
+    "test_sudoku.pdf",
+    "requirements.txt",
+    "claude-flow-costs-notify",
+    "commit_costs.json",
+    "A2A_REMOVAL_COMPLETE.md",
+    "COMPLETE_A2A_CLEANUP.md",
+    "CLAUDE_COSTS.md",
+    "PR_ORCHESTRATOR_QUICKSTART.md",
+    "hygiene_report_20250701_135458.json",
+    ".deepsource.toml",
+    "README.md",
+    "AWS_MIGRATION_COMPLETE.md",
+    "setup.py",
+    "claude-flow-costs",
+    "sonar-project.properties",
+    "claude-flow",
+    ".ccfignore",
+    "PR_STRATEGY_IMPLEMENTATION.md",
+    ".gitignore",
+    "CONTRIBUTING.md",
+    "hygiene_report.json",
+    ".gitattributes",
+    ".env.example",
+    "CURSOR_BUGBOT_TROUBLESHOOTING.md",
+    "cost_analytics.json"
+  ]
+}

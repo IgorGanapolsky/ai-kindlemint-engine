@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-07-01T13:53:05.128069",
+  "timestamp": "2025-07-01T13:55:30.474261",
   "project_path": "/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine",
   "analysis": {
     "issues": {
       "ci_artifacts": [
-        "Found 359 CI artifact files scattered in the codebase"
+        "Found 358 CI artifact files scattered in the codebase"
       ],
       "duplicates": [
         "Found 296 duplicate files across 94 groups"
@@ -23,14 +23,14 @@
       ]
     },
     "stats": {
-      "ci_artifacts": 359,
+      "ci_artifacts": 358,
       "duplicates": 296,
       "scattered_docs": 76,
       "naming": 5,
       "empty_dirs": 15,
       "gitignore": 3
     },
-    "summary": "\ud83d\udd0d Code Hygiene Analysis Summary\nFound 6 issues across 6 categories:\n\n+----------------+---------+-------------------------------------------------------+\n| Category       |   Count | Description                                           |\n+================+=========+=======================================================+\n| Ci Artifacts   |     359 | Found 359 CI artifact files scattered in the codeb... |\n+----------------+---------+-------------------------------------------------------+\n| Duplicates     |     296 | Found 296 duplicate files across 94 groups...         |\n+----------------+---------+-------------------------------------------------------+\n| Empty Dirs     |      15 | Found 15 empty directories...                         |\n+----------------+---------+-------------------------------------------------------+\n| Gitignore      |       3 | .gitignore is missing 3 recommended patterns...       |\n+----------------+---------+-------------------------------------------------------+\n| Naming         |       5 | Found 5 files with naming convention issues...        |\n+----------------+---------+-------------------------------------------------------+\n| Scattered Docs |      76 | Found 76 documentation files that could be better ... |\n+----------------+---------+-------------------------------------------------------+"
+    "summary": "\ud83d\udd0d Code Hygiene Analysis Summary\nFound 6 issues across 6 categories:\n\n+----------------+---------+-------------------------------------------------------+\n| Category       |   Count | Description                                           |\n+================+=========+=======================================================+\n| Ci Artifacts   |     358 | Found 358 CI artifact files scattered in the codeb... |\n+----------------+---------+-------------------------------------------------------+\n| Duplicates     |     296 | Found 296 duplicate files across 94 groups...         |\n+----------------+---------+-------------------------------------------------------+\n| Empty Dirs     |      15 | Found 15 empty directories...                         |\n+----------------+---------+-------------------------------------------------------+\n| Gitignore      |       3 | .gitignore is missing 3 recommended patterns...       |\n+----------------+---------+-------------------------------------------------------+\n| Naming         |       5 | Found 5 files with naming convention issues...        |\n+----------------+---------+-------------------------------------------------------+\n| Scattered Docs |      76 | Found 76 documentation files that could be better ... |\n+----------------+---------+-------------------------------------------------------+"
   },
   "version": "1.0.0"
 }

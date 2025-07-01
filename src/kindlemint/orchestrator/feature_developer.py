@@ -276,7 +276,7 @@ class FeatureDeveloper:
                 # NLP processing to find product mentions
                 return keywords
 
-            async def _search_affiliate_products(self, keywords: List[str],
+            async def _search_affiliate_products(self, keywords: List[str],\
                                                program: str) -> List[Dict]:
                 """
                       Search affiliate program for products
@@ -290,16 +290,16 @@ class FeatureDeveloper:
 
                 return products
 
-            async def _rank_products(self, products: List[Dict],
+            async def _rank_products(self, products: List[Dict],\
                                     book_content: Dict) -> List[Dict]:
                 """
                       Rank products by relevance to book content
                       """
                 # Ranking algorithm implementation
-                return sorted(products, key=lambda x: x.get("relevance_score", 0),
+                return sorted(products, key=lambda x: x.get("relevance_score", 0),\
                             reverse=True)
 
-            async def _generate_product_review(self, product: Dict) -> Dict:
+            async def _generate_product_review(self, product: Dict) -> Dict:\
                 """
                       Generate a product review
                       """
@@ -818,6 +818,7 @@ class FeatureDeveloper:
 
         sys.path.insert(0, str(Path(__file__).parent))
 
+
         from {feature_name} import *
 
 
@@ -901,7 +902,7 @@ class FeatureDeveloper:
         await feature.initialize()
 
         # Execute the feature
-        result = await feature.execute({{
+        result = await feature.execute({{\
             "param1": "value1",
             "param2": "value2"
         }})
