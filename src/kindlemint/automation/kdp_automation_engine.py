@@ -19,6 +19,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from security import safe_requests
 
 
 @dataclass
@@ -147,7 +148,7 @@ class Helium10API:
             List[str]: A list of trending keywords, or an empty list if the request fails.
         """
         try:
-            response = requests.get(
+            response = safe_requests.get(
                 f"{self.base_url}/trends/{category}",
                 headers={"Authorization": f"Bearer {self.api_key}"},
             timeout=60)
@@ -179,7 +180,7 @@ class JungleScoutAPI:
         	Dict: A dictionary containing sales estimate data, or an empty dictionary if the request fails.
         """
         try:
-            response = requests.get(
+            response = safe_requests.get(
                 f"{self.base_url}/sales_estimates",
                 headers={"Authorization": f"Bearer {self.api_key}"},
                 params={"bsr": bsr, "category": category},
