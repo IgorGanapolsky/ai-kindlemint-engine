@@ -8,7 +8,7 @@ Contains functionality for fetching data from external APIs
 def fetch_data():
     """
     Fetch data from an external API endpoint.
-    
+
     Returns:
         dict or None: Response data if successful, None if failed
     """
