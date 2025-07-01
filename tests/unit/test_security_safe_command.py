@@ -17,6 +17,7 @@ class TestSafeCommand:
         """Test that safe_command can be imported"""
         try:
             from security import safe_command
+
             assert safe_command is not None
         except ImportError:
             # If the security module doesn't exist yet, this test documents the expected interface
@@ -33,16 +34,12 @@ class TestSafeCommand:
         mock_safe_command.run.return_value = mock_result
 
         from security import safe_command
-        
+
         # Test the safe wrapper
         result = safe_command.run(
-            subprocess.run,
-            ["echo", "test"],
-            capture_output=True,
-            text=True,
-            check=True
+            subprocess.run, ["echo", "test"], capture_output=True, text=True, check=True
         )
-        
+
         assert result.returncode == 0
         assert result.stdout == "Success output"
         mock_safe_command.run.assert_called_once()
@@ -63,9 +60,9 @@ class TestSafeCommand:
                 ["false"],  # Command that always fails
                 capture_output=True,
                 text=True,
-                check=True
+                check=True,
             )
-        
+
         assert exc_info.value.returncode == 1
         mock_safe_command.run.assert_called_once()
 
@@ -80,13 +77,9 @@ class TestSafeCommand:
         from security import safe_command
 
         result = safe_command.run(
-            subprocess.run,
-            ["sleep", "1"],
-            capture_output=True,
-            text=True,
-            timeout=5
+            subprocess.run, ["sleep", "1"], capture_output=True, text=True, timeout=5
         )
-        
+
         assert result.returncode == 0
         mock_safe_command.run.assert_called_once()
 
@@ -108,12 +101,12 @@ class TestSafeCommand:
             check=False,
             cwd="/tmp",
             env={"TEST": "value"},
-            shell=False
+            shell=False,
         )
-        
+
         # Verify the call was made (exact arguments depend on implementation)
         mock_safe_command.run.assert_called_once()
-        
+
         # Verify result is returned
         assert result.returncode == 0
 
@@ -121,11 +114,16 @@ class TestSafeCommand:
         """Test expected module structure for security.safe_command"""
         try:
             from security import safe_command
-            
+
             # Verify expected interface
-            assert hasattr(safe_command, 'run'), "safe_command should have a 'run' function"
-            assert callable(safe_command.run), "safe_command.run should be callable"
-            
+            assert hasattr(
+                safe_command, "run"
+            ), "safe_command should have a 'run' function"
+            assert callable(
+                safe_command.run), "safe_command.run should be callable"
+
         except ImportError:
             # Document expected interface for when module is implemented
-            pytest.skip("security module not implemented yet - expected interface: security.safe_command.run(func, *args, **kwargs)")
+            pytest.skip(
+                "security module not implemented yet - expected interface: security.safe_command.run(func, *args, **kwargs)"
+            )

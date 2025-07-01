@@ -11,10 +11,10 @@ from pathlib import Path
 from unittest.mock import MagicMock, Mock, call, mock_open, patch
 
 import pytest
+from claude_costs import format_currency, main
 
 # Import the module under test
 sys.path.append(str(Path(__file__).parent.parent.parent / "scripts"))
-from claude_costs import format_currency, main
 
 
 class TestFormatCurrency:
@@ -113,7 +113,17 @@ class TestClaudeCosts:
         mock_tracker.load_last_commit_cost.assert_called_once()
 
     @patch("claude_costs.ClaudeCostTracker")
-    @patch("sys.argv", ["claude_costs", "track", "--model", "claude-3-haiku", "--message", "Test commit"])
+    @patch(
+        "sys.argv",
+        [
+            "claude_costs",
+            "track",
+            "--model",
+            "claude-3-haiku",
+            "--message",
+            "Test commit",
+        ],
+    )
     def test_track_command_success(self, mock_tracker_class):
         """Test the track command with successful tracking"""
         mock_tracker = Mock()
@@ -127,7 +137,9 @@ class TestClaudeCosts:
 
         main()
 
-        mock_tracker.track_commit.assert_called_once_with("Test commit", "claude-3-haiku")
+        mock_tracker.track_commit.assert_called_once_with(
+            "Test commit", "claude-3-haiku"
+        )
 
     @patch("claude_costs.ClaudeCostTracker")
     @patch("sys.argv", ["claude_costs", "track"])
@@ -139,7 +151,8 @@ class TestClaudeCosts:
 
         main()
 
-        mock_tracker.track_commit.assert_called_once_with("", "claude-3-sonnet")
+        mock_tracker.track_commit.assert_called_once_with(
+            "", "claude-3-sonnet")
 
     @patch("claude_costs.ClaudeCostTracker")
     @patch("sys.argv", ["claude_costs", "summary", "--days", "7"])
@@ -174,7 +187,8 @@ class TestClaudeCosts:
         """Test the summary command with error"""
         mock_tracker = Mock()
         mock_tracker_class.return_value = mock_tracker
-        mock_tracker.get_cost_summary.return_value = {"error": "No data available"}
+        mock_tracker.get_cost_summary.return_value = {
+            "error": "No data available"}
 
         main()
 
@@ -260,7 +274,15 @@ class TestClaudeCosts:
                 ["Hash", "Timestamp", "Cost", "Tokens", "Files", "Model", "Message"]
             )
             mock_writer.writerow.assert_any_call(
-                ["abc123", "2024-01-01T12:00:00", 0.25, 1000, 2, "claude-3-sonnet", "Test commit"]
+                [
+                    "abc123",
+                    "2024-01-01T12:00:00",
+                    0.25,
+                    1000,
+                    2,
+                    "claude-3-sonnet",
+                    "Test commit",
+                ]
             )
 
     @patch("claude_costs.ClaudeCostTracker")
@@ -276,7 +298,9 @@ class TestClaudeCosts:
 
         with patch("json.dump") as mock_json_dump:
             main()
-            mock_json_dump.assert_called_once_with(mock_commits, mock_file.return_value, indent=2)
+            mock_json_dump.assert_called_once_with(
+                mock_commits, mock_file.return_value, indent=2
+            )
 
     @patch("claude_costs.ClaudeCostTracker")
     @patch("sys.argv", ["claude_costs", "export", "costs.txt"])
@@ -300,31 +324,31 @@ class TestClaudeCosts:
         mock_file = Mock()
         mock_file.parent = Path("/scripts")
         mock_path.return_value = mock_file
-        
+
         mock_badge_script = Path("/scripts/generate_cost_badge.py")
         mock_file.parent.__truediv__ = Mock(return_value=mock_badge_script)
-        
+
         mock_sys.executable = "/usr/bin/python3"
-        
+
         # Mock successful subprocess result
         mock_result = Mock()
         mock_result.stdout = "✅ Badge generated successfully!"
         mock_safe_command.run.return_value = mock_result
-        
+
         with patch("claude_costs.ClaudeCostTracker"):
             main()
-        
+
         # Verify safe_command.run was called instead of subprocess.run
         mock_safe_command.run.assert_called_once_with(
             subprocess.run,
             ["/usr/bin/python3", str(mock_badge_script)],
             capture_output=True,
             text=True,
-            check=True
+            check=True,
         )
 
     @patch("claude_costs.Path")
-    @patch("claude_costs.sys") 
+    @patch("claude_costs.sys")
     @patch("security.safe_command")
     @patch("sys.argv", ["claude_costs", "badge"])
     def test_badge_command_failure(self, mock_safe_command, mock_sys, mock_path):
@@ -333,19 +357,20 @@ class TestClaudeCosts:
         mock_file = Mock()
         mock_file.parent = Path("/scripts")
         mock_path.return_value = mock_file
-        
+
         mock_badge_script = Path("/scripts/generate_cost_badge.py")
         mock_file.parent.__truediv__ = Mock(return_value=mock_badge_script)
-        
+
         mock_sys.executable = "/usr/bin/python3"
-        
+
         # Mock subprocess failure
-        mock_error = subprocess.CalledProcessError(1, "cmd", stderr="Error message")
+        mock_error = subprocess.CalledProcessError(
+            1, "cmd", stderr="Error message")
         mock_safe_command.run.side_effect = mock_error
-        
+
         with patch("claude_costs.ClaudeCostTracker"):
             main()
-        
+
         # Verify safe_command.run was called and exception was handled
         mock_safe_command.run.assert_called_once()
 
