@@ -33,7 +33,7 @@ class CriticalMetadataQA:
             "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers",
             "Crafts, Hobbies & Home > Games & Activities > Puzzles & Games",
             "Games > Puzzles",
-            "Games > Word Games", 
+            "Games > Word Games",
             "Self-Help > Memory Improvement",
             "Crafts, Hobbies & Home > Games & Activities",  # Valid parent category
         }
@@ -321,11 +321,13 @@ class CriticalMetadataQA:
 
         all_files = set()
         for pattern in patterns:
-            files = glob.glob(os.path.join(str(self.base_dir), pattern), recursive=True)
+            files = glob.glob(os.path.join(
+                str(self.base_dir), pattern), recursive=True)
             all_files.update(files)
 
         # Filter out files under any _backup directory
-        filtered_files = [f for f in all_files if "_backup" not in Path(f).parts]
+        filtered_files = [
+            f for f in all_files if "_backup" not in Path(f).parts]
 
         print(f"📁 Found {len(filtered_files)} metadata files to validate")
         print()
