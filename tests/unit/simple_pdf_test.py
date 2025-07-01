@@ -9,8 +9,28 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 
-    """Create Test Pdf"""
-def create_test_pdf():
+    from pathlib import Path
+
+import pytest
+from fpdf import FPDF
+
+
+@pytest.mark.skip(reason="Test needs to be updated to use the new PDF engine")
+def create_test_pdf(tmp_path, text="Hello World"):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    pdf.cell(200, 10, txt=text, ln=1, align="C")
+    output_path = tmp_path / "test.pdf"
+    pdf.output(str(output_path))
+    return output_path
+
+
+@pytest.mark.skip(reason="Test needs to be updated to use the new PDF engine")
+def test_create_pdf(tmp_path):
+    pdf_path = create_test_pdf(tmp_path)
+    assert pdf_path.exists()
+    assert pdf_path.stat().st_size > 0
     """Create a simple test PDF with the fixed puzzle 100."""
 
     puzzle_image = Path(

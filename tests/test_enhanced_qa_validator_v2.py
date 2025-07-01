@@ -13,7 +13,6 @@ from scripts.enhanced_qa_validator_v2 import EnhancedQAValidatorV2
 # --- Helper function for mock data ---
 
 
-    """Create Mock Puzzle Data"""
 def create_mock_puzzle_data(puzzle_id, **kwargs):
     """
     Generates a dictionary representing puzzle metadata.
@@ -74,14 +73,12 @@ def create_mock_puzzle_data(puzzle_id, **kwargs):
 
 
 @pytest.fixture
-    """Book Dir"""
 def book_dir(tmp_path):
     """Provides a temporary directory to simulate a book's folder structure."""
     return tmp_path
 
 
 @pytest.fixture
-    """Mock Metadata Dir"""
 def mock_metadata_dir(book_dir):
     """Creates the metadata subdirectory."""
     meta_dir = book_dir / "metadata"
@@ -90,7 +87,6 @@ def mock_metadata_dir(book_dir):
 
 
 @pytest.fixture
-    """Custom Word List"""
 def custom_word_list(tmp_path):
     """Creates a small, controlled word list for testing."""
     word_file = tmp_path / "test_words.txt"
@@ -113,7 +109,6 @@ def custom_word_list(tmp_path):
 
 
 @pytest.fixture
-    """Validator Instance"""
 def validator_instance(book_dir, custom_word_list):
     """Provides a pre-configured instance of the EnhancedQAValidatorV2."""
     return EnhancedQAValidatorV2(
@@ -129,8 +124,7 @@ def validator_instance(book_dir, custom_word_list):
 class TestValidatorInitialization:
     """Tests for validator setup and configuration."""
 
-        """Test Initialization Success"""
-def test_initialization_success(
+    def test_initialization_success(
         self, book_dir, mock_metadata_dir, custom_word_list
     ):
         """Test successful initialization."""
@@ -140,8 +134,7 @@ def test_initialization_success(
         assert validator.book_dir == book_dir
         assert "PYTHON" in validator.word_dict
 
-        """Test Initialization Fails If Metadata Dir Missing"""
-def test_initialization_fails_if_metadata_dir_missing(self, book_dir):
+    def test_initialization_fails_if_metadata_dir_missing(self, book_dir):
         """Test that initialization raises FileNotFoundError if metadata dir is absent."""
         with pytest.raises(FileNotFoundError):
             EnhancedQAValidatorV2(str(book_dir))
@@ -150,8 +143,7 @@ def test_initialization_fails_if_metadata_dir_missing(self, book_dir):
 class TestValidationChecks:
     """Tests for the individual validation rules."""
 
-        """Test Word Content Valid"""
-def test_word_content_valid(self, validator_instance, mock_metadata_dir):
+    def test_word_content_valid(self, validator_instance, mock_metadata_dir):
         """Test a puzzle where all words are in the dictionary."""
         puzzle_data = create_mock_puzzle_data(1)
         validator_instance._validate_word_content(1, puzzle_data)
@@ -159,8 +151,7 @@ def test_word_content_valid(self, validator_instance, mock_metadata_dir):
         assert "All words are valid." in report["passed_checks"]
         assert len(report["critical_issues"]) == 0
 
-        """Test Word Content Invalid"""
-def test_word_content_invalid(self, validator_instance, mock_metadata_dir):
+    def test_word_content_invalid(self, validator_instance, mock_metadata_dir):
         """Test a puzzle with words not present in the dictionary."""
         puzzle_data = create_mock_puzzle_data(
             1, clues={"across": [(1, "A made-up word", "GIBBERISH")], "down": []}
@@ -169,8 +160,7 @@ def test_word_content_invalid(self, validator_instance, mock_metadata_dir):
         report = validator_instance.report["puzzles"][1]
         assert "Contains invalid/unknown words: GIBBERISH" in report["critical_issues"]
 
-        """Test Intersections Valid"""
-def test_intersections_valid(self, validator_instance):
+    def test_intersections_valid(self, validator_instance):
         """Test a puzzle with correct word intersections."""
         # PYTHON horizontally, EDITOR vertically, sharing 'P'
         puzzle_data = {
@@ -192,8 +182,7 @@ def test_intersections_valid(self, validator_instance):
             in validator_instance.report["puzzles"][1]["passed_checks"]
         )
 
-        """Test Intersections Invalid Conflict"""
-def test_intersections_invalid_conflict(self, validator_instance):
+    def test_intersections_invalid_conflict(self, validator_instance):
         """Test a puzzle where intersecting letters do not match."""
         # PYTHON horizontally, FIX vertically, but 'P' and 'F' conflict
         puzzle_data = {
@@ -210,8 +199,7 @@ def test_intersections_invalid_conflict(self, validator_instance):
         report = validator_instance.report["puzzles"][1]
         assert "Intersection conflict at (0,0)" in report["critical_issues"][0]
 
-        """Test Grid Connectivity Valid"""
-def test_grid_connectivity_valid(self, validator_instance):
+    def test_grid_connectivity_valid(self, validator_instance):
         """Test a simple, fully connected grid."""
         grid = [
             ["P", "Y", "T", "H", "O", "N"],
@@ -226,8 +214,7 @@ def test_grid_connectivity_valid(self, validator_instance):
         report = validator_instance.report["puzzles"][1]
         assert "Grid is fully connected." in report["passed_checks"]
 
-        """Test Grid Connectivity Invalid"""
-def test_grid_connectivity_invalid(self, validator_instance):
+    def test_grid_connectivity_invalid(self, validator_instance):
         """Test a grid with isolated, unreachable squares."""
         grid = [["A", "", "#", "", "B"]]
         validator_instance._validate_grid_connectivity(1, grid)
@@ -236,8 +223,7 @@ def test_grid_connectivity_invalid(self, validator_instance):
             "Grid has 1 unreachable/isolated squares." in report["critical_issues"][0]
         )
 
-        """Test Duplicate Words"""
-def test_duplicate_words(self, validator_instance):
+    def test_duplicate_words(self, validator_instance):
         """Test validation fails if a puzzle contains duplicate words."""
         puzzle_data = create_mock_puzzle_data(
             1,
@@ -254,8 +240,7 @@ def test_duplicate_words(self, validator_instance):
 class TestReportGenerationAndScoring:
     """Tests for the final report and scoring logic."""
 
-        """Test Full Run Pass"""
-def test_full_run_pass(self, validator_instance, mock_metadata_dir):
+    def test_full_run_pass(self, validator_instance, mock_metadata_dir):
         """Test a full run on a valid book, expecting a PASS status."""
         # Create collection.json
         (mock_metadata_dir / "collection.json").write_text(json.dumps({"puzzles": [1]}))
@@ -268,8 +253,7 @@ def test_full_run_pass(self, validator_instance, mock_metadata_dir):
         assert report["summary"]["puzzles_passed"] == 1
         assert report["summary"]["critical_issues_count"] == 0
 
-        """Test Full Run Fail"""
-def test_full_run_fail(self, validator_instance, mock_metadata_dir):
+    def test_full_run_fail(self, validator_instance, mock_metadata_dir):
         """Test a full run on a book with critical issues, expecting a FAIL status."""
         (mock_metadata_dir / "collection.json").write_text(json.dumps({"puzzles": [1]}))
         # Create puzzle file with an invalid word
@@ -283,8 +267,7 @@ def test_full_run_fail(self, validator_instance, mock_metadata_dir):
         assert report["summary"]["puzzles_with_critical_issues"] == 1
         assert report["summary"]["critical_issues_count"] > 0
 
-        """Test Scoring Logic"""
-def test_scoring_logic(self, validator_instance, mock_metadata_dir):
+    def test_scoring_logic(self, validator_instance, mock_metadata_dir):
         """Test the score calculation based on penalties."""
         (mock_metadata_dir / "collection.json").write_text(json.dumps({"puzzles": [1]}))
         # Create a puzzle with one critical issue (invalid word) and one warning (poor balance)
@@ -305,15 +288,13 @@ def test_scoring_logic(self, validator_instance, mock_metadata_dir):
 class TestErrorHandling:
     """Tests for handling of missing or malformed files."""
 
-        """Test Missing Collection Json"""
-def test_missing_collection_json(self, validator_instance):
+    def test_missing_collection_json(self, validator_instance):
         """Test that the validator handles a missing collection.json gracefully."""
         report = validator_instance.validate_book()
         assert report["overall_status"] == "FAIL"
         assert "CRITICAL: collection.json not found." in report["global_issues"]
 
-        """Test Malformed Json"""
-def test_malformed_json(self, validator_instance, mock_metadata_dir):
+    def test_malformed_json(self, validator_instance, mock_metadata_dir):
         """Test that the validator handles a malformed JSON file."""
         (mock_metadata_dir / "collection.json").write_text(json.dumps({"puzzles": [1]}))
         (mock_metadata_dir / "puzzle_01.json").write_text(
@@ -328,8 +309,7 @@ def test_malformed_json(self, validator_instance, mock_metadata_dir):
             in report["puzzles"]["1"]["critical_issues"]
         )
 
-        """Test Missing Puzzle File"""
-def test_missing_puzzle_file(self, validator_instance, mock_metadata_dir):
+    def test_missing_puzzle_file(self, validator_instance, mock_metadata_dir):
         """Test when a puzzle file listed in collection.json does not exist."""
         (mock_metadata_dir / "collection.json").write_text(json.dumps({"puzzles": [1]}))
         # Do not create puzzle_01.json

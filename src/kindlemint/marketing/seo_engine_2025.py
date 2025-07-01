@@ -13,15 +13,23 @@ class SEOOptimizedMarketing:
     Applies 2025-era SEO tactics to enhance book marketing and drive organic growth.
     """
 
-        """  Init  """
-def __init__(self):
+    def __init__(self):
         """
         Initializes the engine with proven 2025 SEO strategies.
         """
         self.seo_strategies_2025: Dict[str, str] = {
-            "100k_organic_visits": "Zero paid ads approach focusing on high-value, long-tail keywords and programmatic SEO.",
-            "ai_blogging_tactics": "Using AI to generate topically relevant, semantically rich blog content that answers user intent.",
-            "content_distribution": "Automated multi-channel organic growth through content atomization and social media scheduling.",
+            "100k_organic_visits": (
+                "Zero paid ads approach focusing on high-value, long-tail keywords "
+                "and programmatic SEO."
+            ),
+            "ai_blogging_tactics": (
+                "Using AI to generate topically relevant, semantically rich blog "
+                "content that answers user intent."
+            ),
+            "content_distribution": (
+                "Automated multi-channel organic growth through content atomization "
+                "and social media scheduling."
+            ),
         }
         # Placeholder for future configuration loading
         # e.g., self.config = self._load_config()

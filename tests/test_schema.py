@@ -41,15 +41,13 @@ class TestMarketResearchSchema:
         # Return most recent
         return max(csv_files, key=lambda f: f.stat().st_mtime)
 
-        """Test Csv Exists"""
-def test_csv_exists(self):
+    def test_csv_exists(self):
         """Test that a CSV file was created"""
         csv_path = self.find_latest_csv()
         assert csv_path is not None, "No market research CSV files found"
         assert csv_path.exists(), f"CSV file does not exist: {csv_path}"
 
-        """Test Csv Schema"""
-def test_csv_schema(self):
+    def test_csv_schema(self):
         """Test that CSV has required columns"""
         csv_path = self.find_latest_csv()
         if not csv_path:
@@ -70,8 +68,7 @@ def test_csv_schema(self):
             except StopIteration:
                 pytest.fail("CSV file is empty")
 
-        """Validate Row"""
-def validate_row(self, row: dict):
+    def validate_row(self, row: dict):
         """Validate a single CSV row"""
         # Date format
         try:
@@ -103,8 +100,7 @@ def validate_row(self, row: dict):
         except ValueError:
             pytest.fail(f"Invalid est_sales: {row['est_sales']} (expected integer)")
 
-        """Test All Rows Valid"""
-def test_all_rows_valid(self):
+    def test_all_rows_valid(self):
         """Test that all rows in CSV are valid"""
         csv_path = self.find_latest_csv()
         if not csv_path:
@@ -124,8 +120,7 @@ def test_all_rows_valid(self):
             assert row_count > 0, "CSV file has no data rows"
             print(f"✅ Validated {row_count} rows successfully")
 
-        """Test Summary Json Exists"""
-def test_summary_json_exists(self):
+    def test_summary_json_exists(self):
         """Test that summary.json was created"""
         csv_path = self.find_latest_csv()
         if not csv_path:
@@ -147,8 +142,7 @@ def test_summary_json_exists(self):
             summary["top_opportunities"], list
         ), "top_opportunities must be a list"
 
-        """Test Data Quality"""
-def test_data_quality(self):
+    def test_data_quality(self):
         """Test data quality metrics"""
         csv_path = self.find_latest_csv()
         if not csv_path:
@@ -179,8 +173,6 @@ def test_data_quality(self):
         print(f"   - Price range: ${min(price_range):.2f} - ${max(price_range):.2f}")
         print(f"   - Sales range: {min(sales_range)} - {max(sales_range)}")
 
-
-    """Test Schema Compliance"""
 def test_schema_compliance():
     """Quick test function for CI/CD"""
     tester = TestMarketResearchSchema()

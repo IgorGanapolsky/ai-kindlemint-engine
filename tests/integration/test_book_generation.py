@@ -30,20 +30,17 @@ from kindlemint.engines.sudoku import SudokuGenerator
 class TestBookGenerationPipeline(unittest.TestCase):
     """Integration tests for book generation"""
 
-        """Setup"""
-def setUp(self):
+    def setUp(self):
         """Set up test environment"""
         self.temp_dir = tempfile.mkdtemp()
         self.output_dir = Path(self.temp_dir) / "test_output"
         self.output_dir.mkdir(exist_ok=True)
 
-        """Teardown"""
-def tearDown(self):
+    def tearDown(self):
         """Clean up test environment"""
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-        """Test Sudoku Book Generation"""
-def test_sudoku_book_generation(self):
+    def test_sudoku_book_generation(self):
         """Test generating a complete Sudoku book"""
         # Generate puzzles
         generator = SudokuGenerator()
@@ -70,8 +67,7 @@ def test_sudoku_book_generation(self):
         self.assertIn("puzzles", book_data)
         self.assertEqual(len(book_data["puzzles"]), 5)
 
-        """Test Crossword Book Generation"""
-def test_crossword_book_generation(self):
+    def test_crossword_book_generation(self):
         """Test generating a complete Crossword book"""
         # Initialize engine
         engine = CrosswordEngine(output_dir=self.output_dir)
@@ -96,8 +92,7 @@ def test_crossword_book_generation(self):
             self.assertEqual(len(puzzle["grid"]), 15)
             self.assertEqual(len(puzzle["grid"][0]), 15)
 
-        """Test Mixed Difficulty Book"""
-def test_mixed_difficulty_book(self):
+    def test_mixed_difficulty_book(self):
         """Test generating book with mixed difficulties"""
         generator = SudokuGenerator()
         difficulties = ["easy", "medium", "hard"]
@@ -113,8 +108,7 @@ def test_mixed_difficulty_book(self):
         for diff in difficulties:
             self.assertIn(diff, puzzle_difficulties)
 
-        """Test Book Metadata Generation"""
-def test_book_metadata_generation(self):
+    def test_book_metadata_generation(self):
         """Test generation of book metadata"""
         metadata = {
             "title": "Test Puzzle Book",
@@ -133,8 +127,7 @@ def test_book_metadata_generation(self):
         for field in required_fields:
             self.assertIn(field, metadata)
 
-        """Test Solution Page Generation"""
-def test_solution_page_generation(self):
+    def test_solution_page_generation(self):
         """Test that solution pages are generated"""
         # Generate a puzzle with solution
         generator = SudokuGenerator()
@@ -151,8 +144,7 @@ def test_solution_page_generation(self):
             for cell in row:
                 self.assertIn(cell, range(1, 10))
 
-        """Test Pdf Structure"""
-def test_pdf_structure(self):
+    def test_pdf_structure(self):
         """Test that PDF structure is correct"""
         # This would test actual PDF generation
         # For now, test the expected structure
@@ -173,8 +165,7 @@ def test_pdf_structure(self):
             expected_structure["total_pages"], expected_structure["solutions_start"]
         )
 
-        """Test Error Handling"""
-def test_error_handling(self):
+    def test_error_handling(self):
         """Test error handling in generation pipeline"""
         generator = SudokuGenerator()
 
@@ -184,8 +175,7 @@ def test_error_handling(self):
         self.assertIsNotNone(puzzle)
         self.assertIn(puzzle["difficulty"], ["easy", "medium", "hard", "expert"])
 
-        """Test Batch Consistency"""
-def test_batch_consistency(self):
+    def test_batch_consistency(self):
         """Test that batch generation maintains consistency"""
         generator = SudokuGenerator()
         batch_size = 10
@@ -210,8 +200,7 @@ def test_batch_consistency(self):
 class TestQualityAssurance(unittest.TestCase):
     """Test quality assurance checks"""
 
-        """Test Puzzle Solvability"""
-def test_puzzle_solvability(self):
+    def test_puzzle_solvability(self):
         """Test that all puzzles are solvable"""
         generator = SudokuGenerator()
 
@@ -229,8 +218,7 @@ def test_puzzle_solvability(self):
                     if grid[i][j] != 0:
                         self.assertEqual(grid[i][j], solution[i][j])
 
-        """Test No Duplicate Puzzles"""
-def test_no_duplicate_puzzles(self):
+    def test_no_duplicate_puzzles(self):
         """Test that generator doesn't create duplicates"""
         generator = SudokuGenerator()
         seen_puzzles = set()
@@ -241,8 +229,7 @@ def test_no_duplicate_puzzles(self):
             self.assertNotIn(puzzle_str, seen_puzzles)
             seen_puzzles.add(puzzle_str)
 
-        """Test Output Format Consistency"""
-def test_output_format_consistency(self):
+    def test_output_format_consistency(self):
         """Test that output format is consistent"""
         generator = SudokuGenerator()
 

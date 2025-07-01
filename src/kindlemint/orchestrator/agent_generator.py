@@ -14,8 +14,7 @@ class AgentGenerator:
     Generates specialized AI agents on demand
     """
 
-        """  Init  """
-def __init__(self):
+    def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.template_dir = Path(__file__).parent / "templates"
 

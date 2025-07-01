@@ -18,14 +18,12 @@ from kindlemint.engines.crossword import CrosswordEngine as CrosswordEngineV3
 
 
 @pytest.fixture
-    """Output Dir"""
 def output_dir(tmp_path):
     """Provides a temporary directory for test outputs."""
     return tmp_path
 
 
 @pytest.fixture
-    """Custom Word List"""
 def custom_word_list(tmp_path):
     """Creates a small, deterministic word list for testing."""
     word_file = tmp_path / "test_words.txt"
@@ -54,7 +52,6 @@ def custom_word_list(tmp_path):
 
 
 @pytest.fixture
-    """Engine Instance"""
 def engine_instance(output_dir, custom_word_list):
     """Provides a pre-configured instance of the CrosswordEngineV3."""
     return CrosswordEngineV3(
@@ -71,23 +68,20 @@ def engine_instance(output_dir, custom_word_list):
 class TestEngineInitialization:
     """Tests for engine setup and configuration."""
 
-        """Test Engine Creates Directories"""
-def test_engine_creates_directories(self, output_dir):
+    def test_engine_creates_directories(self, output_dir):
         """Verify that the engine creates required subdirectories."""
         engine = CrosswordEngineV3(output_dir=str(output_dir))
         assert (output_dir / "puzzles").is_dir()
         assert (output_dir / "metadata").is_dir()
         assert (output_dir / "solutions").is_dir()
 
-        """Test Word Dictionary Loading"""
-def test_word_dictionary_loading(self, engine_instance):
+    def test_word_dictionary_loading(self, engine_instance):
         """Verify that the engine loads the custom word list."""
         assert "PYTHON" in engine_instance.word_dict
         assert "PYTEST" in engine_instance.word_dict
         assert len(engine_instance.word_dict) == 18
 
-        """Test Word Dictionary Fallback"""
-def test_word_dictionary_fallback(self, output_dir):
+    def test_word_dictionary_fallback(self, output_dir):
         """Test that the engine falls back to its internal dictionary."""
         engine = CrosswordEngineV3(output_dir=str(output_dir))
         # Check for a common word from the built-in list
@@ -98,8 +92,7 @@ def test_word_dictionary_fallback(self, output_dir):
 class TestGridGeneration:
     """Tests for grid and pattern creation logic."""
 
-        """Test Symmetric Pattern Generation"""
-def test_symmetric_pattern_generation(self, engine_instance):
+    def test_symmetric_pattern_generation(self, engine_instance):
         """Test that the generated black square pattern is symmetric."""
         pattern = engine_instance.create_symmetric_pattern(difficulty="MEDIUM")
         size = engine_instance.grid_size
@@ -110,8 +103,7 @@ def test_symmetric_pattern_generation(self, engine_instance):
             if (r, c) != (size // 2, size // 2):
                 assert (size - 1 - r, size - 1 - c) in pattern
 
-        """Test Grid With Content Is Not Empty"""
-def test_grid_with_content_is_not_empty(self, engine_instance):
+    def test_grid_with_content_is_not_empty(self, engine_instance):
         """Test that a generated grid contains actual letters, not just blanks."""
         grid = engine_instance.generate_grid_with_content(
             puzzle_id=1, theme="Test", difficulty="EASY"
@@ -124,8 +116,7 @@ def test_grid_with_content_is_not_empty(self, engine_instance):
         # Check that the grid contains more than just black squares ('#') and empty spaces
         assert len(flat_grid.replace("#", "").replace(" ", "")) > 10
 
-        """Test Grid Connectivity"""
-def test_grid_connectivity(self, engine_instance):
+    def test_grid_connectivity(self, engine_instance):
         """Test the grid connectivity check with a known disconnected grid."""
         connected_grid = engine_instance.generate_grid_with_content(1, "Test", "EASY")
         assert engine_instance._check_grid_connectivity(connected_grid) is True
@@ -140,8 +131,7 @@ def test_grid_connectivity(self, engine_instance):
 
         assert engine_instance._check_grid_connectivity(disconnected_grid) is False
 
-        """Test Fallback Grid Creation"""
-def test_fallback_grid_creation(self, engine_instance):
+    def test_fallback_grid_creation(self, engine_instance):
         """Test that the fallback grid mechanism produces a valid grid."""
         fallback_grid = engine_instance._create_fallback_grid()
         assert isinstance(fallback_grid, list)
@@ -152,8 +142,7 @@ def test_fallback_grid_creation(self, engine_instance):
 class TestWordAndClueLogic:
     """Tests for word extraction, clue generation, and validation."""
 
-        """Test Extract Words From Grid"""
-def test_extract_words_from_grid(self, engine_instance):
+    def test_extract_words_from_grid(self, engine_instance):
         """Verify that words are correctly extracted from a filled grid."""
         grid = [["#"] * 15 for __var in range(15)]
         grid[1][1:4] = list("CAT")
@@ -178,8 +167,7 @@ def test_extract_words_from_grid(self, engine_instance):
         assert len(down) > 0
         assert len(across[0]) == 3  # (number, word, (r, c))
 
-        """Test Clue Generation"""
-def test_clue_generation(self, engine_instance):
+    def test_clue_generation(self, engine_instance):
         """Test that clues are generated in the correct format."""
         across_words = [(1, "PYTHON", (0, 0)), (3, "TEST", (2, 2))]
         down_words = [(2, "PYTEST", (0, 1))]
@@ -196,8 +184,7 @@ def test_clue_generation(self, engine_instance):
         assert len(clues["across"][0]) == 3
         assert clues["across"][0][2] == "PYTHON"
 
-        """Test Puzzle Validation Logic"""
-def test_puzzle_validation_logic(self, engine_instance):
+    def test_puzzle_validation_logic(self, engine_instance):
         """Test the internal puzzle validation method."""
         grid = engine_instance.generate_grid_with_content(1, "Test", "EASY")
         _, _, clue_pos = engine_instance.create_grid_images(grid, 1)
@@ -227,8 +214,7 @@ def test_puzzle_validation_logic(self, engine_instance):
 class TestFullGeneration:
     """Integration-style tests for the full puzzle generation process."""
 
-        """Test Generate Single Puzzle Creates Files"""
-def test_generate_single_puzzle_creates_files(self, engine_instance, output_dir):
+    def test_generate_single_puzzle_creates_files(self, engine_instance, output_dir):
         """Test that generating one puzzle creates all the necessary output files."""
         engine_instance.generate_puzzles()
 
@@ -257,8 +243,7 @@ def test_generate_single_puzzle_creates_files(self, engine_instance, output_dir)
         assert collection_data["puzzle_count"] == 1
         assert collection_data["validation_summary"]["valid_puzzles"] == 1
 
-        """Test Generate Zero Puzzles"""
-def test_generate_zero_puzzles(self, engine_instance, output_dir):
+    def test_generate_zero_puzzles(self, engine_instance, output_dir):
         """Test that generating zero puzzles runs without error and creates no files."""
         engine_instance.puzzle_count = 0
         engine_instance.generate_puzzles()
@@ -276,7 +261,6 @@ def test_generate_zero_puzzles(self, engine_instance, output_dir):
 
 @pytest.mark.performance
 @pytest.mark.skip(reason="Skip performance benchmark in CI to avoid flaky timeouts")
-    """Test Performance Benchmark"""
 def test_performance_benchmark(engine_instance):
     """Benchmark the puzzle generation time. Should be less than 10 seconds."""
     start_time = time.time()

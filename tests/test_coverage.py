@@ -11,8 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
-    """Test Import Kindlemint"""
-def test_import_kindlemint():
+    def test_import_kindlemint():
     """Test that we can import the main package"""
     import kindlemint
 
@@ -20,7 +19,6 @@ def test_import_kindlemint():
     assert kindlemint is not None
 
 
-    """Test Import Utils"""
 def test_import_utils():
     """Test that we can import utils modules"""
     from kindlemint.utils import config
@@ -29,7 +27,6 @@ def test_import_utils():
     assert config is not None
 
 
-    """Test Import Agents"""
 def test_import_agents():
     """Test that we can import agents modules"""
     from kindlemint.agents import agent_types
@@ -38,7 +35,6 @@ def test_import_agents():
     assert agent_types is not None
 
 
-    """Test Import Engines"""
 def test_import_engines():
     """Test that we can import engines modules"""
     from kindlemint.engines import sudoku
@@ -47,7 +43,6 @@ def test_import_engines():
     assert sudoku is not None
 
 
-    """Test Import Validators"""
 def test_import_validators():
     """Test that we can import validators modules"""
     from kindlemint.validators import base_validator
@@ -56,7 +51,6 @@ def test_import_validators():
     assert base_validator is not None
 
 
-    """Test Path Operations"""
 def test_path_operations():
     """Test some basic path operations used in the codebase"""
     test_path = Path("/test/path/file.txt")
@@ -65,7 +59,6 @@ def test_path_operations():
     assert test_path.stem == "file"
 
 
-    """Test Os Environ"""
 def test_os_environ():
     """Test environment variable functionality"""
     # Test setting and getting env var

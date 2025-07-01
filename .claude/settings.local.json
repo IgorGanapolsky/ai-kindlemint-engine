@@ -282,7 +282,10 @@
       "Bash(echo:*)",
       "WebFetch(domain:forum.cursor.com)",
       "WebFetch(domain:www.instructa.ai)",
-      "Bash(git branch:*)"
+      "Bash(git branch:*)",
+      "Bash(./scripts/delete_all_aws_resources.sh:*)",
+      "Bash(./scripts/setup_branch_protection.sh:*)",
+      "Bash(./scripts/remove_aws_code.sh:*)"
     ],
     "deny": []
   }

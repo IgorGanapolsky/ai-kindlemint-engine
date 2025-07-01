@@ -21,8 +21,7 @@ class AgentRegistry:
     Centralized registry for agent discovery and communication routing
     """
 
-        """  Init  """
-def __init__(self, health_monitor: Optional[HealthMonitor] = None):
+    def __init__(self, health_monitor: Optional[HealthMonitor] = None):
         """
         Initialize agent registry
 

@@ -17,7 +17,6 @@ setuptools.setup(
     install_requires=[
         # Alphabetical order for readability
         "beautifulsoup4>=4.10.0",
-        "boto3>=1.34.0",
         "click>=8.0.0",
         "google-api-python-client>=2.100.0",
         "google-auth-httplib2>=0.2.0",

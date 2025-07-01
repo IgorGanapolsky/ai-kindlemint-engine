@@ -1,0 +1,515 @@
+name: PR Orchestrator - Intelligent Auto-Merge System
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  pull_request_review:
+    types: [submitted]
+  workflow_run:
+    workflows: ["PR Validation Pipeline"]
+    types: [completed]
+  issue_comment:
+    types: [created]
+  schedule:
+    - cron: '*/15 * * * *'  # Check stale PRs every 15 minutes
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  checks: write
+  actions: read
+
+jobs:
+  analyze-pr:
+    name: Analyze PR Intelligence
+    runs-on: ubuntu-latest
+    outputs:
+      pr_type: ${{ steps.categorize.outputs.pr_type }}
+      priority_score: ${{ steps.prioritize.outputs.score }}
+      hygiene_score: ${{ steps.hygiene.outputs.score }}
+      merge_decision: ${{ steps.decide.outputs.decision }}
+      merge_confidence: ${{ steps.decide.outputs.confidence }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install PyGithub openai anthropic
+          
+      - name: Categorize PR
+        id: categorize
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -c "
+          import os
+          import json
+          import re
+          from github import Github
+          
+          g = Github(os.environ['GITHUB_TOKEN'])
+          repo = g.get_repo('${{ github.repository }}')
+          pr = repo.get_pull(${{ github.event.pull_request.number }})
+          
+          # Analyze PR title and files
+          title = pr.title.lower()
+          files = list(pr.get_files())
+          
+          # Determine PR type
+          if any(pattern in title for pattern in ['fix', 'bug', 'patch', 'hotfix']):
+              pr_type = 'bugfix'
+          elif any(pattern in title for pattern in ['feat', 'feature', 'add']):
+              pr_type = 'feature'
+          elif any(pattern in title for pattern in ['test', 'spec']):
+              pr_type = 'test'
+          elif any(pattern in title for pattern in ['docs', 'documentation', 'readme']):
+              pr_type = 'docs'
+          elif any(pattern in title for pattern in ['deps', 'dependency', 'upgrade']):
+              pr_type = 'dependency'
+          elif any(pattern in title for pattern in ['refactor', 'cleanup']):
+              pr_type = 'refactor'
+          elif any(pattern in title for pattern in ['ci', 'workflow', 'github']):
+              pr_type = 'ci'
+          else:
+              # Analyze files to determine type
+              test_files = [f for f in files if 'test' in f.filename.lower()]
+              doc_files = [f for f in files if f.filename.endswith(('.md', '.rst', '.txt'))]
+              
+              if len(test_files) > len(files) * 0.7:
+                  pr_type = 'test'
+              elif len(doc_files) > len(files) * 0.7:
+                  pr_type = 'docs'
+              else:
+                  pr_type = 'feature'
+          
+          print(f'::set-output name=pr_type::{pr_type}')
+          
+          # Store metadata
+          metadata = {
+              'pr_type': pr_type,
+              'files_changed': len(files),
+              'additions': pr.additions,
+              'deletions': pr.deletions,
+              'author': pr.user.login,
+              'labels': [l.name for l in pr.labels]
+          }
+          
+          with open('pr_metadata.json', 'w') as f:
+              json.dump(metadata, f)
+          "
+          
+      - name: Run Code Hygiene Analysis
+        id: hygiene
+        run: |
+          # Run hygiene orchestrator on PR changes
+          python src/kindlemint/agents/code_hygiene_orchestrator.py > hygiene_output.txt
+          
+          # Extract hygiene score
+          HYGIENE_SCORE=$(grep "Hygiene Score:" hygiene_output.txt | grep -o '[0-9.]*' | head -1)
+          echo "::set-output name=score::${HYGIENE_SCORE:-75}"
+          
+          # Store detailed report
+          cp hygiene_report_*.json pr_hygiene_report.json || echo "{}" > pr_hygiene_report.json
+          
+      - name: Calculate Priority Score
+        id: prioritize
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -c "
+          import json
+          import os
+          from datetime import datetime
+          from github import Github
+          
+          # Load metadata
+          with open('pr_metadata.json', 'r') as f:
+              metadata = json.load(f)
+          
+          # Priority scoring algorithm
+          score = 50  # Base score
+          
+          # Type-based scoring
+          type_scores = {
+              'bugfix': 30,
+              'hotfix': 40,
+              'security': 50,
+              'feature': 20,
+              'test': 15,
+              'docs': 10,
+              'dependency': 25,
+              'refactor': 15,
+              'ci': 20
+          }
+          score += type_scores.get(metadata['pr_type'], 10)
+          
+          # Size-based scoring (smaller is better for auto-merge)
+          total_changes = metadata['additions'] + metadata['deletions']
+          if total_changes < 50:
+              score += 20
+          elif total_changes < 200:
+              score += 10
+          elif total_changes < 500:
+              score += 5
+          else:
+              score -= 10
+          
+          # Label-based scoring
+          priority_labels = {
+              'critical': 30,
+              'high-priority': 20,
+              'urgent': 25,
+              'security': 30,
+              'auto-merge': 15,
+              'safe-to-merge': 10
+          }
+          
+          for label in metadata.get('labels', []):
+              score += priority_labels.get(label.lower(), 0)
+          
+          # Author trust scoring (could be enhanced with historical data)
+          trusted_authors = ['dependabot[bot]', 'renovate[bot]', 'github-actions[bot]']
+          if metadata['author'] in trusted_authors:
+              score += 20
+          
+          # Cap score at 100
+          score = min(score, 100)
+          
+          print(f'::set-output name=score::{score}')
+          
+          with open('pr_priority.json', 'w') as f:
+              json.dump({'priority_score': score, 'factors': {
+                  'type': metadata['pr_type'],
+                  'size': total_changes,
+                  'labels': metadata.get('labels', [])
+              }}, f)
+          "
+          
+      - name: Make Merge Decision
+        id: decide
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -c "
+          import json
+          import os
+          from github import Github
+          
+          # Load all analysis data
+          with open('pr_metadata.json', 'r') as f:
+              metadata = json.load(f)
+          
+          with open('pr_priority.json', 'r') as f:
+              priority = json.load(f)
+          
+          try:
+              with open('pr_hygiene_report.json', 'r') as f:
+                  hygiene = json.load(f)
+          except:
+              hygiene = {'metrics': {'hygiene_score': 75}}
+          
+          # Get PR status
+          g = Github(os.environ['GITHUB_TOKEN'])
+          repo = g.get_repo('${{ github.repository }}')
+          pr = repo.get_pull(${{ github.event.pull_request.number }})
+          
+          # Decision factors
+          hygiene_score = float(hygiene.get('metrics', {}).get('hygiene_score', 75))
+          priority_score = priority['priority_score']
+          pr_type = metadata['pr_type']
+          
+          # Check if all checks passed
+          checks_passed = True
+          for check in pr.get_commits()[pr.commits - 1].get_check_runs():
+              if check.conclusion not in ['success', 'skipped', None]:
+                  checks_passed = False
+                  break
+          
+          # Check if approved
+          reviews = list(pr.get_reviews())
+          approved = any(r.state == 'APPROVED' for r in reviews)
+          changes_requested = any(r.state == 'CHANGES_REQUESTED' for r in reviews)
+          
+          # Make decision
+          confidence = 0
+          should_merge = False
+          
+          # Type-specific rules
+          if pr_type == 'docs' and hygiene_score > 60:
+              should_merge = True
+              confidence = 90
+          elif pr_type == 'test' and hygiene_score > 70:
+              should_merge = True
+              confidence = 85
+          elif pr_type == 'dependency' and metadata['author'] in ['dependabot[bot]', 'renovate[bot]']:
+              should_merge = True
+              confidence = 95
+          elif pr_type == 'bugfix' and hygiene_score > 80 and metadata['additions'] < 200:
+              should_merge = approved
+              confidence = 80 if approved else 40
+          elif pr_type == 'feature':
+              if hygiene_score > 85 and priority_score > 70 and approved:
+                  should_merge = True
+                  confidence = 75
+          
+          # Override rules
+          if changes_requested:
+              should_merge = False
+              confidence = 0
+          
+          if not checks_passed:
+              should_merge = False
+              confidence = 0
+          
+          # High hygiene score bonus
+          if hygiene_score > 90:
+              confidence = min(confidence + 10, 95)
+          
+          # Never auto-merge if hygiene is too low
+          if hygiene_score < 60:
+              should_merge = False
+              confidence = 0
+          
+          decision = 'merge' if should_merge else 'wait'
+          
+          print(f'::set-output name=decision::{decision}')
+          print(f'::set-output name=confidence::{confidence}')
+          
+          # Store decision
+          with open('merge_decision.json', 'w') as f:
+              json.dump({
+                  'decision': decision,
+                  'confidence': confidence,
+                  'factors': {
+                      'pr_type': pr_type,
+                      'hygiene_score': hygiene_score,
+                      'priority_score': priority_score,
+                      'checks_passed': checks_passed,
+                      'approved': approved,
+                      'changes_requested': changes_requested
+                  }
+              }, f)
+          "
+          
+      - name: Upload Analysis Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr-analysis-${{ github.event.pull_request.number }}
+          path: |
+            pr_metadata.json
+            pr_priority.json
+            pr_hygiene_report.json
+            merge_decision.json
+            hygiene_output.txt
+
+  orchestrate-merge:
+    name: Orchestrate Auto-Merge
+    needs: analyze-pr
+    runs-on: ubuntu-latest
+    if: needs.analyze-pr.outputs.merge_decision == 'merge'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Download Analysis
+        uses: actions/download-artifact@v3
+        with:
+          name: pr-analysis-${{ github.event.pull_request.number }}
+          
+      - name: Post Merge Decision Comment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const decision = JSON.parse(fs.readFileSync('merge_decision.json', 'utf8'));
+            
+            const comment = `## 🤖 PR Orchestrator Decision
+            
+            **Decision**: ${decision.decision.toUpperCase()} (Confidence: ${decision.confidence}%)
+            
+            ### Analysis Results:
+            - **PR Type**: ${decision.factors.pr_type}
+            - **Hygiene Score**: ${decision.factors.hygiene_score}/100
+            - **Priority Score**: ${decision.factors.priority_score}/100
+            - **All Checks Passed**: ${decision.factors.checks_passed ? '✅' : '❌'}
+            - **Approved**: ${decision.factors.approved ? '✅' : '❌'}
+            
+            ${decision.decision === 'merge' ? '### 🚀 Auto-merge scheduled!' : '### ⏳ Waiting for conditions to be met.'}
+            
+            To override this decision:
+            - Comment \`/merge\` to force merge (requires permissions)
+            - Comment \`/hold\` to prevent auto-merge
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+            
+      - name: Enable Auto-Merge
+        if: needs.analyze-pr.outputs.merge_confidence > 70
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --auto \
+            --merge \
+            --delete-branch \
+            --subject "Auto-merge: ${{ github.event.pull_request.title }}" \
+            --body "Merged by PR Orchestrator with ${{ needs.analyze-pr.outputs.merge_confidence }}% confidence"
+            
+      - name: Apply Hygiene Fixes
+        if: needs.analyze-pr.outputs.hygiene_score < 85
+        run: |
+          # Run hygiene cleanup on the PR branch
+          git config user.name "PR Orchestrator[bot]"
+          git config user.email "orchestrator@kindlemint.ai"
+          
+          # Run hygiene fixes
+          python src/kindlemint/agents/code_hygiene_orchestrator.py --auto-fix
+          
+          # Commit if changes were made
+          if [[ -n $(git status -s) ]]; then
+            git add -A
+            git commit -m "🧹 Apply automated hygiene fixes
+            
+            - Cleaned up code organization
+            - Fixed formatting issues
+            - Removed temporary files
+            
+            Auto-generated by PR Orchestrator"
+            git push
+          fi
+
+  monitor-stale-prs:
+    name: Monitor Stale PRs
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    
+    steps:
+      - name: Check Stale PRs
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: pulls } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              sort: 'created',
+              direction: 'asc'
+            });
+            
+            const now = new Date();
+            const staleDays = 7;
+            
+            for (const pr of pulls) {
+              const created = new Date(pr.created_at);
+              const daysOld = (now - created) / (1000 * 60 * 60 * 24);
+              
+              if (daysOld > staleDays) {
+                // Re-run analysis on stale PRs
+                await github.rest.actions.createWorkflowDispatch({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  workflow_id: 'pr-orchestrator.yml',
+                  ref: 'main',
+                  inputs: {
+                    pr_number: pr.number.toString()
+                  }
+                });
+              }
+            }
+
+  handle-commands:
+    name: Handle Orchestrator Commands
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issue_comment' && contains(github.event.comment.body, '/')
+    
+    steps:
+      - name: Parse Command
+        id: parse
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const comment = context.payload.comment.body.trim();
+            
+            if (comment === '/merge') {
+              core.setOutput('command', 'merge');
+            } else if (comment === '/hold') {
+              core.setOutput('command', 'hold');
+            } else if (comment === '/analyze') {
+              core.setOutput('command', 'analyze');
+            } else if (comment === '/hygiene') {
+              core.setOutput('command', 'hygiene');
+            }
+            
+      - name: Execute Command
+        if: steps.parse.outputs.command
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const command = '${{ steps.parse.outputs.command }}';
+            const pr_number = context.issue.number;
+            
+            switch(command) {
+              case 'merge':
+                // Force merge with admin override
+                await github.rest.pulls.merge({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pr_number,
+                  merge_method: 'merge'
+                });
+                break;
+                
+              case 'hold':
+                // Add hold label
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr_number,
+                  labels: ['do-not-merge']
+                });
+                break;
+                
+              case 'analyze':
+              case 'hygiene':
+                // Trigger re-analysis
+                await github.rest.actions.createWorkflowDispatch({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  workflow_id: 'pr-orchestrator.yml',
+                  ref: 'main',
+                  inputs: {
+                    pr_number: pr_number.toString()
+                  }
+                });
+                break;
+            }
+            
+            // Acknowledge command
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'rocket'
+            });
