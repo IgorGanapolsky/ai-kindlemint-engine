@@ -18,7 +18,7 @@ class TestGenerator:
     - Test coverage analysis
     """
 
-        def __init__(self):
+    def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.test_frameworks = ["pytest", "unittest", "asyncio"]
         self.coverage_targets = {
@@ -191,7 +191,8 @@ def test_user_workflow(self, browser):
 
     async def analyze_coverage(self, test_files: List[str]) -> Dict[str, Any]:
         """Analyze test coverage for generated tests"""
-        self.logger.info(f"📊 Analyzing coverage for {len(test_files)} test files")
+        self.logger.info(
+            f"📊 Analyzing coverage for {len(test_files)} test files")
 
         # Simulate coverage analysis
         coverage_results = {}

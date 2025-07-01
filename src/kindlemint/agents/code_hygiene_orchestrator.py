@@ -772,6 +772,7 @@ if __name__ == "__main__":
 
     # Offer to execute cleanup (skip in CI environment)
     import sys
+
     if sys.stdin.isatty():  # Only ask for input if running interactively
         if input("\n🤔 Execute automatic cleanup? (y/n): ").lower() == "y":
             results = orchestrator.execute_cleanup()

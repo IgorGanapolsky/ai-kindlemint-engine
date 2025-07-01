@@ -6,7 +6,7 @@ import logging
 from datetime import datetime
 from pathlib import Path
 from textwrap import dedent
-from typing import Dict, Optional, List
+from typing import Dict, List, Optional
 
 
 class FeatureDeveloper:
@@ -65,9 +65,7 @@ class FeatureDeveloper:
         }
 
     async def _generate_implementation(
-        self,
-        feature_name: str,
-        requirements: Dict
+        self, feature_name: str, requirements: Dict
     ) -> Dict:
         """
         Generate feature implementation
@@ -114,10 +112,7 @@ class FeatureDeveloper:
         return {"code": "# Test code", "coverage": 0.0, "test_count": 0}
 
     async def _generate_documentation(
-        self,
-        feature_name: str,
-        requirements: Dict,
-        implementation: Dict
+        self, feature_name: str, requirements: Dict, implementation: Dict
     ) -> str:
         """
         Generate documentation for the feature
