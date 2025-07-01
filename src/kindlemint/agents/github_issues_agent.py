@@ -11,7 +11,7 @@ from typing import Any, Dict, List
 
 from .agent_types import AgentCapability
 from .base_agent import BaseAgent
-from .task_system import Task, TaskResult
+from .task_system import Task, TaskResult, TaskStatus
 
 
 class GitHubActionType(Enum):
@@ -40,19 +40,13 @@ class GitHubIssuesAgent(BaseAgent):
         self.repo = repo or "IgorGanapolsky/ai-kindlemint-engine"
 
         # Security improvement patterns
-        self.security_bots = [
-            "pixeebot",
-            "dependabot",
-            "snyk-bot",
-            "deepsource-autofix[bot]",
-            "seer-by-sentry",
-        ]
+        self.security_bots = ["pixeebot", "dependabot", "snyk-bot", "deepsource-autofix[bot]", "seer-by-sentry"]
         self.auto_approve_patterns = [
             "Add timeout to requests calls",
             "Secure Source of Randomness",
             "Bump .* from .* to .*",  # Dependency updates
         ]
-
+        
         # Aggressive merge mode configuration
         self.aggressive_mode = True
         self.auto_merge_patterns = [
@@ -73,7 +67,7 @@ class GitHubIssuesAgent(BaseAgent):
     async def _execute_task(self, task: Task) -> TaskResult:
         """Execute GitHub-related task"""
         try:
-            action_type = task.input_data.get("action_type")
+            action_type = task.parameters.get("action_type")
 
             if action_type == GitHubActionType.REVIEW_PR.value:
                 return await self._review_pull_request(task)
@@ -85,31 +79,28 @@ class GitHubIssuesAgent(BaseAgent):
                 return await self._generate_issues_report(task)
             else:
                 return TaskResult(
-                    success=False,
                     task_id=task.task_id,
-                    agent_id=self.agent_id,
-                    error_message=f"Unsupported action type: {action_type}",
+                    status=TaskStatus.FAILED,
+                    error=f"Unsupported action type: {action_type}"
                 )
 
         except Exception as e:
             self.logger.error(f"GitHub task failed: {e}")
             return TaskResult(
-                success=False,
                 task_id=task.task_id,
-                agent_id=self.agent_id,
-                error_message=str(e),
-                error_details={"type": type(e).__name__},
+                status=TaskStatus.FAILED,
+                error=str(e),
+                output={"error_type": type(e).__name__}
             )
 
     async def _review_pull_request(self, task: Task) -> TaskResult:
         """Review a pull request"""
-        pr_number = task.input_data.get("pr_number")
+        pr_number = task.parameters.get("pr_number")
         if not pr_number:
             return TaskResult(
-                success=False,
                 task_id=task.task_id,
-                agent_id=self.agent_id,
-                error_message="Missing pr_number",
+                status=TaskStatus.FAILED,
+                error="Missing pr_number"
             )
 
         # Get PR details
@@ -127,10 +118,9 @@ class GitHubIssuesAgent(BaseAgent):
 
         if not pr_data:
             return TaskResult(
-                success=False,
                 task_id=task.task_id,
-                agent_id=self.agent_id,
-                error_message="Failed to fetch PR data",
+                status=TaskStatus.FAILED,
+                error="Failed to fetch PR data"
             )
 
         # Generate review based on PR data
@@ -182,20 +172,19 @@ This PR requires manual review to assess:
         )
 
         return TaskResult(
-            success=True,
             task_id=task.task_id,
-            agent_id=self.agent_id,
-            output_data={
+            status=TaskStatus.COMPLETED,
+            output={
                 "pr_number": pr_number,
                 "review": review,
                 "author": pr_data["author"]["login"],
-            },
+            }
         )
 
     async def _review_security_pr(self, task: Task) -> TaskResult:
         """Review security-related PRs (like from Pixeebot)"""
-        pr_number = task.input_data.get("pr_number")
-        auto_approve = task.input_data.get("auto_approve", False)
+        pr_number = task.parameters.get("pr_number")
+        auto_approve = task.parameters.get("auto_approve", False)
 
         # Get PR details
         pr_data = await self._run_gh_command(
@@ -212,10 +201,9 @@ This PR requires manual review to assess:
 
         if not pr_data:
             return TaskResult(
-                success=False,
                 task_id=task.task_id,
-                agent_id=self.agent_id,
-                error_message="Failed to fetch PR data",
+                status=TaskStatus.FAILED,
+                error="Failed to fetch PR data"
             )
 
         author = pr_data["author"]["login"]
@@ -229,17 +217,9 @@ This PR requires manual review to assess:
             auto_approve
             and (
                 is_security_bot
-                or (
-                    self.aggressive_mode
-                    and any(
-                        pattern in title.lower() for pattern in self.auto_merge_patterns
-                    )
-                )
+                or (self.aggressive_mode and any(pattern in title.lower() for pattern in self.auto_merge_patterns))
             )
-            and any(
-                pattern in title.lower()
-                for pattern in self.auto_approve_patterns + self.auto_merge_patterns
-            )
+            and any(pattern in title.lower() for pattern in self.auto_approve_patterns + self.auto_merge_patterns)
         )
 
         if should_auto_approve:
@@ -273,7 +253,7 @@ This PR requires manual review to assess:
                     "--delete-branch",
                 ]
             )
-
+            
             if not merge_result:
                 # Try squash merge if regular merge fails
                 await self._run_gh_command(
@@ -324,20 +304,19 @@ This PR requires manual review before merging.
             action_taken = "manual_review_requested"
 
         return TaskResult(
-            success=True,
             task_id=task.task_id,
-            agent_id=self.agent_id,
-            output_data={
+            status=TaskStatus.COMPLETED,
+            output={
                 "pr_number": pr_number,
                 "author": author,
                 "is_security_bot": is_security_bot,
                 "action_taken": action_taken,
-            },
+            }
         )
 
     async def _analyze_issue(self, task: Task) -> TaskResult:
         """Analyze and respond to an issue"""
-        issue_number = task.input_data.get("issue_number")
+        issue_number = task.parameters.get("issue_number")
 
         # Get issue details
         issue_data = await self._run_gh_command(
@@ -354,10 +333,9 @@ This PR requires manual review before merging.
 
         if not issue_data:
             return TaskResult(
-                success=False,
                 task_id=task.task_id,
-                agent_id=self.agent_id,
-                error_message="Failed to fetch issue data",
+                status=TaskStatus.FAILED,
+                error="Failed to fetch issue data"
             )
 
         # Check if it's a Pixeebot activity dashboard
@@ -370,7 +348,7 @@ This PR requires manual review before merging.
             # Generate issue analysis based on data
             title = issue_data.get("title", "")
             body = issue_data.get("body", "")
-            labels = [l["name"] for l_var in issue_data.get("labels", [])]
+            labels = [l["name"] for l in issue_data.get("labels", [])]
 
             # Simple categorization logic
             category = "question"  # default
@@ -414,14 +392,13 @@ This PR requires manual review before merging.
 Thank you for reporting this issue. We'll review it and provide an update soon."""
 
         return TaskResult(
-            success=True,
             task_id=task.task_id,
-            agent_id=self.agent_id,
-            output_data={
+            status=TaskStatus.COMPLETED,
+            output={
                 "issue_number": issue_number,
                 "analysis": response,
                 "author": issue_data["author"]["login"],
-            },
+            }
         )
 
     async def _handle_pixeebot_dashboard(self, issue_data: Dict) -> str:
@@ -501,7 +478,7 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
             "repository": self.repo,
             "summary": {
                 "open_issues": len([i for i in issues if i["state"] == "OPEN"]),
-                "open_prs": len([p for p_var in prs if p["state"] == "OPEN"]),
+                "open_prs": len([p for p in prs if p["state"] == "OPEN"]),
                 "security_items": 0,
             },
             "issues": issues,
@@ -527,14 +504,13 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
         )
 
         return TaskResult(
-            success=True,
             task_id=task.task_id,
-            agent_id=self.agent_id,
-            output_data=report,
+            status=TaskStatus.COMPLETED,
+            output=report,
             metrics={
                 "total_items": len(issues) + len(prs),
                 "security_items": report["summary"]["security_items"],
-            },
+            }
         )
 
     async def _run_gh_command(self, args: List[str]) -> Any:
@@ -554,13 +530,11 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
 
             # Parse JSON output if applicable
             output = stdout.decode().strip()
-            if output and args[-1] in [
-                "--json",
-                "number,title,author,labels,createdAt,state",
-            ]:
+            if output and "--json" in args:
                 try:
                     return json.loads(output)
                 except json.JSONDecodeError:
+                    self.logger.warning(f"Failed to parse JSON: {output[:100]}")
                     return output
 
             return output
