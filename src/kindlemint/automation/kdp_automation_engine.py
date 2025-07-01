@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import requests
+from security import safe_requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -130,6 +131,7 @@ class Helium10API:
                 f"{self.base_url}/cerebro",
                 headers={"Authorization": f"Bearer {self.api_key}"},
                 json={"keywords": keywords},
+                timeout=60,
             )
             return response.json()
         except Exception as e:
@@ -147,9 +149,10 @@ class Helium10API:
             List[str]: A list of trending keywords, or an empty list if the request fails.
         """
         try:
-            response = requests.get(
+            response = safe_requests.get(
                 f"{self.base_url}/trends/{category}",
                 headers={"Authorization": f"Bearer {self.api_key}"},
+                timeout=60,
             )
             return response.json().get("keywords", [])
         except Exception as e:
@@ -179,10 +182,11 @@ class JungleScoutAPI:
                 Dict: A dictionary containing sales estimate data, or an empty dictionary if the request fails.
         """
         try:
-            response = requests.get(
+            response = safe_requests.get(
                 f"{self.base_url}/sales_estimates",
                 headers={"Authorization": f"Bearer {self.api_key}"},
                 params={"bsr": bsr, "category": category},
+                timeout=60,
             )
             return response.json()
         except Exception as e:
