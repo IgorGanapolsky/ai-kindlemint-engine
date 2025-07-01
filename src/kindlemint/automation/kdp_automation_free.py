@@ -48,10 +48,21 @@ class FreeMarketResearch:
     """Free market research using public data sources"""
 
     def __init__(self):
+        """
+        Initializes the class instance with a logger for recording informational and error messages.
+        """
         self.logger = logging.getLogger(__name__)
 
     def get_trending_keywords(self, category: str = "books") -> List[str]:
-        """Get trending keywords from Google Trends (free)"""
+        """
+        Returns a list of trending keywords related to books, using a hardcoded sample as a free alternative to Google Trends.
+        
+        Parameters:
+            category (str): The category for which to retrieve trending keywords. Defaults to "books".
+        
+        Returns:
+            List[str]: A list of trending keyword strings.
+        """
         try:
             # Use Google Trends data (free)
             trending_keywords = [
@@ -82,7 +93,12 @@ class FreeMarketResearch:
             return ["sudoku", "crossword", "puzzle"]  # Fallback
 
     def analyze_amazon_competition(self, keyword: str) -> Dict:
-        """Analyze Amazon competition using free public data"""
+        """
+        Simulates Amazon competition analysis for a given keyword using predefined data.
+        
+        Returns:
+            dict: Contains search volume, competition score, average price, average rating, and total results for the keyword.
+        """
         try:
             self.logger.info(f"🔍 Analyzing competition for '{keyword}' (FREE)")
 
@@ -120,7 +136,15 @@ class FreeMarketResearch:
             }
 
     def estimate_sales_from_bsr(self, bsr: int) -> int:
-        """Free BSR to sales estimation (based on public data)"""
+        """
+        Estimate daily sales volume based on a book's Best Seller Rank (BSR) using public heuristic thresholds.
+        
+        Parameters:
+            bsr (int): The Best Seller Rank of the book.
+        
+        Returns:
+            int: Estimated number of daily sales corresponding to the given BSR.
+        """
         # Public BSR conversion estimates
         if bsr < 100:
             return 300  # ~300 sales/day
@@ -134,7 +158,15 @@ class FreeMarketResearch:
             return 1  # ~1 sale/day
 
     def get_free_keyword_suggestions(self, seed: str) -> List[str]:
-        """Get free keyword suggestions using public tools"""
+        """
+        Generate a list of keyword suggestions by combining the seed term with common modifiers relevant to book publishing.
+        
+        Parameters:
+            seed (str): The base keyword to generate suggestions from.
+        
+        Returns:
+            List[str]: A list of suggested keywords incorporating the seed term.
+        """
         suggestions = [
             f"large print {seed}",
             f"{seed} for adults",
@@ -158,7 +190,9 @@ class FreeKDPAutomationEngine:
     """
 
     def __init__(self):
-        """Initialize with free tools only"""
+        """
+        Initializes the automation engine with free market research tools and a logger.
+        """
         self.market_research = FreeMarketResearch()
         self.logger = logging.getLogger(__name__)
 
@@ -166,7 +200,12 @@ class FreeKDPAutomationEngine:
         self, seed_keywords: List[str] = None
     ) -> List[NicheOpportunity]:
         """
-        Automatically discover profitable niches using FREE data sources
+        Discovers and ranks profitable KDP niches using only free data sources.
+        
+        If no seed keywords are provided, trending keywords are retrieved automatically. For each keyword, the method analyzes simulated Amazon competition data and calculates an opportunity score. Returns the top 10 niches sorted by opportunity score.
+        
+        Returns:
+            List[NicheOpportunity]: The most promising niche opportunities identified.
         """
         self.logger.info("🔍 Starting FREE niche discovery...")
 
@@ -199,7 +238,11 @@ class FreeKDPAutomationEngine:
     def _calculate_opportunity(
         self, keyword: str, amazon_data: Dict
     ) -> Optional[NicheOpportunity]:
-        """Calculate opportunity score using free data"""
+        """
+        Calculates and returns a NicheOpportunity with an opportunity score based on free market data.
+        
+        The score is derived from search volume, competition, average price, and an estimated Best Seller Rank (BSR) using a custom formula. Returns a NicheOpportunity instance containing all relevant metrics for the given keyword.
+        """
 
         search_volume = amazon_data.get("search_volume", 1000)
         competition = amazon_data.get("competition_score", 50)
@@ -228,7 +271,15 @@ class FreeKDPAutomationEngine:
         )
 
     def generate_book_metadata(self, niche: NicheOpportunity) -> BookMetadata:
-        """Generate optimized metadata for a niche (FREE)"""
+        """
+        Generates optimized book metadata for a given niche using free keyword suggestions and predefined templates.
+        
+        Parameters:
+            niche (NicheOpportunity): The niche opportunity for which to generate book metadata.
+        
+        Returns:
+            BookMetadata: Structured metadata including title, subtitle, description, up to 7 keywords, categories, price (minimum $7.99), author, and series name.
+        """
         self.logger.info(
             f"📝 Generating FREE metadata for niche: {niche.keyword}")
 
@@ -271,7 +322,14 @@ High-quality puzzles printed on premium paper for the best solving experience.
 
 # CLI interface
 async def main():
-    """Main CLI interface for FREE KDP automation"""
+    """
+    Runs the command-line interface for the free KDP automation engine, supporting niche discovery, metadata generation, and full automation modes.
+    
+    Parses command-line arguments to select the operation mode, maximum number of books, and optional seed keywords. Executes the selected automation workflow, prints results and cost savings, and handles errors gracefully.
+    
+    Returns:
+        int: 0 on success, 1 on failure.
+    """
     import argparse
 
     parser = argparse.ArgumentParser(description="FREE KDP Automation Engine")

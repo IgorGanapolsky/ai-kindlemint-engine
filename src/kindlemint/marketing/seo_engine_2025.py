@@ -15,7 +15,7 @@ class SEOOptimizedMarketing:
 
     def __init__(self):
         """
-        Initializes the engine with proven 2025 SEO strategies.
+        Initialize the SEOOptimizedMarketing engine with a set of 2025 SEO strategies focused on organic growth, AI-driven content, and automated distribution.
         """
         self.seo_strategies_2025: Dict[str, str] = {
             "100k_organic_visits": (
@@ -36,17 +36,12 @@ class SEOOptimizedMarketing:
 
     def enhance_book_marketing(self, book_data: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Enhances book marketing materials with SEO best practices.
-
-        This method will take book data (title, description, keywords) and
-        apply various SEO tactics to optimize it for organic discovery on
-        platforms like Amazon, Google, and social media.
-
-        Args:
-            book_data: A dictionary containing the book's metadata.
-
+        Enhances book metadata with basic SEO strategy annotations.
+        
+        Appends a note indicating the primary SEO strategy to the book description (if present) and marks the record as enhanced. Returns the updated metadata dictionary.
+        
         Returns:
-            A dictionary with the enhanced marketing materials.
+            Dict[str, Any]: The enhanced book metadata with SEO annotations.
         """
         # --- Placeholder for future implementation ---
 

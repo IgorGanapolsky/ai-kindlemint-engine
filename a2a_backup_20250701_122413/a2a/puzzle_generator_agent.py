@@ -42,6 +42,11 @@ class PuzzleGeneratorAgent(A2AAgent):
 
 
 def __init__(self, registry):
+        """
+        Initialize the PuzzleGeneratorAgent with a Sudoku engine, logger, and registered puzzle generation skills.
+        
+        Registers asynchronous skills for generating single or batch Sudoku puzzles, regenerating failed puzzles, and validating puzzle requests.
+        """
         super().__init__("puzzle_generator", registry)
         self.sudoku_engine = SudokuEngine()
         self.logger = logging.getLogger(__name__)
@@ -72,7 +77,9 @@ def __init__(self, registry):
 
 
 def add_skill(self, name: str, handler, description: str):
-        """Add a skill to the agent"""
+        """
+        Registers a new skill with the agent by associating a name, handler function, and description.
+        """
         self.skills[name] = Skill(name, handler, description)
 
     async def _generate_single_puzzle(self, request: Dict[str, Any]) -> Dict[str, Any]:

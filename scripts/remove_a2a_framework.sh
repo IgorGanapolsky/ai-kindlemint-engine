@@ -16,7 +16,7 @@ BACKUP_DIR="a2a_backup_$(date +%Y%m%d_%H%M%S)"
 echo "📦 Creating backup directory: $BACKUP_DIR"
 mkdir -p "$BACKUP_DIR"
 
-# Function to safely remove files/directories
+# safe_remove moves the specified file or directory to the backup directory if it exists, suppressing errors during the operation.
 safe_remove() {
     local path=$1
     if [ -e "$path" ]; then

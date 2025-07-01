@@ -19,7 +19,16 @@ except ImportError:
 
 
 def analyze_project(project_path: Path, deep_scan: bool = True):
-    """Analyze project structure"""
+    """
+    Analyze the structure of a project directory and summarize detected issues.
+    
+    Parameters:
+        project_path (Path): The path to the project directory to analyze.
+        deep_scan (bool): Unused parameter; retained for compatibility.
+    
+    Returns:
+        dict: A dictionary containing analysis results, including issue summaries, categorized issues, and statistics.
+    """
     print(f"🔍 Analyzing project structure at: {project_path}")
     print("=" * 60)
 
@@ -48,7 +57,18 @@ def analyze_project(project_path: Path, deep_scan: bool = True):
 
 
 def clean_project(project_path: Path, dry_run: bool = True):
-    """Clean project using hygiene orchestrator"""
+    """
+    Clean the specified project directory using the CodeHygieneOrchestrator.
+    
+    Performs automated code hygiene fixes on the project. If `dry_run` is True, actions are previewed without making changes.
+    
+    Parameters:
+        project_path (Path): Path to the project directory to clean.
+        dry_run (bool): If True, shows planned actions without applying changes.
+    
+    Returns:
+        dict: A dictionary containing the results of the cleaning process, including a list of actions performed or planned.
+    """
     print(f"\n🧹 Cleaning project...")
     print("=" * 60)
 
@@ -68,7 +88,13 @@ def clean_project(project_path: Path, dry_run: bool = True):
 
 
 def save_report(analysis: dict, output_file: str):
-    """Save detailed report"""
+    """
+    Save the analysis report as a formatted JSON file with metadata.
+    
+    Parameters:
+        analysis (dict): The analysis results to include in the report.
+        output_file (str): Path to the file where the report will be saved.
+    """
     from datetime import datetime
 
     report = {
@@ -85,6 +111,11 @@ def save_report(analysis: dict, output_file: str):
 
 
 def main():
+    """
+    Parses command-line arguments and orchestrates project analysis, optional cleanup, and report generation.
+    
+    This function serves as the entry point for the command-line tool, handling argument parsing, validating the project path, running code hygiene analysis, optionally performing cleanup, saving the analysis report, and providing user guidance on next steps.
+    """
     parser = argparse.ArgumentParser(
         description="Analyze and clean up project structure using Code Hygiene Orchestrator"
     )

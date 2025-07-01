@@ -10,7 +10,17 @@ class SudokuValidator:
     """Basic Sudoku validation logic"""
 
     def validate_solution(self, grid: List[List[int]]) -> Tuple[bool, List[str]]:
-        """Validate a complete Sudoku solution"""
+        """
+        Validates whether a given 9x9 grid is a correct and complete Sudoku solution.
+        
+        Checks that the grid has the correct dimensions, and that each row, column, and 3x3 box contains all numbers from 1 to 9 exactly once. Returns a tuple indicating validity and a list of error messages describing any issues found.
+        
+        Parameters:
+            grid (List[List[int]]): A 9x9 Sudoku grid to validate.
+        
+        Returns:
+            Tuple[bool, List[str]]: A tuple where the first element is True if the solution is valid, False otherwise; the second element is a list of error messages.
+        """
         errors = []
 
         # Check dimensions
@@ -55,7 +65,16 @@ class SudokuValidator:
     def validate_puzzle_solution_match(
         self, puzzle: List[List[int]], solution: List[List[int]]
     ) -> Tuple[bool, List[str]]:
-        """Check if puzzle clues match the solution"""
+        """
+        Checks whether all clues in the given Sudoku puzzle match the corresponding values in the provided solution.
+        
+        Parameters:
+            puzzle (List[List[int]]): The original Sudoku puzzle grid, where non-zero values are clues.
+            solution (List[List[int]]): The proposed solution grid to be checked against the puzzle clues.
+        
+        Returns:
+            Tuple[bool, List[str]]: A tuple containing a boolean indicating if all clues match the solution, and a list of error messages for any mismatches.
+        """
         errors = []
 
         for i in range(9):

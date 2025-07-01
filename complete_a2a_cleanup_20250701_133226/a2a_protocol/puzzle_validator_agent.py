@@ -29,6 +29,11 @@ class PuzzleValidatorAgent(A2AAgent):
 
 
 def __init__(self):
+        """
+        Initializes the PuzzleValidatorAgent with metadata and a SudokuValidator instance.
+        
+        Sets up the agent's identity and description, and prepares the internal SudokuValidator for puzzle validation tasks.
+        """
         super().__init__(
             agent_id="puzzle-validator-001",
             agent_type="validator",

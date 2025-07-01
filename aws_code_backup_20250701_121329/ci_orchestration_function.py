@@ -21,8 +21,9 @@ logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context):
     """
-    Main Lambda handler for CI orchestration
-    Integrates with existing KindleMint orchestration patterns
+    AWS Lambda entry point for CI orchestration using KindleMint patterns.
+    
+    Routes incoming events to the appropriate orchestration workflow based on the event source, including scheduled monitoring, webhook-triggered processing, or on-demand execution. Sends completion or failure notifications and returns an HTTP response with orchestration results or error details.
     """
 
     try:
@@ -83,6 +84,11 @@ class CIOrchestrationEngine:
 
 def __init__(self):
         # Environment configuration
+        """
+        Initializes the CIOrchestrationEngine with environment variables, AWS service clients, and orchestration configuration.
+        
+        Loads GitHub credentials, repository details, Slack and SNS integration settings, and initializes DynamoDB, S3, and SNS clients. Retrieves orchestration configuration from DynamoDB or uses defaults if unavailable.
+        """
         self.github_token = os.environ.get("GITHUB_TOKEN")
         self.repo_owner = "IgorGanapolsky"
         self.repo_name = "ai-kindlemint-engine"

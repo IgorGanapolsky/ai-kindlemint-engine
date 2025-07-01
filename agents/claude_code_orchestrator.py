@@ -53,6 +53,12 @@ class ClaudeCodeOrchestrator:
 
 
 def __init__(self, base_path: Path = None):
+        """
+        Initialize the ClaudeCodeOrchestrator with task queues, agent management, optimization metrics, and a task coordinator.
+        
+        Parameters:
+            base_path (Path, optional): The root directory for orchestrator operations. Defaults to the current working directory.
+        """
         self.base_path = base_path or Path.cwd()
         self.logger = logging.getLogger(__name__)
         self.task_queue: List[OrchestrationTask] = []

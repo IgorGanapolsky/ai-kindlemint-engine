@@ -47,10 +47,10 @@ class MultiAgentBatchProcessor:
 
 def __init__(self, enable_multi_agent: bool = True):
         """
-        Initialize the enhanced batch processor
-
-        Args:
-            enable_multi_agent: Whether to use multi-agent system
+        Initialize the MultiAgentBatchProcessor with optional multi-agent system support.
+        
+        Parameters:
+            enable_multi_agent (bool): If True, enables the multi-agent processing system; otherwise, uses legacy processing mode.
         """
         self.enable_multi_agent = enable_multi_agent
         self.logger = logging.getLogger("multi_agent_batch")

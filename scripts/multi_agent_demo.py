@@ -42,7 +42,9 @@ class MultiAgentBookGenerator:
 
 
 def __init__(self):
-        """Initialize the multi-agent system"""
+        """
+        Initializes the MultiAgentBookGenerator with core components, agent list, performance metrics, and logging configuration.
+        """
         # Core systems
         self.health_monitor = HealthMonitor(check_interval=30)
         self.task_coordinator = TaskCoordinator(self.agent_registry)

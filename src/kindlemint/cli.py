@@ -23,7 +23,9 @@ if str(project_root) not in sys.path:
 
 @click.group()
 def cli():
-    """KindleMint CLI for book generation and marketing tasks."""
+    """
+    Main command group for the KindleMint CLI, providing access to book generation and marketing commands.
+    """
     pass
 
 
@@ -38,10 +40,12 @@ def cli():
 )
 def enhance_seo(input_path: str) -> None:  # pragma: no cover
     """
-    Enhance book marketing metadata with 2025 SEO strategies.
-
-    The enhanced JSON will be written alongside the source file
-    with a *_seo.json suffix.
+    Enhance book metadata with SEO-optimized marketing strategies and save the result as a new JSON file.
+    
+    Parameters:
+        input_path (str): Path to the input JSON file containing book metadata.
+    
+    The enhanced metadata is written to a new file in the same directory, with a `_seo.json` suffix added to the original filename. Exits with status 1 if the input file is not valid JSON.
     """
     input_file = Path(input_path)
     with input_file.open("r", encoding="utf-8") as fp:

@@ -123,6 +123,16 @@ def __init__(
         description: str,
         version: str = "1.0.0",
     ):
+        """
+        Initializes an A2A agent with identity, type, name, description, version, and capabilities.
+        
+        Parameters:
+            agent_id (str): Unique identifier for the agent.
+            agent_type (str): Type or category of the agent.
+            name (str): Human-readable name of the agent.
+            description (str): Description of the agent's purpose or role.
+            version (str, optional): Version string for the agent. Defaults to "1.0.0".
+        """
         self.agent_id = agent_id
         self.agent_type = agent_type
         self.name = name
