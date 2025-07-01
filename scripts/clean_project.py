@@ -9,12 +9,13 @@ import json
 import sys
 from pathlib import Path
 
-
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent))
 
 
-async     """Analyze Project"""
+async """Analyze Project"""
+
+
 def analyze_project(project_path: Path, deep_scan: bool = True):
     """Analyze project structure"""
     print(f"🔍 Analyzing project structure at: {project_path}")
@@ -54,11 +55,14 @@ def analyze_project(project_path: Path, deep_scan: bool = True):
 
         return response.payload
     else:
-        print(f"❌ Analysis failed: {response.payload.get('error', 'Unknown error')}")
+        print(
+            f"❌ Analysis failed: {response.payload.get('error', 'Unknown error')}")
         return None
 
 
-async     """Find Duplicates"""
+async """Find Duplicates"""
+
+
 def find_duplicates(project_path: Path):
     """Find duplicate files"""
     print(f"\n🔍 Finding duplicate files...")
@@ -99,7 +103,9 @@ def find_duplicates(project_path: Path):
         return None
 
 
-async     """Generate Cleanup Plan"""
+async """Generate Cleanup Plan"""
+
+
 def generate_cleanup_plan(analysis: dict):
     """Generate cleanup plan"""
     print(f"\n📋 Generating cleanup plan...")
@@ -121,7 +127,8 @@ def generate_cleanup_plan(analysis: dict):
 
         print(f"\n📊 Cleanup Plan Summary:")
         print(f"   Files to move: {plan['estimated_impact']['files_to_move']}")
-        print(f"   Files to delete: {plan['estimated_impact']['files_to_delete']}")
+        print(
+            f"   Files to delete: {plan['estimated_impact']['files_to_delete']}")
         print(
             f"   Directories to create: {
                 plan['estimated_impact']['directories_to_create']}"
@@ -143,7 +150,9 @@ def generate_cleanup_plan(analysis: dict):
         return None
 
 
-async     """Save Report"""
+async """Save Report"""
+
+
 def save_report(analysis: dict, duplicates: dict, output_file: str):
     """Save detailed report"""
     report = {
@@ -160,7 +169,9 @@ def save_report(analysis: dict, duplicates: dict, output_file: str):
     print(f"\n💾 Detailed report saved to: {output_file}")
 
 
-async     """Main"""
+async """Main"""
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Analyze and clean up project structure"

@@ -227,7 +227,8 @@ class CodeHygieneAgent(A2AAgent):
                         suggested_action=self._suggest_action(
                             file_path, category, issues
                         ),
-                        suggested_location=self._suggest_location(file_path, category),
+                        suggested_location=self._suggest_location(
+                            file_path, category),
                     )
                     analysis_results.append(analysis)
 
@@ -480,7 +481,8 @@ class CodeHygieneAgent(A2AAgent):
             executed_actions = []
 
             if not dry_run:
-                logger.warning("Actual cleanup execution not implemented for safety")
+                logger.warning(
+                    "Actual cleanup execution not implemented for safety")
 
             # Simulate execution
             for action in plan.get("actions", []):

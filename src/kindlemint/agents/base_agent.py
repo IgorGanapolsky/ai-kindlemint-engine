@@ -60,6 +60,8 @@ class BaseAgent(ABC):
     """
 
         """  Init  """
+
+
 def __init__(
         self,
         agent_id: Optional[str] = None,

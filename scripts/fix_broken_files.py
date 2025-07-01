@@ -6,9 +6,10 @@ Fix files that were broken by aggressive A2A cleanup
 import os
 from pathlib import Path
 
+
 def fix_broken_files():
     """Fix files that got broken by the A2A cleanup"""
-    
+
     # Fix generate_book.py - remove broken class definition
     generate_book_file = Path("scripts/generate_book.py")
     if generate_book_file.exists():
@@ -65,19 +66,19 @@ if __name__ == "__main__":
 '''
         generate_book_file.write_text(new_content)
         print("✅ Fixed scripts/generate_book.py")
-    
+
     # Fix agent files - remove A2A base class references but keep functionality
     agent_files = [
         "src/kindlemint/agents/pdf_layout_agent.py",
-        "src/kindlemint/agents/puzzle_generator_agent.py", 
-        "src/kindlemint/agents/puzzle_validator_agent.py"
+        "src/kindlemint/agents/puzzle_generator_agent.py",
+        "src/kindlemint/agents/puzzle_validator_agent.py",
     ]
-    
+
     for agent_file in agent_files:
         path = Path(agent_file)
         if path.exists():
             content = path.read_text()
-            
+
             # Create a simple standalone version without A2A inheritance
             if "pdf_layout_agent" in agent_file:
                 new_content = '''"""
@@ -142,15 +143,17 @@ class PuzzleValidatorAgent:
         """Validate a Sudoku puzzle"""
         return self.core_validator.validate(puzzle_data)
 '''
-            
+
             path.write_text(new_content)
             print(f"✅ Fixed {agent_file}")
-    
+
     # Fix unified orchestrator - remove A2A references
-    unified_orchestrator_file = Path("src/kindlemint/orchestrator/unified_orchestrator.py")
+    unified_orchestrator_file = Path(
+        "src/kindlemint/orchestrator/unified_orchestrator.py"
+    )
     if unified_orchestrator_file.exists():
         content = unified_orchestrator_file.read_text()
-        
+
         # Create a simplified version without A2A
         new_content = '''"""
 Unified Orchestrator - Simplified without A2A framework
@@ -252,7 +255,7 @@ class UnifiedOrchestrator:
 '''
         unified_orchestrator_file.write_text(new_content)
         print("✅ Fixed src/kindlemint/orchestrator/unified_orchestrator.py")
-    
+
     print("\n✅ All broken files have been fixed!")
     print("🎯 The codebase now works without A2A framework")
     print("📋 All functionality uses direct function calls instead")

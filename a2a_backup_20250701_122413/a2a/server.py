@@ -6,11 +6,9 @@ from fastapi import FastAPI, HTTPException
 
 from .agent import A2AAgent
 
-
     """A FastAPI-based server to expose A2A agents over HTTP."""
 
         """  Init  """
-
 
         self.app = FastAPI()
         self.registry = registry

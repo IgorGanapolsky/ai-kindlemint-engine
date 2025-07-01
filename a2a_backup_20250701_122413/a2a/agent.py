@@ -10,7 +10,6 @@ class A2AAgent:
 
         """  Init  """
 
-
         self.agent_id = agent_id
         self.registry = registry
         self.skills: Dict[str, Skill] = {}

@@ -96,13 +96,13 @@ class FeatureDeveloper:
         import logging
         from pathlib import Path
         from typing import Dict, Optional
+
         import whisper
         from pydub import AudioSegment
 
-        from ..context.voice_processing import VoiceProcessor
         from ..context.author_context import AuthorContext
+        from ..context.voice_processing import VoiceProcessor
         from ..engines.content_generator import ContentGenerator
-
 
         class VoiceToBookPipeline:
             """
@@ -327,11 +327,11 @@ class FeatureDeveloper:
 
         import asyncio
         import logging
-        from typing import Dict, List, Optional
         from datetime import datetime, timedelta
+        from typing import Dict, List, Optional
+
         import nltk
         from nltk.tokenize import sent_tokenize
-
 
         class SocialMediaAtomizer:
             """
@@ -593,7 +593,8 @@ class FeatureDeveloper:
                 Add a new member to the community
                 """
                 member = CommunityMember(
-                    id=member_data.get("id", f"member_{datetime.now().timestamp()}"),
+                    id=member_data.get(
+                        "id", f"member_{datetime.now().timestamp()}"),
                     name=member_data["name"],
                     email=member_data["email"],
                     joined_at=datetime.now()
@@ -717,14 +718,16 @@ class FeatureDeveloper:
                 Notify members about new discussion
                 """
                 # Implementation for notifications
-                self.logger.info(f"Notifying members about discussion: {discussion['topic']}")
+                self.logger.info(
+                    f"Notifying members about discussion: {discussion['topic']}")
 
             async def _send_event_invitations(self, event: Dict):
                 """
                 Send event invitations to members
                 """
                 # Implementation for event invitations
-                self.logger.info(f"Sending invitations for event: {event['title']}")
+                self.logger.info(
+                    f"Sending invitations for event: {event['title']}")
         """
         ).strip()
 
@@ -772,7 +775,8 @@ class FeatureDeveloper:
                 """
                 Execute the main feature functionality
                 """
-                self.logger.info(f"Executing {feature_name} with params: {{params}}")
+                self.logger.info(
+                    f"Executing {feature_name} with params: {{params}}")
 
                 try:
                     # Main implementation logic

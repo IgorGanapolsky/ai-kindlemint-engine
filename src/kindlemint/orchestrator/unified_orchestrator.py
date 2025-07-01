@@ -18,6 +18,7 @@ from .claude_code_orchestrator import (
 
 class OrchestrationMode(Enum):
     """Orchestration execution modes"""
+
     CLAUDE_CODE_ONLY = "claude_code_only"
     DIRECT_CALLS = "direct_calls"
     HYBRID = "hybrid"
@@ -26,6 +27,7 @@ class OrchestrationMode(Enum):
 @dataclass
 class Task:
     """Simplified task definition"""
+
     task_id: str
     task_type: str
     description: str
@@ -39,35 +41,35 @@ class UnifiedOrchestrator:
     Unified orchestrator that coordinates task execution
     Simplified to work without A2A framework
     """
-    
+
     def __init__(self):
         """Initialize the unified orchestrator"""
         self.logger = logging.getLogger(__name__)
-        
+
         # Initialize Claude Code orchestrator
         self.claude_code = ClaudeCodeOrchestrator()
-        
+
         # Simple task management without A2A
         self.active_tasks = {}
         self.completed_tasks = {}
-        
+
     def execute_task(self, task: Dict[str, Any]) -> Dict[str, Any]:
         """Execute a task using the appropriate system"""
         task_obj = Task(
             task_id=task.get("task_id", f"task_{datetime.now().timestamp()}"),
             task_type=task.get("task_type", "unknown"),
             description=task.get("description", ""),
-            parameters=task.get("parameters", {})
+            parameters=task.get("parameters", {}),
         )
-        
+
         # Route to Claude Code for development tasks
         if task_obj.task_type in ["development", "code_generation", "feature"]:
             return self._execute_claude_code_task(task_obj)
-        
+
         # Handle other tasks directly
         else:
             return self._execute_direct_task(task_obj)
-    
+
     def _execute_claude_code_task(self, task: Task) -> Dict[str, Any]:
         """Execute task using Claude Code orchestrator"""
         try:
@@ -75,23 +77,26 @@ class UnifiedOrchestrator:
                 task_id=task.task_id,
                 task_type=TaskType.DEVELOPMENT,
                 description=task.description,
-                parameters=task.parameters
+                parameters=task.parameters,
             )
-            
+
             result = self.claude_code.execute_task(orchestration_task)
             return {"status": "success", "result": result}
-            
+
         except Exception as e:
             self.logger.error(f"Claude Code task failed: {e}")
             return {"status": "error", "error": str(e)}
-    
+
     def _execute_direct_task(self, task: Task) -> Dict[str, Any]:
         """Execute task using direct function calls"""
         try:
             # Simple direct execution for non-development tasks
             self.logger.info(f"Executing direct task: {task.description}")
-            return {"status": "success", "message": f"Task {task.task_id} executed directly"}
-            
+            return {
+                "status": "success",
+                "message": f"Task {task.task_id} executed directly",
+            }
+
         except Exception as e:
             self.logger.error(f"Direct task failed: {e}")
             return {"status": "error", "error": str(e)}

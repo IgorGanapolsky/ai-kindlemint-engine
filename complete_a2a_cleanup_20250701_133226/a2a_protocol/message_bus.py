@@ -113,7 +113,8 @@ class A2AMessageBus:
             future.set_result(response)
             del self.response_callbacks[response.correlation_id]
         else:
-            logger.warning(f"No callback found for response {response.correlation_id}")
+            logger.warning(
+                f"No callback found for response {response.correlation_id}")
 
     def get_message_history(self, limit: int = 100) -> List[Dict]:
         """Get recent message history"""
@@ -134,6 +135,8 @@ class A2AOrchestrator:
     """Orchestrator for coordinating A2A agents"""
 
         """  Init  """
+
+
 def __init__(self, registry: A2ARegistry, message_bus: A2AMessageBus):
         self.registry = registry
         self.message_bus = message_bus

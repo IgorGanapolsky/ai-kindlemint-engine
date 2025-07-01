@@ -15,12 +15,11 @@ from .base_agent import AgentCapability, AgentStatus
 from .health_monitoring import HealthMonitor, HealthStatus
 from .message_protocol import AgentMessage
 
-
-    """
+  """
     Centralized registry for agent discovery and communication routing
     """
 
-    def __init__(self, health_monitor: Optional[HealthMonitor] = None):
+   def __init__(self, health_monitor: Optional[HealthMonitor] = None):
         """
         Initialize agent registry
 

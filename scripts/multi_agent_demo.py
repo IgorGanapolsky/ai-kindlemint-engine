@@ -39,6 +39,8 @@ class MultiAgentBookGenerator:
     """
 
         """  Init  """
+
+
 def __init__(self):
         """Initialize the multi-agent system"""
         # Core systems

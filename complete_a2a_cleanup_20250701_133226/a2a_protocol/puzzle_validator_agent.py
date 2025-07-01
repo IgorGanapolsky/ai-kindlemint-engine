@@ -26,6 +26,8 @@ class PuzzleValidatorAgent(A2AAgent):
     """A2A Agent for validating puzzles"""
 
         """  Init  """
+
+
 def __init__(self):
         super().__init__(
             agent_id="puzzle-validator-001",

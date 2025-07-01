@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 from typing import Dict, List, Optional
 
-
     """A central registry for discovering and managing A2A agents."""
 
     _instance = None

@@ -43,6 +43,8 @@ class MultiAgentBatchProcessor:
     """
 
         """  Init  """
+
+
 def __init__(self, enable_multi_agent: bool = True):
         """
         Initialize the enhanced batch processor
