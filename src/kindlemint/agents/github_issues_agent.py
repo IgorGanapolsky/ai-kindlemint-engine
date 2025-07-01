@@ -11,7 +11,7 @@ from typing import Any, Dict, List
 
 from .agent_types import AgentCapability
 from .base_agent import BaseAgent
-from .task_system import Task, TaskResult
+from .task_system import Task, TaskResult, TaskStatus
 
 
 class GitHubActionType(Enum):
@@ -26,6 +26,7 @@ class GitHubActionType(Enum):
     CREATE_ISSUE = "create_issue"
     SECURITY_REVIEW = "security_review"
     GENERATE_REPORT = "generate_report"
+    HANDLE_CODERABBIT = "handle_coderabbit"
 
 
 class GitHubIssuesAgent(BaseAgent):
@@ -46,11 +47,23 @@ class GitHubIssuesAgent(BaseAgent):
             "snyk-bot",
             "deepsource-autofix[bot]",
             "seer-by-sentry",
+            "coderabbitai[bot]",
+            "coderabbitai",
+            "app/coderabbitai",
         ]
         self.auto_approve_patterns = [
             "Add timeout to requests calls",
             "Secure Source of Randomness",
             "Bump .* from .* to .*",  # Dependency updates
+            "code review",
+            "refactor",
+            "improve",
+            "optimization",
+            "code quality",
+            "best practices",
+            "documentation",
+            "type hints",
+            "error handling",
         ]
 
         # Aggressive merge mode configuration
@@ -73,7 +86,7 @@ class GitHubIssuesAgent(BaseAgent):
     async def _execute_task(self, task: Task) -> TaskResult:
         """Execute GitHub-related task"""
         try:
-            action_type = task.input_data.get("action_type")
+            action_type = task.parameters.get("action_type")
 
             if action_type == GitHubActionType.REVIEW_PR.value:
                 return await self._review_pull_request(task)
@@ -85,10 +98,9 @@ class GitHubIssuesAgent(BaseAgent):
                 return await self._generate_issues_report(task)
             else:
                 return TaskResult(
-                    success=False,
                     task_id=task.task_id,
-                    agent_id=self.agent_id,
-                    error_message=f"Unsupported action type: {action_type}",
+                    status=TaskStatus.FAILED,
+                    error=f"Unsupported action type: {action_type}",
                 )
 
         except Exception as e:
@@ -103,7 +115,7 @@ class GitHubIssuesAgent(BaseAgent):
 
     async def _review_pull_request(self, task: Task) -> TaskResult:
         """Review a pull request"""
-        pr_number = task.input_data.get("pr_number")
+        pr_number = task.parameters.get("pr_number")
         if not pr_number:
             return TaskResult(
                 success=False,
@@ -182,10 +194,9 @@ This PR requires manual review to assess:
         )
 
         return TaskResult(
-            success=True,
             task_id=task.task_id,
-            agent_id=self.agent_id,
-            output_data={
+            status=TaskStatus.COMPLETED,
+            output={
                 "pr_number": pr_number,
                 "review": review,
                 "author": pr_data["author"]["login"],
@@ -194,8 +205,8 @@ This PR requires manual review to assess:
 
     async def _review_security_pr(self, task: Task) -> TaskResult:
         """Review security-related PRs (like from Pixeebot)"""
-        pr_number = task.input_data.get("pr_number")
-        auto_approve = task.input_data.get("auto_approve", False)
+        pr_number = task.parameters.get("pr_number")
+        auto_approve = task.parameters.get("auto_approve", False)
 
         # Get PR details
         pr_data = await self._run_gh_command(
@@ -324,10 +335,9 @@ This PR requires manual review before merging.
             action_taken = "manual_review_requested"
 
         return TaskResult(
-            success=True,
             task_id=task.task_id,
-            agent_id=self.agent_id,
-            output_data={
+            status=TaskStatus.COMPLETED,
+            output={
                 "pr_number": pr_number,
                 "author": author,
                 "is_security_bot": is_security_bot,
@@ -337,7 +347,7 @@ This PR requires manual review before merging.
 
     async def _analyze_issue(self, task: Task) -> TaskResult:
         """Analyze and respond to an issue"""
-        issue_number = task.input_data.get("issue_number")
+        issue_number = task.parameters.get("issue_number")
 
         # Get issue details
         issue_data = await self._run_gh_command(
@@ -414,10 +424,9 @@ This PR requires manual review before merging.
 Thank you for reporting this issue. We'll review it and provide an update soon."""
 
         return TaskResult(
-            success=True,
             task_id=task.task_id,
-            agent_id=self.agent_id,
-            output_data={
+            status=TaskStatus.COMPLETED,
+            output={
                 "issue_number": issue_number,
                 "analysis": response,
                 "author": issue_data["author"]["login"],
@@ -527,10 +536,9 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
         )
 
         return TaskResult(
-            success=True,
             task_id=task.task_id,
-            agent_id=self.agent_id,
-            output_data=report,
+            status=TaskStatus.COMPLETED,
+            output=report,
             metrics={
                 "total_items": len(issues) + len(prs),
                 "security_items": report["summary"]["security_items"],
