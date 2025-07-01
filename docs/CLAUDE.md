@@ -15,11 +15,43 @@
 - **Test Automation**: `python scripts/test_sentry_ai_automation.py`
 
 ## Cursor Bugbot Integration (NEW!)
-- **Automatic PR Review**: Cursor Bugbot automatically reviews all PRs for potential bugs
-- **Manual Trigger**: Comment `bugbot run` on any PR to trigger a review
-- **Fix in Cursor**: Click "Fix in Cursor" links in Bugbot comments to jump directly to issues
-- **Setup**: Enable via https://cursor.com/dashboard → BugBot → Connect GitHub
-- **Free during Beta**: Available for all Cursor paid users at no additional cost
+
+### Setup Instructions
+1. **Enable in Cursor Dashboard** (Required):
+   - Go to: https://cursor.com/dashboard?tab=integrations
+   - Click "Connect to GitHub" → Authorize → Select this repository
+   - Toggle BugBot ON for `IgorGanapolsky/ai-kindlemint-engine`
+   - Configure: Disable "Only Run when Mentioned" for automatic reviews
+
+2. **Repository Configuration** (Already Complete):
+   - `.cursorignore` - Controls file access (security patterns included)
+   - `.github/workflows/cursor-bugbot.yml` - Automated PR triggering
+   - `scripts/cursor_bugbot_setup.py` - Validates configuration
+
+### Usage
+- **Automatic Review**: Bugbot analyzes every PR automatically (if enabled)
+- **Manual Trigger**: Comment `bugbot run` on any PR
+- **Verbose Mode**: Comment `bugbot run verbose=true` for detailed analysis
+- **Fix Integration**: Click "Fix in Cursor" links to jump to issues in editor
+
+### GitHub Action Automation
+```bash
+# Manually trigger Bugbot on a specific PR
+gh workflow run cursor-bugbot.yml -f pr_number=123
+```
+
+### Validate Setup
+```bash
+# Check if Bugbot is properly configured
+python scripts/cursor_bugbot_setup.py
+```
+
+### Limitations
+- No API access (configuration via dashboard only)
+- No webhooks or status badges with real data
+- GitHub Enterprise not supported
+- May require manual page refresh (known bug)
+- Free during Beta for Cursor Pro users ($20/month)
 
 ## Claude Cost Tracking & Slack Notifications
 - `./claude-flow-costs status`: Show current cost status

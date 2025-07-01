@@ -390,6 +390,13 @@ python scripts/critical_metadata_qa.py
 - **Test coverage** maintained at 95%+
 - **Security scanning** for vulnerabilities
 
+### Cursor Bugbot Integration
+- **Automated PR Review** - AI-powered bug detection on every pull request
+- **Manual Triggering** - Comment `bugbot run` to trigger analysis
+- **Fix in Editor** - Direct links to jump to issues in Cursor
+- **Setup Required** - Enable via [Cursor Dashboard](https://cursor.com/dashboard?tab=integrations)
+- **Validation Script** - Run `python scripts/cursor_bugbot_setup.py` to verify configuration
+
 ### KDP Compliance
 - Correct trim sizes enforced
 - Real KDP categories validated

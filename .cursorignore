@@ -1,0 +1,66 @@
+# Cursor Bugbot Configuration
+# This file controls which files Cursor and Bugbot can access
+# Uses same syntax as .gitignore
+
+# Security - Never analyze these
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+private/
+
+# API Keys and Tokens
+**/api_keys/**
+**/tokens/**
+.aws/
+.gcp/
+
+# Build outputs and dependencies
+node_modules/
+__pycache__/
+*.pyc
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+venv/
+env/
+
+# Large files that don't need analysis
+*.pdf
+*.docx
+*.mp4
+*.zip
+*.tar.gz
+books/active_production/**/*.pdf
+assets/fonts/*.ttf
+assets/fonts/*.otf
+
+# Test data
+test_data/
+fixtures/
+*.fixture
+
+# IDE and system files
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Git LFS tracked files
+*.lfs
