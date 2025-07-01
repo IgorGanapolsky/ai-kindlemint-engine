@@ -87,23 +87,13 @@ class FeatureDeveloper:
 
     def _voice_to_book_template(self, requirements: Dict) -> str:
         """Template for voice-to-book feature"""
+        return "# Voice to book template implementation"
 
-        return dedent(f"""
-        Voice to Book Pipeline - Convert voice recordings to publishable books
+    def _affiliate_integration_template(self, requirements: Dict) -> str:
+        """Template for affiliate integration feature"""
+        return "# Affiliate integration template implementation"
 
-        import asyncio
-        import logging
-        from pathlib import Path
-        from typing import Dict, Optional
-
-        import whisper
-        from pydub import AudioSegment
-
-        from ..context.author_context import AuthorContext
-        from ..context.voice_processing import VoiceProcessor
-        from ..engines.content_generator import ContentGenerator
-
-        class VoiceToBookPipeline:
+    def _social_media_atomization_template(self, requirements: Dict) -> str:
             """
                       Complete pipeline for converting voice to books
                       """

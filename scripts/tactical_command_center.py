@@ -12,16 +12,16 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from src.kindlemint.orchestrator.competitive_intelligence_orchestrator import (
+from kindlemint.orchestrator.competitive_intelligence_orchestrator import (
     CompetitiveIntelligenceOrchestrator,
 )
-from src.kindlemint.orchestrator.professional_quality_orchestrator import (
+from kindlemint.orchestrator.professional_quality_orchestrator import (
     ProfessionalQualityOrchestrator,
 )
-from src.kindlemint.orchestrator.tactical_advantage_orchestrator import (
+from kindlemint.orchestrator.tactical_advantage_orchestrator import (
     TacticalAdvantageOrchestrator,
 )
-from src.kindlemint.orchestrator.tactical_seo_orchestrator import (
+from kindlemint.orchestrator.tactical_seo_orchestrator import (
     TacticalSEOOrchestrator,
 )
 
