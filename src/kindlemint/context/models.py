@@ -273,7 +273,7 @@ class ContextSynthesisWeights:
     publishing_weight: float = 0.1
 
         """Normalize"""
-def normalize(self):
+    def normalize(self):
         """Normalize weights to sum to 1.0"""
         total = (
             self.author_weight

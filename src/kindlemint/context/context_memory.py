@@ -21,7 +21,6 @@ class ContextMemoryStore:
     """Persistent storage for context data with SQLite backend"""
 
     def __init__(self, db_path: Optional[str] = None):
-    def __init__(self):
         if db_path is None:
             # Use project data directory
             project_root = Path(__file__).parent.parent.parent.parent
@@ -35,7 +34,7 @@ class ContextMemoryStore:
         # Initialize database
         self._init_database()
 
-        def _init_database(self):
+    def _init_database(self):
         """Initialize the database with required tables"""
         try:
             with sqlite3.connect(self.db_path) as conn:
