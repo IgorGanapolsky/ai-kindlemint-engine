@@ -198,7 +198,8 @@ class AgentMessage:
             priority=Priority.LOW,
             correlation_id=self.message_id,
             subject=f"ACK: {self.subject}",
-            payload={"acknowledged": True, "original_message_id": self.message_id},
+            payload={"acknowledged": True,
+                     "original_message_id": self.message_id},
             requires_acknowledgment=False,
         )
 
