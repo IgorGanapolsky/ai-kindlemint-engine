@@ -70,14 +70,50 @@ jobs:
               print(f'   Comments: {pr.comments}')
               
               try:
-                  # Step 1: Check if PR has conflicts
-                  if pr.mergeable_state == 'dirty':
-                      print('   ❌ PR has conflicts - attempting to resolve...')
+                  # Step 0: Handle CodeRabbit reviews if present
+                  reviews = list(pr.get_reviews())
+                  coderabbit_reviews = [r for r in reviews if 'coderabbit' in r.user.login.lower()]
+                  
+                  if coderabbit_reviews:
+                      print(f'   🤖 Found {len(coderabbit_reviews)} CodeRabbit reviews - processing...')
                       
                       if not dry_run:
-                          # Try to update branch
-                          pr.update_branch()
-                          time.sleep(5)  # Wait for update
+                          # Trigger CodeRabbit handler
+                          import requests
+                          workflow_url = f'https://api.github.com/repos/{repo.full_name}/actions/workflows/autonomous-coderabbit-handler.yml/dispatches'
+                          headers = {
+                              'Authorization': f'token {os.environ[\"GITHUB_TOKEN\"]}',
+                              'Accept': 'application/vnd.github.v3+json'
+                          }
+                          data = {
+                              'ref': 'main',
+                              'inputs': {'pr_number': str(pr.number)}
+                          }
+                          try:
+                              requests.post(workflow_url, headers=headers, json=data)
+                              print('   ✅ CodeRabbit handler triggered')
+                          except Exception as e:
+                              print(f'   ⚠️  CodeRabbit handler trigger failed: {e}')
+                  
+                  # Step 1: Check if PR has conflicts
+                  if pr.mergeable_state == 'dirty':
+                      print('   ❌ PR has conflicts - triggering intelligent resolver...')
+                      
+                      if not dry_run:
+                          # Trigger intelligent conflict resolver workflow
+                          import requests
+                          workflow_url = f'https://api.github.com/repos/{repo.full_name}/actions/workflows/intelligent-conflict-resolver.yml/dispatches'
+                          headers = {
+                              'Authorization': f'token {os.environ["GITHUB_TOKEN"]}',
+                              'Accept': 'application/vnd.github.v3+json'
+                          }
+                          data = {
+                              'ref': 'main',
+                              'inputs': {'pr_number': str(pr.number)}
+                          }
+                          requests.post(workflow_url, headers=headers, json=data)
+                          print('   🔧 Intelligent conflict resolver triggered - waiting for resolution...')
+                          time.sleep(30)  # Give resolver time to work
                           pr = repo.get_pull(pr.number)  # Refresh
                   
                   # Step 2: Check CI status
