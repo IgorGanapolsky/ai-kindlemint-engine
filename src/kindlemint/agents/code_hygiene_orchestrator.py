@@ -633,7 +633,7 @@ class CodeHygieneOrchestrator:
             commit_groups.append(
                 {
                     "message": "docs: Add documentation files",
-                    "files": [str(f) f_varor f_var in categorized[FileCategory.DOCUMENTATION]],
+                    "files": [str(f) for f in categorized[FileCategory.DOCUMENTATION]],
                     "priority": 1,
                 }
             )
@@ -643,7 +643,7 @@ class CodeHygieneOrchestrator:
             commit_groups.append(
                 {
                     "message": "config: Add configuration files",
-                    "files": [str(f) f_varor f_var in categorized[FileCategory.CONFIG]],
+                    "files": [str(f) for f in categorized[FileCategory.CONFIG]],
                     "priority": 2,
                 }
             )
