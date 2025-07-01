@@ -7,7 +7,7 @@ Tests that the security==1.3.1 dependency is properly configured
 import sys
 import unittest
 from pathlib import Path
-from unittest.mock import Mock, patch, mock_open
+from unittest.mock import Mock, mock_open, patch
 
 # Add project root to path for imports
 project_root = Path(__file__).parent.parent.parent
@@ -19,7 +19,7 @@ class TestSetupSecurityDependency(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_setup_content = '''#!/usr/bin/env python3
+        self.mock_setup_content = """#!/usr/bin/env python3
 import setuptools
 
 setuptools.setup(
@@ -53,99 +53,106 @@ setuptools.setup(
         "security==1.3.1",
     ],
 )
-'''
+"""
 
     def test_security_dependency_in_install_requires(self):
         """Test that security==1.3.1 is included in install_requires"""
         # Parse the mock setup content to extract install_requires
-        lines = self.mock_setup_content.split('\n')
+        lines = self.mock_setup_content.split("\n")
         in_install_requires = False
         dependencies = []
-        
+
         for line in lines:
-            if 'install_requires=[' in line:
+            if "install_requires=[" in line:
                 in_install_requires = True
                 continue
-            elif in_install_requires and line.strip() == '],':
+            elif in_install_requires and line.strip() == "],":
                 break
             elif in_install_requires and line.strip().startswith('"'):
                 # Extract dependency string
                 dep = line.strip().strip('",')
-                if dep and not dep.startswith('#'):
+                if dep and not dep.startswith("#"):
                     dependencies.append(dep)
-        
+
         # Verify security dependency is present
-        security_deps = [dep for dep in dependencies if dep.startswith('security')]
+        security_deps = [
+            dep for dep in dependencies if dep.startswith("security")]
         self.assertEqual(len(security_deps), 1)
-        self.assertEqual(security_deps[0], 'security==1.3.1')
+        self.assertEqual(security_deps[0], "security==1.3.1")
 
     def test_dependencies_alphabetical_order(self):
         """Test that dependencies maintain alphabetical order including security"""
         # Extract dependencies as in previous test
-        lines = self.mock_setup_content.split('\n')
+        lines = self.mock_setup_content.split("\n")
         in_install_requires = False
         dependencies = []
-        
+
         for line in lines:
-            if 'install_requires=[' in line:
+            if "install_requires=[" in line:
                 in_install_requires = True
                 continue
-            elif in_install_requires and line.strip() == '],':
+            elif in_install_requires and line.strip() == "],":
                 break
             elif in_install_requires and line.strip().startswith('"'):
                 dep = line.strip().strip('",')
-                if dep and not dep.startswith('#'):
-                    dependencies.append(dep.split('>=')[0].split('==')[0])
-        
+                if dep and not dep.startswith("#"):
+                    dependencies.append(dep.split(">=")[0].split("==")[0])
+
         # Verify alphabetical order
         sorted_deps = sorted(dependencies, key=str.lower)
-        self.assertEqual(dependencies, sorted_deps, 
-                        "Dependencies should be in alphabetical order")
-        
-        # Verify security is in the correct position
-        self.assertIn('security', dependencies)
-        security_index = dependencies.index('security')
-        
-        # Check that security comes after sentry-sdk and before any dependencies starting with 't' or later
-        sentry_index = dependencies.index('sentry-sdk')
-        self.assertGreater(security_index, sentry_index, 
-                          "security should come after sentry-sdk alphabetically")
+        self.assertEqual(
+            dependencies, sorted_deps, "Dependencies should be in alphabetical order"
+        )
 
-    @patch('builtins.open', new_callable=mock_open)
+        # Verify security is in the correct position
+        self.assertIn("security", dependencies)
+        security_index = dependencies.index("security")
+
+        # Check that security comes after sentry-sdk and before any dependencies starting with 't' or later
+        sentry_index = dependencies.index("sentry-sdk")
+        self.assertGreater(
+            security_index,
+            sentry_index,
+            "security should come after sentry-sdk alphabetically",
+        )
+
+    @patch("builtins.open", new_callable=mock_open)
     def test_setup_file_imports_setuptools(self, mock_file):
         """Test that setup.py properly imports setuptools"""
         mock_file.return_value.read.return_value = self.mock_setup_content
-        
+
         # Verify setuptools import exists in content
-        self.assertIn('import setuptools', self.mock_setup_content)
-        self.assertIn('setuptools.setup(', self.mock_setup_content)
-        self.assertIn('setuptools.find_packages(', self.mock_setup_content)
+        self.assertIn("import setuptools", self.mock_setup_content)
+        self.assertIn("setuptools.setup(", self.mock_setup_content)
+        self.assertIn("setuptools.find_packages(", self.mock_setup_content)
 
     def test_package_configuration(self):
         """Test that package configuration is correct"""
         # Verify package name
         self.assertIn('name="ai_kindlemint_engine"', self.mock_setup_content)
-        
+
         # Verify version format
         self.assertIn('version="0.1.0"', self.mock_setup_content)
-        
+
         # Verify description
-        self.assertIn('description="AI KindleMint Engine', self.mock_setup_content)
-        
+        self.assertIn('description="AI KindleMint Engine',
+                      self.mock_setup_content)
+
         # Verify excluded packages
-        self.assertIn('exclude=["tests", "scripts", "docs", "assets"]', 
-                     self.mock_setup_content)
+        self.assertIn(
+            'exclude=["tests", "scripts", "docs", "assets"]', self.mock_setup_content
+        )
 
     def test_security_version_pinning(self):
         """Test that security dependency is pinned to specific version"""
         # Verify exact version pinning with ==
         self.assertIn('"security==1.3.1"', self.mock_setup_content)
-        
+
         # Ensure it's not using >= or other version specifiers
-        self.assertNotIn('security>=', self.mock_setup_content)
-        self.assertNotIn('security>', self.mock_setup_content)
-        self.assertNotIn('security~=', self.mock_setup_content)
+        self.assertNotIn("security>=", self.mock_setup_content)
+        self.assertNotIn("security>", self.mock_setup_content)
+        self.assertNotIn("security~=", self.mock_setup_content)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
