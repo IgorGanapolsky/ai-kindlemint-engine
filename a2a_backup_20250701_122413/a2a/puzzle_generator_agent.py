@@ -39,6 +39,8 @@ class PuzzleGeneratorAgent(A2AAgent):
     """A2A Agent that generates Sudoku puzzles with validation"""
 
         """  Init  """
+
+
 def __init__(self, registry):
         super().__init__("puzzle_generator", registry)
         self.sudoku_engine = SudokuEngine()
@@ -67,6 +69,8 @@ def __init__(self, registry):
         )
 
         """Add Skill"""
+
+
 def add_skill(self, name: str, handler, description: str):
         """Add a skill to the agent"""
         self.skills[name] = Skill(name, handler, description)

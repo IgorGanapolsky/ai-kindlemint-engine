@@ -1,5 +1,4 @@
-"""Code Optimizer - Analyzes and optimizes codebase for performance, security, and maintainability
-"""
+"""Code Optimizer - Analyzes and optimizes codebase for performance, security, and maintainability"""
 
 import ast
 import logging

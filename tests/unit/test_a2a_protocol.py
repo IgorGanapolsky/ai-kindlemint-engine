@@ -187,6 +187,8 @@ class TestPuzzleValidatorAgent:
         assert "puzzle" in validator_agent.description.lower()
 
         """Test Validator Capabilities"""
+
+
 def test_validator_capabilities(self, validator_agent):
         """Test validator agent capabilities"""
         card_dict = validator_agent.get_card()
@@ -196,6 +198,8 @@ def test_validator_capabilities(self, validator_agent):
         assert "check_puzzle_quality" in capability_names
 
         """Test Validate Single Puzzle"""
+
+
 def test_validate_single_puzzle(self, validator_agent):
         """Test validating a single puzzle"""
         # Valid Sudoku puzzle
@@ -217,7 +221,8 @@ def test_validate_single_puzzle(self, validator_agent):
             receiver_id="puzzle-validator-001",
             message_type="request",
             action="validate_puzzle",
-            payload={"puzzle_grid": valid_puzzle, "solution_grid": valid_puzzle},
+            payload={"puzzle_grid": valid_puzzle,
+                "solution_grid": valid_puzzle},
             timestamp=datetime.utcnow().isoformat(),
         )
 
@@ -227,6 +232,8 @@ def test_validate_single_puzzle(self, validator_agent):
         assert response.payload["valid"] is True
 
         """Test Validate Invalid Puzzle"""
+
+
 def test_validate_invalid_puzzle(self, validator_agent):
         """Test validating an invalid puzzle"""
         # Invalid Sudoku puzzle (duplicate 5 in first row)
@@ -248,7 +255,8 @@ def test_validate_invalid_puzzle(self, validator_agent):
             receiver_id="puzzle-validator-001",
             message_type="request",
             action="validate_puzzle",
-            payload={"puzzle_grid": invalid_puzzle, "solution_grid": invalid_puzzle},
+            payload={"puzzle_grid": invalid_puzzle,
+                "solution_grid": invalid_puzzle},
             timestamp=datetime.utcnow().isoformat(),
         )
 
@@ -264,6 +272,8 @@ class TestA2AMessageBus:
 
     @pytest.fixture
         """Message Bus"""
+
+
 def message_bus(self):
         """Create a message bus"""
         registry = A2ARegistry()

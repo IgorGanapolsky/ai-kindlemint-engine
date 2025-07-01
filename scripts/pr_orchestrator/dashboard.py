@@ -34,11 +34,7 @@ class PROrchestratorDashboard:
         self.console = Console()
 
         # Cache for performance
-        self.cache = {
-            "prs": [],
-            "metrics": {},
-            "last_update": None
-        }
+        self.cache = {"prs": [], "metrics": {}, "last_update": None}
 
     def get_orchestrator_metrics(self) -> Dict:
         """Fetch orchestrator performance metrics"""
@@ -51,7 +47,7 @@ class PROrchestratorDashboard:
             "average_merge_time": 0,
             "success_rate": 0,
             "pr_by_type": defaultdict(int),
-            "confidence_distribution": {"high": 0, "medium": 0, "low": 0}
+            "confidence_distribution": {"high": 0, "medium": 0, "low": 0},
         }
 
         # Get workflow runs for orchestrator
@@ -77,15 +73,20 @@ class PROrchestratorDashboard:
                             if "pr-analysis" in artifact.name:
                                 # In real implementation, download and parse artifact
                                 # For now, simulate metrics
-                                metrics["auto_merged"] += 1 if run.created_at.hour % 2 == 0 else 0
-                                metrics["hygiene_fixes"] += 1 if run.created_at.hour % 3 == 0 else 0
+                                metrics["auto_merged"] += (
+                                    1 if run.created_at.hour % 2 == 0 else 0
+                                )
+                                metrics["hygiene_fixes"] += (
+                                    1 if run.created_at.hour % 3 == 0 else 0
+                                )
                     except:
                         pass
 
         # Calculate success rate
         if metrics["total_prs_analyzed"] > 0:
             metrics["success_rate"] = (
-                metrics["auto_merged"] / metrics["total_prs_analyzed"]) * 100
+                metrics["auto_merged"] / metrics["total_prs_analyzed"]
+            ) * 100
 
         return metrics
 
@@ -103,7 +104,7 @@ class PROrchestratorDashboard:
                 "status": self.get_pr_orchestrator_status(pr),
                 "checks": self.get_pr_checks_summary(pr),
                 "type": self.categorize_pr(pr),
-                "size": pr.additions + pr.deletions
+                "size": pr.additions + pr.deletions,
             }
             prs.append(pr_data)
 
@@ -130,12 +131,7 @@ class PROrchestratorDashboard:
             last_commit = pr.get_commits().reversed[0]
             check_runs = last_commit.get_check_runs()
 
-            summary = {
-                "total": 0,
-                "success": 0,
-                "failure": 0,
-                "pending": 0
-            }
+            summary = {"total": 0, "success": 0, "failure": 0, "pending": 0}
 
             for check in check_runs:
                 summary["total"] += 1
@@ -175,7 +171,8 @@ class PROrchestratorDashboard:
 
         table.add_row("Total PRs Analyzed", str(metrics["total_prs_analyzed"]))
         table.add_row(
-            "Auto-Merged", f"{metrics['auto_merged']} ({metrics['success_rate']:.1f}%)")
+            "Auto-Merged", f"{metrics['auto_merged']} ({metrics['success_rate']:.1f}%)"
+        )
         table.add_row("Manual Review Required", str(metrics["manual_review"]))
         table.add_row("Conflicts Resolved", str(metrics["conflicts_resolved"]))
         table.add_row("Hygiene Fixes Applied", str(metrics["hygiene_fixes"]))
@@ -199,7 +196,9 @@ class PROrchestratorDashboard:
             if checks["total"] == 0:
                 checks_str = "No checks"
             else:
-                checks_str = f"✅{checks['success']}/🔴{checks['failure']}/⏳{checks['pending']}"
+                checks_str = (
+                    f"✅{checks['success']}/🔴{checks['failure']}/⏳{checks['pending']}"
+                )
 
             # Calculate age
             age = datetime.now(pr["created_at"].tzinfo) - pr["created_at"]
@@ -216,7 +215,7 @@ class PROrchestratorDashboard:
                 pr["type"],
                 pr["status"],
                 checks_str,
-                age_str
+                age_str,
             )
 
         return Panel(table, title="🔄 Active Pull Requests", border_style="green")
@@ -242,9 +241,13 @@ class PROrchestratorDashboard:
         for issue in self.repo.get_issues(state="all", sort="updated")[:5]:
             if issue.pull_request:
                 for comment in issue.get_comments()[:1]:
-                    if any(cmd in comment.body for cmd in ["/merge", "/hold", "/analyze"]):
+                    if any(
+                        cmd in comment.body for cmd in ["/merge", "/hold", "/analyze"]
+                    ):
                         activity = f"[{comment.created_at.strftime('%H:%M')}] "
-                        activity += f"💬 Command on PR #{issue.number}: {comment.body.strip()}"
+                        activity += (
+                            f"💬 Command on PR #{issue.number}: {comment.body.strip()}"
+                        )
                         activities.append(activity)
 
         text = "\n".join(
@@ -263,7 +266,9 @@ class PROrchestratorDashboard:
         table.add_column("Bar", width=30)
 
         total = sum(type_counts.values())
-        for pr_type, count in sorted(type_counts.items(), key=lambda x: x[1], reverse=True):
+        for pr_type, count in sorted(
+            type_counts.items(), key=lambda x: x[1], reverse=True
+        ):
             percentage = (count / total * 100) if total > 0 else 0
             bar = "█" * int(percentage / 2)
             table.add_row(pr_type.capitalize(), str(
@@ -276,8 +281,9 @@ class PROrchestratorDashboard:
         layout = Layout()
 
         # Update cache if needed
-        if not self.cache["last_update"] or \
-           datetime.now() - self.cache["last_update"] > timedelta(minutes=1):
+        if not self.cache["last_update"] or datetime.now() - self.cache[
+            "last_update"
+        ] > timedelta(minutes=1):
             self.cache["metrics"] = self.get_orchestrator_metrics()
             self.cache["prs"] = self.get_active_prs()
             self.cache["last_update"] = datetime.now()
@@ -286,22 +292,18 @@ class PROrchestratorDashboard:
         layout.split_column(
             Layout(name="header", size=3),
             Layout(name="body"),
-            Layout(name="footer", size=3)
+            Layout(name="footer", size=3),
         )
 
         layout["body"].split_row(
-            Layout(name="left", ratio=1),
-            Layout(name="right", ratio=2)
+            Layout(name="left", ratio=1), Layout(name="right", ratio=2)
         )
 
         layout["left"].split_column(
-            Layout(name="metrics"),
-            Layout(name="distribution")
-        )
+            Layout(name="metrics"), Layout(name="distribution"))
 
         layout["right"].split_column(
-            Layout(name="prs"),
-            Layout(name="activity", size=10)
+            Layout(name="prs"), Layout(name="activity", size=10)
         )
 
         # Header
@@ -309,14 +311,17 @@ class PROrchestratorDashboard:
                            style="bold white on blue")
         header_text.append(f"\n{self.repo_name}", style="dim")
         header_text.append(
-            f" | Last Update: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", style="dim")
+            f" | Last Update: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+            style="dim",
+        )
         layout["header"].update(Panel(header_text, style="blue"))
 
         # Components
         layout["metrics"].update(
             self.create_metrics_panel(self.cache["metrics"]))
         layout["distribution"].update(
-            self.create_pr_type_distribution(self.cache["prs"]))
+            self.create_pr_type_distribution(self.cache["prs"])
+        )
         layout["prs"].update(self.create_pr_table(self.cache["prs"]))
         layout["activity"].update(self.create_activity_log())
 
@@ -333,6 +338,7 @@ class PROrchestratorDashboard:
                 while True:
                     # Auto-refresh every 30 seconds
                     import time
+
                     time.sleep(30)
                     self.cache["last_update"] = None  # Force refresh
                     live.update(self.create_dashboard_layout())
@@ -345,8 +351,11 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(description="PR Orchestrator Dashboard")
-    parser.add_argument("--repo", default="IgorGanapolsky/ai-kindlemint-engine",
-                        help="Repository name (owner/repo)")
+    parser.add_argument(
+        "--repo",
+        default="IgorGanapolsky/ai-kindlemint-engine",
+        help="Repository name (owner/repo)",
+    )
     parser.add_argument(
         "--token", help="GitHub token (or use GITHUB_TOKEN env)")
 

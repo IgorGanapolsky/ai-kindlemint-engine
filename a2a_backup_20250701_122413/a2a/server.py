@@ -12,6 +12,8 @@ class A2AServer:
     """A FastAPI-based server to expose A2A agents over HTTP."""
 
         """  Init  """
+
+
 def __init__(self, registry: AgentRegistry):
         self.app = FastAPI()
         self.registry = registry
@@ -19,6 +21,8 @@ def __init__(self, registry: AgentRegistry):
 
         @self.app.get("/")
             """List Agents"""
+
+
 def list_agents():
             return {"agents": self.registry.list_agents()}
 

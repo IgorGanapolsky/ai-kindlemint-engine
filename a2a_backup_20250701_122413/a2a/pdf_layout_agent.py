@@ -45,6 +45,8 @@ class PDFLayoutAgent(A2AAgent):
     """A2A Agent that handles PDF generation and layout for puzzle books"""
 
         """  Init  """
+
+
 def __init__(self, registry):
         super().__init__("pdf_layout", registry)
         self.pdf_generator = PDFGenerator()
@@ -78,6 +80,8 @@ def __init__(self, registry):
         )
 
         """Add Skill"""
+
+
 def add_skill(self, name: str, handler, description: str):
         """Add a skill to the agent"""
         self.skills[name] = Skill(name, handler, description)

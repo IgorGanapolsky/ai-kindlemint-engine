@@ -132,7 +132,8 @@ class ClaudeCodeOrchestrator:
             self.stats["active_tasks"] -= 1
             self.stats["failed_tasks"] += 1
 
-            self.logger.error(f"❌ Claude Code task failed: {task.task_id} - {str(e)}")
+            self.logger.error(
+                f"❌ Claude Code task failed: {task.task_id} - {str(e)}")
 
             return {"success": False, "task_id": task.task_id, "error": str(e)}
 

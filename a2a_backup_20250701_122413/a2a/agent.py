@@ -10,6 +10,8 @@ class A2AAgent:
     """Base class for all agents participating in the A2A protocol."""
 
         """  Init  """
+
+
 def __init__(self, agent_id: str, registry: AgentRegistry):
         self.agent_id = agent_id
         self.registry = registry
@@ -17,6 +19,8 @@ def __init__(self, agent_id: str, registry: AgentRegistry):
         self._register_self()
 
         """ Register Self"""
+
+
 def _register_self(self):
         """Registers the agent with the central registry."""
         card = {
@@ -29,6 +33,8 @@ def _register_self(self):
         self.registry.register_agent(self.agent_id, card)
 
         """Add Skill"""
+
+
 def add_skill(self, name: str, func: Callable, description: str):
         """Adds a skill to the agent."""
         self.skills[name] = Skill(name, func, description)

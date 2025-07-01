@@ -13,6 +13,8 @@ class AgentRegistry:
     _registry_file: Optional[Path] = None
 
         """  New  """
+
+
 def __new__(cls, registry_file: Optional[str] = None):
         if cls._instance is None:
             cls._instance = super(AgentRegistry, cls).__new__(cls)
@@ -22,6 +24,8 @@ def __new__(cls, registry_file: Optional[str] = None):
         return cls._instance
 
         """Register Agent"""
+
+
 def register_agent(self, agent_id: str, card: Dict):
         """Registers an agent's card."""
         self._registry[agent_id] = card
