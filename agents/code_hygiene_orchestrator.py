@@ -108,7 +108,8 @@ class CodeHygieneOrchestrator:
 
     def clean(self, dry_run: bool = True, interactive: bool = False) -> Dict:
         """Clean the codebase based on hygiene rules."""
-        logger.info(f"Cleaning codebase (dry_run={dry_run}, interactive={interactive})")
+        logger.info(
+            f"Cleaning codebase (dry_run={dry_run}, interactive={interactive})")
 
         # First analyze
         self.analyze()
@@ -207,7 +208,8 @@ class CodeHygieneOrchestrator:
                     logger.debug(f"Could not hash {file_path}: {e}")
 
         # Find duplicates
-        duplicates = {h: files for h, files in file_hashes.items() if len(files) > 1}
+        duplicates = {h: files for h, files in file_hashes.items()
+                      if len(files) > 1}
 
         if duplicates:
             total_dupes = sum(len(files) - 1 for files in duplicates.values())
@@ -219,8 +221,9 @@ class CodeHygieneOrchestrator:
             if not analyze_only:
                 for file_hash, files in duplicates.items():
                     # Keep the oldest file
-                    files_by_mtime = sorted(files, key=lambda f: f.stat().st_mtime)
-                    
+                    files_by_mtime = sorted(
+                        files, key=lambda f: f.stat().st_mtime)
+
                     for dup_file in files_by_mtime[1:]:
                         dup_file.unlink()
                         actions.append(f"Removed duplicate: {dup_file}")
@@ -260,7 +263,8 @@ class CodeHygieneOrchestrator:
         """Archive old report and analysis files."""
         old_reports = []
         actions = []
-        cutoff_date = datetime.now() - timedelta(days=self.config["stale_days"])
+        cutoff_date = datetime.now() - \
+            timedelta(days=self.config["stale_days"])
 
         # Patterns for report files
         report_patterns = [
@@ -421,7 +425,8 @@ class CodeHygieneOrchestrator:
 
             if not analyze_only:
                 for file_type, file_path, new_name in naming_issues:
-                    new_path = file_path.parent / f"{new_name}{file_path.suffix}"
+                    new_path = file_path.parent / \
+                        f"{new_name}{file_path.suffix}"
                     if not new_path.exists():
                         file_path.rename(new_path)
                         actions.append(f"Renamed {file_path} to {new_path}")
@@ -595,7 +600,8 @@ class CodeHygieneOrchestrator:
             if issues:
                 count = self.stats.get(category, len(issues))
                 table_data.append(
-                    [category.replace("_", " ").title(), count, issues[0][:50] + "..."]
+                    [category.replace("_", " ").title(), count,
+                     issues[0][:50] + "..."]
                 )
 
         summary_lines.append(
@@ -624,7 +630,8 @@ class CodeHygieneOrchestrator:
 
         for category, issues in sorted(self.issues.items()):
             if issues:
-                report_lines.append(f"### {category.replace('_', ' ').title()}")
+                report_lines.append(
+                    f"### {category.replace('_', ' ').title()}")
                 report_lines.append("")
                 for issue in issues:
                     report_lines.append(f"- {issue}")
@@ -632,7 +639,8 @@ class CodeHygieneOrchestrator:
 
         report_lines.append("## Recommended Actions")
         report_lines.append("")
-        report_lines.append("Run the following command to clean up these issues:")
+        report_lines.append(
+            "Run the following command to clean up these issues:")
         report_lines.append("```bash")
         report_lines.append(
             "python agents/code_hygiene_orchestrator.py clean --interactive"

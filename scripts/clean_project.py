@@ -70,7 +70,7 @@ def clean_project(project_path: Path, dry_run: bool = True):
 def save_report(analysis: dict, output_file: str):
     """Save detailed report"""
     from datetime import datetime
-    
+
     report = {
         "timestamp": datetime.now().isoformat(),
         "project_path": str(Path.cwd()),
@@ -98,7 +98,9 @@ def main():
         "--clean", action="store_true", help="Run cleanup after analysis"
     )
     parser.add_argument(
-        "--dry-run", action="store_true", help="Show what would be cleaned without making changes"
+        "--dry-run",
+        action="store_true",
+        help="Show what would be cleaned without making changes",
     )
     parser.add_argument(
         "--output",
