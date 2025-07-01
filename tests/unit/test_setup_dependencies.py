@@ -23,7 +23,7 @@ class TestSetupDependencies:
         """Test that security==1.3.1 is present in setup.py dependencies"""
         setup_py = Path("setup.py")
         content = setup_py.read_text()
-        
+
         # Check that security dependency is present
         assert "security==1.3.1" in content, "security==1.3.1 should be in setup.py"
 
@@ -31,7 +31,7 @@ class TestSetupDependencies:
         """Test that setup.py has valid Python syntax"""
         setup_py = Path("setup.py")
         content = setup_py.read_text()
-        
+
         try:
             ast.parse(content)
         except SyntaxError as e:
@@ -41,51 +41,56 @@ class TestSetupDependencies:
         """Test that security dependency is in the correct position in the list"""
         setup_py = Path("setup.py")
         content = setup_py.read_text()
-        
-        lines = content.split('\n')
+
+        lines = content.split("\n")
         install_requires_section = False
         security_found = False
         sentry_found = False
-        
+
         for line in lines:
             stripped = line.strip()
-            
-            if 'install_requires' in stripped:
+
+            if "install_requires" in stripped:
                 install_requires_section = True
                 continue
-                
+
             if install_requires_section:
-                if stripped == '],':
+                if stripped == "],":
                     break
-                    
-                if 'sentry-sdk>=1.40.0' in stripped:
+
+                if "sentry-sdk>=1.40.0" in stripped:
                     sentry_found = True
-                    
-                if 'security==1.3.1' in stripped:
+
+                if "security==1.3.1" in stripped:
                     security_found = True
                     # Security should come after sentry-sdk
-                    assert sentry_found, "security dependency should come after sentry-sdk in alphabetical order"
-        
+                    assert (
+                        sentry_found
+                    ), "security dependency should come after sentry-sdk in alphabetical order"
+
         assert security_found, "security==1.3.1 should be found in install_requires"
 
     def test_dependency_format_consistency(self):
         """Test that the security dependency follows the same format as other dependencies"""
         setup_py = Path("setup.py")
         content = setup_py.read_text()
-        
+
         # Find the security dependency line
-        lines = content.split('\n')
+        lines = content.split("\n")
         security_line = None
-        
+
         for line in lines:
-            if 'security==1.3.1' in line:
+            if "security==1.3.1" in line:
                 security_line = line
                 break
-        
+
         assert security_line is not None, "security dependency line not found"
-        
+
         # Check that it follows the format: "        "security==1.3.1",
         # Should have proper indentation and comma
         stripped = security_line.strip()
-        assert stripped.startswith('"security==1.3.1"'), "security dependency should be quoted"
-        assert stripped.endswith(','), "security dependency should end with comma"
+        assert stripped.startswith(
+            '"security==1.3.1"'
+        ), "security dependency should be quoted"
+        assert stripped.endswith(
+            ","), "security dependency should end with comma"
