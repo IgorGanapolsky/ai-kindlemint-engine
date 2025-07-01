@@ -309,7 +309,8 @@
       "Bash(/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/scripts/setup_always_on.sh)",
       "Bash(pgrep:*)",
       "Bash(launchctl:*)",
-      "Bash(./scripts/emergency_cleanup.sh:*)"
+      "Bash(./scripts/emergency_cleanup.sh:*)",
+      "Bash(gh repo view:*)"
     ],
     "deny": []
   }

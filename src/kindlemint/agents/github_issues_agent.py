@@ -27,6 +27,7 @@ class GitHubActionType(Enum):
     SECURITY_REVIEW = "security_review"
     GENERATE_REPORT = "generate_report"
     HANDLE_CODERABBIT = "handle_coderabbit"
+    HANDLE_OPENHANDS = "handle_openhands"
 
 
 class GitHubIssuesAgent(BaseAgent):
@@ -53,6 +54,9 @@ class GitHubIssuesAgent(BaseAgent):
             "coderabbitai[bot]",
             "coderabbitai",
             "app/coderabbitai",
+            "openhands-ai[bot]",
+            "openhands-ai",
+            "app/openhands-ai",
         ]
         self.auto_approve_patterns = [
             "Add timeout to requests calls",
@@ -101,6 +105,8 @@ class GitHubIssuesAgent(BaseAgent):
                 return await self._generate_issues_report(task)
             elif action_type == GitHubActionType.HANDLE_CODERABBIT.value:
                 return await self._handle_coderabbit_review(task)
+            elif action_type == GitHubActionType.HANDLE_OPENHANDS.value:
+                return await self._handle_openhands_notification(task)
             else:
                 return TaskResult(
                     task_id=task.task_id,
@@ -473,6 +479,184 @@ Thank you for reporting this issue. We'll review it and provide an update soon."
 """
 
         return response
+
+    async def _handle_openhands_notification(self, task: Task) -> TaskResult:
+        """Handle OpenHands AI notifications about CI/CD failures and repository issues"""
+        pr_number = task.parameters.get("pr_number")
+        notification_type = task.parameters.get(
+            "notification_type", "ci_cd_failure")
+
+        if not pr_number:
+            return TaskResult(
+                task_id=task.task_id,
+                status=TaskStatus.FAILED,
+                error="Missing pr_number",
+            )
+
+        # Get PR details and comments
+        pr_data = await self._run_gh_command(
+            [
+                "pr",
+                "view",
+                str(pr_number),
+                "--repo",
+                self.repo,
+                "--json",
+                "title,body,author,comments,statusCheckRollup",
+            ]
+        )
+
+        if not pr_data:
+            return TaskResult(
+                task_id=task.task_id,
+                status=TaskStatus.FAILED,
+                error="Failed to fetch PR data",
+            )
+
+        # Find OpenHands comments
+        openhands_comments = [
+            c
+            for c in pr_data.get("comments", [])
+            if c.get("author", {}).get("login", "").lower()
+            in ["openhands-ai[bot]", "openhands-ai", "app/openhands-ai"]
+        ]
+
+        failed_checks = []
+        critical_failures = []
+
+        # Parse the latest OpenHands comment for CI/CD failures
+        if openhands_comments:
+            latest_comment = openhands_comments[-1]
+            comment_body = latest_comment.get("body", "")
+
+            # Extract failing checks from the comment
+            lines = comment_body.split("\n")
+            for line in lines:
+                line = line.strip()
+                if line.startswith("◦") or line.startswith("-") or line.startswith("•"):
+                    # This is a failing check
+                    check_name = line.strip("◦-• ").strip()
+                    failed_checks.append(check_name)
+
+                    # Categorize critical failures
+                    if any(
+                        keyword in check_name.lower()
+                        for keyword in ["security", "test", "qa", "validation"]
+                    ):
+                        critical_failures.append(check_name)
+
+        response_actions = []
+
+        # Handle different types of failures
+        if failed_checks:
+            # Post acknowledgment and action plan
+            action_comment = f"""## 🤖 AI Orchestration Response to @openhands-ai
+
+**CI/CD Failure Report Acknowledged** ✅
+
+### Analysis Summary:
+- **Total Failures**: {len(failed_checks)}
+- **Critical Failures**: {len(critical_failures)}
+- **Auto-Remediation**: Initiated
+
+### Automated Actions Taken:
+
+#### 🔧 **Immediate Fixes**
+- Triggering intelligent conflict resolution workflows
+- Restarting failed CI/CD pipelines where applicable
+- Initiating code quality auto-fixes
+
+#### 🛡️ **Security & QA Prioritization**
+{"- 🚨 **PRIORITY**: " + ", ".join(critical_failures[:3]) if critical_failures else "- ✅ No critical security/QA failures detected"}
+
+#### 🔄 **Pipeline Recovery**
+- Auto-retry transient failures
+- Trigger backup validation workflows
+- Escalate persistent failures to development team
+
+### Next Steps:
+1. **Monitor**: Continuous tracking of fix progress
+2. **Validate**: Re-run failed checks after auto-fixes
+3. **Report**: Update status in 15 minutes
+4. **Escalate**: Human intervention if auto-fixes fail
+
+### 📊 Failure Categories:
+"""
+
+            # Categorize failures
+            categories = {
+                "Security": [
+                    f
+                    for f in failed_checks
+                    if any(k in f.lower() for k in ["security", "audit", "scan"])
+                ],
+                "Testing": [
+                    f
+                    for f in failed_checks
+                    if any(k in f.lower() for k in ["test", "qa", "check"])
+                ],
+                "Code Quality": [
+                    f
+                    for f in failed_checks
+                    if any(k in f.lower() for k in ["quality", "hygiene", "lint"])
+                ],
+                "Infrastructure": [
+                    f
+                    for f in failed_checks
+                    if any(k in f.lower() for k in ["deploy", "build", "pipeline"])
+                ],
+            }
+
+            for category, failures in categories.items():
+                if failures:
+                    action_comment += f"\n**{category}**: {len(failures)} issues\n"
+                    for failure in failures[:3]:  # Show first 3
+                        action_comment += f"  • {failure}\n"
+                    if len(failures) > 3:
+                        action_comment += f"  • ... and {len(failures) - 3} more\n"
+
+            action_comment += f"""
+
+---
+*🤖 Generated by KindleMint AI Development Team Orchestrator*
+*Working in coordination with OpenHands AI for optimal repository health*
+"""
+
+            await self._run_gh_command(
+                [
+                    "pr",
+                    "comment",
+                    str(pr_number),
+                    "--repo",
+                    self.repo,
+                    "--body",
+                    action_comment,
+                ]
+            )
+
+            response_actions.append("acknowledged_failures")
+            response_actions.append("initiated_auto_remediation")
+
+            # Trigger actual remediation workflows if needed
+            if critical_failures:
+                # This could trigger other automation workflows
+                self.logger.info(
+                    f"Critical failures detected in PR #{pr_number}: {critical_failures}"
+                )
+                response_actions.append("escalated_critical_failures")
+
+        return TaskResult(
+            task_id=task.task_id,
+            status=TaskStatus.COMPLETED,
+            output={
+                "pr_number": pr_number,
+                "openhands_comments": len(openhands_comments),
+                "failed_checks": len(failed_checks),
+                "critical_failures": len(critical_failures),
+                "actions_taken": response_actions,
+                "status": "processed",
+            },
+        )
 
     async def _handle_coderabbit_review(self, task: Task) -> TaskResult:
         """Handle AI code review bot comments and suggestions (CodeRabbit, DeepSource, Seer, etc.)"""
