@@ -104,11 +104,14 @@ class AgentGenerator:
 
         # Capability-specific imports
         if "content-generation" in capabilities:
-            imports.append("from ..engines.content_generator import ContentGenerator")
+            imports.append(
+                "from ..engines.content_generator import ContentGenerator")
         if "market-analysis" in capabilities:
-            imports.append("from ..analytics.market_analyzer import MarketAnalyzer")
+            imports.append(
+                "from ..analytics.market_analyzer import MarketAnalyzer")
         if "seo-optimization" in capabilities:
-            imports.append("from ..optimization.seo_optimizer import SEOOptimizer")
+            imports.append(
+                "from ..optimization.seo_optimizer import SEOOptimizer")
 
         # Generate class definition
         class_name = f"{agent_type.title().replace('-', '')}Agent"

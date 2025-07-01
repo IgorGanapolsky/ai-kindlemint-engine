@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
-    def test_import_kindlemint():
+def test_import_kindlemint():
     """Test that we can import the main package"""
     import kindlemint
 

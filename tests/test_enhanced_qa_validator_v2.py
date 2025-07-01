@@ -4,11 +4,12 @@ from pathlib import Path
 
 import pytest
 
+from scripts.enhanced_qa_validator_v2 import EnhancedQAValidatorV2
+
 # Add the project root to the Python path to allow importing from 'scripts'
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from scripts.enhanced_qa_validator_v2 import EnhancedQAValidatorV2
 
 # --- Helper function for mock data ---
 
@@ -190,7 +191,8 @@ class TestValidationChecks:
                 "across": [(1, "lang", "PYTHON")],
                 "down": [(2, "action", "FIX")],
             },
-            "clue_positions": {"0,0": 1, "0,0": 2},  # Both start at the same spot
+            # Both start at the same spot
+            "clue_positions": {"0,0": 1, "0,0": 2},
         }
         _, ok = validator_instance._validate_intersections_and_reconstruct_grid(
             1, puzzle_data
@@ -243,7 +245,8 @@ class TestReportGenerationAndScoring:
     def test_full_run_pass(self, validator_instance, mock_metadata_dir):
         """Test a full run on a valid book, expecting a PASS status."""
         # Create collection.json
-        (mock_metadata_dir / "collection.json").write_text(json.dumps({"puzzles": [1]}))
+        (mock_metadata_dir /
+         "collection.json").write_text(json.dumps({"puzzles": [1]}))
         # Create valid puzzle file
         puzzle_data = create_mock_puzzle_data(1)
         (mock_metadata_dir / "puzzle_01.json").write_text(json.dumps(puzzle_data))
@@ -255,7 +258,8 @@ class TestReportGenerationAndScoring:
 
     def test_full_run_fail(self, validator_instance, mock_metadata_dir):
         """Test a full run on a book with critical issues, expecting a FAIL status."""
-        (mock_metadata_dir / "collection.json").write_text(json.dumps({"puzzles": [1]}))
+        (mock_metadata_dir /
+         "collection.json").write_text(json.dumps({"puzzles": [1]}))
         # Create puzzle file with an invalid word
         puzzle_data = create_mock_puzzle_data(
             1, clues={"across": [(1, "bad", "BADWORD")]}
@@ -269,7 +273,8 @@ class TestReportGenerationAndScoring:
 
     def test_scoring_logic(self, validator_instance, mock_metadata_dir):
         """Test the score calculation based on penalties."""
-        (mock_metadata_dir / "collection.json").write_text(json.dumps({"puzzles": [1]}))
+        (mock_metadata_dir /
+         "collection.json").write_text(json.dumps({"puzzles": [1]}))
         # Create a puzzle with one critical issue (invalid word) and one warning (poor balance)
         puzzle_data = create_mock_puzzle_data(
             1,
@@ -296,7 +301,8 @@ class TestErrorHandling:
 
     def test_malformed_json(self, validator_instance, mock_metadata_dir):
         """Test that the validator handles a malformed JSON file."""
-        (mock_metadata_dir / "collection.json").write_text(json.dumps({"puzzles": [1]}))
+        (mock_metadata_dir /
+         "collection.json").write_text(json.dumps({"puzzles": [1]}))
         (mock_metadata_dir / "puzzle_01.json").write_text(
             "{'invalid_json': True,}"
         )  # Invalid JSON
@@ -311,7 +317,8 @@ class TestErrorHandling:
 
     def test_missing_puzzle_file(self, validator_instance, mock_metadata_dir):
         """Test when a puzzle file listed in collection.json does not exist."""
-        (mock_metadata_dir / "collection.json").write_text(json.dumps({"puzzles": [1]}))
+        (mock_metadata_dir /
+         "collection.json").write_text(json.dumps({"puzzles": [1]}))
         # Do not create puzzle_01.json
 
         validator_instance.validate_book()

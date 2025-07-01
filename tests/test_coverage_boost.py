@@ -7,7 +7,8 @@ This test file uses what actually exists to boost coverage from 10% to 25%+
 import json
 import tempfile
 
-    def test_kindlemint_package_imports():
+
+def test_kindlemint_package_imports():
     """Test all package imports work - covers __init__ files"""
     import kindlemint
     import kindlemint.agents
@@ -52,8 +53,10 @@ def test_sudoku_generator_comprehensive():
     assert gen1._is_valid(grid, 0, 1, 2) == True  # Different number OK
 
     # Test difficulty selection
-    assert gen3._get_difficulty_for_puzzle(0) in ["easy", "medium", "hard", "expert"]
-    assert gen3._get_difficulty_for_puzzle(10) in ["easy", "medium", "hard", "expert"]
+    assert gen3._get_difficulty_for_puzzle(
+        0) in ["easy", "medium", "hard", "expert"]
+    assert gen3._get_difficulty_for_puzzle(
+        10) in ["easy", "medium", "hard", "expert"]
 
     # Test output directory creation
     with tempfile.TemporaryDirectory() as tmpdir:

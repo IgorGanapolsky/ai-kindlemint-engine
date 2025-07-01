@@ -5,14 +5,11 @@ Simple test to create a PDF with just puzzle 100 to verify the visual fix
 
 from pathlib import Path
 
+import pytest
+from fpdf import FPDF
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
-
-    from pathlib import Path
-
-import pytest
-from fpdf import FPDF
 
 
 @pytest.mark.skip(reason="Test needs to be updated to use the new PDF engine")
@@ -53,7 +50,8 @@ def test_create_pdf(tmp_path):
 
     # Add title
     c.setFont("Helvetica-Bold", 24)
-    c.drawCentredString(width / 2, height - 1 * inch, "Puzzle 100 - VISUAL FIX TEST")
+    c.drawCentredString(width / 2, height - 1 * inch,
+                        "Puzzle 100 - VISUAL FIX TEST")
 
     c.setFont("Helvetica", 16)
     c.drawCentredString(width / 2, height - 1.5 * inch, "Difficulty: Hard")
@@ -66,7 +64,8 @@ def test_create_pdf(tmp_path):
         x = (width - img_width) / 2
         y = height / 2 - img_height / 2
 
-        c.drawImage(str(puzzle_image), x, y, width=img_width, height=img_height)
+        c.drawImage(str(puzzle_image), x, y,
+                    width=img_width, height=img_height)
 
         # Add note
         c.setFont("Helvetica", 12)

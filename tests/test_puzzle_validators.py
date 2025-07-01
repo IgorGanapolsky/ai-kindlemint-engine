@@ -4,14 +4,14 @@ from pathlib import Path
 
 import pytest
 
-# Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-
 from kindlemint.validators.crossword_validator import validate_crossword
 from kindlemint.validators.sudoku_validator import validate_sudoku
 from kindlemint.validators.wordsearch_validator import (
     validate_wordsearch as validate_word_search,
 )
+
+# Add src to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
 @pytest.fixture
@@ -51,7 +51,8 @@ def test_validate_sudoku_multiple_solutions(tmp_meta_dir):
     data = {"id": 3, "initial_grid": grid, "solution_grid": grid}
     write_meta(tmp_meta_dir, "sudoku_puzzle_03.json", data)
     issues = validate_sudoku(tmp_meta_dir)
-    assert any("Multiple solutions" in issue["description"] for issue in issues)
+    assert any(
+        "Multiple solutions" in issue["description"] for issue in issues)
 
 
 def test_validate_word_search_valid(tmp_meta_dir):

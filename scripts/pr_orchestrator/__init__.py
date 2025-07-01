@@ -8,7 +8,11 @@ This package provides automated PR handling with:
 - Real-time monitoring
 """
 
-from .merge_conflict_resolver import MergeConflictResolver, ConflictType, ConflictResolution
+from .merge_conflict_resolver import (
+    ConflictResolution,
+    ConflictType,
+    MergeConflictResolver,
+)
 
 __version__ = "1.0.0"
 __all__ = ["MergeConflictResolver", "ConflictType", "ConflictResolution"]

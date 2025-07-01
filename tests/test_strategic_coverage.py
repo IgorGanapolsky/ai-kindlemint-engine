@@ -8,7 +8,9 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-    """Test Sudoku Generator Advanced"""
+"""Test Sudoku Generator Advanced"""
+
+
 def test_sudoku_generator_advanced():
     """Push sudoku.py from 19% to 35%+"""
     from kindlemint.engines.sudoku import SudokuGenerator
@@ -72,7 +74,8 @@ def test_config_loader_advanced():
 
             # Test nested get
             assert loader.get("api_settings.openai.api_key") == "test-key"
-            assert loader.get("api_settings.serpapi.base_url") == "https://api.test.com"
+            assert loader.get(
+                "api_settings.serpapi.base_url") == "https://api.test.com"
 
             # Test get with default
             assert loader.get("missing.key", "default") == "default"
@@ -88,7 +91,8 @@ def test_config_loader_advanced():
 
             # Test environment override
             with patch.dict(
-                "os.environ", {"KINDLEMINT_API_SETTINGS__OPENAI__API_KEY": "env-key"}
+                "os.environ", {
+                    "KINDLEMINT_API_SETTINGS__OPENAI__API_KEY": "env-key"}
             ):
                 loader._apply_env_overrides()
                 assert loader.config["api_settings"]["openai"]["api_key"] == "env-key"
@@ -133,7 +137,8 @@ def test_base_validator_advanced():
 
     # Test issue filtering
     errors = [i for i in report.issues if i.severity == IssueSeverity.ERROR]
-    warnings = [i for i in report.issues if i.severity == IssueSeverity.WARNING]
+    warnings = [i for i in report.issues if i.severity ==
+                IssueSeverity.WARNING]
     assert len(errors) == 1
     assert len(warnings) == 1
 
@@ -178,7 +183,8 @@ def test_cost_tracker_coverage():
     tracker = ClaudeCostTracker()
 
     # Test adding usage
-    tracker.add_usage(model="claude-3-opus", input_tokens=1000, output_tokens=500)
+    tracker.add_usage(model="claude-3-opus",
+                      input_tokens=1000, output_tokens=500)
 
     # Test cost calculation
     cost = tracker.calculate_cost(

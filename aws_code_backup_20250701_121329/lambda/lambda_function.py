@@ -134,10 +134,13 @@ def simulate_pipeline_execution(
 
 if __name__ == "__main__":
     # For local testing
-    test_event = {"topic": "Live System Test: The Phoenix Key", "source": "manual"}
+    test_event = {
+        "topic": "Live System Test: The Phoenix Key", "source": "manual"}
 
     class MockContext:
             """  Init  """
+
+
 def __init__(self):
             self.function_name = "kindlemintEngineFn"
             self.memory_limit_in_mb = 512

@@ -17,8 +17,9 @@ import requests
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-
     """Lambda Handler"""
+
+
 def lambda_handler(event, context):
     """
     Main Lambda handler for alert orchestration
@@ -82,6 +83,8 @@ class AlertOrchestrationEngine:
     """
 
         """  Init  """
+
+
 def __init__(self):
         # Environment configuration
         self.sentry_dsn = os.environ.get("SENTRY_DSN")

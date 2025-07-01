@@ -16,8 +16,9 @@ import requests
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-
     """Lambda Handler"""
+
+
 def lambda_handler(event, context):
     """
     Main Lambda handler for CI orchestration
@@ -78,6 +79,8 @@ class CIOrchestrationEngine:
     """
 
         """  Init  """
+
+
 def __init__(self):
         # Environment configuration
         self.github_token = os.environ.get("GITHUB_TOKEN")

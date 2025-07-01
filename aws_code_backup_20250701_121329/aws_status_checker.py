@@ -199,8 +199,9 @@ def generate_badge_json(status: Dict[str, Any]) -> Dict[str, Any]:
         "cacheSeconds": 300,
     }
 
-
     """Main"""
+
+
 def main():
     """Main execution"""
     print("🔍 Checking AWS Infrastructure Status...")
@@ -229,7 +230,8 @@ def main():
 
         # Print service details
         for service_name, service_status in status.get("services", {}).items():
-            status_emoji = "✅" if service_status.get("status") == "available" else "❌"
+            status_emoji = "✅" if service_status.get(
+                "status") == "available" else "❌"
             print(
                 f"  {status_emoji} {service_name}: {
                     service_status.get('status', 'unknown')}"

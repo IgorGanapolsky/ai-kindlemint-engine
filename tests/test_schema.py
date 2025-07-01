@@ -1,12 +1,4 @@
 #!/usr/bin/env python3
-import pytest
-
-pytestmark = pytest.mark.skip(reason="Skipping market research CSV schema tests in CI")
-"""
-Test Market Research CSV Schema
-Ensures CSV output follows the required schema
-"""
-
 import csv
 import json
 from datetime import datetime
@@ -14,12 +6,20 @@ from pathlib import Path
 
 import pytest
 
+pytestmark = pytest.mark.skip(
+    reason="Skipping market research CSV schema tests in CI")
+"""
+Test Market Research CSV Schema
+Ensures CSV output follows the required schema
+"""
+
 
 class TestMarketResearchSchema:
     """Test suite for market research data schema validation"""
 
     # Required CSV columns
-    REQUIRED_COLUMNS = ["date", "keyword", "amazon_rank", "avg_price", "est_sales"]
+    REQUIRED_COLUMNS = ["date", "keyword",
+                        "amazon_rank", "avg_price", "est_sales"]
     OPTIONAL_COLUMNS = ["competition_level", "reviews_avg"]
 
     def find_latest_csv(self) -> Path:
@@ -74,7 +74,8 @@ class TestMarketResearchSchema:
         try:
             datetime.strptime(row["date"], "%Y-%m-%d")
         except ValueError:
-            pytest.fail(f"Invalid date format: {row['date']} (expected YYYY-MM-DD)")
+            pytest.fail(
+                f"Invalid date format: {row['date']} (expected YYYY-MM-DD)")
 
         # Keyword not empty
         assert row["keyword"].strip(), "Keyword cannot be empty"
@@ -84,21 +85,24 @@ class TestMarketResearchSchema:
             rank = int(row["amazon_rank"])
             assert rank > 0, "Amazon rank must be positive"
         except ValueError:
-            pytest.fail(f"Invalid amazon_rank: {row['amazon_rank']} (expected integer)")
+            pytest.fail(
+                f"Invalid amazon_rank: {row['amazon_rank']} (expected integer)")
 
         # Average price is positive float
         try:
             price = float(row["avg_price"])
             assert price >= 0, "Average price cannot be negative"
         except ValueError:
-            pytest.fail(f"Invalid avg_price: {row['avg_price']} (expected float)")
+            pytest.fail(
+                f"Invalid avg_price: {row['avg_price']} (expected float)")
 
         # Estimated sales is non-negative integer
         try:
             sales = int(row["est_sales"])
             assert sales >= 0, "Estimated sales cannot be negative"
         except ValueError:
-            pytest.fail(f"Invalid est_sales: {row['est_sales']} (expected integer)")
+            pytest.fail(
+                f"Invalid est_sales: {row['est_sales']} (expected integer)")
 
     def test_all_rows_valid(self):
         """Test that all rows in CSV are valid"""
@@ -170,8 +174,10 @@ class TestMarketResearchSchema:
 
         print(f"✅ Data quality checks passed:")
         print(f"   - Unique keywords: {len(keywords)}")
-        print(f"   - Price range: ${min(price_range):.2f} - ${max(price_range):.2f}")
+        print(
+            f"   - Price range: ${min(price_range):.2f} - ${max(price_range):.2f}")
         print(f"   - Sales range: {min(sales_range)} - {max(sales_range)}")
+
 
 def test_schema_compliance():
     """Quick test function for CI/CD"""
