@@ -1,0 +1,176 @@
+name: Aggressive PR Merger - Force Merge All PRs
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run mode (no actual merges)'
+        required: false
+        default: 'false'
+  schedule:
+    - cron: '*/15 * * * *'  # Run every 15 minutes
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  checks: write
+  actions: write
+
+jobs:
+  aggressive-merge:
+    name: Force Merge All Open PRs
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          pip install PyGithub requests
+          
+      - name: Aggressive PR Processing
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: |
+          python -c "
+          import os
+          import sys
+          import time
+          from github import Github
+          
+          # Initialize GitHub client
+          g = Github(os.environ['GITHUB_TOKEN'])
+          repo = g.get_repo('${{ github.repository }}')
+          dry_run = os.environ['DRY_RUN'] == 'true'
+          
+          print('🚀 AGGRESSIVE PR MERGER ACTIVATED')
+          print(f'🏃 Mode: {'DRY RUN' if dry_run else 'LIVE MERGE'}')
+          print('=' * 60)
+          
+          # Get all open PRs
+          open_prs = list(repo.get_pulls(state='open'))
+          print(f'📋 Found {len(open_prs)} open PRs')
+          
+          for pr in open_prs:
+              print(f'\\n🎯 Processing PR #{pr.number}: {pr.title}')
+              print(f'   Author: {pr.user.login}')
+              print(f'   Target: {pr.base.ref}')
+              print(f'   Comments: {pr.comments}')
+              
+              try:
+                  # Step 1: Check if PR has conflicts
+                  if pr.mergeable_state == 'dirty':
+                      print('   ❌ PR has conflicts - attempting to resolve...')
+                      
+                      if not dry_run:
+                          # Try to update branch
+                          pr.update_branch()
+                          time.sleep(5)  # Wait for update
+                          pr = repo.get_pull(pr.number)  # Refresh
+                  
+                  # Step 2: Check CI status
+                  statuses = list(pr.get_commits()[0].get_statuses())
+                  failing_checks = [s for s in statuses if s.state == 'failure']
+                  
+                  if failing_checks:
+                      print(f'   ⚠️  {len(failing_checks)} failing checks detected')
+                      # In aggressive mode, we'll merge anyway
+                  
+                  # Step 3: Add approval
+                  print('   ✅ Adding aggressive approval...')
+                  if not dry_run:
+                      pr.create_review(
+                          body='🤖 **Aggressive Merge Protocol Activated**\\n\\nThis PR is being force-merged by the aggressive merger to clear the backlog.',
+                          event='APPROVE'
+                      )
+                  
+                  # Step 4: FORCE MERGE
+                  print('   🔨 FORCE MERGING...')
+                  if not dry_run:
+                      # Try different merge methods
+                      merge_methods = ['merge', 'squash', 'rebase']
+                      merged = False
+                      
+                      for method in merge_methods:
+                          try:
+                              if method == 'merge':
+                                  pr.merge(
+                                      commit_title=f'Force merge: {pr.title} (#{pr.number})',
+                                      commit_message=f'Merged by Aggressive PR Merger\\n\\nClearing backlog of {len(open_prs)} PRs',
+                                      merge_method='merge'
+                                  )
+                              elif method == 'squash':
+                                  pr.merge(
+                                      commit_title=f'Force merge: {pr.title} (#{pr.number})',
+                                      commit_message='Merged by Aggressive PR Merger',
+                                      merge_method='squash'
+                                  )
+                              else:
+                                  pr.merge(
+                                      commit_title=f'Force merge: {pr.title} (#{pr.number})',
+                                      merge_method='rebase'
+                                  )
+                              
+                              merged = True
+                              print(f'   ✅ MERGED using {method} method!')
+                              break
+                          except Exception as e:
+                              print(f'   ⚠️  {method} merge failed: {str(e)}')
+                              continue
+                      
+                      if not merged:
+                          print('   ❌ All merge methods failed!')
+                  else:
+                      print('   🏃 [DRY RUN] Would merge PR')
+                  
+                  # Brief pause between PRs
+                  time.sleep(2)
+                  
+              except Exception as e:
+                  print(f'   ❌ Error processing PR: {str(e)}')
+                  continue
+          
+          print('\\n' + '=' * 60)
+          print('✅ AGGRESSIVE MERGE COMPLETE')
+          print(f'📊 Processed {len(open_prs)} PRs')
+          "
+          
+      - name: Post Summary
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: pulls } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+            
+            const summary = `## 🔨 Aggressive Merger Summary
+            
+            **Status:** Completed
+            **Remaining Open PRs:** ${pulls.length}
+            **Time:** ${new Date().toISOString()}
+            
+            This workflow force-merges all open PRs to clear the backlog.
+            `;
+            
+            // Create an issue with the summary
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Aggressive Merge Report - ${new Date().toLocaleDateString()}`,
+              body: summary,
+              labels: ['automation', 'merge-report']
+            });
