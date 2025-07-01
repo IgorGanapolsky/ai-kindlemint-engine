@@ -181,14 +181,14 @@ class KDPPerformanceAgent(BaseAgent):
                 async with session.get(url) as response:
                     if response.status == 200:
                         html = await response.text()
-                        soup = BeautifulSoup(html, 'html.parser')
-                        
+                        soup = BeautifulSoup(html, "html.parser")
+
                         return {
                             "title": self._extract_title(soup),
                             "availability": self._extract_availability(soup),
                             "price": self._extract_price(soup),
                             "rating": self._extract_rating(soup),
-                            "review_count": self._extract_review_count(soup)
+                            "review_count": self._extract_review_count(soup),
                         }
                     else:
                         self.logger.warning(
@@ -203,11 +203,11 @@ class KDPPerformanceAgent(BaseAgent):
     def _extract_title(self, soup: BeautifulSoup) -> Optional[str]:
         """Extract book title from Amazon page"""
         title_selectors = [
-            '#productTitle',
-            '.product-title',
-            'h1[data-automation-id="title"]'
+            "#productTitle",
+            ".product-title",
+            'h1[data-automation-id="title"]',
         ]
-        
+
         for selector in title_selectors:
             element = soup.select_one(selector)
             if element:
@@ -217,11 +217,11 @@ class KDPPerformanceAgent(BaseAgent):
     def _extract_price(self, soup: BeautifulSoup) -> Optional[str]:
         """Extract current price from Amazon page"""
         price_selectors = [
-            '.a-price-whole',
-            '.a-price .a-offscreen',
-            '#price_inside_buybox'
+            ".a-price-whole",
+            ".a-price .a-offscreen",
+            "#price_inside_buybox",
         ]
-        
+
         for selector in price_selectors:
             element = soup.select_one(selector)
             if element:
@@ -232,9 +232,9 @@ class KDPPerformanceAgent(BaseAgent):
         """Extract average rating from Amazon page"""
         rating_selectors = [
             '[data-hook="average-star-rating"] .a-offscreen',
-            '.reviewCountTextLinkedHistogram .a-offscreen'
+            ".reviewCountTextLinkedHistogram .a-offscreen",
         ]
-        
+
         for selector in rating_selectors:
             element = soup.select_one(selector)
             if element:
@@ -249,9 +249,9 @@ class KDPPerformanceAgent(BaseAgent):
         """Extract review count from Amazon page"""
         review_selectors = [
             '[data-hook="total-review-count"]',
-            '#acrCustomerReviewText'
+            "#acrCustomerReviewText",
         ]
-        
+
         for selector in review_selectors:
             element = soup.select_one(selector)
             if element:
@@ -259,7 +259,8 @@ class KDPPerformanceAgent(BaseAgent):
                 try:
                     # Extract number from text like "123 ratings"
                     import re
-                    match = re.search(r'(\d+)', text)
+
+                    match = re.search(r"(\d+)", text)
                     if match:
                         return int(match.group(1))
                 except:
@@ -269,11 +270,11 @@ class KDPPerformanceAgent(BaseAgent):
     def _extract_availability(self, soup: BeautifulSoup) -> Optional[str]:
         """Extract availability status from Amazon page"""
         availability_selectors = [
-            '#availability span',
-            '.a-color-success',
-            '.a-color-price'
+            "#availability span",
+            ".a-color-success",
+            ".a-color-price",
         ]
-        
+
         for selector in availability_selectors:
             element = soup.select_one(selector)
             if element:
