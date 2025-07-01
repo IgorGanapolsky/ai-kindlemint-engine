@@ -19,7 +19,7 @@ sys.path.append(str(Path(__file__).parent))
 def generate_book():
     """
     Generates a large print Sudoku puzzle book and creates a PDF layout.
-    
+
     This function initializes the puzzle generator, triggers puzzle creation, and generates a PDF of the book. Prints progress updates and handles errors by displaying informative messages.
     """
     print("🚀 Starting book generation workflow...")

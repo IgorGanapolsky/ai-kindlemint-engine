@@ -28,7 +28,7 @@ MIGRATION_MAP = {
 def __getattr__(name):
     """
     Intercepts attribute access for deprecated module names, issuing a deprecation warning and dynamically importing the corresponding new module.
-    
+
     If the requested attribute matches an entry in the migration map, a warning is raised and the new module is imported and returned. Otherwise, an AttributeError is raised.
     """
     if name in MIGRATION_MAP:

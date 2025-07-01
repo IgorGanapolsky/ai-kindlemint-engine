@@ -29,7 +29,7 @@ class PROrchestratorDashboard:
     def __init__(self, repo_name: str, token: Optional[str] = None):
         """
         Initialize the dashboard with the specified GitHub repository and authentication token.
-        
+
         Parameters:
             repo_name (str): The full name of the GitHub repository (e.g., "owner/repo").
             token (Optional[str]): Personal access token for GitHub API authentication. If not provided, the "GITHUB_TOKEN" environment variable is used.
@@ -46,7 +46,7 @@ class PROrchestratorDashboard:
     def get_orchestrator_metrics(self) -> Dict:
         """
         Fetches and summarizes performance metrics for the orchestrator workflow in the repository.
-        
+
         Returns:
             metrics (dict): A dictionary containing counts of total PRs analyzed, auto-merged PRs, manual reviews, conflicts resolved, hygiene fixes, average merge time, success rate, PRs by type, and confidence distribution.
         """
@@ -105,7 +105,7 @@ class PROrchestratorDashboard:
     def get_active_prs(self) -> List[Dict]:
         """
         Retrieve all open pull requests from the repository with orchestrator status and summary details.
-        
+
         Returns:
             List[Dict]: A list of dictionaries, each containing information about an active PR, including number, title, author, creation time, labels, orchestrator status, checks summary, categorized type, and size.
         """
@@ -130,7 +130,7 @@ class PROrchestratorDashboard:
     def get_pr_orchestrator_status(self, pr) -> str:
         """
         Returns a status string with emoji indicating the orchestrator's current state for the given pull request, based on its labels.
-        
+
         The status can be Blocked, Auto-merge, Manual Review, Fixes Applied, or Analyzing.
         """
         labels = [l.name for l in pr.labels]
@@ -149,12 +149,12 @@ class PROrchestratorDashboard:
     def get_pr_checks_summary(self, pr) -> Dict:
         """
         Returns a summary of the status of all check runs for the latest commit in a pull request.
-        
+
         Parameters:
-        	pr: The pull request object to analyze.
-        
+                pr: The pull request object to analyze.
+
         Returns:
-        	Dict: A dictionary with counts of total, successful, failed, and pending check runs. If checks cannot be retrieved, all counts are zero.
+                Dict: A dictionary with counts of total, successful, failed, and pending check runs. If checks cannot be retrieved, all counts are zero.
         """
         try:
             last_commit = pr.get_commits().reversed[0]
@@ -178,7 +178,7 @@ class PROrchestratorDashboard:
     def categorize_pr(self, pr) -> str:
         """
         Categorize a pull request based on keywords in its title.
-        
+
         Returns:
             str: The PR type category, such as 'bugfix', 'feature', 'docs', 'test', 'dependency', or 'other'.
         """
@@ -200,12 +200,12 @@ class PROrchestratorDashboard:
     def create_metrics_panel(self, metrics: Dict) -> Panel:
         """
         Create a rich panel displaying orchestrator workflow metrics.
-        
+
         Parameters:
-        	metrics (Dict): Dictionary containing orchestrator metrics such as total PRs analyzed, auto-merged count, success rate, manual reviews, conflicts resolved, and hygiene fixes.
-        
+                metrics (Dict): Dictionary containing orchestrator metrics such as total PRs analyzed, auto-merged count, success rate, manual reviews, conflicts resolved, and hygiene fixes.
+
         Returns:
-        	Panel: A rich Panel object containing a formatted table of orchestrator metrics.
+                Panel: A rich Panel object containing a formatted table of orchestrator metrics.
         """
         table = Table(show_header=False, padding=1)
         table.add_column("Metric", style="cyan", width=30)
@@ -224,9 +224,9 @@ class PROrchestratorDashboard:
     def create_pr_table(self, prs: List[Dict]) -> Panel:
         """
         Create a rich Panel displaying a table of up to 10 most recent active pull requests with key details.
-        
+
         The table includes PR number, truncated title, author, type, orchestrator status, checks summary (success/failure/pending), and age. Checks are formatted with emoji indicators, and age is shown in days or hours.
-         
+
         Returns:
             Panel: A rich Panel containing the active PRs table.
         """
@@ -272,7 +272,7 @@ class PROrchestratorDashboard:
     def create_activity_log(self) -> Panel:
         """
         Generate a panel displaying up to 10 recent orchestrator-related activities, including workflow runs and PR command comments.
-        
+
         Returns:
             Panel: A rich Panel containing formatted recent activity entries or a message if no activity is found.
         """
@@ -311,10 +311,10 @@ class PROrchestratorDashboard:
     def create_pr_type_distribution(self, prs: List[Dict]) -> Panel:
         """
         Generate a panel displaying the distribution of pull requests by type as a table with counts and percentage bar graphs.
-        
+
         Parameters:
             prs (List[Dict]): List of pull request data dictionaries, each containing a 'type' key.
-        
+
         Returns:
             Panel: A rich Panel containing a table summarizing PR types, their counts, and visual percentage bars.
         """
@@ -341,7 +341,7 @@ class PROrchestratorDashboard:
     def create_dashboard_layout(self) -> Layout:
         """
         Assembles and returns the full dashboard layout for the PR Orchestrator, including header, metrics, PR type distribution, active PRs, recent activity, and footer panels.
-        
+
         The layout is refreshed from cache if more than one minute has passed since the last update.
         Returns a `rich` Layout object ready for live display.
         """

@@ -48,7 +48,7 @@ class MultiAgentBatchProcessor:
 def __init__(self, enable_multi_agent: bool = True):
         """
         Initialize the MultiAgentBatchProcessor with optional multi-agent system support.
-        
+
         Parameters:
             enable_multi_agent (bool): If True, enables the multi-agent processing system; otherwise, uses legacy processing mode.
         """

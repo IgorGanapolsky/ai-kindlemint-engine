@@ -12,7 +12,7 @@ class Skill:
 def __init__(self, name: str, func: Callable, description: str):
         """
         Initialize a Skill instance with a name, a callable function, and a description.
-        
+
         Parameters:
             name (str): The name of the skill.
             func (Callable): The function implementing the skill's behavior.

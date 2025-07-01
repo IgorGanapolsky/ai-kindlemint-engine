@@ -35,7 +35,7 @@ class CodeHygieneAgent(A2AAgent):
     def __init__(self, project_root: Optional[Path] = None):
         """
         Initialize the CodeHygieneAgent with project root, file categorization patterns, and ideal directory structure.
-        
+
         Parameters:
             project_root (Optional[Path]): The root directory of the project to analyze. Defaults to the current working directory if not provided.
         """
@@ -214,12 +214,12 @@ class CodeHygieneAgent(A2AAgent):
     def _analyze_project_structure(self, deep_scan: bool = True) -> Dict[str, Any]:
         """
         Scans the project directory to analyze file organization, categorize files, and identify structural issues.
-        
+
         Performs a recursive scan of all files under the project root, excluding `.git`, to detect misplaced files, categorize them, and collect issues such as improper locations or file types. Aggregates results, generates high-level recommendations for improving project hygiene, and returns a summary including file counts, detected issues, detailed analysis (up to 50 files), and actionable suggestions.
-        
+
         Parameters:
             deep_scan (bool): If True, performs a thorough scan of all files. (Currently not used for conditional logic.)
-        
+
         Returns:
             Dict[str, Any]: A summary containing total file count, number of issues found, file category distribution, detailed analysis of problematic files, and recommendations for cleanup.
         """
@@ -364,13 +364,13 @@ class CodeHygieneAgent(A2AAgent):
     ) -> List[str]:
         """
         Generate high-level recommendations for improving project directory structure and file organization.
-        
+
         Analyzes the current state of the project based on file categories and analysis results, suggesting actions such as creating missing directories, reducing clutter in the root directory, organizing test files, consolidating requirements files, and removing temporary files.
-        
+
         Parameters:
             file_categories (Dict[str, List[Path]]): Mapping of file categories to lists of file paths.
             analysis_results (List[FileAnalysis]): List of file analysis results.
-        
+
         Returns:
             List[str]: A list of recommended actions to improve project hygiene.
         """
@@ -417,7 +417,7 @@ class CodeHygieneAgent(A2AAgent):
     ) -> Dict[str, Any]:
         """
         Identify groups of duplicate files within the project directory by comparing file content hashes.
-        
+
         Returns:
             dict: A dictionary containing groups of duplicate files (with their hashes, relative paths, count, and size), the total number of duplicate files, and the total disk space wasted by duplicates.
         """
@@ -458,10 +458,10 @@ class CodeHygieneAgent(A2AAgent):
     def _handle_analyze_structure(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Handles a request to analyze the project structure and returns the analysis results.
-        
+
         Parameters:
             payload (dict): Request data, optionally containing 'deep_scan' to control scan depth.
-        
+
         Returns:
             dict: A dictionary with the analysis status and results, or an error message if analysis fails.
         """
@@ -477,12 +477,12 @@ class CodeHygieneAgent(A2AAgent):
     def _handle_generate_cleanup_plan(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Generates a cleanup plan based on provided project structure analysis.
-        
+
         The plan includes a list of recommended actions (such as moving or deleting files), reasons for each action, suggested target locations, and an estimate of the overall impact. Returns a status indicating success or error, along with whether automatic fixes are available.
-        
+
         Parameters:
             payload (dict): Contains the analysis results and an optional 'auto_fix' flag.
-        
+
         Returns:
             dict: A dictionary with the cleanup actions, estimated impact, auto-fix availability, and status.
         """
@@ -525,10 +525,10 @@ class CodeHygieneAgent(A2AAgent):
     def _handle_execute_cleanup(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """
         Simulates execution of a cleanup plan, returning the actions that would be performed.
-        
+
         Parameters:
             payload (dict): Contains the cleanup plan and an optional 'dry_run' flag.
-        
+
         Returns:
             dict: Result status, list of executed actions with their simulated status, and the dry run flag.
         """
@@ -580,7 +580,7 @@ if __name__ == "__main__":
     async def test_hygiene_agent():
         """
         Asynchronously tests the CodeHygieneAgent by sending an analyze_structure request and printing the response.
-        
+
         This function creates an instance of CodeHygieneAgent, constructs a test request message to analyze the project structure, processes the message, and prints the formatted analysis result.
         """
         agent = CodeHygieneAgent()

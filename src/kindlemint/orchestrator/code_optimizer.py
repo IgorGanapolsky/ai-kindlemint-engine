@@ -298,11 +298,11 @@ class CodeOptimizer:
     ) -> List[Dict]:
         """
         Analyze the abstract syntax tree (AST) of a Python file to detect performance issues, specifically for-loops that use list append operations which can be optimized with list comprehensions.
-        
+
         Parameters:
             tree (ast.AST): The parsed AST of the Python file.
             file_path (Path): The path to the file being analyzed.
-        
+
         Returns:
             List[Dict]: A list of detected performance issues, each represented as a dictionary with details about the issue.
         """
@@ -318,7 +318,7 @@ class CodeOptimizer:
                 # Check for list append in loop
                 """
                 Detects for-loops where a list append operation can be replaced with a list comprehension for improved performance.
-                
+
                 Appends an issue to the analysis results if such a pattern is found.
                 """
                 if isinstance(node.body[0], ast.Expr):
@@ -345,11 +345,11 @@ class CodeOptimizer:
     ) -> List[Dict]:
         """
         Scans Python source code for common security issues such as hardcoded secrets and potential SQL injection vulnerabilities.
-        
+
         Parameters:
             content (str): The source code content to analyze.
             file_path (Path): The path to the file being analyzed.
-        
+
         Returns:
             List[Dict]: A list of detected security issues, each containing the issue type, file path, line number, description, and code snippet.
         """
@@ -404,11 +404,11 @@ class CodeOptimizer:
     ) -> List[Dict]:
         """
         Analyze the abstract syntax tree (AST) of a Python file to detect scalability issues, specifically database operations performed inside loops.
-        
+
         Parameters:
             tree (ast.AST): The parsed AST of the Python file.
             file_path (Path): The path to the file being analyzed.
-        
+
         Returns:
             List[Dict]: A list of detected scalability issues, each describing a database operation found within a loop and suggesting batch processing.
         """
@@ -465,12 +465,12 @@ class CodeOptimizer:
     ) -> List[Dict]:
         """
         Analyze the given AST and source content for maintainability issues such as overly long functions, missing docstrings, and missing return type hints.
-        
+
         Parameters:
             tree (ast.AST): The abstract syntax tree of the Python source file.
             content (str): The source code content of the file.
             file_path (Path): The path to the source file being analyzed.
-        
+
         Returns:
             List[Dict]: A list of dictionaries describing detected maintainability issues, including their type, file, line number, and description.
         """
@@ -486,7 +486,7 @@ class CodeOptimizer:
                 # Check function length
                 """
                 Analyzes a function definition node for maintainability issues such as excessive length, missing docstrings, and missing return type hints.
-                
+
                 Appends detected issues to the `self.issues` list with relevant details for further processing.
                 """
                 if len(node.body) > 20:
@@ -531,11 +531,11 @@ class CodeOptimizer:
     async def _generate_optimized_code(self, issue: Dict, pattern: str) -> str:
         """
         Generate example code snippets that address specific performance issues based on the identified pattern.
-        
+
         Parameters:
             issue (Dict): The detected performance issue details.
             pattern (str): The type of performance optimization pattern (e.g., 'list_comprehension', 'generator_expression', 'caching').
-        
+
         Returns:
             str: Example code demonstrating the recommended performance optimization.
         """
@@ -552,11 +552,11 @@ class CodeOptimizer:
     async def _generate_security_fix(self, issue: Dict, issue_type: str) -> str:
         """
         Generate example code to address a specific security issue.
-        
+
         Parameters:
             issue (Dict): The detected security issue details.
             issue_type (str): The type of security issue (e.g., 'hardcoded_secrets', 'sql_injection').
-        
+
         Returns:
             str: Example code snippet demonstrating a fix for the specified security issue.
         """
@@ -572,11 +572,11 @@ class CodeOptimizer:
     async def _generate_scalability_solution(self, issue: Dict, pattern: str) -> str:
         """
         Generate example code snippets that address scalability issues based on the detected pattern.
-        
+
         Parameters:
             issue (Dict): The issue details for which a solution is being generated.
             pattern (str): The type of scalability issue, such as 'batch_processing' or 'connection_pooling'.
-        
+
         Returns:
             str: Example code demonstrating a solution for the specified scalability pattern.
         """
@@ -592,11 +592,11 @@ class CodeOptimizer:
     async def _generate_refactored_code(self, issue: Dict, issue_type: str) -> str:
         """
         Generate example refactored code snippets to address maintainability issues such as method extraction or missing docstrings.
-        
+
         Parameters:
             issue (Dict): The detected maintainability issue details.
             issue_type (str): The type of maintainability issue (e.g., 'extract_method', 'add_docstrings').
-        
+
         Returns:
             str: Example code demonstrating the recommended refactoring for the given issue type.
         """
@@ -612,10 +612,10 @@ class CodeOptimizer:
     async def _implement_optimizations(self, optimizations: List[Dict]) -> Dict:
         """
         Simulate the implementation of a list of code optimizations and return a summary of the results.
-        
+
         Parameters:
             optimizations (List[Dict]): A list of optimization suggestions to be implemented.
-        
+
         Returns:
             Dict: A summary containing the status, number of optimizations implemented, failed, and the total count.
         """

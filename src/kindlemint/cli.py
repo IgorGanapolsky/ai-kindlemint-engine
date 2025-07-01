@@ -41,10 +41,10 @@ def cli():
 def enhance_seo(input_path: str) -> None:  # pragma: no cover
     """
     Enhance book metadata with SEO-optimized marketing strategies and save the result as a new JSON file.
-    
+
     Parameters:
         input_path (str): Path to the input JSON file containing book metadata.
-    
+
     The enhanced metadata is written to a new file in the same directory, with a `_seo.json` suffix added to the original filename. Exits with status 1 if the input file is not valid JSON.
     """
     input_file = Path(input_path)

@@ -103,7 +103,7 @@ class AgentMessage:
     def __post_init__(self):
         """
         Validates that both sender_id and recipient_id are set after initialization.
-        
+
         Raises:
             ValueError: If either sender_id or recipient_id is missing.
         """
@@ -197,9 +197,9 @@ class AgentMessage:
     def create_acknowledgment(self, sender_id: str) -> "AgentMessage":
         """
         Create an acknowledgment message in response to this message.
-        
+
         The acknowledgment is addressed to the original sender, references the original message via `correlation_id`, and includes acknowledgment details in the payload. The message is set to low priority and does not require further acknowledgment.
-        
+
         Returns:
             AgentMessage: The constructed acknowledgment message.
         """

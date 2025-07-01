@@ -126,12 +126,12 @@ def generate_ceo_report(portfolio_summary: Dict[str, Any]) -> Dict[str, Any]:
 def calculate_performance_grade(summary: Dict[str, Any]) -> Dict[str, Any]:
     """
     Assigns a performance grade and status to the portfolio based on total daily revenue.
-    
+
     Grades are determined by comparing daily revenue against fixed thresholds, with corresponding status messages and progress percentage toward a target revenue of 300.
-    
+
     Parameters:
         summary (dict): Portfolio summary containing at least the "total_daily_revenue" key.
-    
+
     Returns:
         dict: Dictionary with keys "grade", "status", "daily_revenue", "target_revenue", and "progress_percentage". Returns a default error grade if calculation fails.
     """
@@ -178,7 +178,7 @@ def calculate_performance_grade(summary: Dict[str, Any]) -> Dict[str, Any]:
 def send_ceo_dashboard(report: Dict[str, Any]):
     """
     Sends the CEO portfolio dashboard report to a Slack channel using a configured webhook.
-    
+
     The report includes an executive summary, performance grade, top performers, and series awaiting approval, formatted as Slack message attachments. If the Slack webhook URL is not set, the function logs a warning and exits without sending.
     """
     try:
@@ -271,10 +271,10 @@ def send_ceo_dashboard(report: Dict[str, Any]):
 def get_grade_color(grade: str) -> str:
     """
     Return the Slack color code corresponding to a given performance grade.
-    
+
     Parameters:
         grade (str): The performance grade (e.g., "A+", "A", "B", "C", "D").
-    
+
     Returns:
         str: Slack color code ("good", "warning", or "danger") mapped to the grade. Defaults to "warning" if grade is unrecognized.
     """

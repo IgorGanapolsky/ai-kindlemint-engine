@@ -138,11 +138,11 @@ def extract_report_date_from_filename(filename: str) -> str:
 def process_kdp_report(csv_content: str, report_date: str) -> Dict[str, Any]:
     """
     Processes a KDP sales report in CSV format, updates DynamoDB records for each book, and returns a summary of the processing results.
-    
+
     Parameters:
         csv_content (str): The CSV content of the KDP sales report.
         report_date (str): The date associated with the report.
-    
+
     Returns:
         Dict[str, Any]: A summary dictionary containing counts of processed and failed books, totals for sales, pages read, royalties, lists of processed book IDs, and details of failed items.
     """
@@ -218,7 +218,7 @@ def process_kdp_report(csv_content: str, report_date: str) -> Dict[str, Any]:
 def extract_book_data_from_csv_row(row: Dict[str, str]) -> Optional[Dict[str, Any]]:
     """
     Extracts and normalizes book data fields from a KDP CSV row.
-    
+
     Attempts to map and convert relevant fields such as title, ASIN, ISBN-13, sales count, pages read, and royalties. Determines a unique book ID using ASIN, ISBN, or a generated hash from the title. Returns a dictionary with the extracted data and the original row for debugging, or `None` if critical fields are missing or extraction fails.
     """
     try:
@@ -288,7 +288,7 @@ def safe_int_conversion(value: str) -> int:
 def safe_decimal_conversion(value: str) -> Decimal:
     """
     Converts a string to a Decimal, removing currency symbols and non-numeric characters.
-    
+
     Returns:
         Decimal: The numeric value as a Decimal, or Decimal("0.0") if conversion fails.
     """
@@ -304,13 +304,13 @@ def safe_decimal_conversion(value: str) -> Decimal:
 def update_book_memory(book_data: Dict[str, Any], report_date: str) -> bool:
     """
     Update or insert a book's sales data and ROI metrics in the DynamoDB table.
-    
+
     Calculates ROI based on royalties and a fixed estimated cost, then updates the book record with sales count, pages read, royalties, ROI, and timestamps. If the book is new, adds metadata such as title, creation date, niche, and topic.
-    
+
     Parameters:
         book_data (Dict[str, Any]): Normalized book sales data to be stored.
         report_date (str): The date associated with the sales report.
-    
+
     Returns:
         bool: True if the update succeeds, False if an error occurs.
     """
@@ -411,11 +411,11 @@ def create_success_response(data: Dict[str, Any]) -> Dict[str, Any]:
 def create_error_response(status_code: int, message: str) -> Dict[str, Any]:
     """
     Constructs an HTTP error response with the specified status code and error message for AWS Lambda.
-    
+
     Parameters:
         status_code (int): The HTTP status code to return.
         message (str): The error message to include in the response body.
-    
+
     Returns:
         Dict[str, Any]: A dictionary representing the HTTP error response, including CORS headers and a UTC timestamp.
     """

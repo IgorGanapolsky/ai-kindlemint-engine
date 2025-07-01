@@ -85,7 +85,7 @@ class HealthStatus:
     def calculate_health_level(self) -> HealthLevel:
         """
         Determine the overall health level of the agent based on current metrics, health checks, and heartbeat freshness.
-        
+
         Returns:
             HealthLevel: The computed health level, which may be UNHEALTHY, CRITICAL, WARNING, or HEALTHY depending on critical and warning thresholds for error rate, resource usage, response time, success rate, and heartbeat age.
         """
@@ -163,7 +163,7 @@ class HealthMonitor:
     ):
         """
         Initializes the HealthMonitor with a specified health check interval and optional custom alert thresholds.
-        
+
         The monitor sets up internal structures for tracking agent health, monitoring state, alert history, alert callbacks, and system-wide metrics.
         """
         self.check_interval = check_interval
@@ -242,7 +242,7 @@ class HealthMonitor:
     ) -> None:
         """
         Updates the health status of a specified agent and triggers alerts if health levels or thresholds change.
-        
+
         If the agent is not already registered, it is added to the monitoring system. The method updates the agent's health status and last seen timestamp, recalculates the health level, and generates alerts if there are changes in health level or if any configured thresholds are exceeded.
         """
         if agent_id not in self.agent_health:
@@ -333,7 +333,7 @@ class HealthMonitor:
     async def _perform_health_checks(self) -> None:
         """
         Performs health checks on all registered agents, evaluating heartbeat freshness and updating their health levels.
-        
+
         Agents with stale or missing heartbeats receive warnings or errors based on configured thresholds. Health levels are recalculated after checks.
         """
         for agent_id in list(self.agent_health.keys()):
@@ -415,7 +415,7 @@ class HealthMonitor:
     ) -> None:
         """
         Checks an agent's health metrics against configured alert thresholds and generates alerts for exceeded limits.
-        
+
         Alerts are created for CPU usage, memory usage, error rate, and success rate if they cross warning or critical thresholds. Generated alerts are appended to the alert history and all registered alert callbacks are notified.
         """
         alerts = []

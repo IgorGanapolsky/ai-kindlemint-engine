@@ -125,7 +125,7 @@ def __init__(
     ):
         """
         Initializes an A2A agent with identity, type, name, description, version, and capabilities.
-        
+
         Parameters:
             agent_id (str): Unique identifier for the agent.
             agent_type (str): Type or category of the agent.

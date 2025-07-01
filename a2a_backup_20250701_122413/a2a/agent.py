@@ -21,7 +21,7 @@ class A2AAgent:
 def _register_self(self):
         """
         Register the agent and its skills with the central registry.
-        
+
         Updates the registry with the agent's ID and a list of its current skills, including each skill's name and description.
         """
         card = {
@@ -39,7 +39,7 @@ def _register_self(self):
 def add_skill(self, name: str, func: Callable, description: str):
         """
         Add a new skill to the agent and update the agent's registration in the registry.
-        
+
         Parameters:
             name (str): The name of the skill to add.
             func (Callable): The function implementing the skill's behavior.

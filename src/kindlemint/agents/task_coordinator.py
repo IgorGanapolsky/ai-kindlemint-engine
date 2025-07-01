@@ -87,7 +87,7 @@ def __init__(
     ):
         """
         Initializes the TaskCoordinator with workflow concurrency limits, default task timeout, and retry delay settings.
-        
+
         Parameters:
             max_concurrent_workflows (int): Maximum number of workflows that can be executed concurrently.
             task_timeout_default (int): Default timeout for individual tasks, in seconds.

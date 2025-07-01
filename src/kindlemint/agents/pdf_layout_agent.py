@@ -10,7 +10,7 @@ class PDFLayoutAgent:
     def __init__(self, agent_id=None, registry=None):
         """
         Initialize a PDFLayoutAgent instance with an optional agent ID.
-        
+
         If no agent ID is provided, defaults to "pdf_layout".
         """
         self.agent_id = agent_id or "pdf_layout"
@@ -18,11 +18,11 @@ class PDFLayoutAgent:
     def create_sudoku_book(self, puzzle_data, output_path):
         """
         Generate a Sudoku book PDF from the provided puzzle data and save it to the specified output path.
-        
+
         Parameters:
             puzzle_data: The data representing the Sudoku puzzles to include in the book.
             output_path: The file path where the generated PDF should be saved.
-        
+
         Returns:
             The result of the PDF generation process as returned by the external `main` function.
         """

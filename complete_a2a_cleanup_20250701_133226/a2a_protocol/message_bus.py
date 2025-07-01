@@ -20,7 +20,7 @@ class A2AMessageBus:
     def __init__(self, registry: A2ARegistry):
         """
         Initialize the A2A message bus with the given agent registry.
-        
+
         Sets up the message queue, message history, response callbacks, and running state.
         """
         self.registry = registry
@@ -50,9 +50,9 @@ class A2AMessageBus:
     async def send_message(self, message: A2AMessage) -> Optional[A2AMessage]:
         """
         Sends a message through the bus and, if it is a request, waits asynchronously for a response.
-        
+
         If the message is of type "request", waits up to 30 seconds for a corresponding response from the target agent. Returns the response message if received in time, or None on timeout or for non-request messages.
-        
+
         Returns:
             Optional[A2AMessage]: The response message if available, otherwise None.
         """
@@ -84,7 +84,7 @@ class A2AMessageBus:
     async def _process_messages(self):
         """
         Continuously processes messages from the queue, dispatching them to target agents and handling responses or errors as needed.
-        
+
         Messages are retrieved from the queue and routed to the appropriate agent for processing. If the target agent is not found or an error occurs during processing, an error response is generated and delivered for request messages. The loop runs while the message bus is active.
         """
         while self.running:
@@ -129,7 +129,7 @@ class A2AMessageBus:
     async def _deliver_response(self, response: A2AMessage):
         """
         Delivers a response message to the sender awaiting it by resolving the corresponding future.
-        
+
         If no matching callback is found for the response's correlation ID, logs a warning.
         """
         if response.correlation_id in self.response_callbacks:
@@ -143,10 +143,10 @@ class A2AMessageBus:
     def get_message_history(self, limit: int = 100) -> List[Dict]:
         """
         Return a summary of the most recent messages sent through the message bus.
-        
+
         Parameters:
             limit (int): Maximum number of recent messages to include in the result.
-        
+
         Returns:
             List[Dict]: A list of dictionaries, each containing message ID, timestamp, sender, receiver, action, and type for up to the specified number of recent messages.
         """
@@ -172,7 +172,7 @@ class A2AOrchestrator:
 def __init__(self, registry: A2ARegistry, message_bus: A2AMessageBus):
         """
         Initialize the A2AOrchestrator with the given agent registry and message bus.
-        
+
         Sets up the orchestrator's agent ID and prepares it to coordinate workflows between agents.
         """
         self.registry = registry

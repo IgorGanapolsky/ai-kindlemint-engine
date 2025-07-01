@@ -12,7 +12,7 @@ class PuzzleGeneratorAgent:
     def __init__(self, agent_id=None, registry=None):
         """
         Initialize a PuzzleGeneratorAgent with an optional agent ID and a Sudoku puzzle generator.
-        
+
         Parameters:
             agent_id (str, optional): Custom identifier for the agent. Defaults to "puzzle_generator" if not provided.
         """
@@ -22,10 +22,10 @@ class PuzzleGeneratorAgent:
     def generate_sudoku(self, difficulty="medium"):
         """
         Generate a Sudoku puzzle of the specified difficulty level.
-        
+
         Parameters:
             difficulty (str): The desired difficulty level for the puzzle (e.g., "easy", "medium", "hard").
-        
+
         Returns:
             dict: A dictionary representing the generated Sudoku puzzle.
         """

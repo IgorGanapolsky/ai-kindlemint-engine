@@ -23,7 +23,7 @@ logger.setLevel(logging.INFO)
 def lambda_handler(event, context):
     """
     AWS Lambda entry point for autonomous alert orchestration.
-    
+
     Determines the event source to trigger scheduled monitoring, process alert queues, handle webhooks, or perform manual checks. Coordinates alert fetching, analysis, resolution, escalation, and notification workflows. Returns an HTTP 200 response with orchestration results on success, or HTTP 500 with error details on failure.
     """
 

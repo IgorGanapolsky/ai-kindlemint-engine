@@ -56,10 +56,10 @@ class FreeMarketResearch:
     def get_trending_keywords(self, category: str = "books") -> List[str]:
         """
         Returns a list of trending keywords related to books, using a hardcoded sample as a free alternative to Google Trends.
-        
+
         Parameters:
             category (str): The category for which to retrieve trending keywords. Defaults to "books".
-        
+
         Returns:
             List[str]: A list of trending keyword strings.
         """
@@ -95,7 +95,7 @@ class FreeMarketResearch:
     def analyze_amazon_competition(self, keyword: str) -> Dict:
         """
         Simulates Amazon competition analysis for a given keyword using predefined data.
-        
+
         Returns:
             dict: Contains search volume, competition score, average price, average rating, and total results for the keyword.
         """
@@ -138,10 +138,10 @@ class FreeMarketResearch:
     def estimate_sales_from_bsr(self, bsr: int) -> int:
         """
         Estimate daily sales volume based on a book's Best Seller Rank (BSR) using public heuristic thresholds.
-        
+
         Parameters:
             bsr (int): The Best Seller Rank of the book.
-        
+
         Returns:
             int: Estimated number of daily sales corresponding to the given BSR.
         """
@@ -160,10 +160,10 @@ class FreeMarketResearch:
     def get_free_keyword_suggestions(self, seed: str) -> List[str]:
         """
         Generate a list of keyword suggestions by combining the seed term with common modifiers relevant to book publishing.
-        
+
         Parameters:
             seed (str): The base keyword to generate suggestions from.
-        
+
         Returns:
             List[str]: A list of suggested keywords incorporating the seed term.
         """
@@ -201,9 +201,9 @@ class FreeKDPAutomationEngine:
     ) -> List[NicheOpportunity]:
         """
         Discovers and ranks profitable KDP niches using only free data sources.
-        
+
         If no seed keywords are provided, trending keywords are retrieved automatically. For each keyword, the method analyzes simulated Amazon competition data and calculates an opportunity score. Returns the top 10 niches sorted by opportunity score.
-        
+
         Returns:
             List[NicheOpportunity]: The most promising niche opportunities identified.
         """
@@ -240,7 +240,7 @@ class FreeKDPAutomationEngine:
     ) -> Optional[NicheOpportunity]:
         """
         Calculates and returns a NicheOpportunity with an opportunity score based on free market data.
-        
+
         The score is derived from search volume, competition, average price, and an estimated Best Seller Rank (BSR) using a custom formula. Returns a NicheOpportunity instance containing all relevant metrics for the given keyword.
         """
 
@@ -273,10 +273,10 @@ class FreeKDPAutomationEngine:
     def generate_book_metadata(self, niche: NicheOpportunity) -> BookMetadata:
         """
         Generates optimized book metadata for a given niche using free keyword suggestions and predefined templates.
-        
+
         Parameters:
             niche (NicheOpportunity): The niche opportunity for which to generate book metadata.
-        
+
         Returns:
             BookMetadata: Structured metadata including title, subtitle, description, up to 7 keywords, categories, price (minimum $7.99), author, and series name.
         """
@@ -324,9 +324,9 @@ High-quality puzzles printed on premium paper for the best solving experience.
 async def main():
     """
     Runs the command-line interface for the free KDP automation engine, supporting niche discovery, metadata generation, and full automation modes.
-    
+
     Parses command-line arguments to select the operation mode, maximum number of books, and optional seed keywords. Executes the selected automation workflow, prints results and cost savings, and handles errors gracefully.
-    
+
     Returns:
         int: 0 on success, 1 on failure.
     """

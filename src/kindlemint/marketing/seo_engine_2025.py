@@ -37,9 +37,9 @@ class SEOOptimizedMarketing:
     def enhance_book_marketing(self, book_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Enhances book metadata with basic SEO strategy annotations.
-        
+
         Appends a note indicating the primary SEO strategy to the book description (if present) and marks the record as enhanced. Returns the updated metadata dictionary.
-        
+
         Returns:
             Dict[str, Any]: The enhanced book metadata with SEO annotations.
         """

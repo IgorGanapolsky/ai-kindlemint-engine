@@ -22,7 +22,7 @@ from .message_protocol import AgentMessage
    def __init__(self, health_monitor: Optional[HealthMonitor] = None):
         """
         Initialize the Agent Registry with internal data structures for agent tracking, capability mapping, message routing, load balancing, and health monitoring.
-        
+
         Parameters:
             health_monitor (Optional[HealthMonitor]): An optional health monitoring system instance. If not provided, a default HealthMonitor is created.
         """

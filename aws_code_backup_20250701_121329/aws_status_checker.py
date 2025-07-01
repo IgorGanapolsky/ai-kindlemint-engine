@@ -173,10 +173,10 @@ def generate_status_summary() -> Dict[str, Any]:
 def generate_badge_json(status: Dict[str, Any]) -> Dict[str, Any]:
     """
     Generate a JSON object for a GitHub badge representing AWS infrastructure health.
-    
+
     Parameters:
         status (Dict[str, Any]): The status summary dictionary containing overall health information.
-    
+
     Returns:
         Dict[str, Any]: A dictionary formatted for GitHub badge rendering, including label, message, color, and cache duration.
     """
@@ -213,7 +213,7 @@ def generate_badge_json(status: Dict[str, Any]) -> Dict[str, Any]:
 def main():
     """
     Checks AWS infrastructure status, generates summary and badge files, and prints a status report.
-    
+
     Returns:
         dict or None: The status summary dictionary if successful, or None if an error occurs.
     """

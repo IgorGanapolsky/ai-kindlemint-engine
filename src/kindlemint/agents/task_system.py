@@ -59,7 +59,7 @@ class Task:
     ) -> None:
         """
         Update the task's status and optionally assign it to a new agent.
-        
+
         Parameters:
             new_status (TaskStatus): The new status to set for the task.
             assigned_to (Optional[str]): The agent ID to assign the task to, if provided.
@@ -71,7 +71,7 @@ class Task:
     def to_dict(self) -> Dict[str, Any]:
         """
         Serialize the Task instance into a dictionary suitable for storage or transmission.
-        
+
         Returns:
             dict: A dictionary representation of the task, with datetime fields in ISO format and status as a string.
         """
@@ -92,10 +92,10 @@ class Task:
     def from_dict(cls, data: Dict[str, Any]) -> "Task":
         """
         Deserialize a dictionary into a Task instance, converting ISO-formatted date strings and status values as needed.
-        
+
         Parameters:
             data (Dict[str, Any]): Dictionary containing task attributes, with date fields as ISO strings and status as a string.
-        
+
         Returns:
             Task: A Task object populated with the provided data.
         """
@@ -144,7 +144,7 @@ class TaskResult:
     def to_dict(self) -> Dict[str, Any]:
         """
         Serialize the TaskResult instance into a dictionary with ISO-formatted timestamp and string status.
-        
+
         Returns:
             dict: A dictionary representation of the task result suitable for serialization.
         """
@@ -162,10 +162,10 @@ class TaskResult:
     def from_dict(cls, data: Dict[str, Any]) -> "TaskResult":
         """
         Deserialize a dictionary into a TaskResult instance.
-        
+
         Parameters:
             data (dict): Dictionary containing task result data, with status as a string and timestamp in ISO format.
-        
+
         Returns:
             TaskResult: The deserialized TaskResult object.
         """

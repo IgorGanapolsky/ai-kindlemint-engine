@@ -16,7 +16,7 @@ from typing import Dict, List, Optional
 def __new__(cls, registry_file: Optional[str] = None):
         """
         Creates or returns the singleton instance of the registry, optionally initializing it from a specified file.
-        
+
         If a `registry_file` path is provided and the singleton instance does not yet exist, the registry is loaded from that file.
         """
         if cls._instance is None:
@@ -31,9 +31,9 @@ def __new__(cls, registry_file: Optional[str] = None):
 def register_agent(self, agent_id: str, card: Dict):
         """
         Register or update an agent's card in the registry.
-        
+
         If the agent ID already exists, its card is updated. The registry is saved to the file if a file path is set.
-        
+
         Parameters:
             agent_id (str): Unique identifier for the agent.
             card (Dict): Dictionary containing the agent's information.

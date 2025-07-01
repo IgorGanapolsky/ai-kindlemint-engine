@@ -88,7 +88,7 @@ def __init__(self, registry):
 def add_skill(self, name: str, handler, description: str):
         """
         Registers a new skill with the agent, associating it with a handler function and description.
-        
+
         Parameters:
             name (str): The unique name of the skill to register.
             handler: The function that implements the skill's behavior.

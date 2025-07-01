@@ -28,7 +28,7 @@ class V3Orchestrator:
 def __init__(self):
         """
         Initializes the V3Orchestrator with AWS clients and required configuration from environment variables.
-        
+
         Raises:
             ValueError: If the FARGATE_INVOKER_ARN or OPENAI_API_KEY environment variables are not set.
         """
