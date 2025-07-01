@@ -14,6 +14,13 @@
 - **Monitor All PRs**: `python scripts/alert_orchestration/sentry_ai_orchestrator.py monitor`
 - **Test Automation**: `python scripts/test_sentry_ai_automation.py`
 
+## Cursor Bugbot Integration (NEW!)
+- **Automatic PR Review**: Cursor Bugbot automatically reviews all PRs for potential bugs
+- **Manual Trigger**: Comment `bugbot run` on any PR to trigger a review
+- **Fix in Cursor**: Click "Fix in Cursor" links in Bugbot comments to jump directly to issues
+- **Setup**: Enable via https://cursor.com/dashboard → BugBot → Connect GitHub
+- **Free during Beta**: Available for all Cursor paid users at no additional cost
+
 ## Claude Cost Tracking & Slack Notifications
 - `./claude-flow-costs status`: Show current cost status
 - `./claude-flow-costs summary --days 7`: View cost summary
