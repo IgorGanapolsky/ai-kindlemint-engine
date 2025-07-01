@@ -76,7 +76,7 @@ class TaskCoordinator:
     Intelligent task coordination and workflow management system
     """
 
-        """  Init  """
+    def __init__(self):
 
 
 def __init__(

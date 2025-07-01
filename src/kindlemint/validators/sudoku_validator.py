@@ -38,7 +38,7 @@ class SudokuValidator(PuzzleValidator):
         "expert": {"min": 17, "max": 26, "target": 20},
     }
 
-        """  Init  """
+    def __init__(self):
 def __init__(self, strict_mode: bool = False):
         """
         Initialize the Sudoku validator.

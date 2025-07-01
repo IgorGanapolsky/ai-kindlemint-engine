@@ -53,7 +53,7 @@ class BotpressError(Exception):
 class BotpressAPIError(BotpressError):
     """Exception raised for errors in the Botpress API."""
 
-        """  Init  """
+    def __init__(self):
 def __init__(self, status_code: int, message: str):
         self.status_code = status_code
         self.message = message
@@ -126,7 +126,7 @@ class BotpressClient:
         cost_tracker (Optional[CostTracker]): Tracks API usage costs if enabled
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         api_key: Optional[str] = None,
@@ -373,7 +373,7 @@ class BaseBot(ABC):
     of required methods for specific bot types.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         client: BotpressClient,
@@ -492,7 +492,7 @@ class AuthorInterviewBot(BaseBot):
     their ideas, organize content, and develop their book structure.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         client: BotpressClient,
@@ -690,7 +690,7 @@ class ReaderFeedbackBot(BaseBot):
     feedback, ratings, and suggestions for improvement.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         client: BotpressClient,
@@ -858,7 +858,7 @@ class WritingCoachBot(BaseBot):
     helping overcome writer's block, and providing feedback on drafts.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         client: BotpressClient,
@@ -1099,7 +1099,7 @@ class ConversationalMarketingBot(BaseBot):
     and facilitates webinar registrations through natural conversations.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         client: BotpressClient,
@@ -1479,7 +1479,7 @@ class WebhookHandler:
     routing them to the appropriate handlers based on event type.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(self, config: Optional[BotpressConfig] = None):
         """
         Initialize the webhook handler.

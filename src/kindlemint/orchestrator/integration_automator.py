@@ -115,7 +115,7 @@ class IntegrationAutomator:
             Integration with Amazon KDP Publishing API
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 
 
 def __init__(self, api_key: str, api_secret: str):
@@ -310,7 +310,7 @@ def __init__(self, api_key: str, api_secret: str):
             Integration with Stripe for payment processing
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, api_key: str):
                 self.api_key = api_key
                 stripe.api_key = api_key
@@ -438,7 +438,7 @@ def __init__(self, api_key: str):
             Integration with SendGrid for email automation
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, api_key: str):
                 self.api_key = api_key
                 self.client = SendGridAPIClient(api_key)
@@ -559,7 +559,7 @@ def __init__(self, api_key: str):
             Integration with Botpress for conversational AI
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, bot_url: str, auth_token: Optional[str] = None):
                 self.bot_url = bot_url
                 self.auth_token = auth_token
@@ -679,7 +679,7 @@ def __init__(self, bot_url: str, auth_token: Optional[str] = None):
             Integration with Amazon Product Advertising API
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, access_key: str, secret_key: str, partner_tag: str):
                 self.access_key = access_key
                 self.secret_key = secret_key
@@ -791,7 +791,7 @@ def __init__(self, access_key: str, secret_key: str, partner_tag: str):
             Integration with OpenAI API for AI-powered features
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, api_key: str):
                 self.api_key = api_key
                 openai.api_key = api_key
@@ -888,7 +888,7 @@ def __init__(self, api_key: str):
             Integration with {service_name}
             \"\"\"
 
-                """  Init  """
+            def __init__(self):
 def __init__(self, api_key: str, base_url: str):
                 self.api_key = api_key
                 self.base_url = base_url

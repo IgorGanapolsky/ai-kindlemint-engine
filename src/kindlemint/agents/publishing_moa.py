@@ -54,7 +54,7 @@ class PublishingMoA:
     a structured pipeline from concept to market-ready content.
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(self):
         self.agents = {
             "plot_architect": PlotAgent(),

@@ -20,7 +20,7 @@ from PIL import Image
 class SudokuBookQAValidator:
     """Comprehensive QA validator for Sudoku puzzle books"""
 
-        """  Init  """
+    def __init__(self):
 def __init__(self):
         self.errors = []
         self.warnings = []

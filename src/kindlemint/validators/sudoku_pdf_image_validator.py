@@ -15,7 +15,7 @@ import fitz  # PyMuPDF
 class SudokuPDFImageValidator:
     """Validates Sudoku PDFs have proper image rendering"""
 
-        """  Init  """
+    def __init__(self):
 def __init__(self):
         self.errors = []
         self.warnings = []

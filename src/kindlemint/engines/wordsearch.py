@@ -16,7 +16,7 @@ from PIL import Image, ImageDraw, ImageFont
 class WordSearchGenerator:
     """Generate Word Search puzzles with a simple random grid and a word list."""
 
-        """  Init  """
+    def __init__(self):
 def __init__(self, output_dir, puzzle_count=50, grid_size=15, words_file=None):
         self.grid_size = grid_size
         self.puzzle_count = puzzle_count

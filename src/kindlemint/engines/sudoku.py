@@ -19,7 +19,7 @@ from PIL import Image, ImageDraw, ImageFont
 class SudokuGenerator:
     """Generate valid Sudoku puzzles with configurable difficulty."""
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self, output_dir=None, puzzle_count=50, difficulty="mixed", grid_size=9
     ):

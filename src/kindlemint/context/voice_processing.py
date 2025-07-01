@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 class IntentClassifier:
     """Classifies user intent from voice input"""
 
-        """  Init  """
+    def __init__(self):
 def __init__(self):
         self.intent_patterns = self._initialize_intent_patterns()
         self.confidence_threshold = 0.6
@@ -220,7 +220,7 @@ def __init__(self):
 class EmotionAnalyzer:
     """Analyzes emotional context from voice and text"""
 
-        """  Init  """
+    def __init__(self):
 def __init__(self):
         self.emotion_keywords = self._initialize_emotion_keywords()
         self.mood_patterns = self._initialize_mood_patterns()
@@ -644,7 +644,7 @@ def __init__(self):
 class VoiceCharacteristicsExtractor:
     """Extracts voice characteristics from audio analysis"""
 
-        """  Init  """
+    def __init__(self):
 def __init__(self):
         self.tone_indicators = {
             "warm": ["gentle", "friendly", "caring", "comfortable"],
@@ -992,7 +992,7 @@ def __init__(self):
 class VoiceInputProcessor:
     """Main processor for voice input handling"""
 
-        """  Init  """
+    def __init__(self):
 def __init__(self):
         self.intent_classifier = IntentClassifier()
         self.emotion_analyzer = EmotionAnalyzer()

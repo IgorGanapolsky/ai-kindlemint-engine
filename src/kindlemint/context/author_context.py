@@ -27,8 +27,8 @@ logger = logging.getLogger(__name__)
 class WritingStyleAnalyzer:
     """Analyzes and updates writing style based on voice patterns and content"""
 
-        """  Init  """
-def __init__(self):
+    def __init__(self):
+    def __init__(self):
         self.tone_keywords = {
             "formal": ["furthermore", "therefore", "consequently", "moreover"],
             "casual": ["yeah", "kinda", "stuff", "things", "like"],
@@ -198,8 +198,8 @@ def __init__(self):
 class PreferenceEngine:
     """Manages and updates user preferences based on interactions"""
 
-        """  Init  """
-def __init__(self):
+    def __init__(self):
+    def __init__(self):
         self.genre_keywords = {
             BookGenre.MYSTERY: [
                 "mystery",
@@ -584,8 +584,8 @@ class SuccessPatternsAnalyzer:
 class AuthorContextBuilder:
     """Main class for building and maintaining author context"""
 
-        """  Init  """
-def __init__(self, memory_store: Optional[ContextMemoryStore] = None):
+    def __init__(self, memory_store: Optional[ContextMemoryStore] = None):
+    def __init__(self):
         self.memory_store = memory_store or ContextMemoryStore()
         self.style_analyzer = WritingStyleAnalyzer()
         self.preference_engine = PreferenceEngine()

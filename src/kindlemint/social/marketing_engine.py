@@ -38,7 +38,7 @@ class SocialMediaMarketingEngine:
     - Analytics and optimization
     """
 
-        """  Init  """
+    def __init__(self):
 def __init__(
         self,
         author_name: str,

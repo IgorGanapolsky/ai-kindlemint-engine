@@ -57,7 +57,7 @@ def __new__(cls):
             cls._instance._initialized = False
         return cls._instance
 
-        """  Init  """
+    def __init__(self):
 def __init__(self):
         if self._initialized:
             return

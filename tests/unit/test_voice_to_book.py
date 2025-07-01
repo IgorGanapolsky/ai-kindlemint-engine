@@ -13,7 +13,7 @@ from kindlemint.engines.content_generator import ContentGenerator
 class TestVoiceToBookPipeline:
     @pytest.fixture
     def pipeline(self):
-        with patch('whisper.load_model') as mock_load_model,             patch('pydub.AudioSegment.from_file') as mock_from_file:
+        with patch('whisper.load_model') as mock_load_model,                 patch('pydub.AudioSegment.from_file') as mock_from_file:
             mock_load_model.return_value.transcribe.return_value = {"text": "test transcript", "language": "en"}
             mock_from_file.return_value.duration_seconds = 10
             pipeline = FeatureDeveloper().feature_templates["voice_to_book"]({}) # Pass empty requirements for now

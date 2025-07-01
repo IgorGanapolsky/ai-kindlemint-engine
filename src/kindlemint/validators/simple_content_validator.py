@@ -15,7 +15,7 @@ import fitz
 class SimpleContentValidator:
     """Simple validation using file size patterns"""
 
-        """  Init  """
+    def __init__(self):
 def __init__(self):
         self.results = {
             "status": "UNKNOWN",
