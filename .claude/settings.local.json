@@ -279,7 +279,9 @@
       "Bash(--title \"Large Print Sudoku Masters\" )",
       "Bash(--author \"Crossword Masters Publishing\" )",
       "Bash(--subtitle \"100 Easy to Hard Progressive Puzzles\" )",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "WebFetch(domain:forum.cursor.com)",
+      "WebFetch(domain:www.instructa.ai)"
     ],
     "deny": []
   }

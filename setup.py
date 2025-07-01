@@ -50,7 +50,8 @@ setuptools.setup(
     python_requires=">=3.8",
     entry_points={
         "console_scripts": [
-            "kindlemint=scripts.cli.main:cli",
+            # Primary CLI entrypoint
+            "kindlemint=kindlemint.cli:cli",
         ],
     },
 )
