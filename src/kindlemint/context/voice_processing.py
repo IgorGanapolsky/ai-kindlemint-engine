@@ -25,6 +25,8 @@ class IntentClassifier:
     """Classifies user intent from voice input"""
 
     def __init__(self):
+
+
 def __init__(self):
         self.intent_patterns = self._initialize_intent_patterns()
         self.confidence_threshold = 0.6

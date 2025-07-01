@@ -18,7 +18,8 @@ Usage:
 
     client = BotpressClient(api_key="your_api_key")
     author_bot = AuthorInterviewBot(client)
-    content = author_bot.conduct_interview(author_id="auth123", book_topic="puzzle books")
+    content = author_bot.conduct_interview(
+        author_id="auth123", book_topic="puzzle books")
 """
 
 import json
@@ -54,6 +55,8 @@ class BotpressAPIError(BotpressError):
     """Exception raised for errors in the Botpress API."""
 
     def __init__(self):
+
+
 def __init__(self, status_code: int, message: str):
         self.status_code = status_code
         self.message = message
@@ -107,7 +110,8 @@ class BotpressConfig:
             base_url=os.environ.get(
                 "BOTPRESS_BASE_URL", "https://api.botpress.cloud/v1"
             ),
-            timeout=int(os.environ.get("BOTPRESS_TIMEOUT", str(DEFAULT_TIMEOUT))),
+            timeout=int(os.environ.get(
+                "BOTPRESS_TIMEOUT", str(DEFAULT_TIMEOUT))),
             track_costs=os.environ.get("BOTPRESS_TRACK_COSTS", "true").lower()
             == "true",
             webhook_secret=os.environ.get("BOTPRESS_WEBHOOK_SECRET"),
@@ -127,6 +131,8 @@ class BotpressClient:
     """
 
     def __init__(self):
+
+
 def __init__(
         self,
         api_key: Optional[str] = None,
@@ -149,7 +155,8 @@ def __init__(
         if config:
             self.config = config
         elif api_key and workspace_id:
-            self.config = BotpressConfig(api_key=api_key, workspace_id=workspace_id)
+            self.config = BotpressConfig(
+                api_key=api_key, workspace_id=workspace_id)
         else:
             try:
                 self.config = BotpressConfig.from_env()
