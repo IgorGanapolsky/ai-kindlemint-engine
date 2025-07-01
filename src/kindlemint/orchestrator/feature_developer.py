@@ -200,9 +200,10 @@ class FeatureDeveloper:
 
         import asyncio
         import logging
-        from typing import Dict, List, Optional
-        import aiohttp
         from datetime import datetime
+        from typing import Dict, List, Optional
+
+        import aiohttp
 
 
         class AffiliateIntegrationEngine:
@@ -512,9 +513,9 @@ class FeatureDeveloper:
 
         import asyncio
         import logging
-        from typing import Dict, List, Optional
-        from datetime import datetime
         from dataclasses import dataclass
+        from datetime import datetime
+        from typing import Dict, List, Optional
 
 
         @dataclass
@@ -721,8 +722,8 @@ class FeatureDeveloper:
 
         import asyncio
         import logging
-        from typing import Dict, List, Optional
         from datetime import datetime
+        from typing import Dict, List, Optional
 
 
         class {class_name}:
@@ -801,10 +802,11 @@ class FeatureDeveloper:
             Tests for {feature_name} feature
             """
 
-        import pytest
         import asyncio
-        from pathlib import Path
         import sys
+        from pathlib import Path
+
+        import pytest
 
         sys.path.insert(0, str(Path(__file__).parent))
 
@@ -885,9 +887,12 @@ class FeatureDeveloper:
         ## Usage
 
         ```python
-        from features.{feature_name} import {feature_name.title().replace('_', '')}
-
-        # Initialize the feature
+        from features.{feature_name} import (  # Initialize the feature
+            '' },
+            '_',
+            .replace,
+            {feature_name.title,
+        )
         feature = {feature_name.title().replace('_', '')}()
         await feature.initialize()
 
