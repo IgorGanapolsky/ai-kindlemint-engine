@@ -1,12 +1,12 @@
 {
-  "timestamp": "2025-07-01T20:22:39.062841",
+  "timestamp": "2025-07-01T21:41:25.066419",
   "repository": "igorganapolsky/ai-kindlemint-engine",
-  "total_failures": 9,
+  "total_failures": 20,
   "analyzed_failures": [
     {
       "failure_info": {
         "job_name": "Route PR to Appropriate Branch",
-        "job_id": 45163046679,
+        "job_id": 45167794425,
         "status": "completed",
         "conclusion": "failure",
         "failed_step": "Analyze PR and Determine Route",
@@ -14,239 +14,11 @@
         "error_message": "",
         "suggested_fix": null,
         "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
-        "workflow_id": 16009251438,
+        "workflow_id": 16010741477,
         "branch": "main",
-        "commit_sha": "1509011ce98ae1ebfc0fad3fffd532110eb6bbf0",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16009251438",
-        "created_at": "2025-07-01T20:15:49Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "AI Development Team Review",
-        "job_id": 45163046704,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "AI Development Team Orchestrator",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
-        "workflow_id": 16009251434,
-        "branch": "main",
-        "commit_sha": "1509011ce98ae1ebfc0fad3fffd532110eb6bbf0",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16009251434",
-        "created_at": "2025-07-01T20:15:49Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "Execute Main Branch Workflow (Executive Approval Required)",
-        "job_id": 45163025057,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "Request Executive Review",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
-        "workflow_id": 16009234963,
-        "branch": "deepsource-transform-c420b359",
-        "commit_sha": "fae4b3e68e02aecaf0307df2fc7f4f91872963ab",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16009234963",
-        "created_at": "2025-07-01T20:14:57Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "AI Development Team Review",
-        "job_id": 45162993532,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "AI Development Team Orchestrator",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
-        "workflow_id": 16009234958,
-        "branch": "deepsource-transform-c420b359",
-        "commit_sha": "fae4b3e68e02aecaf0307df2fc7f4f91872963ab",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16009234958",
-        "created_at": "2025-07-01T20:14:57Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "AI Development Team Review",
-        "job_id": 45162991839,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "AI Development Team Orchestrator",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
-        "workflow_id": 16009234423,
-        "branch": "deepsource-transform-c420b359",
-        "commit_sha": "fae4b3e68e02aecaf0307df2fc7f4f91872963ab",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16009234423",
-        "created_at": "2025-07-01T20:14:55Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "Execute Main Branch Workflow (Executive Approval Required)",
-        "job_id": 45163017694,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "Request Executive Review",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
-        "workflow_id": 16009234411,
-        "branch": "deepsource-transform-c420b359",
-        "commit_sha": "fae4b3e68e02aecaf0307df2fc7f4f91872963ab",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16009234411",
-        "created_at": "2025-07-01T20:14:55Z"
-      },
-      "strategies": [
-        {
-          "strategy_type": "manual_review",
-          "description": "Manual review required for unknown error",
-          "confidence": 0.1,
-          "files_to_modify": [],
-          "commands": [],
-          "estimated_complexity": "high",
-          "auto_fixable": false
-        }
-      ],
-      "recommended_strategy": {
-        "strategy_type": "manual_review",
-        "description": "Manual review required for unknown error",
-        "confidence": 0.1,
-        "files_to_modify": [],
-        "commands": [],
-        "estimated_complexity": "high",
-        "auto_fixable": false
-      }
-    },
-    {
-      "failure_info": {
-        "job_name": "AI Development Team Review",
-        "job_id": 45162989961,
-        "status": "completed",
-        "conclusion": "failure",
-        "failed_step": "AI Development Team Orchestrator",
-        "failure_type": "unknown",
-        "error_message": "",
-        "suggested_fix": null,
-        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
-        "workflow_id": 16009233752,
-        "branch": "main",
-        "commit_sha": "1509011ce98ae1ebfc0fad3fffd532110eb6bbf0",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16009233752",
-        "created_at": "2025-07-01T20:14:53Z"
+        "commit_sha": "d8bc27713b920a43645780a6b6d545d378913c36",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010741477",
+        "created_at": "2025-07-01T21:40:18Z"
       },
       "strategies": [
         {
@@ -272,7 +44,7 @@
     {
       "failure_info": {
         "job_name": "Route PR to Appropriate Branch",
-        "job_id": 45162989977,
+        "job_id": 45167793473,
         "status": "completed",
         "conclusion": "failure",
         "failed_step": "Analyze PR and Determine Route",
@@ -280,11 +52,11 @@
         "error_message": "",
         "suggested_fix": null,
         "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
-        "workflow_id": 16009233761,
+        "workflow_id": 16010741119,
         "branch": "main",
-        "commit_sha": "1509011ce98ae1ebfc0fad3fffd532110eb6bbf0",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16009233761",
-        "created_at": "2025-07-01T20:14:53Z"
+        "commit_sha": "d8bc27713b920a43645780a6b6d545d378913c36",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010741119",
+        "created_at": "2025-07-01T21:40:17Z"
       },
       "strategies": [
         {
@@ -310,7 +82,7 @@
     {
       "failure_info": {
         "job_name": "AI Development Team Review",
-        "job_id": 45162951027,
+        "job_id": 45167481963,
         "status": "completed",
         "conclusion": "failure",
         "failed_step": "AI Development Team Orchestrator",
@@ -318,11 +90,657 @@
         "error_message": "",
         "suggested_fix": null,
         "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
-        "workflow_id": 16009221950,
+        "workflow_id": 16010640500,
         "branch": "main",
-        "commit_sha": "1509011ce98ae1ebfc0fad3fffd532110eb6bbf0",
-        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16009221950",
-        "created_at": "2025-07-01T20:14:13Z"
+        "commit_sha": "d8bc27713b920a43645780a6b6d545d378913c36",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010640500",
+        "created_at": "2025-07-01T21:34:18Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Fix Issues and Merge PR",
+        "job_id": 45167148096,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Intelligent PR Processing",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Intelligent PR Fixer & Merger",
+        "workflow_id": 16010528173,
+        "branch": "main",
+        "commit_sha": "d8bc27713b920a43645780a6b6d545d378913c36",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010528173",
+        "created_at": "2025-07-01T21:27:57Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Execute Main Branch Workflow (Executive Approval Required)",
+        "job_id": 45166513746,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Request Executive Review",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
+        "workflow_id": 16010316690,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010316690",
+        "created_at": "2025-07-01T21:15:24Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "AI Development Team Review",
+        "job_id": 45166480242,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "AI Development Team Orchestrator",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
+        "workflow_id": 16010316706,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010316706",
+        "created_at": "2025-07-01T21:15:24Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Execute Main Branch Workflow (Executive Approval Required)",
+        "job_id": 45166506452,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Request Executive Review",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
+        "workflow_id": 16010316207,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010316207",
+        "created_at": "2025-07-01T21:15:22Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "AI Development Team Review",
+        "job_id": 45166478078,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "AI Development Team Orchestrator",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
+        "workflow_id": 16010316194,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010316194",
+        "created_at": "2025-07-01T21:15:22Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Execute Main Branch Workflow (Executive Approval Required)",
+        "job_id": 45166502272,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Request Executive Review",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
+        "workflow_id": 16010315684,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010315684",
+        "created_at": "2025-07-01T21:15:19Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "AI Development Team Review",
+        "job_id": 45166476002,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "AI Development Team Orchestrator",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
+        "workflow_id": 16010315683,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010315683",
+        "created_at": "2025-07-01T21:15:19Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Execute Main Branch Workflow (Executive Approval Required)",
+        "job_id": 45166498421,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Request Executive Review",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
+        "workflow_id": 16010315284,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010315284",
+        "created_at": "2025-07-01T21:15:18Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "AI Development Team Review",
+        "job_id": 45166474922,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "AI Development Team Orchestrator",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
+        "workflow_id": 16010315295,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010315295",
+        "created_at": "2025-07-01T21:15:18Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Execute Main Branch Workflow (Executive Approval Required)",
+        "job_id": 45166493148,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Request Executive Review",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
+        "workflow_id": 16010314640,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010314640",
+        "created_at": "2025-07-01T21:15:16Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "AI Development Team Review",
+        "job_id": 45166472724,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "AI Development Team Orchestrator",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
+        "workflow_id": 16010314647,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010314647",
+        "created_at": "2025-07-01T21:15:16Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Execute Main Branch Workflow (Executive Approval Required)",
+        "job_id": 45166496596,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Request Executive Review",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
+        "workflow_id": 16010313968,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010313968",
+        "created_at": "2025-07-01T21:15:13Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "AI Development Team Review",
+        "job_id": 45166470585,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "AI Development Team Orchestrator",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
+        "workflow_id": 16010313964,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010313964",
+        "created_at": "2025-07-01T21:15:13Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Execute Main Branch Workflow (Executive Approval Required)",
+        "job_id": 45166494222,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Request Executive Review",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
+        "workflow_id": 16010313550,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010313550",
+        "created_at": "2025-07-01T21:15:12Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "AI Development Team Review",
+        "job_id": 45166469102,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "AI Development Team Orchestrator",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
+        "workflow_id": 16010313569,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010313569",
+        "created_at": "2025-07-01T21:15:12Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "Execute Main Branch Workflow (Executive Approval Required)",
+        "job_id": 45166494568,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "Request Executive Review",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "Staged PR Orchestrator - Enterprise Security Model",
+        "workflow_id": 16010312957,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010312957",
+        "created_at": "2025-07-01T21:15:09Z"
+      },
+      "strategies": [
+        {
+          "strategy_type": "manual_review",
+          "description": "Manual review required for unknown error",
+          "confidence": 0.1,
+          "files_to_modify": [],
+          "commands": [],
+          "estimated_complexity": "high",
+          "auto_fixable": false
+        }
+      ],
+      "recommended_strategy": {
+        "strategy_type": "manual_review",
+        "description": "Manual review required for unknown error",
+        "confidence": 0.1,
+        "files_to_modify": [],
+        "commands": [],
+        "estimated_complexity": "high",
+        "auto_fixable": false
+      }
+    },
+    {
+      "failure_info": {
+        "job_name": "AI Development Team Review",
+        "job_id": 45166467055,
+        "status": "completed",
+        "conclusion": "failure",
+        "failed_step": "AI Development Team Orchestrator",
+        "failure_type": "unknown",
+        "error_message": "",
+        "suggested_fix": null,
+        "workflow_name": "AI Development Team - Intelligent PR Review & Merge System",
+        "workflow_id": 16010312955,
+        "branch": "deepsource-transform-1a2a186a",
+        "commit_sha": "83cfbc0715e88deb7713c79a53b07dd0fa79a634",
+        "run_url": "https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/runs/16010312955",
+        "created_at": "2025-07-01T21:15:09Z"
       },
       "strategies": [
         {
@@ -348,9 +766,9 @@
   ],
   "summary": {
     "auto_fixable": 0,
-    "manual_review": 9,
+    "manual_review": 20,
     "by_strategy_type": {
-      "manual_review": 9
+      "manual_review": 20
     }
   }
 }

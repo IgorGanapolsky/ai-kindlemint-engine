@@ -153,15 +153,17 @@ class IssueCleanupAgent:
     async def cleanup_stale_automation_issues(self, days_old: int = 7) -> int:
         """Clean up old automation issues"""
         issues = await self.get_all_issues()
-        cutoff_date = datetime.now() - timedelta(days=days_old)
+        cutoff_date = datetime.now().replace(tzinfo=None) - timedelta(days=days_old)
         
         closed_count = 0
         
         for issue in issues:
             if self.is_automation_author(issue["author"]):
                 created_date = datetime.fromisoformat(issue["createdAt"].replace("Z", "+00:00"))
+                # Convert to naive datetime for comparison
+                created_date_naive = created_date.replace(tzinfo=None)
                 
-                if created_date < cutoff_date:
+                if created_date_naive < cutoff_date:
                     reason = f"Stale automation issue (older than {days_old} days)"
                     if await self.close_issue(issue["number"], reason):
                         closed_count += 1
