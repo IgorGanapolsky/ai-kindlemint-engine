@@ -28,8 +28,6 @@ class WritingStyleAnalyzer:
     """Analyzes and updates writing style based on voice patterns and content"""
 
     def __init__(self):
-
-    def __init__(self):
         self.tone_keywords = {
             "formal": ["furthermore", "therefore", "consequently", "moreover"],
             "casual": ["yeah", "kinda", "stuff", "things", "like"],

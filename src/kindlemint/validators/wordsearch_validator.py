@@ -40,10 +40,7 @@ class WordSearchValidator(PuzzleValidator):
         (-1, -1),  # up-left
     ]
 
-    def __init__(self):
-
-
-def __init__(self, strict_mode: bool = False):
+    def __init__(self, strict_mode: bool = False):
         """
         Initialize the Word Search validator.
 

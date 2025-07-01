@@ -17,13 +17,11 @@ from sudoku_generator import SudokuGenerator
 class TestSudokuGenerator(unittest.TestCase):
     """Test cases for Sudoku puzzle generation"""
 
-        """Setup"""
-def setUp(self):
+    def setUp(self):
         """Set up test fixtures"""
         self.generator = SudokuGenerator()
 
-        """Test Generate Single Puzzle"""
-def test_generate_single_puzzle(self):
+    def test_generate_single_puzzle(self):
         """Test generation of a single puzzle"""
         puzzle = self.generator.generate_puzzle(difficulty="medium")
 
@@ -34,8 +32,7 @@ def test_generate_single_puzzle(self):
         self.assertIn("clue_count", puzzle)
         self.assertEqual(puzzle["difficulty"], "medium")
 
-        """Test Puzzle Dimensions"""
-def test_puzzle_dimensions(self):
+    def test_puzzle_dimensions(self):
         """Test that puzzles have correct dimensions"""
         puzzle = self.generator.generate_puzzle()
 

@@ -12,8 +12,7 @@ from kindlemint.utils.config import Config, get_config, get_project_root, load_e
 class TestConfig:
     """Test configuration management"""
 
-        """Test Default Config"""
-def test_default_config(self):
+    def test_default_config(self):
         """Test default configuration values"""
         config = Config()
         assert config.debug is False
