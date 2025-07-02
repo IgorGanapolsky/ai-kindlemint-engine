@@ -5,7 +5,7 @@ Creates high-quality Sudoku puzzles with solutions
 """
 
 import copy
-import random
+import secrets
 
 
 def generate_sudoku_with_solution(difficulty="medium", target_clues=35):
@@ -60,7 +60,7 @@ def solve_sudoku(grid):
 
     # Try numbers 1-9 in random order for variety
     numbers = list(range(1, 10))
-    random.shuffle(numbers)
+    secrets.SystemRandom().shuffle(numbers)
 
     for num in numbers:
         if is_valid_placement(grid, num, row, col):
@@ -117,7 +117,7 @@ def create_puzzle_from_solution(solution, target_clues):
 
     # Get all cell positions
     positions = [(i, j) for i in range(9) for j in range(9)]
-    random.shuffle(positions)
+    secrets.SystemRandom().shuffle(positions)
 
     # Remove numbers until we reach target clue count
     current_clues = 81  # Start with all cells filled
