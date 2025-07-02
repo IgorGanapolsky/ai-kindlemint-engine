@@ -1,0 +1,73 @@
+# PR Automation Rules to Prevent Bot Spam
+# CTO Decision: Implement these rules to auto-handle PRs
+
+auto_close_rules:
+  # Auto-close bot-generated PRs after 24 hours if no human interaction
+  - bot_authors:
+      - "seer-by-sentry[bot]"
+      - "gowebdot[bot]"
+      - "app/seer-by-sentry"
+    conditions:
+      - draft: true
+      - no_human_comments: true
+      - age_hours: 24
+    action: close
+    comment: "Auto-closing bot-generated PR due to no human interaction"
+
+  # Auto-close stale PRs
+  - conditions:
+      - no_updates_days: 7
+      - comments_count: "> 50"
+    action: close
+    comment: "Auto-closing stale PR with excessive discussion. Please create a fresh PR with clean implementation."
+
+auto_merge_rules:
+  # Auto-merge approved bot PRs from trusted sources
+  - bot_authors:
+      - "deepsource-autofix[bot]"
+      - "dependabot[bot]"
+    conditions:
+      - approved: true
+      - ci_passing: true
+      - no_conflicts: true
+    action: merge
+    merge_method: squash
+
+branch_protection_recommendations:
+  main:
+    # Require all checks to pass before merging
+    required_status_checks:
+      strict: true
+      contexts:
+        - "Test Python 3.11"
+        - "Test Python 3.12"
+        - "Code Quality Enforcement"
+        - "SonarCloud Analysis"
+    
+    # Dismiss stale reviews when new commits are pushed
+    dismiss_stale_reviews: true
+    
+    # Require code owner reviews
+    require_code_owner_reviews: true
+    
+    # Enable auto-merge for approved PRs
+    allow_auto_merge: true
+    
+    # Delete head branches after merge
+    delete_branch_on_merge: true
+
+workflow_improvements:
+  # Skip Sentry AI on bot-generated PRs
+  - workflow: "sentry-ai-automation.yml"
+    skip_conditions:
+      - author_is_bot: true
+      - title_contains: ["style:", "chore:", "deps:"]
+  
+  # Add timeout to long-running checks
+  - workflow: "pr-validation.yml"
+    job_timeout_minutes: 30
+    
+  # Consolidate duplicate checks
+  consolidate:
+    - ["hygiene-check", "Code Hygiene Orchestrator"]
+    - ["qa-check", "qa-validation", "Run QA Checks"]
