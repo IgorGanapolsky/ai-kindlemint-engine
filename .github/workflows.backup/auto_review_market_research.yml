@@ -1,0 +1,118 @@
+name: Auto Review Market Research
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'research/**/market_analysis.csv'
+      - 'research/**/summary.json'
+      - 'research/**/report.md'
+
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to review'
+        required: false
+        type: string
+
+jobs:
+  auto-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas numpy
+
+    - name: Get PR Number
+      id: pr
+      run: |
+        if [ "${{ github.event_name }}" == "pull_request" ]; then
+          echo "number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+        else
+          echo "number=${{ github.event.inputs.pr_number }}" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Run Automated Review
+      id: review
+      run: |
+        python scripts/market_research_auto_reviewer.py --pr ${{ steps.pr.outputs.number }} --auto > review_output.txt
+        cat review_output.txt
+
+        # Check if auto-merge was recommended
+        if grep -q "Auto-merging PR" review_output.txt; then
+          echo "auto_merge=true" >> $GITHUB_OUTPUT
+        else
+          echo "auto_merge=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Post Review Comment
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const reviewOutput = fs.readFileSync('review_output.txt', 'utf8');
+
+          const comment = `## 🤖 Automated Market Research Review
+
+          ${reviewOutput}
+
+          ---
+          *This review was generated automatically by the Market Research Auto-Reviewer.*`;
+
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+
+    - name: Auto-merge if approved
+      if: steps.review.outputs.auto_merge == 'true' && github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          // Add approval
+          await github.rest.pulls.createReview({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number,
+            event: 'APPROVE',
+            body: '✅ Automated approval based on market research analysis'
+          });
+
+          // Enable auto-merge
+          await github.rest.pulls.merge({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number,
+            merge_method: 'squash'
+          });
+
+    - name: Create Content Generation Tasks
+      if: steps.review.outputs.auto_merge == 'true'
+      run: |
+        # The reviewer script already creates tasks, but we can trigger the orchestrator
+        if [ -f "tasks/content_generation_queue.json" ]; then
+          echo "📝 Content generation tasks created successfully"
+
+          # Trigger content generation workflow
+          gh workflow run content_generation.yml
+        fi
+      env:
+        GH_TOKEN: ${{ github.token }}

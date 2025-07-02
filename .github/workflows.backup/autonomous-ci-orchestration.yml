@@ -1,0 +1,234 @@
+name: 🤖 Autonomous CI Orchestration
+
+on:
+  # Run on CI failures
+  workflow_run:
+    workflows: ["Tests", "QA Checks", "Book QA Validation"]
+    types: [completed]
+    branches: [main]
+
+  # Scheduled monitoring every 15 minutes during business hours
+  schedule:
+    - cron: '*/15 8-18 * * 1-5'  # Every 15 min, 8-6 PM, Mon-Fri UTC
+    - cron: '0 */2 * * 0,6'      # Every 2 hours on weekends
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Run mode'
+        required: true
+        default: 'single'
+        type: choice
+        options:
+        - single
+        - continuous
+      max_fixes:
+        description: 'Maximum fixes to apply'
+        required: false
+        default: '5'
+      confidence_threshold:
+        description: 'Minimum confidence for auto-fixes (0.0-1.0)'
+        required: false
+        default: '0.8'
+
+jobs:
+  ci-orchestration:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      actions: read
+
+    steps:
+    - name: 🔄 Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: 📦 Install dependencies
+      run: |
+        cd scripts/ci_orchestration
+        pip install -r requirements.txt
+
+    - name: 🔧 Configure orchestration
+      run: |
+        cd scripts/ci_orchestration
+        export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+        python -c "
+        import json
+        config = {
+          'github': {
+            'owner': '${{ github.repository_owner }}',
+            'repo': 'ai-kindlemint-engine',
+            'token': '***'
+          },
+          'monitoring': {
+            'lookback_minutes': 60,
+            'max_fixes_per_cycle': ${{ github.event.inputs.max_fixes || '5' }}
+          },
+          'fixing': {
+            'confidence_threshold': float('${{ github.event.inputs.confidence_threshold || '0.8' }}'),
+            'enable_auto_commit': True,
+            'enable_auto_pr': False
+          }
+        }
+        with open('config.json', 'w') as f:
+          json.dump(config, f, indent=2)
+        "
+
+    - name: 🎯 Run CI Orchestration
+      id: orchestration
+      run: |
+        cd scripts/ci_orchestration
+        export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+
+        # Run orchestration
+        python ci_orchestrator.py \
+          --mode ${{ github.event.inputs.mode || 'single' }} \
+          --confidence-threshold ${{ github.event.inputs.confidence_threshold || '0.8' }} \
+          --max-fixes ${{ github.event.inputs.max_fixes || '5' }} \
+          --lookback-minutes 60
+
+        # Capture results
+        if [ -f ci_orchestration_results.json ]; then
+          echo "results=$(cat ci_orchestration_results.json | jq -c .)" >> $GITHUB_OUTPUT
+        fi
+
+    - name: 💬 Update GitHub Issue
+      if: always()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          let title = '🤖 CI Orchestration Report';
+          let body = '## Autonomous CI Orchestration Results\n\n';
+
+          // Add workflow info
+          body += `**Trigger:** ${context.eventName}\n`;
+          body += `**Repository:** ${context.repo.owner}/${context.repo.repo}\n`;
+          body += `**Branch:** ${context.ref.replace('refs/heads/', '')}\n`;
+          body += `**Run ID:** [${context.runId}](${context.payload.repository.html_url}/actions/runs/${context.runId})\n\n`;
+
+          // Add results if available
+          if (process.env.GITHUB_OUTPUT && fs.existsSync('scripts/ci_orchestration/ci_orchestration_results.json')) {
+            try {
+              const results = JSON.parse(fs.readFileSync('scripts/ci_orchestration/ci_orchestration_results.json', 'utf8'));
+              body += `**Status:** ${results.summary || 'Completed'}\n`;
+              body += `**Failures Detected:** ${results.failures_detected || 0}\n`;
+              body += `**Fixes Applied:** ${results.fixes_applied || 0}\n`;
+              body += `**Duration:** ${results.cycle_duration || 'N/A'}\n\n`;
+
+              if (results.fixes_applied > 0) {
+                body += '### ✅ Fixes Applied\n';
+                // Add fix details if available
+                body += 'Automated fixes have been applied to resolve CI issues.\n\n';
+              }
+            } catch (e) {
+              body += '⚠️ Could not parse orchestration results.\n\n';
+            }
+          }
+
+          body += `**Timestamp:** ${new Date().toISOString()}\n`;
+          body += '\n---\n*This is an automated report from the CI Orchestration system.*';
+
+          // Create or update issue
+          const issues = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            labels: ['orchestration-report'],
+            state: 'open'
+          });
+
+          if (issues.data.length > 0) {
+            // Update existing issue
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issues.data[0].number,
+              body: body
+            });
+          } else {
+            // Create new issue
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['orchestration-report', 'automation']
+            });
+          }
+
+    - name: 💬 Slack Notification
+      if: always() && secrets.SLACK_WEBHOOK_URL
+      run: |
+        # Determine status
+        if [ "${{ job.status }}" == "success" ]; then
+          COLOR="good"
+          EMOJI="✅"
+          STATUS="Completed successfully"
+        else
+          COLOR="danger"
+          EMOJI="❌"
+          STATUS="Completed with issues"
+        fi
+
+        # Get results
+        FAILURES="0"
+        FIXES="0"
+        if [ -f scripts/ci_orchestration/ci_orchestration_results.json ]; then
+          FAILURES=$(cat scripts/ci_orchestration/ci_orchestration_results.json | jq -r '.failures_detected // 0')
+          FIXES=$(cat scripts/ci_orchestration/ci_orchestration_results.json | jq -r '.fixes_applied // 0')
+        fi
+
+        # Send notification
+        curl -X POST -H 'Content-type: application/json' \
+          --data "{
+            \"attachments\": [{
+              \"color\": \"$COLOR\",
+              \"blocks\": [
+                {
+                  \"type\": \"header\",
+                  \"text\": {
+                    \"type\": \"plain_text\",
+                    \"text\": \"$EMOJI CI Orchestration Report\"
+                  }
+                },
+                {
+                  \"type\": \"section\",
+                  \"fields\": [
+                    {\"type\": \"mrkdwn\", \"text\": \"*Status:* $STATUS\"},
+                    {\"type\": \"mrkdwn\", \"text\": \"*Trigger:* ${{ github.event_name }}\"},
+                    {\"type\": \"mrkdwn\", \"text\": \"*Failures:* $FAILURES\"},
+                    {\"type\": \"mrkdwn\", \"text\": \"*Fixes Applied:* $FIXES\"}
+                  ]
+                },
+                {
+                  \"type\": \"context\",
+                  \"elements\": [{
+                    \"type\": \"mrkdwn\",
+                    \"text\": \"<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Details> • ${{ github.repository }}\"
+                  }]
+                }
+              ]
+            }]
+          }" \
+          "${{ secrets.SLACK_WEBHOOK_URL }}"
+
+    - name: 🧹 Cleanup
+      if: always()
+      run: |
+        # Clean up temporary files but keep logs
+        cd scripts/ci_orchestration
+        find . -name "*.tmp" -delete 2>/dev/null || true
+        find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true

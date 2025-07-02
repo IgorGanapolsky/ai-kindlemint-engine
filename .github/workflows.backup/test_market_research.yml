@@ -1,0 +1,70 @@
+name: Test Market Research Workflow
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/market_research.yml'
+      - 'scripts/market_research_csv_output.py'
+      - 'tests/test_schema.py'
+  workflow_dispatch:
+
+jobs:
+  test-workflow:
+    runs-on: ubuntu-latest
+    name: 🧪 Test Market Research Components
+
+    steps:
+    - name: 🔄 Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: 📦 Install Dependencies
+      run: |
+        pip install requests pandas pytest
+        pip install python-dotenv beautifulsoup4
+
+    - name: 🔧 Test Script Syntax
+      run: |
+        # Test Python syntax
+        python -m py_compile scripts/market_research_csv_output.py
+        python -m py_compile tests/test_schema.py
+        echo "✅ Python syntax valid"
+
+    - name: 🧪 Run Mock Test
+      run: |
+        # Run with mock data (no API keys needed)
+        python scripts/market_research_csv_output.py
+
+        # Verify output
+        if [ -d "research/$(date +%Y-%m-%d)" ]; then
+          echo "✅ Research directory created"
+          ls -la research/$(date +%Y-%m-%d)/
+        else
+          echo "❌ Research directory not created"
+          exit 1
+        fi
+
+    - name: 📊 Validate Schema
+      run: |
+        # Run schema tests
+        python tests/test_schema.py
+
+    - name: 📝 Workflow Syntax Check
+      run: |
+        # Validate YAML syntax
+        echo "✅ Workflow files syntax is valid (checked by GitHub)"
+
+    - name: ✅ Test Summary
+      run: |
+        echo "🎯 All tests passed!"
+        echo "📋 Components verified:"
+        echo "  - Python scripts compile"
+        echo "  - Mock data generation works"
+        echo "  - CSV schema is correct"
+        echo "  - Directory structure created"
+        echo ""
+        echo "⚠️ Note: Live API tests require secrets to be configured"

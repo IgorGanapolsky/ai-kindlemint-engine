@@ -1,0 +1,185 @@
+name: Code Hygiene Check
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    # Run every Sunday at 2 AM UTC
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+    inputs:
+      clean:
+        description: 'Perform cleanup (not just analysis)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  hygiene-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Full history for better analysis
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -e .
+    
+    - name: Run Code Hygiene Analysis
+      id: analyze
+      run: |
+        python scripts/hygiene_cleanup.py --analyze > hygiene_report.txt
+        
+        # Extract hygiene score
+        SCORE=$(grep "Hygiene Score:" hygiene_report.txt | sed -E 's/.*Hygiene Score: ([0-9.]+).*/\1/')
+        echo "score=$SCORE" >> $GITHUB_OUTPUT
+        
+        # Determine badge color based on score
+        if (( $(echo "$SCORE >= 90" | bc -l) )); then
+          COLOR="brightgreen"
+        elif (( $(echo "$SCORE >= 80" | bc -l) )); then
+          COLOR="green"
+        elif (( $(echo "$SCORE >= 70" | bc -l) )); then
+          COLOR="yellow"
+        elif (( $(echo "$SCORE >= 60" | bc -l) )); then
+          COLOR="orange"
+        else
+          COLOR="red"
+        fi
+        echo "color=$COLOR" >> $GITHUB_OUTPUT
+        
+        # Extract untracked files count
+        UNTRACKED=$(grep "Untracked Files:" hygiene_report.txt | sed -E 's/.*Untracked Files: ([0-9]+).*/\1/')
+        echo "untracked=$UNTRACKED" >> $GITHUB_OUTPUT
+        
+        echo "report<<EOF" >> $GITHUB_OUTPUT
+        cat hygiene_report.txt >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+    
+    - name: Upload Hygiene Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-hygiene-report
+        path: |
+          hygiene_report.txt
+          hygiene_report_*.json
+    
+    - name: Comment on PR (if applicable)
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const score = '${{ steps.analyze.outputs.score }}';
+          const untracked = '${{ steps.analyze.outputs.untracked }}';
+          const color = '${{ steps.analyze.outputs.color }}';
+          
+          const comment = `## 🧹 Code Hygiene Report
+          
+          - **Hygiene Score**: ${score}/100 ![Score](https://img.shields.io/badge/score-${score}%25-${color})
+          - **Untracked Files**: ${untracked}
+          
+          <details>
+          <summary>Full Report</summary>
+          
+          \`\`\`
+          ${{ steps.analyze.outputs.report }}
+          \`\`\`
+          </details>
+          
+          Run \`python scripts/hygiene_cleanup.py --analyze\` locally for detailed report.`;
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+    
+    - name: Clean Codebase (if requested)
+      if: github.event.inputs.clean == 'true' && github.event_name == 'workflow_dispatch'
+      run: |
+        python scripts/hygiene_cleanup.py --clean
+    
+    - name: Create Cleanup PR (if changes made)
+      if: github.event.inputs.clean == 'true' && github.event_name == 'workflow_dispatch'
+      uses: peter-evans/create-pull-request@v5
+      with:
+        commit-message: "🧹 Automated code hygiene cleanup"
+        title: "🧹 Code Hygiene: Automated Cleanup"
+        body: |
+          ## 🧹 Automated Code Hygiene Cleanup
+          
+          This PR contains automated cleanup changes based on the code hygiene analysis.
+          
+          ### Changes Made:
+          - Organized CI artifacts into `.ci_artifacts/`
+          - Archived old reports and analyses
+          - Removed temporary and backup files
+          - Fixed file naming conventions
+          - Cleaned root directory clutter
+          - Removed empty directories
+          - Updated `.gitignore` with recommended patterns
+          
+          Please review the changes carefully before merging.
+        branch: code-hygiene/automated-cleanup
+        delete-branch: true
+    
+    - name: Update README badge (on main branch only)
+      if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+      run: |
+        SCORE=${{ steps.analyze.outputs.score }}
+        COLOR=${{ steps.analyze.outputs.color }}
+        
+        # Update the hygiene badge in README.md
+        sed -i "s/hygiene-[0-9]*%25-[a-z]*/hygiene-${SCORE}%25-${COLOR}/g" README.md
+        
+        # Check if there are changes
+        if git diff --quiet; then
+          echo "No changes to commit"
+        else
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git commit -m "Update hygiene score badge: ${SCORE}%"
+          git push
+        fi
+    
+    - name: Create Issue for Manual Review (if needed)
+      if: github.event_name == 'schedule'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const report = fs.readFileSync('hygiene_report.txt', 'utf8');
+          
+          // Check if there are issues
+          if (report.includes('Found') && report.includes('issues')) {
+            const date = new Date().toISOString().split('T')[0];
+            
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🧹 Weekly Code Hygiene Report - ${date}`,
+              body: `## Weekly Code Hygiene Check\n\n\`\`\`\n${report}\n\`\`\`\n\n### Next Steps:\n1. Review the hygiene report\n2. Run manual cleanup: \`python agents/code_hygiene_orchestrator.py clean --interactive\`\n3. Or trigger automated cleanup via Actions`,
+              labels: ['maintenance', 'code-hygiene']
+            });
+          }

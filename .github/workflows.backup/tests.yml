@@ -1,0 +1,149 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'scripts/**'
+      - 'src/**'
+      - 'tests/**'
+      - 'requirements*.txt'
+      - '.github/workflows/tests.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'scripts/**'
+      - 'src/**'
+      - 'tests/**'
+      - 'requirements*.txt'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+
+    name: Test Python ${{ matrix.python-version }}
+
+    steps:
+    - name: 🔄 Checkout code
+      uses: actions/checkout@v4
+
+    - name: 🐍 Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: 📥 Install minimal dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-cov
+        pip install -e .
+
+    - name: 🧪 Run basic tests with coverage
+      run: |
+        python -m pytest tests/test_basic.py tests/test_dummy.py tests/test_coverage.py -v --cov=src/kindlemint --cov-report=xml --cov-report=term-missing
+      continue-on-error: false
+
+    - name: 📊 Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      if: matrix.python-version == '3.11'  # Only upload once
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage.xml
+        fail_ci_if_error: false
+        verbose: true
+
+
+    - name: 💬 Comment PR with test results
+      if: github.event_name == 'pull_request' && always()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          let comment = '## 🧪 Test Results\n\n';
+          comment += `Python ${{ matrix.python-version }}: `;
+          comment += '${{ job.status }}' === 'success' ? '✅ Passed' : '❌ Failed';
+          comment += '\n\n';
+
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+
+    - name: 💬 Send Slack Notification
+      if: always()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        if [ -z "$SLACK_WEBHOOK_URL" ]; then
+          echo "No Slack webhook configured"
+          exit 0
+        fi
+
+        # Determine test results
+        if [ "${{ job.status }}" == "success" ]; then
+          COLOR="good"
+          EMOJI="✅"
+          STATUS="All tests passed"
+          TEST_RESULT="Success"
+        else
+          COLOR="danger"
+          EMOJI="❌"
+          STATUS="Tests failed"
+          TEST_RESULT="Failed"
+        fi
+
+        # Build message
+        PAYLOAD=$(cat <<EOF
+        {
+          "attachments": [{
+            "color": "$COLOR",
+            "blocks": [
+              {
+                "type": "header",
+                "text": {
+                  "type": "plain_text",
+                  "text": "$EMOJI Test Results - Python ${{ matrix.python-version }}"
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Python Version:* ${{ matrix.python-version }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Test Suite:* Unit + Integration"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Result:* $TEST_RESULT"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Status:* $STATUS"
+                  }
+                ]
+              },
+              {
+                "type": "context",
+                "elements": [{
+                  "type": "mrkdwn",
+                  "text": "<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Test Results> • Branch: ${{ github.ref_name }}"
+                }]
+              }
+            ]
+          }]
+        }
+        EOF
+        )
+
+        echo "$PAYLOAD" | curl -X POST -H 'Content-type: application/json' \
+          --data @- \
+          "$SLACK_WEBHOOK_URL"

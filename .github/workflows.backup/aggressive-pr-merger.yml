@@ -194,49 +194,20 @@ jobs:
               state: 'open'
             });
             
-            const today = new Date().toLocaleDateString();
-            const title = `Aggressive Merge Report - ${today}`;
-            
-            // Check if issue already exists for today
-            const { data: existingIssues } = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              labels: 'merge-report'
-            });
-            
-            const existingIssue = existingIssues.find(issue => issue.title === title);
-            
             const summary = `## 🔨 Aggressive Merger Summary
             
-            **Last Run:** ${new Date().toISOString()}
+            **Status:** Completed
             **Remaining Open PRs:** ${pulls.length}
-            **Runs Today:** ${existingIssue ? parseInt(existingIssue.body.match(/Runs Today:\*\* (\d+)/)?.[1] || 0) + 1 : 1}
+            **Time:** ${new Date().toISOString()}
             
-            ### Open PRs:
-            ${pulls.map(pr => `- #${pr.number}: ${pr.title}`).join('\n') || 'None'}
-            
-            ---
-            *This report is updated every 15 minutes. Older reports are auto-closed after 7 days.*
+            This workflow force-merges all open PRs to clear the backlog.
             `;
             
-            if (existingIssue) {
-              // Update existing issue
-              await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: existingIssue.number,
-                body: summary
-              });
-              console.log(`Updated existing issue #${existingIssue.number}`);
-            } else {
-              // Create new issue only if none exists for today
-              await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title: title,
-                body: summary,
-                labels: ['automation', 'merge-report']
-              });
-              console.log(`Created new issue for ${today}`);
-            }
+            // Create an issue with the summary
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Aggressive Merge Report - ${new Date().toLocaleDateString()}`,
+              body: summary,
+              labels: ['automation', 'merge-report']
+            });

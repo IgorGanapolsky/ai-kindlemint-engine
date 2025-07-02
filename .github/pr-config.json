@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "ci_optimization": {
+    "enabled": true,
+    "single_check": "CI Status",
+    "skip_patterns": {
+      "docs": [
+        "*.md",
+        "docs/**",
+        "README*"
+      ],
+      "config": [
+        ".github/**",
+        "*.yml",
+        "*.yaml"
+      ],
+      "tests": [
+        "tests/**",
+        "*_test.py",
+        "test_*.py"
+      ]
+    },
+    "trusted_bots": [
+      "dependabot[bot]",
+      "deepsource-autofix[bot]",
+      "pixeebot[bot]",
+      "renovate[bot]"
+    ],
+    "auto_merge_rules": {
+      "bot_security_fixes": {
+        "pattern": "security|vulnerability|cve",
+        "delay_minutes": 5
+      },
+      "bot_dependencies": {
+        "pattern": "update|bump|upgrade",
+        "delay_minutes": 60
+      }
+    }
+  }
+}

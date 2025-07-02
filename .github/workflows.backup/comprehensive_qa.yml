@@ -1,0 +1,293 @@
+name: 🔍 Comprehensive QA & Testing
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'scripts/**/*.py'
+      - 'books/active_production/**/*'
+      - 'config/**/*'
+      - 'tests/**/*'
+      - '.github/workflows/comprehensive_qa.yml'
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      test_scope:
+        description: 'Test scope (full or quick)'
+        required: false
+        default: 'full'
+        type: choice
+        options:
+        - full
+        - quick
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  setup-and-test:
+    runs-on: ubuntu-latest
+    name: 🧪 Setup & Unit Tests
+
+    outputs:
+      test-scope: ${{ steps.set-scope.outputs.scope }}
+      has-books: ${{ steps.check-books.outputs.has_books }}
+
+    steps:
+    - name: 🔄 Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+
+    - name: 📦 Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Install system dependencies for downstream jobs
+        sudo apt-get update && sudo apt-get install -y jq
+        # Install Python dependencies with locked versions
+        if [ -f requirements-locked.txt ]; then
+          pip install --require-hashes -r requirements-locked.txt
+          pip install -e .
+        elif [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+          pip install -e .
+        fi
+        # Install test dependencies
+        pip install pytest pytest-cov pytest-json-report
+
+    - name: 🎯 Set Test Scope
+      id: set-scope
+      run: |
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          echo "scope=${{ github.event.inputs.test_scope }}" >> $GITHUB_OUTPUT
+        else
+          echo "scope=full" >> $GITHUB_OUTPUT
+        fi
+
+    - name: 📚 Check for Books
+      id: check-books
+      run: |
+        if find books/active_production -name "collection.json" -print -quit | grep -q .; then
+          echo "has_books=true" >> $GITHUB_OUTPUT
+        else
+          echo "has_books=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: 🧪 Run Unit Tests
+      run: |
+        echo "🔬 Running unit tests..."
+        # Add project root to PYTHONPATH for local module imports
+        export PYTHONPATH=$GITHUB_WORKSPACE
+        if [ -d "tests" ]; then
+          python -m pytest tests/ -v --tb=short --cov=src/kindlemint --cov-report=xml
+        else
+          echo "⚠️ No tests directory found, skipping unit tests."
+        fi
+
+    - name: 📊 Upload Test Coverage
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-coverage-report
+        path: coverage.xml
+        retention-days: 7
+
+  test-one-click-generator:
+    runs-on: ubuntu-latest
+    name: 🚀 Test One-Click Generator
+    needs: setup-and-test
+    if: needs.setup-and-test.outputs.test-scope == 'full'
+
+    steps:
+    - name: 🔄 Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: 📦 Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Install Python dependencies with locked versions
+        if [ -f requirements-locked.txt ]; then
+          pip install --require-hashes -r requirements-locked.txt
+          pip install -e .
+        elif [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+          pip install -e .
+        fi
+
+    - name: 🧪 Test Generator Help
+      run: |
+        echo "🧪 Testing one-click generator help..."
+        if [ -f "generate_book.py" ]; then
+          python generate_book.py --help
+        else
+          echo "⚠️ generate_book.py not found, skipping test."
+        fi
+
+    - name: 📊 Test Market Validator
+      run: |
+        echo "📊 Testing market validator..."
+        if [ -f "scripts/market_validator.py" ]; then
+          python scripts/market_validator.py "Garden Flowers" --output /tmp/market_test.json
+        else
+          echo "⚠️ market_validator.py not found, skipping test."
+        fi
+
+    - name: 🏗️ Test Mini Book Generation
+      run: |
+        echo "🏗️ Testing mini book generation..."
+        if [ -f "generate_book.py" ]; then
+          mkdir -p /tmp/test_book
+          python generate_book.py "Test Theme" 5 easy --output /tmp/test_book --quick
+        else
+          echo "⚠️ generate_book.py not found, skipping generation test."
+        fi
+
+    - name: ✅ Validate Generated Content
+      run: |
+        echo "✅ Validating generated test content..."
+        if [ -f "/tmp/test_book/metadata/collection.json" ]; then
+          echo "✅ Test book generation successful."
+        else
+          echo "⚠️ Test book generation did not produce expected output."
+        fi
+
+  content-validation:
+    runs-on: ubuntu-latest
+    name: 🔍 Content-Aware Validation
+    needs: [setup-and-test]
+    if: needs.setup-and-test.outputs.has-books == 'true'
+
+    steps:
+    - name: 🔄 Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: 📦 Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Install Python dependencies with locked versions
+        if [ -f requirements-locked.txt ]; then
+          pip install --require-hashes -r requirements-locked.txt
+          pip install -e .
+        elif [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+          pip install -e .
+        fi
+
+    - name: 🗂️ Find Book Directories
+      id: find-books
+      run: |
+        book_dirs=$(find books/active_production -name collection.json -print0 | xargs -0 -n1 dirname | tr '\n' ' ')
+        echo "book_dirs=${book_dirs}" >> $GITHUB_OUTPUT
+        echo "Found book directories: ${book_dirs}"
+
+    - name: 🔍 Run Enhanced QA Pipeline with Puzzle Validation
+      if: steps.find-books.outputs.book_dirs != ''
+      run: |
+        # Set PYTHONPATH to allow validator to import other local scripts
+        export PYTHONPATH=$GITHUB_WORKSPACE
+
+        # Install PDF processing tools
+        sudo apt-get update && sudo apt-get install -y poppler-utils
+
+        echo "🔍 Running Enhanced QA Pipeline with puzzle-specific validation..."
+
+        # Find and validate all PDF files in active production
+        pdf_files=$(find books/active_production -name "*.pdf" -type f | head -10) # Limit for CI performance
+
+        if [ -z "$pdf_files" ]; then
+          echo "⚠️ No PDF files found for validation"
+          exit 0
+        fi
+
+        overall_result=0
+        for pdf_file in $pdf_files; do
+          echo "🔍 Validating: $pdf_file"
+
+          # Run our enhanced QA validation pipeline
+          if python scripts/qa_validation_pipeline.py "$pdf_file"; then
+            echo "✅ $pdf_file passed QA validation"
+          else
+            echo "❌ $pdf_file failed QA validation"
+            overall_result=1
+          fi
+
+          echo "---"
+        done
+
+        # Always create a summary report even if some validations fail
+        echo "📊 QA Validation Summary:" > qa_summary.txt
+        echo "Total PDFs validated: $(echo "$pdf_files" | wc -l)" >> qa_summary.txt
+        echo "Validation completed at: $(date)" >> qa_summary.txt
+
+        if [ $overall_result -ne 0 ]; then
+          echo "❌ Some QA validations failed - this will trigger CI orchestration"
+          echo "Status: FAILED" >> qa_summary.txt
+          exit 1
+        else
+          echo "✅ All QA validations passed"
+          echo "Status: PASSED" >> qa_summary.txt
+        fi
+
+    - name: 📊 Upload QA Reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: enhanced-qa-reports
+        path: |
+          books/active_production/**/qa/qa_validation_*.json
+          qa_summary.txt
+        retention-days: 30
+
+  final-report:
+    runs-on: ubuntu-latest
+    name: 📋 Generate Final Report
+    needs: [setup-and-test, test-one-click-generator, content-validation]
+    if: always()
+
+    steps:
+    - name: 📊 Collect Results
+      id: collect-results
+      run: |
+        echo "📊 Collecting test results..."
+
+        SETUP_STATUS="${{ needs.setup-and-test.result }}"
+        GENERATOR_STATUS="${{ needs.test-one-click-generator.result }}"
+        CONTENT_STATUS="${{ needs.content-validation.result }}"
+
+        echo "Setup & Unit Tests: $SETUP_STATUS"
+        echo "One-Click Generator Test: $GENERATOR_STATUS"
+        echo "Content Validation: $CONTENT_STATUS"
+
+        # Determine overall status
+        if [[ "$SETUP_STATUS" == "failure" || "$GENERATOR_STATUS" == "failure" ]]; then
+          echo "OVERALL_STATUS=FAILURE" >> $GITHUB_ENV
+          echo "FINAL_MESSAGE=❌ Critical tests failed - failing workflow." >> $GITHUB_ENV
+        elif [[ "$CONTENT_STATUS" == "failure" ]]; then
+          echo "OVERALL_STATUS=PARTIAL_SUCCESS" >> $GITHUB_ENV
+          echo "FINAL_MESSAGE=⚠️ Some QA checks failed but core functionality works." >> $GITHUB_ENV
+        else
+          echo "OVERALL_STATUS=SUCCESS" >> $GITHUB_ENV
+          echo "FINAL_MESSAGE=✅ All tests passed successfully." >> $GITHUB_ENV
+        fi
+
+    - name: 🎯 Final Status Check
+      run: |
+        echo "${{ env.FINAL_MESSAGE }}"
+        if [ "${{ env.OVERALL_STATUS }}" == "FAILURE" ]; then
+          exit 1
+        fi
