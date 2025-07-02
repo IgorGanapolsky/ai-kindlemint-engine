@@ -1,23 +1,23 @@
 {
-  "title": "Large Print Sudoku Masters - Volume 1",
-  "subtitle": "100 Easy Sudoku Puzzles for Beginners",
-  "author": "Crossword Masters Publishing",
-  "description": "Introducing our new Large Print Sudoku Masters series! Volume 1 features 100 easy Sudoku puzzles in large print format, perfect for beginners and those who prefer larger text. Each puzzle has a single unique solution and gradually introduces solving techniques.",
+  "title": "Large Print Sudoku Masters: Volume 1",
+  "subtitle": "Beginner-Friendly Brain Training for Seniors and Visual Wellness",
+  "author": "Igor Ganapolsky",
+  "description": "Start your cognitive wellness journey with 100 carefully crafted large print Sudoku puzzles designed specifically for seniors and anyone who values visual accessibility. Each puzzle is printed in 16-point font with generous spacing, making it easy on the eyes while providing the perfect mental workout to keep your brain sharp and engaged.",
   "keywords": [
-    "large print",
-    "sudoku puzzles",
-    "beginners",
-    "easy puzzles",
-    "brain games",
-    "seniors",
+    "large print sudoku",
+    "sudoku for seniors",
+    "brain training",
+    "cognitive wellness",
+    "accessibility puzzles",
+    "mental fitness",
     "hardcover",
     "premium",
     "gift"
   ],
   "categories": [
-    "Crafts, Hobbies & Home > Crafts & Hobbies",
-    "Self-Help > Memory Improvement",
-    "Health, Fitness & Dieting > Aging"
+    "Health, Fitness & Dieting > Aging > General",
+    "Health, Fitness & Dieting > Mental Health > General",
+    "Education & Teaching > Studying & Workbooks > General"
   ],
   "language": "en",
   "pages": 120,
@@ -27,11 +27,11 @@
   "paper": "White",
   "ink": "Black & White",
   "spine_width": "0.3600 inches",
-  "price_range": "$12.99 - $16.99",
-  "target_audience": "Beginners, Seniors, Puzzle enthusiasts, Gift buyers",
-  "publication_date": "2025-06-27",
+  "price_range": "$18.99 - $22.99",
+  "target_audience": "Seniors, vision-impaired adults, cognitive wellness enthusiasts, Gift buyers",
+  "publication_date": "2025-06-30",
   "isbn": "KDP_AUTO_ASSIGNED",
-  "printing_cost_estimate": "$5.00",
+  "printing_cost_estimate": "$4.50",
   "royalty_estimate": "$4.50 - $7.50",
   "revenue_multiplier": "2-3x paperback profit",
   "market_position": "Premium offering in category",
@@ -42,10 +42,7 @@
     "large_print_book": true
   },
   "cover_design": {
-    "dalle_prompt": "Create a Professional book cover design, clean modern layout, high contrast typography. Title: 'Large Print Sudoku Masters - Volume 1'. Include sudoku puzzle grids in background, mathematical symbols, number patterns. Use deep blue and white color scheme with gold accents. Feature extra large, bold, easy-to-read fonts, senior-friendly design. The cover should be designed for hardcover format, eye-catching for Amazon KDP marketplace, appealing to puzzle enthusiasts and seniors. Include subtle brain/mind imagery to suggest cognitive benefits. Ensure text is highly readable and professional appearance suitable for bookstore shelves.",
-    "style": "professional puzzle book cover",
-    "target_audience": "puzzle enthusiasts, seniors, brain training seekers",
-    "format_optimized": "hardcover",
-    "created_date": "2025-06-27"
+    "dalle_prompt": "Professional hardcover book design for 'Large Print Sudoku Masters: Volume 1'. Elegant blue and silver color scheme with premium feel. Large, clear Sudoku grid as central element with some cells filled. Sophisticated typography with embossed effect. 'Volume 1' in elegant badge design. Include subtle brain wellness imagery. Hardcover spine visible at angle showing title. Premium gift-worthy appearance.",
+    "back_cover_dalle_prompt": "Professional back cover design for Large Print Sudoku Masters Volume 1 hardcover. Clean, elegant layout with blue and silver color scheme. Feature compelling benefits: '100 Large Print Puzzles', 'Beginner-Friendly Design', '16-Point Font for Visual Comfort', 'Brain Training for Seniors'. Include brief author bio section, testimonial space, and barcode area. Premium hardcover appearance with sophisticated typography matching front cover. Professional book spine visible on side."
   }
 }

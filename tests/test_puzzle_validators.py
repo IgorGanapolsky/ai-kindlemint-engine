@@ -2,6 +2,9 @@ import json
 import sys
 from pathlib import Path
 
+# Add src to path for imports BEFORE importing modules
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+
 import pytest
 
 from kindlemint.validators.crossword_validator import validate_crossword
@@ -9,9 +12,6 @@ from kindlemint.validators.sudoku_validator import validate_sudoku
 from kindlemint.validators.wordsearch_validator import (
     validate_wordsearch as validate_word_search,
 )
-
-# Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 
 @pytest.fixture

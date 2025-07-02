@@ -2,7 +2,7 @@
   "title": "Large Print Crossword Masters",
   "subtitle": "50 Challenging Crossword Puzzles for Seniors - Volume 3",
   "author": "Crossword Masters Publishing",
-  "description": "Continue your crossword journey with Large Print Crossword Masters – Volume 3, featuring more challenging puzzles for experienced solvers!\n\nBuilding on the success of Volumes 1 and 2, this collection takes your puzzle-solving skills to the next level with 50 all-new crosswords designed to engage and entertain. Each puzzle maintains our signature large print format that's easy on your eyes while providing a satisfying mental workout.\n\nPerfect for crossword enthusiasts ready for more complexity, this volume features clever wordplay and interesting themes while still using familiar vocabulary. No obscure references or impossible clues – just smart, solvable puzzles that reward your experience.\n\nWhat makes this book special:\n• 50 brand-new crossword puzzles with unique solutions\n• Extra-large print designed for comfortable solving\n• Challenging yet fair clues for experienced solvers\n• Complete answer key with all solutions included\n• Premium 8.5\" × 11\" format with professional layout\n\nWhether you've completed our earlier volumes or you're an experienced solver looking for quality large print puzzles, Volume 3 delivers the perfect blend of challenge and accessibility.\n\nEach puzzle is carefully crafted to provide engaging difficulty – complex enough to make you think, but always fair and solvable with patience and logic.\n\nElevate your puzzle experience today. Order your copy of Large Print Crossword Masters – Volume 3 and discover why our readers love the perfect combination of readability and challenge!",
+  "description": "Continue your crossword journey with Large Print Crossword Masters \u2013 Volume 3, featuring more challenging puzzles for experienced solvers!\n\nBuilding on the success of Volumes 1 and 2, this collection takes your puzzle-solving skills to the next level with 50 all-new crosswords designed to engage and entertain. Each puzzle maintains our signature large print format that's easy on your eyes while providing a satisfying mental workout.\n\nPerfect for crossword enthusiasts ready for more complexity, this volume features clever wordplay and interesting themes while still using familiar vocabulary. No obscure references or impossible clues \u2013 just smart, solvable puzzles that reward your experience.\n\nWhat makes this book special:\n\u2022 50 brand-new crossword puzzles with unique solutions\n\u2022 Extra-large print designed for comfortable solving\n\u2022 Challenging yet fair clues for experienced solvers\n\u2022 Complete answer key with all solutions included\n\u2022 Premium 8.5\" \u00d7 11\" format with professional layout\n\nWhether you've completed our earlier volumes or you're an experienced solver looking for quality large print puzzles, Volume 3 delivers the perfect blend of challenge and accessibility.\n\nEach puzzle is carefully crafted to provide engaging difficulty \u2013 complex enough to make you think, but always fair and solvable with patience and logic.\n\nElevate your puzzle experience today. Order your copy of Large Print Crossword Masters \u2013 Volume 3 and discover why our readers love the perfect combination of readability and challenge!",
   "keywords": [
     "large print crossword puzzles",
     "senior crossword book",
@@ -13,17 +13,23 @@
     "crossword puzzle book"
   ],
   "categories": [
-    "Humor & Entertainment",
-    "Health, Fitness & Dieting",
-    "Self-Help"
+    "Crafts, Hobbies & Home > Games & Activities > Puzzles & Games",
+    "Education & Teaching > Studying & Workbooks > Logic & Brain Teasers",
+    "Games > Word Games"
   ],
+  "kdp_book_types": {
+    "low_content_book": true,
+    "large_print_book": true
+  },
   "language": "English",
   "pages": 156,
   "format": "Paperback",
   "dimensions": "8.5 x 11 inches",
   "price_range": "$9.99 - $14.99",
   "target_audience": "Adults 50+, Seniors, Puzzle enthusiasts",
-  "publication_date": "2025-06-25"
+  "publication_date": "2025-06-25",
+  "cover_design": {
+    "back_cover_dalle_prompt": "Create a professional book back cover design for 'Large Print Crossword Masters' by Crossword Masters Publishing.\n\nDesign specifications:\n- Clean, elegant layout with ample white space\n- Professional typography matching front cover style\n- Subtle background pattern or texture (matching front cover theme)\n- Clear hierarchy of information\n\nInclude these elements:\n1. Book title at top in large, readable font\n2. Author name below title\n3. Brief compelling description (2-3 sentences)\n4. 3-4 bullet points highlighting key features\n5. Small author bio section at bottom\n6. Barcode placeholder area (bottom right)\n7. Publisher logo placeholder (bottom left)\n\nColor scheme: Professional and calming, matching front cover\nStyle: Clean, modern, accessible\nTarget audience: Seniors and adults who prefer large print\n\nSpecific content to feature:\n- Emphasize large print format\n- Highlight brain training benefits\n- Include testimonial placeholder: \"\u2605\u2605\u2605\u2605\u2605 'Perfect for...' - Reader Review\"\n\nNO text should be generated - only design placeholders.\nProfessional publishing quality suitable for print.",
+    "dalle_prompt": "Professional book cover for 'Large Print Crossword Masters' - NEEDS PROPER PROMPT"
+  }
 }
-
-ISBN: 9798289681881
