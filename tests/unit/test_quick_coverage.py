@@ -4,6 +4,7 @@
 import tempfile
 from pathlib import Path
 
+
 def test_sudoku_generator_basics():
     """Test Sudoku Generator Basics - Test basic sudoku generator functionality"""
     from kindlemint.engines.sudoku import SudokuGenerator

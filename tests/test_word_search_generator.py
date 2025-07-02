@@ -33,7 +33,8 @@ def test_word_search_generator_creates_files(tmp_path, count):
     # Check puzzle images and metadata files
     png_files = sorted(puzzles_dir.glob("*.png"))
     json_files = sorted(metadata_dir.glob("word_search_puzzle_*.json"))
-    assert len(png_files) == count, f"Expected {count} PNGs, found {len(png_files)}"
+    assert len(
+        png_files) == count, f"Expected {count} PNGs, found {len(png_files)}"
     assert (
         len(json_files) == count
     ), f"Expected {count} metadata JSONs, found {len(json_files)}"
@@ -47,8 +48,9 @@ def test_word_search_generator_creates_files(tmp_path, count):
     assert coll.get("puzzle_count") == count
     assert "words" in coll and isinstance(coll["words"], list)
 
-
     """Test Words File Option"""
+
+
 def test_words_file_option(tmp_path):
     # Create a custom words file
     words = ["TEST", "PYTEST", "KINDLE"]

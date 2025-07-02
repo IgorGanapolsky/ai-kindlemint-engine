@@ -235,7 +235,8 @@ class SudokuGenerator:
                 puzzle[row][col] = temp
 
         # Ensure we're within the expected range
-        final_clue_count = sum(1 for row in puzzle for cell in row if cell != 0)
+        final_clue_count = sum(
+            1 for row in puzzle for cell in row if cell != 0)
         if final_clue_count > max_clues:
             # Try harder to remove more clues for expert difficulty
             additional_attempts = 0
@@ -291,7 +292,8 @@ class SudokuGenerator:
             if clue_count < 17:  # Absolute minimum for a unique solution
                 continue
 
-            has_empty_row = any(all(cell == 0 for cell in row) for row in puzzle)
+            has_empty_row = any(all(cell == 0 for cell in row)
+                                for row in puzzle)
             if has_empty_row:
                 continue
 
@@ -343,7 +345,8 @@ class SudokuGenerator:
 
         try:
             # Regular font for solutions (when is_solution=True)
-            regular_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 36)
+            regular_font = ImageFont.truetype(
+                "/System/Library/Fonts/Helvetica.ttc", 36)
         except BaseException:
             regular_font = ImageFont.load_default()
 
@@ -426,7 +429,8 @@ class SudokuGenerator:
     def generate_puzzles(self) -> List[Dict]:
         """Generate the specified number of Sudoku puzzles."""
         if not self.output_dir:
-            raise ValueError("Output directory must be specified for batch generation")
+            raise ValueError(
+                "Output directory must be specified for batch generation")
 
         print(f"🔢 SUDOKU GENERATOR - Generating {self.puzzle_count} puzzles")
         print(f"📁 Output directory: {self.puzzles_dir}")
@@ -468,7 +472,8 @@ class SudokuGenerator:
             }
 
             # Save individual puzzle metadata
-            puzzle_meta_path = self.metadata_dir / f"sudoku_puzzle_{puzzle_id:03d}.json"
+            puzzle_meta_path = self.metadata_dir / \
+                f"sudoku_puzzle_{puzzle_id:03d}.json"
             with open(puzzle_meta_path, "w") as f:
                 json.dump(full_puzzle_data, f, indent=2)
 
@@ -513,14 +518,16 @@ class SudokuGenerator:
 # Export the main class
 __all__ = ["SudokuGenerator"]
 
+"""Main"""
 
-    """Main"""
+
 def main():
     """Main entry point for Sudoku generator."""
     parser = argparse.ArgumentParser(
         description="Sudoku Generator - Generate valid Sudoku puzzles"
     )
-    parser.add_argument("--output", required=True, help="Output directory for puzzles")
+    parser.add_argument("--output", required=True,
+                        help="Output directory for puzzles")
     parser.add_argument(
         "--count", type=int, default=100, help="Number of puzzles to generate"
     )
@@ -547,7 +554,8 @@ def main():
         puzzles = generator.generate_puzzles()
 
         print(f"\n🎯 SUDOKU GENERATOR - SUCCESS")
-        print(f"📊 Generated {len(puzzles)} valid puzzles with unique solutions")
+        print(
+            f"📊 Generated {len(puzzles)} valid puzzles with unique solutions")
         print(f"📁 Output directory: {args.output}")
 
         # Print difficulty distribution

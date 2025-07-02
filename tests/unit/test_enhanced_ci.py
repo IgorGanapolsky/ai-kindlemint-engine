@@ -6,6 +6,7 @@ Test enhanced CI orchestration using GitHub CLI
 import json
 import subprocess
 
+
 # Test using GitHub CLI to get recent failures
 def test_gh_cli():
     """Test Gh Cli"""
@@ -30,7 +31,8 @@ def test_gh_cli():
 
         # Get job details
         cmd = f"gh run view {run_id} --repo IgorGanapolsky/ai-kindlemint-engine --json jobs"
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        result = subprocess.run(
+            cmd, shell=True, capture_output=True, text=True)
 
         if result.returncode == 0:
             job_data = json.loads(result.stdout)
@@ -60,7 +62,8 @@ def test_gh_cli():
                                 elif "missing_clues" in logs:
                                     print("❌ FOUND: Missing clues issue in logs!")
                                 elif "puzzle integrity" in logs:
-                                    print("❌ FOUND: Puzzle integrity issue in logs!")
+                                    print(
+                                        "❌ FOUND: Puzzle integrity issue in logs!")
                                 else:
                                     # Show first 500 chars of logs
                                     print(f"Log preview: {logs[:500]}...")

@@ -3,6 +3,7 @@
 
 from unittest.mock import patch
 
+
 def test_sudoku_generator_coverage():
     """Test Sudoku Generator Coverage - Boost sudoku.py coverage from 9% to 30%+"""
     from kindlemint.engines.sudoku import SudokuGenerator
