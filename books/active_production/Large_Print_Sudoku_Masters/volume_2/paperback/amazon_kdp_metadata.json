@@ -1,27 +1,45 @@
 {
-  "title": "Large Print Sudoku Masters",
-  "subtitle": "100 Medium Sudoku Puzzles for Developing Skills - Volume 2",
-  "author": "Sudoku Masters Publishing",
-  "description": "Continue your Sudoku journey with Volume 2! This collection features 100 carefully crafted medium-difficulty puzzles designed to help you develop your solving skills. Each puzzle is printed in extra-large format for comfortable solving, with clear grid lines and bold numbers that are easy on your eyes.",
+  "title": "Large Print Sudoku Masters: Volume 2",
+  "subtitle": "100 Easy to Hard Puzzles for Adults & Seniors with Solutions | Brain Games & Mental Exercise",
+  "author": "KindleMint Publishing",
+  "description": "Challenge your mind and sharpen your logic skills with Large Print Sudoku Masters: Volume 2!\n\nThis carefully crafted collection features 100 brand-new Sudoku puzzles designed specifically for adults and seniors who love brain-teasing challenges without eye strain.\n\n✓ EXTRA-LARGE PRINT: Easy-to-read 20+ point fonts and generously sized grids\n✓ PROGRESSIVE DIFFICULTY: 20 Easy, 60 Medium, and 20 Hard puzzles\n✓ COMPLETE SOLUTIONS: All answers included for checking your work\n✓ SENIOR-FRIENDLY: High contrast printing with thick, clear grid lines\n✓ PERFECT BINDING: Lays flat for comfortable solving\n\nWhether you're a Sudoku beginner or seasoned solver, this book offers hours of engaging entertainment. Each puzzle is carefully tested to ensure one unique solution, providing the perfect balance of challenge and satisfaction.\n\nJoin thousands of satisfied puzzlers who've made Large Print Sudoku Masters their go-to series for quality puzzles that are easy on the eyes!",
   "keywords": [
-    "large print sudoku puzzles",
-    "sudoku book for seniors",
-    "medium sudoku puzzles",
+    "large print sudoku",
+    "sudoku for seniors",
+    "easy sudoku puzzles adults",
     "brain games for adults",
-    "puzzle book large print",
-    "sudoku volume 2"
+    "sudoku book large print",
+    "mental exercise puzzles",
+    "sudoku with solutions"
   ],
   "categories": [
-    "Games & Activities > Puzzles & Games"
+    {
+      "id": "GAMES004000",
+      "name": "Games & Activities / Sudoku"
+    },
+    {
+      "id": "GAMES005000",
+      "name": "Games & Activities / Puzzles"
+    },
+    {
+      "id": "GAMES001000",
+      "name": "Games & Activities / Logic & Brain Teasers"
+    }
   ],
   "language": "English",
-  "pages": 231,
+  "pages": 209,
   "format": "Paperback",
-  "dimensions": "8.5 x 11 inches",
-  "price_range": "$12.99 - $16.99",
-  "target_audience": "Adults 35+, Puzzle enthusiasts, Senior-friendly",
-  "publication_date": "2025-07-02",
+  "dimensions": "6 x 9 inches",
+  "publication_date": "2025-07-03",
   "isbn": "979-8-12345-678-9",
+  "price": {
+    "us": 9.99,
+    "uk": 7.99,
+    "eu": 8.99,
+    "ca": 12.99,
+    "au": 14.99,
+    "jp": 1200
+  },
   "low_content_book": true,
   "large_print_book": true,
   "book_type": "puzzle_book"

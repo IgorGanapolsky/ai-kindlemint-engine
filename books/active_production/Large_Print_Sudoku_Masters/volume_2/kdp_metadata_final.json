@@ -15,16 +15,23 @@
     "mental exercise puzzles",
     "sudoku with solutions"
   ],
-  "categories": {
-    "primary": {
+  "categories": [
+    {
       "id": "GAMES004000",
-      "name": "Games & Activities / Sudoku"
+      "name": "Games & Activities / Sudoku",
+      "rank": 1
     },
-    "secondary": {
-      "id": "GAMES005000",
-      "name": "Games & Activities / Puzzles"
+    {
+      "id": "GAMES005000", 
+      "name": "Games & Activities / Puzzles",
+      "rank": 2
+    },
+    {
+      "id": "GAMES001000",
+      "name": "Games & Activities / Logic & Brain Teasers",
+      "rank": 3
     }
-  },
+  ],
   "language": "English",
   "publication_date": "2025-07-03",
   "print_isbn": "979-8-XXXXXXXXX-X",
