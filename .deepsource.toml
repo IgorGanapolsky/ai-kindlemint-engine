@@ -1,28 +1,30 @@
 version = 1
 
+# DISABLED: DeepSource is creating PRs with syntax errors
+# The auto-formatters (autopep8, black, isort) are conflicting
+# and breaking our code. Re-enable only after proper testing.
+
 [[analyzers]]
 name = "python"
-enabled = true
-
-  [analyzers.meta]
-  runtime_version = "3.x.x"
+enabled = false
 
 [[analyzers]]
 name = "test-coverage"
-enabled = true
+enabled = false
 
 [[analyzers]]
 name = "secrets"
-enabled = true
+enabled = true  # Keep secrets detection active
 
-[[transformers]]
-name = "autopep8"
-enabled = true
+# TRANSFORMERS DISABLED - They break our code
+# [[transformers]]
+# name = "autopep8"
+# enabled = false
 
-[[transformers]]
-name = "isort"
-enabled = true
+# [[transformers]]
+# name = "isort"
+# enabled = false
 
-[[transformers]]
-name = "black"
-enabled = true
+# [[transformers]]
+# name = "black"
+# enabled = false
