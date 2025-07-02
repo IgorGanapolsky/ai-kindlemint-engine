@@ -1,0 +1,45 @@
+# CTO Emergency Override Configuration
+# Purpose: Ensure business continuity when CI/CD fails
+
+override_rules:
+  # Auto-merge after timeout
+  auto_merge_timeout_hours:
+    trusted_bots: 1      # Dependabot, DeepSource, Pixeebot
+    approved_prs: 2      # Human-approved PRs stuck in CI
+    security_fixes: 0.5  # Critical security patches
+  
+  # Bypass CI for critical situations
+  ci_bypass_conditions:
+    - all_tests_timeout: true
+    - infrastructure_failure: true
+    - security_emergency: true
+    - cto_manual_override: true
+  
+  # Auto-close spam
+  auto_close_after_hours:
+    untrusted_bots: 24
+    draft_prs: 168  # 1 week
+    no_activity: 336  # 2 weeks
+
+trusted_bots:
+  - dependabot[bot]
+  - deepsource-autofix[bot]
+  - pixeebot[bot]
+  - renovate[bot]
+  
+emergency_contacts:
+  - slack: "#engineering-alerts"
+  - email: "cto@kindlemint.ai"
+  
+automated_actions:
+  - name: "Force merge security updates"
+    condition: "security_advisory"
+    action: "merge_immediately"
+    
+  - name: "Bypass stuck CI"
+    condition: "approved_but_failing_checks > 2h"
+    action: "admin_merge"
+    
+  - name: "Clean up bot spam"
+    condition: "bot_pr_no_human_interaction > 24h"
+    action: "close"
