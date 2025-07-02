@@ -16,7 +16,9 @@ jobs:
       !contains(github.event.pull_request.title, '[skip-sentry]') &&
       !contains(github.event.pull_request.title, 'style:') &&
       !contains(github.event.pull_request.title, 'Add Tests for') &&
-      !contains(github.event.pull_request.title, 'format code')
+      !contains(github.event.pull_request.title, 'format code') &&
+      !endsWith(github.event.pull_request.user.login, '[bot]') &&
+      github.event.pull_request.user.type != 'Bot'
 
     steps:
     - name: Wait for initial checks
