@@ -19,10 +19,7 @@ from PIL import Image, ImageDraw, ImageFont
 class SudokuGenerator:
     """Generate valid Sudoku puzzles with configurable difficulty."""
 
-    def __init__(self):
-
-
-def __init__(
+    def __init__(
         self, output_dir=None, puzzle_count=50, difficulty="mixed", grid_size=9
     ):
         """Initialize the Sudoku generator with configuration."""
@@ -122,8 +119,7 @@ def __init__(
         """Count number of solutions for a puzzle (stops at limit)."""
         solutions = [0]
 
-            """Solve"""
-def solve(row: int, col: int):
+        def solve(row: int, col: int):
             if solutions[0] >= limit:
                 return
 

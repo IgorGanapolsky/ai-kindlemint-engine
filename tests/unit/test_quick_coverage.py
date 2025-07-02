@@ -4,9 +4,8 @@
 import tempfile
 from pathlib import Path
 
-    """Test Sudoku Generator Basics"""
 def test_sudoku_generator_basics():
-    """Test basic sudoku generator functionality"""
+    """Test Sudoku Generator Basics - Test basic sudoku generator functionality"""
     from kindlemint.engines.sudoku import SudokuGenerator
 
     # Test initialization
@@ -26,9 +25,8 @@ def test_sudoku_generator_basics():
     assert all(all(cell == 0 for cell in row) for row in grid)
 
 
-    """Test Wordsearch Engine"""
 def test_wordsearch_engine():
-    """Test word search engine basics"""
+    """Test Wordsearch Engine - Test word search engine basics"""
     from kindlemint.engines.wordsearch import WordSearchGenerator
 
     generator = WordSearchGenerator(grid_size=10)
@@ -40,9 +38,8 @@ def test_wordsearch_engine():
     assert all(len(row) == 10 for row in generator.grid)
 
 
-    """Test Base Validator Simple"""
 def test_base_validator_simple():
-    """Test base validator functionality"""
+    """Test Base Validator Simple - Test base validator functionality"""
     from kindlemint.validators.base_validator import (
         IssueSeverity,
         ValidationIssue,
@@ -65,9 +62,8 @@ def test_base_validator_simple():
     assert not report.is_valid()  # Has errors
 
 
-    """Test Utils Functions"""
 def test_utils_functions():
-    """Test utility functions for quick coverage"""
+    """Test Utils Functions - Test utility functions for quick coverage"""
     from kindlemint.utils import ensure_directory, get_logger
 
     # Test logger
@@ -81,9 +77,8 @@ def test_utils_functions():
         assert test_dir.exists()
 
 
-    """Test Agent Enums"""
 def test_agent_enums():
-    """Test all agent-related enums"""
+    """Test Agent Enums - Test all agent-related enums"""
     from kindlemint.agents.agent_types import AgentCapability
     from kindlemint.agents.message_protocol import MessageType
     from kindlemint.agents.task_system import TaskPriority, TaskStatus
@@ -100,18 +95,16 @@ def test_agent_enums():
     assert TaskPriority.HIGH.value == "high"
 
 
-    """Test Validator Imports"""
 def test_validator_imports():
-    """Test validator module imports"""
+    """Test Validator Imports - Test validator module imports"""
     from kindlemint.validators import get_validator
 
     # Test factory function exists
     assert callable(get_validator)
 
 
-    """Test Engines Imports"""
 def test_engines_imports():
-    """Test engines module imports"""
+    """Test Engines Imports - Test engines module imports"""
     from kindlemint.engines import get_engine
 
     # Test factory function exists

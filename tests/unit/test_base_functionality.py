@@ -6,9 +6,8 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 # Test Message Protocol (77% coverage -> 90%)
-    """Test Message Protocol Complete"""
 def test_message_protocol_complete():
-    """Test message protocol functionality"""
+    """Test Message Protocol Complete - Test message protocol functionality"""
     from kindlemint.agents.message_protocol import (
         Message,
         MessageBus,
@@ -47,9 +46,8 @@ def test_message_protocol_complete():
 
 
 # Test Task System (72% coverage -> 90%)
-    """Test Task System Complete"""
 def test_task_system_complete():
-    """Test task system functionality"""
+    """Test Task System Complete - Test task system functionality"""
     from kindlemint.agents.task_system import (
         Task,
         TaskPriority,
@@ -94,9 +92,8 @@ def test_task_system_complete():
 
 
 # Test Base Validator (55% coverage -> 85%)
-    """Test Base Validator Complete"""
 def test_base_validator_complete():
-    """Test base validator functionality"""
+    """Test Base Validator Complete - Test base validator functionality"""
     from kindlemint.validators.base_validator import (
         IssueSeverity,
         ValidationIssue,
@@ -142,9 +139,8 @@ def test_base_validator_complete():
 
 
 # Test utilities initialization
-    """Test Utils Init"""
 def test_utils_init():
-    """Test utils module initialization"""
+    """Test Utils Init - Test utils module initialization"""
     from kindlemint.utils import ensure_directory, format_timestamp, get_logger
 
     # Test logger
@@ -162,9 +158,8 @@ def test_utils_init():
 
 
 # Test engines initialization
-    """Test Engines Init"""
 def test_engines_init():
-    """Test engines module initialization"""
+    """Test Engines Init - Test engines module initialization"""
     from kindlemint.engines import (
         CrosswordEngine,
         SudokuEngine,
@@ -184,9 +179,8 @@ def test_engines_init():
 
 
 # Test validators initialization
-    """Test Validators Init"""
 def test_validators_init():
-    """Test validators module initialization"""
+    """Test Validators Init - Test validators module initialization"""
     from kindlemint.validators import (
         CrosswordValidator,
         SudokuValidator,

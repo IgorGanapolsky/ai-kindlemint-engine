@@ -7,8 +7,8 @@ import json
 import subprocess
 
 # Test using GitHub CLI to get recent failures
-    """Test Gh Cli"""
 def test_gh_cli():
+    """Test Gh Cli"""
     print("Testing GitHub CLI access...")
 
     # Get recent failed runs

@@ -16,31 +16,28 @@ from PIL import Image, ImageDraw, ImageFont
 class WordSearchGenerator:
     """Generate Word Search puzzles with a simple random grid and a word list."""
 
-    def __init__(self):
-
-
-def __init__(self, output_dir, puzzle_count=50, grid_size=15, words_file=None):
-    self.grid_size = grid_size
-    self.puzzle_count = puzzle_count
-    self.output_dir = Path(output_dir)
-    self.output_dir.mkdir(parents=True, exist_ok=True)
-    # Prepare subdirectories
-    self.puzzles_dir = self.output_dir / "puzzles"
-    self.puzzles_dir.mkdir(exist_ok=True)
-    self.metadata_dir = self.output_dir / "metadata"
-    self.metadata_dir.mkdir(exist_ok=True)
-    # Load word list
-    if words_file:
-        wf = Path(words_file)
-        if not wf.exists():
-            raise FileNotFoundError(f"Words file not found: {wf}")
-        # Expect one word per line
-        self.words = [
-            w.strip().upper() for w_var in wf.read_text().splitlines() if w.strip()
-        ]
-    else:
-        # Default sample words
-        self.words = ["PUZZLE", "KINDLE", "BOOK", "ENGINE", "SOLUTION"]
+    def __init__(self, output_dir, puzzle_count=50, grid_size=15, words_file=None):
+        self.grid_size = grid_size
+        self.puzzle_count = puzzle_count
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        # Prepare subdirectories
+        self.puzzles_dir = self.output_dir / "puzzles"
+        self.puzzles_dir.mkdir(exist_ok=True)
+        self.metadata_dir = self.output_dir / "metadata"
+        self.metadata_dir.mkdir(exist_ok=True)
+        # Load word list
+        if words_file:
+            wf = Path(words_file)
+            if not wf.exists():
+                raise FileNotFoundError(f"Words file not found: {wf}")
+            # Expect one word per line
+            self.words = [
+                w.strip().upper() for w in wf.read_text().splitlines() if w.strip()
+            ]
+        else:
+            # Default sample words
+            self.words = ["PUZZLE", "KINDLE", "BOOK", "ENGINE", "SOLUTION"]
 
     """ Generate Grid"""
 
@@ -88,8 +85,8 @@ def _create_image(self, grid, puzzle_id):
             fill="black",
             width=lw,
         )
-    for_var r_var in range(self.grid_size):
-        for c_var in range(self.grid_size):
+    for r in range(self.grid_size):
+        for c in range(self.grid_size):
             letter = grid[r][c]
             # Compute text size
             try:

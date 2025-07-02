@@ -3,26 +3,23 @@
 
 
 # Test the engines module
-    """Test Sudoku Engine Import"""
 def test_sudoku_engine_import():
-    """Test we can import sudoku engine"""
+    """Test Sudoku Engine Import - Test we can import sudoku engine"""
     from kindlemint.engines import sudoku
 
     assert sudoku is not None
 
 
-    """Test Wordsearch Engine Import"""
 def test_wordsearch_engine_import():
-    """Test we can import wordsearch engine"""
+    """Test Wordsearch Engine Import - Test we can import wordsearch engine"""
     from kindlemint.engines import wordsearch
 
     assert wordsearch is not None
 
 
 # Test message protocol which already has 77% coverage
-    """Test Message Protocol"""
 def test_message_protocol():
-    """Test message protocol basics"""
+    """Test Message Protocol - Test message protocol basics"""
     from kindlemint.agents.message_protocol import Message, MessageType
 
     # Test MessageType enum
@@ -45,9 +42,8 @@ def test_message_protocol():
 
 
 # Test task system which has 72% coverage
-    """Test Task System"""
 def test_task_system():
-    """Test task system basics"""
+    """Test Task System - Test task system basics"""
     from kindlemint.agents.task_system import Task, TaskPriority, TaskStatus
 
     # Test enums
@@ -68,9 +64,8 @@ def test_task_system():
 
 
 # Test agent capabilities
-    """Test Agent Capabilities"""
 def test_agent_capabilities():
-    """Test agent capability definitions"""
+    """Test Agent Capabilities - Test agent capability definitions"""
     from kindlemint.agents.agent_types import AgentCapability
 
     # Test all capabilities are properly defined
