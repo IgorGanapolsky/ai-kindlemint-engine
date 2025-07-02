@@ -14,8 +14,8 @@ from src.kindlemint.agents.code_hygiene_orchestrator import CodeHygieneOrchestra
 sys.path.append(str(Path(__file__).parent.parent))
 
 
-    """Main"""
 def main():
+    """Main entry point for hygiene cleanup script"""
     parser = argparse.ArgumentParser(description="Clean up project hygiene issues")
     parser.add_argument(
         "--analyze", action="store_true", help="Only analyze, don't clean"
@@ -42,14 +42,16 @@ def main():
 
     print(f"\n📊 Current Status:")
     print(f"   Hygiene Score: {report['metrics']['hygiene_score']:.1f}/100")
-    print(f"   Untracked Files: {report['untracked_files']}")
-    print(f"   Organization Score: {report['metrics']['organization_score']:.1f}%")
+    print(f"   Total Files: {report.get('total_files', 0)}")
+    print(f"   Root Files: {report.get('root_files', 0)}")
+    print(f"   Organization Score: {report['metrics'].get('organization_score', 0):.1f}%")
 
-    # Show file categories
-    print("\n📂 File Categories:")
-    for category, count in report["categorized_files"].items():
-        if count > 0:
-            print(f"   {category}: {count} files")
+    # Show file categories if available
+    if "categorized_files" in report:
+        print("\n📂 File Categories:")
+        for category, count in report["categorized_files"].items():
+            if count > 0:
+                print(f"   {category}: {count} files")
 
     if args.list_files:
         print("\n📄 Untracked Files by Category:")
@@ -60,7 +62,7 @@ def main():
         for category, files in categorized.items():
             if files:
                 print(f"\n{category.value.upper()}:")
-                f_varor f_var in sorted(files)[:10]:  # Show first 10 of each category
+                for f in sorted(files)[:10]:  # Show first 10 of each category
                     print(f"   - {f}")
                 if len(files) > 10:
                     print(f"   ... and {len(files) - 10} more")
@@ -72,7 +74,7 @@ def main():
         for i, group in enumerate(commit_groups, 1):
             print(f"\n{i}. {group['message']}")
             print(f"   Files: {len(group['files'])}")
-            f_varor f_var in group["files"][:5]:  # Show first 5 files
+            for f in group["files"][:5]:  # Show first 5 files
                 print(f"   - {f}")
             if len(group["files"]) > 5:
                 print(f"   ... and {len(group['files']) - 5} more")

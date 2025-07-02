@@ -319,7 +319,9 @@
       "Bash(git remote:*)",
       "Bash(PYTHONPATH=/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine python -c \"\nimport asyncio\nimport sys\nfrom pathlib import Path\nsys.path.insert(0, str(Path.cwd()))\n\n# Simulate Sentry error analysis\nprint(''🔍 Analyzing Sentry RuntimeErrors...'')\nprint()\nprint(''📊 Error Categories Found:'')\nprint(''1. 🔴 EPUB Generation Failures - CRITICAL'')\nprint(''2. 🔴 PDF Layout Failures - CRITICAL'') \nprint(''3. 🔴 QA Check Failures (Book has 2 critical issues) - HIGH'')\nprint(''4. 🔴 Puzzle Generation Failures - HIGH'')\nprint(''5. 🔴 Enhanced QA Validator Issues - MEDIUM'')\nprint()\nprint(''✅ Sentry is working correctly - capturing real errors!'')\nprint(''❌ Need orchestration to auto-fix these runtime issues'')\n\")",
       "Bash(PYTHONPATH=/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine python scripts/automated_issue_cleanup.py)",
-      "Bash(/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/scripts/emergency_workflow_cleanup.sh)"
+      "Bash(/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/scripts/emergency_workflow_cleanup.sh)",
+      "Bash(PYTHONPATH=. python scripts/hygiene_cleanup.py --analyze --list-files)",
+      "Bash(PYTHONPATH=. python scripts/hygiene_cleanup.py --analyze)"
     ],
     "deny": []
   }
