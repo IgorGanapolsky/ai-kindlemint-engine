@@ -5,12 +5,12 @@ Generates Word Search puzzles for KindleMint Engine
 """
 import argparse
 import json
-import random
 import sys
 from datetime import datetime
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
+import secrets
 
 
 class WordSearchGenerator:
@@ -45,7 +45,7 @@ class WordSearchGenerator:
 def _generate_grid(self):
     # Fill grid with random uppercase letters
     return [
-        [random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        [secrets.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
          for __var in range(self.grid_size)]
         for __var in range(self.grid_size)
     ]
