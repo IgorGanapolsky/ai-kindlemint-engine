@@ -1,0 +1,52 @@
+{
+  "puzzle_book_standards": {
+    "paperback": {
+      "trim_size": "8.5 x 11 inches",
+      "page_dimensions": {
+        "width": 8.5,
+        "height": 11,
+        "unit": "inches"
+      },
+      "margins": {
+        "top": 1.0,
+        "bottom": 1.0,
+        "left": 1.0,
+        "right": 1.0,
+        "unit": "inches"
+      },
+      "grid_size": {
+        "sudoku": 6.0,
+        "crossword": 6.5,
+        "word_search": 6.5,
+        "unit": "inches"
+      },
+      "rationale": "8.5x11 is optimal for Large Print puzzle books because it provides maximum grid size for seniors and visually impaired readers"
+    },
+    "hardcover": {
+      "trim_size": "8.5 x 11 inches",
+      "note": "Same as paperback for consistency"
+    },
+    "banned_sizes": {
+      "6x9": "Too small for Large Print - grids become cramped",
+      "5x8": "Completely unsuitable for puzzle books",
+      "7x10": "Non-standard size with no advantages over 8.5x11"
+    }
+  },
+  "font_standards": {
+    "minimum_puzzle_font": 20,
+    "minimum_text_font": 14,
+    "title_font": 24,
+    "header_font": 18
+  },
+  "quality_requirements": {
+    "minimum_dpi": 300,
+    "grid_line_thickness": 2,
+    "number_contrast": "high",
+    "paper_color": "white_only"
+  },
+  "enforcement": {
+    "validation_required": true,
+    "auto_reject_wrong_size": true,
+    "message": "All puzzle books MUST use 8.5x11 format for accessibility"
+  }
+}
