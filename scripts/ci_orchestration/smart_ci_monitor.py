@@ -153,14 +153,16 @@ Please fix the root cause before re-enabling!
         print("\n📈 Current CI Status:")
         # More robust approach without shell pipeline
         try:
-            workflow_list = subprocess.run(["gh", "workflow", "list"], capture_output=True, text=True, check=False)
+            workflow_list = subprocess.run(
+                ["gh", "workflow", "list"], capture_output=True, text=True, check=False
+            )
             if workflow_list.returncode == 0 and workflow_list.stdout:
                 active_count = workflow_list.stdout.count("active")
             else:
                 active_count = 0
         except Exception:
             active_count = 0
-        
+
         print(f"   - Active workflows: {active_count}")
         print(f"   - Recent failures: {len(failures)}")
         print(f"   - Cascade risk: {'HIGH' if cascades else 'LOW'}")
