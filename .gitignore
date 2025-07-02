@@ -252,3 +252,8 @@ full.txt
 input.txt
 output.txt
 .cleanup_backup_*/
+
+# Virtual environments
+path/
+*/venv/
+*/env/
