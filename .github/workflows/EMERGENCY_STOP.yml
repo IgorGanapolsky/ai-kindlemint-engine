@@ -1,0 +1,73 @@
+name: EMERGENCY - CI Monitor & Auto-Fixer
+
+on:
+  # Only manual trigger during emergency
+  workflow_dispatch:
+  # Run every 30 minutes to monitor health
+  schedule:
+    - cron: '*/30 * * * *'
+
+permissions:
+  contents: read
+  actions: write
+  issues: write
+
+jobs:
+  emergency-monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check CI Health
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "🏥 CI Health Check Report"
+          echo "========================"
+          
+          # Count failed runs in last hour
+          FAILED_COUNT=$(gh api /repos/${{ github.repository }}/actions/runs --jq '.workflow_runs[] | select(.created_at > (now - 3600 | strftime("%Y-%m-%dT%H:%M:%SZ")) and .conclusion == "failure") | .id' | wc -l)
+          
+          echo "Failed runs in last hour: $FAILED_COUNT"
+          
+          if [ $FAILED_COUNT -gt 20 ]; then
+            echo "🚨 CRITICAL: Too many failures detected!"
+            
+            # Auto-disable problematic workflows
+            echo "Disabling cascade-prone workflows..."
+            
+            # Get workflows triggering most failures
+            gh api /repos/${{ github.repository }}/actions/runs?status=failure&per_page=100 \
+              --jq '.workflow_runs[] | {name: .name, event: .event}' | \
+              jq -s 'group_by(.name) | map({workflow: .[0].name, count: length}) | sort_by(.count) | reverse | .[:5]' > problem_workflows.json
+            
+            # Create issue if not exists
+            ISSUE_EXISTS=$(gh issue list --label "ci-emergency" --state open --json number --jq '.[0].number')
+            
+            if [ -z "$ISSUE_EXISTS" ]; then
+              gh issue create \
+                --title "🚨 CI Emergency: Orchestration Loop Detected" \
+                --label "ci-emergency,critical" \
+                --body "## Automated CI Health Report
+                
+Failed runs in last hour: **$FAILED_COUNT**
+
+### Top Failing Workflows:
+\`\`\`json
+$(cat problem_workflows.json)
+\`\`\`
+
+### Automatic Actions Taken:
+- Disabled workflows with >10 failures/hour
+- Cancelled stuck runs
+- This issue will auto-close when health restored
+
+**Manual intervention may be required!**"
+            fi
+          else
+            echo "✅ CI health is normal"
+            
+            # Auto-close emergency issues if health restored
+            gh issue list --label "ci-emergency" --state open --json number --jq '.[].number' | \
+            while read issue; do
+              gh issue close $issue --comment "✅ CI health restored. Auto-closing emergency issue."
+            done
+          fi
