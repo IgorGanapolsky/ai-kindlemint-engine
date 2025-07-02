@@ -137,8 +137,17 @@ Please fix the root cause before re-enabling!
         
         # Show current health
         print("\n📈 Current CI Status:")
-        active_count = subprocess.run("gh workflow list | grep -c active", shell=True, capture_output=True, text=True)
-        print(f"   - Active workflows: {active_count.stdout.strip()}")
+        # More robust approach without shell pipeline
+        try:
+            workflow_list = subprocess.run(["gh", "workflow", "list"], capture_output=True, text=True, check=False)
+            if workflow_list.returncode == 0 and workflow_list.stdout:
+                active_count = workflow_list.stdout.count("active")
+            else:
+                active_count = 0
+        except Exception:
+            active_count = 0
+        
+        print(f"   - Active workflows: {active_count}")
         print(f"   - Recent failures: {len(failures)}")
         print(f"   - Cascade risk: {'HIGH' if cascades else 'LOW'}")
 
