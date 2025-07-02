@@ -16,7 +16,8 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 def main():
     """Main entry point for hygiene cleanup script"""
-    parser = argparse.ArgumentParser(description="Clean up project hygiene issues")
+    parser = argparse.ArgumentParser(
+        description="Clean up project hygiene issues")
     parser.add_argument(
         "--analyze", action="store_true", help="Only analyze, don't clean"
     )
@@ -44,7 +45,9 @@ def main():
     print(f"   Hygiene Score: {report['metrics']['hygiene_score']:.1f}/100")
     print(f"   Total Files: {report.get('total_files', 0)}")
     print(f"   Root Files: {report.get('root_files', 0)}")
-    print(f"   Organization Score: {report['metrics'].get('organization_score', 0):.1f}%")
+    print(
+        f"   Organization Score: {report['metrics'].get('organization_score', 0):.1f}%"
+    )
 
     # Show file categories if available
     if "categorized_files" in report:
