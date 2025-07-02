@@ -6,6 +6,7 @@ Creates professional PDF interiors with all publishing standards
 
 import argparse
 import json
+import secrets
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -512,9 +513,8 @@ class EnhancedSudokuPDFLayout:
         }
 
         difficulty = puzzle_data.get("difficulty", "medium")
-        import random
 
-        return random.choice(insights.get(difficulty, insights["medium"]))
+        return secrets.choice(insights.get(difficulty, insights["medium"]))
 
     def add_solutions_page(self, story, puzzle_solutions):
         """Add a page with multiple solutions."""

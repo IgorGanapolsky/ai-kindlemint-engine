@@ -10,6 +10,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from security import safe_command
+
 
 def create_volume_2_structure():
     """Create directory structure for Volume 2"""
@@ -258,8 +260,9 @@ def generate_volume_2_pdf(base_dir):
     ]
 
     try:
-        result = subprocess.run(
-            cmd, capture_output=True, text=True, check=True)
+        result = safe_command.run(
+            subprocess.run, cmd, capture_output=True, text=True, check=True
+        )
         print("✅ PDF generated successfully!")
         print(result.stdout)
         return True
