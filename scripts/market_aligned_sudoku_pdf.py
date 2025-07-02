@@ -10,6 +10,18 @@ from datetime import datetime
 from pathlib import Path
 
 from reportlab.lib import colors
+
+# Font embedding fix - use embedded fonts instead of system fonts
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.fonts import addMapping
+
+# Use built-in fonts for compatibility
+BASE_FONT = "Helvetica"
+BOLD_FONT = "Helvetica-Bold"
+SERIF_FONT = "Times-Roman"
+SERIF_BOLD_FONT = "Times-Bold"
+
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
@@ -21,8 +33,7 @@ from reportlab.platypus import Image, PageBreak, Paragraph, SimpleDocTemplate, S
 class MarketAlignedSudokuPDF:
     """Generate truly large print Sudoku PDFs based on market research"""
 
-        """  Init  """
-def __init__(
+    def __init__(
         self,
         input_dir,
         output_dir,
@@ -56,8 +67,7 @@ def __init__(
         self.load_puzzle_metadata()
         self.setup_styles()
 
-        """Load Puzzle Metadata"""
-def load_puzzle_metadata(self):
+    def load_puzzle_metadata(self):
         """Load puzzle metadata"""
         metadata_dir = self.input_dir / "metadata"
         collection_file = metadata_dir / "sudoku_collection.json"
@@ -76,8 +86,7 @@ def load_puzzle_metadata(self):
                 with open(puzzle_file) as f:
                     self.puzzles.append(json.load(f))
 
-        """Setup Styles"""
-def setup_styles(self):
+    def setup_styles(self):
         """Setup styles optimized for seniors and visual accessibility"""
         self.styles = getSampleStyleSheet()
 
@@ -91,7 +100,7 @@ def setup_styles(self):
                 textColor=colors.black,
                 alignment=TA_CENTER,
                 spaceAfter=36,
-                fontName="Helvetica-Bold",
+                fontName=BOLD_FONT,
             )
         )
 
@@ -104,7 +113,7 @@ def setup_styles(self):
                 textColor=colors.grey,
                 alignment=TA_CENTER,
                 spaceAfter=24,
-                fontName="Helvetica",
+                fontName=BASE_FONT,
             )
         )
 
@@ -119,7 +128,7 @@ def setup_styles(self):
                 alignment=TA_CENTER,
                 spaceAfter=24,
                 spaceBefore=36,
-                fontName="Helvetica-Bold",
+                fontName=BOLD_FONT,
             )
         )
 
@@ -133,7 +142,7 @@ def setup_styles(self):
                 textColor=colors.black,
                 alignment=TA_LEFT,
                 spaceAfter=12,
-                fontName="Helvetica-Bold",
+                fontName=BOLD_FONT,
             )
         )
 
@@ -147,7 +156,7 @@ def setup_styles(self):
                 textColor=colors.black,
                 alignment=TA_LEFT,
                 spaceAfter=12,
-                fontName="Helvetica",
+                fontName=BASE_FONT,
             )
         )
 
@@ -161,12 +170,11 @@ def setup_styles(self):
                 textColor=colors.black,
                 alignment=TA_LEFT,
                 spaceAfter=16,
-                fontName="Helvetica",
+                fontName=BASE_FONT,
             )
         )
 
-        """Generate Pdf"""
-def generate_pdf(self):
+    def generate_pdf(self):
         """Generate the complete PDF with market-aligned features"""
         filename = f"{self.title.replace(':', '').replace(' ', '_')}_Interior.pdf"
         pdf_path = self.output_dir / filename
@@ -211,8 +219,7 @@ def generate_pdf(self):
 
         return str(pdf_path)
 
-        """Create Title Page"""
-def create_title_page(self, story):
+    def create_title_page(self, story):
         """Create an appealing title page"""
         story.append(Spacer(1, 2 * inch))
         story.append(Paragraph(self.title, self.styles["BookTitle"]))
@@ -230,8 +237,7 @@ def create_title_page(self, story):
 
         story.append(PageBreak())
 
-        """Create Welcome Page"""
-def create_welcome_page(self, story):
+    def create_welcome_page(self, story):
         """Create a welcoming introduction"""
         story.append(
             Paragraph(
@@ -263,8 +269,7 @@ def create_welcome_page(self, story):
 
         story.append(PageBreak())
 
-        """Create How To Play Page"""
-def create_how_to_play_page(self, story):
+    def create_how_to_play_page(self, story):
         """Create comprehensive how-to-play instructions"""
         story.append(Paragraph("How to Play Sudoku", self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.3 * inch))
@@ -291,8 +296,7 @@ def create_how_to_play_page(self, story):
 
         story.append(PageBreak())
 
-        """Create Tips And Strategies Page"""
-def create_tips_and_strategies_page(self, story):
+    def create_tips_and_strategies_page(self, story):
         """Create tips page based on market research"""
         story.append(Paragraph("Tips for Success", self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.3 * inch))
@@ -316,8 +320,7 @@ def create_tips_and_strategies_page(self, story):
 
         story.append(PageBreak())
 
-        """Create Cognitive Benefits Page"""
-def create_cognitive_benefits_page(self, story):
+    def create_cognitive_benefits_page(self, story):
         """Add cognitive benefits information as per market research"""
         story.append(Paragraph("Brain Training Benefits", self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.3 * inch))
@@ -345,8 +348,7 @@ def create_cognitive_benefits_page(self, story):
 
         story.append(PageBreak())
 
-        """Create Puzzle Sections"""
-def create_puzzle_sections(self, story):
+    def create_puzzle_sections(self, story):
         """Create puzzle sections with solutions after each group"""
         # Group puzzles by difficulty or in sections of 10
         section_size = 10
@@ -381,8 +383,7 @@ def create_puzzle_sections(self, story):
             for i, puzzle in enumerate(section_puzzles):
                 self.create_solution_page(story, puzzle, start_idx + i + 1)
 
-        """Create Puzzle Page"""
-def create_puzzle_page(self, story, puzzle_data, puzzle_number):
+    def create_puzzle_page(self, story, puzzle_data, puzzle_number):
         """Create a single puzzle page with TRUE large print"""
         # Puzzle header
         story.append(Paragraph(f"Puzzle {puzzle_number}", self.styles["PuzzleNumber"]))
@@ -427,8 +428,7 @@ def create_puzzle_page(self, story, puzzle_data, puzzle_number):
 
         story.append(PageBreak())
 
-        """Create Puzzle Grid"""
-def create_puzzle_grid(self, story, puzzle_data):
+    def create_puzzle_grid(self, story, puzzle_data):
         """Generate puzzle grid from data when image is missing - CRITICAL FALLBACK"""
         from reportlab.lib import colors
         from reportlab.platypus import Table, TableStyle
@@ -468,7 +468,7 @@ def create_puzzle_grid(self, story, puzzle_data):
                     ("LINEBEFORE", (3, 0), (3, -1), 4, colors.black),
                     ("LINEBEFORE", (6, 0), (6, -1), 4, colors.black),
                     # Text formatting - large bold font for clues
-                    ("FONTNAME", (0, 0), (-1, -1), "Helvetica-Bold"),
+                    ("FONTNAME", (0, 0), (-1, -1), BOLD_FONT),
                     ("FONTSIZE", (0, 0), (-1, -1), 24),
                     ("ALIGN", (0, 0), (-1, -1), "CENTER"),
                     ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
@@ -480,8 +480,7 @@ def create_puzzle_grid(self, story, puzzle_data):
         table.hAlign = "CENTER"
         story.append(table)
 
-        """Create Solution Page"""
-def create_solution_page(self, story, puzzle_data, puzzle_number):
+    def create_solution_page(self, story, puzzle_data, puzzle_number):
         """Create solution page with step-by-step explanations as market research suggests"""
         story.append(
             Paragraph(f"Solution - Puzzle {puzzle_number}", self.styles["PuzzleNumber"])
@@ -516,8 +515,7 @@ def create_solution_page(self, story, puzzle_data, puzzle_number):
 
         story.append(PageBreak())
 
-        """Create Solution Grid"""
-def create_solution_grid(self, story, puzzle_data):
+    def create_solution_grid(self, story, puzzle_data):
         """Generate solution grid from data when image is missing - CRITICAL FALLBACK"""
         from reportlab.lib import colors
         from reportlab.platypus import Table, TableStyle
@@ -568,7 +566,7 @@ def create_solution_grid(self, story, puzzle_data):
                             "FONTNAME",
                             (col_idx, row_idx),
                             (col_idx, row_idx),
-                            "Helvetica-Bold",
+                            BOLD_FONT,
                         )
                     )
                 else:
@@ -578,7 +576,7 @@ def create_solution_grid(self, story, puzzle_data):
                             "FONTNAME",
                             (col_idx, row_idx),
                             (col_idx, row_idx),
-                            "Helvetica",
+                            BASE_FONT,
                         )
                     )
                     table_style.append(
@@ -596,8 +594,7 @@ def create_solution_grid(self, story, puzzle_data):
         table.hAlign = "CENTER"
         story.append(table)
 
-        """Get Solving Explanation"""
-def get_solving_explanation(self, difficulty, puzzle_number):
+    def get_solving_explanation(self, difficulty, puzzle_number):
         """Generate solving explanation based on difficulty level with much more variety"""
         explanations = {
             "easy": [
@@ -637,8 +634,7 @@ def get_solving_explanation(self, difficulty, puzzle_number):
         explanation_index = (puzzle_number - 1) % len(explanation_list)
         return explanation_list[explanation_index]
 
-        """Get Solving Tips"""
-def get_solving_tips(self, difficulty, puzzle_number):
+    def get_solving_tips(self, difficulty, puzzle_number):
         """Generate solving tips with variety based on difficulty level and puzzle number"""
         tips = {
             "easy": [
@@ -668,8 +664,7 @@ def get_solving_tips(self, difficulty, puzzle_number):
         tip_index = (puzzle_number - 1) % len(tip_list)
         return tip_list[tip_index]
 
-        """Create About Author Page"""
-def create_about_author_page(self, story):
+    def create_about_author_page(self, story):
         """Add author information"""
         story.append(Paragraph("About the Author", self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.5 * inch))
@@ -688,8 +683,7 @@ def create_about_author_page(self, story):
         story.append(Paragraph(about_text.strip(), self.styles["LargeBody"]))
         story.append(PageBreak())
 
-        """Create Other Books Page"""
-def create_other_books_page(self, story):
+    def create_other_books_page(self, story):
         """Cross-promote other volumes"""
         story.append(
             Paragraph("More Large Print Sudoku Masters", self.styles["SectionHeader"])
@@ -714,8 +708,7 @@ def create_other_books_page(self, story):
 
         story.append(Paragraph(other_books.strip(), self.styles["LargeBody"]))
 
-        """Create Copyright Page"""
-def create_copyright_page(self, story):
+    def create_copyright_page(self, story):
         """Create copyright page"""
         copyright_text = f"""
         {self.title}
@@ -740,18 +733,15 @@ def create_copyright_page(self, story):
 class NumberedCanvas(canvas.Canvas):
     """Canvas that adds page numbers"""
 
-        """  Init  """
-def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         canvas.Canvas.__init__(self, *args, **kwargs)
         self._saved_page_states = []
 
-        """Showpage"""
-def showPage(self):
+    def showPage(self):
         self._saved_page_states.append(dict(self.__dict__))
         self._startPage()
 
-        """Save"""
-def save(self):
+    def save(self):
         """Add page numbers to all pages"""
         for state in self._saved_page_states:
             self.__dict__.update(state)
@@ -760,10 +750,9 @@ def save(self):
             canvas.Canvas.showPage(self)
         canvas.Canvas.save(self)
 
-        """Draw Page Number"""
-def draw_page_number(self):
+    def draw_page_number(self):
         """Draw page number at bottom center"""
-        self.setFont("Helvetica", 14)
+        self.setFont(BASE_FONT, 14)
         self.drawCentredString(
             self._pagesize[0] / 2,
             0.75 * inch,
@@ -771,8 +760,8 @@ def draw_page_number(self):
         )
 
 
-    """Main"""
 def main():
+    """Main entry point"""
     parser = argparse.ArgumentParser(
         description="Generate market-aligned Sudoku PDF with true large print"
     )
