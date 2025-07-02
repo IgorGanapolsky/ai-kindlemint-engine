@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-07-01T22:39:02.171409",
+  "issues": [],
+  "suggestions": [],
+  "metrics": {
+    "hygiene_score": 95.0,
+    "root_files": 13,
+    "total_files": 5074,
+    "issues_count": 0,
+    "critical_issues": 0,
+    "organization_score": 100.0
+  },
+  "total_files": 5074,
+  "root_files": 13,
+  "root_file_list": [
+    ".cursorignore",
+    "claude-code",
+    "LICENSE",
+    "requirements.txt",
+    "hygiene_report_20250701_223812.json",
+    ".deepsource.toml",
+    "README.md",
+    "setup.py",
+    "sonar-project.properties",
+    ".ccfignore",
+    ".gitignore",
+    ".gitattributes",
+    ".env.example"
+  ]
+}

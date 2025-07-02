@@ -1,0 +1,45 @@
+{
+  "timestamp": "2025-07-01T22:37:41.860519",
+  "issues": [
+    {
+      "type": "root_clutter_moderate",
+      "severity": "medium",
+      "count": 20,
+      "message": "Moderate root clutter (20 files). Consider organizing.",
+      "suggestion": "Move non-essential files to subdirectories"
+    }
+  ],
+  "suggestions": [],
+  "metrics": {
+    "hygiene_score": 80.0,
+    "root_files": 20,
+    "total_files": 5072,
+    "issues_count": 1,
+    "critical_issues": 0,
+    "organization_score": 100.0
+  },
+  "total_files": 5072,
+  "root_files": 20,
+  "root_file_list": [
+    ".cursorignore",
+    "claude-code",
+    "launch_orchestration.sh",
+    "CLEANUP_PLAN.md",
+    "LICENSE",
+    "requirements.txt",
+    "claude-flow-costs-notify",
+    "ORCHESTRATION_QUICKSTART.md",
+    "hygiene_report_20250701_222736.json",
+    ".deepsource.toml",
+    "README.md",
+    "setup.py",
+    "claude-flow-costs",
+    "sonar-project.properties",
+    "claude-flow",
+    ".ccfignore",
+    ".gitignore",
+    ".gitattributes",
+    ".env.example",
+    "kindlemint-orchestrator.service"
+  ]
+}
