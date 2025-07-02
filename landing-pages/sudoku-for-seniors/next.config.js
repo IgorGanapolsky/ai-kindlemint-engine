@@ -2,11 +2,17 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
   env: {
-    CONVERTKIT_API_KEY: process.env.CONVERTKIT_API_KEY,
-    CONVERTKIT_FORM_ID: process.env.CONVERTKIT_FORM_ID,
-    GA_MEASUREMENT_ID: process.env.GA_MEASUREMENT_ID,
-    FB_PIXEL_ID: process.env.FB_PIXEL_ID,
+    NEXT_PUBLIC_EMAILJS_SERVICE_ID: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+    NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+    NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+    NEXT_PUBLIC_FB_PIXEL_ID: process.env.NEXT_PUBLIC_FB_PIXEL_ID,
   },
   async headers() {
     return [

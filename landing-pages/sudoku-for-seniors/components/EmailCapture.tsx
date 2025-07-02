@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 interface EmailCaptureProps {
   onSuccess: () => void;
@@ -16,27 +17,36 @@ const EmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     setError('');
 
     try {
-      // ConvertKit API endpoint (to be configured with actual form ID)
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          firstName,
-          tags: ['sudoku-for-seniors', 'lead-magnet'],
-        }),
-      });
+      // EmailJS service (FREE - 200 emails/month)
+      const templateParams = {
+        to_email: email,
+        from_name: firstName,
+        message: 'New subscriber for Sudoku for Seniors 75+',
+        reply_to: email,
+        download_link: `${window.location.origin}/downloads/5-free-sudoku-puzzles.pdf`
+      };
 
-      if (!response.ok) {
-        throw new Error('Subscription failed');
+      // Send welcome email with lead magnet
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'your_service_id',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'your_template_id',
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'your_public_key'
+      );
+
+      // Also save to GitHub (free backup)
+      if (process.env.NEXT_PUBLIC_GITHUB_TOKEN) {
+        await fetch('/api/github-subscriber', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, firstName, timestamp: new Date().toISOString() })
+        });
       }
 
       // Track conversion
       if (typeof window !== 'undefined' && (window as any).gtag) {
         (window as any).gtag('event', 'conversion', {
-          'send_to': 'AW-XXXXXXXXX/XXXXXXXXX', // Replace with actual conversion ID
+          'send_to': 'AW-XXXXXXXXX/XXXXXXXXX',
           'value': 0.0,
           'currency': 'USD'
         });
@@ -52,6 +62,7 @@ const EmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
 
       onSuccess();
     } catch (err) {
+      console.error('Email capture error:', err);
       setError('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
