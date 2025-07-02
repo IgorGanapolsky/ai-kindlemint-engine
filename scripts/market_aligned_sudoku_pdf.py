@@ -10,24 +10,23 @@ from datetime import datetime
 from pathlib import Path
 
 from reportlab.lib import colors
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.lib.fonts import addMapping
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.units import inch
 
 # Font embedding fix - use embedded fonts instead of system fonts
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.fonts import addMapping
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Image, PageBreak, Paragraph, SimpleDocTemplate, Spacer
 
 # Use built-in fonts for compatibility
 BASE_FONT = "Helvetica"
 BOLD_FONT = "Helvetica-Bold"
 SERIF_FONT = "Times-Roman"
 SERIF_BOLD_FONT = "Times-Bold"
-
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.lib.units import inch
-from reportlab.pdfgen import canvas
-from reportlab.platypus import Image, PageBreak, Paragraph, SimpleDocTemplate, Spacer
 
 
 class MarketAlignedSudokuPDF:
@@ -73,7 +72,8 @@ class MarketAlignedSudokuPDF:
         collection_file = metadata_dir / "sudoku_collection.json"
 
         if not collection_file.exists():
-            raise FileNotFoundError(f"Collection metadata not found: {collection_file}")
+            raise FileNotFoundError(
+                f"Collection metadata not found: {collection_file}")
 
         with open(collection_file) as f:
             self.collection_data = json.load(f)
@@ -233,7 +233,8 @@ class MarketAlignedSudokuPDF:
         story.append(Paragraph("◼ ◻ ◼ ◻ ◼ ◻ ◼ ◻ ◼", self.styles["BookTitle"]))
 
         story.append(Spacer(1, 2 * inch))
-        story.append(Paragraph(f"by {self.author}", self.styles["BookSubtitle"]))
+        story.append(Paragraph(f"by {self.author}",
+                     self.styles["BookSubtitle"]))
 
         story.append(PageBreak())
 
@@ -271,7 +272,8 @@ class MarketAlignedSudokuPDF:
 
     def create_how_to_play_page(self, story):
         """Create comprehensive how-to-play instructions"""
-        story.append(Paragraph("How to Play Sudoku", self.styles["SectionHeader"]))
+        story.append(Paragraph("How to Play Sudoku",
+                     self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.3 * inch))
 
         instructions = [
@@ -298,7 +300,8 @@ class MarketAlignedSudokuPDF:
 
     def create_tips_and_strategies_page(self, story):
         """Create tips page based on market research"""
-        story.append(Paragraph("Tips for Success", self.styles["SectionHeader"]))
+        story.append(Paragraph("Tips for Success",
+                     self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.3 * inch))
 
         tips = [
@@ -322,7 +325,8 @@ class MarketAlignedSudokuPDF:
 
     def create_cognitive_benefits_page(self, story):
         """Add cognitive benefits information as per market research"""
-        story.append(Paragraph("Brain Training Benefits", self.styles["SectionHeader"]))
+        story.append(Paragraph("Brain Training Benefits",
+                     self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.3 * inch))
 
         benefits = [
@@ -386,9 +390,11 @@ class MarketAlignedSudokuPDF:
     def create_puzzle_page(self, story, puzzle_data, puzzle_number):
         """Create a single puzzle page with TRUE large print"""
         # Puzzle header
-        story.append(Paragraph(f"Puzzle {puzzle_number}", self.styles["PuzzleNumber"]))
+        story.append(
+            Paragraph(f"Puzzle {puzzle_number}", self.styles["PuzzleNumber"]))
         difficulty = puzzle_data.get("difficulty", "medium").title()
-        story.append(Paragraph(f"Difficulty: {difficulty}", self.styles["LargeBody"]))
+        story.append(
+            Paragraph(f"Difficulty: {difficulty}", self.styles["LargeBody"]))
         story.append(Spacer(1, 0.2 * inch))
 
         # Add clear instructions for customers - CRITICAL for usability
@@ -397,7 +403,8 @@ class MarketAlignedSudokuPDF:
         and each 3×3 box contains all numbers from 1 to 9. Each number can appear
         only once in each row, column, and 3×3 box.
         """
-        story.append(Paragraph(instructions.strip(), self.styles["Instructions"]))
+        story.append(Paragraph(instructions.strip(),
+                     self.styles["Instructions"]))
 
         # Add solving tip based on difficulty
         if difficulty.lower() == "easy":
@@ -483,13 +490,15 @@ class MarketAlignedSudokuPDF:
     def create_solution_page(self, story, puzzle_data, puzzle_number):
         """Create solution page with step-by-step explanations as market research suggests"""
         story.append(
-            Paragraph(f"Solution - Puzzle {puzzle_number}", self.styles["PuzzleNumber"])
+            Paragraph(
+                f"Solution - Puzzle {puzzle_number}", self.styles["PuzzleNumber"])
         )
         story.append(Spacer(1, 0.3 * inch))
 
         # Add solving explanation based on difficulty
         difficulty = puzzle_data.get("difficulty", "medium").lower()
-        solving_explanation = self.get_solving_explanation(difficulty, puzzle_number)
+        solving_explanation = self.get_solving_explanation(
+            difficulty, puzzle_number)
         story.append(Paragraph(solving_explanation, self.styles["LargeBody"]))
         story.append(Spacer(1, 0.3 * inch))
 
@@ -498,10 +507,12 @@ class MarketAlignedSudokuPDF:
         if not solutions_dir.exists():
             solutions_dir = self.input_dir / "puzzles"
 
-        solution_path = solutions_dir / f"sudoku_solution_{puzzle_data['id']:03d}.png"
+        solution_path = solutions_dir / \
+            f"sudoku_solution_{puzzle_data['id']:03d}.png"
 
         if solution_path.exists():
-            img = Image(str(solution_path), width=4.5 * inch, height=4.5 * inch)
+            img = Image(str(solution_path), width=4.5 *
+                        inch, height=4.5 * inch)
             img.hAlign = "CENTER"
             story.append(img)
         else:
@@ -666,7 +677,8 @@ class MarketAlignedSudokuPDF:
 
     def create_about_author_page(self, story):
         """Add author information"""
-        story.append(Paragraph("About the Author", self.styles["SectionHeader"]))
+        story.append(Paragraph("About the Author",
+                     self.styles["SectionHeader"]))
         story.append(Spacer(1, 0.5 * inch))
 
         about_text = f"""
@@ -686,7 +698,8 @@ class MarketAlignedSudokuPDF:
     def create_other_books_page(self, story):
         """Cross-promote other volumes"""
         story.append(
-            Paragraph("More Large Print Sudoku Masters", self.styles["SectionHeader"])
+            Paragraph("More Large Print Sudoku Masters",
+                      self.styles["SectionHeader"])
         )
         story.append(Spacer(1, 0.5 * inch))
 
@@ -765,7 +778,8 @@ def main():
     parser = argparse.ArgumentParser(
         description="Generate market-aligned Sudoku PDF with true large print"
     )
-    parser.add_argument("--input", required=True, help="Input puzzles directory")
+    parser.add_argument("--input", required=True,
+                        help="Input puzzles directory")
     parser.add_argument("--output", required=True, help="Output directory")
     parser.add_argument("--title", required=True, help="Book title")
     parser.add_argument("--author", required=True, help="Author name")

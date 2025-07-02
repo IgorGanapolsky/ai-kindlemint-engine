@@ -11,22 +11,15 @@ from datetime import datetime
 from pathlib import Path
 
 from reportlab.lib import colors
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.lib.fonts import addMapping
+from reportlab.lib.pagesizes import A4, letter
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.units import inch
 
 # Font embedding fix - use embedded fonts instead of system fonts
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.fonts import addMapping
-
-# Use built-in fonts for compatibility
-BASE_FONT = "Helvetica"
-BOLD_FONT = "Helvetica-Bold"
-SERIF_FONT = "Times-Roman"
-SERIF_BOLD_FONT = "Times-Bold"
-
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
-from reportlab.lib.pagesizes import A4, letter
-from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 from reportlab.platypus import (
     Image,
@@ -37,6 +30,12 @@ from reportlab.platypus import (
     Table,
     TableStyle,
 )
+
+# Use built-in fonts for compatibility
+BASE_FONT = "Helvetica"
+BOLD_FONT = "Helvetica-Bold"
+SERIF_FONT = "Times-Roman"
+SERIF_BOLD_FONT = "Times-Bold"
 
 
 class NumberedCanvas(canvas.Canvas):
@@ -127,7 +126,8 @@ class EnhancedSudokuPDFLayout:
 
         collection_file = metadata_dir / "sudoku_collection.json"
         if not collection_file.exists():
-            raise FileNotFoundError(f"Collection metadata not found: {collection_file}")
+            raise FileNotFoundError(
+                f"Collection metadata not found: {collection_file}")
 
         with open(collection_file) as f:
             self.collection_data = json.load(f)
@@ -261,7 +261,8 @@ class EnhancedSudokuPDFLayout:
 
         # Volume indicator
         story.append(
-            Paragraph(f"Volume {self.volume_number}", self.styles["BookSubtitle"])
+            Paragraph(f"Volume {self.volume_number}",
+                      self.styles["BookSubtitle"])
         )
 
         # Author
@@ -270,7 +271,8 @@ class EnhancedSudokuPDFLayout:
         # Series branding
         story.append(Spacer(1, 1 * inch))
         story.append(
-            Paragraph("Part of the Large Print Masters Series", self.styles["Normal"])
+            Paragraph("Part of the Large Print Masters Series",
+                      self.styles["Normal"])
         )
 
         # Publication info
@@ -315,7 +317,8 @@ class EnhancedSudokuPDFLayout:
 
     def create_instructions_page(self, story):
         """Create the enhanced instructions page."""
-        story.append(Paragraph("How to Play Sudoku", self.styles["SectionHeader"]))
+        story.append(Paragraph("How to Play Sudoku",
+                     self.styles["SectionHeader"]))
 
         instructions = [
             "<b>Objective:</b><br/>Fill the 9×9 grid so that each column, each row, and each of the nine 3×3 boxes contains the digits 1 through 9.",
@@ -370,7 +373,8 @@ class EnhancedSudokuPDFLayout:
     def create_puzzle_page(self, story, puzzle_data, puzzle_number):
         """Create a page for a single puzzle."""
         # Puzzle header
-        story.append(Paragraph(f"Puzzle {puzzle_number}", self.styles["PuzzleNumber"]))
+        story.append(
+            Paragraph(f"Puzzle {puzzle_number}", self.styles["PuzzleNumber"]))
         story.append(
             Paragraph(
                 f"Difficulty: {puzzle_data['difficulty'].title()}",
@@ -441,7 +445,8 @@ class EnhancedSudokuPDFLayout:
         story.append(Spacer(1, 0.3 * inch))
 
         # Load solution image - Fixed path logic
-        solution_path = self.input_dir / f"sudoku_solution_{puzzle_data['id']:03d}.png"
+        solution_path = self.input_dir / \
+            f"sudoku_solution_{puzzle_data['id']:03d}.png"
         if not solution_path.exists():
             # Try in puzzles subdirectory
             solution_path = (
@@ -515,7 +520,8 @@ class EnhancedSudokuPDFLayout:
         """Add a page with multiple solutions."""
         # Create 2x2 grid
         if len(puzzle_solutions) <= 2:
-            table_data = [[puzzle_solutions[0]] if len(puzzle_solutions) >= 1 else []]
+            table_data = [[puzzle_solutions[0]]
+                          if len(puzzle_solutions) >= 1 else []]
             if len(puzzle_solutions) >= 2:
                 table_data[0].append(puzzle_solutions[1])
         else:
@@ -605,7 +611,8 @@ class EnhancedSudokuPDFLayout:
 
         # Email list CTA
         story.append(
-            Paragraph("<b>Get FREE Bonus Puzzles!</b>", self.styles["Marketing"])
+            Paragraph("<b>Get FREE Bonus Puzzles!</b>",
+                      self.styles["Marketing"])
         )
 
         story.append(
@@ -644,7 +651,8 @@ class EnhancedSudokuPDFLayout:
 
     def generate_pdf(self):
         """Generate the complete PDF book with page numbers."""
-        output_file = self.output_dir / f"{self.title.replace(' ', '_')}_Interior.pdf"
+        output_file = self.output_dir / \
+            f"{self.title.replace(' ', '_')}_Interior.pdf"
 
         doc = SimpleDocTemplate(
             str(output_file),
@@ -693,7 +701,8 @@ def main():
     parser.add_argument(
         "--input", required=True, help="Input directory with puzzle images"
     )
-    parser.add_argument("--output", required=True, help="Output directory for PDF")
+    parser.add_argument("--output", required=True,
+                        help="Output directory for PDF")
     parser.add_argument("--title", required=True, help="Book title")
     parser.add_argument("--author", required=True, help="Book author")
     parser.add_argument("--subtitle", help="Book subtitle")
