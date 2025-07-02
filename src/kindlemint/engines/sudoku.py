@@ -19,10 +19,7 @@ from PIL import Image, ImageDraw, ImageFont
 class SudokuGenerator:
     """Generate valid Sudoku puzzles with configurable difficulty."""
 
-    def __init__(self):
-
-
-def __init__(
+    def __init__(
         self, output_dir=None, puzzle_count=50, difficulty="mixed", grid_size=9
     ):
         """Initialize the Sudoku generator with configuration."""
@@ -54,12 +51,12 @@ def __init__(
     def _is_valid(self, grid: List[List[int]], row: int, col: int, num: int) -> bool:
         """Check if placing num at grid[row][col] is valid."""
         # Check row
-        for x_var in range(9):
+        for x in range(9):
             if grid[row][x] == num:
                 return False
 
         # Check column
-        for x_var in range(9):
+        for x in range(9):
             if grid[x][col] == num:
                 return False
 
@@ -122,8 +119,8 @@ def __init__(
         """Count number of solutions for a puzzle (stops at limit)."""
         solutions = [0]
 
+        def solve(row: int, col: int):
             """Solve"""
-def solve(row: int, col: int):
             if solutions[0] >= limit:
                 return
 
@@ -208,7 +205,7 @@ def solve(row: int, col: int):
         max_clues = params["max_clues"]
 
         # Create list of all cell positions
-        cells = [(r, c) for_var r_var in range(9) for c_var in range(9)]
+        cells = [(r, c) for r in range(9) for c in range(9)]
         random.shuffle(cells)
 
         # Remove cells while maintaining unique solution
@@ -377,8 +374,8 @@ def solve(row: int, col: int):
             )
 
         # Draw numbers with proper visual distinction between clues and empty cells
-        for_var r_var in range(self.grid_size):
-            for c_var in range(self.grid_size):
+        for r in range(self.grid_size):
+            for c in range(self.grid_size):
                 # Calculate cell boundaries
                 cell_x1 = margin + c * cell_size
                 cell_y1 = margin + r * cell_size
@@ -518,7 +515,6 @@ def solve(row: int, col: int):
 __all__ = ["SudokuGenerator"]
 
 
-    """Main"""
 def main():
     """Main entry point for Sudoku generator."""
     parser = argparse.ArgumentParser(
