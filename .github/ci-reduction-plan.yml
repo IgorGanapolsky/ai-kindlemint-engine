@@ -1,0 +1,79 @@
+# CI Reduction Plan - From 27 checks to 1 smart check
+
+current_problems:
+  - 27+ different workflows running on every PR
+  - Multiple workflows doing the same checks
+  - Flaky tests blocking all merges
+  - No caching between runs
+  - Sequential execution instead of parallel
+
+immediate_actions:
+  disable_workflows:
+    # These should be consolidated into the optimized pipeline
+    - Code Hygiene Orchestrator  # Duplicate of hygiene-check
+    - hygiene-check             # Merge into fast-ci
+    - qa-check                  # Duplicate of qa-validation
+    - qa-validation            # Merge into fast-ci
+    - Code Quality Enforcement  # Merge into fast-ci
+    - Quick Validation Checks   # Redundant
+    - Run QA Checks            # Duplicate
+    - Test Python 3.11         # Merge into fast-ci
+    - Test Python 3.12         # Run only on main branch
+    - SonarCloud Analysis      # Run weekly, not on every PR
+    
+  keep_essential:
+    - CI Status                # Our new single check
+    - Security scans           # Keep for security
+    - Dependabot              # Keep for dependencies
+    
+  move_to_scheduled:
+    # Run these daily/weekly instead of on every PR
+    - Book Quality Validation
+    - Advanced Security Analysis
+    - Performance Validation
+    - Documentation Validation
+
+smart_rules:
+  bot_prs:
+    # Skip most checks for trusted bots
+    trusted_bots:
+      - dependabot[bot]
+      - deepsource-autofix[bot]
+      - pixeebot[bot]
+    checks_to_run: [security_only]
+    auto_approve: true
+    
+  documentation_prs:
+    # Skip tests for docs-only changes
+    path_patterns:
+      - "*.md"
+      - "docs/**"
+    checks_to_run: [markdown_lint]
+    
+  dependency_updates:
+    # Fast-track dependency updates
+    patterns:
+      - "requirements*.txt"
+      - "package*.json"
+      - "Pipfile*"
+    checks_to_run: [dependency_scan, smoke_test]
+
+implementation_steps:
+  1_disable_redundant:
+    # Add this to workflow files to disable on PRs
+    on:
+      workflow_dispatch: # Manual only
+      schedule:
+        - cron: '0 0 * * 0' # Weekly
+        
+  2_update_branch_protection:
+    required_checks:
+      - "CI Status"  # Our single optimized check
+      
+  3_add_smart_skipping:
+    # Skip checks based on files changed
+    - name: Check if should skip
+      run: |
+        if [[ "${{ github.actor }}" == *"[bot]" ]]; then
+          echo "SKIP_CHECKS=true" >> $GITHUB_ENV
+        fi
