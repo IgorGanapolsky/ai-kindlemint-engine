@@ -84,8 +84,7 @@ class ConfigLoader:
                 return config_data or {}
         except FileNotFoundError:
             logger.warning(
-                f"Configuration file not found at {
-                    self.config_path}. Proceeding with defaults and environment variables."
+                f"Configuration file not found at {self.config_path}. Proceeding with defaults and environment variables."
             )
             return {}
         except yaml.YAMLError as e:

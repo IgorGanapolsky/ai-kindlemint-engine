@@ -136,8 +136,7 @@ class SudokuValidator(PuzzleValidator):
                         issues.append(
                             self.create_issue(
                                 severity=IssueSeverity.ERROR,
-                                description=f"Row {
-                                    i} must have 9 cells, found {len(row)}",
+                                description=f"Row {i} must have 9 cells, found {len(row)}",
                                 puzzle_id=puzzle_id,
                                 location=f"grid[{i}]",
                             )
