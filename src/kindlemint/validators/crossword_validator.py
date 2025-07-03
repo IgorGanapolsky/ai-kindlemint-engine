@@ -118,8 +118,7 @@ class CrosswordValidator(PuzzleValidator):
                         issues.append(
                             self.create_issue(
                                 severity=IssueSeverity.ERROR,
-                                description=f"{
-                                    direction.capitalize()} clues must be a list",
+                                description=f"{direction.capitalize()} clues must be a list",
                                 puzzle_id=puzzle_id,
                             )
                         )
@@ -130,8 +129,7 @@ class CrosswordValidator(PuzzleValidator):
                                 issues.append(
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
-                                        description=f"Invalid clue format at {
-                                            direction} index {i}",
+                                        description=f"Invalid clue format at {direction} index {i}",
                                         puzzle_id=puzzle_id,
                                         location=f"{direction}[{i}]",
                                         recommendation="Clue should be a list: [number, text, answer]",
@@ -141,8 +139,7 @@ class CrosswordValidator(PuzzleValidator):
                                 issues.append(
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
-                                        description=f"Incomplete clue at {
-                                            direction} index {i}",
+                                        description=f"Incomplete clue at {direction} index {i}",
                                         puzzle_id=puzzle_id,
                                         location=f"{direction}[{i}]",
                                         recommendation="Clue should have at least [number, text]",
@@ -214,8 +211,7 @@ class CrosswordValidator(PuzzleValidator):
                         issues.append(
                             self.create_issue(
                                 severity=IssueSeverity.ERROR,
-                                description=f"Duplicate clue number {
-                                    clue_number} in {direction} clues",
+                                description=f"Duplicate clue number {clue_number} in {direction} clues",
                                 puzzle_id=puzzle_id,
                                 location=f"{direction}[{i}]",
                             )
@@ -308,8 +304,7 @@ class CrosswordValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Clue number {
-                                pos_num} in positions but not in clues",
+                            description=f"Clue number {pos_num} in positions but not in clues",
                             puzzle_id=puzzle_id,
                             recommendation="Add corresponding clue or remove position",
                         )
@@ -321,8 +316,7 @@ class CrosswordValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.WARNING,
-                            description=f"Clue number {
-                                clue_num} in clues but not in positions",
+                            description=f"Clue number {clue_num} in clues but not in positions",
                             puzzle_id=puzzle_id,
                             recommendation="Add corresponding position or remove clue",
                         )
@@ -389,8 +383,7 @@ class CrosswordValidator(PuzzleValidator):
                         issues.append(
                             self.create_issue(
                                 severity=IssueSeverity.WARNING,
-                                description=f"Grid is not square: {
-                                    grid_height}x{grid_width}",
+                                description=f"Grid is not square: {grid_height}x{grid_width}",
                                 puzzle_id=puzzle_id,
                             )
                         )
@@ -402,8 +395,7 @@ class CrosswordValidator(PuzzleValidator):
                                 issues.append(
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
-                                        description=f"Grid cell at[{
-                                            i}, {j}] is not a string",
+                                        description=f"Grid cell at[{i}, {j}] is not a string",
                                         puzzle_id=puzzle_id,
                                         location=f"grid[{i}][{j}]",
                                     )
@@ -412,8 +404,7 @@ class CrosswordValidator(PuzzleValidator):
                                 issues.append(
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
-                                        description=f"Invalid grid cell value at[{
-                                            i}, {j}]: '{cell}'",
+                                        description=f"Invalid grid cell value at[{i}, {j}]: '{cell}'",
                                         puzzle_id=puzzle_id,
                                         location=f"grid[{i}][{j}]",
                                         recommendation="Cell should be empty, '#', or a letter",
@@ -466,8 +457,7 @@ class CrosswordValidator(PuzzleValidator):
                                 issues.append(
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
-                                        description=f"Solution cell at[{
-                                            i}, {j}] is not a string",
+                                        description=f"Solution cell at[{i}, {j}] is not a string",
                                         puzzle_id=puzzle_id,
                                         location=f"solution[{i}][{j}]",
                                     )
@@ -476,8 +466,7 @@ class CrosswordValidator(PuzzleValidator):
                                 issues.append(
                                     self.create_issue(
                                         severity=IssueSeverity.ERROR,
-                                        description=f"Invalid solution cell value at[{
-                                            i}, {j}]: '{cell}'",
+                                        description=f"Invalid solution cell value at[{i}, {j}]: '{cell}'",
                                         puzzle_id=puzzle_id,
                                         location=f"solution[{i}][{j}]",
                                         recommendation="Cell should be '#' or a letter",
@@ -514,8 +503,7 @@ class CrosswordValidator(PuzzleValidator):
                                         issues.append(
                                             self.create_issue(
                                                 severity=IssueSeverity.ERROR,
-                                                description=f"Empty solution cell at[{
-                                                    i}, {j}]",
+                                                description=f"Empty solution cell at[{i}, {j}]",
                                                 puzzle_id=puzzle_id,
                                                 location=f"solution[{i}][{j}]",
                                                 recommendation="Fill in all solution cells",
