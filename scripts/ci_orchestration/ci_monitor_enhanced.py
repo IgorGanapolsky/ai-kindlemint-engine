@@ -95,7 +95,7 @@ class EnhancedCIMonitor:
             cmd = f"gh api repos/{self.repo_owner}/{
                 self.repo_name}/actions/jobs/{job_id}/logs"
             result = subprocess.run(
-                cmd, shell=True, capture_output=True, text=True, timeout=30
+                cmd, shell=False, capture_output=True, text=True, timeout=30
             )
             if result.returncode == 0:
                 return result.stdout
