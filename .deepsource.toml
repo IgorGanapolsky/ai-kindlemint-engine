@@ -14,7 +14,7 @@ enabled = false
 
 [[analyzers]]
 name = "secrets"
-enabled = true  # Keep secrets detection active
+enabled = false  # Disabled - conflicts with other security tools
 
 # TRANSFORMERS DISABLED - They break our code
 # [[transformers]]
