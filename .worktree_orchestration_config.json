@@ -1,0 +1,66 @@
+{
+  "orchestration": {
+    "enabled": true,
+    "auto_use_worktrees": true,
+    "parallel_execution": true,
+    "max_concurrent_worktrees": 6,
+    "token_optimization": true,
+    "log_level": "INFO"
+  },
+  "worktree_strategies": {
+    "feature_development": {
+      "pattern": "feat/*",
+      "use_worktree": true,
+      "parallel": true
+    },
+    "bug_fixes": {
+      "pattern": "fix/*",
+      "use_worktree": true,
+      "parallel": false
+    },
+    "documentation": {
+      "pattern": "docs/*",
+      "use_worktree": false,
+      "parallel": false
+    },
+    "ci_fixes": {
+      "pattern": "ci/*",
+      "use_worktree": true,
+      "parallel": true
+    }
+  },
+  "cost_tracking": {
+    "enabled": true,
+    "report_frequency": "per_commit",
+    "slack_notifications": true,
+    "token_threshold_warning": 50000,
+    "cost_threshold_warning": 5.00
+  },
+  "worktree_assignments": {
+    "puzzle-gen": ["puzzle generation", "sudoku", "crossword", "word search"],
+    "pdf-gen": ["pdf generation", "book assembly", "cover creation"],
+    "qa-validation": ["validation", "testing", "quality assurance"],
+    "ci-fixes": ["ci failures", "test fixes", "build issues"],
+    "market-research": ["kdp research", "category analysis", "competitor analysis"],
+    "parallel-puzzles": ["batch puzzle creation", "parallel generation"],
+    "parallel-pdf": ["batch pdf creation", "parallel book assembly"],
+    "parallel-qa": ["batch validation", "parallel testing"]
+  },
+  "commit_hooks": {
+    "pre_commit": {
+      "check_worktree_usage": true,
+      "enforce_orchestration": true,
+      "log_token_usage": true
+    },
+    "post_commit": {
+      "report_cost_savings": true,
+      "update_metrics": true
+    }
+  },
+  "metrics": {
+    "track_token_savings": true,
+    "track_time_savings": true,
+    "track_parallel_efficiency": true,
+    "dashboard_enabled": true
+  }
+}

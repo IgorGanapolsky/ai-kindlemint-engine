@@ -287,6 +287,30 @@ Task("Backend Team", "Implement APIs according to Memory specifications");
 - Create feature branches for new functionality
 - Ensure all tests pass before merging
 
+
+
+## WORKTREE ORCHESTRATION (ACTIVE)
+**CRITICAL**: All commits MUST use worktree orchestration for token cost optimization.
+
+### Automatic Worktree Usage:
+1. For features: Use appropriate worktree based on task type
+2. For fixes: Use ci-fixes worktree for CI-related issues
+3. For docs: Can use main branch (low token usage)
+
+### Before ANY commit:
+```bash
+# Check which worktree to use
+python scripts/orchestration/check_worktree_assignment.py "commit message"
+
+# Or use automatic orchestration
+python scripts/orchestration/worktree_orchestrator.py --auto
+```
+
+### Token Cost Tracking:
+- Every commit tracks token usage automatically
+- Cost reports generated in reports/orchestration/
+- Slack notifications for high-cost operations
+
 ## Important Notes
 - **Use TodoWrite extensively** for all complex task coordination
 - **Leverage Task tool** for parallel agent execution on independent work
