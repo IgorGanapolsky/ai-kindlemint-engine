@@ -103,7 +103,7 @@ class LeadMagnetGenerator:
         
         self._set_font(c, 'DejaVuSans', 24)
         c.drawCentredString(width/2, height - 5*inch, "Extra-Large Print")
-        c.drawCentredString(width/2, height - 5.6*inch, "For Seniors 75+")
+        c.drawCentredString(width/2, height - 5.6*inch, "For Seniors")
         
         self._set_font(c, 'DejaVuSans', 16)
         c.drawCentredString(width/2, height - 7*inch, "From KindleMint Publishing")
@@ -277,7 +277,7 @@ class LeadMagnetGenerator:
         # Website
         self._set_font(c, 'DejaVuSans-Bold', 20)
         c.setFillColor(gray)
-        c.drawCentredString(width/2, 1.5*inch, "SudokuFor75Plus.com")
+        c.drawCentredString(width/2, 1.5*inch, "SudokuForSeniors.com")
     
     def generate(self):
         """Main generation process"""
