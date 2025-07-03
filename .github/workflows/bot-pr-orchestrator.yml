@@ -28,7 +28,7 @@ jobs:
               echo "bot_type=dependency" >> $GITHUB_OUTPUT
               echo "trust_level=high" >> $GITHUB_OUTPUT
               ;;
-            *"pixeebot"*)
+            
               echo "bot_type=security" >> $GITHUB_OUTPUT
               echo "trust_level=medium" >> $GITHUB_OUTPUT
               ;;
@@ -131,12 +131,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  pixeebot-handler:
-    runs-on: ubuntu-latest
-    if: |
-      github.event_name == 'pull_request' && 
-      contains(github.event.pull_request.user.login, 'pixeebot')
-    
     steps:
       - name: Checkout PR
         uses: actions/checkout@v4

@@ -38,7 +38,7 @@ jobs:
                 const botName = pr.user.login;
                 
                 // Critical bots that should auto-merge
-                const trustedBots = ['dependabot[bot]', 'deepsource-autofix[bot]', 'pixeebot[bot]'];
+                const trustedBots = ['dependabot[bot]', 'deepsource-autofix[bot]'];
                 
                 if (trustedBots.includes(botName)) {
                   try {

@@ -4,7 +4,7 @@
 override_rules:
   # Auto-merge after timeout
   auto_merge_timeout_hours:
-    trusted_bots: 1      # Dependabot, DeepSource, Pixeebot
+    trusted_bots: 1      # Dependabot, DeepSource (Pixeebot removed)
     approved_prs: 2      # Human-approved PRs stuck in CI
     security_fixes: 0.5  # Critical security patches
   
@@ -24,7 +24,7 @@ override_rules:
 trusted_bots:
   - dependabot[bot]
   - deepsource-autofix[bot]
-  - pixeebot[bot]
+  
   - renovate[bot]
   
 emergency_contacts:

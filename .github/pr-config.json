@@ -23,7 +23,7 @@
     "trusted_bots": [
       "dependabot[bot]",
       "deepsource-autofix[bot]",
-      "pixeebot[bot]",
+      
       "renovate[bot]"
     ],
     "auto_merge_rules": {

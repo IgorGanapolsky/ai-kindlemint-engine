@@ -34,15 +34,8 @@ renovate:
     - lock-file-maintenance
     - pin-dependencies
 
-# Pixeebot Configuration
-# Redirect security hardening to staging branch (higher scrutiny)
-pixeebot:
-  target_branch: staging
-  auto_merge_threshold: 85
-  allowed_pr_types:
-    - security-hardening
-    - vulnerability-fix
-    - codeql-fix
+# Pixeebot Configuration - REMOVED
+# Blocking autonomous workflow - using DeepSource + CodeQL + GitGuardian instead
 
 # GitHub Actions Bot Configuration
 # Redirect workflow updates to staging branch
