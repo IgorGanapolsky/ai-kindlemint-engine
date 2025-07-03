@@ -1,0 +1,14 @@
+# Amp Progress Tracker
+
+## Session Progress
+- Started new session
+- Created amp.progress.txt for tracking work between sessions
+
+## Current Tasks
+- None
+
+## Completed Tasks
+- Consolidated six README badges into one unified AI costs badge (Claude $0.93 YTD + Amp $0.00 + trend)
+
+## Notes
+- This file tracks progress across Amp sessions to maintain continuity
