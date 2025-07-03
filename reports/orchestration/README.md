@@ -4,11 +4,11 @@
 
 | Metric | Value |
 |--------|-------|
-| **Actual Cost** | $23.80 |
-| **Baseline Cost (without orchestration)** | $25.00 |
-| **Amount Saved** | $1.20 |
-| **Savings Percentage** | 4.8% |
-| **Orchestration Rate** | 8.0% of commits |
+| **Actual Cost** | $23.00 |
+| **Baseline Cost (without orchestration)** | $24.50 |
+| **Amount Saved** | $1.50 |
+| **Savings Percentage** | 6.1% |
+| **Orchestration Rate** | 10.2% of commits |
 
 ## 🚀 Efficiency Metrics
 
@@ -18,7 +18,7 @@
 
 ## 📈 All-Time Impact
 
-- **Total Saved**: $1.20
+- **Total Saved**: $1.50
 - **Equivalent to**: 0 months of budget
 
 ## 🎯 How Orchestration Saves Money

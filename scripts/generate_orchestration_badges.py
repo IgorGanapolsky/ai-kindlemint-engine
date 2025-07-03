@@ -57,9 +57,9 @@ def update_readme_with_orchestration_badges(badges: dict) -> bool:
         " ".join(orchestration_badges)
     ])
     
-    # Pattern to match the old Claude cost tracking section with all 6 badges
-    # This matches from the comment to the end of the YTD Cost badge line
-    old_section_pattern = r'<!-- Claude Cost Tracking -->.*?\[YTD Cost\].*?(?:\n|$)'
+    # Pattern to match the orchestration cost tracking section
+    # This matches the comment and the badge line
+    old_section_pattern = r'<!-- Orchestration Cost Tracking -->.*?\n\[\!.*?(?:\n|$)'
     
     # Replace the old section with the new one
     match = re.search(old_section_pattern, content, re.DOTALL)
@@ -77,9 +77,9 @@ def update_readme_with_orchestration_badges(badges: dict) -> bool:
         end_idx = None
         
         for i, line in enumerate(lines):
-            if '<!-- Claude Cost Tracking -->' in line:
+            if '<!-- Orchestration Cost Tracking -->' in line:
                 start_idx = i
-            elif start_idx is not None and 'YTD Cost' in line:
+            elif start_idx is not None and ('MTD Cost' in line or 'MTD_Cost' in line):
                 end_idx = i
                 break
         
