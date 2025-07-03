@@ -6,10 +6,10 @@
 [![codecov](https://codecov.io/gh/IgorGanapolsky/ai-kindlemint-engine/graph/badge.svg)](https://codecov.io/gh/IgorGanapolsky/ai-kindlemint-engine)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
+[![CodeRabbit](https://img.shields.io/coderabbit/prs/github/IgorGanapolsky/ai-kindlemint-engine?labelColor=171717&color=FF570A)](https://coderabbit.ai)
 [![Hygiene Score](https://img.shields.io/badge/hygiene-76%25-green)](scripts/real_hygiene_analyzer.py)
 <!-- AI Cost Tracking -->
-[![💰 Claude Dashboard: $0.93 YTD | ▼100% trend | 0% budget](https://img.shields.io/badge/💰_Claude_Dashboard-$0.93_YTD_|_▼100%25_trend_|_0%25_budget-green?style=for-the-badge)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/blob/main/CLAUDE_COSTS.md)
-[![🤖 Amp Usage: $0.00 | 0 conversations](https://img.shields.io/badge/🤖_Amp_Usage-$0.00_|_0_conversations-blue?style=for-the-badge)](https://ampcode.com/pricing)
+[![💰 AI Costs: Claude $0.93 YTD | Amp $0.00 | ▼100% trend](https://img.shields.io/badge/💰_AI_Costs-Claude_$0.93_YTD_|_Amp_$0.00_|_▼100%25_trend-green?style=for-the-badge)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/blob/main/CLAUDE_COSTS.md)
 [![Cursor Bugbot](https://img.shields.io/badge/Cursor%20Bugbot-Enabled-blueviolet)](https://docs.cursor.com/bugbot)
 [![GitHub Issues](https://img.shields.io/github/issues/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/pulls)
