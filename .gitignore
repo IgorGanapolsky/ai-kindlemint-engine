@@ -258,3 +258,4 @@ landing-pages/*/.next/
 landing-pages/*/out/
 landing-pages/*/.env.local
 landing-pages/*/package-lock.json
+worktrees/

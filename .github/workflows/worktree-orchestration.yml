@@ -1,0 +1,83 @@
+name: Worktree Orchestration
+# Autonomous parallel execution using git worktrees
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**/*.py'
+      - 'src/**/*.py'
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+
+jobs:
+  parallel-ci-fixes:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        worktree: [ci-fixes, qa-validation]
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Create worktree
+        run: |
+          git worktree add worktrees/${{ matrix.worktree }} -b worktree/${{ matrix.worktree }}-${{ github.run_id }}
+      
+      - name: Run parallel fixes
+        run: |
+          cd worktrees/${{ matrix.worktree }}
+          pip install -r requirements.txt
+          
+          if [ "${{ matrix.worktree }}" == "ci-fixes" ]; then
+            python scripts/ci_orchestration/autonomous_syntax_fixer.py || true
+          elif [ "${{ matrix.worktree }}" == "qa-validation" ]; then
+            python scripts/enhanced_qa_validator.py || true
+          fi
+      
+      - name: Commit fixes if any
+        run: |
+          cd worktrees/${{ matrix.worktree }}
+          if [ -n "$(git status --porcelain)" ]; then
+            git config --global user.email "cto-bot@kindlemint.ai"
+            git config --global user.name "CTO Bot"
+            git add -A
+            git commit -m "fix: Autonomous fixes from ${{ matrix.worktree }} worktree"
+            git push origin HEAD
+          fi
+
+  parallel-book-generation:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Run autonomous book production
+        run: |
+          python scripts/orchestration/autonomous_worktree_manager.py
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: generated-books
+          path: |
+            output/*.pdf
+            output/*.epub
+          retention-days: 30
