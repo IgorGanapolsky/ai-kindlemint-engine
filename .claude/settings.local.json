@@ -329,7 +329,8 @@
       "Bash(./ceo_notification_fix.sh:*)",
       "Bash(for f in book_qa_validation.yml hygiene-check.yml kdp-metadata-validation.yml production_qa.yml puzzle_book_qa.yml)",
       "Bash(do if [ -f \"$f\" ])",
-      "Bash(then mv \"$f\" \"$f.disabled\")"
+      "Bash(then mv \"$f\" \"$f.disabled\")",
+      "Bash(git cherry-pick:*)"
     ],
     "deny": []
   }

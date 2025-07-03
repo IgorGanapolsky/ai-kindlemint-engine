@@ -1,24 +1,24 @@
 {
-  "last_updated": "2025-07-03T16:55:34.910276",
+  "last_updated": "2025-07-03T17:09:27.018504",
   "monthly_data": {
     "2025-07": {
       "month": "2025-07",
       "commits": {
-        "total": 53,
+        "total": 58,
         "orchestrated": 8,
-        "traditional": 45,
-        "orchestration_rate": 15.09433962264151
+        "traditional": 50,
+        "orchestration_rate": 13.793103448275861
       },
       "tokens": {
-        "baseline": 2650000,
-        "actual": 2410000,
+        "baseline": 2900000,
+        "actual": 2660000,
         "saved": 240000
       },
       "costs": {
-        "baseline_usd": 26.5,
-        "actual_usd": 24.1,
+        "baseline_usd": 29.0,
+        "actual_usd": 26.6,
         "saved_usd": 2.3999999999999986,
-        "savings_percentage": 9.0566037735849
+        "savings_percentage": 8.275862068965512
       },
       "efficiency": {
         "tokens_per_commit_traditional": 50000,
@@ -35,21 +35,21 @@
   "current_month": {
     "month": "2025-07",
     "commits": {
-      "total": 53,
+      "total": 58,
       "orchestrated": 8,
-      "traditional": 45,
-      "orchestration_rate": 15.09433962264151
+      "traditional": 50,
+      "orchestration_rate": 13.793103448275861
     },
     "tokens": {
-      "baseline": 2650000,
-      "actual": 2410000,
+      "baseline": 2900000,
+      "actual": 2660000,
       "saved": 240000
     },
     "costs": {
-      "baseline_usd": 26.5,
-      "actual_usd": 24.1,
+      "baseline_usd": 29.0,
+      "actual_usd": 26.6,
       "saved_usd": 2.3999999999999986,
-      "savings_percentage": 9.0566037735849
+      "savings_percentage": 8.275862068965512
     },
     "efficiency": {
       "tokens_per_commit_traditional": 50000,

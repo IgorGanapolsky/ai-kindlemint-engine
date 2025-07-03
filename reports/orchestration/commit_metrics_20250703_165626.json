@@ -1,8 +1,0 @@
-{
-  "timestamp": "2025-07-03T20:56:26Z",
-  "commit_message": "feat: Restore all badges and implement mandatory badge validation",
-  "branch": "feature/amp-cli-integration-and-aws-cleanup",
-  "worktree_used": null,
-  "orchestration_enabled": true,
-  "token_optimization": false
-}

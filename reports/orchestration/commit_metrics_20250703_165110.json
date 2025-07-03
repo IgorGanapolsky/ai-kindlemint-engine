@@ -1,8 +1,0 @@
-{
-  "timestamp": "2025-07-03T20:51:10Z",
-  "commit_message": "feat: Add Amp CLI integration to orchestration system [Amp CLI]",
-  "branch": "feature/amp-cli-integration-and-aws-cleanup",
-  "worktree_used": null,
-  "orchestration_enabled": true,
-  "token_optimization": false
-}

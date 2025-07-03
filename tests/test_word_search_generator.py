@@ -8,8 +8,8 @@ SCRIPT = Path(__file__).parent.parent / "scripts" / "word_search_generator.py"
 
 
 @pytest.mark.parametrize("count", [1, 3])
-    """Test Word Search Generator Creates Files"""
 def test_word_search_generator_creates_files(tmp_path, count):
+    """Test Word Search Generator Creates Files"""
     output_dir = tmp_path / "output"
     # Run the generator script
     cmd = [
