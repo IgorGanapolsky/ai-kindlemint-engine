@@ -54,16 +54,16 @@ pytest tests/unit/test_kdp_automation_free.py -v
 - **Integration Automation** - One-command external service integration
 - **Test Generation** - Comprehensive test suites with 95%+ coverage
 
-**🔗 A2A (Agent-to-Agent) Protocol:**
-- **Decoupled Agent Communication** - Async message passing between agents
-- **Agent Registry** - Dynamic agent discovery and skill sharing
+**🤖 Multi-Agent System:**
+- **Specialized AI Agents** - Content generation, cover design, market research
+- **Agent Registry** - Dynamic agent discovery and coordination
 - **Puzzle Generation Agents** - Specialized Sudoku, crossword generators
 - **PDF Layout Agents** - Professional formatting and layout
 - **Independent Task Execution** - Agents work autonomously
 - **Resource Sharing** - Coordinated data and computation sharing
 
 **🎯 Unified Orchestrator:**
-- **2-Tier Integration** - Claude Code + A2A Protocol coordination
+- **Intelligent Coordination** - Claude Code + Agent system integration
 - **Intelligent Task Routing** - Auto-selects optimal execution system  
 - **Cross-System Workflows** - Complex operations spanning both systems
 - **GitHub Secrets Integration** - Secure API key management
@@ -165,7 +165,7 @@ SLACK_WEBHOOK_URL - Notifications (optional)
 SENTRY_DSN - Error tracking (optional)
 ```
 
-**No Additional A2A API Keys Needed** - A2A uses internal messaging protocol
+**No Additional Agent API Keys Needed** - Agents use the same OpenAI/Gemini APIs
 
 ### Using Claude Code Orchestration
 
@@ -180,14 +180,14 @@ SENTRY_DSN - Error tracking (optional)
 ./claude-code optimize --auto-implement
 ```
 
-### Using A2A Agent System
+### Using Multi-Agent System
 
 ```python
-from kindlemint.a2a import AgentRegistry
+from kindlemint.agents import AgentRegistry
 
 # Create puzzle generation agent
 registry = AgentRegistry()
-agent = registry.create_agent("sudoku_generator")
+agent = registry.get_agent("sudoku-generator")
 
 # Generate 100 puzzles async
 result = await agent.execute_skill("generate_batch", {"count": 100})
@@ -210,7 +210,7 @@ await orchestrator.execute_task({
 ### System Integration Flow
 
 1. **Task Submitted** → Unified Orchestrator
-2. **Task Analysis** → Routes to Claude Code OR A2A OR Hybrid
+2. **Task Analysis** → Routes to Claude Code OR Agent System OR Hybrid
 3. **Execution** → System executes with GitHub secrets
 4. **Monitoring** → Unified dashboard tracks progress
 5. **Completion** → Results aggregated and returned

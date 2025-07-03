@@ -172,8 +172,8 @@ cp .env.example .env
 # Test Claude Code orchestration
 ./claude-code status
 
-# Test A2A agent system
-python -c "from kindlemint.a2a import AgentRegistry; print('A2A Ready!')"
+# Test agent system
+python -c "from kindlemint.agents import BaseAgent; print('Agents Ready!')"
 
 # Test unified orchestration
 python -c "from kindlemint.orchestrator import UnifiedOrchestrator; print('Unified Ready!')"
@@ -203,13 +203,12 @@ pipeline = VoiceToBookPipeline()
 book = await pipeline.process_voice_file("my_expertise.mp3")
 ```
 
-## 🏗️ Streamlined 2-Tier Orchestration Architecture
+## 🏗️ AI-Powered Orchestration Architecture
 
-AI-KindleMint-Engine uses a **cost-optimized 2-tier orchestration system**:
+AI-KindleMint-Engine uses a **comprehensive AI orchestration system**:
 
 1. **🤖 Claude Code Orchestration** - AI-accelerated development (Local)
-2. **🔗 A2A Protocol** - Agent-to-agent communication (Local)  
-3. **🎯 Unified Orchestrator** - Master controller coordinating both systems
+2. **🎯 Unified Orchestrator** - Master controller coordinating development and content systems
 
 **📖 [Complete Architecture Documentation](docs/ORCHESTRATION_ARCHITECTURE.md)**
 
@@ -218,8 +217,7 @@ AI-KindleMint-Engine uses a **cost-optimized 2-tier orchestration system**:
 ### What Each System Does
 
 **🤖 Claude Code** (Development): 10x faster coding with AI
-**🔗 A2A Protocol** (Content): Agent-based puzzle/PDF generation  
-**🎯 Unified** (Control): Intelligent task routing across both systems
+**🎯 Unified** (Control): Intelligent task routing and coordination across systems
 
 **📖 [Detailed Architecture Guide](docs/ORCHESTRATION_ARCHITECTURE.md)**
 
@@ -271,10 +269,10 @@ GitHub Actions automatically loads secrets for:
 - Manages development workflows
 - Creates specialized AI agents
 
-**A2A Protocol:**
-- Manages puzzle generation agents
+**Agent System:**
+- Manages specialized AI agents for content generation
 - Handles PDF layout and formatting
-- Coordinates between independent agents
+- Coordinates multi-agent workflows
 - Provides async task execution
 
 **Unified Orchestrator:**
@@ -297,16 +295,16 @@ GitHub Actions automatically loads secrets for:
 ./claude-flow optimize --auto-implement
 ```
 
-**A2A Agent Coordination:**
+**Agent Coordination:**
 ```python
-from kindlemint.a2a import AgentRegistry
+from kindlemint.agents import AgentRegistry
 
-# Spawn puzzle generator
+# Create puzzle generator agent
 registry = AgentRegistry()
-agent = registry.create_agent("puzzle_generator", {"type": "sudoku"})
+agent = registry.get_agent("puzzle-generator")
 
 # Generate 100 puzzles
-result = await agent.execute_skill("generate_batch", {"count": 100})
+result = await agent.generate_puzzles(count=100, puzzle_type="sudoku")
 ```
 
 **Unified Workflow:**
