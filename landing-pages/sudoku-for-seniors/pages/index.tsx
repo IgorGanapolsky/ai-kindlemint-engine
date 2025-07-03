@@ -56,7 +56,7 @@ export default function Home() {
                 <p className="text-lg text-gray-700 mb-6">
                   Join thousands of seniors who start their day with mental exercise!
                 </p>
-                <EmailCapture onSuccess={() => setShowThankYou(true)} />
+                <SimpleEmailCapture onSuccess={() => setShowThankYou(true)} />
               </div>
             ) : (
               <div className="bg-green-50 rounded-lg shadow-xl p-8 max-w-2xl mx-auto">
