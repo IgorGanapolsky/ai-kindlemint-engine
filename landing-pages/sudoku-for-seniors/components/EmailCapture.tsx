@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 
 interface EmailCaptureProps {
@@ -11,6 +11,17 @@ const EmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Initialize EmailJS with public key
+  useEffect(() => {
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      emailjs.init(publicKey);
+      console.log('EmailJS initialized with key:', publicKey.substring(0, 5) + '...');
+    } else {
+      console.error('EmailJS public key not found!');
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -18,30 +29,32 @@ const EmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
 
     try {
       // EmailJS service (FREE - 200 emails/month)
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      
+      console.log('Attempting to send email with:', {
+        serviceId,
+        templateId,
+        email,
+        firstName
+      });
+
       const templateParams = {
         to_email: email,
         from_name: firstName,
-        message: 'New subscriber for Sudoku for Seniors 75+',
+        message: 'New subscriber for Sudoku for Seniors',
         reply_to: email,
         download_link: `${window.location.origin}/downloads/5-free-sudoku-puzzles.pdf`
       };
 
-      // Send welcome email with lead magnet
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'your_service_id',
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'your_template_id',
-        templateParams,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'your_public_key'
+      // Send welcome email with lead magnet (don't pass public key here)
+      const result = await emailjs.send(
+        serviceId || 'your_service_id',
+        templateId || 'your_template_id',
+        templateParams
       );
-
-      // Also save to GitHub (free backup)
-      if (process.env.NEXT_PUBLIC_GITHUB_TOKEN) {
-        await fetch('/api/github-subscriber', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, firstName, timestamp: new Date().toISOString() })
-        });
-      }
+      
+      console.log('EmailJS success:', result);
 
       // Track conversion
       if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -61,9 +74,10 @@ const EmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
       }
 
       onSuccess();
-    } catch (err) {
+    } catch (err: any) {
       console.error('Email capture error:', err);
-      setError('Something went wrong. Please try again.');
+      console.error('Error details:', err.message || err);
+      setError(err.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }

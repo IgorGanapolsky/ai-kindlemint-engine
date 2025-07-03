@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Large Print Sudoku for Seniors 75+ | Free Brain-Boosting Puzzles</title>
-        <meta name="description" content="Get 5 FREE large print Sudoku puzzles designed specifically for seniors 75+. Easy on the eyes, challenging for the mind!" />
+        <title>Large Print Sudoku for Seniors | Free Brain-Boosting Puzzles</title>
+        <meta name="description" content="Get 5 FREE large print Sudoku puzzles designed specifically for seniors. Easy on the eyes, challenging for the mind!" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -23,7 +23,7 @@ export default function Home() {
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
               Large Print Sudoku
-              <span className="block text-blue-600 mt-2">For Seniors 75+</span>
+              <span className="block text-blue-600 mt-2">For Seniors</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
@@ -116,7 +116,7 @@ export default function Home() {
                   'large print' books that weren't really large at all. These 
                   are perfect."
                 </p>
-                <p className="font-semibold">- Margaret, 78</p>
+                <p className="font-semibold">- Margaret, age 78</p>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow">
@@ -124,7 +124,7 @@ export default function Home() {
                   "My doctor recommended brain exercises, and these puzzles 
                   are exactly what I needed. I do one every morning with my coffee."
                 </p>
-                <p className="font-semibold">- Robert, 82</p>
+                <p className="font-semibold">- Robert, age 82</p>
               </div>
             </div>
           </div>
