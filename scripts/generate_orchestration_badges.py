@@ -168,7 +168,7 @@ def main():
         ),
         'savings': generate_badge_url(
             "Orchestration Savings",
-            f"${badge_data['mtd_saved']:.2f} ({badge_data['savings_percentage']:.0f}%)",
+            f"${badge_data['mtd_saved']:.2f} {badge_data['savings_percentage']:.0f}%",
             get_color_for_savings(badge_data['savings_percentage'])
         )
     }
