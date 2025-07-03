@@ -252,3 +252,9 @@ full.txt
 input.txt
 output.txt
 .cleanup_backup_*/
+# Ignore Next.js landing page builds and node_modules
+landing-pages/*/node_modules/
+landing-pages/*/.next/
+landing-pages/*/out/
+landing-pages/*/.env.local
+landing-pages/*/package-lock.json

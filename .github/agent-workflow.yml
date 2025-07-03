@@ -1,0 +1,40 @@
+# Agent Workflow Configuration
+# This file defines how AI agents should interact with the repository
+
+agent_workflow:
+  # Branch naming convention for agents
+  branch_prefix: "agent/"
+  
+  # Auto-merge settings
+  auto_merge:
+    enabled: true
+    method: "squash"  # squash, merge, rebase
+    require_ci_pass: true
+    require_reviews: false
+    
+  # Labels for agent-generated PRs
+  labels:
+    - "agent-generated"
+    - "auto-merge"
+    
+  # PR template for agents
+  pr_template: |
+    ## 🤖 Agent-Generated Change
+    
+    **Agent Type:** {{agent_type}}
+    **Task:** {{task_description}}
+    
+    ### Changes Made
+    {{changes_summary}}
+    
+    ### Validation
+    - [ ] CI tests pass
+    - [ ] Pre-commit hooks pass
+    - [ ] No breaking changes
+    
+    **Auto-merge enabled** ✅ Will merge when CI passes
+    
+  # Rollback configuration
+  rollback:
+    enabled: true
+    preserve_commits: 10  # Keep last 10 commits for rollback
