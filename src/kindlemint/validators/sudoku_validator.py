@@ -38,10 +38,7 @@ class SudokuValidator(PuzzleValidator):
         "expert": {"min": 17, "max": 26, "target": 20},
     }
 
-    def __init__(self):
-
-
-def __init__(self, strict_mode: bool = False):
+    def __init__(self, strict_mode: bool = False):
         """
         Initialize the Sudoku validator.
 
@@ -589,12 +586,12 @@ def __init__(self, strict_mode: bool = False):
         """
         # Check row
         for x_var in range(9):
-            if grid[row][x] == num:
+            if grid[row][x_var] == num:
                 return False
 
         # Check column
         for x_var in range(9):
-            if grid[x][col] == num:
+            if grid[x_var][col] == num:
                 return False
 
         # Check 3x3 box
