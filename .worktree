@@ -1,0 +1,8 @@
+{
+  "purpose": "Autonomous CI problem resolution",
+  "created": "2025-07-03T14:56:10.327547",
+  "primary_scripts": [
+    "autonomous_syntax_fixer.py",
+    "ci_orchestrator_enhanced.py"
+  ]
+}

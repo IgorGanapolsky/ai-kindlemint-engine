@@ -137,16 +137,18 @@ class RootCleanupOrchestrator:
                 
         print(f"\n✅ Moved {len(moves)} files successfully!")
         
-    def run(self):
+    def run(self, quiet=False):
         """Run the complete cleanup orchestration"""
-        print("🧹 Root Directory Cleanup Orchestrator")
-        print("=" * 60)
+        if not quiet:
+            print("🧹 Root Directory Cleanup Orchestrator")
+            print("=" * 60)
         
         # Step 1: Analyze
         files_to_move = self.analyze_root()
         
         if not files_to_move:
-            print("\n✨ Root directory is already clean!")
+            if not quiet:
+                print("\n✨ Root directory is already clean!")
             return
             
         # Step 2: Plan
@@ -190,5 +192,20 @@ class RootCleanupOrchestrator:
 
 
 if __name__ == "__main__":
+    import sys
+    import os
+    
+    quiet = "--quiet" in sys.argv
     orchestrator = RootCleanupOrchestrator()
-    orchestrator.run()
+    
+    if quiet:
+        # Redirect stdout to suppress output
+        import io
+        old_stdout = sys.stdout
+        sys.stdout = io.StringIO()
+        
+    try:
+        orchestrator.run(quiet=quiet)
+    finally:
+        if quiet:
+            sys.stdout = old_stdout

@@ -1,0 +1,98 @@
+{
+  "timestamp": "2025-07-03T17:04:51.408297",
+  "files_moved": 17,
+  "files_unmatched": 20,
+  "root_files_remaining": 28,
+  "moves": [
+    {
+      "file": "commit_costs.json",
+      "dest": "reports/costs"
+    },
+    {
+      "file": "amp.progress.txt",
+      "dest": "docs/amp"
+    },
+    {
+      "file": "archive_cleanup_report.json",
+      "dest": "reports/hygiene"
+    },
+    {
+      "file": "CLAUDE_COSTS.md",
+      "dest": "reports/costs"
+    },
+    {
+      "file": "add_book_asins.py",
+      "dest": "scripts/utilities"
+    },
+    {
+      "file": "ceo_notification_fix.sh",
+      "dest": "scripts/utilities"
+    },
+    {
+      "file": "disable_noisy_workflows.py",
+      "dest": "scripts/utilities"
+    },
+    {
+      "file": "hygiene_report_20250701_144829.json",
+      "dest": "reports/hygiene"
+    },
+    {
+      "file": "hygiene_report_20250701_142709.json",
+      "dest": "reports/hygiene"
+    },
+    {
+      "file": "hygiene_report_20250701_135458.json",
+      "dest": "reports/hygiene"
+    },
+    {
+      "file": "hygiene_report_20250701_135527.json",
+      "dest": "reports/hygiene"
+    },
+    {
+      "file": "hygiene_report.json",
+      "dest": "reports/hygiene"
+    },
+    {
+      "file": "hygiene_report_20250701_151815.json",
+      "dest": "reports/hygiene"
+    },
+    {
+      "file": "kindlemint-orchestrator.service",
+      "dest": "infrastructure/services"
+    },
+    {
+      "file": "cost_analytics.json",
+      "dest": "reports/costs"
+    },
+    {
+      "file": "hygiene_report_20250701_151623.json",
+      "dest": "reports/hygiene"
+    },
+    {
+      "file": "hygiene_report_20250701_142412.json",
+      "dest": "reports/hygiene"
+    }
+  ],
+  "unmatched": [
+    ".cursorignore",
+    "AGENT.md",
+    "claude-code",
+    "last_commit_cost.json",
+    "orchestration.pid",
+    "test_orchestration.md",
+    "launch_orchestration.sh",
+    "CTO_AUTONOMY_REPORT.md",
+    "claude-flow-costs-notify",
+    "ORCHESTRATION_QUICKSTART.md",
+    "run_pr_management.py",
+    ".deepsource.toml",
+    "claude-flow-costs",
+    ".worktree_orchestration_config.json",
+    "sonar-project.properties",
+    "claude-flow",
+    ".ccfignore",
+    ".worktree_config.json",
+    ".git",
+    ".worktree"
+  ]
+}
