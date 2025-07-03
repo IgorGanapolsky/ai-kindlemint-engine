@@ -1,5 +1,5 @@
 """
-Orchestrator Monitoring System - Health checks and metrics for both Claude Code and A2A systems
+Orchestrator Monitoring System - Health checks and metrics for orchestration systems
 """
 
 import asyncio
@@ -62,7 +62,6 @@ def __init__(self, unified_orchestrator):
         self.health_checks = {
             "unified_orchestrator": self._check_unified_orchestrator_health,
             "claude_code": self._check_claude_code_health,
-            "a2a_system": self._check_a2a_system_health,
             "puzzle_generator": self._check_puzzle_generator_health,
             "pdf_layout": self._check_pdf_layout_health,
         }
@@ -273,41 +272,12 @@ def _collect_metrics(self):
                 "message": f"Claude Code health check failed: {str(e)}",
             }
 
-    async def _check_a2a_system_health(self) -> Dict[str, Any]:
-        """Check A2A system health"""
-        try:
-            # Check A2A registry and agents
-            if hasattr(self.orchestrator, "a2a_agents"):
-                agent_count = len(self.orchestrator.a2a_agents)
-
-                if agent_count > 0:
-                    return {
-                        "status": HealthStatus.HEALTHY,
-                        "message": f"A2A system operational with {agent_count} agents",
-                        "metadata": {"agent_count": agent_count},
-                    }
-                else:
-                    return {
-                        "status": HealthStatus.WARNING,
-                        "message": "A2A system operational but no agents registered",
-                    }
-            else:
-                return {
-                    "status": HealthStatus.DOWN,
-                    "message": "A2A system not available",
-                }
-
-        except Exception as e:
-            return {
-                "status": HealthStatus.CRITICAL,
-                "message": f"A2A system health check failed: {str(e)}",
-            }
 
     async def _check_puzzle_generator_health(self) -> Dict[str, Any]:
         """Check puzzle generator agent health"""
         try:
-            if "puzzle_generator" in self.orchestrator.a2a_agents:
-                agent = self.orchestrator.a2a_agents["puzzle_generator"]
+            if hasattr(self.orchestrator, "puzzle_generator"):
+                agent = self.orchestrator.puzzle_generator
 
                 # Test puzzle generation with a simple request
                 test_request = {"difficulty": "easy", "count": 1, "format": "json"}
@@ -343,8 +313,8 @@ def _collect_metrics(self):
     async def _check_pdf_layout_health(self) -> Dict[str, Any]:
         """Check PDF layout agent health"""
         try:
-            if "pdf_layout" in self.orchestrator.a2a_agents:
-                agent = self.orchestrator.a2a_agents["pdf_layout"]
+            if hasattr(self.orchestrator, "pdf_layout"):
+                agent = self.orchestrator.pdf_layout
 
                 # Test PDF layout validation
                 test_request = {

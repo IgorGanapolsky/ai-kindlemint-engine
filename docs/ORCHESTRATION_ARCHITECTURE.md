@@ -2,10 +2,10 @@
 
 ## 🎯 Executive Summary
 
-AI-KindleMint-Engine uses a **streamlined 2-tier orchestration architecture** to automate book publishing:
+AI-KindleMint-Engine uses a **streamlined orchestration architecture** to automate book publishing:
 
 1. **🤖 Claude Code Orchestration** (Local Development) - AI-accelerated coding
-2. **🔗 A2A Protocol** (Local Agents) - Agent-to-agent communication  
+2. **📊 Direct Function Orchestration** (Local) - Simple, direct component coordination  
 
 **💰 Cost Optimization:** Eliminated redundant AWS monitoring infrastructure (saving $80-140/month). Production monitoring achieved through GitHub Actions + Sentry + Slack at zero cost.
 
@@ -16,10 +16,10 @@ AI-KindleMint-Engine uses a **streamlined 2-tier orchestration architecture** to
 │                    AI-KINDLEMINT ENGINE                     │
 ├─────────────────────────────────────────────────────────────┤
 │  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │
-│  │ CLAUDE CODE     │  │ A2A PROTOCOL    │  │ MONITORING   │ │
+│  │ CLAUDE CODE     │  │ DIRECT          │  │ MONITORING   │ │
 │  │ ORCHESTRATION   │  │ ORCHESTRATION   │  │ (FREE TIER)  │ │
 │  │                 │  │                 │  │              │ │
-│  │ • Development   │  │ • Agent Comm    │  │ • GitHub     │ │
+│  │ • Development   │  │ • Function Calls│  │ • GitHub     │ │
 │  │ • AI Coding     │  │ • Task Routing  │  │ • Sentry     │ │
 │  │ • Feature Gen   │  │ • PDF Creation  │  │ • Slack      │ │
 │  │ • Code Quality  │  │ • Puzzle Gen    │  │ • $0/month   │ │
@@ -29,7 +29,7 @@ AI-KindleMint-Engine uses a **streamlined 2-tier orchestration architecture** to
 │                                 │                           │
 │  ┌─────────────────────────────────────────────────────────┐ │
 │  │            UNIFIED ORCHESTRATOR                         │ │
-│  │        (Routes tasks between Claude Code & A2A)        │ │
+│  │    (Routes tasks with direct function calls)           │ │
 │  └─────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -66,35 +66,31 @@ AI-KindleMint-Engine uses a **streamlined 2-tier orchestration architecture** to
 
 ---
 
-## 🔗 2. A2A Protocol (Local Agent Communication)
+## 📊 2. Direct Function Orchestration (Local)
 
 ### **What It Does:**
-- **Agent-to-agent communication** - Decoupled async messaging
-- **Dynamic agent discovery** - Agents find and use each other's skills
-- **Puzzle generation** - Specialized Sudoku/crossword agents
-- **PDF layout** - Professional formatting agents
-- **Resource sharing** - Coordinated data/computation
+- **Direct coordination** - Simple function calls between components
+- **Task execution** - Direct invocation of puzzle generators
+- **PDF generation** - Direct calls to PDF formatting functions
+- **Resource management** - Straightforward resource allocation
+- **No complexity** - Clean, maintainable code
 
 ### **How It Works:**
 ```python
-from kindlemint.a2a import AgentRegistry
+from kindlemint.orchestrator import UnifiedOrchestrator
 
-# Create specialized agents
-registry = AgentRegistry()
-sudoku_agent = registry.create_agent("sudoku_generator")
-pdf_agent = registry.create_agent("pdf_layout")
-
-# Agents communicate independently
-puzzles = await sudoku_agent.execute_skill("generate_batch", {"count": 100})
-pdf = await pdf_agent.execute_skill("create_pdf", {"puzzles": puzzles})
+# Direct function calls - no message passing needed
+orchestrator = UnifiedOrchestrator()
+puzzles = orchestrator.generate_puzzles("sudoku", count=100)
+pdf = orchestrator.create_pdf(puzzles)
 ```
 
 ### **Key Files:**
-- `src/kindlemint/a2a/` (entire directory)
-- `scripts/a2a_protocol/` (protocol scripts)
+- `src/kindlemint/orchestrator/` (orchestration logic)
+- `scripts/orchestrator.py` (main orchestrator)
 
 ### **API Requirements:**
-- **None** - Uses internal messaging (no external APIs)
+- **None** - Direct function calls (no external APIs)
 
 ---
 
@@ -137,7 +133,7 @@ Errors → Sentry Detection → Alert Processing → Team Response
 
 ### **What It Does:**
 - **Intelligent task routing** - Picks optimal system for each task
-- **Cross-system workflows** - Coordinates complex operations between Claude Code and A2A
+- **Cross-system workflows** - Coordinates complex operations between different systems
 - **GitHub Secrets management** - Secure API key handling
 - **Cost-optimized monitoring** - Leverages free tier services
 
@@ -147,17 +143,17 @@ Errors → Sentry Detection → Alert Processing → Team Response
 if task.type == "feature_development":
     return claude_code_orchestrator.execute(task)
 
-# Agent communication → A2A Protocol  
+# Direct orchestration → Function calls  
 elif task.type == "puzzle_generation":
-    return a2a_protocol.execute(task)
+    return orchestrator.generate_puzzles(task)
 
 # Monitoring → Native integrations (GitHub/Sentry/Slack)
 elif task.type == "monitoring":
     return native_monitoring.execute(task)  # $0 cost
 
-# Complex workflows → Hybrid execution
+# Complex workflows → Combined execution
 else:
-    return hybrid_execution(task)
+    return combined_execution(task)
 ```
 
 ### **Key Files:**
@@ -176,13 +172,13 @@ else:
    ./claude-code develop-feature new_sudoku_series
    ```
 
-2. **A2A Agents** generate content:
+2. **Direct orchestration** generates content:
    ```python
-   # Puzzle agent creates 100 sudokus
-   puzzles = await puzzle_agent.generate_batch(100)
+   # Direct function calls create puzzles
+   puzzles = orchestrator.generate_puzzles("sudoku", 100)
    
-   # PDF agent creates layout
-   pdf = await pdf_agent.create_book(puzzles)
+   # Direct PDF generation
+   pdf = orchestrator.create_pdf(puzzles)
    ```
 
 3. **Production Monitoring** handles oversight:
@@ -204,13 +200,13 @@ else:
 
 ### **Monthly Costs:**
 - **Claude Code**: ~$50-100 (OpenAI/Claude API)
-- **A2A Protocol**: $0 (local execution)
+- **Direct Orchestration**: $0 (local execution)
 - **Production Monitoring**: $0 (GitHub Actions + Sentry + Slack free tiers)
 - **Total**: ~$50-100/month (REDUCED 60% from previous $130-220/month)
 
 ### **Performance:**
 - **Development**: 10x faster with Claude Code
-- **Puzzle Generation**: 100 puzzles in ~30 seconds (A2A)
+- **Puzzle Generation**: 100 puzzles in ~30 seconds
 - **Book Production**: Complete book in 2-4 hours vs 2-4 weeks
 - **Monitoring Response**: <30 seconds for GitHub/Sentry/Slack alerts
 
@@ -235,8 +231,8 @@ GEMINI_API_KEY=your_key          # Optional fallback for Claude Code
 # 1. Start Claude Code orchestration
 ./claude-code status
 
-# 2. Test A2A agents
-python -c "from kindlemint.a2a import AgentRegistry; print('A2A Ready!')"
+# 2. Test orchestration
+python -c "from kindlemint.orchestrator import UnifiedOrchestrator; print('Orchestration Ready!')"
 
 # 3. Check AWS production
 # (View CloudFormation console - should show green)
@@ -248,12 +244,12 @@ python -c "from kindlemint.a2a import AgentRegistry; print('A2A Ready!')"
 
 ### **✅ FULLY OPERATIONAL:**
 - Claude Code Orchestration - AI development working
-- A2A Protocol - Agent communication working  
+- Direct Orchestration - Simple function calls working  
 - Production Monitoring - GitHub/Sentry/Slack integrated
 - Unified Orchestrator - Coordinating both systems
 
 ### **🔧 OPTIMIZATION OPPORTUNITIES:**
-- Add more A2A agent types (cover design, marketing)
+- Implement Git Worktrees for parallel execution
 - Enhance Claude Code with more specialized tools
 - Expand monitoring dashboards and analytics
 
@@ -270,12 +266,12 @@ echo $OPENAI_API_KEY
 ./claude-code status
 ```
 
-### **A2A Issues:**
+### **Orchestration Issues:**
 ```python
-# Test agent registry
-from kindlemint.a2a import AgentRegistry
-registry = AgentRegistry()
-print(f"Agents: {len(registry.list_agents())}")
+# Test orchestrator
+from kindlemint.orchestrator import UnifiedOrchestrator
+orchestrator = UnifiedOrchestrator()
+print("Orchestrator initialized successfully")
 ```
 
 ### **Monitoring Issues:**
@@ -286,4 +282,4 @@ print(f"Agents: {len(registry.list_agents())}")
 
 ---
 
-**🎯 BOTTOM LINE:** We have a streamlined 2-tier orchestration system optimized for cost and performance - AI-accelerated development through Claude Code and agent-based content creation through A2A Protocol. Production monitoring achieved through native GitHub/Sentry/Slack integrations at zero cost. All systems coordinate through the Unified Orchestrator to create a complete automated publishing pipeline.
+**🎯 BOTTOM LINE:** We have a streamlined orchestration system optimized for simplicity and performance - AI-accelerated development through Claude Code and direct function-based content creation. Production monitoring achieved through native GitHub/Sentry/Slack integrations at zero cost. All systems coordinate through the Unified Orchestrator using simple, maintainable direct function calls to create a complete automated publishing pipeline.

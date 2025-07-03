@@ -1,5 +1,5 @@
 """
-Unified Orchestrator - Simplified without A2A framework
+Unified Orchestrator - Coordinates task execution
 Coordinates task execution using direct function calls
 """
 
@@ -39,7 +39,7 @@ class Task:
 class UnifiedOrchestrator:
     """
     Unified orchestrator that coordinates task execution
-    Simplified to work without A2A framework
+    using Claude Code and direct function calls
     """
 
     def __init__(self):
@@ -49,7 +49,7 @@ class UnifiedOrchestrator:
         # Initialize Claude Code orchestrator
         self.claude_code = ClaudeCodeOrchestrator()
 
-        # Simple task management without A2A
+        # Task management
         self.active_tasks = {}
         self.completed_tasks = {}
 

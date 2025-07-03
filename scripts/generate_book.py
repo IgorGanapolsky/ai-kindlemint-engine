@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple book generation script without A2A framework
+Simple book generation script
 Generates puzzle books using direct function calls
 """
 

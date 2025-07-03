@@ -39,7 +39,6 @@ commit_group() {
 # Group 1: Configuration files
 echo "📁 Group 1: Configuration Files"
 config_files=(
-    "a2a_registry.json"
     "ci_analysis_enhanced.json" 
     "ci_failures_enhanced.json"
     "pre-commit-output.txt"
@@ -78,24 +77,8 @@ script_files=(
 )
 commit_group "feat: Add orchestration and cleanup scripts" "${script_files[@]}"
 
-# Group 5: A2A Protocol files
-echo "📁 Group 5: A2A Protocol Implementation"
-a2a_files=(
-    "scripts/a2a_protocol/A2A_MIGRATION_PLAN.md"
-    "scripts/a2a_protocol/base_agent.py"
-    "scripts/a2a_protocol/message_bus.py"
-    "scripts/a2a_protocol/puzzle_validator_agent.py"
-    "scripts/a2a_protocol/sudoku_validator.py"
-    "src/kindlemint/a2a/__init__.py"
-    "src/kindlemint/a2a/agent.py"
-    "src/kindlemint/a2a/registry.py" 
-    "src/kindlemint/a2a/server.py"
-    "src/kindlemint/a2a/skill.py"
-)
-commit_group "feat: Add A2A protocol implementation" "${a2a_files[@]}"
-
-# Group 6: Agent implementations
-echo "📁 Group 6: Agent Implementations"
+# Group 5: Agent implementations
+echo "📁 Group 5: Agent Implementations"
 agent_files=(
     "src/kindlemint/agents/pdf_layout_agent.py"
     "src/kindlemint/agents/puzzle_generator_agent.py"

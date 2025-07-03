@@ -1,5 +1,5 @@
 """
-Puzzle Generator Agent - Simplified without A2A framework
+Puzzle Generator Agent - Generates puzzles
 Generates puzzles directly
 """
 
