@@ -50,7 +50,9 @@
     "pre_commit": {
       "check_worktree_usage": true,
       "enforce_orchestration": true,
-      "log_token_usage": true
+      "log_token_usage": true,
+      "validate_badges": true,
+      "block_on_missing_badges": true
     },
     "post_commit": {
       "report_cost_savings": true,

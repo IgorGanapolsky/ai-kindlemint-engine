@@ -2,8 +2,19 @@
 
 **Transform expertise into profitable books at 10x speed using AI orchestration, voice-to-book technology, and automated publishing workflows.**
 
+[![Tests](https://github.com/IgorGanapolsky/ai-kindlemint-engine/workflows/Tests/badge.svg)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/IgorGanapolsky/ai-kindlemint-engine/graph/badge.svg)](https://codecov.io/gh/IgorGanapolsky/ai-kindlemint-engine)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
+[![Hygiene Score](https://img.shields.io/badge/hygiene-76%25-green)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/blob/main/scripts/real_hygiene_analyzer.py)
 <!-- Orchestration Cost Tracking -->
 [![MTD Cost](https://img.shields.io/badge/MTD_Cost-$23.70-green?style=for-the-badge)](./reports/orchestration/) [![Orchestration Savings](https://img.shields.io/badge/Orchestration_Savings-$1.80_(7%)-orange?style=for-the-badge)](./reports/orchestration/)
+[![Cursor Bugbot](https://img.shields.io/badge/Cursor%20Bugbot-Enabled-blueviolet)](https://docs.cursor.com/bugbot)
+[![GitHub Issues](https://img.shields.io/github/issues/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/pulls)
+[![Last Commit](https://img.shields.io/github/last-commit/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/commits/main)
+[![Contributors](https://img.shields.io/github/contributors/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/graphs/contributors)
+[![Code Size](https://img.shields.io/github/languages/code-size/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine)
 ## 🎯 What This Project Does
 
 AI-KindleMint-Engine is a comprehensive platform that:
