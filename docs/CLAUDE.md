@@ -291,6 +291,7 @@ Task("Backend Team", "Implement APIs according to Memory specifications");
 
 ## WORKTREE ORCHESTRATION (ACTIVE)
 **CRITICAL**: All commits MUST use worktree orchestration for token cost optimization.
+**CRITICAL**: Badge validation is MANDATORY - never remove project visibility badges!
 
 ### Automatic Worktree Usage:
 1. For features: Use appropriate worktree based on task type
