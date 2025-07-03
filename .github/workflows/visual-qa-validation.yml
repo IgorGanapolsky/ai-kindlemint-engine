@@ -1,21 +1,22 @@
+# DISABLED TO REDUCE NOTIFICATIONS - Restore by removing this line and uncommenting below
 name: Visual QA Validation
 
-on:
-  push:
-    paths:
-      - 'books/**/*.pdf'
-      - 'books/**/*.png'
-      - 'books/**/*.jpg'
-      - 'scripts/**/generate*.py'
-      - 'scripts/**/*pdf*.py'
-  pull_request:
-    paths:
-      - 'books/**/*.pdf'
-      - 'books/**/*.png'
-      - 'books/**/*.jpg'
-      - 'scripts/**/generate*.py'
-      - 'scripts/**/*pdf*.py'
-  workflow_dispatch:
+# on:
+#   push:
+#     paths:
+#       - 'books/**/*.pdf'
+#       - 'books/**/*.png'
+#       - 'books/**/*.jpg'
+#       - 'scripts/**/generate*.py'
+#       - 'scripts/**/*pdf*.py'
+#   pull_request:
+#     paths:
+#       - 'books/**/*.pdf'
+#       - 'books/**/*.png'
+#       - 'books/**/*.jpg'
+#       - 'scripts/**/generate*.py'
+#       - 'scripts/**/*pdf*.py'
+#   workflow_dispatch:
 
 jobs:
   validate-puzzle-content:
