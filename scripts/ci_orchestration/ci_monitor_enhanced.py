@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import requests
+from security import safe_command
 
 # Add parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent.parent))
@@ -94,8 +95,7 @@ class EnhancedCIMonitor:
         try:
             cmd = f"gh api repos/{self.repo_owner}/{
                 self.repo_name}/actions/jobs/{job_id}/logs"
-            result = subprocess.run(
-                cmd, shell=False, capture_output=True, text=True, timeout=30
+            result = safe_command.run(subprocess.run, cmd, shell=False, capture_output=True, text=True, timeout=30
             )
             if result.returncode == 0:
                 return result.stdout
