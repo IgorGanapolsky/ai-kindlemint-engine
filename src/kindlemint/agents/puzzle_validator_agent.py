@@ -1,5 +1,5 @@
 """
-Puzzle Validator Agent - Simplified without A2A framework
+Puzzle Validator Agent - Validates puzzles
 Validates puzzles directly
 """
 

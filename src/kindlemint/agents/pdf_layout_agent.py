@@ -1,5 +1,5 @@
 """
-PDF Layout Agent - Simplified without A2A framework
+PDF Layout Agent - Handles PDF layout and generation
 Handles PDF layout and generation directly
 """
 
