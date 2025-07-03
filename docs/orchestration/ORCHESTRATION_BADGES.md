@@ -102,6 +102,31 @@ Access `reports/orchestration/aggregated_metrics.json` for programmatic use.
 - Team leaderboards for orchestration usage
 - Projected annual savings calculator
 
+## Maintenance & Rotation
+
+The badge system includes automatic maintenance features:
+
+### Monthly Metrics Rotation
+- **Automatic Archival**: On the 1st of each month, commit metrics files are archived
+- **Archive Location**: `reports/orchestration/archive/YYYY-MM/`
+- **Retention Period**: Archives kept for 3 months then auto-deleted
+- **Preserved Data**: `aggregated_metrics.json` is never rotated (contains all historical data)
+
+### Manual Rotation Commands
+```bash
+# Check if rotation is needed
+python scripts/orchestration/metrics_rotation.py --check
+
+# Force rotation (useful for testing)
+python scripts/orchestration/metrics_rotation.py --force
+```
+
+### Benefits of Rotation
+1. **Clean Repository**: Prevents accumulation of thousands of JSON files
+2. **Performance**: Faster git operations without excessive files
+3. **Organization**: Easy to find metrics from specific months
+4. **Automatic**: No manual cleanup required
+
 ---
 
 *The orchestration badge system demonstrates the tangible value of parallel execution through clear, data-driven metrics.*

@@ -259,3 +259,6 @@ landing-pages/*/out/
 landing-pages/*/.env.local
 landing-pages/*/package-lock.json
 worktrees/
+
+# Orchestration metrics archives
+reports/orchestration/archive/
