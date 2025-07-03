@@ -32,3 +32,13 @@ pre-commit run --all-files         # Run all pre-commit hooks
 - **Types:** Type hints required, use `Optional[Type]` and `List[Type]`
 - **Errors:** Custom exceptions, structured logging, comprehensive error handling
 - **Naming:** snake_case for functions/variables, PascalCase for classes, UPPER_CASE for constants
+
+## Session Continuity
+- Always check and update `amp.progress.txt` at start/end of sessions
+- Track current tasks, completed work, and notes for session handoffs
+
+## CTO-Level Autonomy
+- **ALWAYS create PRs automatically** - Never just push branches and wait
+- **Full orchestration expected** - Use gh CLI, GitHub API, automation tools
+- **Complete end-to-end ownership** - From code to deployment without manual steps
+- **Proactive execution** - Take initiative, don't ask for permission on standard operations
