@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-07-03T15:38:52.555386",
+  "cleanup_stats": {
+    "files_analyzed": 0,
+    "files_removed": 5,
+    "space_freed_mb": 13.413009643554688,
+    "directories_removed": 23
+  },
+  "orchestrator": "ArchiveCleanupOrchestrator"
+}
