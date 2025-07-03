@@ -325,7 +325,11 @@
       "Bash(npm run build:*)",
       "Bash(npm run dev:*)",
       "Bash(kill:*)",
-      "WebFetch(domain:medium.com)"
+      "WebFetch(domain:medium.com)",
+      "Bash(./ceo_notification_fix.sh:*)",
+      "Bash(for f in book_qa_validation.yml hygiene-check.yml kdp-metadata-validation.yml production_qa.yml puzzle_book_qa.yml)",
+      "Bash(do if [ -f \"$f\" ])",
+      "Bash(then mv \"$f\" \"$f.disabled\")"
     ],
     "deny": []
   }

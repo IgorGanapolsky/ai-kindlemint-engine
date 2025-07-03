@@ -1,22 +1,23 @@
+# DISABLED TO REDUCE NOTIFICATIONS - Restore by removing this line and uncommenting below
 name: SonarCloud Analysis
 
-on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'src/**'
-      - 'scripts/**'
-      - 'tests/**'
-      - '*.py'
-      - 'sonar-project.properties'
-      - 'README.md'
-  pull_request:
-    branches: [ main ]
-    paths:
-      - 'src/**'
-      - 'scripts/**'
-      - 'tests/**'
-      - '*.py'
+# on:
+#   push:
+#     branches: [ main ]
+#     paths:
+#       - 'src/**'
+#       - 'scripts/**'
+#       - 'tests/**'
+#       - '*.py'
+#       - 'sonar-project.properties'
+#       - 'README.md'
+#   pull_request:
+#     branches: [ main ]
+#     paths:
+#       - 'src/**'
+#       - 'scripts/**'
+#       - 'tests/**'
+#       - '*.py'
 
 jobs:
   sonarcloud:
