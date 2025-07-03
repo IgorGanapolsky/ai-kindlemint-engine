@@ -16,29 +16,25 @@ class TestMultiChannelPublisher:
     """Test suite for multi_channel_publisher"""
 
     @pytest.fixture
-    async     """Instance"""
-def instance(self):
+    async def instance(self):
         """Create instance for testing"""
         instance = MultiChannelPublisher()
         await instance.initialize()
         return instance
 
     @pytest.mark.asyncio
-    async     """Test Initialization"""
-def test_initialization(self, instance):
+    async def test_initialization(self, instance):
         """Test feature initialization"""
         assert instance is not None
 
     @pytest.mark.asyncio
-    async     """Test Execute Success"""
-def test_execute_success(self, instance):
+    async def test_execute_success(self, instance):
         """Test successful execution"""
         result = await instance.execute({"test": True})
         assert result["status"] == "success"
 
     @pytest.mark.asyncio
-    async     """Test Execute With Error"""
-def test_execute_with_error(self, instance):
+    async def test_execute_with_error(self, instance):
         """Test error handling"""
         # Test with invalid params
         result = await instance.execute({"invalid": None})
