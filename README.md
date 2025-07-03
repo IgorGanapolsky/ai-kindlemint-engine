@@ -3,8 +3,7 @@
 **Transform expertise into profitable books at 10x speed using AI orchestration, voice-to-book technology, and automated publishing workflows.**
 
 <!-- Orchestration Cost Tracking -->
-[![MTD Cost](https://img.shields.io/badge/MTD_Cost-$23.00-green?style=for-the-badge)](./reports/orchestration/) [![Orchestration Savings](https://img.shields.io/badge/Orchestration_Savings-$1.50_(6%)-orange?style=for-the-badge)](./reports/orchestration/)
-
+[![MTD Cost](https://img.shields.io/badge/MTD_Cost-$23.70-green?style=for-the-badge)](./reports/orchestration/) [![Orchestration Savings](https://img.shields.io/badge/Orchestration_Savings-$1.80_(7%)-orange?style=for-the-badge)](./reports/orchestration/)
 ## 🎯 What This Project Does
 
 AI-KindleMint-Engine is a comprehensive platform that:

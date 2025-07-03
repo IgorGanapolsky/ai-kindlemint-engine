@@ -1,24 +1,24 @@
 {
-  "last_updated": "2025-07-03T16:35:08.922717",
+  "last_updated": "2025-07-03T16:36:55.367122",
   "monthly_data": {
     "2025-07": {
       "month": "2025-07",
       "commits": {
-        "total": 49,
-        "orchestrated": 5,
-        "traditional": 44,
-        "orchestration_rate": 10.204081632653061
+        "total": 51,
+        "orchestrated": 6,
+        "traditional": 45,
+        "orchestration_rate": 11.76470588235294
       },
       "tokens": {
-        "baseline": 2450000,
-        "actual": 2300000,
-        "saved": 150000
+        "baseline": 2550000,
+        "actual": 2370000,
+        "saved": 180000
       },
       "costs": {
-        "baseline_usd": 24.5,
-        "actual_usd": 23.0,
-        "saved_usd": 1.5,
-        "savings_percentage": 6.122448979591836
+        "baseline_usd": 25.5,
+        "actual_usd": 23.7,
+        "saved_usd": 1.8000000000000007,
+        "savings_percentage": 7.058823529411767
       },
       "efficiency": {
         "tokens_per_commit_traditional": 50000,
@@ -28,28 +28,28 @@
     }
   },
   "all_time_savings": {
-    "tokens_saved": 150000,
-    "cost_saved_usd": 1.5,
+    "tokens_saved": 180000,
+    "cost_saved_usd": 1.8000000000000007,
     "months_tracked": 1
   },
   "current_month": {
     "month": "2025-07",
     "commits": {
-      "total": 49,
-      "orchestrated": 5,
-      "traditional": 44,
-      "orchestration_rate": 10.204081632653061
+      "total": 51,
+      "orchestrated": 6,
+      "traditional": 45,
+      "orchestration_rate": 11.76470588235294
     },
     "tokens": {
-      "baseline": 2450000,
-      "actual": 2300000,
-      "saved": 150000
+      "baseline": 2550000,
+      "actual": 2370000,
+      "saved": 180000
     },
     "costs": {
-      "baseline_usd": 24.5,
-      "actual_usd": 23.0,
-      "saved_usd": 1.5,
-      "savings_percentage": 6.122448979591836
+      "baseline_usd": 25.5,
+      "actual_usd": 23.7,
+      "saved_usd": 1.8000000000000007,
+      "savings_percentage": 7.058823529411767
     },
     "efficiency": {
       "tokens_per_commit_traditional": 50000,
