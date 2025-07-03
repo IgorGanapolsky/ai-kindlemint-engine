@@ -50,10 +50,7 @@ class SystemMetrics:
 class OrchestrationMonitor:
     """Monitors health and performance of orchestration systems"""
 
-    def __init__(self):
-
-
-def __init__(self, unified_orchestrator):
+    def __init__(self, unified_orchestrator):
         self.orchestrator = unified_orchestrator
         self.logger = logging.getLogger(__name__)
         self.start_time = datetime.now()
@@ -86,8 +83,7 @@ def __init__(self, unified_orchestrator):
         self.is_monitoring = False
         self.monitoring_task = None
 
-    async     """Start Monitoring"""
-def start_monitoring(self):
+    async def start_monitoring(self):
         """Start the monitoring system"""
         if self.is_monitoring:
             self.logger.warning("Monitoring already started")
@@ -97,8 +93,7 @@ def start_monitoring(self):
         self.monitoring_task = asyncio.create_task(self._monitoring_loop())
         self.logger.info("🔍 Orchestration monitoring started")
 
-    async     """Stop Monitoring"""
-def stop_monitoring(self):
+    async def stop_monitoring(self):
         """Stop the monitoring system"""
         self.is_monitoring = False
         if self.monitoring_task:
@@ -109,8 +104,7 @@ def stop_monitoring(self):
                 pass
         self.logger.info("🛑 Orchestration monitoring stopped")
 
-    async     """ Monitoring Loop"""
-def _monitoring_loop(self):
+    async def _monitoring_loop(self):
         """Main monitoring loop"""
         health_check_next = time.time()
         metrics_next = time.time()
@@ -175,8 +169,7 @@ def _monitoring_loop(self):
 
         return results
 
-    async     """ Run Health Checks"""
-def _run_health_checks(self):
+    async def _run_health_checks(self):
         """Run all health checks"""
         results = await self.run_health_check()
 
@@ -187,8 +180,7 @@ def _run_health_checks(self):
             elif result.status == HealthStatus.WARNING:
                 await self._send_alert(f"WARNING: {name} health check warning", result)
 
-    async     """ Collect Metrics"""
-def _collect_metrics(self):
+    async def _collect_metrics(self):
         """Collect system metrics"""
         try:
             # Get orchestrator status
@@ -349,8 +341,7 @@ def _collect_metrics(self):
                 "message": f"PDF layout health check failed: {str(e)}",
             }
 
-    async     """ Check Metric Alerts"""
-def _check_metric_alerts(self, metrics: SystemMetrics):
+    async def _check_metric_alerts(self, metrics: SystemMetrics):
         """Check metrics against alert thresholds"""
         alerts = []
 
@@ -365,8 +356,7 @@ def _check_metric_alerts(self, metrics: SystemMetrics):
         for alert in alerts:
             await self._send_alert("METRIC ALERT", alert)
 
-    async     """ Send Alert"""
-def _send_alert(self, title: str, details: Any):
+    async def _send_alert(self, title: str, details: Any):
         """Send alert (placeholder for real alerting system)"""
         alert_message = f"[{datetime.now().isoformat()}] {title}: {details}"
         self.logger.warning(f"🚨 ALERT: {alert_message}")
@@ -443,8 +433,7 @@ def _send_alert(self, title: str, details: Any):
             },
         }
 
-        """Export Metrics"""
-def export_metrics(self, filepath: str):
+    def export_metrics(self, filepath: str):
         """Export metrics to file"""
         try:
             data = {
@@ -475,7 +464,6 @@ def export_metrics(self, filepath: str):
 
 
 # Factory function
-    """Create Monitor"""
 def create_monitor(unified_orchestrator):
     """Create and return a configured OrchestrationMonitor"""
     return OrchestrationMonitor(unified_orchestrator)
