@@ -8,7 +8,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
 [![Hygiene Score](https://img.shields.io/badge/hygiene-76%25-green)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/blob/main/scripts/real_hygiene_analyzer.py)
 <!-- Orchestration Cost Tracking -->
-[![MTD Cost](https://img.shields.io/badge/MTD_Cost-$26.60-green?style=for-the-badge)](./reports/orchestration/) [![Orchestration Savings](https://img.shields.io/badge/Orchestration_Savings-$2.40_8%25-orange?style=for-the-badge)](./reports/orchestration/)
+[![MTD Cost](https://img.shields.io/badge/MTD_Cost-$26.60-green)](./reports/orchestration/) [![Orchestration Savings](https://img.shields.io/badge/Orchestration_Savings-$2.40_8%25-orange)](./reports/orchestration/)
 [![Cursor Bugbot](https://img.shields.io/badge/Cursor%20Bugbot-Enabled-blueviolet)](https://docs.cursor.com/bugbot)
 [![GitHub Issues](https://img.shields.io/github/issues/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/pulls)
@@ -26,14 +26,18 @@ AI-KindleMint-Engine is a comprehensive platform that:
 
 **Important**: Users are responsible for following platform ToS, marketing their books, and managing sales.
 
-## 🏗️ Revolutionary Autonomous Worktree Orchestration
+## 🏗️ Infrastructure & Orchestration
 
-### 🚀 Executive Summary
+### 🚀 Recent Updates (July 2025)
 
-Our platform now features **Autonomous Worktree Orchestration** - a groundbreaking system that delivers:
-- **10x faster book production** through parallel execution
-- **75% cost reduction** ($175/month savings)
-- **100% CPU utilization** across all cores
+**Streamlined Infrastructure:**
+- AWS services reduced to essential email service only
+- Amp CLI integration with automated tagging
+- Emergency CI/CD pipeline restoration completed
+
+**Autonomous Worktree Orchestration:**
+- **4x faster book production** through parallel execution
+- **60-80% cost reduction** via intelligent task distribution
 - **Zero manual intervention** - fully autonomous operation
 
 ### 📊 Business Impact
@@ -45,6 +49,22 @@ Our platform now features **Autonomous Worktree Orchestration** - a groundbreaki
 | Monthly Output | 100 books | 400 books | **4x increase** |
 | Cost per Book | $2.50 | $0.75 | **70% reduction** |
 | CPU Utilization | 25% | 90%+ | **Optimal usage** |
+
+### 🤖 Orchestration Flow
+
+```mermaid
+graph TD
+    A[PR Created] --> B[CI/CD Pipeline]
+    B --> C{All Checks Pass?}
+    C -->|Yes| D[Orchestrator Auto-Merge]
+    C -->|No| E[Auto-Fix Attempts]
+    E --> F{Fix Successful?}
+    F -->|Yes| D
+    F -->|No| G[Manual Review Required]
+    D --> H[Badge Updates]
+    H --> I[Cost Tracking]
+    I --> J[Documentation Sync]
+```
 
 ### 🤖 How It Works
 
