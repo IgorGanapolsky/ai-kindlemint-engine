@@ -9,6 +9,7 @@ import json
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+import secrets
 
 
 class SudokuValidator:
@@ -308,11 +309,7 @@ class SudokuValidator:
         if len(clue_positions) == 0:
             return True
 
-        # Test a sample of clues
-        import random
-
-        test_positions = random.sample(
-            clue_positions, min(sample_size, len(clue_positions))
+        test_positions = secrets.SystemRandom().sample(clue_positions, min(sample_size, len(clue_positions))
         )
 
         puzzle_copy = copy.deepcopy(puzzle)

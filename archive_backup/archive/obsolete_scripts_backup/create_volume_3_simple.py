@@ -5,13 +5,13 @@ Uses predefined puzzle templates that are guaranteed to work
 """
 
 import json
-import random
 from datetime import datetime
 from pathlib import Path
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import inch
 from reportlab.pdfgen import canvas
+import secrets
 
 # 6×9 book dimensions
 PAGE_WIDTH = 6 * inch
@@ -235,7 +235,7 @@ class SimpleCrosswordGenerator:
 
     def generate_puzzle_variations(self, base_puzzle, puzzle_num):
         """Generate variations of base puzzles"""
-        random.seed(puzzle_num * 1000)
+        secrets.SystemRandom().seed(puzzle_num * 1000)
 
         # Create variations by modifying the base puzzles
         grid = []
