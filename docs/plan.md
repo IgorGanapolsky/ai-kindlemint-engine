@@ -15,10 +15,10 @@ AI-KindleMint-Engine has evolved into a **fully autonomous book production platf
 | Book Production Time | 30 minutes | **75% faster** |
 | Books per Hour | 4 | **4x capacity** |
 | Monthly Output Capacity | 400 books | **4x increase** |
-| Cost per Book | $0.75 | **70% reduction** |
+| API Cost per Book | $0.75 | **70% reduction** |
 | Token Cost per Commit | ~$1.00 | **80% reduction** |
 | CPU Utilization | 90%+ | **Optimal usage** |
-| Manual Intervention | Zero | **100% autonomous** |
+| Manual Intervention | Publishing only | **Content generation autonomous** |
 
 ## 🏗️ Current Architecture
 
