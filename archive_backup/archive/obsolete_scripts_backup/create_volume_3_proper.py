@@ -5,13 +5,13 @@ Ensures all letter sequences form real words
 """
 
 import json
-import random
 from datetime import datetime
 from pathlib import Path
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import inch
 from reportlab.pdfgen import canvas
+import secrets
 
 # 6×9 book dimensions
 PAGE_WIDTH = 6 * inch
@@ -816,7 +816,7 @@ class ProperCrosswordGenerator:
     def get_clue(self, word):
         """Get a clue for a word"""
         if word in self.clue_templates:
-            return random.choice(self.clue_templates[word])
+            return secrets.choice(self.clue_templates[word])
 
         # Generic clues by length
         if len(word) == 3:
@@ -882,7 +882,7 @@ class ProperCrosswordGenerator:
 
     def fill_grid_with_words(self, grid, word_slots, puzzle_num):
         """Fill the grid with real words"""
-        random.seed(puzzle_num * 1000)  # Consistent random for each puzzle
+        secrets.SystemRandom().seed(puzzle_num * 1000)  # Consistent random for each puzzle
 
         solution = [["#" if cell == "#" else "" for cell in row] for row in grid]
         placed_words = []
@@ -897,7 +897,7 @@ class ProperCrosswordGenerator:
                 # Get candidate words
                 if length in self.words_by_length:
                     candidates = list(self.words_by_length[length])
-                    random.shuffle(candidates)
+                    secrets.SystemRandom().shuffle(candidates)
 
                     placed = False
                     for word in candidates:
@@ -937,7 +937,7 @@ class ProperCrosswordGenerator:
                 # Get candidate words
                 if length in self.words_by_length:
                     candidates = list(self.words_by_length[length])
-                    random.shuffle(candidates)
+                    secrets.SystemRandom().shuffle(candidates)
 
                     placed = False
                     for word in candidates:
