@@ -1,8 +1,8 @@
 # AI-KindleMint-Engine – Implementation Plan & Status
 
-> **Last major update: July 4, 2025 – V3 Architecture Fully Deployed**
-> **Current Status:** Production-ready with autonomous worktree orchestration
-> **Live Metrics:** MTD Cost: $26.60 | Orchestration Savings: $2.40 (8%)
+> **Last major update: July 4, 2025 – V3 Architecture + Daily Market Insights**
+> **Current Status:** Production-ready with autonomous worktree orchestration and market intelligence
+> **Live Metrics:** MTD Cost: $26.60 | Orchestration Savings: $2.40 (8%) | Market Data: Fresh Daily
 
 ## 🚀 V3 Architecture Overview
 
@@ -52,6 +52,13 @@ AI-KindleMint-Engine has evolved into a **fully autonomous book production platf
    - ✅ Usage tracking and cost analytics
    - ✅ Intelligent rate limiting
 
+6. **Daily Market Insights** (`scripts/daily_market_insights.py`)
+   - ✅ Reddit scraper monitoring 7 KDP/self-publishing subreddits
+   - ✅ Google Trends integration for keyword tracking
+   - ✅ Amazon marketplace pattern analysis
+   - ✅ Executive dashboards with actionable recommendations
+   - ✅ Automated daily collection via GitHub Actions
+
 ## 📂 Project Structure (Current)
 
 ```
@@ -98,6 +105,7 @@ ai-kindlemint-engine/
 - ✅ **FREE KDP Automation** - Zero-cost niche discovery
 - ✅ **SEO Engine 2025** - Advanced optimization strategies
 - ✅ **Market Research** - Competition analysis tools
+- ✅ **Daily Market Insights** - Real-time intelligence from Reddit, Google Trends, Amazon
 - ✅ **Social Atomization** - Multi-platform content
 
 ### Quality Systems
@@ -195,6 +203,51 @@ ai-kindlemint-engine/
 2. **Paid APIs** - Use free alternatives
 3. **Manual Processes** - Automate everything
 4. **Feature Creep** - Focus on core value
+
+## 📊 Daily Market Insights System (NEW - July 4, 2025)
+
+### Overview
+Automated market intelligence system providing daily insights from multiple sources to guide KDP publishing decisions.
+
+### Components
+1. **Reddit Market Scraper** (`scripts/reddit_market_scraper.py`)
+   - Monitors: selfpublishing, KDP, eroticauthors, writingopportunities, amazonKDP, publishing, selfpublish
+   - Tracks engagement metrics and trending topics
+   - Extracts market signals for high-demand niches
+
+2. **Market Insights Orchestrator** (`scripts/orchestration/market_insights_orchestrator.py`)
+   - Combines Reddit, Google Trends, Amazon patterns
+   - Seasonal trend analysis for optimal publishing timing
+   - Generates executive summaries and recommendations
+
+3. **Daily Runner** (`scripts/daily_market_insights.py`)
+   - Orchestrates all collection activities
+   - Ensures data freshness (replaces stale June 30 data)
+   - Tracks run history and handles failures
+
+### Implementation Details
+- **Problem**: Market insights were stale (last update June 30, 4+ days old)
+- **Solution**: Built comprehensive scraping and orchestration system
+- **Result**: Fresh daily data with actionable recommendations
+
+### Usage
+```bash
+# Run daily collection
+python scripts/daily_market_insights.py
+
+# View latest insights
+cat data/market-insights/market-insights.md
+
+# Read executive summary
+cat reports/market-insights/executive_summary_$(date +%Y%m%d).md
+```
+
+### Results from First Run (July 4, 2025)
+- **Posts Analyzed**: 181 from 7 subreddits
+- **Top Keywords**: book (97), kdp (45), amazon (44), publishing (39)
+- **Market Temperature**: WARM - maintain pace
+- **Top Recommendation**: Create book-themed puzzle content
+- **Data Freshness**: Now updating daily via GitHub Actions
 
 ---
 

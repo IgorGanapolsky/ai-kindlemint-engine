@@ -1,0 +1,16 @@
+{
+  "date": "2025-07-04",
+  "timestamp": "2025-07-04T15:55:36.887322",
+  "data_sources": [
+    "reddit",
+    "market_orchestrator"
+  ],
+  "key_findings": [
+    "Top trending keyword: book"
+  ],
+  "action_items": [],
+  "data_freshness": {
+    "reddit": "fresh",
+    "trends": "fresh"
+  }
+}

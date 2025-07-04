@@ -1,0 +1,16 @@
+{
+  "history": [
+    {
+      "date": "2025-07-04",
+      "opportunities_count": 5,
+      "market_temperature": "warm",
+      "recommendations_count": 3
+    }
+  ],
+  "current_state": {
+    "date": "2025-07-04",
+    "opportunities_count": 5,
+    "market_temperature": "warm",
+    "recommendations_count": 3
+  }
+}
