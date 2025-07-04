@@ -14,6 +14,7 @@ class RootCleanupOrchestrator:
     def __init__(self):
         self.root = Path(os.getcwd())
         self.moves = []
+        self.quiet = False  # Default to verbose mode
         
         # Define organization rules
         self.organization_rules = {
@@ -302,7 +303,6 @@ class RootCleanupOrchestrator:
                     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                     dest_dir = dest_parent / f"{src_dir.name}_{timestamp}"
                 
-                if not self.quiet:
                 if not self.quiet:
                     print(f"  - {src_dir.name}/ → {dest_dir.relative_to(self.root)}/ ({move['description']})")
                 

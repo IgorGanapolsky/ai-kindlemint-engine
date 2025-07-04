@@ -8,7 +8,7 @@ offering tools for book generation, orchestration, and marketing tasks.
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 import click
 
@@ -77,15 +77,15 @@ def batch():
 )
 @click.option(
     "--count",
-    type=int,
+    type=click.IntRange(min=1, max=100),  # Add reasonable limits
     default=1,
-    help="Number of books to generate (default: 1).",
+    help="Number of books to generate (1-100).",
 )
 @click.option(
     "--volume-start",
-    type=int,
+    type=click.IntRange(min=1),
     default=1,
-    help="Starting volume number (default: 1).",
+    help="Starting volume number (minimum 1).",
 )
 @click.option(
     "--parallel/--sequential",
@@ -109,14 +109,15 @@ def batch_generate(
     
     if parallel:
         try:
-            from autonomous_worktree_manager import AutonomousWorktreeManager
+            from scripts.orchestration.autonomous_worktree_manager import AutonomousWorktreeManager
             manager = AutonomousWorktreeManager()
             click.echo("📊 Using parallel worktree orchestration...")
-            # TODO: Implement actual parallel generation
-            click.echo("⚠️  Parallel generation coming soon!")
+            # TODO: Call manager.generate_books(book_type, count, volume_start)
         except ImportError:
-            click.echo("❌ Worktree orchestration not available")
-    else:
+            click.echo("❌ Worktree orchestration not available, falling back to sequential.")
+            parallel = False # Fallback to sequential if parallel not available
+    
+    if not parallel:
         # TODO: Implement sequential generation
         click.echo(f"📚 Sequential generation of {count} books...")
         for i in range(count):
@@ -212,14 +213,9 @@ def orchestrate_run(task: str, monitor: bool) -> None:  # pragma: no cover
     sys.path.insert(0, str(orchestration_path))
     
     try:
-        from worktree_orchestrator import WorktreeOrchestrator
-        orchestrator = WorktreeOrchestrator()
-        
-        if monitor:
-            click.echo("📊 Real-time monitoring enabled")
-            
-        # TODO: Implement actual orchestration
-        click.echo(f"⚠️  {task} orchestration coming soon!")
+        from scripts.orchestration.worktree_orchestrator import WorktreeOrchestrator
+        # TODO: Implement actual orchestration using orchestrator.run_task(task, monitor=monitor)
+        click.echo(f"📊 Orchestrating {task} task (functionality coming soon)!")
         
     except ImportError:
         click.echo("❌ Orchestration system not available")

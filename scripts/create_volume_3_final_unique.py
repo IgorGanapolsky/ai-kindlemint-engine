@@ -703,8 +703,7 @@ def main():
     all_puzzles = all_puzzles[:50]
 
     # Import config loader
-    sys.path.append(str(Path(__file__).parent.parent))
-    from kindlemint.utils.config import config
+    
 
     # Create output directories using config
     base_dir = Path(config.get_path("file_paths.base_output_dir"))

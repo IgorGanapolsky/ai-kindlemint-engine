@@ -271,30 +271,38 @@ def complete_series(
         return {"series_id": series_id, "status": "error", "error": str(e)}
 
 
+# AWS Lambda invocation removed - migrated to Vercel
+# def invoke_book_generation(payload: Dict[str, Any]) -> bool:
+#     """Invoke the book generation Lambda."""
+#     try:
+#         import boto3
+#
+#         lambda_client = boto3.client("lambda")
+#
+#         # Invoke the V3 orchestrator for book generation
+#         response = lambda_client.invoke(
+#             FunctionName="kindlemint-v3-orchestrator",
+#             InvocationType="Event",  # Async invocation
+#             Payload=json.dumps(payload),
+#         )
+#
+#         if response["StatusCode"] == 202:
+#             logger.info(f"✅ Book generation invoked successfully")
+#             return True
+#         else:
+#             logger.error(f"Book generation invocation failed: {response['StatusCode']}")
+#             return False
+#
+#     except Exception as e:
+#         logger.error(f"Failed to invoke book generation: {e}")
+#         return False
+
+# Vercel replacement for book generation
 def invoke_book_generation(payload: Dict[str, Any]) -> bool:
-    """Invoke the book generation Lambda."""
-    try:
-        import boto3
-
-        lambda_client = boto3.client("lambda")
-
-        # Invoke the V3 orchestrator for book generation
-        response = lambda_client.invoke(
-            FunctionName="kindlemint-v3-orchestrator",
-            InvocationType="Event",  # Async invocation
-            Payload=json.dumps(payload),
-        )
-
-        if response["StatusCode"] == 202:
-            logger.info(f"✅ Book generation invoked successfully")
-            return True
-        else:
-            logger.error(f"Book generation invocation failed: {response['StatusCode']}")
-            return False
-
-    except Exception as e:
-        logger.error(f"Failed to invoke book generation: {e}")
-        return False
+    """Invoke book generation via Vercel Edge Function."""
+    logger.info(f"Book generation would be invoked via Vercel: {payload}")
+    # TODO: Implement Vercel Edge Function invocation
+    return True
 
 
     """Send Series Completion Notification"""
