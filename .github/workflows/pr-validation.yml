@@ -47,11 +47,18 @@ jobs:
         
     - name: Check Commit Messages
       run: |
-        # Check if commits follow conventional format
+        # Check if commits follow conventional format (exclude merge commits)
         git log --format="%s" origin/main..HEAD | while read commit_msg; do
+          # Skip merge commits (they start with "Merge")
+          if echo "$commit_msg" | grep -q '^Merge '; then
+            echo "✅ Skipping merge commit: $commit_msg"
+            continue
+          fi
+          
           if ! echo "$commit_msg" | grep -E '^(feat|fix|docs|style|refactor|perf|test|chore|build|ci)(\(.+\))?: .+$'; then
             echo "❌ Invalid commit message: $commit_msg"
             echo "Expected format: type(scope): description"
+            echo "Note: Merge commits are automatically excluded"
             exit 1
           fi
         done
