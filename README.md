@@ -219,6 +219,42 @@ python scripts/orchestration/autonomous_worktree_manager.py
 - **Full Test Coverage** - 12 comprehensive tests ensuring reliability
 - **CLI Interface** - Simple commands for discovery and automation
 
+### 🚀 SEO Engine 2025
+- **Advanced Optimization** - Cutting-edge SEO strategies for 2025 algorithms
+- **CLI Command**: `kindlemint enhance-seo --input metadata.json`
+- **Automated Enhancement** - Transforms basic metadata into SEO-optimized content
+- **Keyword Research** - Built-in keyword optimization for maximum visibility
+- **Output**: Enhanced JSON file with `_seo.json` suffix
+
+### 📊 Daily Market Insights System
+- **Real-time Market Intelligence** - Automated daily collection from Reddit, Google Trends, Amazon
+- **7 Subreddits Monitored** - KDP, selfpublishing, publishing communities
+- **Executive Dashboards** - Daily summaries with actionable recommendations
+- **Trend Analysis** - Keyword tracking, seasonal patterns, emerging opportunities
+- **Fresh Data Daily** - Replaces stale insights with current market intelligence
+
+**Market Insights Commands:**
+```bash
+# Run daily market collection
+python scripts/daily_market_insights.py
+
+# View latest insights
+cat data/market-insights/market-insights.md
+
+# Read executive summary
+cat reports/market-insights/executive_summary_$(date +%Y%m%d).md
+```
+
+### 📦 Batch Processing & Orchestration CLI
+**Batch Commands:**
+- `kindlemint batch generate --type sudoku --count 5 --parallel` - Generate multiple books
+- `kindlemint batch generate --type crossword --count 3 --volume-start 4` - Start from volume 4
+
+**Orchestration Commands:**
+- `kindlemint orchestrate status` - View active worktrees and status
+- `kindlemint orchestrate dashboard` - Launch CEO dashboard for metrics
+- `kindlemint orchestrate run --task book-production --monitor` - Run orchestrated tasks
+
 ## 🔍 Quality Validation System
 
 Our comprehensive validation system ensures every puzzle book meets professional publishing standards:

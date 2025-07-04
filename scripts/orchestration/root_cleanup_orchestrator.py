@@ -88,6 +88,22 @@ class RootCleanupOrchestrator:
             }
         }
         
+        # Define directory organization rules
+        self.directory_rules = {
+            "archive": {
+                "dest": "archive_backup",
+                "description": "Old archives and backups"
+            },
+            "sentry_enhanced": {
+                "dest": "reports/sentry",
+                "description": "Sentry research data"
+            },
+            "deprecated_validators": {
+                "dest": "archive_backup/deprecated",
+                "description": "Deprecated code"
+            }
+        }
+        
     def analyze_root(self):
         """Analyze root directory for files and directories to organize"""
         if not hasattr(self, 'quiet') or not self.quiet:

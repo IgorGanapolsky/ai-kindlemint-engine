@@ -1,0 +1,51 @@
+{
+  "timestamp": "2025-07-03T17:16:22.996142",
+  "files_moved": 0,
+  "directories_moved": 3,
+  "files_unmatched": 10,
+  "directories_unmatched": 10,
+  "root_files_remaining": 22,
+  "root_dirs_remaining": 22,
+  "file_moves": [],
+  "dir_moves": [
+    {
+      "dir": "deprecated_validators",
+      "dest": "archive_backup/deprecated",
+      "description": "Deprecated code"
+    },
+    {
+      "dir": "archive",
+      "dest": "archive_backup",
+      "description": "Old archives and backups"
+    },
+    {
+      "dir": "sentry_enhanced",
+      "dest": "reports/sentry",
+      "description": "Sentry research data"
+    }
+  ],
+  "unmatched_files": [
+    ".cursorignore",
+    "orchestration.pid",
+    "test_orchestration.md",
+    "launch_orchestration.sh",
+    "run_pr_management.py",
+    "claude-flow-costs",
+    "claude-flow",
+    ".ccfignore",
+    ".git",
+    ".worktree"
+  ],
+  "unmatched_dirs": [
+    "memory",
+    "config",
+    "content",
+    "books",
+    "aws_code_backup_20250701_121329",
+    "deployment",
+    "kindlemint",
+    "real_market_data",
+    "marketing",
+    "data"
+  ]
+}
