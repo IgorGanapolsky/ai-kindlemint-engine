@@ -266,3 +266,7 @@ reports/orchestration/*.json
 
 # Temporary trash directory for hygiene orchestrator
 .trash/
+
+# Prevent any archive directories
+archive*
+.archive*

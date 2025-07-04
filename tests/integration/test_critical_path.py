@@ -78,8 +78,7 @@ class TestBookGenerationPipeline:
 class TestAgentSystem:
     """Test our multi-agent system - core architecture"""
 
-        """Test Agent Communication"""
-def test_agent_communication(self):
+    def test_agent_communication(self):
         """Test agent message passing"""
         from kindlemint.agents.agent_types import AgentCapability
         from kindlemint.agents.message_protocol import MessageType
@@ -93,8 +92,7 @@ def test_agent_communication(self):
         assert MessageType.TASK_REQUEST.value == "task_request"
         assert MessageType.TASK_COMPLETION.value == "task_completion"
 
-        """Test Task System"""
-def test_task_system(self):
+        def test_task_system(self):
         """Test task management"""
         from kindlemint.agents.task_system import TaskPriority, TaskStatus
 
@@ -111,8 +109,7 @@ def test_task_system(self):
 class TestCoreUtilities:
     """Test utility functions used everywhere"""
 
-        """Test Logging Setup"""
-def test_logging_setup(self):
+    def test_logging_setup(self):
         """Test logging configuration"""
         from kindlemint.utils import get_logger
 
@@ -120,8 +117,7 @@ def test_logging_setup(self):
         assert logger is not None
         assert logger.name == "test_module"
 
-        """Test Json Operations"""
-def test_json_operations(self):
+        def test_json_operations(self):
         """Test JSON load/save utilities"""
         from kindlemint.utils import load_json, save_json
 
