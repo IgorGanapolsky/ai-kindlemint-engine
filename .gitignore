@@ -263,3 +263,6 @@ worktrees/
 # Orchestration metrics archives
 reports/orchestration/archive/
 reports/orchestration/*.json
+
+# Temporary trash directory for hygiene orchestrator
+.trash/

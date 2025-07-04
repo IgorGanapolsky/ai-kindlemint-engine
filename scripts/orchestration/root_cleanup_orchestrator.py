@@ -51,7 +51,7 @@ class RootCleanupOrchestrator:
         # Define directory organization rules
         self.directory_rules = {
             "archive": {
-                "dest": "archive_backup",
+                "dest": ".trash",
                 "description": "Old archives and backups"
             },
             "sentry_enhanced": {
@@ -59,7 +59,7 @@ class RootCleanupOrchestrator:
                 "description": "Sentry research data"
             },
             "deprecated_validators": {
-                "dest": "archive_backup/deprecated",
+                "dest": ".trash/deprecated",
                 "description": "Deprecated code"
             },
             "test_outputs": {
@@ -88,7 +88,7 @@ class RootCleanupOrchestrator:
         # Define directory organization rules
         self.directory_rules = {
             "archive": {
-                "dest": "archive_backup",
+                "dest": ".trash",
                 "description": "Old archives and backups"
             },
             "sentry_enhanced": {
@@ -96,11 +96,11 @@ class RootCleanupOrchestrator:
                 "description": "Sentry research data"
             },
             "deprecated_validators": {
-                "dest": "archive_backup/deprecated",
+                "dest": ".trash/deprecated",
                 "description": "Deprecated code"
             },
             "features": {
-                "dest": "archive_backup/auto_generated_stubs",
+                "dest": ".trash/auto_generated_stubs",
                 "description": "Auto-generated feature stubs"
             }
         }
