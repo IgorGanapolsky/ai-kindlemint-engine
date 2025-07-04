@@ -26,6 +26,37 @@ AI-KindleMint-Engine is a comprehensive platform that:
 
 **Important**: Users are responsible for following platform ToS, marketing their books, and managing sales.
 
+## Getting Started
+
+### Prerequisites
+- Python 3.11+
+- Git
+- OpenAI API key
+
+### Quick Setup
+```bash
+git clone https://github.com/IgorGanapolsky/ai-kindlemint-engine.git
+cd ai-kindlemint-engine
+pip install -r requirements.txt
+```
+
+### Basic Usage
+```bash
+# Generate a puzzle book
+python scripts/sudoku_generator.py --count 100
+
+# Run QA validation
+python scripts/critical_metadata_qa.py
+
+# Start orchestration
+python src/kindlemint/orchestration_runner.py
+```
+
+### Documentation
+- [Implementation Plan](docs/plan.md)
+- [Commit Guidelines](docs/COMMIT_VALIDATION.md)
+- [Orchestration Strategy](docs/GIT_WORKTREES_ORCHESTRATION_STRATEGY.md)
+
 ## 🏗️ Infrastructure & Orchestration
 
 ### 🚀 Recent Updates (July 2025)
