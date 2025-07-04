@@ -10,9 +10,8 @@ import os
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
-
-import requests
 from dotenv import load_dotenv
+from security import safe_requests
 
 # Load environment variables
 load_dotenv()
@@ -50,7 +49,7 @@ class RedditMarketScraper:
         params = {'limit': limit}
         
         try:
-            response = requests.get(url, headers=self.headers, params=params, timeout=10)
+            response = safe_requests.get(url, headers=self.headers, params=params, timeout=10)
             response.raise_for_status()
             
             data = response.json()
