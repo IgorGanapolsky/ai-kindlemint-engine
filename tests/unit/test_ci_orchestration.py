@@ -33,20 +33,17 @@ logger = logging.getLogger(__name__)
 class TestCIMonitor(unittest.TestCase):
     """Test CI monitoring functionality"""
 
-        """Setup"""
-def setUp(self):
+        def setUp(self):
         self.monitor = CIMonitor("test-owner", "test-repo", "test-token")
 
-        """Test Monitor Initialization"""
-def test_monitor_initialization(self):
+        def test_monitor_initialization(self):
         """Test monitor initialization"""
         self.assertEqual(self.monitor.repo_owner, "test-owner")
         self.assertEqual(self.monitor.repo_name, "test-repo")
         self.assertEqual(self.monitor.github_token, "test-token")
 
     @patch("requests.get")
-        """Test Get Workflow Runs"""
-def test_get_workflow_runs(self, mock_get):
+    def test_get_workflow_runs(self, mock_get):
         """Test workflow run fetching"""
         mock_response = Mock()
         mock_response.raise_for_status.return_value = None
