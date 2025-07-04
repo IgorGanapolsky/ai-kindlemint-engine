@@ -190,7 +190,7 @@ if __name__ == "__main__":
         }
 
     class MockContext:
-        """Init"""
+        """Mock context for testing"""
         def __init__(self):
             self.function_name = "niche-research-agent"
             self.memory_limit_in_mb = 512

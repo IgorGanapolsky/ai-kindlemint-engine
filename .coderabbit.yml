@@ -83,3 +83,7 @@ disable:
   - "nitpick_mode"
   - "style_suggestions"
   - "refactoring_suggestions"
+
+# Email notification settings
+notifications:
+  email: false
