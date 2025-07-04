@@ -7,6 +7,12 @@
 - `npm run typecheck`: Run TypeScript type checking
 - `./claude-flow --help`: Show all available commands
 
+## Bot Configuration (Optimized July 4, 2025)
+- **CodeRabbit**: Configured via `.coderabbit.yml` for minimal noise
+- **Sentry AI**: Disabled - use manual trigger only
+- **CI Pipeline**: Consolidated to ~10-15 checks (from 64)
+- **See**: `docs/BOT_CONFIGURATION.md` for full details
+
 ## Sentry AI Integration (NEW!)
 - **Automatic PR Review**: `@sentry review` - Triggered automatically on all PRs
 - **Test Generation**: `@sentry generate-test` - Auto-generates tests for new code
