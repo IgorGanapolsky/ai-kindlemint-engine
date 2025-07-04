@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-07-04T13:12:46.665097",
+  "files_moved": 1,
+  "directories_moved": 1,
+  "files_unmatched": 9,
+  "directories_unmatched": 12,
+  "root_files_remaining": 21,
+  "root_dirs_remaining": 24,
+  "file_moves": [
+    {
+      "file": "test_sudoku.pdf",
+      "dest": "tests/outputs"
+    }
+  ],
+  "dir_moves": [
+    {
+      "dir": "test_outputs",
+      "dest": "tests/outputs",
+      "description": "Test output files"
+    }
+  ],
+  "unmatched_files": [
+    ".cursorignore",
+    "orchestration.pid",
+    "test_orchestration.md",
+    "launch_orchestration.sh",
+    "run_pr_management.py",
+    "claude-flow-costs",
+    "claude-flow",
+    ".ccfignore",
+    ".worktree"
+  ],
+  "unmatched_dirs": [
+    "research",
+    "memory",
+    "config",
+    "ai_kindlemint_engine.egg-info",
+    "books",
+    "logs",
+    "deployment",
+    "kindlemint",
+    "real_market_data",
+    "marketing",
+    "data",
+    "archive_backup"
+  ]
+}

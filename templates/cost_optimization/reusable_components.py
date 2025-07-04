@@ -88,55 +88,58 @@ def __init__(self, logger: Optional[logging.Logger] = None):
 class AWSResourceManager:
     """Reusable AWS resource management utilities"""
 
-    @staticmethod
-    @retry_with_backoff(exceptions=(Exception,))
-    def deploy_lambda_function(function_name: str, zip_file_path: str) -> bool:
-        """Deploy Lambda function with retry logic"""
-        import boto3
+    # AWS Lambda deployment removed - migrated to Vercel
+    # @staticmethod
+    # @retry_with_backoff(exceptions=(Exception,))
+    # def deploy_lambda_function(function_name: str, zip_file_path: str) -> bool:
+    #     """Deploy Lambda function with retry logic"""
+    #     import boto3
+    #
+    #     lambda_client = boto3.client("lambda")
+    #
+    #     with open(zip_file_path, "rb") as zip_file:
+    #         response = lambda_client.update_function_code(
+    #             FunctionName=function_name, ZipFile=zip_file.read()
+    #         )
+    #
+    #     return response["ResponseMetadata"]["HTTPStatusCode"] == 200
 
-        lambda_client = boto3.client("lambda")
+    # AWS Lambda status removed - migrated to Vercel
+    # @staticmethod
+    # def get_lambda_status(function_name: str) -> Dict[str, Any]:
+    #     """Get Lambda function status and metrics"""
+    #     import boto3
+    #
+    #     lambda_client = boto3.client("lambda")
+    #     cloudwatch = boto3.client("cloudwatch")
 
-        with open(zip_file_path, "rb") as zip_file:
-            response = lambda_client.update_function_code(
-                FunctionName=function_name, ZipFile=zip_file.read()
-            )
-
-        return response["ResponseMetadata"]["HTTPStatusCode"] == 200
-
-    @staticmethod
-    def get_lambda_status(function_name: str) -> Dict[str, Any]:
-        """Get Lambda function status and metrics"""
-        import boto3
-
-        lambda_client = boto3.client("lambda")
-        cloudwatch = boto3.client("cloudwatch")
-
-        try:
-            # Get function info
-            function_info = lambda_client.get_function(FunctionName=function_name)
-
-            # Get recent metrics
-            metrics = cloudwatch.get_metric_statistics(
-                Namespace="AWS/Lambda",
-                MetricName="Invocations",
-                Dimensions=[{"Name": "FunctionName", "Value": function_name}],
-                StartTime=time.time() - 3600,  # Last hour
-                EndTime=time.time(),
-                Period=300,
-                Statistics=["Sum"],
-            )
-
-            return {
-                "status": function_info["Configuration"]["State"],
-                "last_modified": function_info["Configuration"]["LastModified"],
-                "runtime": function_info["Configuration"]["Runtime"],
-                "memory_size": function_info["Configuration"]["MemorySize"],
-                "recent_invocations": sum(
-                    point["Sum"] for point in metrics["Datapoints"]
-                ),
-            }
-        except Exception as e:
-            return {"error": str(e)}
+    #
+    #     try:
+    #         # Get function info
+    #         function_info = lambda_client.get_function(FunctionName=function_name)
+    #
+    #         # Get recent metrics
+    #         metrics = cloudwatch.get_metric_statistics(
+    #             Namespace="AWS/Lambda",
+    #             MetricName="Invocations",
+    #             Dimensions=[{"Name": "FunctionName", "Value": function_name}],
+    #             StartTime=time.time() - 3600,  # Last hour
+    #             EndTime=time.time(),
+    #             Period=300,
+    #             Statistics=["Sum"],
+    #         )
+    #
+    #         return {
+    #             "status": function_info["Configuration"]["State"],
+    #             "last_modified": function_info["Configuration"]["LastModified"],
+    #             "runtime": function_info["Configuration"]["Runtime"],
+    #             "memory_size": function_info["Configuration"]["MemorySize"],
+    #             "recent_invocations": sum(
+    #                 point["Sum"] for point in metrics["Datapoints"]
+    #             ),
+    #         }
+    #     except Exception as e:
+    #         return {"error": str(e)}
 
 
 # =============================================================================
@@ -317,51 +320,51 @@ class BookProductionHelper:
 class MonitoringHelper:
     """Reusable monitoring and alerting utilities"""
 
-    @staticmethod
-        """Setup Cloudwatch Alarm"""
-def setup_cloudwatch_alarm(
-        metric_name: str, threshold: float, comparison: str = "GreaterThanThreshold"
-    ):
-        """Setup CloudWatch alarm with standard configuration"""
-        import boto3
+    # AWS CloudWatch removed - migrated to Vercel
+    # @staticmethod
+    # def setup_cloudwatch_alarm(
+    #     metric_name: str, threshold: float, comparison: str = "GreaterThanThreshold"
+    # ):
+    #     """Setup CloudWatch alarm with standard configuration"""
+    #     import boto3
+    #
+    #     cloudwatch = boto3.client("cloudwatch")
+    #
+    #     alarm_config = {
+    #         "AlarmName": f"KindleMint-{metric_name}-Alarm",
+    #         "ComparisonOperator": comparison,
+    #         "EvaluationPeriods": 2,
+    #         "MetricName": metric_name,
+    #         "Namespace": "AWS/Lambda",
+    #         "Period": 300,
+    #         "Statistic": "Average",
+    #         "Threshold": threshold,
+    #         "ActionsEnabled": True,
+    #         "AlarmDescription": f"Alarm for {metric_name} metric",
+    #         "Unit": "Count",
+    #     }
+    #
+    #     return cloudwatch.put_metric_alarm(**alarm_config)
 
-        cloudwatch = boto3.client("cloudwatch")
-
-        alarm_config = {
-            "AlarmName": f"KindleMint-{metric_name}-Alarm",
-            "ComparisonOperator": comparison,
-            "EvaluationPeriods": 2,
-            "MetricName": metric_name,
-            "Namespace": "AWS/Lambda",
-            "Period": 300,
-            "Statistic": "Average",
-            "Threshold": threshold,
-            "ActionsEnabled": True,
-            "AlarmDescription": f"Alarm for {metric_name} metric",
-            "Unit": "Count",
-        }
-
-        return cloudwatch.put_metric_alarm(**alarm_config)
-
-    @staticmethod
-        """Log Business Metric"""
-def log_business_metric(metric_name: str, value: float, unit: str = "Count"):
-        """Log custom business metrics to CloudWatch"""
-        import boto3
-
-        cloudwatch = boto3.client("cloudwatch")
-
-        cloudwatch.put_metric_data(
-            Namespace="KindleMint/Business",
-            MetricData=[
-                {
-                    "MetricName": metric_name,
-                    "Value": value,
-                    "Unit": unit,
-                    "Timestamp": time.time(),
-                }
-            ],
-        )
+    # AWS CloudWatch metrics removed - migrated to Vercel
+    # @staticmethod
+    # def log_business_metric(metric_name: str, value: float, unit: str = "Count"):
+    #     """Log custom business metrics to CloudWatch"""
+    #     import boto3
+    #
+    #     cloudwatch = boto3.client("cloudwatch")
+    #
+    #     cloudwatch.put_metric_data(
+    #         Namespace="KindleMint/Business",
+    #         MetricData=[
+    #             {
+    #                 "MetricName": metric_name,
+    #                 "Value": value,
+    #                 "Unit": unit,
+    #                 "Timestamp": time.time(),
+    #             }
+    #         ],
+    #     )
 
 
 # =============================================================================

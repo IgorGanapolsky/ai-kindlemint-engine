@@ -171,6 +171,10 @@ class KDPPerformanceAgent(BaseAgent):
 
     async def _scrape_amazon_product_page(self, asin: str) -> Dict[str, Any]:
         """Scrape public Amazon product page data"""
+        # Pause crawling if budget exceeded
+        if crawl_billing_manager.budget_exceeded:
+            self.logger.error("Crawl budget exceeded; aborting crawl")
+            return {"error": "Crawl budget exceeded"}
         headers = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
         }

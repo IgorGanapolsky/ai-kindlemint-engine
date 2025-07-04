@@ -21,8 +21,20 @@ This document summarizes Cloudflare's "Pay-Per-Crawl" approach and proposes how 
    - Provide CLI tools and scripts to generate usage reports (`scripts/crawl_billing_report.py`).
    - In future releases, integrate with Stripe metered billing APIs to automate invoicing.
 
-4. **Alerting & Thresholds**n+   - Add monitoring to alert when usage exceeds budgeted limits.
+4. **Alerting & Thresholds**
+   - Add monitoring to alert when usage exceeds budgeted limits.
    - Enable auto-pausing of non-critical crawls based on configurable thresholds.
+
+## Configuration
+
+The following environment variables control crawl billing and Stripe integration:
+- **PRICE_PER_CRAWL**: Cost per individual crawl request (float). Defaults to `0.00001`.
+- **MAX_CRAWL_BUDGET**: Optional maximum total spend for crawls. Further crawls are aborted if projected spend exceeds this limit. Defaults to unlimited.
+- **STRIPE_SECRET_KEY**: (Required) Your Stripe secret key (`sk_...`) for API access.
+- **STRIPE_SUBSCRIPTION_ITEM_ID**: (Required) The Stripe subscription item ID (`si_...`) for your metered pricing plan.
+- **NON_INTERACTIVE** or **ALWAYS_YES**: Set to `1` to disable interactive prompts in any orchestrator.
+
+Configure these in your environment or CI/CD secrets. For GitHub Actions, add under repository Settings → Secrets.
 
 ## Next Steps
 - Implement automated sync of usage records with Stripe for customers on metered plans.

@@ -568,8 +568,14 @@ class CodeHygieneOrchestrator:
     def execute_cleanup(self, auto_confirm: bool = False) -> Dict:
         """Execute cleanup operations"""
         results = {"operations": [], "success": True, "errors": []}
+        # Clean temporary files by default
+        try:
+            temp_res = self._clean_temporary_files()
+            results["operations"].append(temp_res)
+        except Exception as e:
+            results["errors"].append(f"clean_temporary_error: {e}")
 
-        # First analyze
+        # First analyze for other high-priority suggestions
         report = self.analyze_project_hygiene()
 
         for suggestion in report["suggestions"]:
@@ -582,12 +588,15 @@ class CodeHygieneOrchestrator:
 
     def _confirm_action(self, suggestion: Dict) -> bool:
         """Confirm action with user"""
+        # Global non-interactive override
+        import os
+        if os.getenv("NON_INTERACTIVE") or os.getenv("ALWAYS_YES"):
+            return True
         print(f"\n🤔 Suggested action: {suggestion.get('action')}")
         if "message" in suggestion:
             print(f"   {suggestion['message']}")
         if "command" in suggestion:
             print(f"   Command: {suggestion['command']}")
-
         response = input("Execute? (y/n): ")
         return response.lower() == "y"
 

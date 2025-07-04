@@ -14,6 +14,7 @@ class RootCleanupOrchestrator:
     def __init__(self):
         self.root = Path(os.getcwd())
         self.moves = []
+        self.quiet = False  # Default to verbose mode
         
         # Define organization rules
         self.organization_rules = {
@@ -36,6 +37,14 @@ class RootCleanupOrchestrator:
             "amp_files": {
                 "dir": "docs/amp",
                 "patterns": ["amp.progress.txt"]
+            },
+            "test_outputs": {
+                "dir": "tests/outputs",
+                "patterns": ["test_*.pdf", "test_*.png", "test_*.json", "*_test.pdf", "*_test.png"]
+            },
+            "temp_files": {
+                "dir": "tests/tmp",
+                "patterns": ["*.tmp", "*.temp", "tmp_*", "temp_*"]
             }
         }
         
@@ -52,19 +61,48 @@ class RootCleanupOrchestrator:
             "deprecated_validators": {
                 "dest": "archive_backup/deprecated",
                 "description": "Deprecated code"
+            },
+            "test_outputs": {
+                "dest": "tests/outputs",
+                "description": "Test output files"
+            },
+            "content": {
+                "dest": "marketing/content",
+                "description": "Marketing content and strategies"
+            },
+            "aws_code_backup_20250701_121329": {
+                "dest": "archive_backup/aws",
+                "description": "AWS infrastructure backup"
+            },
+            # Generic patterns for common directories
+            "test_output": {
+                "dest": "tests/outputs",
+                "description": "Test output files"
+            },
+            "tmp": {
+                "dest": "tests/tmp",
+                "description": "Temporary test files"
+            },
+            "temp": {
+                "dest": "tests/tmp",
+                "description": "Temporary files"
+            },
+            "features": {
+                "dest": "archive_backup/auto_generated_stubs",
+                "description": "Auto-generated feature stubs"
             }
         }
         
     def analyze_root(self):
         """Analyze root directory for files and directories to organize"""
-        if not hasattr(self, 'quiet') or not self.quiet:
+        if not self.quiet:
             print("🔍 Analyzing root directory for cleanup...")
             print("=" * 60)
         
         root_files = [f for f in self.root.glob("*") if f.is_file()]
         root_dirs = [d for d in self.root.glob("*") if d.is_dir() and not d.name.startswith('.')]
         
-        if not hasattr(self, 'quiet') or not self.quiet:
+        if not self.quiet:
             print(f"📊 Found {len(root_files)} files in root directory")
             print(f"📁 Found {len(root_dirs)} directories in root directory")
         
@@ -84,7 +122,7 @@ class RootCleanupOrchestrator:
         
         # Directories that should stay in root
         keep_dirs_in_root = {
-            "src", "tests", "scripts", "docs", "features", "assets",
+            "src", "tests", "scripts", "docs", "assets",
             "landing-pages", "agents", "reports", "infrastructure",
             "worktrees", "templates", "fonts", ".github", "__pycache__"
         }
@@ -98,8 +136,24 @@ class RootCleanupOrchestrator:
         for dir in root_dirs:
             if dir.name not in keep_dirs_in_root:
                 dirs_to_move.append(dir)
+            # Check for stub/empty directories even if whitelisted
+            elif dir.name == "features":
+                # Check if it's just auto-generated stubs
+                py_files = list(dir.rglob("*.py"))
+                if py_files:
+                    # Check if files are just stubs (< 100 lines total)
+                    total_lines = 0
+                    for py_file in py_files:
+                        try:
+                            total_lines += len(py_file.read_text().splitlines())
+                        except:
+                            pass
+                    if total_lines < 100 and len(py_files) < 5:
+                        dirs_to_move.append(dir)
+                        if not self.quiet:
+                            print(f"  🚨 Detected stub directory: {dir.name}/")
                 
-        if not hasattr(self, 'quiet') or not self.quiet:
+        if not self.quiet:
             print(f"✅ {len(root_files) - len(files_to_move)} files should stay in root")
             print(f"✅ {len(root_dirs) - len(dirs_to_move)} directories should stay in root")
             print(f"📦 {len(files_to_move)} files can be organized")
@@ -153,7 +207,7 @@ class RootCleanupOrchestrator:
             else:
                 unmatched_dirs.append(dir_path)
                 
-        if not hasattr(self, 'quiet') or not self.quiet:
+        if not self.quiet:
             print(f"\n📋 Organization Plan:")
             print(f"  - Files to organize: {len(file_moves)}")
             print(f"  - Directories to organize: {len(dir_moves)}")
@@ -174,15 +228,15 @@ class RootCleanupOrchestrator:
         
     def execute_moves(self, file_moves, dir_moves):
         """Execute the file and directory moves"""
-        if not hasattr(self, 'quiet') or not self.quiet:
+        if not self.quiet:
             print(f"\n🚀 Executing organization...")
         
         total_moves = 0
         
         # Execute file moves
         if file_moves:
-            if not hasattr(self, 'quiet') or not self.quiet:
-                print(f"\n📄 Moving files...")
+            if not self.quiet:
+                print("\n📄 Moving files...")
             
             # Group by destination
             by_dest = {}
@@ -196,7 +250,7 @@ class RootCleanupOrchestrator:
             for dest_dir, move_list in by_dest.items():
                 # Create destination directory
                 dest_dir.mkdir(parents=True, exist_ok=True)
-                if not hasattr(self, 'quiet') or not self.quiet:
+                if not self.quiet:
                     print(f"\n📁 Moving to {dest_dir.relative_to(self.root)}:")
                 
                 for move in move_list:
@@ -209,14 +263,14 @@ class RootCleanupOrchestrator:
                         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                         dest = dest_dir / f"{src.stem}_{timestamp}{src.suffix}"
                         
-                    if not hasattr(self, 'quiet') or not self.quiet:
+                    if not self.quiet:
                         print(f"  - {src.name} → {dest.relative_to(self.root)}")
                     shutil.move(str(src), str(dest))
                     total_moves += 1
         
         # Execute directory moves
         if dir_moves:
-            if not hasattr(self, 'quiet') or not self.quiet:
+            if not self.quiet:
                 print(f"\n📁 Moving directories...")
             
             for move in dir_moves:
@@ -233,13 +287,13 @@ class RootCleanupOrchestrator:
                     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                     dest_dir = dest_parent / f"{src_dir.name}_{timestamp}"
                 
-                if not hasattr(self, 'quiet') or not self.quiet:
+                if not self.quiet:
                     print(f"  - {src_dir.name}/ → {dest_dir.relative_to(self.root)}/ ({move['description']})")
                 
                 shutil.move(str(src_dir), str(dest_dir))
                 total_moves += 1
                 
-        if not hasattr(self, 'quiet') or not self.quiet:
+        if not self.quiet:
             print(f"\n✅ Moved {total_moves} items successfully!")
         
     def run(self, quiet=False):

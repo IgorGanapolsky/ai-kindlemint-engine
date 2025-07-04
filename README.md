@@ -20,7 +20,7 @@
 AI-KindleMint-Engine is a comprehensive platform that:
 1. **Generates** high-quality book content using AI agents
 2. **Validates** content with enterprise-grade QA systems
-3. **Publishes** to multiple channels (KDP, social media, email)
+3. **Prepares** publication-ready content for KDP and social media (manual publishing required)
 4. **Monetizes** through affiliates, courses, and upsells
 5. **Improves** continuously through AI-powered optimization
 
@@ -62,23 +62,23 @@ python src/kindlemint/orchestration_runner.py
 ### 🚀 Recent Updates (July 2025)
 
 **Streamlined Infrastructure:**
-- AWS services reduced to essential email service only
+- Migrated to Vercel for deployment (Free tier for testing)
 - Amp CLI integration with automated tagging
 - Emergency CI/CD pipeline restoration completed
 
 **Autonomous Worktree Orchestration:**
-- **4x faster book production** through parallel execution
+- **4x faster content generation** through parallel execution
 - **60-80% cost reduction** via intelligent task distribution
-- **Zero manual intervention** - fully autonomous operation
+- **Autonomous content creation** - manual publishing required
 
 ### 📊 Business Impact
 
 | Metric | Traditional | With Worktrees | Improvement |
 |--------|-------------|----------------|-------------|
-| Book Production Time | 2-4 hours | 30 minutes | **75% faster** |
-| Books per Hour | 1 | 4 | **4x capacity** |
+| Content Generation Time | 2-4 hours | 30 minutes | **75% faster** |
+| Books Generated per Hour | 1 | 4 | **4x capacity** |
 | Monthly Output | 100 books | 400 books | **4x increase** |
-| Cost per Book | $2.50 | $0.75 | **70% reduction** |
+| API Cost per Book | $2.50 | $0.75 | **70% reduction** |
 | CPU Utilization | 25% | 90%+ | **Optimal usage** |
 
 ### 🤖 Orchestration Flow
@@ -121,9 +121,9 @@ orchestrator = AutonomousWorktreeManager()
 # Initialize infrastructure (one-time setup)
 await orchestrator.initialize_worktree_infrastructure()
 
-# Autonomous book production - runs 6 tasks in parallel
+# Autonomous content generation - runs 6 tasks in parallel
 results = await orchestrator.autonomous_book_production()
-# Output: Book ready in 30 minutes vs 2+ hours sequential
+# Output: Content ready in 30 minutes vs 2+ hours sequential
 ```
 
 ### 📈 CEO Dashboard
@@ -191,6 +191,27 @@ python scripts/orchestration/autonomous_worktree_manager.py
 - **Branch isolation** ensures no code conflicts
 - **Error recovery** handles failures gracefully
 - **Resource limits** prevent system overload
+
+## 📚 Publishing Workflow
+
+### What's Automated vs Manual
+
+**✅ Fully Automated:**
+- Book content generation (puzzles, layouts, formatting)
+- Quality validation and QA checks
+- KDP metadata preparation (titles, descriptions, keywords)
+- Cover prompt generation for DALL-E
+- Social media content creation
+- Market research and insights
+
+**🔧 Manual Steps Required:**
+1. **KDP Publishing**: Upload generated files to KDP dashboard
+2. **Cover Creation**: Generate covers using DALL-E prompts
+3. **Social Media**: Post generated content to platforms
+4. **Email Campaigns**: Send prepared content to subscribers
+5. **Sales Monitoring**: Track performance and revenue
+
+This hybrid approach ensures high-quality content generation while maintaining control over the publishing process.
 
 ## 🛠️ Core Capabilities
 
@@ -324,7 +345,35 @@ python scripts/orchestration/autonomous_worktree_manager.py
 
 # Monitor real-time progress
 python scripts/orchestration/ceo_dashboard.py
+
+# Note: Generated content requires manual upload to KDP
 ```
+
+## 🚀 Deployment with Vercel
+
+### Phase 1: Free Tier Testing
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy to Vercel
+vercel
+
+# Follow prompts to connect GitHub repo
+# Your app will be live at: https://your-app.vercel.app
+```
+
+### Phase 2: Production (When Metrics Support)
+- Monitor conversion rates and traffic
+- If >15% conversion AND >1000 visitors/month:
+  - Upgrade to Vercel Pro ($20/month)
+  - Add ConvertKit integration ($29/month)
+
+### Why Vercel?
+- **Free tier**: 100GB bandwidth/month (perfect for testing)
+- **Next.js optimized**: Built for our tech stack
+- **Automatic scaling**: Pay only for what you use
+- **Zero configuration**: Deploy with one command
 
 ## 🏗️ AI-Powered Orchestration Architecture
 
@@ -418,10 +467,10 @@ ai-kindlemint-engine/
 
 ## 🌟 Success Stories
 
-- **400 books/month capacity** with parallel orchestration
-- **$175/month savings** on operational costs
-- **75% faster production** with worktree parallelism
-- **100% autonomous operation** - no manual intervention needed
+- **400 books/month generation capacity** with parallel orchestration
+- **$175/month savings** on API and operational costs
+- **75% faster content creation** with worktree parallelism
+- **100% autonomous content generation** - manual publishing workflow
 
 ## 🤝 Contributing
 

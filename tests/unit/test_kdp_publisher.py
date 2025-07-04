@@ -4,6 +4,10 @@
 # Mock KdpPublisher for now to prevent import errors
 class KdpPublisher:
     """Mock KdpPublisher class - actual module needs to be implemented"""
+    def upload_book(self, book_metadata: dict):
+        """Mock upload_book method that delegates to simulate_kdp_upload_process"""
+        return self.simulate_kdp_upload_process(book_metadata)
+        
     def simulate_kdp_upload_process(self, book_metadata: dict):
         raise NotImplementedError("KdpPublisher not yet implemented")
 
