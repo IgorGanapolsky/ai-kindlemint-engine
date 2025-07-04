@@ -331,7 +331,8 @@
       "Bash(do if [ -f \"$f\" ])",
       "Bash(then mv \"$f\" \"$f.disabled\")",
       "Bash(git cherry-pick:*)",
-      "Bash(diff:*)"
+      "Bash(diff:*)",
+      "Bash(./scripts/emergency_merge_130.sh:*)"
     ],
     "deny": []
   }
