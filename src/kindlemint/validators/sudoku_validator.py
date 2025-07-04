@@ -383,8 +383,7 @@ class SudokuValidator(PuzzleValidator):
                         issues.append(
                             self.create_issue(
                                 severity=IssueSeverity.ERROR,
-                                description=f"3x3 box at [{box_i},{
-                                    box_j}] in solution is not complete or has duplicates",
+                                description=f"3x3 box at [{box_i},{box_j}] in solution is not complete or has duplicates",
                                 puzzle_id=puzzle_id,
                                 recommendation="Solution boxes must contain all digits 1-9 exactly once",
                             )
@@ -404,8 +403,7 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Grid clue at [{i},{j}] doesn't match solution: {
-                                        grid[i][j]} vs {solution[i][j]}",
+                                    description=f"Grid clue at [{i},{j}] doesn't match solution: {grid[i][j]} vs {solution[i][j]}",
                                     puzzle_id=puzzle_id,
                                     location=f"grid[{i}][{j}]",
                                     recommendation="Ensure all clues match the solution",
@@ -432,8 +430,7 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Too few clues for {difficulty} difficulty: {
-                                clue_count} (min: {expected_range['min']})",
+                            description=f"Too few clues for {difficulty} difficulty: {clue_count} (min: {expected_range['min']})",
                             puzzle_id=puzzle_id,
                             recommendation=f"Add more clues or change difficulty level",
                         )
@@ -442,8 +439,7 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.WARNING,
-                            description=f"Too many clues for {difficulty} difficulty: {
-                                clue_count} (max: {expected_range['max']})",
+                            description=f"Too many clues for {difficulty} difficulty: {clue_count} (max: {expected_range['max']})",
                             puzzle_id=puzzle_id,
                             recommendation=f"Remove some clues or change difficulty level",
                         )
@@ -457,8 +453,7 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Empty row {
-                                i + 1} found - puzzle may be invalid",
+                            description=f"Empty row {i + 1} found - puzzle may be invalid",
                             puzzle_id=puzzle_id,
                             location=f"grid[{i}]",
                             recommendation="Every row must have at least one clue",
@@ -471,8 +466,7 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Empty column {
-                                j + 1} found - puzzle may be invalid",
+                            description=f"Empty column {j + 1} found - puzzle may be invalid",
                             puzzle_id=puzzle_id,
                             location=f"grid[:][{j}]",
                             recommendation="Every column must have at least one clue",
@@ -551,8 +545,7 @@ class SudokuValidator(PuzzleValidator):
                             issues.append(
                                 self.create_issue(
                                     severity=IssueSeverity.ERROR,
-                                    description=f"Provided solution doesn't match computed solution at [{
-                                        i},{j}]",
+                                    description=f"Provided solution doesn't match computed solution at [{i},{j}]",
                                     puzzle_id=puzzle_id,
                                     location=f"solution[{i}][{j}]",
                                     recommendation="Correct the solution or the puzzle",

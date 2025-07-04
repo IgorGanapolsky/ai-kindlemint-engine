@@ -62,7 +62,7 @@ python src/kindlemint/orchestration_runner.py
 ### 🚀 Recent Updates (July 2025)
 
 **Streamlined Infrastructure:**
-- AWS services reduced to essential email service only
+- Migrated to Vercel for deployment (Free tier for testing)
 - Amp CLI integration with automated tagging
 - Emergency CI/CD pipeline restoration completed
 
@@ -348,6 +348,32 @@ python scripts/orchestration/ceo_dashboard.py
 
 # Note: Generated content requires manual upload to KDP
 ```
+
+## 🚀 Deployment with Vercel
+
+### Phase 1: Free Tier Testing
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy to Vercel
+vercel
+
+# Follow prompts to connect GitHub repo
+# Your app will be live at: https://your-app.vercel.app
+```
+
+### Phase 2: Production (When Metrics Support)
+- Monitor conversion rates and traffic
+- If >15% conversion AND >1000 visitors/month:
+  - Upgrade to Vercel Pro ($20/month)
+  - Add ConvertKit integration ($29/month)
+
+### Why Vercel?
+- **Free tier**: 100GB bandwidth/month (perfect for testing)
+- **Next.js optimized**: Built for our tech stack
+- **Automatic scaling**: Pay only for what you use
+- **Zero configuration**: Deploy with one command
 
 ## 🏗️ AI-Powered Orchestration Architecture
 

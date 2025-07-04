@@ -517,8 +517,7 @@ def test_orchestrator_initialization(self, mock_orchestrator):
         assert mock_orchestrator.config.auto_resolution_enabled == True
         assert len(mock_orchestrator.active_alerts) == 0
 
-        """Test Alert Processing Decision Logic"""
-def test_alert_processing_decision_logic(self, mock_orchestrator):
+        def test_alert_processing_decision_logic(self, mock_orchestrator):
         """Test alert processing decision logic"""
         # Mock error and classification
         mock_error = Mock()
@@ -551,8 +550,7 @@ def test_alert_processing_decision_logic(self, mock_orchestrator):
         )
         assert isinstance(should_escalate, bool)
 
-        """Test Escalation Logic"""
-def test_escalation_logic(self, mock_orchestrator):
+        def test_escalation_logic(self, mock_orchestrator):
         """Test escalation decision logic"""
         # Critical error should escalate
         critical_error = Mock()
@@ -585,8 +583,7 @@ class TestIntegration:
     """Integration tests for the complete system"""
 
     @pytest.mark.asyncio
-    async     """Test End To End Workflow"""
-def test_end_to_end_workflow(self):
+    async def test_end_to_end_workflow(self):
         """Test complete end-to-end workflow"""
         # This test would require more complex setup with actual integrations
         # For now, we'll test the workflow logic
@@ -619,8 +616,7 @@ def test_end_to_end_workflow(self):
             assert isinstance(result, ResolutionResult)
             assert result.success in [True, False]  # Either outcome is valid in dry run
 
-        """Test Configuration Validation"""
-def test_configuration_validation(self):
+        def test_configuration_validation(self):
         """Test configuration file validation"""
         config_path = (
             Path(__file__).parent.parent
@@ -646,8 +642,7 @@ def test_configuration_validation(self):
             assert "slack_enabled" in components
             assert "auto_resolution_enabled" in components
 
-        """Test Error Patterns Validation"""
-def test_error_patterns_validation(self):
+        def test_error_patterns_validation(self):
         """Test error patterns file validation"""
         patterns_path = (
             Path(__file__).parent.parent
@@ -677,8 +672,7 @@ def test_error_patterns_validation(self):
 class TestPerformance:
     """Performance tests for the system"""
 
-        """Test Error Analysis Performance"""
-def test_error_analysis_performance(self):
+        def test_error_analysis_performance(self):
         """Test error analysis performance with multiple errors"""
         analyzer = ErrorAnalyzer()
 
@@ -716,8 +710,7 @@ def test_error_analysis_performance(self):
             assert classification.primary_category is not None
 
     @pytest.mark.asyncio
-    async     """Test Resolution Concurrency"""
-def test_resolution_concurrency(self):
+    async def test_resolution_concurrency(self):
         """Test concurrent resolution handling"""
         resolver = AutoResolver(dry_run=True)
 
@@ -750,7 +743,6 @@ def test_resolution_concurrency(self):
 
 # Pytest configuration and fixtures
 @pytest.fixture(scope="session")
-    """Event Loop"""
 def event_loop():
     """Create an instance of the default event loop for the test session."""
     loop = asyncio.get_event_loop_policy().new_event_loop()

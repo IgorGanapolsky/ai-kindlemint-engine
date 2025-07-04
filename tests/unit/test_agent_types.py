@@ -8,8 +8,7 @@ from kindlemint.agents.agent_types import AgentCapability
 class TestAgentTypes:
     """Test agent type definitions"""
 
-        """Test Agent Capability Enum"""
-def test_agent_capability_enum(self):
+        def test_agent_capability_enum(self):
         """Test AgentCapability enum values"""
         assert AgentCapability.CONTENT_GENERATION.value == "content_generation"
         assert AgentCapability.PUZZLE_CREATION.value == "puzzle_creation"

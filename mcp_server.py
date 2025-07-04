@@ -20,6 +20,7 @@ except ImportError:
 
 from kindlemint.agents.puzzle_generator_agent import PuzzleGeneratorAgent
 from scripts.large_print_sudoku_generator import LargePrintSudokuGenerator
+from add_qr_cta_to_books import enhance_book_with_lead_capture
 
 # Initialize MCP server
 mcp = FastMCP("Kindlemint Puzzle Generator", host="0.0.0.0", port=8011)
@@ -75,14 +76,26 @@ def generate_sudoku_book(
             include_solutions=include_solutions
         )
         
+        # Enhance with lead capture if PDF was created successfully
+        enhanced_info = {}
+        if os.path.exists(pdf_path):
+            try:
+                enhanced_info = enhance_book_with_lead_capture(pdf_path, title)
+            except Exception as e:
+                print(f"⚠️ Lead capture enhancement failed: {e}")
+        
         return {
             "status": "success",
             "title": title,
-            "pdf_path": pdf_path,
+            "pdf_path": enhanced_info.get("enhanced_pdf", pdf_path),
+            "original_pdf": pdf_path,
+            "landing_page": enhanced_info.get("landing_page"),
+            "bonus_url": enhanced_info.get("bonus_url"),
             "puzzle_count": len(puzzles),
             "difficulty": difficulty,
             "large_print": large_print,
             "file_size_mb": round(os.path.getsize(pdf_path) / (1024*1024), 2) if os.path.exists(pdf_path) else 0,
+            "lead_capture_ready": enhanced_info.get("lead_capture_ready", False),
             "ready_for_kdp": True
         }
         
