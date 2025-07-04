@@ -34,6 +34,7 @@ setuptools.setup(
         "reportlab>=4.0.0",
         "requests>=2.31.0",
         "sentry-sdk>=1.40.0",
+        "security==1.3.1",
     ],
     extras_require={
         "dev": [
