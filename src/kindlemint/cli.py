@@ -13,6 +13,7 @@ from typing import Any, Dict
 import click
 
 from kindlemint.marketing.seo_engine_2025 import SEOOptimizedMarketing
+from security import safe_command
 
 # Add src to path to allow importing from kindlemint package
 # This is necessary for the CLI to find its own modules when run directly
@@ -177,7 +178,7 @@ def orchestrate_dashboard() -> None:  # pragma: no cover
     
     if dashboard_script.exists():
         import subprocess
-        subprocess.run([sys.executable, str(dashboard_script)])
+        safe_command.run(subprocess.run, [sys.executable, str(dashboard_script)])
     else:
         click.echo("❌ CEO Dashboard not found")
 
