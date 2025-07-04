@@ -5,13 +5,13 @@ This is a production-quality generator that creates solvable puzzles
 """
 
 import json
-import random
 from datetime import datetime
 from pathlib import Path
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import inch
 from reportlab.pdfgen import canvas
+import secrets
 
 # 6×9 book dimensions
 PAGE_WIDTH = 6 * inch
@@ -202,7 +202,7 @@ class RealCrosswordGenerator:
         # Place words in grid
         for row, col, length in horizontal_slots:
             if str(length) in self.word_database:
-                word = random.choice(self.word_database[str(length)])
+                word = secrets.choice(self.word_database[str(length)])
 
                 # Place word in grid
                 for i, letter in enumerate(word):
