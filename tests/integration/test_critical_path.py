@@ -131,8 +131,7 @@ class TestCoreUtilities:
 
             Path(f.name).unlink()
 
-        """Test Timestamp Formatting"""
-def test_timestamp_formatting(self):
+        def test_timestamp_formatting(self):
         """Test timestamp utilities"""
         from datetime import datetime
 

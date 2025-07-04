@@ -51,7 +51,7 @@ class RootCleanupOrchestrator:
         # Define directory organization rules
         self.directory_rules = {
             "archive": {
-                "dest": ".trash",
+                "dest": "archive_backup",
                 "description": "Old archives and backups"
             },
             "sentry_enhanced": {
@@ -59,7 +59,7 @@ class RootCleanupOrchestrator:
                 "description": "Sentry research data"
             },
             "deprecated_validators": {
-                "dest": ".trash/deprecated",
+                "dest": "archive_backup/deprecated",
                 "description": "Deprecated code"
             },
             "test_outputs": {
@@ -69,6 +69,10 @@ class RootCleanupOrchestrator:
             "content": {
                 "dest": "marketing/content",
                 "description": "Marketing content and strategies"
+            },
+            "aws_code_backup_20250701_121329": {
+                "dest": "archive_backup/aws",
+                "description": "AWS infrastructure backup"
             },
             # Generic patterns for common directories
             "test_output": {
@@ -82,25 +86,9 @@ class RootCleanupOrchestrator:
             "temp": {
                 "dest": "tests/tmp",
                 "description": "Temporary files"
-            }
-        }
-        
-        # Define directory organization rules
-        self.directory_rules = {
-            "archive": {
-                "dest": ".trash",
-                "description": "Old archives and backups"
-            },
-            "sentry_enhanced": {
-                "dest": "reports/sentry",
-                "description": "Sentry research data"
-            },
-            "deprecated_validators": {
-                "dest": ".trash/deprecated",
-                "description": "Deprecated code"
             },
             "features": {
-                "dest": ".trash/auto_generated_stubs",
+                "dest": "archive_backup/auto_generated_stubs",
                 "description": "Auto-generated feature stubs"
             }
         }
