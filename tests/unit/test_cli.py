@@ -2,8 +2,17 @@ from pathlib import Path
 
 from click.testing import CliRunner
 
-import scripts.cli.main as cli_module
-from scripts.cli.main import FORMATTERS, cli
+# TODO: Migrate CLI properly to kindlemint package
+import sys
+from pathlib import Path
+
+# Add scripts to path for now
+scripts_path = Path(__file__).parent.parent.parent / "scripts"
+if str(scripts_path) not in sys.path:
+    sys.path.insert(0, str(scripts_path))
+
+import cli.main as cli_module
+from cli.main import FORMATTERS, cli
 
 
 class DummyFormatter:
