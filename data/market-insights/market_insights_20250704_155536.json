@@ -1,0 +1,964 @@
+{
+  "timestamp": "2025-07-04T15:55:33.282568",
+  "date": "2025-07-04",
+  "sources": {
+    "reddit": {
+      "timestamp": "2025-07-04T15:55:33.121817",
+      "date": "2025-07-04",
+      "summary": {
+        "total_posts_analyzed": 181,
+        "subreddits_scraped": 7,
+        "avg_engagement": 24.91160220994475
+      },
+      "top_keywords": {
+        "book": {
+          "count": 97,
+          "engagement": 2878
+        },
+        "kdp": {
+          "count": 45,
+          "engagement": 1102
+        },
+        "amazon": {
+          "count": 44,
+          "engagement": 1056
+        },
+        "publishing": {
+          "count": 39,
+          "engagement": 970
+        },
+        "kindle": {
+          "count": 16,
+          "engagement": 579
+        },
+        "sales": {
+          "count": 16,
+          "engagement": 514
+        },
+        "cover": {
+          "count": 20,
+          "engagement": 511
+        },
+        "review": {
+          "count": 20,
+          "engagement": 401
+        },
+        "ads": {
+          "count": 15,
+          "engagement": 400
+        },
+        "ebook": {
+          "count": 11,
+          "engagement": 307
+        },
+        "romance": {
+          "count": 8,
+          "engagement": 261
+        },
+        "coloring": {
+          "count": 3,
+          "engagement": 180
+        },
+        "promotion": {
+          "count": 5,
+          "engagement": 177
+        },
+        "paperback": {
+          "count": 8,
+          "engagement": 118
+        },
+        "niche": {
+          "count": 2,
+          "engagement": 118
+        },
+        "keywords": {
+          "count": 5,
+          "engagement": 106
+        },
+        "marketing": {
+          "count": 9,
+          "engagement": 91
+        },
+        "children": {
+          "count": 4,
+          "engagement": 90
+        },
+        "advertising": {
+          "count": 4,
+          "engagement": 62
+        },
+        "notebook": {
+          "count": 1,
+          "engagement": 60
+        }
+      },
+      "trending_topics": [
+        {
+          "title": "Burning Questions for June, 2025",
+          "engagement": 437,
+          "url": "https://www.reddit.com/r/eroticauthors/comments/1l0j0ab/burning_questions_for_june_2025/",
+          "subreddit": "eroticauthors"
+        },
+        {
+          "title": "I thought I was making progress with Kindle Unlimited\u2026 until I saw what I actually earned",
+          "engagement": 205,
+          "url": "https://www.reddit.com/r/selfpublishing/comments/1loas9n/i_thought_i_was_making_progress_with_kindle/",
+          "subreddit": "selfpublishing"
+        },
+        {
+          "title": "Weekly Self-Promo and Chat Thread",
+          "engagement": 163,
+          "url": "https://www.reddit.com/r/selfpublish/comments/1lny230/weekly_selfpromo_and_chat_thread/",
+          "subreddit": "selfpublish"
+        },
+        {
+          "title": "Thoughts on Not Selling Through Amazon?",
+          "engagement": 156,
+          "url": "https://www.reddit.com/r/selfpublish/comments/1lqvkg7/thoughts_on_not_selling_through_amazon/",
+          "subreddit": "selfpublish"
+        },
+        {
+          "title": "Self published my first book yesterday, today is says #1 new release",
+          "engagement": 151,
+          "url": "https://www.reddit.com/r/selfpublish/comments/1lrow66/self_published_my_first_book_yesterday_today_is/",
+          "subreddit": "selfpublish"
+        },
+        {
+          "title": "Landed my first full-time job in publishing and how I got there!",
+          "engagement": 135,
+          "url": "https://www.reddit.com/r/publishing/comments/1logccx/landed_my_first_fulltime_job_in_publishing_and/",
+          "subreddit": "publishing"
+        },
+        {
+          "title": "Your Thoughts: BDSM Where the Tables Turn?",
+          "engagement": 112,
+          "url": "https://www.reddit.com/r/eroticauthors/comments/1lr2eyk/your_thoughts_bdsm_where_the_tables_turn/",
+          "subreddit": "eroticauthors"
+        },
+        {
+          "title": "Data Porn 1/2 Year Results",
+          "engagement": 103,
+          "url": "https://www.reddit.com/r/eroticauthors/comments/1lozhzq/data_porn_12_year_results/",
+          "subreddit": "eroticauthors"
+        },
+        {
+          "title": "When you put books up for sale, people buy them. Who would have thought? Well, not my ex-publisher!",
+          "engagement": 88,
+          "url": "https://www.reddit.com/r/selfpublish/comments/1lrhtpr/when_you_put_books_up_for_sale_people_buy_them/",
+          "subreddit": "selfpublish"
+        },
+        {
+          "title": "Do readers want complex plots?",
+          "engagement": 81,
+          "url": "https://www.reddit.com/r/eroticauthors/comments/1lp716b/do_readers_want_complex_plots/",
+          "subreddit": "eroticauthors"
+        }
+      ],
+      "subreddit_insights": {
+        "selfpublishing": {
+          "keywords": {
+            "amazon": {
+              "count": 3,
+              "engagement": 44
+            },
+            "cover": {
+              "count": 3,
+              "engagement": 13
+            },
+            "book": {
+              "count": 18,
+              "engagement": 443
+            },
+            "promotion": {
+              "count": 2,
+              "engagement": 6
+            },
+            "kdp": {
+              "count": 4,
+              "engagement": 221
+            },
+            "publishing": {
+              "count": 7,
+              "engagement": 106
+            },
+            "children": {
+              "count": 2,
+              "engagement": 16
+            },
+            "journal": {
+              "count": 1,
+              "engagement": 0
+            },
+            "kindle": {
+              "count": 3,
+              "engagement": 230
+            },
+            "review": {
+              "count": 2,
+              "engagement": 21
+            },
+            "ads": {
+              "count": 2,
+              "engagement": 221
+            },
+            "ebook": {
+              "count": 1,
+              "engagement": 1
+            },
+            "sales": {
+              "count": 1,
+              "engagement": 29
+            }
+          },
+          "trending_topics": [
+            {
+              "title": "I thought I was making progress with Kindle Unlimited\u2026 until I saw what I actually earned",
+              "engagement": 205,
+              "url": "https://www.reddit.com/r/selfpublishing/comments/1loas9n/i_thought_i_was_making_progress_with_kindle/",
+              "subreddit": "selfpublishing"
+            },
+            {
+              "title": "Should I make an audiobook of my first book?",
+              "engagement": 51,
+              "url": "https://www.reddit.com/r/selfpublishing/comments/1lm3v9n/should_i_make_an_audiobook_of_my_first_book/",
+              "subreddit": "selfpublishing"
+            }
+          ],
+          "total_posts": 25,
+          "avg_engagement": 21.56
+        },
+        "KDP": {
+          "keywords": {
+            "kdp": {
+              "count": 19,
+              "engagement": 391
+            },
+            "kindle": {
+              "count": 3,
+              "engagement": 86
+            },
+            "publishing": {
+              "count": 5,
+              "engagement": 159
+            },
+            "amazon": {
+              "count": 14,
+              "engagement": 324
+            },
+            "book": {
+              "count": 19,
+              "engagement": 410
+            },
+            "keywords": {
+              "count": 1,
+              "engagement": 60
+            },
+            "ebook": {
+              "count": 3,
+              "engagement": 85
+            },
+            "coloring": {
+              "count": 1,
+              "engagement": 60
+            },
+            "notebook": {
+              "count": 1,
+              "engagement": 60
+            },
+            "paperback": {
+              "count": 4,
+              "engagement": 74
+            },
+            "review": {
+              "count": 2,
+              "engagement": 20
+            },
+            "sales": {
+              "count": 4,
+              "engagement": 80
+            },
+            "ads": {
+              "count": 3,
+              "engagement": 22
+            },
+            "romance": {
+              "count": 1,
+              "engagement": 46
+            },
+            "advertising": {
+              "count": 1,
+              "engagement": 18
+            },
+            "promotion": {
+              "count": 2,
+              "engagement": 8
+            },
+            "cover": {
+              "count": 3,
+              "engagement": 26
+            },
+            "puzzle": {
+              "count": 1,
+              "engagement": 14
+            }
+          },
+          "trending_topics": [
+            {
+              "title": "Free KDP tools and resources for authors",
+              "engagement": 72,
+              "url": "https://www.reddit.com/r/KDP/comments/1lnzf6n/free_kdp_tools_and_resources_for_authors/",
+              "subreddit": "KDP"
+            },
+            {
+              "title": "Announcement.",
+              "engagement": 60,
+              "url": "https://www.reddit.com/r/KDP/comments/14vl62j/announcement/",
+              "subreddit": "KDP"
+            }
+          ],
+          "total_posts": 27,
+          "avg_engagement": 18.25925925925926
+        },
+        "eroticauthors": {
+          "keywords": {
+            "kdp": {
+              "count": 3,
+              "engagement": 56
+            },
+            "book": {
+              "count": 8,
+              "engagement": 331
+            },
+            "ads": {
+              "count": 2,
+              "engagement": 16
+            },
+            "review": {
+              "count": 2,
+              "engagement": 23
+            },
+            "niche": {
+              "count": 2,
+              "engagement": 118
+            },
+            "romance": {
+              "count": 5,
+              "engagement": 205
+            },
+            "cover": {
+              "count": 8,
+              "engagement": 333
+            },
+            "sales": {
+              "count": 1,
+              "engagement": 15
+            },
+            "keywords": {
+              "count": 3,
+              "engagement": 36
+            },
+            "amazon": {
+              "count": 5,
+              "engagement": 139
+            },
+            "publishing": {
+              "count": 2,
+              "engagement": 134
+            },
+            "marketing": {
+              "count": 3,
+              "engagement": 39
+            },
+            "kindle": {
+              "count": 3,
+              "engagement": 109
+            },
+            "ebook": {
+              "count": 2,
+              "engagement": 131
+            }
+          },
+          "trending_topics": [
+            {
+              "title": "Burning Questions for June, 2025",
+              "engagement": 437,
+              "url": "https://www.reddit.com/r/eroticauthors/comments/1l0j0ab/burning_questions_for_june_2025/",
+              "subreddit": "eroticauthors"
+            },
+            {
+              "title": "Your Thoughts: BDSM Where the Tables Turn?",
+              "engagement": 112,
+              "url": "https://www.reddit.com/r/eroticauthors/comments/1lr2eyk/your_thoughts_bdsm_where_the_tables_turn/",
+              "subreddit": "eroticauthors"
+            },
+            {
+              "title": "Data Porn 1/2 Year Results",
+              "engagement": 103,
+              "url": "https://www.reddit.com/r/eroticauthors/comments/1lozhzq/data_porn_12_year_results/",
+              "subreddit": "eroticauthors"
+            },
+            {
+              "title": "Do readers want complex plots?",
+              "engagement": 81,
+              "url": "https://www.reddit.com/r/eroticauthors/comments/1lp716b/do_readers_want_complex_plots/",
+              "subreddit": "eroticauthors"
+            },
+            {
+              "title": "Found pirated copies of my KU books",
+              "engagement": 66,
+              "url": "https://www.reddit.com/r/eroticauthors/comments/1lp2tcy/found_pirated_copies_of_my_ku_books/",
+              "subreddit": "eroticauthors"
+            },
+            {
+              "title": "How are you all doing it!!!  (I'm in awe)",
+              "engagement": 54,
+              "url": "https://www.reddit.com/r/eroticauthors/comments/1lp2ijr/how_are_you_all_doing_it_im_in_awe/",
+              "subreddit": "eroticauthors"
+            }
+          ],
+          "total_posts": 26,
+          "avg_engagement": 47.0
+        },
+        "writingopportunities": {
+          "keywords": {
+            "ads": {
+              "count": 3,
+              "engagement": 12
+            },
+            "marketing": {
+              "count": 2,
+              "engagement": 1
+            },
+            "book": {
+              "count": 5,
+              "engagement": 53
+            },
+            "review": {
+              "count": 5,
+              "engagement": 35
+            },
+            "fantasy": {
+              "count": 1,
+              "engagement": 4
+            },
+            "cover": {
+              "count": 1,
+              "engagement": 2
+            },
+            "sales": {
+              "count": 1,
+              "engagement": 0
+            },
+            "romance": {
+              "count": 1,
+              "engagement": 6
+            }
+          },
+          "trending_topics": [],
+          "total_posts": 26,
+          "avg_engagement": 7.230769230769231
+        },
+        "amazonKDP": {
+          "keywords": {
+            "kdp": {
+              "count": 13,
+              "engagement": 357
+            },
+            "kindle": {
+              "count": 6,
+              "engagement": 141
+            },
+            "publishing": {
+              "count": 3,
+              "engagement": 81
+            },
+            "amazon": {
+              "count": 13,
+              "engagement": 297
+            },
+            "cover": {
+              "count": 3,
+              "engagement": 99
+            },
+            "book": {
+              "count": 16,
+              "engagement": 367
+            },
+            "coloring": {
+              "count": 2,
+              "engagement": 120
+            },
+            "sales": {
+              "count": 3,
+              "engagement": 87
+            },
+            "advertising": {
+              "count": 2,
+              "engagement": 44
+            },
+            "review": {
+              "count": 3,
+              "engagement": 41
+            },
+            "ebook": {
+              "count": 3,
+              "engagement": 13
+            },
+            "ads": {
+              "count": 1,
+              "engagement": 7
+            },
+            "launch": {
+              "count": 1,
+              "engagement": 10
+            },
+            "keywords": {
+              "count": 1,
+              "engagement": 10
+            }
+          },
+          "trending_topics": [
+            {
+              "title": "How to Create a Coloring Book For Amazon KDP Using Free Tools And Make Passive Income",
+              "engagement": 61,
+              "url": "https://www.reddit.com/r/AmazonKDP/comments/fkeh6z/how_to_create_a_coloring_book_for_amazon_kdp/",
+              "subreddit": "AmazonKDP"
+            },
+            {
+              "title": "Pre-order Book Inexplicably Blocked",
+              "engagement": 60,
+              "url": "https://www.reddit.com/r/AmazonKDP/comments/fsh065/preorder_book_inexplicably_blocked/",
+              "subreddit": "AmazonKDP"
+            },
+            {
+              "title": "Do you have to keep producing new content to get a steady income?",
+              "engagement": 59,
+              "url": "https://www.reddit.com/r/AmazonKDP/comments/fj4833/do_you_have_to_keep_producing_new_content_to_get/",
+              "subreddit": "AmazonKDP"
+            },
+            {
+              "title": "Welcome to /r/AmazonKDP!",
+              "engagement": 52,
+              "url": "https://www.reddit.com/r/AmazonKDP/comments/2y882c/welcome_to_ramazonkdp/",
+              "subreddit": "AmazonKDP"
+            }
+          ],
+          "total_posts": 26,
+          "avg_engagement": 20.0
+        },
+        "publishing": {
+          "keywords": {
+            "review": {
+              "count": 1,
+              "engagement": 13
+            },
+            "publishing": {
+              "count": 19,
+              "engagement": 423
+            },
+            "cover": {
+              "count": 1,
+              "engagement": 11
+            },
+            "book": {
+              "count": 8,
+              "engagement": 240
+            },
+            "marketing": {
+              "count": 2,
+              "engagement": 21
+            },
+            "kdp": {
+              "count": 1,
+              "engagement": 7
+            },
+            "amazon": {
+              "count": 1,
+              "engagement": 7
+            },
+            "paperback": {
+              "count": 1,
+              "engagement": 7
+            },
+            "journal": {
+              "count": 1,
+              "engagement": 21
+            }
+          },
+          "trending_topics": [
+            {
+              "title": "Landed my first full-time job in publishing and how I got there!",
+              "engagement": 135,
+              "url": "https://www.reddit.com/r/publishing/comments/1logccx/landed_my_first_fulltime_job_in_publishing_and/",
+              "subreddit": "publishing"
+            },
+            {
+              "title": "Unpaid Internships and their effects on class disparities",
+              "engagement": 58,
+              "url": "https://www.reddit.com/r/publishing/comments/1lo56kw/unpaid_internships_and_their_effects_on_class/",
+              "subreddit": "publishing"
+            }
+          ],
+          "total_posts": 25,
+          "avg_engagement": 19.4
+        },
+        "selfpublish": {
+          "keywords": {
+            "book": {
+              "count": 23,
+              "engagement": 1034
+            },
+            "promotion": {
+              "count": 1,
+              "engagement": 163
+            },
+            "children": {
+              "count": 2,
+              "engagement": 74
+            },
+            "sales": {
+              "count": 6,
+              "engagement": 303
+            },
+            "marketing": {
+              "count": 2,
+              "engagement": 30
+            },
+            "amazon": {
+              "count": 8,
+              "engagement": 245
+            },
+            "kdp": {
+              "count": 5,
+              "engagement": 70
+            },
+            "romance": {
+              "count": 1,
+              "engagement": 4
+            },
+            "paperback": {
+              "count": 3,
+              "engagement": 37
+            },
+            "publishing": {
+              "count": 3,
+              "engagement": 67
+            },
+            "ebook": {
+              "count": 2,
+              "engagement": 77
+            },
+            "ads": {
+              "count": 4,
+              "engagement": 122
+            },
+            "review": {
+              "count": 5,
+              "engagement": 248
+            },
+            "advertising": {
+              "count": 1,
+              "engagement": 0
+            },
+            "cover": {
+              "count": 1,
+              "engagement": 27
+            },
+            "kindle": {
+              "count": 1,
+              "engagement": 13
+            },
+            "launch": {
+              "count": 1,
+              "engagement": 9
+            }
+          },
+          "trending_topics": [
+            {
+              "title": "Weekly Self-Promo and Chat Thread",
+              "engagement": 163,
+              "url": "https://www.reddit.com/r/selfpublish/comments/1lny230/weekly_selfpromo_and_chat_thread/",
+              "subreddit": "selfpublish"
+            },
+            {
+              "title": "Thoughts on Not Selling Through Amazon?",
+              "engagement": 156,
+              "url": "https://www.reddit.com/r/selfpublish/comments/1lqvkg7/thoughts_on_not_selling_through_amazon/",
+              "subreddit": "selfpublish"
+            },
+            {
+              "title": "Self published my first book yesterday, today is says #1 new release",
+              "engagement": 151,
+              "url": "https://www.reddit.com/r/selfpublish/comments/1lrow66/self_published_my_first_book_yesterday_today_is/",
+              "subreddit": "selfpublish"
+            },
+            {
+              "title": "When you put books up for sale, people buy them. Who would have thought? Well, not my ex-publisher!",
+              "engagement": 88,
+              "url": "https://www.reddit.com/r/selfpublish/comments/1lrhtpr/when_you_put_books_up_for_sale_people_buy_them/",
+              "subreddit": "selfpublish"
+            },
+            {
+              "title": "Almost no KENP pages or sales in second half of June and July. Anyone else going through this?",
+              "engagement": 80,
+              "url": "https://www.reddit.com/r/selfpublish/comments/1lqjbc3/almost_no_kenp_pages_or_sales_in_second_half_of/",
+              "subreddit": "selfpublish"
+            },
+            {
+              "title": "Does anyone try to sell their novels over reddit?",
+              "engagement": 66,
+              "url": "https://www.reddit.com/r/selfpublish/comments/1lr5arf/does_anyone_try_to_sell_their_novels_over_reddit/",
+              "subreddit": "selfpublish"
+            }
+          ],
+          "total_posts": 26,
+          "avg_engagement": 40.84615384615385
+        }
+      },
+      "market_signals": [
+        {
+          "type": "high_demand_niche",
+          "keyword": "amazon",
+          "strength": "strong",
+          "engagement": 1056,
+          "recommendation": "Consider creating content around 'amazon' - high community interest"
+        },
+        {
+          "type": "high_demand_niche",
+          "keyword": "cover",
+          "strength": "strong",
+          "engagement": 511,
+          "recommendation": "Consider creating content around 'cover' - high community interest"
+        },
+        {
+          "type": "high_demand_niche",
+          "keyword": "book",
+          "strength": "strong",
+          "engagement": 2878,
+          "recommendation": "Consider creating content around 'book' - high community interest"
+        },
+        {
+          "type": "high_demand_niche",
+          "keyword": "promotion",
+          "strength": "moderate",
+          "engagement": 177,
+          "recommendation": "Consider creating content around 'promotion' - high community interest"
+        },
+        {
+          "type": "high_demand_niche",
+          "keyword": "kdp",
+          "strength": "strong",
+          "engagement": 1102,
+          "recommendation": "Consider creating content around 'kdp' - high community interest"
+        },
+        {
+          "type": "high_demand_niche",
+          "keyword": "publishing",
+          "strength": "strong",
+          "engagement": 970,
+          "recommendation": "Consider creating content around 'publishing' - high community interest"
+        },
+        {
+          "type": "high_demand_niche",
+          "keyword": "kindle",
+          "strength": "strong",
+          "engagement": 579,
+          "recommendation": "Consider creating content around 'kindle' - high community interest"
+        },
+        {
+          "type": "high_demand_niche",
+          "keyword": "review",
+          "strength": "moderate",
+          "engagement": 401,
+          "recommendation": "Consider creating content around 'review' - high community interest"
+        },
+        {
+          "type": "trending_topic",
+          "title": "Burning Questions for June, 2025",
+          "engagement": 437,
+          "source": "eroticauthors",
+          "recommendation": "Monitor this topic for content opportunities"
+        },
+        {
+          "type": "trending_topic",
+          "title": "I thought I was making progress with Kindle Unlimited\u2026 until I saw what I actually earned",
+          "engagement": 205,
+          "source": "selfpublishing",
+          "recommendation": "Monitor this topic for content opportunities"
+        },
+        {
+          "type": "trending_topic",
+          "title": "Weekly Self-Promo and Chat Thread",
+          "engagement": 163,
+          "source": "selfpublish",
+          "recommendation": "Monitor this topic for content opportunities"
+        },
+        {
+          "type": "trending_topic",
+          "title": "Thoughts on Not Selling Through Amazon?",
+          "engagement": 156,
+          "source": "selfpublish",
+          "recommendation": "Monitor this topic for content opportunities"
+        },
+        {
+          "type": "trending_topic",
+          "title": "Self published my first book yesterday, today is says #1 new release",
+          "engagement": 151,
+          "source": "selfpublish",
+          "recommendation": "Monitor this topic for content opportunities"
+        }
+      ]
+    },
+    "google_trends": {
+      "puzzle_books": {
+        "keywords": [
+          "sudoku books",
+          "crossword puzzles",
+          "word search books",
+          "puzzle books adults"
+        ],
+        "current_interest": 15.742857142857142,
+        "trend_direction": "down",
+        "trend_strength": 2.8740036787247067
+      },
+      "coloring_books": {
+        "keywords": [
+          "adult coloring books",
+          "coloring books",
+          "mandala coloring"
+        ],
+        "current_interest": 25.892857142857142,
+        "trend_direction": "down",
+        "trend_strength": 10.814569182221753
+      },
+      "journals": {
+        "keywords": [
+          "journal notebook",
+          "diary journal",
+          "gratitude journal"
+        ],
+        "current_interest": 38.5,
+        "trend_direction": "up",
+        "trend_strength": 0.6250000000000016
+      },
+      "planners": {
+        "keywords": [
+          "daily planner",
+          "weekly planner",
+          "productivity planner"
+        ],
+        "current_interest": 36.75,
+        "trend_direction": "down",
+        "trend_strength": 2.900631820792652
+      },
+      "activity_books": {
+        "keywords": [
+          "activity books adults",
+          "brain games",
+          "puzzle activity books"
+        ],
+        "current_interest": 17.999999999999996,
+        "trend_direction": "down",
+        "trend_strength": 8.65968008825153
+      }
+    },
+    "amazon": {
+      "hot_categories": [
+        {
+          "category": "Back-to-School Planners",
+          "competition": "high",
+          "demand": "very high"
+        },
+        {
+          "category": "Academic Journals",
+          "competition": "medium",
+          "demand": "high"
+        }
+      ],
+      "saturated_niches": [],
+      "emerging_opportunities": [
+        {
+          "niche": "AI-themed Puzzle Books",
+          "rationale": "Growing interest in AI/tech themes",
+          "competition": "very low",
+          "estimated_demand": "growing"
+        },
+        {
+          "niche": "Mindfulness Coloring Books",
+          "rationale": "Mental health awareness trend",
+          "competition": "medium",
+          "estimated_demand": "stable high"
+        }
+      ]
+    },
+    "seasonal": {
+      "upcoming_seasons": [
+        {
+          "season": "Back to School",
+          "days_until": 41,
+          "preparation_status": "plan now",
+          "recommended_categories": [
+            "Student Planners",
+            "Study Guides",
+            "Academic Journals"
+          ]
+        }
+      ],
+      "current_opportunities": []
+    }
+  },
+  "synthesis": {
+    "top_opportunities": [
+      {
+        "keyword": "book",
+        "source": "reddit",
+        "strength": "high"
+      },
+      {
+        "keyword": "kdp",
+        "source": "reddit",
+        "strength": "high"
+      },
+      {
+        "keyword": "amazon",
+        "source": "reddit",
+        "strength": "high"
+      },
+      {
+        "keyword": "publishing",
+        "source": "reddit",
+        "strength": "high"
+      },
+      {
+        "keyword": "kindle",
+        "source": "reddit",
+        "strength": "high"
+      }
+    ],
+    "market_temperature": {
+      "overall": "warm",
+      "recommendation": "Maintain pace"
+    },
+    "action_items": []
+  },
+  "recommendations": [
+    {
+      "priority": 1,
+      "action": "Create book-themed puzzle book",
+      "timeframe": "This week",
+      "rationale": "High engagement on Reddit (high interest)"
+    },
+    {
+      "priority": 1,
+      "action": "Create kdp-themed puzzle book",
+      "timeframe": "This week",
+      "rationale": "High engagement on Reddit (high interest)"
+    },
+    {
+      "priority": 1,
+      "action": "Create amazon-themed puzzle book",
+      "timeframe": "This week",
+      "rationale": "High engagement on Reddit (high interest)"
+    }
+  ]
+}

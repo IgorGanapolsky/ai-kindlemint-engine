@@ -1,11 +1,16 @@
 name: Sentry AI Automation
 
+# DISABLED: Reducing bot noise per CTO directive
+# To re-enable: uncomment the 'on:' section below
+# on:
+#   pull_request:
+#     types: [opened, ready_for_review]
+#     paths:
+#       - 'src/**'
+#       - 'lambda/**'
+
 on:
-  pull_request:
-    types: [opened, ready_for_review]
-    paths:
-      - 'src/**'
-      - 'lambda/**'
+  workflow_dispatch: # Manual trigger only
 
 jobs:
   sentry-ai-review:
