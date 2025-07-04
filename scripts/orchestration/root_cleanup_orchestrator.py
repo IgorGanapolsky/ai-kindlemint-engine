@@ -70,10 +70,6 @@ class RootCleanupOrchestrator:
                 "dest": "marketing/content",
                 "description": "Marketing content and strategies"
             },
-            "aws_code_backup_20250701_121329": {
-                "dest": "archive_backup/aws",
-                "description": "AWS infrastructure backup"
-            },
             # Generic patterns for common directories
             "test_output": {
                 "dest": "tests/outputs",
