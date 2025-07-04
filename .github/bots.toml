@@ -1,14 +1,23 @@
-# Bot Configuration - Block problematic bots
+# Bot Configuration - Block problematic bots causing email spam
 
 [bots.pixeebot]
 # Pixeebot causes syntax errors with bad auto-formatting
 enabled = false
 block = true
 
-[bots.coderabbitai]
-# CodeRabbit is useful but configured via .coderabbit.yml
+[bots.seer-by-sentry]
+# Seer generates excessive emails with unit test suggestions
+enabled = false
+block = true
+reason = "Generates too many emails with detailed code suggestions"
+
+[bots.coderabbitai] 
+# CodeRabbit rate limited - reduce activity
 enabled = true
+rate_limit = "low"
+email_notifications = false
 
 [bots.github-actions]
-# Can't disable but email notifications are controlled via GitHub settings
+# Reduce email notifications for failed workflows
 enabled = true
+email_on_failure = false

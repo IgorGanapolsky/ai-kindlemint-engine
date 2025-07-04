@@ -52,8 +52,23 @@ python scripts/critical_metadata_qa.py
 python src/kindlemint/orchestration_runner.py
 ```
 
+### 💳 Pay-Per-Crawl Billing (NEW)
+```bash
+# View detailed billing report
+python scripts/crawl_billing_report.py
+
+# Launch real-time dashboard
+python scripts/crawl_billing_dashboard.py
+
+# Sync usage to Stripe
+python scripts/crawl_billing_report.py --sync-stripe
+```
+
+All HTTP crawling operations (Amazon scraping, Reddit API, SerpApi, Google Trends) now include transparent usage tracking with **$0.00001/request** pricing.
+
 ### Documentation
 - [Implementation Plan](docs/plan.md)
+- [Pay-Per-Crawl System](docs/pay_per_crawl.md)
 - [Commit Guidelines](docs/COMMIT_VALIDATION.md)
 - [Orchestration Strategy](docs/GIT_WORKTREES_ORCHESTRATION_STRATEGY.md)
 

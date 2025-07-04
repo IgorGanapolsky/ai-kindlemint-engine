@@ -107,6 +107,7 @@ ai-kindlemint-engine/
 - ✅ **Market Research** - Competition analysis tools
 - ✅ **Daily Market Insights** - Real-time intelligence from Reddit, Google Trends, Amazon
 - ✅ **Social Atomization** - Multi-platform content
+- ✅ **Pay-Per-Crawl Billing** - Usage-based monetization with Stripe integration
 
 ### Quality Systems
 - ✅ **Critical Metadata QA** - Catches all KDP issues
@@ -248,6 +249,52 @@ cat reports/market-insights/executive_summary_$(date +%Y%m%d).md
 - **Market Temperature**: WARM - maintain pace
 - **Top Recommendation**: Create book-themed puzzle content
 - **Data Freshness**: Now updating daily via GitHub Actions
+
+## 💳 Pay-Per-Crawl Monetization System (NEW - July 4, 2025)
+
+### Overview
+Complete implementation of usage-based billing for all HTTP crawling operations, transforming market research costs into transparent, trackable expenses with Stripe integration.
+
+### Key Features
+1. **CrawlBillingManager** (`src/kindlemint/billing/crawl_billing.py`)
+   - Thread-safe usage tracking with source attribution
+   - Budget enforcement with automatic circuit breaker
+   - Real-time cost calculations and export capabilities
+
+2. **Comprehensive Instrumentation**
+   - Amazon scraping (KDP performance monitoring)
+   - Reddit API (market insights collection)
+   - SerpApi (Amazon product search)
+   - Google Trends (keyword research)
+   - Botpress API (conversational AI)
+
+3. **Monitoring & Reporting**
+   - Real-time dashboard with Rich UI (`scripts/crawl_billing_dashboard.py`)
+   - Detailed reports with source breakdown (`scripts/crawl_billing_report.py`)
+   - Automatic Stripe sync for metered billing
+
+### Implementation Details
+- **Problem**: No visibility into crawling costs across different services
+- **Solution**: Built comprehensive billing infrastructure with per-source tracking
+- **Result**: Full cost transparency with $0.00001/request pricing
+
+### Usage
+```bash
+# View billing report
+python scripts/crawl_billing_report.py
+
+# Launch real-time dashboard
+python scripts/crawl_billing_dashboard.py
+
+# Sync to Stripe
+python scripts/crawl_billing_report.py --sync-stripe
+```
+
+### Cost Model
+- **Light Usage (100 req/day)**: $0.03/month
+- **Moderate Usage (1K req/day)**: $0.30/month  
+- **Heavy Usage (10K req/day)**: $3.00/month
+- **Enterprise (100K req/day)**: $30.00/month
 
 ---
 

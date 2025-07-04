@@ -1,29 +1,130 @@
-# Pay-Per-Crawl Strategy
+# Pay-Per-Crawl Monetization System - COMPLETE IMPLEMENTATION
 
-This document summarizes Cloudflare's "Pay-Per-Crawl" approach and proposes how we can apply similar strategies to our business.
+This document details the **fully implemented** pay-per-crawl monetization system that transforms KindleMint's market research and data collection into a transparent, usage-based billing model.
 
-## Key Takeaways from Cloudflare Blog
-- On-demand crawling at scale: Customers pay only for the pages they request, eliminating flat subscription costs and reducing waste.
-- Usage-based pricing: Transparent per-URL (or per-page) billing, with tiered discounts for high volume.
-- Scalability and reliability: Distributed crawlers with built-in retries and resilience.
-- Integration simplicity: API-driven crawl initiation and status monitoring.
+## 🎯 Implementation Status: ✅ COMPLETE
 
-## Proposed Integration for KindleMint
-1. **Usage Tracking**
-   - Instrument all HTTP-based crawling functions (e.g., Amazon scraping, market scouting) to record each crawl request.
-   - Leverage a centralized `CrawlBillingManager` to accumulate usage counts.
+**Deployed on:** July 4, 2025  
+**Architecture:** Comprehensive billing infrastructure with real-time monitoring  
+**Integration:** All HTTP crawling functions instrumented with usage tracking
 
-2. **Configurable Pricing**
-   - Expose `PRICE_PER_CRAWL` as an environment variable (default `$0.00001` per request).
-   - Allow override for testing or regional pricing schemes.
+## 🏗️ System Architecture
 
-3. **Billing & Reporting**
-   - Provide CLI tools and scripts to generate usage reports (`scripts/crawl_billing_report.py`).
-   - In future releases, integrate with Stripe metered billing APIs to automate invoicing.
+### Core Components
 
-4. **Alerting & Thresholds**
-   - Add monitoring to alert when usage exceeds budgeted limits.
-   - Enable auto-pausing of non-critical crawls based on configurable thresholds.
+1. **CrawlBillingManager** (`src/kindlemint/billing/crawl_billing.py`)
+   - ✅ Thread-safe usage tracking with source attribution
+   - ✅ Budget enforcement with automatic circuit breaker
+   - ✅ Historical usage tracking and analytics
+   - ✅ Cost calculation with configurable pricing
+   - ✅ Real-time export capabilities for reporting
+
+2. **Stripe Integration** (`src/kindlemint/billing/stripe_metered.py`)
+   - ✅ Automated metered billing sync
+   - ✅ Usage record creation and management
+   - ✅ Error handling and retry logic
+
+3. **Billing Reports** (`scripts/crawl_billing_report.py`)
+   - ✅ Detailed cost breakdown by source
+   - ✅ JSON export for data analysis
+   - ✅ Stripe sync automation
+   - ✅ Budget monitoring and alerts
+
+4. **Real-time Dashboard** (`scripts/crawl_billing_dashboard.py`)
+   - ✅ Live usage monitoring with Rich UI
+   - ✅ Rate calculations and projections
+   - ✅ Source-based analytics
+   - ✅ Budget alerts and warnings
+
+## 📊 Instrumented Services
+
+All HTTP-based crawling functions now include billing tracking:
+
+### Amazon Scraping
+- **Location**: `src/kindlemint/agents/kdp_performance_agent.py`
+- **Source ID**: `amazon_scraping`
+- **Metadata**: ASIN, product URL
+- **Function**: `_scrape_amazon_product_page()`
+
+### Reddit API
+- **Location**: `scripts/reddit_market_scraper.py`
+- **Source ID**: `reddit_api`
+- **Metadata**: Subreddit, sort type, limit
+- **Function**: `fetch_subreddit_posts()`
+
+### SerpApi (Amazon Search)
+- **Location**: `scripts/simple_market_research.py`
+- **Source ID**: `serpapi`
+- **Metadata**: Search query, engine type
+- **Function**: Amazon product search
+
+### Google Trends
+- **Location**: `kindlemint/intelligence/market_scout.py`
+- **Source ID**: `google_trends`
+- **Metadata**: Keywords, timeframe
+- **Function**: `get_trending_topics()`
+
+### Botpress API
+- **Location**: `src/kindlemint/integrations/botpress.py`
+- **Source ID**: `botpress_api`
+- **Metadata**: HTTP method, endpoint, workspace ID
+- **Function**: `_make_request()`
+
+## 💰 Pricing Model
+
+### Default Configuration
+- **Base Price**: $0.00001 per crawl request
+- **Budget Control**: Optional spending limits with auto-pause
+- **Billing Cycle**: Real-time accumulation with periodic Stripe sync
+
+### Cost Examples
+| Activity | Requests/Day | Daily Cost | Monthly Cost |
+|----------|--------------|------------|--------------|
+| Light Research | 100 | $0.001 | $0.03 |
+| Moderate Usage | 1,000 | $0.01 | $0.30 |
+| Heavy Analysis | 10,000 | $0.10 | $3.00 |
+| Enterprise Scale | 100,000 | $1.00 | $30.00 |
+
+## 🛠️ Usage Instructions
+
+### Basic Reporting
+```bash
+# Generate detailed billing report
+python scripts/crawl_billing_report.py
+
+# Export data in JSON format
+python scripts/crawl_billing_report.py --json
+
+# Export full data to file
+python scripts/crawl_billing_report.py --export billing_data.json
+
+# Sync usage to Stripe
+python scripts/crawl_billing_report.py --sync-stripe
+```
+
+### Real-time Dashboard
+```bash
+# Launch interactive dashboard
+python scripts/crawl_billing_dashboard.py
+
+# Custom update interval
+python scripts/crawl_billing_dashboard.py --interval 10
+```
+
+### Programmatic Access
+```python
+from kindlemint.billing.crawl_billing import crawl_billing_manager
+
+# Record a crawl
+crawl_billing_manager.record_crawl(
+    source="my_service",
+    metadata={"query": "search term", "url": "example.com"}
+)
+
+# Get usage statistics
+data = crawl_billing_manager.export_usage_data()
+print(f"Total cost: ${data['total_cost']:.4f}")
+```
 
 ## Configuration
 
