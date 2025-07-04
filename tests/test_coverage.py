@@ -21,7 +21,7 @@ def test_import_kindlemint():
 
 def test_import_utils():
     """Test that we can import utils modules"""
-    from kindlemint.utils import config
+    import kindlemint.utils.config as config
 
     # Should not raise any exceptions
     assert config is not None
@@ -29,7 +29,7 @@ def test_import_utils():
 
 def test_import_agents():
     """Test that we can import agents modules"""
-    from kindlemint.agents import agent_types
+    import kindlemint.agents.agent_types as agent_types
 
     # Should not raise any exceptions
     assert agent_types is not None
@@ -37,7 +37,7 @@ def test_import_agents():
 
 def test_import_engines():
     """Test that we can import engines modules"""
-    from kindlemint.engines import sudoku
+    import kindlemint.engines.sudoku as sudoku
 
     # Should not raise any exceptions
     assert sudoku is not None
@@ -45,7 +45,7 @@ def test_import_engines():
 
 def test_import_validators():
     """Test that we can import validators modules"""
-    from kindlemint.validators import base_validator
+    import kindlemint.validators.base_validator as base_validator
 
     # Should not raise any exceptions
     assert base_validator is not None
