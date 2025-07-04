@@ -11,8 +11,7 @@ from pathlib import Path
 class TestBookGenerationPipeline:
     """Test the complete book generation pipeline - our money maker"""
 
-        """Test Sudoku Book Generation Full Pipeline"""
-def test_sudoku_book_generation_full_pipeline(self):
+    def test_sudoku_book_generation_full_pipeline(self):
         """Test complete sudoku book generation - covers ~10 modules"""
         # This single test covers: engines, validators, metadata, and more
         from kindlemint.engines.sudoku import SudokuPuzzle
@@ -37,8 +36,7 @@ def test_sudoku_book_generation_full_pipeline(self):
         assert report.is_valid() is True
         assert report.total_puzzles == 1
 
-        """Test Pdf Generation Pipeline"""
-def test_pdf_generation_pipeline(self):
+        def test_pdf_generation_pipeline(self):
         """Test PDF generation - critical for deliverables"""
         from pathlib import Path
 
@@ -49,8 +47,7 @@ def test_pdf_generation_pipeline(self):
             ensure_directory(output_dir)
             assert output_dir.exists()
 
-        """Test Validation Pipeline"""
-def test_validation_pipeline(self):
+        def test_validation_pipeline(self):
         """Test our QA validation - prevents bad books"""
         from kindlemint.validators.base_validator import (
             IssueSeverity,
