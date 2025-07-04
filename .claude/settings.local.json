@@ -337,7 +337,8 @@
       "Bash(then )",
       "Bash(./scripts/emergency_merge_130.sh:*)",
       "Bash(git fetch:*)",
-      "Bash(./scripts/setup_email_filtering.sh:*)"
+      "Bash(./scripts/setup_email_filtering.sh:*)",
+      "Bash(git fetch:*)"
     ],
     "deny": []
   }
