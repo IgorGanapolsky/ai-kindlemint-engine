@@ -3,7 +3,7 @@ Puzzle Generator Agent - Generates puzzles
 Generates puzzles directly
 """
 
-from scripts.sudoku_generator_engine import SudokuGenerator
+from kindlemint.engines.sudoku import SudokuGenerator
 
 
 class PuzzleGeneratorAgent:

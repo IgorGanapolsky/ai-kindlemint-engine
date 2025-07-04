@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-07-04T16:56:19Z",
+  "commit_message": "fix: Exclude merge commits from validation to prevent CI failures [Amp CLI]",
+  "branch": "feature/amp-cli-integration-and-aws-cleanup",
+  "worktree_used": null,
+  "orchestration_enabled": true,
+  "token_optimization": false
+}
