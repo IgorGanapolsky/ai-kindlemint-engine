@@ -219,6 +219,23 @@ python scripts/orchestration/autonomous_worktree_manager.py
 - **Full Test Coverage** - 12 comprehensive tests ensuring reliability
 - **CLI Interface** - Simple commands for discovery and automation
 
+### 🚀 SEO Engine 2025
+- **Advanced Optimization** - Cutting-edge SEO strategies for 2025 algorithms
+- **CLI Command**: `kindlemint enhance-seo --input metadata.json`
+- **Automated Enhancement** - Transforms basic metadata into SEO-optimized content
+- **Keyword Research** - Built-in keyword optimization for maximum visibility
+- **Output**: Enhanced JSON file with `_seo.json` suffix
+
+### 📦 Batch Processing & Orchestration CLI
+**Batch Commands:**
+- `kindlemint batch generate --type sudoku --count 5 --parallel` - Generate multiple books
+- `kindlemint batch generate --type crossword --count 3 --volume-start 4` - Start from volume 4
+
+**Orchestration Commands:**
+- `kindlemint orchestrate status` - View active worktrees and status
+- `kindlemint orchestrate dashboard` - Launch CEO dashboard for metrics
+- `kindlemint orchestrate run --task book-production --monitor` - Run orchestrated tasks
+
 ## 🔍 Quality Validation System
 
 Our comprehensive validation system ensures every puzzle book meets professional publishing standards:

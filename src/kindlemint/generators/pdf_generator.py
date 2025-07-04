@@ -4,7 +4,17 @@ PDF Generator - Creates publication-ready PDFs for puzzle books
 
 import logging
 from datetime import datetime
+from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+# Font registration imports
+try:
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
+    from reportlab.lib.fonts import addMapping
+    REPORTLAB_AVAILABLE = True
+except ImportError:
+    REPORTLAB_AVAILABLE = False
 
 
 class PDFGenerator:
@@ -19,15 +29,62 @@ class PDFGenerator:
     """
 
     def __init__(self):
-
-
-def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.supported_formats = ["paperback", "hardcover"]
         self.trim_sizes = {"paperback": "8.5x11", "hardcover": "6x9"}
         self.default_font_size = 16  # Large print
+        
+        # Get the assets/fonts directory path
+        self.assets_dir = Path(__file__).parents[3] / "assets" / "fonts"
+        self.fonts_loaded = False
+        
+        # Initialize fonts if ReportLab is available
+        if REPORTLAB_AVAILABLE:
+            self._register_fonts()
 
         self.logger.info("📄 PDF Generator initialized")
+    
+    def _register_fonts(self):
+        """Register fonts from assets/fonts directory for PDF generation"""
+        if not REPORTLAB_AVAILABLE or self.fonts_loaded:
+            return
+            
+        try:
+            # Define font mappings from assets
+            font_files = {
+                'Montserrat': 'Montserrat-Regular.ttf',
+                'Montserrat-Bold': 'Montserrat-Bold.ttf',
+                'Arial': 'arial.ttf',
+                'Calibri': 'calibri.ttf',
+                'Georgia': 'georgia.ttf',
+                'TimesNewRoman': 'times_new_roman.ttf',
+                'Atkinson': 'atkinson_hyperlegible.ttf'
+            }
+            
+            # Register each font
+            fonts_registered = []
+            for font_name, font_file in font_files.items():
+                font_path = self.assets_dir / font_file
+                if font_path.exists():
+                    try:
+                        pdfmetrics.registerFont(TTFont(font_name, str(font_path)))
+                        fonts_registered.append(font_name)
+                    except Exception as e:
+                        self.logger.warning(f"Failed to register font {font_name}: {e}")
+                else:
+                    self.logger.warning(f"Font file not found: {font_path}")
+            
+            # Set up font families
+            if 'Montserrat' in fonts_registered and 'Montserrat-Bold' in fonts_registered:
+                addMapping('Montserrat', 0, 0, 'Montserrat')
+                addMapping('Montserrat', 0, 1, 'Montserrat-Bold')
+            
+            self.fonts_loaded = True
+            self.logger.info(f"✅ Registered {len(fonts_registered)} fonts from assets/fonts")
+            
+        except Exception as e:
+            self.logger.error(f"❌ Font registration failed: {e}")
+            # Continue without custom fonts - ReportLab will use defaults
 
     async def create_puzzle_book(self, request: Dict[str, Any]) -> Dict[str, Any]:
         """Create a complete puzzle book PDF"""
@@ -208,10 +265,11 @@ def __init__(self):
 
         # In a real implementation, this would:
         # 1. Create PDF with ReportLab or similar
-        # 2. Add cover page with title
+        # 2. Add cover page with title using Montserrat font
         # 3. Add puzzle pages with proper grid layout
         # 4. Add solution pages if requested
-        # 5. Apply proper formatting and fonts
+        # 5. Apply proper formatting with registered fonts from assets/fonts
+        # 6. Use large print fonts (16pt+) for accessibility
 
         return pdf_path
 
