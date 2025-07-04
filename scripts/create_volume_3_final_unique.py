@@ -13,7 +13,7 @@ from reportlab.lib.colors import black, white
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
-from scripts.config_loader import config
+from kindlemint.utils.config import config
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -704,7 +704,7 @@ def main():
 
     # Import config loader
     sys.path.append(str(Path(__file__).parent.parent))
-    from scripts.config_loader import config
+    from kindlemint.utils.config import config
 
     # Create output directories using config
     base_dir = Path(config.get_path("file_paths.base_output_dir"))

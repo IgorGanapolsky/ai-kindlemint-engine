@@ -10,6 +10,7 @@ This agent monitors individual book performance metrics including:
 """
 
 import asyncio
+from kindlemint.billing.crawl_billing import crawl_billing_manager
 import json
 import logging
 import time
@@ -179,6 +180,8 @@ class KDPPerformanceAgent(BaseAgent):
         try:
             async with aiohttp.ClientSession(headers=headers) as session:
                 async with session.get(url) as response:
+                    # Record crawl usage for billing
+                    crawl_billing_manager.record_crawl()
                     if response.status == 200:
                         html = await response.text()
                         soup = BeautifulSoup(html, "html.parser")

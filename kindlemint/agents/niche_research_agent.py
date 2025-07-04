@@ -10,8 +10,7 @@ import sys
 from datetime import datetime
 from typing import Any, Dict
 
-# Add the current directory to Python path for imports
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -37,16 +36,22 @@ def lambda_handler(event: Dict[str, Any], context) -> Dict[str, Any]:
         # Configuration
         max_opportunities = event.get("max_opportunities", 3)
         research_source = event.get("source", "scheduled_daily")
+        search_keywords = event.get("keywords", ["self-help", "business", "fiction"])
 
-        logger.info(f"🎯 Research parameters:")
+        logger.info("🎯 Research parameters:")
         logger.info(f"   Max opportunities: {max_opportunities}")
         logger.info(f"   Source: {research_source}")
+        logger.info(f"   Keywords for trend analysis: {search_keywords}")
 
         # Execute niche discovery
         logger.info("🔍 Scanning market for profitable opportunities...")
         opportunities = scout.discover_profitable_micro_niches(
             max_niches=max_opportunities
         )
+
+        # Get trending topics
+        logger.info("📈 Fetching trending topics from Google Trends...")
+        trending_topics = scout.get_trending_topics(keywords=search_keywords)
 
         # Process each opportunity
         results = []
@@ -57,7 +62,8 @@ def lambda_handler(event: Dict[str, Any], context) -> Dict[str, Any]:
                     **opportunity,
                     "research_date": datetime.utcnow().isoformat(),
                     "research_source": research_source,
-                    "market_intelligence_version": "3.0",
+                    "market_intelligence_version": "3.1-trends", # New version
+                    "trending_topics": trending_topics.get(opportunity["topic"], "N/A") if trending_topics else "N/A"
                 }
 
                 # Add to portfolio tracker
@@ -70,6 +76,7 @@ def lambda_handler(event: Dict[str, Any], context) -> Dict[str, Any]:
                         "topic": opportunity["topic"],
                         "market_score": opportunity.get("market_score", 0),
                         "estimated_revenue": opportunity.get("estimated_revenue", 0),
+                        "trending_topics": enhanced_opportunity["trending_topics"],
                         "status": "AWAITING_APPROVAL",
                     }
                 )
@@ -95,11 +102,11 @@ def lambda_handler(event: Dict[str, Any], context) -> Dict[str, Any]:
             "body": json.dumps(
                 {
                     "status": "success",
-                    "message": f"Niche research completed successfully",
+                    "message": "Niche research completed successfully",
                     "opportunities_found": len(results),
                     "results": results,
                     "research_source": research_source,
-                    "version": "3.0",
+                    "version": "3.1-trends",
                 }
             ),
         }
@@ -114,13 +121,12 @@ def lambda_handler(event: Dict[str, Any], context) -> Dict[str, Any]:
                     "status": "error",
                     "message": f"Niche research failed: {str(e)}",
                     "research_source": event.get("source", "unknown"),
-                    "version": "3.0",
+                    "version": "3.1-trends",
                 }
             ),
         }
 
 
-    """Send Ceo Notification"""
 def send_ceo_notification(opportunities: list):
     """Send Slack notification about new opportunities."""
     try:
@@ -134,13 +140,13 @@ def send_ceo_notification(opportunities: list):
         # Format opportunities for CEO review
         opportunity_text = "\n".join(
             [
-                f"• *{opp['niche']}*: {opp['topic']} (Score: {opp['market_score']}, Est: ${opp['estimated_revenue']}/day)"
+                f"• *{opp['niche']}*: {opp['topic']} (Score: {opp['market_score']}, Est: ${opp['estimated_revenue']}/day, Trends: {opp.get('trending_topics', 'N/A')})"
                 for opp in opportunities
             ]
         )
 
         message = {
-            "text": "🔍 NEW PROFITABLE OPPORTUNITIES DISCOVERED",
+            "text": "🔍 NEW PROFITABLE OPPORTUNITIES DISCOVERED (with Trend Analysis)",
             "attachments": [
                 {
                     "color": "good",
@@ -177,11 +183,15 @@ def send_ceo_notification(opportunities: list):
 
 if __name__ == "__main__":
     # For local testing
-    test_event = {"max_opportunities": 2, "source": "manual_test"}
+    test_event = {
+        "max_opportunities": 2,
+        "source": "manual_test",
+        "keywords": ["passive income", "side hustle", "online business"]
+        }
 
     class MockContext:
-            """  Init  """
-def __init__(self):
+        """Init"""
+        def __init__(self):
             self.function_name = "niche-research-agent"
             self.memory_limit_in_mb = 512
 

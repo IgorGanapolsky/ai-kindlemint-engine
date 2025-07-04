@@ -21,7 +21,7 @@ project_root = Path(__file__).parent.parent.resolve()
 sys.path.insert(0, str(project_root))
 
 try:
-    from scripts.config_loader import config
+    from kindlemint.utils.config import config
 except ImportError:
     print(
         "❌ ERROR: Could not import config_loader. Make sure it exists in the 'scripts' directory."

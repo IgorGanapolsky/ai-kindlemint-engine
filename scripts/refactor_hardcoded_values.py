@@ -11,11 +11,9 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-
 # Add parent directory to path for imports
-sys.path.append(str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 # Define the files that need refactoring based on our audit
 FILES_WITH_ABSOLUTE_PATHS = [
@@ -65,7 +63,7 @@ REPLACEMENTS = {
 
 # Import statement to add at the beginning of files
 CONFIG_IMPORT = """# Import configuration loader
-from scripts.config_loader import config
+from kindlemint.utils.config import config
 """
 
 
@@ -103,7 +101,7 @@ def add_config_import(content):
 
     # Check if config import already exists
     config_import_exists = any(
-        "from scripts.config_loader import config" in line
+        "from kindlemint.utils.config import config" in line
         or "from config_loader import config" in line
         for line in lines
     )
