@@ -13,6 +13,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 import logging
+from security import safe_command
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -39,8 +40,7 @@ class AutonomousWorktreeManager:
     
     def _run_command(self, cmd: str, cwd: Optional[Path] = None) -> Tuple[int, str, str]:
         """Execute shell command"""
-        result = subprocess.run(
-            cmd, 
+        result = safe_command.run(subprocess.run, cmd, 
             shell=False, cwd=cwd or self.base_path,
             capture_output=True, 
             text=True
