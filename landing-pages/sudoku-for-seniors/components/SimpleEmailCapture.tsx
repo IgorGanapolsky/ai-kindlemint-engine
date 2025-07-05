@@ -22,28 +22,56 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
     
     // Send email via EmailJS (FREE for 200 emails/month)
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+    // Using provided credentials
+    const serviceId = 'service_dg09m9v';
+    const templateId = 'template_sfmcwjx';
+    const publicKey = '_FNTxijL8nl5Fmgzf';
+    
+    console.log('Attempting to send email via EmailJS...', {
+      serviceId,
+      templateId,
+      email,
+      firstName
+    });
     
     if (serviceId && templateId && publicKey) {
       try {
         // Dynamic import EmailJS to avoid build issues
         const emailjs = await import('@emailjs/browser');
-        await emailjs.send(
+        
+        // Using standard EmailJS template parameter names
+        const templateParams = {
+          user_email: email,  // Standard parameter name for recipient email
+          user_name: firstName,  // Standard parameter name for user's name
+          to_email: email,  // Alternative standard parameter name
+          from_name: firstName,  // Keep this as fallback
+          message: `New subscriber: ${firstName} (${email})`,  // Standard message parameter
+          user_message: `New subscriber: ${firstName} (${email})`  // Alternative message parameter
+        };
+        
+        console.log('Sending EmailJS with template parameters:', templateParams);
+        
+        const response = await emailjs.send(
           serviceId,
           templateId,
-          {
-            from_name: firstName,
-            from_email: email,
-            to_name: 'KindleMint Team',
-            message: `New subscriber: ${firstName} (${email})`
-          },
+          templateParams,
           publicKey
         );
+        
+        console.log('EmailJS SUCCESS! Email sent successfully:', {
+          status: response.status,
+          text: response.text
+        });
       } catch (err) {
-        console.log('EmailJS send failed, but continuing...', err);
+        console.error('EmailJS FAILED! Detailed error:', {
+          error: err,
+          message: err instanceof Error ? err.message : 'Unknown error',
+          details: JSON.stringify(err, null, 2)
+        });
+        console.log('Continuing despite email send failure...');
       }
+    } else {
+      console.error('EmailJS credentials missing:', { serviceId, templateId, publicKey });
     }
     
     // Show success
