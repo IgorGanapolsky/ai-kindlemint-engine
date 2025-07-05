@@ -22,9 +22,9 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
     
     // Send email via EmailJS (FREE for 200 emails/month)
-    // Using provided credentials
-    const serviceId = 'service_dg09m9v';
-    const templateId = 'template_sfmcwjx';
+    // Using correct credentials from EmailJS dashboard
+    const serviceId = 'service_i3qck4d';
+    const templateId = 'template_sfmcwjx'; // TODO: Get correct template ID
     const publicKey = '_FNTxijL8nl5Fmgzf';
     
     console.log('Attempting to send email via EmailJS...', {

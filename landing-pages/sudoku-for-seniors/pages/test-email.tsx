@@ -20,8 +20,8 @@ export default function TestEmail() {
       const emailjs = await import('@emailjs/browser');
       addLog('EmailJS loaded successfully');
       
-      const serviceId = 'service_dg09m9v';
-      const templateId = 'template_sfmcwjx';
+      const serviceId = 'service_i3qck4d';
+      const templateId = 'template_sfmcwjx'; // Update this with correct template ID
       const publicKey = '_FNTxijL8nl5Fmgzf';
       
       addLog(`Service ID: ${serviceId}`);
