@@ -332,7 +332,8 @@
       "Bash(then mv \"$f\" \"$f.disabled\")",
       "Bash(git cherry-pick:*)",
       "Bash(diff:*)",
-      "Bash(gh label create:*)"
+      "Bash(gh label create:*)",
+      "Bash(npm run typecheck:*)"
     ],
     "deny": []
   }
