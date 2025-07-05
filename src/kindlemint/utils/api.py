@@ -11,13 +11,25 @@ from typing import Any, Dict, List, Optional
 
 import google.generativeai as genai
 
-# Import the original API manager and Sentry monitoring
-from scripts.api_manager import APIConfig, APIManager, APIProvider
-from scripts.sentry_agent_monitoring import (
-    AgentContext,
-    get_agent_monitor,
-    monitor_ai_agent,
-)
+# TODO: Remove this temporary import solution
+# Instead, move api_manager.py and sentry_agent_monitoring.py to kindlemint.utils
+# and update all imports accordingly
+# For now, use relative imports or create proper abstractions
+try:
+    from ...scripts.api_manager import APIConfig, APIManager, APIProvider
+    from ...scripts.sentry_agent_monitoring import (
+        AgentContext,
+        get_agent_monitor,
+        monitor_ai_agent,
+    )
+except ImportError:
+    # Fallback for development
+    import sys
+    from pathlib import Path
+    scripts_path = Path(__file__).parent.parent.parent.parent / "scripts"
+    sys.path.insert(0, str(scripts_path))
+    from api_manager import APIConfig, APIManager, APIProvider
+    from sentry_agent_monitoring import AgentContext, get_agent_monitor, monitor_ai_agent
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("EnhancedAPIManager")

@@ -25,7 +25,7 @@ USAGE:
 ------
 From any script in the project, import the pre-initialized config object:
 
-from scripts.config_loader import config
+from kindlemint.utils.config import config
 
 # Access a nested value with a default
 api_key = config.get("api_settings.serpapi.api_key", "default_key")

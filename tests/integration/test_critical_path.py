@@ -11,8 +11,7 @@ from pathlib import Path
 class TestBookGenerationPipeline:
     """Test the complete book generation pipeline - our money maker"""
 
-        """Test Sudoku Book Generation Full Pipeline"""
-def test_sudoku_book_generation_full_pipeline(self):
+    def test_sudoku_book_generation_full_pipeline(self):
         """Test complete sudoku book generation - covers ~10 modules"""
         # This single test covers: engines, validators, metadata, and more
         from kindlemint.engines.sudoku import SudokuPuzzle
@@ -37,8 +36,7 @@ def test_sudoku_book_generation_full_pipeline(self):
         assert report.is_valid() is True
         assert report.total_puzzles == 1
 
-        """Test Pdf Generation Pipeline"""
-def test_pdf_generation_pipeline(self):
+        def test_pdf_generation_pipeline(self):
         """Test PDF generation - critical for deliverables"""
         from pathlib import Path
 
@@ -49,8 +47,7 @@ def test_pdf_generation_pipeline(self):
             ensure_directory(output_dir)
             assert output_dir.exists()
 
-        """Test Validation Pipeline"""
-def test_validation_pipeline(self):
+        def test_validation_pipeline(self):
         """Test our QA validation - prevents bad books"""
         from kindlemint.validators.base_validator import (
             IssueSeverity,
@@ -81,8 +78,7 @@ def test_validation_pipeline(self):
 class TestAgentSystem:
     """Test our multi-agent system - core architecture"""
 
-        """Test Agent Communication"""
-def test_agent_communication(self):
+    def test_agent_communication(self):
         """Test agent message passing"""
         from kindlemint.agents.agent_types import AgentCapability
         from kindlemint.agents.message_protocol import MessageType
@@ -96,8 +92,7 @@ def test_agent_communication(self):
         assert MessageType.TASK_REQUEST.value == "task_request"
         assert MessageType.TASK_COMPLETION.value == "task_completion"
 
-        """Test Task System"""
-def test_task_system(self):
+        def test_task_system(self):
         """Test task management"""
         from kindlemint.agents.task_system import TaskPriority, TaskStatus
 
@@ -114,8 +109,7 @@ def test_task_system(self):
 class TestCoreUtilities:
     """Test utility functions used everywhere"""
 
-        """Test Logging Setup"""
-def test_logging_setup(self):
+    def test_logging_setup(self):
         """Test logging configuration"""
         from kindlemint.utils import get_logger
 
@@ -123,8 +117,7 @@ def test_logging_setup(self):
         assert logger is not None
         assert logger.name == "test_module"
 
-        """Test Json Operations"""
-def test_json_operations(self):
+        def test_json_operations(self):
         """Test JSON load/save utilities"""
         from kindlemint.utils import load_json, save_json
 
@@ -138,8 +131,7 @@ def test_json_operations(self):
 
             Path(f.name).unlink()
 
-        """Test Timestamp Formatting"""
-def test_timestamp_formatting(self):
+        def test_timestamp_formatting(self):
         """Test timestamp utilities"""
         from datetime import datetime
 

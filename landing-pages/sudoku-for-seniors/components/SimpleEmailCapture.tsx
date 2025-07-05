@@ -21,32 +21,63 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     });
     localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
     
-    // Send email via AWS Lambda (if endpoint is configured)
-    const awsEndpoint = process.env.NEXT_PUBLIC_AWS_EMAIL_ENDPOINT;
-    if (awsEndpoint) {
+    // Send email via EmailJS (FREE for 200 emails/month)
+    // Using provided credentials
+    const serviceId = 'service_dg09m9v';
+    const templateId = 'template_sfmcwjx';
+    const publicKey = '_FNTxijL8nl5Fmgzf';
+    
+    console.log('Attempting to send email via EmailJS...', {
+      serviceId,
+      templateId,
+      email,
+      firstName
+    });
+    
+    if (serviceId && templateId && publicKey) {
       try {
-        await fetch(awsEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, firstName })
+        // Dynamic import EmailJS to avoid build issues
+        const emailjs = await import('@emailjs/browser');
+        
+        // Using standard EmailJS template parameter names
+        const templateParams = {
+          user_email: email,  // Standard parameter name for recipient email
+          user_name: firstName,  // Standard parameter name for user's name
+          to_email: email,  // Alternative standard parameter name
+          from_name: firstName,  // Keep this as fallback
+          message: `New subscriber: ${firstName} (${email})`,  // Standard message parameter
+          user_message: `New subscriber: ${firstName} (${email})`  // Alternative message parameter
+        };
+        
+        console.log('Sending EmailJS with template parameters:', templateParams);
+        
+        const response = await emailjs.send(
+          serviceId,
+          templateId,
+          templateParams,
+          publicKey
+        );
+        
+        console.log('EmailJS SUCCESS! Email sent successfully:', {
+          status: response.status,
+          text: response.text
         });
       } catch (err) {
-        console.log('Email send failed, but continuing...');
+        console.error('EmailJS FAILED! Detailed error:', {
+          error: err,
+          message: err instanceof Error ? err.message : 'Unknown error',
+          details: JSON.stringify(err, null, 2)
+        });
+        console.log('Continuing despite email send failure...');
       }
+    } else {
+      console.error('EmailJS credentials missing:', { serviceId, templateId, publicKey });
     }
     
     // Show success
     setSubmitted(true);
     
-    // Trigger download immediately
-    const link = document.createElement('a');
-    link.href = '/downloads/5-free-sudoku-puzzles.pdf';
-    link.download = '5-free-sudoku-puzzles.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Show success after download starts
+    // Show success message immediately
     setTimeout(() => {
       onSuccess();
     }, 500);
@@ -56,16 +87,9 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     return (
       <div className="text-center p-6 bg-green-50 rounded-lg">
         <h3 className="text-2xl font-bold text-green-800 mb-4">Success!</h3>
-        <p className="text-lg text-gray-700 mb-4">
-          Your free puzzles are downloading...
+        <p className="text-lg text-gray-700">
+          Thank you for subscribing! Check your email for your free puzzles.
         </p>
-        <a 
-          href="/downloads/5-free-sudoku-puzzles.pdf"
-          download
-          className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
-        >
-          Click here if download doesn't start
-        </a>
       </div>
     );
   }

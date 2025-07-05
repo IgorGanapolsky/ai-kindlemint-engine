@@ -76,6 +76,10 @@ jobs:
           steps.untracked.outputs.untracked_files != '0' ||
           steps.uncommitted.outputs.modified_files != '0'
         run: |
+          # Set defaults for empty values to prevent integer comparison errors
+          UNTRACKED_COUNT="${{ steps.untracked.outputs.untracked_files }}"
+          STUCK_PRS_COUNT="${{ steps.stuck_prs.outputs.stuck_prs }}"
+          
           # Create or update health report issue
           EXISTING_ISSUE=$(gh issue list --label "orchestration-health" --state open --json number --jq '.[0].number' || echo "")
           
@@ -99,13 +103,13 @@ jobs:
           ## Automated Actions
           "
           
-          if [ "${{ steps.untracked.outputs.untracked_files }}" -gt 0 ]; then
+          if [ "${UNTRACKED_COUNT:-0}" -gt 0 ]; then
             REPORT="$REPORT
           - 🚨 **Triggering emergency fix handler for untracked files**"
             gh workflow run emergency-fix-handler.yml
           fi
           
-          if [ "${{ steps.stuck_prs.outputs.stuck_prs }}" -gt 0 ]; then
+          if [ "${STUCK_PRS_COUNT:-0}" -gt 0 ]; then
             REPORT="$REPORT
           - 🔄 **Triggering autonomous PR handler for stuck PRs**"
             gh workflow run autonomous-pr-handler.yml
@@ -121,12 +125,12 @@ jobs:
           - 🔴 **CRITICAL**: Multiple workflow failures detected. Immediate investigation required."
           fi
           
-          if [ "${{ steps.untracked.outputs.untracked_files }}" -gt 0 ]; then
+          if [ "${UNTRACKED_COUNT:-0}" -gt 0 ]; then
             REPORT="$REPORT
           - ⚠️ **Untracked files detected**: This indicates the orchestration failed to properly commit changes."
           fi
           
-          if [ "${{ steps.stuck_prs.outputs.stuck_prs }}" -gt 0 ]; then
+          if [ "${STUCK_PRS_COUNT:-0}" -gt 0 ]; then
             REPORT="$REPORT
           - ⚠️ **Stuck PRs detected**: The auto-merge system may be failing."
           fi
