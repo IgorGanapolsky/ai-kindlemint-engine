@@ -24,7 +24,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     // Send email via EmailJS (FREE for 200 emails/month)
     // Using correct credentials from EmailJS dashboard
     const serviceId = 'service_i3qck4d';
-    const templateId = 'template_sfmcwjx'; // TODO: Get correct template ID
+    const templateId = 'template_sfmcwjx';
     const publicKey = '_FNTxijL8nl5Fmgzf';
     
     console.log('Attempting to send email via EmailJS...', {

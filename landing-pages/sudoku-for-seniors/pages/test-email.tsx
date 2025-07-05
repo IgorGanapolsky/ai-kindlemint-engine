@@ -21,7 +21,7 @@ export default function TestEmail() {
       addLog('EmailJS loaded successfully');
       
       const serviceId = 'service_i3qck4d';
-      const templateId = 'template_sfmcwjx'; // Update this with correct template ID
+      const templateId = 'template_sfmcwjx';
       const publicKey = '_FNTxijL8nl5Fmgzf';
       
       addLog(`Service ID: ${serviceId}`);
