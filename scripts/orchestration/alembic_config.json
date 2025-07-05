@@ -1,0 +1,62 @@
+{
+  "monitoring_interval_minutes": 30,
+  "causal_analysis_interval_hours": 6,
+  "event_detection_interval_minutes": 10,
+  "data_collection_interval_hours": 1,
+  "worktree_tasks": {
+    "market_research": "market-research",
+    "content_generation": "puzzle-gen",
+    "pdf_creation": "pdf-gen",
+    "qa_validation": "qa-validation"
+  },
+  "event_thresholds": {
+    "competitor_rank_drop": 50,
+    "keyword_spike_magnitude": 0.7,
+    "review_milestones": [50, 100, 250, 500, 1000],
+    "sales_drop_percentage": 30,
+    "high_priority_threshold": 7
+  },
+  "causal_models": {
+    "enabled": [
+      "difference_in_differences",
+      "propensity_score_matching",
+      "synthetic_control",
+      "instrumental_variables"
+    ],
+    "confidence_threshold": 0.95,
+    "min_sample_size": 30
+  },
+  "privacy_settings": {
+    "retention_days": 365,
+    "min_aggregation_size": 10,
+    "encryption_enabled": true,
+    "gdpr_compliant": true
+  },
+  "human_checkpoints": {
+    "timeout_hours": 4,
+    "fallback_to_ai": true,
+    "notification_channels": ["slack", "github_issues"],
+    "review_types": [
+      "title_selection",
+      "cover_prompt_approval",
+      "marketing_angle_selection",
+      "pricing_strategy"
+    ]
+  },
+  "integrations": {
+    "vercel_landing_page": {
+      "enabled": true,
+      "url": "https://ai-kindlemint-engine-8cgfskwhj-igorganapolskys-projects.vercel.app",
+      "analytics_endpoint": "/api/analytics",
+      "human_review_endpoint": "/admin/reviews"
+    },
+    "kdp_api": {
+      "enabled": false,
+      "comment": "Enable when API credentials are configured"
+    },
+    "google_trends": {
+      "enabled": false,
+      "comment": "Enable when API is set up"
+    }
+  }
+}

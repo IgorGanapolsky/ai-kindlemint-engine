@@ -81,6 +81,11 @@ class AutonomousWorktreeManager:
                 "branch": "worktree/market-research",
                 "purpose": "Parallel market analysis",
                 "primary_scripts": ["market_research_auto_reviewer.py", "synthetic_market_research.py"]
+            },
+            "alembic-causal": {
+                "branch": "worktree/alembic-causal-ai",
+                "purpose": "Causal AI analysis and event-driven marketing",
+                "primary_scripts": ["alembic_orchestrator.py", "causal_inference.py", "event_driven_agent.py"]
             }
         }
         
