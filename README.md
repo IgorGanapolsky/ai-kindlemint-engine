@@ -7,10 +7,9 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=IgorGanapolsky_ai-kindlemint-engine&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=IgorGanapolsky_ai-kindlemint-engine)
 [![Hygiene Score](https://img.shields.io/badge/hygiene-76%25-green)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/blob/main/scripts/real_hygiene_analyzer.py)
+[![Cursor Bugbot](https://img.shields.io/badge/Cursor-Bugbot_Active-green)](https://cursor.com)
 <!-- Orchestration Cost Tracking -->
-[![MTD Cost](https://img.shields.io/badge/MTD_Cost-$26.60-green?style=for-the-badge)](./reports/orchestration/) [![Orchestration Savings](https://img.shields.io/badge/Orchestration_Savings-$2.40_8%25-orange?style=for-the-badge)](./reports/orchestration/)
-[![Cursor Bugbot](https://img.shields.io/badge/Cursor%20Bugbot-Enabled-blueviolet)](https://docs.cursor.com/bugbot)
-[![GitHub Issues](https://img.shields.io/github/issues/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/issues)
+[![MTD Cost](https://img.shields.io/badge/MTD_Cost-$76.50-yellow?style=for-the-badge)](./reports/orchestration/) [![Orchestration Savings](https://img.shields.io/badge/Orchestration_Savings-$3.00_4%-orange?style=for-the-badge)](./reports/orchestration/)[![GitHub Issues](https://img.shields.io/github/issues/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/pulls)
 [![Last Commit](https://img.shields.io/github/last-commit/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/commits/main)
 [![Contributors](https://img.shields.io/github/contributors/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/graphs/contributors)
@@ -20,7 +19,7 @@
 AI-KindleMint-Engine is a comprehensive platform that:
 1. **Generates** high-quality book content using AI agents
 2. **Validates** content with enterprise-grade QA systems
-3. **Publishes** to multiple channels (KDP, social media, email)
+3. **Prepares** publication-ready content for KDP and social media (manual publishing required)
 4. **Monetizes** through affiliates, courses, and upsells
 5. **Improves** continuously through AI-powered optimization
 6. **🧪 Analyzes** causal relationships to understand *why* books succeed
@@ -28,25 +27,76 @@ AI-KindleMint-Engine is a comprehensive platform that:
 
 **Important**: Users are responsible for following platform ToS, marketing their books, and managing sales.
 
-## 🏗️ Revolutionary Autonomous Worktree Orchestration
+## Getting Started
 
-### 🚀 Executive Summary
+### Prerequisites
+- Python 3.11+
+- Git
+- OpenAI API key
 
-Our platform now features **Autonomous Worktree Orchestration** - a groundbreaking system that delivers:
-- **10x faster book production** through parallel execution
-- **75% cost reduction** ($175/month savings)
-- **100% CPU utilization** across all cores
-- **Zero manual intervention** - fully autonomous operation
+### Quick Setup
+```bash
+git clone https://github.com/IgorGanapolsky/ai-kindlemint-engine.git
+cd ai-kindlemint-engine
+pip install -r requirements.txt
+```
+
+### Basic Usage
+```bash
+# Generate a puzzle book
+python scripts/sudoku_generator.py --count 100
+
+# Run QA validation
+python scripts/critical_metadata_qa.py
+
+# Start orchestration
+python src/kindlemint/orchestration_runner.py
+```
+
+### Documentation
+- [Implementation Plan](docs/plan.md)
+- [Commit Guidelines](docs/COMMIT_VALIDATION.md)
+- [Orchestration Strategy](docs/GIT_WORKTREES_ORCHESTRATION_STRATEGY.md)
+
+## 🏗️ Infrastructure & Orchestration
+
+### 🚀 Recent Updates (July 2025)
+
+**Streamlined Infrastructure:**
+- Migrated to Vercel for deployment (Free tier for testing)
+- Amp CLI integration with automated tagging
+- Emergency CI/CD pipeline restoration completed
+
+**Autonomous Worktree Orchestration:**
+- **4x faster content generation** through parallel execution
+- **60-80% cost reduction** via intelligent task distribution
+- **Autonomous content creation** - manual publishing required
 
 ### 📊 Business Impact
 
 | Metric | Traditional | With Worktrees | Improvement |
 |--------|-------------|----------------|-------------|
-| Book Production Time | 2-4 hours | 30 minutes | **75% faster** |
-| Books per Hour | 1 | 4 | **4x capacity** |
+| Content Generation Time | 2-4 hours | 30 minutes | **75% faster** |
+| Books Generated per Hour | 1 | 4 | **4x capacity** |
 | Monthly Output | 100 books | 400 books | **4x increase** |
-| Cost per Book | $2.50 | $0.75 | **70% reduction** |
+| API Cost per Book | $2.50 | $0.75 | **70% reduction** |
 | CPU Utilization | 25% | 90%+ | **Optimal usage** |
+
+### 🤖 Orchestration Flow
+
+```mermaid
+graph TD
+    A[PR Created] --> B[CI/CD Pipeline]
+    B --> C{All Checks Pass?}
+    C -->|Yes| D[Orchestrator Auto-Merge]
+    C -->|No| E[Auto-Fix Attempts]
+    E --> F{Fix Successful?}
+    F -->|Yes| D
+    F -->|No| G[Manual Review Required]
+    D --> H[Badge Updates]
+    H --> I[Cost Tracking]
+    I --> J[Documentation Sync]
+```
 
 ### 🤖 How It Works
 
@@ -72,9 +122,9 @@ orchestrator = AutonomousWorktreeManager()
 # Initialize infrastructure (one-time setup)
 await orchestrator.initialize_worktree_infrastructure()
 
-# Autonomous book production - runs 6 tasks in parallel
+# Autonomous content generation - runs 6 tasks in parallel
 results = await orchestrator.autonomous_book_production()
-# Output: Book ready in 30 minutes vs 2+ hours sequential
+# Output: Content ready in 30 minutes vs 2+ hours sequential
 ```
 
 ### 📈 CEO Dashboard
@@ -254,6 +304,27 @@ ls -la reports/security/
 - **Alembic Runtime**: Monitors during autonomous operation
 - **Manual Override**: Tools available for immediate security scanning
 
+## 📚 Publishing Workflow
+
+### What's Automated vs Manual
+
+**✅ Fully Automated:**
+- Book content generation (puzzles, layouts, formatting)
+- Quality validation and QA checks
+- KDP metadata preparation (titles, descriptions, keywords)
+- Cover prompt generation for DALL-E
+- Social media content creation
+- Market research and insights
+
+**🔧 Manual Steps Required:**
+1. **KDP Publishing**: Upload generated files to KDP dashboard
+2. **Cover Creation**: Generate covers using DALL-E prompts
+3. **Social Media**: Post generated content to platforms
+4. **Email Campaigns**: Send prepared content to subscribers
+5. **Sales Monitoring**: Track performance and revenue
+
+This hybrid approach ensures high-quality content generation while maintaining control over the publishing process.
+
 ## 🛠️ Core Capabilities
 
 ### ✅ Orchestration Systems (ENHANCED)
@@ -280,6 +351,42 @@ ls -la reports/security/
 - **Cost Savings** - $148/month vs paid alternatives (Helium 10 + Jungle Scout)
 - **Full Test Coverage** - 12 comprehensive tests ensuring reliability
 - **CLI Interface** - Simple commands for discovery and automation
+
+### 🚀 SEO Engine 2025
+- **Advanced Optimization** - Cutting-edge SEO strategies for 2025 algorithms
+- **CLI Command**: `kindlemint enhance-seo --input metadata.json`
+- **Automated Enhancement** - Transforms basic metadata into SEO-optimized content
+- **Keyword Research** - Built-in keyword optimization for maximum visibility
+- **Output**: Enhanced JSON file with `_seo.json` suffix
+
+### 📊 Daily Market Insights System
+- **Real-time Market Intelligence** - Automated daily collection from Reddit, Google Trends, Amazon
+- **7 Subreddits Monitored** - KDP, selfpublishing, publishing communities
+- **Executive Dashboards** - Daily summaries with actionable recommendations
+- **Trend Analysis** - Keyword tracking, seasonal patterns, emerging opportunities
+- **Fresh Data Daily** - Replaces stale insights with current market intelligence
+
+**Market Insights Commands:**
+```bash
+# Run daily market collection
+python scripts/daily_market_insights.py
+
+# View latest insights
+cat data/market-insights/market-insights.md
+
+# Read executive summary
+cat reports/market-insights/executive_summary_$(date +%Y%m%d).md
+```
+
+### 📦 Batch Processing & Orchestration CLI
+**Batch Commands:**
+- `kindlemint batch generate --type sudoku --count 5 --parallel` - Generate multiple books
+- `kindlemint batch generate --type crossword --count 3 --volume-start 4` - Start from volume 4
+
+**Orchestration Commands:**
+- `kindlemint orchestrate status` - View active worktrees and status
+- `kindlemint orchestrate dashboard` - Launch CEO dashboard for metrics
+- `kindlemint orchestrate run --task book-production --monitor` - Run orchestrated tasks
 
 ## 🔍 Quality Validation System
 
@@ -350,7 +457,35 @@ python scripts/orchestration/autonomous_worktree_manager.py
 
 # Monitor real-time progress
 python scripts/orchestration/ceo_dashboard.py
+
+# Note: Generated content requires manual upload to KDP
 ```
+
+## 🚀 Deployment with Vercel
+
+### Phase 1: Free Tier Testing
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy to Vercel
+vercel
+
+# Follow prompts to connect GitHub repo
+# Your app will be live at: https://your-app.vercel.app
+```
+
+### Phase 2: Production (When Metrics Support)
+- Monitor conversion rates and traffic
+- If >15% conversion AND >1000 visitors/month:
+  - Upgrade to Vercel Pro ($20/month)
+  - Add ConvertKit integration ($29/month)
+
+### Why Vercel?
+- **Free tier**: 100GB bandwidth/month (perfect for testing)
+- **Next.js optimized**: Built for our tech stack
+- **Automatic scaling**: Pay only for what you use
+- **Zero configuration**: Deploy with one command
 
 ## 🏗️ AI-Powered Orchestration Architecture
 
@@ -444,10 +579,10 @@ ai-kindlemint-engine/
 
 ## 🌟 Success Stories
 
-- **400 books/month capacity** with parallel orchestration
-- **$175/month savings** on operational costs
-- **75% faster production** with worktree parallelism
-- **100% autonomous operation** - no manual intervention needed
+- **400 books/month generation capacity** with parallel orchestration
+- **$175/month savings** on API and operational costs
+- **75% faster content creation** with worktree parallelism
+- **100% autonomous content generation** - manual publishing workflow
 
 ## 🤝 Contributing
 

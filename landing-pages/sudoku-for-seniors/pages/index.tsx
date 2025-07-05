@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import EmailCapture from '../components/EmailCapture';
+import SimpleEmailCapture from '../components/SimpleEmailCapture';
 import Analytics from '../components/Analytics';
 
 export default function Home() {

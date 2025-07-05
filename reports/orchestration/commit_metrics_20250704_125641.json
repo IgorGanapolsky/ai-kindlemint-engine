@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-07-04T16:56:41Z",
+  "commit_message": "refactor: Reorganize content directory to marketing/content",
+  "branch": "feature/amp-cli-integration-and-aws-cleanup",
+  "worktree_used": null,
+  "orchestration_enabled": true,
+  "token_optimization": false
+}

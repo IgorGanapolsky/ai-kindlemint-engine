@@ -3,7 +3,7 @@ Puzzle Validator Agent - Validates puzzles
 Validates puzzles directly
 """
 
-from scripts.sudoku_validator import SudokuValidator
+from kindlemint.validators.sudoku_validator import SudokuValidator
 
 
 class PuzzleValidatorAgent:

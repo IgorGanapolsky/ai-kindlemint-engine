@@ -1,19 +1,22 @@
 # KindleMint Market Insights
 
-*Last Updated: 2025-06-30 02:39:30*
+*Last Updated: 2025-07-05T02:33:19.405664*
+
+## 📊 Summary
+
+- **Posts Analyzed**: 0
+- **Subreddits**: 0
+- **Avg Engagement**: 0.0
 
 ## 🔥 Trending Keywords
 
-| Keyword | Mentions | Heat Level |
-|---------|----------|------------|
+| Keyword | Mentions | Total Engagement |
+|---------|----------|------------------|
 
-## 📊 Niche Recommendations
+## 🎯 Market Signals
 
 
 ## 🏆 Top Engaging Posts
-
-
-## 📈 Engagement Averages
 
 
 ---

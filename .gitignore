@@ -264,3 +264,11 @@ worktrees/
 reports/orchestration/archive/
 .vercel
 .env
+reports/orchestration/*.json
+
+# Temporary trash directory for hygiene orchestrator
+.trash/
+
+# Prevent any archive directories
+archive*
+.archive*

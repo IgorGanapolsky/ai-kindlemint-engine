@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-07-04T21:40:39Z",
+  "commit_message": "temp: save MCP monetization work before branch switch",
+  "branch": "feature/amp-cli-integration-and-aws-cleanup",
+  "worktree_used": null,
+  "orchestration_enabled": true,
+  "token_optimization": false
+}

@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 name: Health Issue Auto-Closer (Legacy)
 
 on:
   # Disabled - replaced by enhanced auto-closer
   # schedule:
   #   - cron: '*/15 * * * *'  # Every 15 minutes
+=======
+name: Health Issue Auto-Closer
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Every 15 minutes
+>>>>>>> origin/main
   workflow_dispatch:
 
 permissions:

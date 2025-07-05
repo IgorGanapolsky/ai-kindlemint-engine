@@ -8,64 +8,63 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // Store in localStorage as backup
-    const subscribers = JSON.parse(localStorage.getItem('sudoku_subscribers') || '[]');
-    subscribers.push({
-      email,
-      firstName,
-      timestamp: new Date().toISOString()
-    });
-    localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
-    
-    // Send email via AWS Lambda (if endpoint is configured)
-    const awsEndpoint = process.env.NEXT_PUBLIC_AWS_EMAIL_ENDPOINT;
-    if (awsEndpoint) {
-      try {
-        await fetch(awsEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, firstName })
+    try {
+      // Send to Formspree
+      const response = await fetch('https://formspree.io/f/movwqlnq', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          name: firstName,
+          _subject: '🧩 New Sudoku Lead from Landing Page!',
+          _replyto: email,
+          message: `New lead magnet signup: ${firstName} (${email}) wants the 5 FREE Brain-Boosting Puzzles`
+        })
+      });
+
+      if (response.ok) {
+        console.log('✅ Formspree submission successful');
+        
+        // Store in localStorage as backup
+        const subscribers = JSON.parse(localStorage.getItem('sudoku_subscribers') || '[]');
+        subscribers.push({
+          email,
+          firstName,
+          timestamp: new Date().toISOString(),
+          source: 'formspree'
         });
-      } catch (err) {
-        console.log('Email send failed, but continuing...');
+        localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
+        
+        setSubmitted(true);
+        setTimeout(() => {
+          onSuccess();
+        }, 500);
+      } else {
+        throw new Error(`Formspree error: ${response.status}`);
       }
+    } catch (error) {
+      console.error('❌ Form submission failed:', error);
+      alert('Something went wrong. Please try again or email us directly at support@saasgrowthdispatch.com');
+    } finally {
+      setIsSubmitting(false);
     }
-    
-    // Show success
-    setSubmitted(true);
-    
-    // Trigger download immediately
-    const link = document.createElement('a');
-    link.href = '/downloads/5-free-sudoku-puzzles.pdf';
-    link.download = '5-free-sudoku-puzzles.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Show success after download starts
-    setTimeout(() => {
-      onSuccess();
-    }, 500);
   };
 
   if (submitted) {
     return (
       <div className="text-center p-6 bg-green-50 rounded-lg">
         <h3 className="text-2xl font-bold text-green-800 mb-4">Success!</h3>
-        <p className="text-lg text-gray-700 mb-4">
-          Your free puzzles are downloading...
+        <p className="text-lg text-gray-700">
+          Thank you for subscribing! Check your email for your free puzzles.
         </p>
-        <a 
-          href="/downloads/5-free-sudoku-puzzles.pdf"
-          download
-          className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
-        >
-          Click here if download doesn't start
-        </a>
       </div>
     );
   }
@@ -96,9 +95,10 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
 
       <button
         type="submit"
-        className="w-full py-4 text-lg font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white"
+        disabled={isSubmitting}
+        className="w-full py-4 text-lg font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
-        Get My Free Puzzles →
+        {isSubmitting ? 'Sending...' : 'Get My Free Puzzles →'}
       </button>
 
       <p className="text-sm text-gray-600 text-center">

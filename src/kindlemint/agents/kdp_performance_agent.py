@@ -10,6 +10,7 @@ This agent monitors individual book performance metrics including:
 """
 
 import asyncio
+from kindlemint.billing.crawl_billing import crawl_billing_manager
 import json
 import logging
 import time
@@ -170,6 +171,10 @@ class KDPPerformanceAgent(BaseAgent):
 
     async def _scrape_amazon_product_page(self, asin: str) -> Dict[str, Any]:
         """Scrape public Amazon product page data"""
+        # Pause crawling if budget exceeded
+        if crawl_billing_manager.budget_exceeded:
+            self.logger.error("Crawl budget exceeded; aborting crawl")
+            return {"error": "Crawl budget exceeded"}
         headers = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
         }
@@ -179,6 +184,8 @@ class KDPPerformanceAgent(BaseAgent):
         try:
             async with aiohttp.ClientSession(headers=headers) as session:
                 async with session.get(url) as response:
+                    # Record crawl usage for billing
+                    crawl_billing_manager.record_crawl()
                     if response.status == 200:
                         html = await response.text()
                         soup = BeautifulSoup(html, "html.parser")
