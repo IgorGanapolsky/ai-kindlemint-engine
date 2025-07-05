@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import SimpleEmailCapture from '../components/SimpleEmailCapture';
+import FixedEmailCapture from '../components/FixedEmailCapture';
 import Analytics from '../components/Analytics';
 
 export default function Home() {
-  const [showThankYou, setShowThankYou] = useState(false);
 
   return (
     <>
@@ -48,27 +47,15 @@ export default function Home() {
             </div>
 
             {/* Main CTA */}
-            {!showThankYou ? (
-              <div className="bg-white rounded-lg shadow-xl p-8 max-w-2xl mx-auto">
-                <h2 className="text-3xl font-semibold mb-4 text-gray-900">
-                  Get 5 FREE Brain-Boosting Puzzles
-                </h2>
-                <p className="text-lg text-gray-700 mb-6">
-                  Join thousands of seniors who start their day with mental exercise!
-                </p>
-                <SimpleEmailCapture onSuccess={() => setShowThankYou(true)} />
-              </div>
-            ) : (
-              <div className="bg-green-50 rounded-lg shadow-xl p-8 max-w-2xl mx-auto">
-                <h2 className="text-3xl font-semibold mb-4 text-green-800">
-                  Success! Check Your Email
-                </h2>
-                <p className="text-lg text-gray-700">
-                  Your free puzzles are on their way. You'll also receive our weekly 
-                  "Puzzle of the Week" to keep your mind sharp!
-                </p>
-              </div>
-            )}
+            <div className="bg-white rounded-lg shadow-xl p-8 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-semibold mb-4 text-gray-900">
+                Get 5 FREE Brain-Boosting Puzzles
+              </h2>
+              <p className="text-lg text-gray-700 mb-6">
+                Join thousands of seniors who start their day with mental exercise!
+              </p>
+              <FixedEmailCapture />
+            </div>
           </div>
         </header>
 
@@ -131,24 +118,22 @@ export default function Home() {
         </section>
 
         {/* Final CTA */}
-        {!showThankYou && (
-          <section className="container mx-auto px-6 py-16">
-            <div className="bg-blue-600 rounded-lg p-8 text-center text-white max-w-2xl mx-auto">
-              <h2 className="text-3xl font-bold mb-4">
-                Start Your Brain Training Today
-              </h2>
-              <p className="text-xl mb-6">
-                Get your 5 FREE puzzles instantly - no credit card required
-              </p>
-              <button 
-                onClick={() => document.querySelector('#email-capture')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition"
-              >
-                Get Free Puzzles Now →
-              </button>
-            </div>
-          </section>
-        )}
+        <section className="container mx-auto px-6 py-16">
+          <div className="bg-blue-600 rounded-lg p-8 text-center text-white max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4">
+              Start Your Brain Training Today
+            </h2>
+            <p className="text-xl mb-6">
+              Get your 5 FREE puzzles instantly - no credit card required
+            </p>
+            <button 
+              onClick={() => document.querySelector('#email-capture')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition"
+            >
+              Get Free Puzzles Now →
+            </button>
+          </div>
+        </section>
 
         {/* Footer */}
         <footer className="bg-gray-900 text-white py-8">
