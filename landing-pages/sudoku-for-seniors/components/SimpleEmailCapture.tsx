@@ -21,63 +21,33 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     });
     localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
     
-    // Send email via EmailJS (FREE for 200 emails/month)
-    // Using correct credentials from EmailJS dashboard
-    const serviceId = 'service_i3qck4d';
-    const templateId = 'template_sfmcwjx';
-    const publicKey = '_FNTxijL8nl5Fmgzf';
-    
-    console.log('Attempting to send email via EmailJS...', {
-      serviceId,
-      templateId,
-      email,
-      firstName
-    });
-    
-    if (serviceId && templateId && publicKey) {
-      try {
-        // Dynamic import EmailJS to avoid build issues
-        const emailjs = await import('@emailjs/browser');
-        
-        // Using standard EmailJS template parameter names
-        const templateParams = {
-          user_email: email,  // Standard parameter name for recipient email
-          user_name: firstName,  // Standard parameter name for user's name
-          to_email: email,  // Alternative standard parameter name
-          from_name: firstName,  // Keep this as fallback
-          message: `New subscriber: ${firstName} (${email})`,  // Standard message parameter
-          user_message: `New subscriber: ${firstName} (${email})`  // Alternative message parameter
-        };
-        
-        console.log('Sending EmailJS with template parameters:', templateParams);
-        
-        const response = await emailjs.send(
-          serviceId,
-          templateId,
-          templateParams,
-          publicKey
-        );
-        
-        console.log('EmailJS SUCCESS! Email sent successfully:', {
-          status: response.status,
-          text: response.text
-        });
-      } catch (err) {
-        console.error('EmailJS FAILED! Detailed error:', {
-          error: err,
-          message: err instanceof Error ? err.message : 'Unknown error',
-          details: JSON.stringify(err, null, 2)
-        });
-        console.log('Continuing despite email send failure...');
+    // Send via Formspree (FREE for 50 submissions/month)
+    try {
+      const response = await fetch('https://formspree.io/f/movwqlnq', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          name: firstName,
+          message: `New Sudoku for Seniors subscriber: ${firstName} (${email})`,
+          _subject: 'New Sudoku Landing Page Subscriber',
+        }),
+      });
+      
+      if (response.ok) {
+        console.log('✅ Formspree: Email sent successfully!');
+      } else {
+        console.error('❌ Formspree: Failed to send email');
       }
-    } else {
-      console.error('EmailJS credentials missing:', { serviceId, templateId, publicKey });
+    } catch (error) {
+      console.error('❌ Formspree: Error sending email:', error);
     }
     
-    // Show success
+    // Show success regardless (form data is saved locally)
     setSubmitted(true);
     
-    // Show success message immediately
     setTimeout(() => {
       onSuccess();
     }, 500);
