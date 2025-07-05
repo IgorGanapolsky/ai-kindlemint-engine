@@ -2,11 +2,7 @@
   "rewrites": [
     {
       "source": "/api/subscribe",
-      "destination": "/subscribe.py"
-    },
-    {
-      "source": "/api/stripe-webhook", 
-      "destination": "/stripe-webhook.py"
+      "destination": "/index.py"
     }
   ]
 }
