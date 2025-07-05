@@ -47,10 +47,6 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     
     // Show success regardless (form data is saved locally)
     setSubmitted(true);
-    
-    setTimeout(() => {
-      onSuccess();
-    }, 500);
   };
 
   if (submitted) {
@@ -58,7 +54,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
       <div className="text-center p-6 bg-green-50 rounded-lg">
         <h3 className="text-2xl font-bold text-green-800 mb-4">Success!</h3>
         <p className="text-lg text-gray-700 mb-4">
-          Thank you for subscribing! Your puzzles are downloading now.
+          Thank you for subscribing! Click below to download your free puzzles.
         </p>
         <a 
           href="/downloads/5-free-sudoku-puzzles.pdf"
