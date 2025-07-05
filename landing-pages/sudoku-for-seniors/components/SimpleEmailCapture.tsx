@@ -57,9 +57,16 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     return (
       <div className="text-center p-6 bg-green-50 rounded-lg">
         <h3 className="text-2xl font-bold text-green-800 mb-4">Success!</h3>
-        <p className="text-lg text-gray-700">
-          Thank you for subscribing! Check your email for your free puzzles.
+        <p className="text-lg text-gray-700 mb-4">
+          Thank you for subscribing! Your puzzles are downloading now.
         </p>
+        <a 
+          href="/downloads/5-free-sudoku-puzzles.pdf"
+          download="5-free-sudoku-puzzles.pdf"
+          className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold"
+        >
+          📥 Download Your Free Puzzles
+        </a>
       </div>
     );
   }
