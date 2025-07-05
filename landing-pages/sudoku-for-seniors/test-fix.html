@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Email Capture Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        .form-container { background: #f0f8ff; padding: 20px; border-radius: 8px; }
+        .success-container { background: #f0fff0; padding: 20px; border-radius: 8px; border: 2px solid #00aa00; }
+        input { width: 100%; padding: 10px; margin: 5px 0; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #0066cc; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        button:hover { background: #0052a3; }
+        .download-btn { background: #00aa00; margin: 10px 0; }
+        .download-btn:hover { background: #008800; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Email Capture Test - NO FLASHING VERSION</h1>
+        
+        <div id="form-container" class="form-container">
+            <h2>Get 5 FREE Brain-Boosting Puzzles</h2>
+            <form id="email-form">
+                <input type="text" id="firstName" placeholder="Your First Name" required>
+                <input type="email" id="email" placeholder="Your Email Address" required>
+                <button type="submit">🧩 Get My FREE Puzzles Now!</button>
+            </form>
+        </div>
+
+        <div id="success-container" class="success-container hidden">
+            <h2>🎉 SUCCESS!</h2>
+            <p>Hi <strong id="user-name"></strong>! Your free puzzles are ready:</p>
+            <button class="download-btn" onclick="downloadPDF()">📄 DOWNLOAD YOUR PUZZLES NOW</button>
+            <p><strong>Want 100 MORE puzzles for just $8.99?</strong></p>
+            <p>We'll email you at: <strong id="user-email"></strong></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const email = document.getElementById('email').value;
+            
+            // Update success message with user data
+            document.getElementById('user-name').textContent = firstName;
+            document.getElementById('user-email').textContent = email;
+            
+            // Hide form, show success (NO FLASHING)
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('success-container').classList.remove('hidden');
+            
+            // Send notification in background
+            fetch('https://formspree.io/f/movwqlnq', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    name: firstName,
+                    _subject: '🧩 New Sudoku Lead from TEST PAGE!',
+                    message: `TEST PAGE signup: ${firstName} (${email}) - NO FLASHING VERSION`
+                })
+            }).then(() => console.log('✅ Notification sent'))
+              .catch(e => console.log('❌ Notification failed:', e));
+        });
+        
+        function downloadPDF() {
+            // Simulate PDF download
+            const link = document.createElement('a');
+            link.href = '/downloads/5-free-sudoku-puzzles.pdf';
+            link.download = '5-Free-Brain-Boosting-Sudoku-Puzzles.pdf';
+            link.click();
+        }
+    </script>
+</body>
+</html>

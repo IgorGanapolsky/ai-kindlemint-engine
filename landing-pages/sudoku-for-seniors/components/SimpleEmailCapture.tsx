@@ -10,15 +10,11 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    e.stopPropagation();
-    
-    if (isSubmitting) return;
-    
     setIsSubmitting(true);
     
-    // Store subscriber data immediately
+    // Store in localStorage as backup
     const subscribers = JSON.parse(localStorage.getItem('sudoku_subscribers') || '[]');
     subscribers.push({
       email,
@@ -27,67 +23,59 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     });
     localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
     
-    // Show success immediately - no waiting for API calls
-    setSubmitted(true);
-    setIsSubmitting(false);
-    
-    // Send notification in background (non-blocking)
-    fetch('https://formspree.io/f/movwqlnq', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        name: firstName,
-        _subject: '🧩 New Sudoku Lead from Landing Page!',
-        message: `New lead magnet signup: ${firstName} (${email}) - INSTANT PDF DOWNLOAD GIVEN!`
-      })
-    }).then(() => {
-      console.log('✅ Lead notification sent!');
-    }).catch((error) => {
-      console.log('❌ Notification failed but user still gets PDF:', error);
-    });
-  };
+    // Send via Formspree (FREE for 50 submissions/month)
+    try {      const response = await fetch('https://formspree.io/f/movwqlnq', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          name: firstName,
+          _subject: '🧩 New Sudoku Lead from Landing Page!',
+          _replyto: email,
+          message: `New lead magnet signup: ${firstName} (${email}) wants the 5 FREE Brain-Boosting Puzzles`
+        })
+      });
+
+      if (response.ok) {
+        console.log('✅ Formspree submission successful');
+        
+        // Store in localStorage as backup
+        const subscribers = JSON.parse(localStorage.getItem('sudoku_subscribers') || '[]');
+        subscribers.push({
+          email,
+          firstName,
+          timestamp: new Date().toISOString(),
+          source: 'formspree'
+        });
+        localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
+        
+        setSubmitted(true);
+      } else {
+        throw new Error(`Formspree error: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('❌ Form submission failed:', error);
+      alert('Something went wrong. Please try again or email us directly at support@saasgrowthdispatch.com');
+    } finally {
+      setIsSubmitting(false);
+    }  };
 
   if (submitted) {
     return (
-      <div className="text-center p-6 bg-green-50 rounded-lg border-2 border-green-200">
-        <h3 className="text-2xl font-bold text-green-800 mb-4">🎉 SUCCESS!</h3>
-        <p className="text-lg text-gray-700 mb-6">
-          Hi <strong>{firstName}</strong>! Your free puzzles are ready for download:
+      <div className="text-center p-6 bg-green-50 rounded-lg">
+        <h3 className="text-2xl font-bold text-green-800 mb-4">Success!</h3>
+        <p className="text-lg text-gray-700 mb-4">
+          Thank you for subscribing! Click below to download your free puzzles.
         </p>
-        
-        <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
-          <h4 className="text-xl font-semibold mb-4 text-gray-800">
-            📥 Get Your 5 FREE Brain-Boosting Puzzles
-          </h4>
-          
-          <a 
-            href="/downloads/5-free-sudoku-puzzles.pdf"
-            download="5-Free-Brain-Boosting-Sudoku-Puzzles.pdf"
-            className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 font-semibold text-lg mb-4 transform hover:scale-105 transition-all duration-200 shadow-lg"
-          >
-            📄 DOWNLOAD YOUR PUZZLES NOW
-          </a>
-          
-          <div className="text-sm text-gray-600 space-y-2">
-            <p>✅ 5 Large Print Sudoku Puzzles</p>
-            <p>✅ Easy on your eyes (20pt+ font)</p>
-            <p>✅ Solutions included</p>
-            <p>✅ Perfect for daily brain exercise</p>
-          </div>
-        </div>
-
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <h5 className="font-semibold text-blue-800 mb-2">💰 Want 100 MORE Puzzles?</h5>
-          <p className="text-sm text-blue-700 mb-3">
-            Get our complete "Large Print Sudoku Masters Volume 1" with 100 puzzles for just <strong>$8.99!</strong>
-          </p>
-          <p className="text-xs text-blue-600">
-            📧 We'll email you the special offer link shortly at: <strong>{email}</strong>
-          </p>
-        </div>
+        <a 
+          href="/downloads/5-free-sudoku-puzzles.pdf"
+          download="5-free-sudoku-puzzles.pdf"
+          className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold"
+        >
+          📥 Download Your Free Puzzles
+        </a>
       </div>
     );
   }
@@ -119,13 +107,13 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 text-lg font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-400 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200"
+        className="w-full py-4 text-lg font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
-        {isSubmitting ? 'Getting Your Puzzles...' : '🧩 Get My FREE Puzzles Now!'}
+        {isSubmitting ? 'Sending...' : 'Get My Free Puzzles →'}
       </button>
 
       <p className="text-sm text-gray-600 text-center">
-        ✅ Instant download • No spam • No credit card required
+        We respect your privacy. Unsubscribe at any time.
       </p>
     </form>
   );
