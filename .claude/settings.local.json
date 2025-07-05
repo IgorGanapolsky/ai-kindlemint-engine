@@ -338,7 +338,9 @@
       "Bash(./scripts/emergency_merge_130.sh:*)",
       "Bash(git fetch:*)",
       "Bash(./scripts/setup_email_filtering.sh:*)",
-      "Bash(git fetch:*)"
+      "Bash(git fetch:*)",
+      "Bash(./cleanup_all_worktrees.sh)",
+      "WebFetch(domain:ai-kindlemint-engine-8cgfskwhj-igorganapolskys-projects.vercel.app)"
     ],
     "deny": []
   }

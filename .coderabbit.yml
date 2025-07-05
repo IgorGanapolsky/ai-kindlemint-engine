@@ -1,12 +1,13 @@
 # CodeRabbit Configuration
-# Reducing verbosity to minimize PR noise
+# ULTRA-MINIMAL mode to prevent email spam
 
 # Review Settings
 reviews:
-  # Only comment on significant issues, not minor style concerns
-  comment_threshold: "significant"
+  # CRITICAL issues only - no suggestions or nitpicks
+  comment_threshold: "critical"
+  review_level: "critical_only"
   
-  # Disable auto-review for certain file types
+  # Disable auto-review for workflows and configs
   ignore_patterns:
     - "*.md"
     - "*.json"
@@ -18,46 +19,59 @@ reviews:
     - "docs/**"
     - "*.test.*"
     - "*.spec.*"
+    - ".github/workflows/**"
+    - "scripts/**"
+    - "reports/**"
+    - "config/**"
   
-  # Focus areas - only review these aspects
+  # Only review ACTUAL bugs
   focus_areas:
-    - "security"
-    - "performance"
-    - "logic_errors"
-    - "potential_bugs"
+    - "security_vulnerabilities"
+    - "critical_bugs"
   
-  # Skip style and formatting issues (handled by linters)
+  # Skip ALL non-critical checks
   skip_checks:
     - "code_style"
-    - "naming_conventions"
+    - "naming_conventions"  
     - "documentation"
     - "whitespace"
     - "line_length"
+    - "performance_suggestions"
+    - "refactoring_suggestions"
+    - "best_practices"
+    - "code_smells"
 
 # Summary Settings  
 summary:
-  # Keep summaries concise
-  style: "concise"
+  # Ultra-concise mode
+  style: "ultra_concise"
+  enabled: false  # Disable summaries entirely
   
   # Only include critical findings in summary
   include_only_critical: true
   
   # Max length for summary comments
-  max_length: 500
+  max_length: 200
 
 # Behavior Settings
 behavior:
-  # Don't comment on every file change
-  file_comment_limit: 3
+  # Maximum 1 comment per PR
+  file_comment_limit: 1
+  pr_comment_limit: 1
   
-  # Group related issues into single comment
+  # Group ALL issues into single comment
   group_related_issues: true
   
-  # Don't re-comment on resolved conversations
+  # Don't re-comment on anything
   skip_resolved: true
+  skip_previous_suggestions: true
   
-  # Minimal interaction mode
-  interaction_mode: "minimal"
+  # Silent mode - only comment on critical issues
+  interaction_mode: "silent"
+  
+  # Don't suggest commands or documentation
+  disable_command_suggestions: true
+  disable_documentation_links: true
 
 # Language-specific settings
 languages:
