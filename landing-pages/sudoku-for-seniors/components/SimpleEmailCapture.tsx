@@ -10,118 +10,83 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+    
+    if (isSubmitting) return;
+    
     setIsSubmitting(true);
     
-    try {
-      // Store in localStorage as backup
-      const subscribers = JSON.parse(localStorage.getItem('sudoku_subscribers') || '[]');
-      subscribers.push({
-        email,
-        firstName,
-        timestamp: new Date().toISOString()
-      });
-      localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
-      
-      // AUTOMATED EMAIL DELIVERY - Send PDF directly to subscriber
-      const emailjs = await import('@emailjs/browser');
-      
-      const templateParams = {
-        user_email: email,
-        user_name: firstName,
-        to_email: email,
-        from_name: 'KindleMint Puzzle Masters',
-        reply_to: 'support@saasgrowthdispatch.com',
-        subject: '🧩 Your FREE Brain-Boosting Puzzles Are Here!',
-        message: `Hi ${firstName},
-
-Thank you for joining our puzzle community! 
-
-Your 5 FREE large print Sudoku puzzles are attached to this email, specially designed for brain health and easy on the eyes.
-
-🎯 What's included:
-• 5 carefully selected puzzles
-• Extra-large 20pt print  
-• Complete solutions included
-• Perfect for daily brain exercise
-
-🧠 Why Sudoku?
-Studies show that regular puzzle solving helps maintain cognitive function and memory as we age.
-
-Enjoy your puzzles, and let me know how you like them!
-
-Best regards,
-Igor
-KindleMint Puzzle Masters
-support@saasgrowthdispatch.com
-
-P.S. If you enjoy these, I have 100 more brain-boosting puzzles ready for you! Just reply "MORE" and I'll send details.`
-      };
-
-      // Send automated email with PDF attachment to subscriber
-      await emailjs.send(
-        'service_i3qck4d',
-        'template_sfmcwjx', 
-        templateParams,
-        '_FNTxijL8nl5Fmgzf'
-      );
-      
-      console.log('✅ AUTOMATED EMAIL SENT TO SUBSCRIBER!');
-      
-      // Also send notification to you via Formspree
-      await fetch('https://formspree.io/f/movwqlnq', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          name: firstName,
-          _subject: '🧩 New Sudoku Lead from Landing Page!',
-          message: `New lead magnet signup: ${firstName} (${email}) - AUTOMATED EMAIL SENT!`
-        })
-      });
-      
-      setSubmitted(true);
-      setTimeout(() => {
-        onSuccess();
-      }, 500);
-      
-    } catch (error) {
-      console.error('❌ Automated email failed:', error);
-      
-      // Fallback: Show download link if email fails
-      setSubmitted(true);
-      setTimeout(() => {
-        onSuccess();
-      }, 500);
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Store subscriber data immediately
+    const subscribers = JSON.parse(localStorage.getItem('sudoku_subscribers') || '[]');
+    subscribers.push({
+      email,
+      firstName,
+      timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
+    
+    // Show success immediately - no waiting for API calls
+    setSubmitted(true);
+    setIsSubmitting(false);
+    
+    // Send notification in background (non-blocking)
+    fetch('https://formspree.io/f/movwqlnq', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        name: firstName,
+        _subject: '🧩 New Sudoku Lead from Landing Page!',
+        message: `New lead magnet signup: ${firstName} (${email}) - INSTANT PDF DOWNLOAD GIVEN!`
+      })
+    }).then(() => {
+      console.log('✅ Lead notification sent!');
+    }).catch((error) => {
+      console.log('❌ Notification failed but user still gets PDF:', error);
+    });
   };
 
   if (submitted) {
     return (
-      <div className="text-center p-6 bg-green-50 rounded-lg">
-        <h3 className="text-2xl font-bold text-green-800 mb-4">🎉 Success!</h3>
-        <p className="text-lg text-gray-700 mb-4">
-          <strong>Check your email!</strong> Your free puzzles are on their way to <strong>{email}</strong>
+      <div className="text-center p-6 bg-green-50 rounded-lg border-2 border-green-200">
+        <h3 className="text-2xl font-bold text-green-800 mb-4">🎉 SUCCESS!</h3>
+        <p className="text-lg text-gray-700 mb-6">
+          Hi <strong>{firstName}</strong>! Your free puzzles are ready for download:
         </p>
-        <p className="text-sm text-gray-600 mb-4">
-          📧 Email should arrive within 2 minutes from KindleMint Puzzle Masters
-        </p>
-        <div className="bg-blue-50 p-4 rounded-lg">
-          <p className="text-sm text-blue-800">
-            <strong>Backup Download:</strong> If email doesn't arrive, click below:
-          </p>
+        
+        <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
+          <h4 className="text-xl font-semibold mb-4 text-gray-800">
+            📥 Get Your 5 FREE Brain-Boosting Puzzles
+          </h4>
+          
           <a 
             href="/downloads/5-free-sudoku-puzzles.pdf"
-            download="5-free-sudoku-puzzles.pdf"
-            className="inline-block mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
+            download="5-Free-Brain-Boosting-Sudoku-Puzzles.pdf"
+            className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 font-semibold text-lg mb-4 transform hover:scale-105 transition-all duration-200 shadow-lg"
           >
-            📥 Download PDF Backup
+            📄 DOWNLOAD YOUR PUZZLES NOW
           </a>
+          
+          <div className="text-sm text-gray-600 space-y-2">
+            <p>✅ 5 Large Print Sudoku Puzzles</p>
+            <p>✅ Easy on your eyes (20pt+ font)</p>
+            <p>✅ Solutions included</p>
+            <p>✅ Perfect for daily brain exercise</p>
+          </div>
+        </div>
+
+        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <h5 className="font-semibold text-blue-800 mb-2">💰 Want 100 MORE Puzzles?</h5>
+          <p className="text-sm text-blue-700 mb-3">
+            Get our complete "Large Print Sudoku Masters Volume 1" with 100 puzzles for just <strong>$8.99!</strong>
+          </p>
+          <p className="text-xs text-blue-600">
+            📧 We'll email you the special offer link shortly at: <strong>{email}</strong>
+          </p>
         </div>
       </div>
     );
@@ -154,13 +119,13 @@ P.S. If you enjoy these, I have 100 more brain-boosting puzzles ready for you! J
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 text-lg font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
+        className="w-full py-4 text-lg font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-400 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200"
       >
-        {isSubmitting ? 'Sending Your Puzzles...' : 'Get My Free Puzzles →'}
+        {isSubmitting ? 'Getting Your Puzzles...' : '🧩 Get My FREE Puzzles Now!'}
       </button>
 
       <p className="text-sm text-gray-600 text-center">
-        ✅ PDF delivered instantly to your email • No spam • Unsubscribe anytime
+        ✅ Instant download • No spam • No credit card required
       </p>
     </form>
   );
