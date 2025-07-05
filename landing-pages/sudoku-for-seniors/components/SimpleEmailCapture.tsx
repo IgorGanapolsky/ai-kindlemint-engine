@@ -21,17 +21,28 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     });
     localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
     
-    // Send email via AWS Lambda (if endpoint is configured)
-    const awsEndpoint = process.env.NEXT_PUBLIC_AWS_EMAIL_ENDPOINT;
-    if (awsEndpoint) {
+    // Send email via EmailJS (FREE for 200 emails/month)
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+    
+    if (serviceId && templateId && publicKey) {
       try {
-        await fetch(awsEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, firstName })
-        });
+        // Dynamic import EmailJS to avoid build issues
+        const emailjs = await import('@emailjs/browser');
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            from_name: firstName,
+            from_email: email,
+            to_name: 'KindleMint Team',
+            message: `New subscriber: ${firstName} (${email})`
+          },
+          publicKey
+        );
       } catch (err) {
-        console.log('Email send failed, but continuing...');
+        console.log('EmailJS send failed, but continuing...', err);
       }
     }
     
