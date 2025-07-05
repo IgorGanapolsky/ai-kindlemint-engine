@@ -12,12 +12,16 @@
     "__pycache__/*",
     ".git/*",
     "node_modules/*",
+    "*/node_modules/*",
     "venv/*",
     ".env.example",
     "docs/*.md",
     "reports/*",
     "*.log",
-    "tests/fixtures/*"
+    "tests/fixtures/*",
+    "*.min.js",
+    "*/dist/*",
+    "build/*"
   ],
   "secret_detection": {
     "entropy_threshold": 4.5,
