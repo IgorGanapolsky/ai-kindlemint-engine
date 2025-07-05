@@ -332,8 +332,13 @@
       "Bash(then mv \"$f\" \"$f.disabled\")",
       "Bash(git cherry-pick:*)",
       "Bash(diff:*)",
-      "Bash(gh label create:*)",
-      "Bash(npm run typecheck:*)"
+      "Bash(for file in scripts/unified_volume_generator.py scripts/crossword_engine_v3_fixed.py scripts/create_volume_3_unique_puzzles.py scripts/create_volume_3_final_unique.py)",
+      "Bash(if [ -f \"$file\" ])",
+      "Bash(then )",
+      "Bash(./scripts/emergency_merge_130.sh:*)",
+      "Bash(git fetch:*)",
+      "Bash(./scripts/setup_email_filtering.sh:*)",
+      "Bash(git fetch:*)"
     ],
     "deny": []
   }

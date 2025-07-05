@@ -1,3 +1,9 @@
+# ⚠️ DEPRECATED - Manual AWS Infrastructure Deployment Guide
+
+> **WARNING**: This guide is DEPRECATED. The project has migrated to Vercel for deployment.
+> See the main README for current deployment instructions using Vercel.
+> This document is kept for historical reference only.
+
 # 🚀 Manual AWS Infrastructure Deployment Guide
 
 ## Quick Console Deployment (5 minutes)

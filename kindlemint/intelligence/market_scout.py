@@ -1,12 +1,19 @@
 
 import logging
-from pytrends.request import TrendReq
 
+try:
+    from pytrends.request import TrendReq
+except ImportError:
+    TrendReq = None
+    
 logger = logging.getLogger(__name__)
 
 class MarketScout:
     def __init__(self):
+        if TrendReq is None:
+            raise ImportError("pytrends is required but not installed. Install it with: pip install pytrends")
         self.pytrends = TrendReq(hl='en-US', tz=360)
+        # TODO: Consider adding rate limiting to prevent hitting Google Trends API limits.
 
     def get_trending_topics(self, keywords, timeframe='today 1-m'):
         """

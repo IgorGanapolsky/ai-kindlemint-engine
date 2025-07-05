@@ -45,7 +45,7 @@ try:
     from reportlab.lib.units import inch
     from reportlab.pdfgen import canvas
 
-    from scripts.config_loader import config
+    from kindlemint.utils.config import config
 except ImportError as e:
     print(f"❌ Critical Error: Failed to import required modules. {e}")
     print("   Please ensure you have run 'pip install -r requirements.txt'")
