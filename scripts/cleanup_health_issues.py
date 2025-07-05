@@ -94,7 +94,10 @@ def check_system_health():
             for run in runs:
                 if run['conclusion'] == 'failure':
                     created_at = datetime.fromisoformat(run['createdAt'].replace('Z', '+00:00'))
-                    if (now - created_at).total_seconds() < 7200:  # 2 hours
+                    # Make now timezone-aware
+                    from datetime import timezone
+                    now_aware = now.replace(tzinfo=timezone.utc)
+                    if (now_aware - created_at).total_seconds() < 7200:  # 2 hours
                         recent_failures += 1
                         
                         # Check if it's a critical workflow
@@ -152,7 +155,9 @@ def main():
         
         # Calculate age
         created_date = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
-        age_hours = (datetime.now() - created_date).total_seconds() / 3600
+        from datetime import timezone
+        now_aware = datetime.now(timezone.utc)
+        age_hours = (now_aware - created_date).total_seconds() / 3600
         
         print(f"\n📄 Issue #{issue_num}: {title}")
         print(f"   Age: {age_hours:.1f} hours")
