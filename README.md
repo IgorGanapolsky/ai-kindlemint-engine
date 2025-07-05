@@ -9,8 +9,12 @@
 [![Hygiene Score](https://img.shields.io/badge/hygiene-76%25-green)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/blob/main/scripts/real_hygiene_analyzer.py)
 [![Cursor Bugbot](https://img.shields.io/badge/Cursor-Bugbot_Active-green)](https://cursor.com)
 <!-- Orchestration Cost Tracking -->
+<<<<<<< HEAD
 [![MTD Cost](https://img.shields.io/badge/MTD_Cost-$68.90-yellow?style=for-the-badge)](./reports/orchestration/) [![Orchestration Savings](https://img.shields.io/badge/Orchestration_Savings-$3.60_5%-orange?style=for-the-badge)](./reports/orchestration/)[![GitHub Issues](https://img.shields.io/github/issues/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/pulls)
+=======
+[![MTD Cost](https://img.shields.io/badge/MTD_Cost-$72.90-yellow?style=for-the-badge)](./reports/orchestration/) [![Orchestration Savings](https://img.shields.io/badge/Orchestration_Savings-$3.60_5%-orange?style=for-the-badge)](./reports/orchestration/)[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/pulls)
+>>>>>>> f473755a041ce26651f5aa93a1263fc6852465e6
 [![Last Commit](https://img.shields.io/github/last-commit/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/commits/main)
 [![Contributors](https://img.shields.io/github/contributors/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/graphs/contributors)
 [![Code Size](https://img.shields.io/github/languages/code-size/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine)
