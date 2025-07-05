@@ -331,7 +331,8 @@
       "Bash(do if [ -f \"$f\" ])",
       "Bash(then mv \"$f\" \"$f.disabled\")",
       "Bash(git cherry-pick:*)",
-      "Bash(vercel:*)"
+      "Bash(vercel:*)",
+      "Bash(./fix_worktree_setup.sh:*)"
     ],
     "deny": []
   }

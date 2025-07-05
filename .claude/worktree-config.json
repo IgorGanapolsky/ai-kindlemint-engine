@@ -1,0 +1,31 @@
+{
+  "parallel_development": true,
+  "main_branch_accessible": true,
+  "worktrees": {
+    "main-dev": {
+      "branch": "main",
+      "purpose": "Main development and releases",
+      "quick_access": "main-work/"
+    },
+    "puzzle-gen": {
+      "branch": "worktree/puzzle-generation", 
+      "purpose": "Puzzle generation features",
+      "quick_access": "puzzle-work/"
+    },
+    "parallel-pdf": {
+      "branch": "feature/parallel-pdf-generation",
+      "purpose": "PDF generation optimization"
+    },
+    "parallel-puzzles": {
+      "branch": "feature/parallel-puzzle-generation", 
+      "purpose": "Puzzle generation parallelization"
+    },
+    "parallel-qa": {
+      "branch": "feature/parallel-qa-validation",
+      "purpose": "QA validation automation"
+    }
+  },
+  "claude_code_optimized": true,
+  "quick_switch_enabled": true,
+  "parallel_safe": true
+}
