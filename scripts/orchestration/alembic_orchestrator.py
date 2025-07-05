@@ -22,6 +22,7 @@ from kindlemint.marketing.event_driven_agent import EventDrivenMarketingAgent, E
 from kindlemint.data.private_data_pipeline import PrivateDataPipeline, DataSource, ConsentLevel
 from kindlemint.orchestration.human_creativity_checkpoints import HumanCreativityCheckpoints, CheckpointType
 from scripts.orchestration.autonomous_worktree_manager import AutonomousWorktreeManager
+from scripts.orchestration.security_orchestrator import SecurityOrchestrator
 
 
 logging.basicConfig(level=logging.INFO)
@@ -40,6 +41,7 @@ class AlembicOrchestrator:
         self.data_pipeline = PrivateDataPipeline()
         self.creativity_checkpoints = HumanCreativityCheckpoints()
         self.worktree_manager = AutonomousWorktreeManager()
+        self.security_orchestrator = SecurityOrchestrator()
         
         self.config = self._load_config()
         self.is_running = False
@@ -78,7 +80,8 @@ class AlembicOrchestrator:
             self._event_monitoring_loop(),
             self._causal_analysis_loop(),
             self._data_collection_loop(),
-            self._decision_execution_loop()
+            self._decision_execution_loop(),
+            self._security_monitoring_loop()
         ]
         
         await asyncio.gather(*tasks)

@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+"""
+Pre-commit Security Hook
+
+This hook runs security validation before each commit to prevent
+security issues like hardcoded secrets from entering the repository.
+"""
+
+import sys
+import subprocess
+import json
+from pathlib import Path
+import os
+
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
+try:
+    from scripts.orchestration.security_orchestrator import SecurityOrchestrator
+except ImportError:
+    print("❌ Security orchestrator not available - commit allowed but not validated")
+    sys.exit(0)
+
+
+def get_staged_files():
+    """Get list of staged files for commit"""
+    try:
+        result = subprocess.run(
+            ["git", "diff", "--cached", "--name-only"],
+            capture_output=True,
+            text=True,
+            cwd=project_root
+        )
+        
+        if result.returncode == 0:
+            return [f for f in result.stdout.strip().split('\n') if f]
+        return []
+    except Exception:
+        return []
+
+
+def main():
+    """Main pre-commit security validation"""
+    print("🔒 Running pre-commit security validation...")
+    
+    # Get staged files
+    staged_files = get_staged_files()
+    
+    if not staged_files:
+        print("✅ No files to validate")
+        return 0
+    
+    print(f"🔍 Validating {len(staged_files)} staged files...")
+    
+    # Initialize security orchestrator
+    orchestrator = SecurityOrchestrator()
+    
+    # Validate the commit
+    is_safe, issues = orchestrator.validate_commit(staged_files)
+    
+    if not issues:
+        print("✅ No security issues found")
+        return 0
+    
+    # Report issues found
+    print(f"\n⚠️  Found {len(issues)} security issues:")
+    print("=" * 50)
+    
+    critical_count = 0
+    high_count = 0
+    
+    for issue in issues:
+        severity_emoji = {
+            "critical": "🚨",
+            "high": "⚠️",
+            "medium": "🔸",
+            "low": "ℹ️"
+        }
+        
+        emoji = severity_emoji.get(issue.severity.value, "🔸")
+        
+        print(f"{emoji} {issue.severity.value.upper()}: {issue.description}")
+        print(f"   File: {issue.file_path}")
+        if issue.line_number:
+            print(f"   Line: {issue.line_number}")
+        print(f"   Fix: {issue.recommendation}")
+        print()
+        
+        if issue.severity.value == "critical":
+            critical_count += 1
+        elif issue.severity.value == "high":
+            high_count += 1
+    
+    # Save detailed report
+    report_dir = project_root / "reports" / "security"
+    report_dir.mkdir(parents=True, exist_ok=True)
+    
+    report_data = {
+        "timestamp": str(os.path.getmtime(__file__)),
+        "staged_files": staged_files,
+        "issues": [issue.to_dict() for issue in issues],
+        "is_safe": is_safe
+    }
+    
+    with open(report_dir / "pre_commit_validation.json", "w") as f:
+        json.dump(report_data, f, indent=2)
+    
+    # Decision logic
+    if not is_safe:
+        print("🚨 COMMIT BLOCKED: Critical security issues found!")
+        print("\nTo proceed, you must:")
+        print("1. Fix all critical and high severity issues")
+        print("2. Move hardcoded secrets to environment variables") 
+        print("3. Run: git add . && git commit")
+        print("\nFor help, see: docs/SECURITY_FIX.md")
+        return 1
+    
+    if critical_count > 0 or high_count > 0:
+        print("⚠️  WARNING: High severity issues found but commit allowed")
+        print("Please address these issues in a follow-up commit")
+    
+    print("✅ Security validation passed - commit proceeding")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

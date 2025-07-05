@@ -1,0 +1,80 @@
+{
+  "enabled_checks": [
+    "secret_detection",
+    "dependency_scan",
+    "code_quality",
+    "configuration"
+  ],
+  "severity_threshold": "medium",
+  "fail_on_critical": true,
+  "exclude_patterns": [
+    "*.pyc",
+    "__pycache__/*",
+    ".git/*",
+    "node_modules/*",
+    "venv/*",
+    ".env.example",
+    "docs/*.md",
+    "reports/*",
+    "*.log",
+    "tests/fixtures/*"
+  ],
+  "secret_detection": {
+    "entropy_threshold": 4.5,
+    "check_git_history": false,
+    "whitelist_files": [
+      ".env.example",
+      "docs/*.md",
+      "tests/*",
+      "scripts/orchestration/security_config.json"
+    ],
+    "whitelist_values": [
+      "default-dev-key",
+      "default-salt",
+      "your_api_key_here",
+      "example_value",
+      "placeholder"
+    ]
+  },
+  "dependency_scan": {
+    "enabled": true,
+    "check_vulnerabilities": true,
+    "check_licenses": false,
+    "allowed_licenses": [
+      "MIT",
+      "Apache-2.0",
+      "BSD-3-Clause",
+      "ISC"
+    ]
+  },
+  "code_quality": {
+    "check_eval_exec": true,
+    "check_shell_injection": true,
+    "check_pickle_usage": true,
+    "check_sql_injection": false,
+    "check_xss": false
+  },
+  "configuration": {
+    "check_env_files": true,
+    "check_secrets_in_config": true,
+    "check_permissions": false,
+    "required_files": [
+      ".env.example",
+      ".gitignore"
+    ],
+    "forbidden_files": [
+      ".env"
+    ]
+  },
+  "notifications": {
+    "slack_webhook": null,
+    "email_alerts": false,
+    "github_issues": true
+  },
+  "reporting": {
+    "save_reports": true,
+    "report_format": "json",
+    "report_directory": "reports/security",
+    "retention_days": 30
+  }
+}
