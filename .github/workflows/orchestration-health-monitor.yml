@@ -76,8 +76,11 @@ jobs:
           steps.untracked.outputs.untracked_files != '0' ||
           steps.uncommitted.outputs.modified_files != '0'
         run: |
-          # Create or update health report issue
-          EXISTING_ISSUE=$(gh issue list --label "orchestration-health" --state open --json number --jq '.[0].number' || echo "")
+          # Create or update health report issue  
+          # Search for existing health reports from today
+          TODAY=$(date -u '+%Y-%m-%d')
+          EXISTING_ISSUE=$(gh issue list --label "orchestration-health" --state open --json number,title | \
+            jq -r ".[] | select(.title | contains(\"$TODAY\")) | .number" | head -1)
           
           REPORT="# 🤖 Orchestration Health Report
           

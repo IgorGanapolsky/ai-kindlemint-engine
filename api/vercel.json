@@ -1,19 +1,12 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "*.py",
-      "use": "@vercel/python"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/subscribe",
-      "dest": "/subscribe.py"
+      "source": "/api/subscribe",
+      "destination": "/subscribe.py"
     },
     {
-      "src": "/api/stripe-webhook", 
-      "dest": "/stripe-webhook.py"
+      "source": "/api/stripe-webhook", 
+      "destination": "/stripe-webhook.py"
     }
   ]
 }
