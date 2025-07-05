@@ -1,0 +1,14 @@
+# Bot Configuration - Block problematic bots
+
+[bots.pixeebot]
+# Pixeebot causes syntax errors with bad auto-formatting
+enabled = false
+block = true
+
+[bots.coderabbitai]
+# CodeRabbit is useful but configured via .coderabbit.yml
+enabled = true
+
+[bots.github-actions]
+# Can't disable but email notifications are controlled via GitHub settings
+enabled = true

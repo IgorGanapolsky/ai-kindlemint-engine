@@ -1,19 +1,52 @@
 # KindleMint Market Insights
 
-*Last Updated: 2025-06-30 02:39:30*
+*Last Updated: 2025-07-04T15:55:33.121817*
+
+## 📊 Summary
+
+- **Posts Analyzed**: 181
+- **Subreddits**: 7
+- **Avg Engagement**: 24.9
 
 ## 🔥 Trending Keywords
 
-| Keyword | Mentions | Heat Level |
-|---------|----------|------------|
+| Keyword | Mentions | Total Engagement |
+|---------|----------|------------------|
+| book | 97 | 2878 |
+| kdp | 45 | 1102 |
+| amazon | 44 | 1056 |
+| publishing | 39 | 970 |
+| kindle | 16 | 579 |
+| sales | 16 | 514 |
+| cover | 20 | 511 |
+| review | 20 | 401 |
+| ads | 15 | 400 |
+| ebook | 11 | 307 |
 
-## 📊 Niche Recommendations
+## 🎯 Market Signals
 
+- **amazon** - Consider creating content around 'amazon' - high community interest
+- **cover** - Consider creating content around 'cover' - high community interest
+- **book** - Consider creating content around 'book' - high community interest
+- **promotion** - Consider creating content around 'promotion' - high community interest
+- **kdp** - Consider creating content around 'kdp' - high community interest
 
 ## 🏆 Top Engaging Posts
 
+1. **[Burning Questions for June, 2025...](https://www.reddit.com/r/eroticauthors/comments/1l0j0ab/burning_questions_for_june_2025/)**
+   - Engagement: 437 | Subreddit: r/eroticauthors
 
-## 📈 Engagement Averages
+1. **[I thought I was making progress with Kindle Unlimited… until I saw what I actual...](https://www.reddit.com/r/selfpublishing/comments/1loas9n/i_thought_i_was_making_progress_with_kindle/)**
+   - Engagement: 205 | Subreddit: r/selfpublishing
+
+1. **[Weekly Self-Promo and Chat Thread...](https://www.reddit.com/r/selfpublish/comments/1lny230/weekly_selfpromo_and_chat_thread/)**
+   - Engagement: 163 | Subreddit: r/selfpublish
+
+1. **[Thoughts on Not Selling Through Amazon?...](https://www.reddit.com/r/selfpublish/comments/1lqvkg7/thoughts_on_not_selling_through_amazon/)**
+   - Engagement: 156 | Subreddit: r/selfpublish
+
+1. **[Self published my first book yesterday, today is says #1 new release...](https://www.reddit.com/r/selfpublish/comments/1lrow66/self_published_my_first_book_yesterday_today_is/)**
+   - Engagement: 151 | Subreddit: r/selfpublish
 
 
 ---
