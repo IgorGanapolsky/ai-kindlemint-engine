@@ -9,8 +9,7 @@
 [![Hygiene Score](https://img.shields.io/badge/hygiene-76%25-green)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/blob/main/scripts/real_hygiene_analyzer.py)
 [![Cursor Bugbot](https://img.shields.io/badge/Cursor-Bugbot_Active-green)](https://cursor.com)
 <!-- Orchestration Cost Tracking -->
-[![MTD Cost](https://img.shields.io/badge/MTD_Cost-$80.00-yellow?style=for-the-badge)](./reports/orchestration/) [![Orchestration Savings](https://img.shields.io/badge/Orchestration_Savings-$3.00_4%-orange?style=for-the-badge)](./reports/orchestration/)
-[![GitHub Issues](https://img.shields.io/github/issues/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/issues)
+[![MTD Cost](https://img.shields.io/badge/MTD_Cost-$76.50-yellow?style=for-the-badge)](./reports/orchestration/) [![Orchestration Savings](https://img.shields.io/badge/Orchestration_Savings-$3.00_4%-orange?style=for-the-badge)](./reports/orchestration/)[![GitHub Issues](https://img.shields.io/github/issues/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/pulls)
 [![Last Commit](https://img.shields.io/github/last-commit/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/commits/main)
 [![Contributors](https://img.shields.io/github/contributors/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/graphs/contributors)
