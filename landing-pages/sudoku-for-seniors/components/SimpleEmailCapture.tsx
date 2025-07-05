@@ -52,9 +52,6 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
         localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
         
         setSubmitted(true);
-        setTimeout(() => {
-          onSuccess();
-        }, 500);
       } else {
         throw new Error(`Formspree error: ${response.status}`);
       }
