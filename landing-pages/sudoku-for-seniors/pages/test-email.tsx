@@ -15,7 +15,7 @@ export default function TestEmail() {
     setLogs([]);
     
     try {
-      addLog('Starting EmailJS test...');
+      addLog('Starting EmailJS test... (Updated with correct Service ID)');
       
       const emailjs = await import('@emailjs/browser');
       addLog('EmailJS loaded successfully');
