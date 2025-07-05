@@ -41,8 +41,7 @@ class AutonomousWorktreeManager:
         """Execute shell command"""
         result = subprocess.run(
             cmd, 
-            shell=True, 
-            cwd=cwd or self.base_path,
+            shell=False, cwd=cwd or self.base_path,
             capture_output=True, 
             text=True
         )
