@@ -49,15 +49,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     // Show success
     setSubmitted(true);
     
-    // Trigger download immediately
-    const link = document.createElement('a');
-    link.href = '/downloads/5-free-sudoku-puzzles.pdf';
-    link.download = '5-free-sudoku-puzzles.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Show success after download starts
+    // Show success message immediately
     setTimeout(() => {
       onSuccess();
     }, 500);
@@ -67,16 +59,9 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     return (
       <div className="text-center p-6 bg-green-50 rounded-lg">
         <h3 className="text-2xl font-bold text-green-800 mb-4">Success!</h3>
-        <p className="text-lg text-gray-700 mb-4">
-          Your free puzzles are downloading...
+        <p className="text-lg text-gray-700">
+          Thank you for subscribing! Check your email for your free puzzles.
         </p>
-        <a 
-          href="/downloads/5-free-sudoku-puzzles.pdf"
-          download
-          className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
-        >
-          Click here if download doesn't start
-        </a>
       </div>
     );
   }
