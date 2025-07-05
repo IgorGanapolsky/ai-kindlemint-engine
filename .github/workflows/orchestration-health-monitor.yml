@@ -155,7 +155,8 @@ jobs:
           
           # Restart stuck workflows
           gh workflow run autonomous-pr-handler.yml
-          gh workflow run emergency-fix-handler.yml
+          gh workflow run continuous-pr-resolver.yml
+          gh workflow run feature-branch-fixer.yml
           
           # Create high-priority alert
           gh issue create \

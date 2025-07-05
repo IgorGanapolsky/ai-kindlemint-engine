@@ -19,9 +19,6 @@ class PDFGenerator:
     """
 
     def __init__(self):
-
-
-def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.supported_formats = ["paperback", "hardcover"]
         self.trim_sizes = {"paperback": "8.5x11", "hardcover": "6x9"}

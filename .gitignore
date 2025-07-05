@@ -262,3 +262,5 @@ worktrees/
 
 # Orchestration metrics archives
 reports/orchestration/archive/
+.vercel
+.env
