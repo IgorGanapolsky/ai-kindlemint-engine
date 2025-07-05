@@ -1,0 +1,1328 @@
+{
+  "scan_timestamp": "299594.632097833",
+  "total_issues": 128,
+  "issues_by_severity": {
+    "critical": 13,
+    "high": 39,
+    "medium": 76,
+    "low": 0,
+    "info": 0
+  },
+  "issues_by_type": {
+    "secret_detection": 13,
+    "dependency_scan": 0,
+    "code_quality": 115,
+    "configuration": 0,
+    "permissions": 0,
+    "encryption": 0,
+    "api_security": 0
+  },
+  "critical_files": [
+    {
+      "file": "scripts/orchestration/security_orchestrator.py",
+      "issues": 5
+    },
+    {
+      "file": "scripts/orchestration_metrics_aggregator.py",
+      "issues": 3
+    },
+    {
+      "file": "tests/unit/test_enhanced_ci.py",
+      "issues": 3
+    },
+    {
+      "file": "worktrees/main-dev/scripts/orchestration_metrics_aggregator.py",
+      "issues": 3
+    },
+    {
+      "file": "worktrees/main-dev/tests/unit/test_enhanced_ci.py",
+      "issues": 3
+    }
+  ],
+  "recommendations": [
+    "CRITICAL: Address all critical security issues immediately",
+    "Move hardcoded secrets to environment variables"
+  ],
+  "issues": [
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/node-fetch/index.js",
+      "line_number": 1,
+      "description": "Potential Generic Password found: false;this.options=p...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/node-fetch/index.js",
+      "line_number": 1,
+      "description": "Potential Generic Password found: a(11).setThePassword...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/next-server/app-page-experimental.runtime.prod.js",
+      "line_number": 12,
+      "description": "Potential Generic Password found: ()=>d,COOKIE_NAME_PR...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/next-server/app-page-experimental.runtime.dev.js",
+      "line_number": 35,
+      "description": "Potential Generic Password found: ()=>f,COOKIE_NAME_PR...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",
+      "line_number": 12,
+      "description": "Potential Generic Password found: ()=>d,COOKIE_NAME_PR...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js",
+      "line_number": 35,
+      "description": "Potential Generic Password found: ()=>f,COOKIE_NAME_PR...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/next-server/app-page-turbo-experimental.runtime.prod.js",
+      "line_number": 12,
+      "description": "Potential Generic Password found: ()=>f,COOKIE_NAME_PR...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js",
+      "line_number": 12,
+      "description": "Potential Generic Password found: ()=>d,COOKIE_NAME_PR...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/webpack/bundle5.js",
+      "line_number": 28,
+      "description": "Potential Generic Password found: true}const{logging:N...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/babel/bundle.js",
+      "line_number": 1,
+      "description": "Potential Generic Password found: coreLibPluginPass,ge...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/babel/bundle.js",
+      "line_number": 1,
+      "description": "Potential Generic Password found: []})}else{r.unshift(...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/next/dist/compiled/raw-body/index.js",
+      "line_number": 28,
+      "description": "Potential Generic Password found: false;this.options=t...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "secret_detection",
+      "severity": "critical",
+      "file_path": "landing-pages/sudoku-for-seniors/node_modules/jiti/dist/babel.js",
+      "line_number": 1,
+      "description": "Potential Generic Password found: []}):presets.unshift...",
+      "recommendation": "Move generic password to environment variable",
+      "cwe_id": null,
+      "confidence": 0.8
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/main-dev/scripts/orchestration/market_to_publish_pipeline.py",
+      "line_number": 416,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/main-dev/src/kindlemint/agents/content_agents.py",
+      "line_number": 159,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/main-dev/src/kindlemint/agents/content_agents.py",
+      "line_number": 366,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/main-dev/src/kindlemint/agents/github_issues_agent.py",
+      "line_number": 865,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-pdf/scripts/orchestration/market_to_publish_pipeline.py",
+      "line_number": 416,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-pdf/src/kindlemint/agents/content_agents.py",
+      "line_number": 159,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-pdf/src/kindlemint/agents/content_agents.py",
+      "line_number": 366,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-pdf/src/kindlemint/agents/github_issues_agent.py",
+      "line_number": 865,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/pdf-gen/scripts/orchestration/market_to_publish_pipeline.py",
+      "line_number": 416,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/pdf-gen/src/kindlemint/agents/content_agents.py",
+      "line_number": 159,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/pdf-gen/src/kindlemint/agents/content_agents.py",
+      "line_number": 366,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/pdf-gen/src/kindlemint/agents/github_issues_agent.py",
+      "line_number": 865,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/market-research/scripts/orchestration/market_to_publish_pipeline.py",
+      "line_number": 416,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/market-research/src/kindlemint/agents/content_agents.py",
+      "line_number": 159,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/market-research/src/kindlemint/agents/content_agents.py",
+      "line_number": 366,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/market-research/src/kindlemint/agents/github_issues_agent.py",
+      "line_number": 865,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/qa-validation/scripts/orchestration/market_to_publish_pipeline.py",
+      "line_number": 416,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/qa-validation/src/kindlemint/agents/content_agents.py",
+      "line_number": 159,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/qa-validation/src/kindlemint/agents/content_agents.py",
+      "line_number": 366,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/qa-validation/src/kindlemint/agents/github_issues_agent.py",
+      "line_number": 865,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/puzzle-gen/scripts/orchestration/market_to_publish_pipeline.py",
+      "line_number": 416,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/puzzle-gen/src/kindlemint/agents/content_agents.py",
+      "line_number": 159,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/puzzle-gen/src/kindlemint/agents/content_agents.py",
+      "line_number": 366,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/puzzle-gen/src/kindlemint/agents/github_issues_agent.py",
+      "line_number": 865,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-puzzles/scripts/orchestration/market_to_publish_pipeline.py",
+      "line_number": 416,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-puzzles/src/kindlemint/agents/content_agents.py",
+      "line_number": 159,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-puzzles/src/kindlemint/agents/content_agents.py",
+      "line_number": 366,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-puzzles/src/kindlemint/agents/github_issues_agent.py",
+      "line_number": 865,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-qa/scripts/orchestration/market_to_publish_pipeline.py",
+      "line_number": 416,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-qa/src/kindlemint/agents/content_agents.py",
+      "line_number": 159,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-qa/src/kindlemint/agents/content_agents.py",
+      "line_number": 366,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "worktrees/parallel-qa/src/kindlemint/agents/github_issues_agent.py",
+      "line_number": 865,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "scripts/orchestration/security_orchestrator.py",
+      "line_number": 298,
+      "description": "Use of eval() function - potential code injection",
+      "recommendation": "Use ast.literal_eval() or avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "scripts/orchestration/security_orchestrator.py",
+      "line_number": 300,
+      "description": "Use of eval() function - potential code injection",
+      "recommendation": "Use ast.literal_eval() or avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "scripts/orchestration/security_orchestrator.py",
+      "line_number": 304,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "scripts/orchestration/market_to_publish_pipeline.py",
+      "line_number": 416,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "src/kindlemint/agents/content_agents.py",
+      "line_number": 159,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "src/kindlemint/agents/content_agents.py",
+      "line_number": 366,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "high",
+      "file_path": "src/kindlemint/agents/github_issues_agent.py",
+      "line_number": 865,
+      "description": "Use of exec() function - potential code injection",
+      "recommendation": "Avoid dynamic code execution",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/ceo_one_click_deploy.py",
+      "line_number": 29,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/orchestration_metrics_aggregator.py",
+      "line_number": 55,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/orchestration_metrics_aggregator.py",
+      "line_number": 60,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/orchestration_metrics_aggregator.py",
+      "line_number": 65,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "tests/unit/test_enhanced_ci.py",
+      "line_number": 16,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "tests/unit/test_enhanced_ci.py",
+      "line_number": 33,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "tests/unit/test_enhanced_ci.py",
+      "line_number": 52,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/scripts/orchestration_metrics_aggregator.py",
+      "line_number": 55,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/scripts/orchestration_metrics_aggregator.py",
+      "line_number": 60,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/scripts/orchestration_metrics_aggregator.py",
+      "line_number": 65,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/tests/unit/test_enhanced_ci.py",
+      "line_number": 16,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/tests/unit/test_enhanced_ci.py",
+      "line_number": 33,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/tests/unit/test_enhanced_ci.py",
+      "line_number": 52,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/scripts/ci_orchestration/ci_orchestrator.py",
+      "line_number": 430,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/scripts/ci_orchestration/ci_fixer.py",
+      "line_number": 104,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/scripts/ci_orchestration/ci_monitor_enhanced.py",
+      "line_number": 98,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/scripts/ci_orchestration/ci_monitor.py",
+      "line_number": 65,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/scripts/orchestration/autonomous_worktree_manager.py",
+      "line_number": 44,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/main-dev/scripts/orchestration/ceo_dashboard.py",
+      "line_number": 55,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-pdf/tests/unit/test_enhanced_ci.py",
+      "line_number": 16,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-pdf/tests/unit/test_enhanced_ci.py",
+      "line_number": 33,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-pdf/tests/unit/test_enhanced_ci.py",
+      "line_number": 52,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-pdf/scripts/ci_orchestration/ci_orchestrator.py",
+      "line_number": 430,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-pdf/scripts/ci_orchestration/ci_fixer.py",
+      "line_number": 104,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-pdf/scripts/ci_orchestration/ci_monitor_enhanced.py",
+      "line_number": 98,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-pdf/scripts/ci_orchestration/ci_monitor.py",
+      "line_number": 65,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/pdf-gen/tests/unit/test_enhanced_ci.py",
+      "line_number": 16,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/pdf-gen/tests/unit/test_enhanced_ci.py",
+      "line_number": 33,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/pdf-gen/tests/unit/test_enhanced_ci.py",
+      "line_number": 52,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/pdf-gen/scripts/ci_orchestration/ci_orchestrator.py",
+      "line_number": 430,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/pdf-gen/scripts/ci_orchestration/ci_fixer.py",
+      "line_number": 104,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/pdf-gen/scripts/ci_orchestration/ci_monitor_enhanced.py",
+      "line_number": 98,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/pdf-gen/scripts/ci_orchestration/ci_monitor.py",
+      "line_number": 65,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/market-research/tests/unit/test_enhanced_ci.py",
+      "line_number": 16,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/market-research/tests/unit/test_enhanced_ci.py",
+      "line_number": 33,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/market-research/tests/unit/test_enhanced_ci.py",
+      "line_number": 52,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/market-research/scripts/ci_orchestration/ci_orchestrator.py",
+      "line_number": 430,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/market-research/scripts/ci_orchestration/ci_fixer.py",
+      "line_number": 104,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/market-research/scripts/ci_orchestration/ci_monitor_enhanced.py",
+      "line_number": 98,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/market-research/scripts/ci_orchestration/ci_monitor.py",
+      "line_number": 65,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/qa-validation/tests/unit/test_enhanced_ci.py",
+      "line_number": 16,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/qa-validation/tests/unit/test_enhanced_ci.py",
+      "line_number": 33,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/qa-validation/tests/unit/test_enhanced_ci.py",
+      "line_number": 52,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/qa-validation/scripts/ci_orchestration/ci_orchestrator.py",
+      "line_number": 430,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/qa-validation/scripts/ci_orchestration/ci_fixer.py",
+      "line_number": 104,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/qa-validation/scripts/ci_orchestration/ci_monitor_enhanced.py",
+      "line_number": 98,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/qa-validation/scripts/ci_orchestration/ci_monitor.py",
+      "line_number": 65,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/puzzle-gen/tests/unit/test_enhanced_ci.py",
+      "line_number": 16,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/puzzle-gen/tests/unit/test_enhanced_ci.py",
+      "line_number": 33,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/puzzle-gen/tests/unit/test_enhanced_ci.py",
+      "line_number": 52,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/puzzle-gen/scripts/ci_orchestration/ci_orchestrator.py",
+      "line_number": 430,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/puzzle-gen/scripts/ci_orchestration/ci_fixer.py",
+      "line_number": 104,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/puzzle-gen/scripts/ci_orchestration/ci_monitor_enhanced.py",
+      "line_number": 98,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/puzzle-gen/scripts/ci_orchestration/ci_monitor.py",
+      "line_number": 65,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-puzzles/tests/unit/test_enhanced_ci.py",
+      "line_number": 16,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-puzzles/tests/unit/test_enhanced_ci.py",
+      "line_number": 33,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-puzzles/tests/unit/test_enhanced_ci.py",
+      "line_number": 52,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-puzzles/scripts/ci_orchestration/ci_orchestrator.py",
+      "line_number": 430,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-puzzles/scripts/ci_orchestration/ci_fixer.py",
+      "line_number": 104,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-puzzles/scripts/ci_orchestration/ci_monitor_enhanced.py",
+      "line_number": 98,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-puzzles/scripts/ci_orchestration/ci_monitor.py",
+      "line_number": 65,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-qa/tests/unit/test_enhanced_ci.py",
+      "line_number": 16,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-qa/tests/unit/test_enhanced_ci.py",
+      "line_number": 33,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-qa/tests/unit/test_enhanced_ci.py",
+      "line_number": 52,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-qa/scripts/ci_orchestration/ci_orchestrator.py",
+      "line_number": 430,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-qa/scripts/ci_orchestration/ci_fixer.py",
+      "line_number": 104,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-qa/scripts/ci_orchestration/ci_monitor_enhanced.py",
+      "line_number": 98,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "worktrees/parallel-qa/scripts/ci_orchestration/ci_monitor.py",
+      "line_number": 65,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/ci_orchestration/ci_orchestrator.py",
+      "line_number": 430,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/ci_orchestration/ci_fixer.py",
+      "line_number": 104,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/ci_orchestration/ci_monitor_enhanced.py",
+      "line_number": 98,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/ci_orchestration/ci_monitor.py",
+      "line_number": 65,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/orchestration/security_orchestrator.py",
+      "line_number": 309,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/orchestration/security_orchestrator.py",
+      "line_number": 310,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/orchestration/autonomous_worktree_manager.py",
+      "line_number": 44,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    },
+    {
+      "check_type": "code_quality",
+      "severity": "medium",
+      "file_path": "scripts/orchestration/ceo_dashboard.py",
+      "line_number": 55,
+      "description": "subprocess with shell=True - potential command injection",
+      "recommendation": "Use shell=False and pass command as list",
+      "cwe_id": null,
+      "confidence": 1.0
+    }
+  ]
+}

@@ -22,6 +22,7 @@ from kindlemint.marketing.event_driven_agent import EventDrivenMarketingAgent, E
 from kindlemint.data.private_data_pipeline import PrivateDataPipeline, DataSource, ConsentLevel
 from kindlemint.orchestration.human_creativity_checkpoints import HumanCreativityCheckpoints, CheckpointType
 from scripts.orchestration.autonomous_worktree_manager import AutonomousWorktreeManager
+from scripts.orchestration.security_orchestrator import SecurityOrchestrator
 
 
 logging.basicConfig(level=logging.INFO)
@@ -40,6 +41,10 @@ class AlembicOrchestrator:
         self.data_pipeline = PrivateDataPipeline()
         self.creativity_checkpoints = HumanCreativityCheckpoints()
         self.worktree_manager = AutonomousWorktreeManager()
+<<<<<<< HEAD
+        self.security_orchestrator = SecurityOrchestrator()
+=======
+>>>>>>> origin/main
         
         self.config = self._load_config()
         self.is_running = False
@@ -78,7 +83,12 @@ class AlembicOrchestrator:
             self._event_monitoring_loop(),
             self._causal_analysis_loop(),
             self._data_collection_loop(),
+<<<<<<< HEAD
+            self._decision_execution_loop(),
+            self._security_monitoring_loop()
+=======
             self._decision_execution_loop()
+>>>>>>> origin/main
         ]
         
         await asyncio.gather(*tasks)
@@ -189,6 +199,38 @@ class AlembicOrchestrator:
             
             await asyncio.sleep(interval)
     
+<<<<<<< HEAD
+    async def _security_monitoring_loop(self):
+        """Continuously monitor for security issues"""
+        interval = 3600  # Run security scans every hour
+        
+        while self.is_running:
+            try:
+                logger.info("🔒 Running security validation...")
+                
+                # Run comprehensive security scan
+                issues = await self.security_orchestrator.scan_for_security_issues()
+                
+                # Check for critical issues
+                critical_issues = [i for i in issues if i.severity.value == "critical"]
+                
+                if critical_issues:
+                    logger.warning(f"🚨 Found {len(critical_issues)} critical security issues!")
+                    
+                    # Stop certain operations if critical issues found
+                    await self._handle_critical_security_issues(critical_issues)
+                
+                # Generate and save security report
+                report = self.security_orchestrator.generate_security_report()
+                await self._save_security_report(report)
+                
+            except Exception as e:
+                logger.error(f"Error in security monitoring: {e}")
+            
+            await asyncio.sleep(interval)
+    
+=======
+>>>>>>> origin/main
     async def _collect_market_events(self) -> List[MarketEvent]:
         """Collect market events from various sources"""
         events = []
@@ -448,6 +490,44 @@ class AlembicOrchestrator:
     async def _apply_title_selection(self, book_id: str, title_id: str):
         """Apply human-selected title"""
         pass
+<<<<<<< HEAD
+    
+    async def _handle_critical_security_issues(self, critical_issues: List):
+        """Handle critical security issues found during monitoring"""
+        logger.error(f"🚨 CRITICAL SECURITY ALERT: {len(critical_issues)} issues found")
+        
+        # Create detailed alert message
+        alert_message = "CRITICAL SECURITY ISSUES DETECTED:\n\n"
+        for issue in critical_issues:
+            alert_message += f"• {issue.description}\n"
+            alert_message += f"  File: {issue.file_path}\n"
+            alert_message += f"  Fix: {issue.recommendation}\n\n"
+        
+        # Pause high-risk operations temporarily
+        logger.warning("⏸️  Pausing automated content generation until issues resolved")
+        
+        # Save critical alert
+        alert_path = Path("reports/security/CRITICAL_ALERT.txt")
+        alert_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(alert_path, "w") as f:
+            f.write(alert_message)
+        
+        # TODO: Send Slack/email notifications if configured
+        
+    async def _save_security_report(self, report: Dict):
+        """Save security report to file"""
+        report_dir = Path("reports/security")
+        report_dir.mkdir(parents=True, exist_ok=True)
+        
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        report_path = report_dir / f"alembic_security_report_{timestamp}.json"
+        
+        with open(report_path, "w") as f:
+            json.dump(report, f, indent=2, default=str)
+        
+        logger.info(f"💾 Security report saved to {report_path}")
+=======
+>>>>>>> origin/main
 
 
 async def main():

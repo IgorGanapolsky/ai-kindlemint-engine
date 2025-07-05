@@ -187,6 +187,8 @@ secrets/*.json
 # Allow specific files in the new asset management structure
 !output/**/manuscript.pdf
 !output/**/cover.png
+# Allow landing page lead magnet PDFs
+!landing-pages/**/public/downloads/*.pdf
 # Block other PDFs outside the asset structure
 *.pdf
 lambda_deploy.zip
@@ -262,6 +264,8 @@ worktrees/
 
 # Orchestration metrics archives
 reports/orchestration/archive/
+.vercel
+.env
 reports/orchestration/*.json
 
 # Temporary trash directory for hygiene orchestrator

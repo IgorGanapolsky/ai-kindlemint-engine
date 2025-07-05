@@ -1,0 +1,48 @@
+
+<!-- Add this to your landing page -->
+<script>
+const API_URL = 'https://api-hqweirw24-igorganapolskys-projects.vercel.app/api/subscribe';
+
+document.getElementById('signup-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email: document.getElementById('email').value,
+                firstName: document.getElementById('firstName').value || 'Friend'
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            // Success! Show success message
+            document.getElementById('signup-form').innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <h3 style="color: #4CAF50;">✅ Success!</h3>
+                    <p>Check your email for your FREE puzzles!</p>
+                    <p style="font-size: 14px; color: #666;">
+                        They should arrive within 2 minutes.
+                    </p>
+                </div>
+            `;
+        } else {
+            alert('Oops! ' + (result.message || 'Please try again.'));
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    } catch (error) {
+        alert('Connection error. Please try again.');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
+});
+</script>

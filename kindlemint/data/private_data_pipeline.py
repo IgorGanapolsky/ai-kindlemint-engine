@@ -166,8 +166,14 @@ class PrivateDataPipeline:
     def _generate_encryption_key(self) -> bytes:
         """Generate or retrieve encryption key"""
         # In production, this would use a proper key management system
+<<<<<<< HEAD
+        import os
+        password = os.getenv("ENCRYPTION_PASSWORD", "default-dev-key").encode()
+        salt = os.getenv("ENCRYPTION_SALT", "default-salt").encode()
+=======
         password = self.config.get("encryption_password", "kdp-kindlemint-2025").encode()
         salt = b'kindlemint-salt-2025'  # In production, use random salt
+>>>>>>> origin/main
         
         kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),

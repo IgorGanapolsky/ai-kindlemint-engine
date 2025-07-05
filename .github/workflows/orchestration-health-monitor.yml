@@ -80,8 +80,11 @@ jobs:
           UNTRACKED_COUNT="${{ steps.untracked.outputs.untracked_files }}"
           STUCK_PRS_COUNT="${{ steps.stuck_prs.outputs.stuck_prs }}"
           
-          # Create or update health report issue
-          EXISTING_ISSUE=$(gh issue list --label "orchestration-health" --state open --json number --jq '.[0].number' || echo "")
+          # Create or update health report issue  
+          # Search for existing health reports from today
+          TODAY=$(date -u '+%Y-%m-%d')
+          EXISTING_ISSUE=$(gh issue list --label "orchestration-health" --state open --json number,title | \
+            jq -r ".[] | select(.title | contains(\"$TODAY\")) | .number" | head -1)
           
           REPORT="# 🤖 Orchestration Health Report
           
@@ -159,7 +162,8 @@ jobs:
           
           # Restart stuck workflows
           gh workflow run autonomous-pr-handler.yml
-          gh workflow run emergency-fix-handler.yml
+          gh workflow run continuous-pr-resolver.yml
+          gh workflow run feature-branch-fixer.yml
           
           # Create high-priority alert
           gh issue create \

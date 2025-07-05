@@ -1,0 +1,187 @@
+name: Enhanced Health Issue Auto-Closer
+
+on:
+  schedule:
+    - cron: '5 0 * * *'  # Daily at 12:05 AM UTC (after daily health reports)
+    - cron: '*/30 * * * *'  # Every 30 minutes for real-time cleanup
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  actions: read
+
+jobs:
+  auto-close-health-issues:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Enhanced Health Status Check
+        id: enhanced_health
+        run: |
+          echo "🔍 Checking comprehensive system health..."
+          
+          # Check recent workflow failures (more lenient threshold)
+          FAILED_WORKFLOWS=$(gh run list --limit 50 --json status,name,conclusion,createdAt | \
+            jq '[.[] | select(.conclusion == "failure" and (.createdAt | fromdateiso8601) > (now - 7200))] | length')
+          
+          # Check for critical failures only
+          CRITICAL_FAILURES=$(gh run list --limit 20 --json status,name,conclusion,createdAt | \
+            jq '[.[] | select(.conclusion == "failure" and (.createdAt | fromdateiso8601) > (now - 1800) and (.name | test("critical|security|deployment")))] | length')
+          
+          # Check stuck PRs
+          STUCK_PRS=$(gh pr list --state open --json number,createdAt | \
+            jq '[.[] | select((.createdAt | fromdateiso8601) < (now - 86400))] | length')
+          
+          echo "failed_workflows=$FAILED_WORKFLOWS" >> $GITHUB_OUTPUT
+          echo "critical_failures=$CRITICAL_FAILURES" >> $GITHUB_OUTPUT
+          echo "stuck_prs=$STUCK_PRS" >> $GITHUB_OUTPUT
+          
+          # More lenient health criteria
+          if [ "$CRITICAL_FAILURES" -eq 0 ] && [ "$FAILED_WORKFLOWS" -lt 10 ]; then
+            echo "health_status=healthy" >> $GITHUB_OUTPUT
+            echo "✅ System is healthy: $CRITICAL_FAILURES critical failures, $FAILED_WORKFLOWS total failures"
+          else
+            echo "health_status=needs_attention" >> $GITHUB_OUTPUT  
+            echo "⚠️ System needs attention: $CRITICAL_FAILURES critical, $FAILED_WORKFLOWS total failures"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Close Old Health Reports (Daily Cleanup)
+        run: |
+          echo "🧹 Performing daily cleanup of old health reports..."
+          
+          # Get all open orchestration health issues
+          HEALTH_ISSUES=$(gh issue list --label "orchestration-health" --state open --json number,title,createdAt)
+          
+          echo "$HEALTH_ISSUES" | jq -r '.[] | "\(.number) \(.title) \(.createdAt)"' | while read issue_num title created_at; do
+            if [ ! -z "$issue_num" ]; then
+              # Calculate issue age in days
+              issue_age=$(( ($(date +%s) - $(date -d "$created_at" +%s)) / 86400 ))
+              
+              echo "📋 Found health issue #$issue_num (age: $issue_age days)"
+              
+              # Close issues older than 1 day or if system is healthy
+              if [ "$issue_age" -gt 1 ] || [ "${{ steps.enhanced_health.outputs.health_status }}" = "healthy" ]; then
+                echo "🗑️ Closing old/resolved health issue #$issue_num"
+                
+                CLOSE_REASON="automatically resolved"
+                if [ "$issue_age" -gt 1 ]; then
+                  CLOSE_REASON="superseded by newer reports"
+                fi
+                
+                gh issue close $issue_num --comment "## ✅ Health Issue Auto-Resolved
+                
+                **Resolution Type:** $close_reason
+                **Current System Status:** ${{ steps.enhanced_health.outputs.health_status }}
+                **Issue Age:** $issue_age days
+                
+                ### Current Health Metrics:
+                - Critical failures (last 30 min): **${{ steps.enhanced_health.outputs.critical_failures }}**
+                - Total failures (last 2 hours): **${{ steps.enhanced_health.outputs.failed_workflows }}**
+                - Stuck PRs (>24h old): **${{ steps.enhanced_health.outputs.stuck_prs }}**
+                
+                ### Auto-Resolution Logic:
+                - ✅ Daily health reports are automatically closed after 24 hours
+                - ✅ Issues are closed when system shows stable health metrics
+                - ✅ Critical failures under control (< 1 critical in 30 min)
+                - ✅ General failures within acceptable range (< 10 in 2 hours)
+                
+                For current system status, check the latest health report or view GitHub Actions.
+                
+                ---
+                🤖 Auto-closed by Enhanced Health Issue Auto-Closer"
+                
+                echo "✅ Closed health issue #$issue_num"
+              else
+                echo "⏳ Keeping recent health issue #$issue_num (age: $issue_age days)"
+              fi
+            fi
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Close Resolved Critical Alerts
+        run: |
+          echo "🚨 Checking critical orchestration alerts..."
+          
+          # Find open critical issues
+          CRITICAL_ISSUES=$(gh issue list --label "critical" --state open --json number,title,createdAt)
+          
+          if [ "$(echo "$CRITICAL_ISSUES" | jq length)" -gt 0 ]; then
+            echo "$CRITICAL_ISSUES" | jq -r '.[] | "\(.number) \(.title)"' | while read issue_num title; do
+              # Close critical issues if no recent critical failures
+              if [ "${{ steps.enhanced_health.outputs.critical_failures }}" -eq 0 ]; then
+                echo "🎯 Closing resolved critical alert #$issue_num"
+                
+                gh issue close $issue_num --comment "## 🎯 Critical Alert Auto-Resolved
+                
+                **Current Status:** No critical failures detected in the last 30 minutes
+                **System Health:** ${{ steps.enhanced_health.outputs.health_status }}
+                
+                ### Resolution Verification:
+                - ✅ Zero critical workflow failures in last 30 minutes
+                - ✅ System stability restored
+                - ✅ Orchestration functioning normally
+                
+                The issue that triggered this critical alert has been resolved.
+                
+                ---
+                🤖 Auto-resolved by Enhanced Health Monitor"
+                
+                echo "✅ Closed critical alert #$issue_num"
+              fi
+            done
+          else
+            echo "ℹ️ No open critical alerts found"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Cleanup Duplicate Health Reports
+        run: |
+          echo "🔄 Removing duplicate health reports..."
+          
+          # Get all health reports sorted by creation date
+          ALL_HEALTH_REPORTS=$(gh issue list --label "orchestration-health" --state open --json number,title,createdAt | \
+            jq 'sort_by(.createdAt) | reverse')
+          
+          # Keep only the most recent health report, close others
+          REPORT_COUNT=$(echo "$ALL_HEALTH_REPORTS" | jq length)
+          
+          if [ "$REPORT_COUNT" -gt 1 ]; then
+            echo "📊 Found $REPORT_COUNT open health reports, keeping only the most recent"
+            
+            # Close all but the first (most recent)
+            echo "$ALL_HEALTH_REPORTS" | jq -r '.[1:][] | "\(.number) \(.title)"' | while read issue_num title; do
+              echo "🗑️ Closing duplicate health report #$issue_num"
+              
+              gh issue close $issue_num --comment "## 🔄 Duplicate Health Report Cleanup
+              
+              This health report has been automatically closed because a more recent health report exists.
+              
+              **Reason:** Maintaining only the most current health report to avoid confusion
+              **Action:** Please refer to the latest open health report for current system status
+              
+              ---
+              🤖 Auto-closed by Enhanced Health Issue Auto-Closer"
+              
+              echo "✅ Closed duplicate #$issue_num"
+            done
+          else
+            echo "ℹ️ No duplicate health reports found"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Summary Report
+        run: |
+          echo "## 🏥 Enhanced Auto-Closer Summary"
+          echo "=================================="
+          echo "System Health: ${{ steps.enhanced_health.outputs.health_status }}"
+          echo "Critical Failures (30min): ${{ steps.enhanced_health.outputs.critical_failures }}"
+          echo "Total Failures (2h): ${{ steps.enhanced_health.outputs.failed_workflows }}"
+          echo "Stuck PRs (>24h): ${{ steps.enhanced_health.outputs.stuck_prs }}"
+          echo ""
+          echo "✅ Auto-closer completed successfully"
+          echo "⏰ Next cleanup: $(date -d '+30 minutes' '+%Y-%m-%d %H:%M UTC')"

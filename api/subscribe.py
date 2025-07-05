@@ -13,6 +13,41 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
+<<<<<<< HEAD
+from http.server import BaseHTTPRequestHandler
+import urllib.parse
+
+class handler(BaseHTTPRequestHandler):
+    def do_POST(self):
+        # Handle CORS
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        
+        try:
+            # Get request body
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            body = json.loads(post_data.decode('utf-8'))
+            
+            email = body.get('email')
+            first_name = body.get('firstName', '')
+            
+            if not email:
+                self.send_response(400)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'error': 'Email is required'}).encode())
+                return
+            
+            # For now, just return success
+            # TODO: Integrate with actual email system once imports are fixed
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            
+            response_data = {
+=======
 
 # Add project root to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -132,12 +167,35 @@ def handler(request):
             'statusCode': 200,
             'headers': headers,
             'body': json.dumps({
+>>>>>>> origin/main
                 'success': True,
                 'message': 'Thank you for subscribing! Check your email for your free puzzles.',
                 'subscriber': {
                     'email': email,
                     'firstName': first_name
                 }
+<<<<<<< HEAD
+            }
+            
+            self.wfile.write(json.dumps(response_data).encode())
+            
+        except Exception as e:
+            self.send_response(500)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                'error': 'Internal server error',
+                'message': str(e)
+            }).encode())
+    
+    def do_OPTIONS(self):
+        # Handle preflight
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.end_headers()
+=======
             })
         }
         
@@ -150,3 +208,4 @@ def handler(request):
                 'message': str(e)
             })
         }
+>>>>>>> origin/main
