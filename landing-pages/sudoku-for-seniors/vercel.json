@@ -9,7 +9,7 @@
         },
         {
           "key": "Content-Disposition",
-          "value": "inline"
+          "value": "attachment; filename=\"5-free-sudoku-puzzles.pdf\""
         },
         {
           "key": "Cache-Control",
