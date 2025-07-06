@@ -45,7 +45,7 @@ class EnhancedCIMonitor:
         params = {"status": status, "per_page": limit}
 
         try:
-            response = requests.get(url, headers=self.headers, params=params)
+            response = requests.get(url, headers=self.headers, params=params, timeout=60)
             response.raise_for_status()
             data = response.json()
             return data.get("workflow_runs", [])
@@ -58,7 +58,7 @@ class EnhancedCIMonitor:
         url = f"{self.api_base}/actions/runs/{run_id}/jobs"
 
         try:
-            response = requests.get(url, headers=self.headers)
+            response = requests.get(url, headers=self.headers, timeout=60)
             response.raise_for_status()
             data = response.json()
             return data.get("jobs", [])
@@ -72,13 +72,13 @@ class EnhancedCIMonitor:
 
         try:
             # The logs endpoint returns a redirect to the log file
-            response = requests.get(url, headers=self.headers, allow_redirects=False)
+            response = requests.get(url, headers=self.headers, allow_redirects=False, timeout=60)
 
             if response.status_code == 302:
                 # Follow the redirect to get the actual logs
                 log_url = response.headers.get("Location")
                 if log_url:
-                    log_response = requests.get(log_url)
+                    log_response = requests.get(log_url, timeout=60)
                     if log_response.status_code == 200:
                         return log_response.text
 

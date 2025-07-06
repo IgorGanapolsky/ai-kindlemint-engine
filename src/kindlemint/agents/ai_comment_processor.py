@@ -24,7 +24,7 @@ class AICommentProcessor:
     def get_pr_comments(self, repo: str, pr_number: int) -> List[Dict[str, Any]]:
         """Get all comments from a PR"""
         url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments"
-        response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=self.headers, timeout=60)
         return response.json()
     
     def identify_ai_suggestions(self, comments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
