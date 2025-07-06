@@ -481,6 +481,25 @@ python scripts/orchestration/ceo_dashboard.py
 - **Phase 2**: Scale to Pro when >15% conversion AND >1000 visitors/month
 - **Monetization**: Lead magnet for email list building → book sales conversion
 
+## 🚀 Content Generation System
+
+### 🎯 Social Media Content Automation
+
+**STATUS: ⚠️ CONTENT GENERATION ONLY - MANUAL POSTING REQUIRED**
+
+AI-powered content generation for social media marketing supporting https://ai-kindlemint-engine.vercel.app
+
+**📱 Social Media Content Generation:**
+- **LinkedIn**: Daily 10 AM EDT - Professional content generation
+- **Twitter**: Daily 2 PM EDT - Brain health content generation
+- **Instagram**: Daily 6 PM EDT - Visual content + DALL-E prompts
+- **Reddit**: Respectful engagement content generation
+
+**🤖 Content Features:**
+- **AI-Powered**: GPT-4 content generation for each platform
+- **Manual Posting**: Generated content saved to files for review/posting
+- **Landing Page CTAs**: All content includes landing page links
+
 ## 🏗️ AI-Powered Orchestration Architecture
 
 AI-KindleMint-Engine uses a **revolutionary parallel orchestration system**:
