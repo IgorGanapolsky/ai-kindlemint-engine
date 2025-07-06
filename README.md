@@ -481,14 +481,68 @@ python scripts/orchestration/ceo_dashboard.py
 - **Phase 2**: Scale to Pro when >15% conversion AND >1000 visitors/month
 - **Monetization**: Lead magnet for email list building → book sales conversion
 
+## 🚀 Content Generation System
+
+### 🎯 Social Media Content Automation
+
+**STATUS: ⚠️ CONTENT GENERATION ONLY - MANUAL POSTING REQUIRED**
+
+AI-powered content generation for social media marketing supporting https://ai-kindlemint-engine.vercel.app
+
+```mermaid
+graph TD
+    A[GitHub Actions Scheduler] --> B[LinkedIn Content Generator]
+    A --> C[Twitter Content Generator] 
+    A --> D[Instagram Content Generator]
+    A --> E[Reddit Content Generator]
+    
+    B --> F[Generated Content Files]
+    C --> F
+    D --> F
+    E --> F
+    
+    F --> G[Manual Review & Posting]
+    G --> H[Landing Page Traffic]
+    H --> I[Email Capture]
+    I --> J[Lead Magnet Delivery]
+    
+    K[Market Intelligence] --> A
+    L[Content AI Generation] --> B
+    L --> C
+    L --> D
+    L --> E
+```
+
+### ✅ Content Generation Components
+
+**📱 Social Media Content Generation:**
+- **LinkedIn**: Daily 10 AM EDT - Professional content generation
+- **Twitter**: Daily 2 PM EDT - Brain health content generation
+- **Instagram**: Daily 6 PM EDT - Visual content + DALL-E prompts
+- **Reddit**: Respectful engagement content generation
+
+**🤖 Content Features:**
+- **AI-Powered**: GPT-4 content generation for each platform
+- **Theme-Based**: 7-day rotating content themes
+- **Branded**: Consistent "KindleMint Puzzle Masters" voice
+- **CTA Integrated**: All content includes landing page CTAs
+- **Manual Posting**: Generated content saved to files for manual review/posting
+
+**📁 Content Output:**
+- **Twitter**: Content saved to `generated/social_media/twitter/`
+- **Instagram**: Content saved to `generated/social_media/instagram/`
+- **Reddit**: Content saved to `generated/reddit_engagement/`
+- **LinkedIn**: Strategy files generated for review
+
 ## 🏗️ AI-Powered Orchestration Architecture
 
 AI-KindleMint-Engine uses a **revolutionary parallel orchestration system**:
 
 1. **🌳 Git Worktree Orchestration** - 5+ parallel execution environments
-2. **🤖 Autonomous Task Distribution** - Intelligent routing and load balancing
+2. **🤖 Autonomous Task Distribution** - Intelligent routing and load balancing  
 3. **📊 Real-time Performance Monitoring** - CEO-friendly dashboards
 4. **💰 Cost-Optimized Execution** - 70% reduction in operational costs
+5. **📝 Content Generation Engine** - AI-powered social media content creation
 
 **📖 [Complete Architecture Documentation](docs/ORCHESTRATION_ARCHITECTURE.md)**
 **📖 [Worktree Strategy Guide](docs/GIT_WORKTREES_ORCHESTRATION_STRATEGY.md)**
