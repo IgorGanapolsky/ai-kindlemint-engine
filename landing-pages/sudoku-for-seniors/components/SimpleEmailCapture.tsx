@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { downloadPDFFromBase64 } from '../lib/pdfData';
 
 interface EmailCaptureProps {
   onSuccess: () => void;
@@ -69,13 +70,12 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
         <p className="text-lg text-gray-700 mb-4">
           Thank you for subscribing! Click below to download your free puzzles.
         </p>
-        <a 
-          href="/downloads/sudoku-puzzles.bin"
-          download="5-free-sudoku-puzzles.pdf"
-          className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold"
+        <button
+          onClick={downloadPDFFromBase64}
+          className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold cursor-pointer"
         >
           📥 Download Your Free Puzzles
-        </a>
+        </button>
       </div>
     );
   }
