@@ -7,11 +7,11 @@ Daily content generation and posting for brain health audience
 import os
 import sys
 import json
-import random
 import logging
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict
+import secrets
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -155,7 +155,7 @@ Format as a numbered list:
         ]
         
         # Return 3-5 random relevant hashtags
-        return random.sample(hashtags, k=random.randint(3, 5))
+        return secrets.SystemRandom().sample(hashtags, k=secrets.SystemRandom().randint(3, 5))
     
     def _get_fallback_tweet(self, theme: str) -> str:
         """Fallback tweets if OpenAI fails"""
@@ -164,7 +164,7 @@ Format as a numbered list:
             f"🧩 Puzzle tip: Start with what you know, then build from there! Free puzzles waiting: {self.landing_page} #PuzzleLife #BrainTraining",
             f"✨ 15 minutes of daily Sudoku = stronger memory & sharper focus. Get started: {self.landing_page} #ActiveAging #MindfulAging"
         ]
-        return random.choice(fallback_tweets)
+        return secrets.choice(fallback_tweets)
     
     def post_to_twitter(self, content: Dict[str, str]) -> bool:
         """Post content to Twitter (placeholder - requires Twitter API setup)"""

@@ -7,11 +7,11 @@ Visual content generation for brain health and puzzle audience
 import os
 import sys
 import json
-import random
 import logging
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict
+import secrets
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -158,7 +158,7 @@ Generate one DALL-E prompt for: {theme}"""
         ]
         
         # Instagram optimal: 20-30 hashtags
-        return random.sample(hashtags, k=25)
+        return secrets.SystemRandom().sample(hashtags, k=25)
     
     def _get_fallback_caption(self, theme: str) -> str:
         """Fallback captions if OpenAI fails"""
@@ -167,7 +167,7 @@ Generate one DALL-E prompt for: {theme}"""
             "☕ Morning coffee + challenging Sudoku = the perfect start to any day! Studies show puzzles boost memory by 20%. ✨\n\n🔗 Try our free collection in bio!",
             "🌟 Age is just a number when your mind stays active! Join thousands of seniors who solve puzzles daily. 💪\n\n🔗 Free large-print puzzles in bio!"
         ]
-        return random.choice(fallbacks)
+        return secrets.choice(fallbacks)
     
     def _get_fallback_image_prompt(self) -> str:
         """Fallback image prompt"""
