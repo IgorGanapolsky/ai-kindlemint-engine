@@ -1,65 +1,46 @@
 # 🚀 Deployment Guide - Sudoku for Seniors Landing Page
 
-## Quick Deploy to Vercel (Recommended)
+## Quick Deploy to AWS (Recommended)
 
 ### 1. Prerequisites
-- [ ] Vercel account (free at vercel.com)
-- [ ] ConvertKit account ($29/month)
+- [ ] AWS account (free tier eligible)
+- [ ] Web3Forms account (free - 250 emails/month)
 - [ ] Google Analytics account (free)
 - [ ] Facebook Business account (free)
-- [ ] Domain name (optional, can use Vercel subdomain)
+- [ ] Domain name (optional, can use CloudFront subdomain)
 
-### 2. Deploy to Vercel
+### 2. Deploy to AWS S3 + CloudFront
 
 ```bash
-# Install Vercel CLI
-npm i -g vercel
-
 # Navigate to landing page
 cd landing-pages/sudoku-for-seniors
 
 # Install dependencies
 npm install
 
-# Deploy
-vercel
+# Build the static site
+npm run build
+
+# Upload to S3
+aws s3 sync out/ s3://ai-kindlemint-landing/ --delete
+
+# CloudFront URL will be available at:
+# https://dvdyff0b2oove.cloudfront.net
 ```
 
-Follow prompts:
-- Select "Create new project"
-- Name: `sudoku-for-seniors`
-- Framework: Next.js
-- Build command: `npm run build`
-- Output directory: `.next`
+### 3. Email Integration (Web3Forms)
 
-### 3. Environment Variables
+Already configured with:
+- **API Key**: 64ecaccd-8852-423b-a8a4-4ccd74b0f1a7
+- **Free Tier**: 250 submissions/month
+- **No additional setup needed**
 
-In Vercel Dashboard > Settings > Environment Variables, add:
+### 4. PDF Hosting
 
-```
-CONVERTKIT_API_KEY=your_api_key_here
-CONVERTKIT_FORM_ID=your_form_id_here
-GA_MEASUREMENT_ID=G-XXXXXXXXXX
-FB_PIXEL_ID=XXXXXXXXXXXXXXXXX
-```
-
-### 4. ConvertKit Setup
-
-1. **Create Form**:
-   - Login to ConvertKit
-   - Forms > New Form > "Sudoku Lead Magnet"
-   - Copy Form ID
-
-2. **Create Automation**:
-   - Automations > New Automation
-   - Trigger: "Joins Form" (Sudoku Lead Magnet)
-   - Action: "Send Email" with lead magnet download link
-
-3. **Upload Lead Magnet**:
-   - Use ConvertKit's file hosting or upload to:
-     - Dropbox
-     - Google Drive (public link)
-     - Your Vercel deployment (`/downloads/`)
+Lead magnet already hosted at:
+- **S3 URL**: https://kindlemint-pdfs-2025.s3.amazonaws.com/5-free-sudoku-puzzles.pdf
+- **8 pages** with actual puzzles and solutions
+- **No configuration needed**
 
 ### 5. Google Analytics Setup
 
@@ -79,18 +60,17 @@ FB_PIXEL_ID=XXXXXXXXXXXXXXXXX
 
 For custom domain (e.g., SudokuFor75Plus.com):
 
-1. **Vercel Dashboard** > Settings > Domains
-2. Add domain
-3. Update DNS records:
+1. **Route 53** > Create Hosted Zone
+2. Update DNS records:
    ```
-   A Record: @ → 76.76.21.21
-   CNAME: www → cname.vercel-dns.com
+   A Record: @ → CloudFront Distribution
+   CNAME: www → CloudFront Domain
    ```
 
 ### 8. Post-Deployment Checklist
 
 - [ ] Test email capture form
-- [ ] Verify lead magnet delivery
+- [ ] Verify PDF download works
 - [ ] Check Google Analytics tracking
 - [ ] Verify Facebook Pixel fires
 - [ ] Test on mobile devices
@@ -105,13 +85,29 @@ npm install
 # Create .env.local (copy from .env.example)
 cp .env.example .env.local
 
-# Add your API keys to .env.local
-
 # Run development server
 npm run dev
 
 # Open http://localhost:3000
 ```
+
+## AWS Infrastructure
+
+### S3 Buckets
+- **Website**: ai-kindlemint-landing (static hosting)
+- **PDFs**: kindlemint-pdfs-2025 (public read)
+
+### CloudFront
+- **Distribution**: EPU16LS0IGF5M
+- **Domain**: https://dvdyff0b2oove.cloudfront.net
+- **HTTPS**: Enabled
+- **Cache**: Default settings
+
+### Cost (Monthly)
+- **S3**: $0.00 (free tier)
+- **CloudFront**: $0.00 (free tier)
+- **Route 53**: $0.50 (if using custom domain)
+- **Total**: $0.00 - $0.50
 
 ## Traffic Generation (Week 1)
 
@@ -136,7 +132,7 @@ npm run dev
 ## Monitoring & Optimization
 
 ### Daily Checks
-- Email subscribers (ConvertKit)
+- Email subscribers (Web3Forms dashboard)
 - Traffic (Google Analytics)
 - Conversion rate (target: 25%+)
 
@@ -154,14 +150,14 @@ npm run dev
 ## Troubleshooting
 
 ### Emails not sending
-- Check ConvertKit API key
-- Verify form ID matches
-- Check automation is active
+- Check Web3Forms dashboard
+- Verify API key matches
+- Check spam folders
 
-### Analytics not tracking
-- Verify IDs in env variables
-- Check ad blockers
-- Use GA DebugView
+### PDF not downloading
+- Verify S3 bucket policy
+- Check CloudFront distribution
+- Test direct S3 URL
 
 ### Low conversion rate
 - Simplify form (fewer fields)
@@ -178,8 +174,8 @@ npm run dev
 ---
 
 **Support**: If issues arise, check:
-- Vercel status: status.vercel.com
-- ConvertKit status: status.convertkit.com
+- AWS status: status.aws.amazon.com
+- CloudFront logs in CloudWatch
 - Debug locally first
 
 **Remember**: The goal is 6,000 email subscribers for $300/day revenue!

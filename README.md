@@ -92,7 +92,7 @@ python src/kindlemint/orchestration_runner.py
 ### 🚀 Recent Updates (July 2025)
 
 **Streamlined Infrastructure:**
-- Migrated to Vercel for deployment (Free tier for testing)
+- Migrated to AWS S3 + CloudFront (Free tier eligible)
 - Amp CLI integration with automated tagging
 - Emergency CI/CD pipeline restoration completed
 
@@ -489,17 +489,17 @@ python scripts/orchestration/ceo_dashboard.py
 ## 🚀 Live Landing Page - Sudoku for Seniors (DEPLOYED ✅)
 
 ### Current Status: LIVE & WORKING
-- **URL**: https://ai-kindlemint-engine.vercel.app
+- **URL**: https://dvdyff0b2oove.cloudfront.net
 - **Email Integration**: Formspree (50 free submissions/month)
 - **Form Status**: ✅ Working - sends email notifications
-- **Deployment**: Vercel free tier (auto-deployment from main branch)
+- **Deployment**: AWS S3 + CloudFront (HTTPS enabled, global CDN)
 
 ### Features Completed:
 ✅ **Professional Landing Page** - Large print Sudoku for seniors 75+
 ✅ **Email Capture Form** - Formspree integration for reliable delivery
 ✅ **No 404 Errors** - Fixed analytics and missing file issues
 ✅ **Mobile Responsive** - Works on all devices
-✅ **Zero Cost** - Deployed on Vercel free tier
+✅ **Near Zero Cost** - Deployed on AWS free tier ($0.50/month for Route 53)
 
 ### Revenue Strategy Implementation:
 - **Phase 1**: Free tier testing (current) - 100GB bandwidth/month
@@ -512,7 +512,7 @@ python scripts/orchestration/ceo_dashboard.py
 
 **STATUS: ⚠️ CONTENT GENERATION ONLY - MANUAL POSTING REQUIRED**
 
-AI-powered content generation for social media marketing supporting https://ai-kindlemint-engine.vercel.app
+AI-powered content generation for social media marketing supporting https://dvdyff0b2oove.cloudfront.net
 
 **📱 Social Media Content Generation:**
 - **LinkedIn**: Daily 10 AM EDT - Professional content generation
