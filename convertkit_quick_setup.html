@@ -1,0 +1,52 @@
+<!-- CONVERTKIT FREE SOLUTION - Customer gets email automatically! -->
+<!-- Sign up at https://convertkit.com (FREE up to 1,000 subscribers) -->
+
+<!-- Option 1: Replace your entire form with this -->
+<script async data-uid="YOUR_FORM_ID" src="https://prodigious-trader-7917.ck.page/YOUR_FORM_ID/index.js"></script>
+
+<!-- Option 2: Inline form version -->
+<form action="https://app.convertkit.com/forms/YOUR_FORM_ID/subscriptions" method="post">
+    <input name="email_address" placeholder="Your Email" required type="email" />
+    <input name="first_name" placeholder="Your First Name" type="text" />
+    <button type="submit">Get Free Puzzles</button>
+</form>
+
+<!-- Option 3: Use their API directly in your React component -->
+<script>
+// In SimpleEmailCapture.tsx, replace Web3Forms with:
+const response = await fetch('https://api.convertkit.com/v3/forms/YOUR_FORM_ID/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        api_key: 'YOUR_API_KEY',
+        email: email,
+        first_name: firstName,
+        tags: ['sudoku-landing-page']
+    })
+});
+
+// ConvertKit will AUTOMATICALLY send your welcome email with the PDF!
+</script>
+
+<!-- SETUP STEPS:
+1. Go to https://convertkit.com/pricing (FREE plan)
+2. Create account
+3. Create a form
+4. Create automation: "When someone joins form → Send email with PDF"
+5. Get your form ID and API key
+6. Replace in code above
+7. Deploy - DONE!
+
+ConvertKit handles:
+✅ Email delivery (they actually get the PDF!)
+✅ Email sequences
+✅ Unsubscribes
+✅ Analytics
+-->
+
+<!-- BETTER THAN WEB3FORMS:
+- Web3Forms: Only notifies YOU
+- ConvertKit: Emails the CUSTOMER automatically
+- Web3Forms: 250 emails/month
+- ConvertKit: 1,000 subscribers FREE
+-->
