@@ -1,0 +1,42 @@
+{
+  "name": "Premium Puzzle Pack",
+  "version": "1.0",
+  "description": "High-quality puzzle book template with premium features",
+  "category": "puzzle",
+  "defaults": {
+    "page_count": 120,
+    "puzzle_types": ["sudoku", "crossword", "word_search", "logic_puzzles"],
+    "difficulty_levels": ["easy", "medium", "hard", "expert"],
+    "include_solutions": true,
+    "include_instructions": true,
+    "bonus_content": true
+  },
+  "layout": {
+    "page_size": "8.5x11",
+    "margins": {
+      "top": 0.75,
+      "bottom": 0.75,
+      "left": 0.75,
+      "right": 0.75
+    },
+    "font_sizes": {
+      "title": 24,
+      "subtitle": 18,
+      "body": 12,
+      "puzzle": 16
+    }
+  },
+  "branding": {
+    "logo_position": "top-right",
+    "website_url": "https://dvdyff0b2oove.cloudfront.net",
+    "copyright_text": "© 2025 AI KindleMint Engine",
+    "series_name": "Premium Brain Training Series"
+  },
+  "features": {
+    "progress_tracker": true,
+    "difficulty_indicators": true,
+    "time_estimates": true,
+    "tips_section": true,
+    "bonus_puzzles": 10
+  }
+}

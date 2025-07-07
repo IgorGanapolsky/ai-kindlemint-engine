@@ -1,0 +1,42 @@
+{
+  "name": "Beginner Series",
+  "version": "1.0",
+  "description": "Easy-to-start puzzle books for beginners and seniors",
+  "category": "puzzle",
+  "defaults": {
+    "page_count": 60,
+    "puzzle_types": ["sudoku_4x4", "easy_crossword", "simple_word_search"],
+    "difficulty_levels": ["very_easy", "easy"],
+    "include_solutions": true,
+    "include_instructions": true,
+    "large_print": true
+  },
+  "layout": {
+    "page_size": "8.5x11",
+    "margins": {
+      "top": 1.0,
+      "bottom": 1.0,
+      "left": 1.0,
+      "right": 1.0
+    },
+    "font_sizes": {
+      "title": 28,
+      "subtitle": 22,
+      "body": 16,
+      "puzzle": 20
+    }
+  },
+  "branding": {
+    "logo_position": "bottom-center",
+    "website_url": "https://dvdyff0b2oove.cloudfront.net",
+    "copyright_text": "© 2025 AI KindleMint Engine",
+    "series_name": "Easy Start Puzzle Series"
+  },
+  "features": {
+    "tutorial_pages": true,
+    "example_solutions": true,
+    "encouragement_messages": true,
+    "progress_certificates": true,
+    "accessibility_friendly": true
+  }
+}
