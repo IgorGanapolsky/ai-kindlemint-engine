@@ -76,7 +76,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
           Thank you for subscribing! Click below to download your free puzzles.
         </p>
         <a
-          href="https://raw.githubusercontent.com/IgorGanapolsky/ai-kindlemint-engine/pdf-simple-hosting/5-free-sudoku-puzzles.pdf"
+          href="https://kindlemint-pdfs-2025.s3.amazonaws.com/5-free-sudoku-puzzles.pdf"
           download="5-free-sudoku-puzzles.pdf"
           target="_blank"
           className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold cursor-pointer text-decoration-none"
