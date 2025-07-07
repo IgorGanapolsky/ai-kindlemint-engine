@@ -76,7 +76,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
           Thank you for subscribing! Click below to download your free puzzles.
         </p>
         <a
-          href="/downloads/5-free-sudoku-puzzles.pdf"
+          href="/downloads/sudoku-puzzles-fixed.pdf"
           download="5-free-sudoku-puzzles.pdf"
           className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold cursor-pointer text-decoration-none"
         >
