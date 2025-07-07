@@ -9,7 +9,11 @@
       "Bash(gh workflow view:*)",
       "Bash(gh pr list:*)",
       "Bash(mkdir:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git -C ../../revenue-fixes add -A)",
+      "Bash(git -C ../../revenue-fixes commit -m \"fix: Critical test and requirements fixes\n\n- Remove sys.exit(0) from test file that was breaking CI\n- Fix conda local paths in requirements.txt\n- Tests should now pass properly\n\nThis enables all CI/CD workflows to function correctly.\")",
+      "Bash(git -C ../../revenue-fixes push origin fix/clean-revenue-system)"
     ],
     "deny": []
   }
