@@ -19,7 +19,7 @@ jobs:
         worktree: [ci-fixes, qa-validation]
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       
@@ -59,7 +59,7 @@ jobs:
     if: github.event_name == 'workflow_dispatch'
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -74,7 +74,7 @@ jobs:
           python scripts/orchestration/autonomous_worktree_manager.py
       
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: generated-books
           path: |
