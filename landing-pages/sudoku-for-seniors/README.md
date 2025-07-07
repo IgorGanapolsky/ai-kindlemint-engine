@@ -1,7 +1,7 @@
 # Sudoku for Seniors 75+ Landing Page
 
 ## ✅ LIVE & WORKING 
-**URL**: https://ai-kindlemint-engine.vercel.app  
+**URL**: https://dvdyff0b2oove.cloudfront.net  
 **Status**: Production-ready with Formspree email integration
 
 ## 🚀 Quick Start (Development)
@@ -30,9 +30,9 @@ Open http://localhost:3000 to see your landing page!
 2. Test the email form (it will error without ConvertKit, that's OK)
 3. Check mobile responsiveness
 
-### Step 2: Deploy to Vercel (COMPLETED ✅)
+### Step 2: Deploy to AWS (COMPLETED ✅)
 
-**Already Live**: https://ai-kindlemint-engine.vercel.app
+**Already Live**: https://dvdyff0b2oove.cloudfront.net
 
 ### Step 3: Email Integration (COMPLETED ✅)
 
@@ -48,8 +48,8 @@ The PDF is already generated at:
 `public/downloads/5-free-sudoku-puzzles.pdf`
 
 Options:
-1. **Use Vercel hosting** (easiest):
-   - It's already available at: your-site.vercel.app/downloads/5-free-sudoku-puzzles.pdf
+1. **Use AWS S3 hosting** (easiest):
+   - It's already available at: https://kindlemint-pdfs-2025.s3.amazonaws.com/5-free-sudoku-puzzles.pdf
 2. **Upload to ConvertKit**:
    - In your form settings, add as "Incentive"
 3. **Use Dropbox/Google Drive**:
@@ -66,7 +66,7 @@ Options:
 ## 🎯 Launch Status
 
 ### ✅ COMPLETED:
-- [x] Site live on Vercel
+- [x] Site live on AWS CloudFront
 - [x] Formspree email integration working  
 - [x] Form tested and functional
 - [x] All 404 errors fixed
@@ -111,7 +111,7 @@ npm install
 ## 🚀 Ready to Launch?
 
 1. Run `npm run build` to check for errors
-2. Deploy with `vercel --prod`
+2. Deploy with `npm run build && aws s3 sync out/ s3://ai-kindlemint-landing/`
 3. Share your live URL in ONE Facebook group
 4. Watch the subscribers come in!
 
