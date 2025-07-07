@@ -16,7 +16,7 @@ Replace your current form with this code:
     <input type="email" name="email" placeholder="Enter your email address" required>
     <input type="text" name="name" placeholder="First name (optional)">
     <input type="hidden" name="_subject" value="🧩 New Sudoku Lead from Landing Page!">
-    <input type="hidden" name="_next" value="https://ai-kindlemint-engine-8cgfskwhj-igorganapolskys-projects.vercel.app/success">
+    <input type="hidden" name="_next" value="https://dvdyff0b2oove.cloudfront.net/success">
     <button type="submit">Get My FREE Brain-Boosting Puzzles!</button>
 </form>
 ```

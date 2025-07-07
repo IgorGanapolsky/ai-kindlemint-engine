@@ -24,11 +24,12 @@
 ## 🚀 Immediate Next Steps (This Week)
 
 ### Day 1-2: Deploy & Configure
-1. **Deploy to Vercel** (30 minutes)
+1. **Deploy to AWS CloudFront** (30 minutes)
    ```bash
    cd landing-pages/sudoku-for-seniors
    npm install
-   vercel
+   npm run build
+   # Upload build output to S3 and configure CloudFront
    ```
 
 2. **ConvertKit Setup** (1 hour)
@@ -40,7 +41,7 @@
 3. **Analytics Setup** (30 minutes)
    - Create GA4 property
    - Create Facebook Pixel
-   - Add to Vercel env vars
+   - Add to AWS Systems Manager Parameter Store or Secrets Manager
 
 ### Day 3-4: Traffic Generation
 1. **Facebook Groups**

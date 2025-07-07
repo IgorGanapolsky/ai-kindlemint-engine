@@ -97,13 +97,13 @@ Analysis: "Puzzle difficulty 'medium' causes 25% higher sales"
 → Result: Optimized book production
 ```
 
-### 3. **Human Checkpoints → Vercel Integration**
+### 3. **Human Checkpoints → AWS CloudFront Integration**
 
 Your landing page serves as the human interface:
 ```
 Pending Decision: Title Selection
 → Notification: GitHub Issue + Slack
-→ Interface: vercel.app/admin/reviews
+→ Interface: https://dvdyff0b2oove.cloudfront.net/admin/reviews
 → Timeout: 4 hours → AI fallback
 ```
 
@@ -179,7 +179,7 @@ All data processing is GDPR-compliant:
 
 3. **Human checkpoint timeouts**
    - Check Slack webhook configuration
-   - Verify Vercel integration URL
+   - Verify AWS CloudFront integration URL
 
 ### Logs
 
@@ -192,7 +192,7 @@ All data processing is GDPR-compliant:
 1. **Connect Live Data Sources**
    - KDP Analytics API
    - Google Trends API
-   - Your Vercel analytics
+   - Your AWS CloudWatch analytics
 
 2. **Train Custom Models**
    - Use collected private data

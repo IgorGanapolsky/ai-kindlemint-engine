@@ -4,38 +4,29 @@
 
 This guide will help you deploy your complete email funnel monetization system and start generating revenue immediately.
 
-## 🚀 Step 1: Deploy API to Vercel (5 minutes)
+## 🚀 Step 1: Deploy API to AWS (5 minutes)
 
 ### Prerequisites
-- Vercel account (free at vercel.com)
+- AWS account
 - SendGrid account (free tier available)
 
 ### Deploy Steps
 
-1. **Install Vercel CLI**
+1. **Deploy the API using AWS Lambda**
 ```bash
-npm i -g vercel
+# Deploy to AWS Lambda + API Gateway
+# Use AWS SAM, Serverless Framework, or AWS CDK
 ```
 
-2. **Deploy the API endpoint**
+2. **Set Environment Variables in AWS**
 ```bash
-# From project root
-cd api
-vercel
-
-# Follow prompts:
-# - Link to existing project or create new
-# - Use default settings
+# Using AWS Systems Manager Parameter Store:
+aws ssm put-parameter --name "/kindlemint/sendgrid_api_key" --value "your_sendgrid_api_key" --type SecureString
+aws ssm put-parameter --name "/kindlemint/sendgrid_from_email" --value "your_verified_email@domain.com"
+aws ssm put-parameter --name "/kindlemint/sendgrid_from_name" --value "Your Name"
 ```
 
-3. **Set Environment Variables in Vercel Dashboard**
-```
-SENDGRID_API_KEY=your_sendgrid_api_key
-SENDGRID_FROM_EMAIL=your_verified_email@domain.com
-SENDGRID_FROM_NAME=Your Name
-```
-
-Your API will be live at: `https://your-project.vercel.app/api/subscribe`
+Your API will be live at: `https://dvdyff0b2oove.cloudfront.net/api/subscribe`
 
 ## 🔗 Step 2: Connect Landing Page to API (2 minutes)
 
@@ -43,7 +34,7 @@ Update your landing page form to point to your new API:
 
 ```javascript
 // In your landing page JavaScript
-const API_URL = 'https://your-project.vercel.app/api/subscribe';
+const API_URL = 'https://dvdyff0b2oove.cloudfront.net/api/subscribe';
 
 // Form submission handler
 async function handleSubmit(e) {
@@ -205,7 +196,7 @@ Based on typical conversion rates:
 
 ## 🚦 Go-Live Checklist
 
-- [ ] Vercel API deployed and tested
+- [ ] AWS API deployed and tested
 - [ ] SendGrid configured with verified domain
 - [ ] Lead magnet PDF generated
 - [ ] Paid product PDF generated  
@@ -261,7 +252,7 @@ Based on typical conversion rates:
 Remember: The key to success is launching quickly and iterating based on data. Don't wait for perfection - start collecting emails and making sales TODAY!
 
 Need help? Check the logs:
-- API logs: Vercel dashboard
+- API logs: AWS CloudWatch
 - Email stats: SendGrid dashboard  
 - Analytics: Run `generate_analytics_report.py`
 

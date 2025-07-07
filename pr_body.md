@@ -34,9 +34,9 @@ We're moving beyond simple correlational analytics to understand *why* books suc
 - Timeout handling with intelligent AI fallbacks
 - Ensures brand consistency while leveraging AI scale
 
-## Integration with Vercel Landing Page
+## Integration with AWS CloudFront Landing Page
 
-Your landing page at `https://ai-kindlemint-engine-8cgfskwhj-igorganapolskys-projects.vercel.app/` can integrate with this system by:
+Your landing page at `https://dvdyff0b2oove.cloudfront.net/` can integrate with this system by:
 
 1. **Data Collection** - Serve as a key source for the WebAnalyticsProcessor
 2. **Event Triggers** - High traffic spikes can trigger promotional campaigns
@@ -91,7 +91,7 @@ data_point = await pipeline.ingest_data(
 
 1. Connect to live KDP Analytics API
 2. Implement Google Trends event detector
-3. Deploy human review interface on Vercel
+3. Deploy human review interface on AWS CloudFront
 4. Begin collecting causal performance data
 5. Train ML models on our private dataset
 

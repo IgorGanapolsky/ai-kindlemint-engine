@@ -44,9 +44,9 @@
     ]
   },
   "integrations": {
-    "vercel_landing_page": {
+    "aws_landing_page": {
       "enabled": true,
-      "url": "https://ai-kindlemint-engine-8cgfskwhj-igorganapolskys-projects.vercel.app",
+      "url": "https://dvdyff0b2oove.cloudfront.net",
       "analytics_endpoint": "/api/analytics",
       "human_review_endpoint": "/admin/reviews"
     },

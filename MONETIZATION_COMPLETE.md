@@ -16,7 +16,7 @@ I've implemented a complete email funnel monetization system for your "Large Pri
   - Auto-generates on demand
 
 ### 2. **Email Capture API** ✅
-- **Endpoint**: `api/subscribe.py` (deploy to Vercel)
+- **Endpoint**: `api/subscribe.py` (deploy to AWS Lambda)
 - **Features**:
   - Captures email and first name
   - Sends lead magnet automatically
@@ -76,9 +76,8 @@ I've implemented a complete email funnel monetization system for your "Large Pri
 
 ### Step 1: Deploy API (5 minutes)
 ```bash
-cd api
-vercel
-# Set env vars in Vercel dashboard:
+# Deploy to AWS Lambda + API Gateway
+# Set env vars in AWS Systems Manager:
 # SENDGRID_API_KEY, SENDGRID_FROM_EMAIL
 ```
 
@@ -101,7 +100,7 @@ python scripts/generate_payment_links.py
 ```
 
 ### Step 4: Connect Landing Page (2 minutes)
-Update your form to POST to: `https://your-project.vercel.app/api/subscribe`
+Update your form to POST to: `https://dvdyff0b2oove.cloudfront.net/api/subscribe`
 
 ### Step 5: Start Email Automation
 ```bash
@@ -169,7 +168,7 @@ ai-kindlemint-engine/
 ## 🚦 Next Steps
 
 ### Today:
-1. Deploy API to Vercel
+1. Deploy API to AWS Lambda
 2. Set up SendGrid 
 3. Generate payment links
 4. Update landing page form
