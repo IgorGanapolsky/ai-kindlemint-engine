@@ -1,8 +1,7 @@
 assets/fonts/*.ttf filter=lfs diff=lfs merge=lfs -text
 assets/fonts/*.otf filter=lfs diff=lfs merge=lfs -text
-*.pdf filter=lfs diff=lfs merge=lfs -text
-# Exception for landing page PDF - must be served as actual file
-landing-pages/sudoku-for-seniors/public/downloads/5-free-sudoku-puzzles.pdf -filter -diff -merge -text
+# PDFs are NOT tracked by LFS on this branch for direct GitHub serving
+# *.pdf filter=lfs diff=lfs merge=lfs -text
 
 # Published/Archived puzzle books
 books/published_archive/**/*.png filter=lfs diff=lfs merge=lfs -text
