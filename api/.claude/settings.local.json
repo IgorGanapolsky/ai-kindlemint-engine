@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(git worktree:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(rm:*)",
+      "Bash(git pull:*)",
+      "Bash(gh workflow view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)"
+    ],
+    "deny": []
+  }
+}
