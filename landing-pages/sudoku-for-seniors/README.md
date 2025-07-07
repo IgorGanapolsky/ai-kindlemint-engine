@@ -119,4 +119,4 @@ Remember: **Done is better than perfect**. Launch today, optimize tomorrow!
 
 ---
 
-**Need help?** The landing page is designed to work even without all integrations. Get it live first, add features as you go!
+**Need help?** The landing page is designed to work even without all integrations. Get it live first, add features as you go!# Force deployment Mon Jul  7 12:59:45 EDT 2025
