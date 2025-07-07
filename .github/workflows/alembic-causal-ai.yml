@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 25  # Ensure it completes before next run
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Need full history for causal analysis
       
@@ -33,7 +33,7 @@ jobs:
           python-version: '3.11'
       
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
@@ -114,7 +114,7 @@ jobs:
       
       - name: Upload Causal Insights
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: causal-insights-${{ github.run_id }}
           path: reports/causal_insights/
@@ -134,7 +134,7 @@ jobs:
     if: ${{ github.event.inputs.mode == 'full' }}
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Check for Pending Human Reviews
         id: check_reviews
