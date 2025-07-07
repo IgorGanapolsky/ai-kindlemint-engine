@@ -24,41 +24,47 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     });
     localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
     
-    // Send via Formspree (FREE for 50 submissions/month)
-    try {      const response = await fetch('https://formspree.io/f/movwqlnq', {
+    // Send via Web3Forms (FREE for 250 submissions/month)
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
+          access_key: '64ecaccd-8852-423b-a8a4-4ccd74b0f1a7',
           email: email,
           name: firstName,
-          _subject: '🧩 New Sudoku Lead from Landing Page!',
-          _replyto: email,
-          message: `New lead magnet signup: ${firstName} (${email}) wants the 5 FREE Brain-Boosting Puzzles`
+          subject: '🧩 New Sudoku Lead from Landing Page!',
+          message: `New lead magnet signup: ${firstName} (${email}) wants the 5 FREE Brain-Boosting Puzzles`,
+          from_name: 'AI KindleMint Engine',
+          redirect: ''
         })
       });
 
-      if (response.ok) {
-        console.log('✅ Formspree submission successful');
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        console.log('✅ Web3Forms submission successful');
         
         // Store in localStorage as backup
-        const subscribers = JSON.parse(localStorage.getItem('sudoku_subscribers') || '[]');
-        subscribers.push({
+        const updatedSubscribers = JSON.parse(localStorage.getItem('sudoku_subscribers') || '[]');
+        updatedSubscribers.push({
           email,
           firstName,
           timestamp: new Date().toISOString(),
-          source: 'formspree'
+          source: 'web3forms'
         });
-        localStorage.setItem('sudoku_subscribers', JSON.stringify(subscribers));
+        localStorage.setItem('sudoku_subscribers', JSON.stringify(updatedSubscribers));
         
         setSubmitted(true);
       } else {
-        throw new Error(`Formspree error: ${response.status}`);
+        throw new Error(`Web3Forms error: ${result.message || response.status}`);
       }
     } catch (error) {
       console.error('❌ Form submission failed:', error);
-      alert('Something went wrong. Please try again or email us directly at support@saasgrowthdispatch.com');
+      alert('Something went wrong. Please try again or email us directly at support@ai-kindlemint-engine.com');
     } finally {
       setIsSubmitting(false);
     }  };
