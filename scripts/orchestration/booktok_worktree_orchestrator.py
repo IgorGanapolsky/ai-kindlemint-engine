@@ -188,7 +188,7 @@ class BookTokWorktreeOrchestrator(WorktreeOrchestrator):
             WorktreeTask(
                 worktree="booktok-scheduler",
                 task_type="automation_scripts",
-                command="mkdir -p scripts/automation && echo '#!/bin/bash\\necho \"🌅 Daily BookTok automation running...\"\\necho \"📅 Checking today\\'s posts...\"\\necho \"✅ Daily automation complete!\"' > scripts/automation/daily_booktok.sh && chmod +x scripts/automation/daily_booktok.sh",
+                command="mkdir -p scripts/automation && echo '#!/bin/bash\necho \"Daily BookTok automation running...\"\necho \"Checking posts...\"\necho \"Automation complete!\"' > scripts/automation/daily_booktok.sh && chmod +x scripts/automation/daily_booktok.sh",
                 description="Create daily automation scripts"
             )
         ]

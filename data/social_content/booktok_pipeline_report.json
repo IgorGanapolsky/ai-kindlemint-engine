@@ -1,19 +1,19 @@
 {
   "pipeline_summary": {
-    "timestamp": "2025-07-07T16:02:23.121689",
-    "total_execution_time": "3.89 seconds",
+    "timestamp": "2025-07-08T12:14:44.971518",
+    "total_execution_time": "0.19 seconds",
     "books_processed": 10,
     "worktrees_utilized": 4,
     "parallel_efficiency": "4x speedup potential"
   },
   "content_generation": {
-    "timestamp": "2025-07-07T16:02:23.069962",
+    "timestamp": "2025-07-08T12:14:44.930429",
     "execution_summary": {
       "total_books": 10,
       "total_tasks": 12,
-      "successful_tasks": 8,
-      "failed_tasks": 4,
-      "execution_time": "0.19 seconds",
+      "successful_tasks": 12,
+      "failed_tasks": 0,
+      "execution_time": "0.15 seconds",
       "parallel_speedup": "12x potential speedup",
       "worktrees_used": 4
     },
@@ -22,7 +22,7 @@
         "tasks": [
           {
             "type": "tiktok_scripts",
-            "status": "failed",
+            "status": "completed",
             "worktree": "booktok-content"
           },
           {
@@ -36,13 +36,13 @@
             "worktree": "booktok-content"
           }
         ],
-        "success_count": 2
+        "success_count": 3
       },
       "Crossword_Puzzles_Easy_Medium_Hard": {
         "tasks": [
           {
             "type": "tiktok_scripts",
-            "status": "failed",
+            "status": "completed",
             "worktree": "booktok-visuals"
           },
           {
@@ -56,13 +56,13 @@
             "worktree": "booktok-visuals"
           }
         ],
-        "success_count": 2
+        "success_count": 3
       },
       "Large_Print_Crossword_Puzzles_For_Seniors": {
         "tasks": [
           {
             "type": "tiktok_scripts",
-            "status": "failed",
+            "status": "completed",
             "worktree": "booktok-analytics"
           },
           {
@@ -76,13 +76,13 @@
             "worktree": "booktok-analytics"
           }
         ],
-        "success_count": 2
+        "success_count": 3
       },
       "coordination_data": {
         "tasks": [
           {
             "type": "tiktok_scripts",
-            "status": "failed",
+            "status": "completed",
             "worktree": "booktok-scheduler"
           },
           {
@@ -96,7 +96,7 @@
             "worktree": "booktok-scheduler"
           }
         ],
-        "success_count": 2
+        "success_count": 3
       }
     },
     "worktree_utilization": {
@@ -106,7 +106,7 @@
       "booktok-scheduler": 3
     },
     "performance_metrics": {
-      "avg_task_time": "0.13s",
+      "avg_task_time": "0.11s",
       "fastest_worktree": "booktok-content",
       "cpu_cores_utilized": 4
     }
@@ -117,22 +117,22 @@
         "task": "utm_generation",
         "status": "completed",
         "worktree": "booktok-analytics",
-        "duration": "0.05s"
+        "duration": "0.04s"
       },
       {
         "task": "metrics_setup",
         "status": "completed",
         "worktree": "booktok-analytics",
-        "duration": "0.05s"
+        "duration": "0.04s"
       },
       {
         "task": "automation_scripts",
-        "status": "failed",
+        "status": "completed",
         "worktree": "booktok-scheduler",
         "duration": "0.02s"
       }
     ],
-    "setup_complete": false
+    "setup_complete": true
   },
   "next_steps": [
     "Create TikTok business account",

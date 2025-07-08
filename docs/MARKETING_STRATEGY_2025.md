@@ -91,15 +91,88 @@ We will re-optimize all existing book listings and apply this formula to all fut
     -   **Pinterest:** Create visually appealing pins showcasing puzzle grids, themes, and cover designs. Link directly to the Amazon product page. This is a high-potential, evergreen traffic source.
     -   **Facebook Groups:** Join groups for seniors, puzzle enthusiasts, and hobbyists. Participate genuinely and occasionally share a book when relevant.
 
-## 8. Content Marketing & Social Media Automation
+## 8. BookTok & Social Media Marketing Strategy
 
--   **Goal:** Repurpose generated content into marketing assets.
--   **New Script: `marketing_asset_generator.py`**
+**CRITICAL PRIORITY:** BookTok represents our biggest untapped revenue opportunity. Our technical automation advantage can create viral social content at scale.
+
+### 8.1 BookTok Content Strategy
+
+-   **Primary Goal:** Transform zero social media presence into 10K+ TikTok followers within 90 days
+-   **Content Pillars:**
+    1.  **Behind-the-Scenes AI Magic** - "Watch me create a puzzle book in 30 minutes using AI"
+    2.  **Puzzle Solving Demos** - Quick 60-second puzzle challenges
+    3.  **Brain Health Education** - "Why crosswords beat scrolling for your brain"
+    4.  **Senior-Friendly Content** - Large print benefits, gift ideas for grandparents
+
+### 8.2 Automated Social Media Content Generation
+
+-   **New Script: `booktok_content_generator.py`**
+    -   **Input:** Generated book directory + trending hashtags from market research
+    -   **Output:**
+        -   `tiktok_video_scripts/` - 10 video scripts per book
+        -   `puzzle_demo_images/` - Visual puzzle teasers
+        -   `behind_scenes_content/` - AI generation process clips
+        -   `hashtag_strategy.json` - Optimized hashtag combinations
+        -   `posting_calendar.csv` - 30-day content schedule
+
+-   **Integration with Existing Infrastructure:**
+    -   Leverage `autonomous_worktree_manager.py` for parallel social content creation
+    -   Extend `daily_market_insights.py` to track BookTok trends
+    -   Use existing AI agents for script writing and content optimization
+
+### 8.3 TikTok Content Calendar Automation
+
+-   **New Script: `social_media_scheduler.py`**
+    -   **Daily Content Types:**
+        -   **Monday:** Behind-the-scenes AI book creation
+        -   **Tuesday:** Puzzle solving challenge
+        -   **Wednesday:** Brain health tip + puzzle benefit
+        -   **Thursday:** Customer testimonial/review highlight
+        -   **Friday:** "Puzzle of the Weekend" teaser
+        -   **Saturday:** Senior-friendly content/gift ideas
+        -   **Sunday:** Community engagement/Q&A
+
+### 8.4 Target Audience Engagement Strategy
+
+-   **Primary Audiences:**
+    1.  **Puzzle Enthusiasts** (#PuzzleBooks #Crosswords #BrainGames)
+    2.  **Seniors & Caregivers** (#SeniorActivities #BrainHealth #LargePrint)
+    3.  **BookTok Community** (#BookTok #IndieAuthor #SelfPublishing)
+    4.  **AI/Tech Enthusiasts** (#AICreator #TechTok #Automation)
+
+-   **Hashtag Strategy:**
+    -   **Broad:** #BookTok #PuzzleBooks #BrainHealth
+    -   **Niche:** #CrosswordPuzzles #SudokuDaily #WordSearch
+    -   **Audience:** #SeniorFriendly #LargePrint #GiftIdeas
+    -   **Tech:** #AIGenerated #AutomatedPublishing #TechCreator
+
+### 8.5 Cross-Platform Content Distribution
+
+-   **TikTok → Multi-Platform Pipeline:**
+    -   **Pinterest:** Puzzle image pins with Amazon links
+    -   **Instagram Reels:** Repurposed TikTok content
+    -   **YouTube Shorts:** Extended puzzle solving tutorials
+    -   **Facebook Groups:** Senior communities, puzzle enthusiasts
+
+### 8.6 Social Media ROI Tracking
+
+-   **New Script: `social_media_analytics.py`**
+    -   Track TikTok views, shares, comments
+    -   Monitor Amazon traffic from social media (UTM codes)
+    -   Calculate social media → book sales conversion rate
+    -   Weekly social media performance reports
+
+## 8.7 Content Marketing & Asset Generation
+
+-   **Enhanced Script: `marketing_asset_generator.py`**
     -   **Input:** A generated book directory (e.g., `books/active_production/My_New_Book/`).
     -   **Output:**
-        -   A `sample_puzzle.pdf` with 1-3 puzzles.
-        -   A `puzzle_image.png` of a single, attractive puzzle grid.
-        -   A `social_media_post.txt` with a pre-written caption, including a question to drive engagement.
+        -   A `sample_puzzle.pdf` with 1-3 puzzles
+        -   A `puzzle_image.png` of a single, attractive puzzle grid
+        -   A `social_media_post.txt` with pre-written captions
+        -   **NEW:** `tiktok_scripts/` - 5 video scripts per book
+        -   **NEW:** `pinterest_pins/` - 10 Pinterest-ready images
+        -   **NEW:** `instagram_stories/` - Story templates with puzzles
 
 ## 9. Email Marketing & List Building
 
