@@ -90,9 +90,10 @@ def draw_introduction_page(c, width, height):
         "• Use pencil so you can erase if needed",
         "• Take your time - there's no time limit!",
         "",
-        "DIFFICULTY LEVEL:",
-        "This book contains EASY to MEDIUM difficulty puzzles with plenty",
-        "of starting numbers. Perfect for seniors and daily brain training.",
+        "PROGRESSIVE DIFFICULTY:",
+        "• Puzzles 1-25: EASY (50+ clues) - Perfect for warming up",
+        "• Puzzles 26-75: MEDIUM (40+ clues) - Build your skills",
+        "• Puzzles 76-100: HARD (30+ clues) - Challenge yourself!",
         "",
         "Ready? Turn the page and let's begin!"
     ]
@@ -128,7 +129,7 @@ def draw_sudoku_puzzle(c, puzzle, puzzle_num, x_offset, y_offset):
     cell_size = 0.5*inch
     grid_size = cell_size * 9
     start_x = x_offset + (8.5*inch - grid_size) / 2
-    start_y = y_offset + 0.25*inch  # Much lower position to avoid text overlap
+    start_y = y_offset + 0.5*inch  # Proper position for grid
     
     # Draw the grid
     c.setLineWidth(1)
@@ -172,8 +173,8 @@ def create_sudoku_book(filename):
     c.setFont("Helvetica-Bold", 36)
     c.drawCentredString(width/2, height - 4*inch, "Volume 1")
     c.setFont("Helvetica", 24)
-    c.drawCentredString(width/2, height - 5*inch, "100 Easy-Medium Puzzles with Extra Clues")
-    c.drawCentredString(width/2, height - 5.5*inch, "Perfect for Daily Brain Training")
+    c.drawCentredString(width/2, height - 5*inch, "100 Progressive Puzzles")
+    c.drawCentredString(width/2, height - 5.5*inch, "25 Easy • 50 Medium • 25 Hard")
     c.setFont("Helvetica", 18)
     c.drawCentredString(width/2, height - 7*inch, "Large Print Edition")
     c.drawCentredString(width/2, height - 7.5*inch, "Easy on the Eyes")
