@@ -224,5 +224,87 @@ def orchestrate_run(task: str, monitor: bool) -> None:  # pragma: no cover
     click.echo("✅ Orchestration complete!")
 
 
+@cli.command()
+@click.argument('book_path', type=click.Path(exists=True))
+@click.option('--visual/--no-visual', default=True, help='Include visual QA checks')
+@click.option('--save-report/--no-save-report', default=True, help='Save validation report')
+def validate(book_path, visual, save_report):
+    """Validate a puzzle book PDF with optional visual QA"""
+    from kindlemint.validators.integrated_pdf_validator import IntegratedPDFValidator
+    
+    click.echo(f"🔍 Validating: {book_path}")
+    
+    try:
+        if visual:
+            # Use integrated validator with visual QA
+            validator = IntegratedPDFValidator()
+            report = validator.validate_pdf_complete(Path(book_path))
+            is_valid = report['overall_status'] == 'PASS'
+        else:
+            # Use basic content validation only
+            from kindlemint.validators.sudoku_content_validator import SudokuContentValidator
+            validator = SudokuContentValidator()
+            report = validator.validate_puzzle_book(Path(book_path))
+            is_valid = report.get('status') == 'PASS'
+        
+        if is_valid:
+            click.echo("✅ Validation PASSED!")
+        else:
+            click.echo("❌ Validation FAILED!")
+            
+            if visual and 'summary' in report:
+                summary = report['summary']
+                if summary.get('critical_issues'):
+                    click.echo("\n🔴 Critical Issues:")
+                    for issue in summary['critical_issues'][:5]:
+                        click.echo(f"  • {issue}")
+                if summary.get('major_issues'):
+                    click.echo("\n🟡 Major Issues:")
+                    for issue in summary['major_issues'][:3]:
+                        click.echo(f"  • {issue}")
+            else:
+                click.echo("\nIssues found:")
+                for issue in report.get('errors', []):
+                    click.echo(f"  - {issue}")
+                
+    except Exception as e:
+        click.echo(f"❌ Error during validation: {e}", err=True)
+        sys.exit(1)
+        
+        
+@cli.command()
+@click.argument('pdf1', type=click.Path(exists=True))
+@click.argument('pdf2', type=click.Path(exists=True))
+@click.option('--threshold', default=0.95, help='Similarity threshold (0-1)')
+def compare_pdfs(pdf1, pdf2, threshold):
+    """Compare two PDFs visually for regression testing"""
+    from kindlemint.validators.pdf_visual_qa_validator import compare_pdf_screenshots
+    
+    click.echo(f"🔄 Comparing PDFs visually...")
+    click.echo(f"  • PDF 1: {pdf1}")
+    click.echo(f"  • PDF 2: {pdf2}")
+    click.echo(f"  • Threshold: {threshold}")
+    
+    try:
+        results = compare_pdf_screenshots(Path(pdf1), Path(pdf2), threshold)
+        
+        click.echo(f"\n📊 Results: {results['status']}")
+        
+        if results.get('similarity_scores'):
+            click.echo("\nPage Similarity Scores:")
+            for score_info in results['similarity_scores']:
+                page = score_info['page']
+                score = score_info['score']
+                status = "✅" if score >= threshold else "❌"
+                click.echo(f"  {status} Page {page}: {score:.3f}")
+                
+        if results.get('differences'):
+            click.echo(f"\n❌ Visual differences found on {len(results['differences'])} pages")
+            
+    except Exception as e:
+        click.echo(f"❌ Error during comparison: {e}", err=True)
+        sys.exit(1)
+
+
 if __name__ == "__main__":
     cli()
