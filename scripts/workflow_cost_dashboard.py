@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 import os
 from pathlib import Path
 from typing import Dict, List
+from security import safe_command
 
 class WorkflowCostDashboard:
     """Generate cost analytics for GitHub Actions workflows"""
@@ -37,7 +38,7 @@ class WorkflowCostDashboard:
         ]
         
         try:
-            result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+            result = safe_command.run(subprocess.run, cmd, capture_output=True, text=True, check=True)
             runs = []
             for line in result.stdout.strip().split('\n'):
                 if line:

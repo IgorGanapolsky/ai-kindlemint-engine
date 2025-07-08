@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 from datetime import datetime
 import hashlib
+from security import safe_command
 
 class TokenCostTracker:
     """Track API token usage and costs"""
@@ -166,7 +167,7 @@ class OptimizedWorktreeManager:
         if not worktree_path.exists():
             print(f"📁 Creating worktree: {name}")
             cmd = ['git', 'worktree', 'add', str(worktree_path), branch]
-            subprocess.run(cmd, check=True, capture_output=True)
+            safe_command.run(subprocess.run, cmd, check=True, capture_output=True)
             
         self.worktrees[name] = worktree_path
         return worktree_path
