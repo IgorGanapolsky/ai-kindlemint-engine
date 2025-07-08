@@ -39,7 +39,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pytest pytest-cov
+        # Install the package with all its dependencies
         pip install -e .
+        # Ensure fpdf2 is available
+        pip install fpdf2
+        # Install any missing test dependencies
+        pip install reportlab
 
     - name: 🧪 Run basic tests with coverage
       run: |

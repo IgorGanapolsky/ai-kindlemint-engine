@@ -273,3 +273,8 @@ reports/orchestration/*.json
 # Prevent any archive directories
 archive*
 .archive*
+
+# Generated marketing materials
+gumroad_product_config.json
+reddit_marketing_post.txt
+sudoku_landing_page.html

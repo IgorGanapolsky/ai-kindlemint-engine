@@ -6,7 +6,7 @@ Simple test to create a PDF with just puzzle 100 to verify the visual fix
 from pathlib import Path
 
 import pytest
-from fpdf import FPDF
+from fpdf2 import FPDF
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas

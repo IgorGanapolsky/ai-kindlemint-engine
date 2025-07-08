@@ -824,6 +824,7 @@ click==8.1.7
 colorama>=0.4.6
 distro==1.9.0
 fastapi==0.104.1
+fpdf2==2.8.1
 flake8>=4.0.1
 google-api-core==2.25.1
 google-api-python-client==2.134.0

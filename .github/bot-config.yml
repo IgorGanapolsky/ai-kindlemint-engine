@@ -1,0 +1,62 @@
+# Bot Suggestion Processing Configuration
+
+# Bots to process suggestions from
+enabled_bots:
+  - pixeebot[bot]
+  - dependabot[bot]
+  - coderabbitai[bot]
+  - deepsource-bot
+  - snyk-bot
+
+# Auto-apply rules
+auto_apply:
+  # Security improvements
+  - pattern: "import secrets"
+    category: security
+    min_safety_score: 0.8
+    
+  - pattern: "verify=True"
+    category: security
+    min_safety_score: 0.8
+    
+  - pattern: "hashlib.sha256"
+    category: security
+    min_safety_score: 0.7
+    
+  # Code modernization
+  - pattern: "pathlib.Path"
+    category: modernization
+    min_safety_score: 0.7
+    
+  - pattern: "with open"
+    category: best_practice
+    min_safety_score: 0.7
+
+# Auto-merge rules for bot PRs
+auto_merge:
+  pixeebot:
+    enabled: true
+    require_tests_pass: true
+    max_files_changed: 10
+    
+  dependabot:
+    enabled: true
+    require_tests_pass: true
+    allowed_update_types:
+      - security
+      - patch
+      
+# Notification settings
+notifications:
+  # Send summary to Slack/Discord
+  webhook_url: ""  # Add your webhook URL here
+  
+  # Email settings (override GitHub defaults)
+  email:
+    enabled: false  # Disable email notifications when bot handles it
+    
+# Reporting
+reporting:
+  generate_weekly_summary: true
+  track_metrics: true
+  dashboard_url: "/docs/bot-metrics-dashboard.html"
