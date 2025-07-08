@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install selenium beautifulsoup4 requests python-dotenv
+          pip install selenium beautifulsoup4 requests python-dotenv openai
           
       - name: Run LinkedIn automation
         if: github.event.schedule == '0 14 * * *' || github.event.inputs.platform == 'linkedin' || github.event.inputs.platform == 'all'
@@ -49,7 +49,7 @@ jobs:
           LINKEDIN_PASSWORD: ${{ secrets.LINKEDIN_PASSWORD }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          python scripts/linkedin_domination_automation.py --daily-post
+          python scripts/linkedin_content_automation.py --daily-post
           
       - name: Run Twitter automation  
         if: github.event.schedule == '0 18 * * *' || github.event.inputs.platform == 'twitter' || github.event.inputs.platform == 'all'
@@ -90,9 +90,10 @@ jobs:
           
       - name: Commit generated content
         if: always()
+        continue-on-error: true
         run: |
           git config --global user.name 'Social Media Bot'
           git config --global user.email 'bot@kindlemint.ai'
           git add -A
           git diff --staged --quiet || git commit -m "feat: Auto-generated social media content $(date '+%Y-%m-%d %H:%M')"
-          git push
+          git push || echo "No changes to push"

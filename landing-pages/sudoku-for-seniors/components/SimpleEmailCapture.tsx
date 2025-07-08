@@ -58,6 +58,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
         localStorage.setItem('sudoku_subscribers', JSON.stringify(updatedSubscribers));
         
         setSubmitted(true);
+        onSuccess();
       } else {
         throw new Error(`Web3Forms error: ${result.message || response.status}`);
       }
@@ -69,24 +70,37 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
     }  };
 
   if (submitted) {
-    // Auto-download the PDF
+    // Auto-download the PDF after a brief delay
     if (typeof window !== 'undefined') {
       setTimeout(() => {
-        window.location.href = "https://kindlemint-pdfs-2025.s3.amazonaws.com/5-free-sudoku-puzzles.pdf";
-      }, 500);
+        // Create a temporary link element to force download
+        const link = document.createElement('a');
+        link.href = "https://kindlemint-pdfs-2025.s3.amazonaws.com/5-free-sudoku-puzzles.pdf";
+        link.download = "5-free-sudoku-puzzles.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }, 1000);
     }
     
     return (
       <div className="text-center p-6">
-        <h3 className="text-2xl font-bold text-green-800 mb-4">✅ Success! Your Download is Starting...</h3>
+        <h3 className="text-2xl font-bold text-green-800 mb-4">✅ Success!</h3>
         <p className="text-lg text-gray-700 mb-4">
-          Your 5 free puzzles are downloading now!
+          <strong>Your puzzles are downloading now!</strong><br/>
+          <span className="text-sm">Check your Downloads folder for "5-free-sudoku-puzzles.pdf"</span>
         </p>
+        <div className="bg-blue-50 p-4 rounded-lg mb-4">
+          <p className="text-sm text-gray-600">
+            📧 <strong>Note:</strong> We've saved your email for future puzzle updates and special offers.
+          </p>
+        </div>
         <a
           href="https://kindlemint-pdfs-2025.s3.amazonaws.com/5-free-sudoku-puzzles.pdf"
-          className="text-blue-600 underline text-sm"
+          className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 mb-4"
+          download="5-free-sudoku-puzzles.pdf"
         >
-          Click here if download doesn't start automatically
+          📥 Download Again
         </a>
         
         {/* IMMEDIATE UPSELL - This is where we make money! */}
@@ -103,8 +117,10 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
             ⏰ This 70% discount expires when you leave this page!
           </p>
           <a
-            href="https://gumroad.com/l/YOUR_PUZZLE_PACK"
+            href="https://igorganapolsky.gumroad.com/l/sudoku-seniors-100"
             className="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 font-bold text-xl"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             YES! I Want 100 Puzzles for $4.99 →
           </a>
