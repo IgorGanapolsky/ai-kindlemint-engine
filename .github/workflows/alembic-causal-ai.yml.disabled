@@ -45,7 +45,8 @@ jobs:
       
       - name: Initialize Worktree Infrastructure
         run: |
-          python scripts/orchestration/autonomous_worktree_manager.py --init
+          # Skip worktree init for now - causing failures
+          # python scripts/orchestration/autonomous_worktree_manager.py --init
       
       - name: Run Event Monitoring
         if: ${{ github.event.inputs.mode == 'full' || github.event.inputs.mode == 'events_only' }}

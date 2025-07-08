@@ -21,15 +21,15 @@ jobs:
           echo "🔍 Checking comprehensive system health..."
           
           # Check recent workflow failures (more lenient threshold)
-          FAILED_WORKFLOWS=$(gh run list --limit 50 --json status,name,conclusion,createdAt | \
+          FAILED_WORKFLOWS=$(gh run list --repo ${{ github.repository }} --limit 50 --json status,name,conclusion,createdAt | \
             jq '[.[] | select(.conclusion == "failure" and (.createdAt | fromdateiso8601) > (now - 7200))] | length')
           
           # Check for critical failures only
-          CRITICAL_FAILURES=$(gh run list --limit 20 --json status,name,conclusion,createdAt | \
+          CRITICAL_FAILURES=$(gh run list --repo ${{ github.repository }} --limit 20 --json status,name,conclusion,createdAt | \
             jq '[.[] | select(.conclusion == "failure" and (.createdAt | fromdateiso8601) > (now - 1800) and (.name | test("critical|security|deployment")))] | length')
           
           # Check stuck PRs
-          STUCK_PRS=$(gh pr list --state open --json number,createdAt | \
+          STUCK_PRS=$(gh pr list --repo ${{ github.repository }} --state open --json number,createdAt | \
             jq '[.[] | select((.createdAt | fromdateiso8601) < (now - 86400))] | length')
           
           echo "failed_workflows=$FAILED_WORKFLOWS" >> $GITHUB_OUTPUT
