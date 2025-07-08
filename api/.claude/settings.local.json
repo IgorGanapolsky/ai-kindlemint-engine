@@ -16,7 +16,10 @@
       "Bash(git -C ../../revenue-fixes push origin fix/clean-revenue-system)",
       "Bash(git -C ../../revenue-fixes pull origin fix/clean-revenue-system)",
       "Bash(git submodule:*)",
-      "Bash(git lfs:*)"
+      "Bash(git lfs:*)",
+      "Bash(git -C ../alembic-fixes status)",
+      "Bash(git -C ../alembic-fixes fetch origin)",
+      "Bash(git -C ../alembic-fixes merge origin/main --no-edit)"
     ],
     "deny": []
   }
