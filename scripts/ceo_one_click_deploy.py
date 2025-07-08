@@ -18,6 +18,7 @@ import subprocess
 import time
 from pathlib import Path
 from datetime import datetime
+from security import safe_command
 
 # Add project root to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -26,7 +27,7 @@ def run_command(cmd, description):
     """Run a command and show progress"""
     print(f"\n⏳ {description}...")
     try:
-        result = subprocess.run(cmd, shell=False, capture_output=True, text=True)
+        result = safe_command.run(subprocess.run, cmd, shell=False, capture_output=True, text=True)
         if result.returncode == 0:
             print(f"✅ {description} - Complete!")
             return True
