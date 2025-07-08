@@ -1,0 +1,74 @@
+# Code Hygiene Report
+Generated: 2025-07-07 21:03:50
+Repository: /Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine
+
+## Summary
+🔍 Code Hygiene Analysis Summary
+Found 9 issues across 9 categories:
+
++-------------------+---------+-------------------------------------------------------+
+| Category          |   Count | Description                                           |
++===================+=========+=======================================================+
+| Ci Artifacts      |     114 | Found 114 CI artifact files scattered in the codeb... |
++-------------------+---------+-------------------------------------------------------+
+| Duplicates        |   11050 | Found 11050 duplicate files across 2668 groups...     |
++-------------------+---------+-------------------------------------------------------+
+| Empty Dirs        |      12 | Found 12 empty directories...                         |
++-------------------+---------+-------------------------------------------------------+
+| Gitignore         |       3 | .gitignore is missing 3 recommended patterns...       |
++-------------------+---------+-------------------------------------------------------+
+| Naming            |      30 | Found 30 files with naming convention issues...       |
++-------------------+---------+-------------------------------------------------------+
+| Root Clutter      |       1 | Found 1 files cluttering the root directory...        |
++-------------------+---------+-------------------------------------------------------+
+| Scattered Docs    |     299 | Found 299 documentation files that could be better... |
++-------------------+---------+-------------------------------------------------------+
+| Scattered Scripts |      10 | Found 10 scripts in the root directory...             |
++-------------------+---------+-------------------------------------------------------+
+| Temp Files        |       1 | Found 1 temporary/backup files...                     |
++-------------------+---------+-------------------------------------------------------+
+
+## Detailed Issues
+
+### Ci Artifacts
+
+- Found 114 CI artifact files scattered in the codebase
+
+### Duplicates
+
+- Found 11050 duplicate files across 2668 groups
+
+### Empty Dirs
+
+- Found 12 empty directories
+
+### Gitignore
+
+- .gitignore is missing 3 recommended patterns
+
+### Naming
+
+- Found 30 files with naming convention issues
+
+### Root Clutter
+
+- Found 1 files cluttering the root directory
+
+### Scattered Docs
+
+- Found 299 documentation files that could be better organized
+
+### Scattered Scripts
+
+- Found 10 scripts in the root directory
+
+### Temp Files
+
+- Found 1 temporary/backup files
+
+## Recommended Actions
+
+Run the following command to clean up these issues:
+```bash
+python agents/code_hygiene_orchestrator.py clean --interactive
+```

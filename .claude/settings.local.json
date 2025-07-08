@@ -343,7 +343,8 @@
       "Bash(git fetch:*)",
       "Bash(git fetch:*)",
       "WebFetch(domain:dvdyff0b2oove.cloudfront.net)",
-      "WebFetch(domain:kindlemint-pdfs-2025.s3.amazonaws.com)"
+      "WebFetch(domain:kindlemint-pdfs-2025.s3.amazonaws.com)",
+      "Bash(git rebase:*)"
     ],
     "deny": []
   }
