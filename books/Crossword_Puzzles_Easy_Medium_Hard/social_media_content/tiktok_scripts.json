@@ -1,0 +1,44 @@
+[
+  {
+    "id": "script_1_1",
+    "pillar": "behind_scenes",
+    "hook": "POV: You create 'Crossword Puzzles Easy Medium Hard' in 30 minutes using AI",
+    "content": "Watch me generate 'Crossword Puzzles Easy Medium Hard' from scratch using my AI system. From concept to finished PDF in under 30 minutes!",
+    "cta": "Would you buy an AI-generated puzzle book? Comment below!",
+    "hashtags": [
+      "#BookTok",
+      "#PuzzleBooks",
+      "#AIGenerated",
+      "#BehindTheScenes"
+    ],
+    "duration": "60s"
+  },
+  {
+    "id": "script_2_1",
+    "pillar": "puzzle_demo",
+    "hook": "Can you solve this crossword clue in 10 seconds?",
+    "content": "Testing your brain with a puzzle from 'Crossword Puzzles Easy Medium Hard'. This large-print crossword is perfect for daily brain training!",
+    "cta": "Drop your answer in the comments! Link to full book in bio.",
+    "hashtags": [
+      "#PuzzleChallenge",
+      "#BrainGames",
+      "#CrosswordPuzzles",
+      "#BookTok"
+    ],
+    "duration": "30s"
+  },
+  {
+    "id": "script_3_1",
+    "pillar": "brain_health",
+    "hook": "Your brain on puzzles vs. your brain on scrolling",
+    "content": "Crosswords activate multiple brain regions, improve memory, and reduce cognitive decline. That's why I created large-print puzzle books for seniors!",
+    "cta": "Tag someone who needs more brain exercise! \ud83e\udde0",
+    "hashtags": [
+      "#BrainHealth",
+      "#WellnessWednesday",
+      "#PuzzleBooks",
+      "#SeniorHealth"
+    ],
+    "duration": "45s"
+  }
+]
