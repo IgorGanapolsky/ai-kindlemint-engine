@@ -1,0 +1,21 @@
+# Visual QA Requirements
+# For PDF visual validation and OCR-based testing
+
+# PDF to image conversion
+pdf2image>=1.16.3
+
+# OCR for text detection
+pytesseract>=0.3.10
+
+# Image processing
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# Image comparison
+scikit-image>=0.21.0
+
+# Visualization
+matplotlib>=3.7.0
+
+# Existing requirements
+numpy>=1.24.0
