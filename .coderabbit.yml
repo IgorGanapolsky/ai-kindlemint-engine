@@ -1,10 +1,18 @@
 # CodeRabbit Configuration
 # Reducing verbosity to minimize PR noise
 
+# DISABLE EMAIL NOTIFICATIONS
+notifications:
+  email: false
+  github_comments: true  # Keep PR comments but no emails
+
 # Review Settings
 reviews:
-  # Only comment on significant issues, not minor style concerns
-  comment_threshold: "significant"
+  # Only comment on CRITICAL issues, not minor concerns
+  comment_threshold: "critical"
+  
+  # Limit comments per PR
+  max_comments: 5
   
   # Disable auto-review for certain file types
   ignore_patterns:
