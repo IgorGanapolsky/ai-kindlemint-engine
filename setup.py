@@ -17,6 +17,7 @@ setuptools.setup(
     install_requires=[
         # Alphabetical order for readability
         "click>=8.0.0",
+        "fpdf2>=2.8.0",
         "google-api-python-client>=2.100.0",
         "google-auth-httplib2>=0.2.0",
         "google-auth-oauthlib>=1.1.0",
