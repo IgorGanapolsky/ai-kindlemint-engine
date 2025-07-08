@@ -35,8 +35,7 @@ class QAResult:
 class QAValidationPipeline:
     """Multi-model QA validation system"""
 
-        """  Init  """
-def __init__(self):
+    def __init__(self):
         # QA Criteria thresholds
         self.qa_criteria = {
             "duplicate_content": {"threshold": 10, "unit": "%"},
@@ -326,6 +325,30 @@ def __init__(self):
                     }
                 )
 
+            # 3a. Check for repeated puzzle instructions (NEW - user complaint)
+            instruction_repetition = self._check_instruction_repetition(text)
+            if instruction_repetition > 70:  # More than 70% identical instructions
+                puzzle_score -= 25.0  # Major penalty for poor user experience
+                issues.append(
+                    {
+                        "type": "repeated_instructions",
+                        "message": f"{instruction_repetition}% of puzzle instructions are identical - creates poor user experience",
+                        "severity": "critical",
+                    }
+                )
+
+            # 3b. Check for repeated puzzle tips (NEW - user complaint)
+            tip_repetition = self._check_tip_repetition(text)
+            if tip_repetition > 70:  # More than 70% identical tips
+                puzzle_score -= 20.0  # Significant penalty for repetitive tips
+                issues.append(
+                    {
+                        "type": "repeated_tips",
+                        "message": f"{tip_repetition}% of puzzle tips are identical - reduces educational value",
+                        "severity": "moderate",
+                    }
+                )
+
             # 4. Check for missing customer instructions (critical usability issue)
             if not self._check_puzzle_instructions(text):
                 puzzle_score -= 40.0  # Major penalty for unusable books
@@ -429,6 +452,46 @@ def __init__(self):
         unique_explanations = len(set(explanations))
         repetition_rate = (1 - unique_explanations / len(explanations)) * 100
 
+        return repetition_rate
+
+    def _check_instruction_repetition(self, text: str) -> float:
+        """Check for repeated puzzle instructions - NEW QA CHECK"""
+        # Extract all instruction sections
+        instruction_parts = []
+        lines = text.split('\n')
+        
+        for line in lines:
+            if 'INSTRUCTIONS:' in line or 'HOW TO SOLVE:' in line or 'PUZZLE RULES:' in line:
+                # Extract the instruction content
+                instruction_parts.append(line.strip())
+        
+        if len(instruction_parts) <= 1:
+            return 0
+        
+        # Count unique instructions
+        unique_instructions = len(set(instruction_parts))
+        repetition_rate = (1 - unique_instructions / len(instruction_parts)) * 100
+        
+        return repetition_rate
+
+    def _check_tip_repetition(self, text: str) -> float:
+        """Check for repeated puzzle tips - NEW QA CHECK"""
+        # Extract all tip sections
+        tip_parts = []
+        lines = text.split('\n')
+        
+        for line in lines:
+            if 'TIP:' in line or 'HINT:' in line or 'STRATEGY:' in line:
+                # Extract the tip content
+                tip_parts.append(line.strip())
+        
+        if len(tip_parts) <= 1:
+            return 0
+        
+        # Count unique tips
+        unique_tips = len(set(tip_parts))
+        repetition_rate = (1 - unique_tips / len(tip_parts)) * 100
+        
         return repetition_rate
 
     def _check_puzzle_variety(self, text: str) -> float:
@@ -538,11 +601,11 @@ def __init__(self):
     def _calculate_overall_score(self, criteria_results: Dict) -> float:
         """Calculate weighted overall QA score"""
         weights = {
-            "duplicate_content": 0.25,
-            "text_cutoff": 0.20,
-            "white_space_ratio": 0.15,
-            "puzzle_integrity": 0.25,
-            "font_embedding": 0.15,
+            "duplicate_content": 0.20,
+            "text_cutoff": 0.15,
+            "white_space_ratio": 0.10,
+            "puzzle_integrity": 0.35,  # Increased weight for puzzle quality
+            "font_embedding": 0.20,
         }
 
         total_score = 0
@@ -588,6 +651,10 @@ def __init__(self):
 
         if not criteria_results.get("puzzle_integrity", {}).get("passed", True):
             recommendations.append("Verify all puzzle clues have corresponding answers")
+            recommendations.append("Ensure puzzle instructions are varied across different puzzles")
+            recommendations.append("Add variety to puzzle tips to enhance user experience")
+            recommendations.append("Consider rotating instruction styles (INSTRUCTIONS, HOW TO SOLVE, PUZZLE RULES, etc.)")
+            recommendations.append("Implement different tip formats (TIP, HINT, STRATEGY, APPROACH, etc.)")
 
         if not criteria_results.get("font_embedding", {}).get("passed", True):
             recommendations.append("Embed all fonts in PDF for consistent rendering")
@@ -598,8 +665,7 @@ def __init__(self):
         """Generate unique book ID"""
         return hashlib.md5(f"{pdf_path.name}{datetime.now()}".encode()).hexdigest()[:12]
 
-        """ Print Qa Summary"""
-def _print_qa_summary(self, result: QAResult):
+    def _print_qa_summary(self, result: QAResult):
         """Print colored QA summary to console"""
         print("\n" + "=" * 60)
         print(f"📊 QA VALIDATION REPORT - {datetime.now().strftime('%Y-%m-%d %H:%M')}")
@@ -636,8 +702,7 @@ def _print_qa_summary(self, result: QAResult):
 
         print("\n" + "=" * 60)
 
-        """ Save Qa Report"""
-def _save_qa_report(self, result: QAResult, pdf_path: Path):
+    def _save_qa_report(self, result: QAResult, pdf_path: Path):
         """Save QA report to JSON file"""
         qa_dir = pdf_path.parent / "qa"
         qa_dir.mkdir(exist_ok=True)
@@ -652,7 +717,6 @@ def _save_qa_report(self, result: QAResult, pdf_path: Path):
         print(f"\n📄 Full report saved to: {report_path}")
 
 
-    """Main"""
 def main():
     """Test the QA pipeline"""
     import sys
