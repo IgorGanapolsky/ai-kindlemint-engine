@@ -26,7 +26,7 @@ def run_command(cmd, description):
     """Run a command and show progress"""
     print(f"\n⏳ {description}...")
     try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        result = subprocess.run(cmd, shell=False, capture_output=True, text=True)
         if result.returncode == 0:
             print(f"✅ {description} - Complete!")
             return True
