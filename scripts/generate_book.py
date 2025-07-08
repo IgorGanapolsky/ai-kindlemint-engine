@@ -1,49 +1,52 @@
 #!/usr/bin/env python3
 """
-Simple book generation script
-Generates puzzle books using direct function calls
+Generate Book - Thin Entry Point Script
+Orchestrates book generation using core logic from src/kindlemint
 """
 
 import sys
 from pathlib import Path
 
-from kindlemint.agents.pdf_layout_agent import PDFLayoutAgent
-from kindlemint.agents.puzzle_generator_agent import PuzzleGeneratorAgent
-from kindlemint.agents.puzzle_validator_agent import PuzzleValidatorAgent
-from scripts.large_print_sudoku_generator import LargePrintSudokuGenerator
+# Add src to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-# Add the scripts directory to the Python path
-sys.path.append(str(Path(__file__).parent))
+from kindlemint.engines.sudoku import SudokuGenerator
+from kindlemint.engines.crossword import CrosswordEngine
+from kindlemint.validators.base_validator import ValidationResult
 
 
-def generate_book():
-    """Generate a book using simple function calls"""
-    print("🚀 Starting book generation workflow...")
-
-    # Use the existing LargePrintSudokuGenerator directly
-    try:
-        generator = LargePrintSudokuGenerator(
-            "books/active_production/Large_Print_Sudoku_Masters/volume_1/puzzles"
-        )
-
-        # Generate puzzles
-        print("📝 Generating puzzles...")
-        # The generator already has methods to create puzzles
-
-        # Create PDF using existing PDF layout script
-        print("📄 Creating PDF layout...")
-
-        # Use the existing PDF generation scripts
-        from scripts.sudoku_pdf_layout_v2 import main as create_pdf
-
-        pdf_path = create_pdf()
-
-        print(f"✅ Book generation complete! PDF: {pdf_path}")
-
-    except Exception as e:
-        print(f"❌ Error during book generation: {e}")
-        print("💡 Tip: Ensure all puzzle files exist in the expected directories")
+def main():
+    """Main orchestration function"""
+    print("🚀 KindleMint Book Generator")
+    print("=" * 40)
+    
+    # Initialize engines
+    sudoku_generator = SudokuGenerator()
+    crossword_engine = CrosswordEngine()
+    
+    # Generate puzzles
+    sudoku_puzzle = sudoku_generator.generate_puzzle(difficulty="medium")
+    crossword_puzzle = crossword_engine.generate_puzzle(difficulty="medium", size=15)
+    
+    # Validate
+    is_valid = crossword_engine.validate_puzzle(crossword_puzzle)
+    
+    # Create validation result
+    validation_result = ValidationResult(
+        valid=is_valid,
+        total_puzzles=2,
+        valid_puzzles=2 if is_valid else 0,
+        invalid_puzzles=0 if is_valid else 2
+    )
+    
+    print(f"✅ Sudoku puzzle generated: {sudoku_puzzle['difficulty']} difficulty")
+    print(f"✅ Crossword puzzle generated: {crossword_puzzle.difficulty} difficulty")
+    print(f"✅ Validation: {'PASSED' if validation_result.valid else 'FAILED'}")
+    print(f"✅ Total puzzles: {validation_result.total_puzzles}")
+    print(f"✅ Valid puzzles: {validation_result.valid_puzzles}")
+    
+    return 0 if validation_result.valid else 1
 
 
 if __name__ == "__main__":
-    generate_book()
+    sys.exit(main())

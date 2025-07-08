@@ -93,7 +93,7 @@ class RevenueInfrastructure:
     """What we're missing and need to build"""
     
     def __init__(self):
-        self.landing_page = None  # Need: Next.js + Vercel
+        self.landing_page = None  # Need: Next.js + AWS CloudFront/S3
         self.email_system = None  # Need: ConvertKit API
         self.analytics = None     # Need: GA4 + Mixpanel
         self.payments = None      # Need: Stripe + Gumroad

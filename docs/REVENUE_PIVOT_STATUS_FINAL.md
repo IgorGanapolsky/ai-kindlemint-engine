@@ -12,7 +12,7 @@
 
 #### 2. FREE Infrastructure (Replaces $200+/month paid services) ✅
 - **Email Capture**: EmailJS (FREE - 200 emails/month) ❌ ConvertKit ($29/month)
-- **Hosting**: GitHub Pages (FREE) ❌ Vercel/Netlify ($20/month)
+- **Hosting**: GitHub Pages (FREE) ❌ AWS/Netlify ($20/month)
 - **Automation**: GitHub Actions (FREE) ❌ Zapier ($20/month)
 - **Analytics**: Google Analytics (FREE) ❌ Paid analytics ($50/month)
 - **Lead Magnet**: Auto-generated PDF (FREE) ❌ Design services ($100/month)
