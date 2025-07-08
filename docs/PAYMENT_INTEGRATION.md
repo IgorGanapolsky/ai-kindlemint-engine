@@ -240,7 +240,7 @@ https://buy.stripe.com/your_link?utm_source=email&utm_campaign=day7&utm_content=
 
 ### Webhook Errors?
 - Verify webhook secret is set
-- Check Vercel logs for errors
+- Check AWS CloudWatch logs for errors
 - Test with Stripe CLI locally
 
 ## 🎉 Launch Checklist

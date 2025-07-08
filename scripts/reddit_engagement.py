@@ -30,7 +30,7 @@ class RedditEngagement:
     
     def __init__(self):
         self.openai_client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-        self.landing_page = "https://ai-kindlemint-engine.vercel.app"
+        self.landing_page = "https://dvdyff0b2oove.cloudfront.net"
         
         # Target subreddits with engagement strategies
         self.subreddits = {
