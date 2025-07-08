@@ -1,7 +1,7 @@
 # ⚠️ DEPRECATED - Manual AWS Infrastructure Deployment Guide
 
-> **WARNING**: This guide is DEPRECATED. The project has migrated to Vercel for deployment.
-> See the main README for current deployment instructions using Vercel.
+> **WARNING**: This guide is DEPRECATED. The project has migrated to AWS CloudFront + S3 for deployment.
+> See the main README for current deployment instructions using AWS CloudFront + S3.
 > This document is kept for historical reference only.
 
 # 🚀 Manual AWS Infrastructure Deployment Guide

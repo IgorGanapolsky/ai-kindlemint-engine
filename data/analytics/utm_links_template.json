@@ -1,0 +1,10 @@
+{
+  "template_url": "https://amazon.com/dp/YOUR_BOOK_ASIN",
+  "utm_links": {
+    "tiktok": "https://amazon.com/dp/YOUR_BOOK_ASIN?utm_source=tiktok&utm_medium=social&utm_campaign=booktok",
+    "pinterest": "https://amazon.com/dp/YOUR_BOOK_ASIN?utm_source=pinterest&utm_medium=social&utm_campaign=puzzle_pins",
+    "instagram": "https://amazon.com/dp/YOUR_BOOK_ASIN?utm_source=instagram&utm_medium=social&utm_campaign=reels",
+    "facebook": "https://amazon.com/dp/YOUR_BOOK_ASIN?utm_source=facebook&utm_medium=social&utm_campaign=groups"
+  },
+  "instructions": "Replace YOUR_BOOK_ASIN with actual Amazon ASIN for each book"
+}

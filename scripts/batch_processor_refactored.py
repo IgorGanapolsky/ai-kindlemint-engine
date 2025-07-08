@@ -14,7 +14,11 @@ from datetime import datetime
 import importlib.util
 
 # Add src to path for imports
+<<<<<<< HEAD
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+=======
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
+>>>>>>> origin/main
 
 from kindlemint.data import DataManager
 

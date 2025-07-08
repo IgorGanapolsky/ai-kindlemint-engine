@@ -44,7 +44,7 @@ def main():
     print("="*60)
     print(f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
-    api_url = "https://api-hqweirw24-igorganapolskys-projects.vercel.app"
+    api_url = "https://dvdyff0b2oove.cloudfront.net/api"
     
     # Step 1: Generate Lead Magnet
     if not Path('generated/lead_magnets').exists() or not list(Path('generated/lead_magnets').glob('*.pdf')):

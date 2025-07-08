@@ -1,0 +1,155 @@
+{
+  "pipeline_summary": {
+    "timestamp": "2025-07-07T16:02:23.121689",
+    "total_execution_time": "3.89 seconds",
+    "books_processed": 10,
+    "worktrees_utilized": 4,
+    "parallel_efficiency": "4x speedup potential"
+  },
+  "content_generation": {
+    "timestamp": "2025-07-07T16:02:23.069962",
+    "execution_summary": {
+      "total_books": 10,
+      "total_tasks": 12,
+      "successful_tasks": 8,
+      "failed_tasks": 4,
+      "execution_time": "0.19 seconds",
+      "parallel_speedup": "12x potential speedup",
+      "worktrees_used": 4
+    },
+    "books_processed": {
+      "analytics_data": {
+        "tasks": [
+          {
+            "type": "tiktok_scripts",
+            "status": "failed",
+            "worktree": "booktok-content"
+          },
+          {
+            "type": "hashtag_strategy",
+            "status": "completed",
+            "worktree": "booktok-content"
+          },
+          {
+            "type": "content_calendar",
+            "status": "completed",
+            "worktree": "booktok-content"
+          }
+        ],
+        "success_count": 2
+      },
+      "Crossword_Puzzles_Easy_Medium_Hard": {
+        "tasks": [
+          {
+            "type": "tiktok_scripts",
+            "status": "failed",
+            "worktree": "booktok-visuals"
+          },
+          {
+            "type": "hashtag_strategy",
+            "status": "completed",
+            "worktree": "booktok-visuals"
+          },
+          {
+            "type": "content_calendar",
+            "status": "completed",
+            "worktree": "booktok-visuals"
+          }
+        ],
+        "success_count": 2
+      },
+      "Large_Print_Crossword_Puzzles_For_Seniors": {
+        "tasks": [
+          {
+            "type": "tiktok_scripts",
+            "status": "failed",
+            "worktree": "booktok-analytics"
+          },
+          {
+            "type": "hashtag_strategy",
+            "status": "completed",
+            "worktree": "booktok-analytics"
+          },
+          {
+            "type": "content_calendar",
+            "status": "completed",
+            "worktree": "booktok-analytics"
+          }
+        ],
+        "success_count": 2
+      },
+      "coordination_data": {
+        "tasks": [
+          {
+            "type": "tiktok_scripts",
+            "status": "failed",
+            "worktree": "booktok-scheduler"
+          },
+          {
+            "type": "hashtag_strategy",
+            "status": "completed",
+            "worktree": "booktok-scheduler"
+          },
+          {
+            "type": "content_calendar",
+            "status": "completed",
+            "worktree": "booktok-scheduler"
+          }
+        ],
+        "success_count": 2
+      }
+    },
+    "worktree_utilization": {
+      "booktok-content": 3,
+      "booktok-visuals": 3,
+      "booktok-analytics": 3,
+      "booktok-scheduler": 3
+    },
+    "performance_metrics": {
+      "avg_task_time": "0.13s",
+      "fastest_worktree": "booktok-content",
+      "cpu_cores_utilized": 4
+    }
+  },
+  "analytics_setup": {
+    "analytics_setup": [
+      {
+        "task": "utm_generation",
+        "status": "completed",
+        "worktree": "booktok-analytics",
+        "duration": "0.05s"
+      },
+      {
+        "task": "metrics_setup",
+        "status": "completed",
+        "worktree": "booktok-analytics",
+        "duration": "0.05s"
+      },
+      {
+        "task": "automation_scripts",
+        "status": "failed",
+        "worktree": "booktok-scheduler",
+        "duration": "0.02s"
+      }
+    ],
+    "setup_complete": false
+  },
+  "next_steps": [
+    "Create TikTok business account",
+    "Review generated content in books/*/social_media_content/",
+    "Run daily automation: ./scripts/automation/daily_booktok.sh",
+    "Monitor analytics: data/analytics/social_media_metrics.json",
+    "Scale to additional social platforms"
+  ],
+  "worktree_performance": {
+    "active_worktrees": [
+      "booktok-content",
+      "booktok-visuals",
+      "booktok-analytics",
+      "booktok-scheduler"
+    ],
+    "cpu_utilization": "4 cores",
+    "memory_efficiency": "Isolated worktree environments",
+    "scalability": "Can handle 100+ books in parallel"
+  }
+}

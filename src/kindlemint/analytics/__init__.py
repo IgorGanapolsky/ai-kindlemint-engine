@@ -1,7 +1,12 @@
+#!/usr/bin/env python3
 """
-Analytics module for KindleMint - Track conversions, revenue, and user behavior
+Analytics module for KindleMint
 """
 
-from .conversion_tracker import ConversionTracker
+from .causal_inference import CausalInference, CausalRelationship, InterventionResult
 
-__all__ = ['ConversionTracker']
+__all__ = [
+    "CausalInference",
+    "CausalRelationship", 
+    "InterventionResult"
+]
