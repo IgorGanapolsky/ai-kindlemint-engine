@@ -10,8 +10,8 @@ from reportlab.lib.units import inch
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-def create_sudoku_grid():
-    """Generate a valid 9x9 Sudoku puzzle with clues"""
+def create_sudoku_grid(difficulty_level="medium"):
+    """Generate a valid 9x9 Sudoku puzzle with clues based on difficulty"""
     # Base valid completed grid
     base = [
         [5,3,4,6,7,8,9,1,2],
@@ -42,9 +42,16 @@ def create_sudoku_grid():
                 for row in range(9):
                     base[row][group*3 + i], base[row][col] = base[row][col], base[row][group*3 + i]
     
-    # Create puzzle by removing numbers (more removed = harder)
+    # Create puzzle by removing numbers based on difficulty
     puzzle = [row[:] for row in base]
-    cells_to_remove = 45  # Medium difficulty
+    
+    # Adjust number of clues based on difficulty
+    if difficulty_level == "easy":
+        cells_to_remove = 30  # 51 clues (very easy)
+    elif difficulty_level == "medium":
+        cells_to_remove = 40  # 41 clues (medium)
+    else:  # hard
+        cells_to_remove = 50  # 31 clues (harder)
     
     cells = [(r, c) for r in range(9) for c in range(9)]
     random.shuffle(cells)
@@ -84,8 +91,8 @@ def draw_introduction_page(c, width, height):
         "• Take your time - there's no time limit!",
         "",
         "DIFFICULTY LEVEL:",
-        "This book contains MEDIUM difficulty puzzles, perfect for",
-        "daily brain training. Each puzzle has exactly one solution.",
+        "This book contains EASY to MEDIUM difficulty puzzles with plenty",
+        "of starting numbers. Perfect for seniors and daily brain training.",
         "",
         "Ready? Turn the page and let's begin!"
     ]
@@ -106,11 +113,22 @@ def draw_sudoku_puzzle(c, puzzle, puzzle_num, x_offset, y_offset):
     c.setFont("Helvetica-Bold", 20)
     c.drawCentredString(x_offset + 4.25*inch, y_offset + 6.5*inch, f"Puzzle #{puzzle_num}")
     
+    # Add difficulty indicator instead of repetitive instructions
+    if puzzle_num <= 25:
+        difficulty = "EASY"
+    elif puzzle_num <= 75:
+        difficulty = "MEDIUM"
+    else:
+        difficulty = "HARD"
+    
+    c.setFont("Helvetica-Oblique", 12)
+    c.drawCentredString(x_offset + 4.25*inch, y_offset + 5.8*inch, f"Difficulty: {difficulty}")
+    
     # Grid settings
     cell_size = 0.5*inch
     grid_size = cell_size * 9
     start_x = x_offset + (8.5*inch - grid_size) / 2
-    start_y = y_offset + 1.5*inch  # Moved down to give space for title
+    start_y = y_offset + 0.25*inch  # Much lower position to avoid text overlap
     
     # Draw the grid
     c.setLineWidth(1)
@@ -154,7 +172,7 @@ def create_sudoku_book(filename):
     c.setFont("Helvetica-Bold", 36)
     c.drawCentredString(width/2, height - 4*inch, "Volume 1")
     c.setFont("Helvetica", 24)
-    c.drawCentredString(width/2, height - 5*inch, "100 Medium Difficulty Puzzles")
+    c.drawCentredString(width/2, height - 5*inch, "100 Easy-Medium Puzzles with Extra Clues")
     c.drawCentredString(width/2, height - 5.5*inch, "Perfect for Daily Brain Training")
     c.setFont("Helvetica", 18)
     c.drawCentredString(width/2, height - 7*inch, "Large Print Edition")
@@ -165,10 +183,17 @@ def create_sudoku_book(filename):
     draw_introduction_page(c, width, height)
     c.showPage()
     
-    # Generate 100 puzzles
+    # Generate 100 puzzles with varying difficulty
     puzzles = []
     for i in range(100):
-        puzzle, solution = create_sudoku_grid()
+        if i < 25:
+            difficulty = "easy"
+        elif i < 75:
+            difficulty = "medium"
+        else:
+            difficulty = "hard"
+        
+        puzzle, solution = create_sudoku_grid(difficulty)
         puzzles.append((puzzle, solution))
     
     # Draw puzzles (1 per page for large print)
