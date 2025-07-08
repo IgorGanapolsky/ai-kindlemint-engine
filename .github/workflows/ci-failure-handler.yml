@@ -1,6 +1,11 @@
 name: CI Failure Handler
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   workflow_run:
     workflows: ["Unified CI", "Social Media Automation"]
     types: [completed]
@@ -15,6 +20,7 @@ jobs:
   handle-failures:
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     
     steps:
     - uses: actions/checkout@v4

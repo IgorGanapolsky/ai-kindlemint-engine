@@ -2,6 +2,11 @@ name: Worktree Orchestration
 # Autonomous parallel execution using git worktrees
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   workflow_dispatch:
   push:
     branches: [main]
@@ -14,6 +19,7 @@ on:
 jobs:
   parallel-ci-fixes:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     strategy:
       matrix:
         worktree: [ci-fixes, qa-validation]
@@ -56,6 +62,7 @@ jobs:
 
   parallel-book-generation:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     if: github.event_name == 'workflow_dispatch'
     
     steps:

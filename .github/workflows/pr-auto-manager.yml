@@ -1,6 +1,11 @@
 name: PR Auto Manager
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   pull_request:
     types: [opened, labeled]
   schedule:
@@ -10,6 +15,7 @@ on:
 jobs:
   auto-close-bot-prs:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     permissions:
       pull-requests: write
@@ -60,6 +66,7 @@ jobs:
   
   auto-merge-approved:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     if: github.event.pull_request.user.login == 'deepsource-autofix[bot]' || github.event.pull_request.user.login == 'dependabot[bot]'
     permissions:
       contents: write

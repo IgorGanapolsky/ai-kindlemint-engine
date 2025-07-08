@@ -1,0 +1,54 @@
+name: Workflow Performance Metrics
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+
+concurrency:
+  group: metrics-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  collect-metrics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Collect workflow metrics
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "# 📊 Workflow Performance Report" > metrics.md
+        echo "Generated: $(date)" >> metrics.md
+        echo "" >> metrics.md
+        
+        # Get metrics for each workflow
+        for workflow_id in $(gh api repos/${{ github.repository }}/actions/workflows --jq '.workflows[].id'); do
+          workflow_name=$(gh api repos/${{ github.repository }}/actions/workflows/$workflow_id --jq '.name')
+          
+          echo "## $workflow_name" >> metrics.md
+          
+          # Get last 30 runs
+          runs=$(gh api repos/${{ github.repository }}/actions/workflows/$workflow_id/runs --jq '.workflow_runs[:30]')
+          
+          if [ ! -z "$runs" ]; then
+            avg_duration=$(echo "$runs" | jq -r 'map(select(.conclusion=="success") | .run_duration_ms) | add / length / 1000 | floor')
+            success_rate=$(echo "$runs" | jq -r 'map(select(.conclusion=="success")) | length / 30 * 100 | floor')
+            
+            echo "- Average duration: ${avg_duration}s" >> metrics.md
+            echo "- Success rate: ${success_rate}%" >> metrics.md
+            echo "" >> metrics.md
+          fi
+        done
+        
+        # Upload metrics
+        echo "::set-output name=metrics::$(cat metrics.md)"
+        
+    - name: Create metrics issue
+      uses: peter-evans/create-issue@v5
+      with:
+        title: "📊 Weekly Workflow Performance Report"
+        body-file: metrics.md
+        labels: metrics, automation

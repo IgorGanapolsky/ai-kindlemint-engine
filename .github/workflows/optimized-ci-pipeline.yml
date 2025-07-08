@@ -15,6 +15,7 @@ jobs:
   fast-ci:
     name: Fast CI Check
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     outputs:
       all_checks_passed: ${{ steps.summary.outputs.passed }}
     steps:
@@ -93,6 +94,7 @@ jobs:
   ci-status:
     name: CI Status
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     needs: fast-ci
     if: always()
     steps:

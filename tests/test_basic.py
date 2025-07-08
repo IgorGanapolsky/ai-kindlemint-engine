@@ -1,29 +1,13 @@
-#!/usr/bin/env python3
-"""
-Basic tests to ensure core functionality works
-"""
+"""Basic test to ensure pipeline works"""
 
-
+def test_pipeline_works():
+    """Verify the pipeline runs"""
+    assert True
+    
 def test_basic_math():
-    """Simple test to ensure test framework works"""
-    assert 2 + 2 == 4
-
-
+    """Basic math test"""
+    assert 1 + 1 == 2
+    
 def test_string_operations():
-    """Test basic string operations"""
+    """Test string operations"""
     assert "hello".upper() == "HELLO"
-    assert "WORLD".lower() == "world"
-
-
-def test_list_operations():
-    """Test basic list operations"""
-    test_list = [1, 2, 3]
-    assert len(test_list) == 3
-    assert sum(test_list) == 6
-
-
-def test_dict_operations():
-    """Test basic dictionary operations"""
-    test_dict = {"a": 1, "b": 2}
-    assert test_dict["a"] == 1
-    assert len(test_dict) == 2

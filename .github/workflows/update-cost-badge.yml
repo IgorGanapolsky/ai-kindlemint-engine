@@ -1,6 +1,11 @@
 name: 📊 Update Claude Cost Badge
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   push:
     branches: [ main ]
   workflow_dispatch:
@@ -9,6 +14,7 @@ jobs:
   update-badge:
     name: Update Cost Badge
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     
     steps:
     - name: 🚀 Checkout repository

@@ -1,6 +1,11 @@
 name: Auto Issue Cleanup
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   schedule:
     - cron: '0 * * * *'  # Every hour
   workflow_dispatch:
@@ -10,6 +15,7 @@ on:
 jobs:
   cleanup-automation-issues:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       issues: write
     steps:

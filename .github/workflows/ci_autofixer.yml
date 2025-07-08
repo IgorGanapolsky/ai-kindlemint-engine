@@ -1,6 +1,11 @@
 name: CI Auto-Fixer
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   # Trigger when other workflows fail
   workflow_run:
     workflows: ["Tests", "QA Validation Pipeline", "Comprehensive QA", "Book QA Validation", "PR Orchestrator - Intelligent Auto-Merge System"]
@@ -46,6 +51,7 @@ on:
 jobs:
   ci-autofix:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     # Only run if the triggering workflow failed
     if: >
