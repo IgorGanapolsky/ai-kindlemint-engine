@@ -8,11 +8,11 @@ import os
 import sys
 import json
 import time
-import random
 import logging
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import List, Dict, Optional
+import secrets
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -82,7 +82,7 @@ class RedditEngagement:
         # Execute respectful engagement
         for opportunity in opportunities[:2]:  # Max 2 engagements per run
             self._execute_engagement(opportunity)
-            time.sleep(random.randint(300, 600))  # 5-10 minute breaks between engagements
+            time.sleep(secrets.SystemRandom().randint(300, 600))  # 5-10 minute breaks between engagements
         
         return True
     
@@ -190,7 +190,7 @@ class RedditEngagement:
         ]
         
         # Return 1-2 random proactive opportunities
-        return random.sample(proactive_opportunities, k=random.randint(1, 2))
+        return secrets.SystemRandom().sample(proactive_opportunities, k=secrets.SystemRandom().randint(1, 2))
     
     def _execute_engagement(self, opportunity: Dict):
         """Execute a specific engagement with maximum value and respect"""
@@ -273,11 +273,11 @@ Generate the {content_type} content:"""
     def _should_include_mention(self, frequency: str) -> bool:
         """Determine if we should include a subtle mention based on frequency setting"""
         if frequency == 'low':
-            return random.random() < 0.1  # 10% chance
+            return secrets.SystemRandom().random() < 0.1  # 10% chance
         elif frequency == 'medium':
-            return random.random() < 0.3  # 30% chance  
+            return secrets.SystemRandom().random() < 0.3  # 30% chance  
         elif frequency == 'high':
-            return random.random() < 0.5  # 50% chance
+            return secrets.SystemRandom().random() < 0.5  # 50% chance
         return False
     
     def _get_fallback_content(self, opportunity: Dict) -> str:
