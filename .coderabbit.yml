@@ -89,9 +89,5 @@ disable:
   - "emoji_reactions"
   - "praise_comments"
   - "nitpick_mode"
-  - "style_suggestions"
+  - "style_suggestions"  
   - "refactoring_suggestions"
-
-# Email notification settings
-notifications:
-  email: false
