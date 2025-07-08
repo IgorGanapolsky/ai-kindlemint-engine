@@ -295,28 +295,38 @@ Task("Backend Team", "Implement APIs according to Memory specifications");
 
 
 
-## WORKTREE ORCHESTRATION (ACTIVE)
-**CRITICAL**: All commits MUST use worktree orchestration for token cost optimization.
-**CRITICAL**: Badge validation is MANDATORY - never remove project visibility badges!
+## WORKTREE ORCHESTRATION (SIMPLIFIED)
+**Simple 3-Worktree Strategy for Claude Code** - Effective and easy to manage!
 
-### Automatic Worktree Usage:
-1. For features: Use appropriate worktree based on task type
-2. For fixes: Use ci-fixes worktree for CI-related issues
-3. For docs: Can use main branch (low token usage)
+### Current Setup:
+1. **Main Directory** (`/ai-kindlemint-engine`) - Active feature development
+2. **Hotfix Worktree** (`/worktrees/hotfix`) - Emergency fixes
+3. **Experiments Worktree** (`/worktrees/experiments`) - Testing risky changes
 
-### Before ANY commit:
+### Quick Commands:
 ```bash
-# Check which worktree to use
-python scripts/orchestration/check_worktree_assignment.py "commit message"
+# List all worktrees
+git worktree list
 
-# Or use automatic orchestration
-python scripts/orchestration/worktree_orchestrator.py --auto
+# Switch to hotfix worktree for emergency fixes
+cd worktrees/hotfix
+git pull origin main
+# Make fixes
+git push
+
+# Switch to experiments for testing
+cd worktrees/experiments
+# Test risky changes
+
+# Back to main development
+cd ../..
 ```
 
-### Token Cost Tracking:
-- Every commit tracks token usage automatically
-- Cost reports generated in reports/orchestration/
-- Slack notifications for high-cost operations
+### Best Practices:
+- Keep it simple - only 3 worktrees maximum
+- Clean up experiments regularly: `git worktree remove worktrees/experiments`
+- Always pull latest before hotfixes
+- Main directory for 90% of work
 
 ## Important Notes
 - **Use TodoWrite extensively** for all complex task coordination
@@ -344,7 +354,7 @@ ALWAYS prefer editing an existing file to creating a new one.
 NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
 **ALWAYS commit and push your changes** - After making any code changes, you MUST commit them with a descriptive message and push to the repository
 **CRITICAL: ALWAYS DELETE OUTDATED FILES before commit and push - Never keep obsolete versions that could cause confusion**
-**CRITICAL: ALWAYS USE GIT WORKTREE ORCHESTRATION FOR FEATURES** - Never work directly on branches. Always use the git worktree orchestration strategy described in docs/GIT_WORKTREES_ORCHESTRATION_STRATEGY.md for parallel development, token optimization, and proper branch isolation. Each feature should have its own worktree.
+**SIMPLE WORKTREE USAGE** - Use the 3-worktree setup: main directory for features, worktrees/hotfix for emergency fixes, worktrees/experiments for risky changes. See worktree section above for details.
 **CRITICAL: KDP CATEGORIES - Never hallucinate categories! Always use ACTUAL KDP categories with FULL PATHS including subcategories (e.g., "Crafts, Hobbies & Home > Games & Activities"). KDP allows THREE categories, always provide exactly 3 complete category paths. Verify against actual KDP dropdown menus.**
 **CRITICAL: KDP BOOK TYPE CLASSIFICATIONS - Always specify for every book metadata:**
 - Low-content book: true (for puzzle books, journals, notebooks, planners)
