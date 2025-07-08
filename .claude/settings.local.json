@@ -347,7 +347,10 @@
       "Bash(for f in .github/workflows/*.yml)",
       "Bash(do echo -n \"$f: \")",
       "Bash(for f in .github/workflows/*.yml)",
-      "Bash(do echo -n \"$f: \")"
+      "Bash(do echo -n \"$f: \")",
+      "Bash(./scripts/fix-ci-emergency.sh:*)",
+      "Bash(/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/scripts/fix-ci-emergency.sh:*)",
+      "Bash(./scripts/fix-ci-emergency.sh:*)"
     ],
     "deny": []
   }
