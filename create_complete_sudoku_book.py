@@ -102,15 +102,15 @@ def draw_introduction_page(c, width, height):
 
 def draw_sudoku_puzzle(c, puzzle, puzzle_num, x_offset, y_offset):
     """Draw a single Sudoku puzzle on the canvas"""
-    # Title
+    # Title - MOVED HIGHER TO AVOID OVERLAP
     c.setFont("Helvetica-Bold", 20)
-    c.drawCentredString(x_offset + 4.25*inch, y_offset + 4.8*inch, f"Puzzle #{puzzle_num}")
+    c.drawCentredString(x_offset + 4.25*inch, y_offset + 6.5*inch, f"Puzzle #{puzzle_num}")
     
     # Grid settings
     cell_size = 0.5*inch
     grid_size = cell_size * 9
     start_x = x_offset + (8.5*inch - grid_size) / 2
-    start_y = y_offset + 0.5*inch
+    start_y = y_offset + 1.5*inch  # Moved down to give space for title
     
     # Draw the grid
     c.setLineWidth(1)
