@@ -56,7 +56,7 @@ python src/kindlemint/orchestration_runner.py
 ### Documentation
 - [Implementation Plan](docs/plan.md)
 - [Commit Guidelines](docs/COMMIT_VALIDATION.md)
-- [Orchestration Strategy](docs/GIT_WORKTREES_ORCHESTRATION_STRATEGY.md)
+- [Simplified Worktree Strategy](docs/CLAUDE_CODE_WORKTREE_STRATEGY.md)
 
 ## 🏗️ Infrastructure & Orchestration
 
@@ -459,7 +459,7 @@ AI-KindleMint-Engine uses a **revolutionary parallel orchestration system**:
 4. **💰 Cost-Optimized Execution** - 70% reduction in operational costs
 
 **📖 [Complete Architecture Documentation](docs/ORCHESTRATION_ARCHITECTURE.md)**
-**📖 [Worktree Strategy Guide](docs/GIT_WORKTREES_ORCHESTRATION_STRATEGY.md)**
+**📖 [Simplified Worktree Strategy](docs/CLAUDE_CODE_WORKTREE_STRATEGY.md)**
 
 ### What Each System Does
 

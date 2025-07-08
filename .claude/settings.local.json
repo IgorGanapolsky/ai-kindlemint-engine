@@ -352,7 +352,8 @@
       "Bash(/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/scripts/fix-ci-emergency.sh:*)",
       "Bash(./scripts/fix-ci-emergency.sh:*)",
       "Bash(./scripts/optimize-all-workflows.sh:*)",
-      "Bash(./scripts/quick-pipeline-fix.sh:*)"
+      "Bash(./scripts/quick-pipeline-fix.sh:*)",
+      "Bash(./worktrees/test_worktree_setup.sh:*)"
     ],
     "deny": []
   }

@@ -61,11 +61,14 @@ export default function Home() {
             ) : (
               <div className="bg-green-50 rounded-lg shadow-xl p-8 max-w-2xl mx-auto">
                 <h2 className="text-3xl font-semibold mb-4 text-green-800">
-                  Success! Check Your Email
+                  Success! Your Puzzles Are Ready
                 </h2>
                 <p className="text-lg text-gray-700">
-                  Your free puzzles are on their way. You'll also receive our weekly 
-                  "Puzzle of the Week" to keep your mind sharp!
+                  Your free puzzles should be downloading now. Check your Downloads folder!
+                  <br />
+                  <span className="text-sm text-gray-600 mt-2 block">
+                    (If the download didn't start, you'll see a download button below)
+                  </span>
                 </p>
               </div>
             )}
