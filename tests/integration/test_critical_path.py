@@ -36,7 +36,7 @@ class TestBookGenerationPipeline:
         assert report.is_valid() is True
         assert report.total_puzzles == 1
 
-        def test_pdf_generation_pipeline(self):
+    def test_pdf_generation_pipeline(self):
         """Test PDF generation - critical for deliverables"""
         from pathlib import Path
 
@@ -47,7 +47,7 @@ class TestBookGenerationPipeline:
             ensure_directory(output_dir)
             assert output_dir.exists()
 
-        def test_validation_pipeline(self):
+    def test_validation_pipeline(self):
         """Test our QA validation - prevents bad books"""
         from kindlemint.validators.base_validator import (
             IssueSeverity,
@@ -92,7 +92,7 @@ class TestAgentSystem:
         assert MessageType.TASK_REQUEST.value == "task_request"
         assert MessageType.TASK_COMPLETION.value == "task_completion"
 
-        def test_task_system(self):
+    def test_task_system(self):
         """Test task management"""
         from kindlemint.agents.task_system import TaskPriority, TaskStatus
 
@@ -117,7 +117,7 @@ class TestCoreUtilities:
         assert logger is not None
         assert logger.name == "test_module"
 
-        def test_json_operations(self):
+    def test_json_operations(self):
         """Test JSON load/save utilities"""
         from kindlemint.utils import load_json, save_json
 
@@ -131,7 +131,7 @@ class TestCoreUtilities:
 
             Path(f.name).unlink()
 
-        def test_timestamp_formatting(self):
+    def test_timestamp_formatting(self):
         """Test timestamp utilities"""
         from datetime import datetime
 

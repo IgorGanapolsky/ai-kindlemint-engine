@@ -357,3 +357,8 @@ NEVER proactively create documentation files (*.md) or README files. Only create
 - Add cover_design.dalle_prompt field to all metadata files
 - Include detailed, professional prompts for book cover generation
 - Specify style, colors, typography, and puzzle theme elements
+**CRITICAL: PDF VISUAL QA - Current validators DO NOT check:**
+- Text overflow/cutoff issues
+- Page margin violations
+- Font rendering problems
+- ALWAYS manually preview PDFs before marking as complete
