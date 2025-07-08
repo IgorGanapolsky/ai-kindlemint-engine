@@ -15,8 +15,7 @@ class TestAgentTypes:
         assert AgentCapability.PDF_LAYOUT.value == "pdf_layout"
         assert AgentCapability.COVER_DESIGN.value == "cover_design"
 
-        """Test All Capabilities"""
-def test_all_capabilities(self):
+    def test_all_capabilities(self):
         """Test all capability values are unique"""
         values = [cap.value for cap in AgentCapability]
         assert len(values) == len(set(values))  # All unique
