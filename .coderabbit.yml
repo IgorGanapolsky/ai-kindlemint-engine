@@ -1,10 +1,13 @@
 # CodeRabbit Configuration
-# Reducing verbosity to minimize PR noise
+# MINIMAL NOISE MODE - Only critical security/bug issues
+
+# Enable manual trigger only - disable automatic reviews
+enabled: false  # Set to true only when you want reviews
 
 # Review Settings
 reviews:
-  # Only comment on significant issues, not minor style concerns
-  comment_threshold: "significant"
+  # Only comment on CRITICAL issues
+  comment_threshold: "critical"
   
   # Disable auto-review for certain file types
   ignore_patterns:
@@ -87,3 +90,16 @@ disable:
 # Email notification settings
 notifications:
   email: false
+
+# HOW TO STOP CODERABBIT EMAILS:
+# 1. This config disables automatic reviews (enabled: false above)
+# 2. To stop GitHub notification emails:
+#    - Go to: https://github.com/settings/notifications
+#    - Find "Watching" section
+#    - Change to "Participating" or "Custom"
+#    - Or unwatch specific repos
+# 3. To trigger CodeRabbit manually when needed:
+#    - Comment "@coderabbitai review" on any PR
+# 4. To disable CodeRabbit completely:
+#    - Go to repo Settings > Integrations > CodeRabbit
+#    - Click "Configure" and remove access
