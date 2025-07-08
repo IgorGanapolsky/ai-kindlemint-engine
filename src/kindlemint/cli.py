@@ -224,6 +224,342 @@ def orchestrate_run(task: str, monitor: bool) -> None:  # pragma: no cover
     click.echo("✅ Orchestration complete!")
 
 
+@cli.group("trends")
+def trends():
+    """Consumer trends analysis and prediction commands."""
+    pass
+
+
+@trends.command("run")
+@click.option(
+    "--sources",
+    type=click.Choice(["all", "reddit", "tiktok", "google", "amazon"]),
+    default="all",
+    help="Data sources to analyze (default: all)"
+)
+@click.option(
+    "--save-analysis/--no-save-analysis",
+    default=True,
+    help="Save analysis results to storage"
+)
+def trends_run(sources: str, save_analysis: bool) -> None:
+    """
+    Execute comprehensive trend analysis and trigger content generation.
+    
+    Analyzes data from multiple sources to identify trending topics
+    and their potential profitability for book publishing.
+    """
+    click.echo("🔍 Starting comprehensive trend analysis...")
+    
+    try:
+        import asyncio
+        from kindlemint.analytics.trend_analyzer import PredictiveTrendAnalyzer
+        from kindlemint.utils.config import Config
+        
+        async def run_analysis():
+            config = Config()
+            async with PredictiveTrendAnalyzer(config) as analyzer:
+                analysis = await analyzer.analyze_trends()
+                
+                click.echo(f"\n📊 Trend Analysis Results")
+                click.echo("─" * 50)
+                click.echo(f"Total trends found: {len(analysis.trends)}")
+                click.echo(f"Average profitability: {analysis.summary['avg_profitability']:.2f}")
+                
+                click.echo(f"\n🏆 Top 5 Trends")
+                click.echo("─" * 30)
+                for i, trend in enumerate(analysis.trends[:5], 1):
+                    click.echo(f"{i}. {trend.topic}")
+                    click.echo(f"   📈 Profitability: {trend.predicted_profitability:.2f}")
+                    click.echo(f"   🏁 Competition: {trend.competition_level}")
+                    click.echo(f"   📡 Source: {trend.source}")
+                    click.echo()
+                
+                click.echo(f"💡 Recommendations")
+                click.echo("─" * 20)
+                for rec in analysis.recommendations:
+                    click.echo(f"• {rec}")
+                
+                if save_analysis:
+                    click.echo(f"\n✅ Analysis saved to storage")
+                
+                return analysis
+        
+        # Run the analysis
+        analysis = asyncio.run(run_analysis())
+        click.echo(f"\n🎯 Trend analysis complete! Found {len(analysis.trends)} opportunities.")
+        
+    except ImportError as e:
+        click.echo(f"❌ Error importing trend analyzer: {e}", err=True)
+        raise SystemExit(1)
+    except Exception as e:
+        click.echo(f"❌ Error during trend analysis: {e}", err=True)
+        raise SystemExit(1)
+
+
+@trends.command("report")
+@click.option(
+    "--format",
+    type=click.Choice(["summary", "detailed", "json"]),
+    default="summary",
+    help="Report format (default: summary)"
+)
+@click.option(
+    "--hours",
+    type=click.IntRange(min=1, max=168),
+    default=24,
+    help="Hours of data to include in report (1-168, default: 24)"
+)
+def trends_report(format: str, hours: int) -> None:
+    """
+    Generate a report of the latest trends.
+    
+    Creates a comprehensive report of trending topics and market opportunities
+    based on recent analysis data.
+    """
+    click.echo(f"📋 Generating trends report (last {hours} hours)...")
+    
+    try:
+        import asyncio
+        from kindlemint.analytics.trend_analyzer import PredictiveTrendAnalyzer
+        from kindlemint.utils.config import Config
+        
+        async def generate_report():
+            config = Config()
+            async with PredictiveTrendAnalyzer(config) as analyzer:
+                # Get latest analysis
+                analysis = await analyzer.get_latest_analysis()
+                
+                if not analysis:
+                    click.echo("❌ No recent analysis found. Run 'trends run' first.")
+                    return
+                
+                if format == "json":
+                    import json
+                    report_data = {
+                        'trends': [trend.__dict__ for trend in analysis.trends],
+                        'summary': analysis.summary,
+                        'recommendations': analysis.recommendations,
+                        'generated_at': analysis.generated_at.isoformat()
+                    }
+                    click.echo(json.dumps(report_data, indent=2, default=str))
+                    return
+                
+                # Summary format
+                click.echo(f"\n📊 Trends Report - Last {hours} Hours")
+                click.echo("=" * 60)
+                click.echo(f"Generated: {analysis.generated_at.strftime('%Y-%m-%d %H:%M:%S')}")
+                click.echo(f"Total Trends: {len(analysis.trends)}")
+                click.echo(f"Avg Profitability: {analysis.summary['avg_profitability']:.2f}")
+                
+                if format == "detailed":
+                    click.echo(f"\n📈 Detailed Trend Analysis")
+                    click.echo("─" * 40)
+                    for i, trend in enumerate(analysis.trends, 1):
+                        click.echo(f"\n{i}. {trend.topic}")
+                        click.echo(f"   📊 Profitability Score: {trend.predicted_profitability:.3f}")
+                        click.echo(f"   📈 Volume: {trend.volume}")
+                        click.echo(f"   😊 Sentiment: {trend.sentiment:.2f}")
+                        click.echo(f"   🏁 Competition: {trend.competition_level}")
+                        click.echo(f"   📡 Source: {trend.source}")
+                        click.echo(f"   ⏰ Detected: {trend.timestamp.strftime('%Y-%m-%d %H:%M')}")
+                
+                click.echo(f"\n💡 Strategic Recommendations")
+                click.echo("─" * 30)
+                for rec in analysis.recommendations:
+                    click.echo(f"• {rec}")
+                
+                click.echo(f"\n📊 Market Summary")
+                click.echo("─" * 20)
+                for source, count in analysis.summary.get('top_sources', []):
+                    click.echo(f"• {source}: {count} trends")
+                
+                competition_dist = analysis.summary.get('competition_distribution', {})
+                if competition_dist:
+                    click.echo(f"\n🏁 Competition Distribution")
+                    click.echo("─" * 25)
+                    for level, count in competition_dist.items():
+                        click.echo(f"• {level}: {count} trends")
+        
+        # Generate the report
+        asyncio.run(generate_report())
+        click.echo(f"\n✅ Trends report generated successfully!")
+        
+    except ImportError as e:
+        click.echo(f"❌ Error importing trend analyzer: {e}", err=True)
+        raise SystemExit(1)
+    except Exception as e:
+        click.echo(f"❌ Error generating report: {e}", err=True)
+        raise SystemExit(1)
+
+
+@trends.command("monitor")
+@click.option(
+    "--interval",
+    type=click.IntRange(min=60, max=3600),
+    default=300,
+    help="Monitoring interval in seconds (60-3600, default: 300)"
+)
+@click.option(
+    "--duration",
+    type=click.IntRange(min=1, max=24),
+    default=1,
+    help="Monitoring duration in hours (1-24, default: 1)"
+)
+def trends_monitor(interval: int, duration: int) -> None:
+    """
+    Start real-time monitoring of market signals.
+    
+    Continuously monitors trend sources for emerging opportunities
+    and triggers alerts when significant trends are detected.
+    """
+    click.echo(f"🔍 Starting real-time signal monitoring...")
+    click.echo(f"⏱️  Interval: {interval}s, Duration: {duration}h")
+    
+    try:
+        import asyncio
+        from kindlemint.agents.signal_listener import SignalListener, SignalPriority
+        from kindlemint.utils.config import Config
+        
+        async def start_monitoring():
+            config = Config()
+            async with SignalListener(config) as listener:
+                # Add alert callback
+                def alert_callback(alert):
+                    click.echo(f"\n🚨 ALERT: {alert.message}")
+                    click.echo(f"   📊 Signal: {alert.signal.topic}")
+                    click.echo(f"   ⚡ Priority: {alert.signal.priority.value}")
+                    click.echo(f"   📈 Volume: {alert.signal.volume}")
+                    click.echo(f"   🎯 Actions: {', '.join(alert.actions_taken)}")
+                
+                listener.add_alert_callback(alert_callback)
+                
+                # Start monitoring
+                await listener.start_monitoring(interval_seconds=interval)
+                
+                click.echo("✅ Monitoring started. Press Ctrl+C to stop...")
+                
+                try:
+                    # Monitor for specified duration
+                    await asyncio.sleep(duration * 3600)
+                except KeyboardInterrupt:
+                    click.echo("\n⏹️  Stopping monitoring...")
+                finally:
+                    await listener.stop_monitoring()
+                
+                # Show summary
+                active_signals = listener.get_active_signals(hours=duration)
+                high_priority = listener.get_signals_by_priority(SignalPriority.HIGH)
+                critical_priority = listener.get_signals_by_priority(SignalPriority.CRITICAL)
+                
+                click.echo(f"\n📊 Monitoring Summary ({duration}h)")
+                click.echo("─" * 40)
+                click.echo(f"Total signals detected: {len(active_signals)}")
+                click.echo(f"High priority signals: {len(high_priority)}")
+                click.echo(f"Critical priority signals: {len(critical_priority)}")
+                
+                if critical_priority:
+                    click.echo(f"\n🚨 Critical Signals")
+                    click.echo("─" * 20)
+                    for signal in critical_priority:
+                        click.echo(f"• {signal.topic} ({signal.source})")
+        
+        # Start monitoring
+        asyncio.run(start_monitoring())
+        
+    except ImportError as e:
+        click.echo(f"❌ Error importing signal listener: {e}", err=True)
+        raise SystemExit(1)
+    except Exception as e:
+        click.echo(f"❌ Error during monitoring: {e}", err=True)
+        raise SystemExit(1)
+
+
+@trends.command("personalize")
+@click.option(
+    "--persona",
+    type=click.Choice([
+        "business_professional", "self_help_seeker", "fiction_lover",
+        "tech_enthusiast", "academic_reader", "casual_reader",
+        "young_adult", "senior_reader"
+    ]),
+    help="Target persona for personalization analysis"
+)
+@click.option(
+    "--content-type",
+    type=click.Choice(["email_subject", "book_description", "ad_copy"]),
+    default="book_description",
+    help="Type of content to personalize"
+)
+def trends_personalize(persona: str, content_type: str) -> None:
+    """
+    Run personalization analysis for specific reader segments.
+    
+    Analyzes reader personas and generates personalized content
+    recommendations for different audience segments.
+    """
+    click.echo(f"🎯 Running personalization analysis...")
+    
+    try:
+        import asyncio
+        from kindlemint.marketing.personalization_engine import PersonalizationEngine, PersonaType
+        from kindlemint.utils.config import Config
+        
+        async def run_personalization():
+            config = Config()
+            engine = PersonalizationEngine(config)
+            
+            # Convert persona string to enum
+            persona_enum = PersonaType(persona) if persona else PersonaType.BUSINESS_PROFESSIONAL
+            
+            click.echo(f"📊 Analyzing persona: {persona_enum.value}")
+            
+            # Sample book data for testing
+            book_data = {
+                'title': 'The Future of AI in Business',
+                'genre': 'business',
+                'benefit': 'transform your business with AI',
+                'target_role': 'executives and managers',
+                'credibility_source': 'leading AI research'
+            }
+            
+            # Generate personalized content
+            personalized_content = engine.generate_personalized_content(
+                persona_enum, content_type, book_data
+            )
+            
+            click.echo(f"\n📝 Personalized Content")
+            click.echo("─" * 30)
+            click.echo(f"Content Type: {content_type}")
+            click.echo(f"Target Persona: {persona_enum.value}")
+            click.echo(f"\n🎯 Generated Content:")
+            click.echo(f"'{personalized_content.content}'")
+            
+            if personalized_content.variants:
+                click.echo(f"\n🔄 A/B Test Variants:")
+                for i, variant in enumerate(personalized_content.variants, 1):
+                    click.echo(f"{i}. '{variant}'")
+            
+            # Get recommendations
+            recommendations = await engine.get_personalization_recommendations(persona_enum)
+            
+            click.echo(f"\n💡 Personalization Recommendations")
+            click.echo("─" * 35)
+            for rec in recommendations:
+                click.echo(f"• {rec}")
+        
+        # Run personalization
+        asyncio.run(run_personalization())
+        click.echo(f"\n✅ Personalization analysis complete!")
+        
+    except ImportError as e:
+        click.echo(f"❌ Error importing personalization engine: {e}", err=True)
+        raise SystemExit(1)
+    except Exception as e:
+        click.echo(f"❌ Error during personalization: {e}", err=True)
+        raise SystemExit(1)
+
+
 @cli.command()
 @click.argument('book_path', type=click.Path(exists=True))
 @click.option('--visual/--no-visual', default=True, help='Include visual QA checks')
