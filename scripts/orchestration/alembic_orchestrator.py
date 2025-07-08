@@ -41,10 +41,7 @@ class AlembicOrchestrator:
         self.data_pipeline = PrivateDataPipeline()
         self.creativity_checkpoints = HumanCreativityCheckpoints()
         self.worktree_manager = AutonomousWorktreeManager()
-<<<<<<< HEAD
         self.security_orchestrator = SecurityOrchestrator()
-=======
->>>>>>> origin/main
         
         self.config = self._load_config()
         self.is_running = False
@@ -83,12 +80,8 @@ class AlembicOrchestrator:
             self._event_monitoring_loop(),
             self._causal_analysis_loop(),
             self._data_collection_loop(),
-<<<<<<< HEAD
             self._decision_execution_loop(),
             self._security_monitoring_loop()
-=======
-            self._decision_execution_loop()
->>>>>>> origin/main
         ]
         
         await asyncio.gather(*tasks)
@@ -199,7 +192,6 @@ class AlembicOrchestrator:
             
             await asyncio.sleep(interval)
     
-<<<<<<< HEAD
     async def _security_monitoring_loop(self):
         """Continuously monitor for security issues"""
         interval = 3600  # Run security scans every hour
@@ -229,8 +221,6 @@ class AlembicOrchestrator:
             
             await asyncio.sleep(interval)
     
-=======
->>>>>>> origin/main
     async def _collect_market_events(self) -> List[MarketEvent]:
         """Collect market events from various sources"""
         events = []
@@ -437,7 +427,7 @@ class AlembicOrchestrator:
         pass
     
     async def _collect_website_analytics(self):
-        """Collect website analytics (from Vercel landing page)"""
+        """Collect website analytics (from AWS CloudFront landing page)"""
         pass
     
     async def _process_reader_surveys(self):
@@ -490,7 +480,6 @@ class AlembicOrchestrator:
     async def _apply_title_selection(self, book_id: str, title_id: str):
         """Apply human-selected title"""
         pass
-<<<<<<< HEAD
     
     async def _handle_critical_security_issues(self, critical_issues: List):
         """Handle critical security issues found during monitoring"""
@@ -526,8 +515,6 @@ class AlembicOrchestrator:
             json.dump(report, f, indent=2, default=str)
         
         logger.info(f"💾 Security report saved to {report_path}")
-=======
->>>>>>> origin/main
 
 
 async def main():

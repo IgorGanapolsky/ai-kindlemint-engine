@@ -1,25 +1,20 @@
 """
-KindleMint Data Module
-
-Implements GDPR-compliant data processing pipelines for the KindleMint engine.
+Data management module for KindleMint Engine
+Handles data storage, retrieval, and cloud integration
 """
 
-from .private_data_pipeline import (
-    PrivateDataPipeline,
-    DataCategory,
-    LegalBasis,
-    ProcessingPurpose,
-    DataSubject,
-    PrivacyPolicy,
-    ProcessingRecord
+from .cloud_storage import (
+    DataManager,
+    StorageConfig,
+    DataStorageInterface,
+    LocalStorage,
+    S3Storage
 )
 
 __all__ = [
-    "PrivateDataPipeline",
-    "DataCategory",
-    "LegalBasis",
-    "ProcessingPurpose",
-    "DataSubject",
-    "PrivacyPolicy",
-    "ProcessingRecord"
+    'DataManager',
+    'StorageConfig', 
+    'DataStorageInterface',
+    'LocalStorage',
+    'S3Storage'
 ]
