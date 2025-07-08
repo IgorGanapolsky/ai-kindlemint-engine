@@ -1,6 +1,11 @@
 name: Bot PR Orchestrator
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   pull_request:
     types: [opened, synchronize]
   schedule:
@@ -9,6 +14,7 @@ on:
 jobs:
   manage-bot-prs:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     if: github.event_name == 'pull_request' && endsWith(github.event.pull_request.user.login, '[bot]')
     
     steps:
@@ -111,6 +117,7 @@ jobs:
 
   cleanup-stale-bot-prs:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     if: github.event_name == 'schedule'
     
     steps:
@@ -133,6 +140,7 @@ jobs:
 
   pixeebot-handler:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     if: |
       github.event_name == 'pull_request' && 
       contains(github.event.pull_request.user.login, 'pixeebot')

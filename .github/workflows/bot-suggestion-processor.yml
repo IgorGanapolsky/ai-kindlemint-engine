@@ -1,6 +1,11 @@
 name: Bot Suggestion Processor
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   pull_request:
     types: [opened, synchronize]
   issue_comment:
@@ -12,6 +17,7 @@ on:
 jobs:
   process-bot-suggestions:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     if: |
       (github.event.pull_request.user.login == 'pixeebot[bot]' ||
        github.event.pull_request.user.login == 'dependabot[bot]' ||
@@ -69,6 +75,7 @@ jobs:
   auto-merge-safe-suggestions:
     needs: process-bot-suggestions
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     if: |
       github.event.pull_request.user.login == 'pixeebot[bot]' ||
       github.event.pull_request.user.login == 'dependabot[bot]'

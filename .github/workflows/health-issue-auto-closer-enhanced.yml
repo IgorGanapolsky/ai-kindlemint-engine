@@ -1,6 +1,11 @@
 name: Enhanced Health Issue Auto-Closer
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   schedule:
     - cron: '5 0 * * *'  # Daily at 12:05 AM UTC (after daily health reports)
     - cron: '*/30 * * * *'  # Every 30 minutes for real-time cleanup
@@ -13,6 +18,7 @@ permissions:
 jobs:
   auto-close-health-issues:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     
     steps:
       - name: Enhanced Health Status Check

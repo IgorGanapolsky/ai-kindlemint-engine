@@ -350,7 +350,9 @@
       "Bash(do echo -n \"$f: \")",
       "Bash(./scripts/fix-ci-emergency.sh:*)",
       "Bash(/Users/igorganapolsky/workspace/git/ai/ai-kindlemint-engine/scripts/fix-ci-emergency.sh:*)",
-      "Bash(./scripts/fix-ci-emergency.sh:*)"
+      "Bash(./scripts/fix-ci-emergency.sh:*)",
+      "Bash(./scripts/optimize-all-workflows.sh:*)",
+      "Bash(./scripts/quick-pipeline-fix.sh:*)"
     ],
     "deny": []
   }

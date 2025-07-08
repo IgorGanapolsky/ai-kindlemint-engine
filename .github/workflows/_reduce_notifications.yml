@@ -2,13 +2,19 @@ name: _Reduce Notifications
 # This workflow disables unnecessary job notifications
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   workflow_dispatch:
 
 jobs:
   reduce-noise:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Disable Non-Critical Workflow Runs
         run: |

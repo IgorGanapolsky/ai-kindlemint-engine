@@ -10,12 +10,18 @@ name: Sentry AI Automation
 #       - 'lambda/**'
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   workflow_dispatch: # Manual trigger only
 
 jobs:
   sentry-ai-review:
     name: Automated Sentry AI Analysis
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     if: |
       github.event.pull_request.draft == false &&
       !contains(github.event.pull_request.title, '[skip-sentry]') &&
@@ -99,6 +105,7 @@ jobs:
   monitor-sentry-response:
     name: Monitor Sentry AI Response
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     needs: sentry-ai-review
     if: success()
 

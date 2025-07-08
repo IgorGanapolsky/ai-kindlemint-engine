@@ -1,6 +1,11 @@
 name: Requirements Health Check
 
 on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   pull_request:
     paths:
       - 'requirements*.txt'
@@ -13,6 +18,7 @@ on:
 jobs:
   validate-requirements:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
     - uses: actions/checkout@v4
     
