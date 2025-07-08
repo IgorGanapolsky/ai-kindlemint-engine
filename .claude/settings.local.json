@@ -347,7 +347,8 @@
       "Bash(for f in .github/workflows/*.yml)",
       "Bash(do echo -n \"$f: \")",
       "Bash(for f in .github/workflows/*.yml)",
-      "Bash(do echo -n \"$f: \")"
+      "Bash(do echo -n \"$f: \")",
+      "Bash(./worktrees/test_worktree_setup.sh:*)"
     ],
     "deny": []
   }
