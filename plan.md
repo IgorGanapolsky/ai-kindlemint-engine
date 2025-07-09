@@ -1,4 +1,4 @@
-# AI KindleMint Engine - Development Plan\n\n## 🎉 Major Updates (July 9, 2025)\n\n### Today's Achievements:\n1. **AWS Migration Complete** - Fully migrated from Vercel to AWS S3 + CloudFront\n2. **Pay-Per-Crawl Deployed** - Monetization system for AI crawlers now live\n3. **Worktree Simplification** - Reduced from 11 to 3 worktrees\n4. **CI/CD Pipeline Fixed** - Emergency repairs completed\n5. **PDF Downloads Working** - Fixed relative path issues
+# AI Senior Puzzle Studio Engine - Internal Development Plan\n**⚠️ INTERNAL USE ONLY - For public information see README.md**\n\n## 📅 Last Updated: July 9, 2025 3:00 PM EDT\n\n## ✅ Current System State\n\n### Infrastructure:\n- **Platform**: AWS S3 + CloudFront (migration from Vercel COMPLETE)\n- **Landing Page**: https://dvdyff0b2oove.cloudfront.net ✅ WORKING\n- **PDF Downloads**: ✅ WORKING (fixed relative path issues)\n- **Email Capture**: ✅ WORKING (Web3Forms integration)\n- **Pay-Per-Crawl**: ⚠️ PARTIAL (static demo only, needs Lambda for full functionality)\n\n### Recent Achievements (July 9):\n1. **AWS Migration Complete** - All services moved from Vercel\n2. **Simplified Worktrees** - Reduced from 11 to 3 (main, hotfix, experiments)\n3. **CI/CD Pipeline Fixed** - 180+ tests now passing\n4. **Documentation Synced** - README and plan.md now aligned\n5. **Branding Update** - Renamed to "Senior Puzzle Studio"
 
 ## 🚨 CRITICAL: Truth Verification Protocol
 
@@ -84,7 +84,32 @@ def verify_deployment(url):
 - ✅ Resolved git worktree conflicts
 - ✅ Cleaned up 11,050 duplicate files
 
-## 🚀 Current Priorities (July 9, 2025)
+## ⚠️ Known Issues
+
+### 1. Pay-Per-Crawl Demo (404 Error)
+- **Problem**: Demo page uses server-side rendering, S3 only serves static files
+- **Solution**: Either convert to static page OR deploy Lambda@Edge function
+- **Priority**: MEDIUM (core functionality works, just demo broken)
+
+### 2. Remaining Vercel References
+- **Problem**: 33 references to Vercel still in codebase
+- **Solution**: Clean up all documentation and code comments
+- **Priority**: LOW (cosmetic issue)
+
+### 3. BookTok Features Not Documented in plan.md
+- **Problem**: README mentions BookTok automation, plan.md doesn't
+- **Reality**: BookTok features ARE implemented (9 Python files)
+- **Solution**: Document BookTok capabilities in plan.md
+- **Priority**: LOW (documentation sync)
+
+## 📱 BookTok/Social Media Features (Implemented)
+- **Content Generator**: `scripts/marketing/booktok_content_generator.py`
+- **Scheduler**: `scripts/marketing/social_media_scheduler.py`
+- **Analytics**: `scripts/marketing/social_media_analytics.py`
+- **Orchestrator**: `scripts/orchestration/booktok_worktree_orchestrator.py`
+- **Trend Analysis**: `src/kindlemint/intelligence/predictive_trend_analyzer.py`
+
+## 🚀 Current Priorities (July 9, 2025 - Updated)
 
 1. **ACTIVE**: Pay-Per-Crawl Monetization
    - [x] Deployed middleware and analytics

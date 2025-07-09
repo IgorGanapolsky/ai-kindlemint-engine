@@ -11,7 +11,7 @@ Landing Page → Free Sample → Gumroad → Quality PDF
 - Enters name and email
 - Instantly downloads 5 free puzzles
 
-### 2. **Free Sample PDF** (S3: kindlemint-pdfs-2025)
+### 2. **Free Sample PDF** (S3: seniorpuzzlestudio-pdfs-2025)
 - 5 high-quality puzzles with varied content
 - Should be generated using QA orchestration
 - Acts as a "taste" of the full product
@@ -89,7 +89,7 @@ python scripts/generate_lead_magnet_puzzles.py \
 ### 2. Upload to S3:
 ```bash
 aws s3 cp 5-free-sudoku-puzzles.pdf \
-  s3://kindlemint-pdfs-2025/5-free-sudoku-puzzles.pdf \
+  s3://seniorpuzzlestudio-pdfs-2025/5-free-sudoku-puzzles.pdf \
   --acl public-read
 ```
 

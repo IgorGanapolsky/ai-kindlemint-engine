@@ -173,7 +173,7 @@ class LeadMagnetGenerator:
         c.drawCentredString(width/2, height - 5.6*inch, "For Seniors")
         
         self._set_font(c, 'DejaVuSans', 16)
-        c.drawCentredString(width/2, height - 7*inch, "From KindleMint Publishing")
+        c.drawCentredString(width/2, height - 7*inch, "From Senior Puzzle Studio")
         c.drawCentredString(width/2, height - 7.5*inch, "Your Trusted Source for Large Print Puzzles")
     
     def _draw_intro_page(self, c, width, height):
@@ -324,7 +324,7 @@ class LeadMagnetGenerator:
             "",
             "Get your copy on Amazon:",
             "Search for 'Large Print Sudoku Masters'",
-            "by KindleMint Publishing",
+            "by Senior Puzzle Studio",
             "",
             "Plus, as a subscriber, you'll receive:",
             "• Our weekly 'Puzzle of the Week'",
