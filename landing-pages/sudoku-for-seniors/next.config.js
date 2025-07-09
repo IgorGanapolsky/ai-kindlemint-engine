@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: 'export',
+  // output: 'export', // Disabled to enable Pay-Per-Crawl middleware
   trailingSlash: true,
   images: {
     unoptimized: true,

@@ -1,0 +1,34 @@
+# AI Crawler Access Policy
+# For commercial AI training access, please contact: business@kindlemint.com
+
+# OpenAI GPTBot
+User-agent: GPTBot
+Crawl-delay: 86400
+Disallow: /api/
+# Premium access available at $0.05/page
+
+# Anthropic Claude
+User-agent: Claude-Web
+Crawl-delay: 86400
+Disallow: /api/
+# Licensing: business@kindlemint.com
+
+# Google Bard/AI
+User-agent: Bard
+User-agent: Google-Extended
+Crawl-delay: 86400
+Disallow: /api/
+# Commercial rates available
+
+# Microsoft Bing AI
+User-agent: bingbot
+Crawl-delay: 10
+Allow: /
+
+# Standard web crawlers
+User-agent: *
+Allow: /
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://sudoku-for-seniors.vercel.app/sitemap.xml
