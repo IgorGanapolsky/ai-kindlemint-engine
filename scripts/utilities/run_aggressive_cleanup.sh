@@ -7,7 +7,7 @@ echo "==========================================="
 chmod +x scripts/aggressive_root_cleanup.py
 
 # Run the aggressive cleanup
-python scripts/aggressive_root_cleanup.py
+python3 scripts/aggressive_root_cleanup.py
 
 # Commit the changes
 echo "💾 Committing changes..."
