@@ -356,7 +356,10 @@
       "Bash(./worktrees/test_worktree_setup.sh:*)",
       "Bash(./scripts/setup-pay-per-crawl.sh:*)",
       "WebFetch(domain:www.cloudflare.com)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(ssh:*)",
+      "Bash(nc:*)",
+      "Bash(./deploy-aws.sh)"
     ],
     "deny": []
   }
