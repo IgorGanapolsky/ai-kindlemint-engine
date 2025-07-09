@@ -7,7 +7,7 @@ setup.py: Defines package metadata and dependencies for the ai_kindlemint_engine
 setuptools.setup(
     name="ai_kindlemint_engine",
     version="0.1.0",
-    description="AI KindleMint Engine for automated content generation and formatting",
+    description="AI Senior Puzzle Studio Engine for automated puzzle generation and formatting",
     # Our source code lives in the `src/` directory.
     package_dir={"": "src"},
     packages=setuptools.find_packages(

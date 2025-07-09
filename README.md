@@ -27,7 +27,7 @@
 
 ### Production URLs:
 - **Landing Page**: https://dvdyff0b2oove.cloudfront.net
-- **Pay-Per-Crawl Demo**: https://dvdyff0b2oove.cloudfront.net/pay-per-crawl-demo
+- **Pay-Per-Crawl Demo**: https://dvdyff0b2oove.cloudfront.net/pay-per-crawl-static-demo
 - **Download PDF**: https://dvdyff0b2oove.cloudfront.net/downloads/5-free-sudoku-puzzles.pdf
 
 ## 🎯 What This Project Does

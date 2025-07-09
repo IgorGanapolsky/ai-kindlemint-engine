@@ -64,7 +64,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
       }
     } catch (error) {
       console.error('❌ Form submission failed:', error);
-      alert('Something went wrong. Please try again or email us directly at support@seniorpuzzlestudio.com');
+      alert('Something went wrong. Please try again or email us directly at support@saasgrowthdispatch.com');
     } finally {
       setIsSubmitting(false);
     }  };

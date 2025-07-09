@@ -50,7 +50,7 @@ def create_teaser_page():
     c.setFont("Helvetica", 12)
     c.drawCentredString(PAGE_WIDTH / 2, 1.5 * inch, "Thank you for choosing")
     c.setFont("Helvetica-Bold", 12)
-    c.drawCentredString(PAGE_WIDTH / 2, 1.2 * inch, "KindleMint Publishing")
+    c.drawCentredString(PAGE_WIDTH / 2, 1.2 * inch, "Senior Puzzle Studio")
     
     c.showPage()
     c.save()

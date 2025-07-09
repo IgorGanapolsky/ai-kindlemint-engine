@@ -1,5 +1,5 @@
 # AI Crawler Access Policy
-# For commercial AI training access, please contact: business@seniorpuzzlestudio.com
+# For commercial AI training access, please contact: support@saasgrowthdispatch.com
 
 # OpenAI GPTBot
 User-agent: GPTBot
@@ -11,7 +11,7 @@ Disallow: /api/
 User-agent: Claude-Web
 Crawl-delay: 86400
 Disallow: /api/
-# Licensing: business@seniorpuzzlestudio.com
+# Licensing: support@saasgrowthdispatch.com
 
 # Google Bard/AI
 User-agent: Bard

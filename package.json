@@ -1,7 +1,7 @@
 {
   "name": "sudoku-for-seniors-landing",
   "version": "1.0.0",
-  "description": "Landing page for Sudoku for Seniors 75+ - Revenue generation for KindleMint",
+  "description": "Landing page for Sudoku for Seniors 75+ - Revenue generation for Senior Puzzle Studio",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
