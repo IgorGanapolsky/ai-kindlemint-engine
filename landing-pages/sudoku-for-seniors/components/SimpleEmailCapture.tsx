@@ -75,7 +75,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
       setTimeout(() => {
         // Create a temporary link element to force download
         const link = document.createElement('a');
-        link.href = "/downloads/5-free-sudoku-puzzles.pdf";
+        link.href = "https://dvdyff0b2oove.cloudfront.net/downloads/5-free-sudoku-puzzles.pdf";
         link.download = "5-free-sudoku-puzzles.pdf";
         document.body.appendChild(link);
         link.click();
@@ -96,7 +96,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
           </p>
         </div>
         <a
-          href="/downloads/5-free-sudoku-puzzles.pdf"
+          href="https://dvdyff0b2oove.cloudfront.net/downloads/5-free-sudoku-puzzles.pdf"
           className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 mb-4"
           download="5-free-sudoku-puzzles.pdf"
         >

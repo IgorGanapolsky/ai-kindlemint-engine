@@ -81,7 +81,7 @@ export default function Home() {
                 </p>
                 <div className="mt-6">
                   <a 
-                    href="/downloads/5-free-sudoku-puzzles.pdf" 
+                    href="https://dvdyff0b2oove.cloudfront.net/downloads/5-free-sudoku-puzzles.pdf" 
                     download="5-free-sudoku-puzzles.pdf"
                     className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 mr-4"
                   >
