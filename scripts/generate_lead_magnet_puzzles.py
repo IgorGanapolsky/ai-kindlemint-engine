@@ -195,6 +195,14 @@ class LeadMagnetGenerator:
         for line in intro_text:
             c.drawString(1*inch, text_y, line)
             text_y -= 0.4*inch
+        
+        # Add Gumroad box on intro page
+        text_y -= 0.5*inch
+        self._set_font(c, 'Helvetica-Bold', 14)
+        c.drawCentredString(width/2, text_y, "📘 Want 100 more puzzles after these 5?")
+        text_y -= 0.3*inch
+        self._set_font(c, 'Helvetica', 12)
+        c.drawCentredString(width/2, text_y, "Get our complete book at: iganapolsky.gumroad.com/l/hjybj")
     
     def _draw_puzzle_page(self, c, width, height, puzzle_data):
         """Draw a single puzzle page"""
@@ -261,7 +269,11 @@ class LeadMagnetGenerator:
         # Footer tip - varied for each puzzle
         self._set_font(c, 'Helvetica', 14)
         tip = self.get_varied_tips(puzzle_data['difficulty'], puzzle_data['number'])
-        c.drawCentredString(width/2, 1*inch, tip)
+        c.drawCentredString(width/2, 1.2*inch, tip)
+        
+        # Add Gumroad link footer
+        self._set_font(c, 'Helvetica', 10)
+        c.drawCentredString(width/2, 0.6*inch, "Love these puzzles? Get 100 more at: iganapolsky.gumroad.com/l/hjybj")
     
     def _draw_solutions_page(self, c, width, height, puzzles):
         """Draw all solutions on one page"""
@@ -320,31 +332,51 @@ class LeadMagnetGenerator:
     
     def _draw_cta_page(self, c, width, height):
         """Draw the final call-to-action page"""
-        self._set_font(c, 'Helvetica-Bold', 32)
-        c.drawCentredString(width/2, height - 2*inch, "Want More?")
+        self._set_font(c, 'Helvetica-Bold', 36)
+        c.drawCentredString(width/2, height - 2*inch, "Ready for 100 More Puzzles?")
         
         self._set_font(c, 'Helvetica', 18)
         text_y = height - 3.5*inch
         
         cta_text = [
-            "If you enjoyed these puzzles, you'll love our",
-            "complete collection of large print Sudoku books!",
+            "You've just completed 5 amazing puzzles!",
+            "Now get our complete book with:",
             "",
-            "✓ 100+ puzzles per book",
-            "✓ Extra-large print (20+ point fonts)",
-            "✓ Progressive difficulty levels",
-            "✓ Complete solutions included",
-            "✓ Perfect binding for easy page turning",
-            "",
-            "Visit our website for the full collection:",
+            "✓ 100+ Large Print Sudoku Puzzles",
+            "✓ Perfect 8.5×11 inch size",
+            "✓ Crystal clear 32pt numbers",
+            "✓ Progressive difficulty (Easy → Hard)",
+            "✓ Complete solutions with tips",
+            "✓ Professionally printed quality",
         ]
         
         for line in cta_text:
             c.drawCentredString(width/2, text_y, line)
-            text_y -= 0.5*inch
+            text_y -= 0.4*inch
         
-        self._set_font(c, 'Helvetica-Bold', 20)
-        c.drawCentredString(width/2, text_y, "www.SeniorPuzzleStudio.com")
+        # Add big Gumroad button box
+        text_y -= 0.3*inch
+        box_height = 1.2*inch
+        box_width = 5*inch
+        box_x = (width - box_width) / 2
+        
+        # Draw box
+        c.setFillColorRGB(0, 0.5, 0)  # Green
+        c.rect(box_x, text_y - box_height, box_width, box_height, fill=1)
+        
+        # Add text in box
+        c.setFillColorRGB(1, 1, 1)  # White
+        self._set_font(c, 'Helvetica-Bold', 24)
+        c.drawCentredString(width/2, text_y - 0.5*inch, "GET IT NOW - ONLY $9.99")
+        self._set_font(c, 'Helvetica', 14)
+        c.drawCentredString(width/2, text_y - 0.8*inch, "iganapolsky.gumroad.com/l/hjybj")
+        
+        # Reset color
+        c.setFillColorRGB(0, 0, 0)  # Black
+        text_y -= 1.5*inch
+        
+        self._set_font(c, 'Helvetica-Bold', 16)
+        c.drawCentredString(width/2, text_y, "⭐ Join 4,000+ Happy Puzzle Solvers! ⭐")
         
         self._set_font(c, 'Helvetica', 14)
         c.drawCentredString(width/2, 1.5*inch, "© 2025 Senior Puzzle Studio")

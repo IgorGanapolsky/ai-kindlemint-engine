@@ -112,6 +112,33 @@ export default function Home() {
                     ← Start Over
                   </button>
                 </div>
+                
+                {/* Gumroad CTA Section */}
+                <div className="mt-8 border-t pt-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    😍 Love these puzzles? Get 100 more!
+                  </h3>
+                  <p className="text-gray-700 mb-4">
+                    If you enjoyed these 5 free puzzles, you'll love our complete book with:
+                  </p>
+                  <ul className="text-left text-gray-700 mb-6 ml-6">
+                    <li className="mb-1">✓ 100+ Large Print Sudoku Puzzles</li>
+                    <li className="mb-1">✓ Progressive Difficulty (Easy → Hard)</li>
+                    <li className="mb-1">✓ Complete Solutions Included</li>
+                    <li className="mb-1">✓ Perfect 8.5x11" Size for Easy Solving</li>
+                  </ul>
+                  <a 
+                    href="https://iganapolsky.gumroad.com/l/hjybj"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 font-bold text-lg"
+                  >
+                    🛒 Get the Complete Book - Only $9.99
+                  </a>
+                  <p className="text-sm text-gray-600 mt-3">
+                    ⭐ Join 4,000+ happy puzzle solvers!
+                  </p>
+                </div>
               </div>
             )}
           </div>
