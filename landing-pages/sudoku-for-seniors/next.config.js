@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // output: 'export', // Disabled to enable Pay-Per-Crawl middleware
+  output: 'export', // Required for S3 static hosting
   trailingSlash: true,
   images: {
     unoptimized: true,

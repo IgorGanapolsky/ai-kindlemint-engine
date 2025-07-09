@@ -361,7 +361,8 @@
       "Bash(nc:*)",
       "Bash(./deploy-aws.sh)",
       "Bash(npm run deploy:*)",
-      "Bash(./deploy-aws.sh)"
+      "Bash(./deploy-aws.sh)",
+      "Bash(npm run export:*)"
     ],
     "deny": []
   }
