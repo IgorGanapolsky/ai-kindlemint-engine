@@ -15,6 +15,21 @@ export default function Home() {
     }
   }, [router.query]);
 
+  useEffect(() => {
+    // Auto-download PDF when success page is shown
+    if (showThankYou && typeof window !== 'undefined') {
+      // Wait a moment for the page to render
+      setTimeout(() => {
+        const link = document.createElement('a');
+        link.href = 'https://dvdyff0b2oove.cloudfront.net/downloads/5-free-sudoku-puzzles.pdf';
+        link.download = '5-free-sudoku-puzzles.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }, 1500);
+    }
+  }, [showThankYou]);
+
   return (
     <>
       <Head>

@@ -277,12 +277,13 @@ class LeadMagnetGenerator:
         cell_size = grid_size / 9
         
         # Arrange in 2 columns, 3 rows with proper spacing
+        # Move down to avoid overlapping with description text
         positions = [
-            (1.5*inch, height - 3.5*inch),    # Row 1, Col 1
-            (4.5*inch, height - 3.5*inch),    # Row 1, Col 2
-            (1.5*inch, height - 6.5*inch),    # Row 2, Col 1
-            (4.5*inch, height - 6.5*inch),    # Row 2, Col 2
-            (3*inch, height - 9.5*inch),      # Row 3, Centered
+            (1.5*inch, height - 4.5*inch),    # Row 1, Col 1
+            (4.5*inch, height - 4.5*inch),    # Row 1, Col 2
+            (1.5*inch, height - 7.5*inch),    # Row 2, Col 1
+            (4.5*inch, height - 7.5*inch),    # Row 2, Col 2
+            (3*inch, height - 10.5*inch),     # Row 3, Centered
         ]
         
         for idx, (puzzle_data, (x_pos, y_pos)) in enumerate(zip(puzzles, positions)):
