@@ -183,7 +183,7 @@ export default function Home() {
         {/* Footer */}
         <footer className="bg-gray-900 text-white py-8">
           <div className="container mx-auto px-6 text-center">
-            <p>&copy; 2025 KindleMint Publishing. All rights reserved.</p>
+            <p>&copy; 2025 Senior Puzzle Studio. All rights reserved.</p>
             <p className="mt-2 text-gray-400">
               Dedicated to creating accessible puzzles for seniors everywhere.
             </p>

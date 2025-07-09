@@ -1,10 +1,6 @@
-import { GetServerSideProps } from 'next';
 import { PayPerCrawlContent, usePayPerCrawl } from '../components/PayPerCrawlContent';
 import SimpleEmailCapture from '../components/SimpleEmailCapture';
-
-interface DemoPageProps {
-  headers: any;
-}
+import { useEffect, useState } from 'react';
 
 // Sample puzzle data for demonstration
 const SAMPLE_PUZZLES = [
@@ -196,11 +192,5 @@ export default function PayPerCrawlDemo({ headers }: DemoPageProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  // Pass headers to the page for crawler detection
-  return {
-    props: {
-      headers: context.req.headers,
-    },
-  };
-};
+// Removed getServerSideProps for static export compatibility
+// Crawler detection now happens via middleware and client-side

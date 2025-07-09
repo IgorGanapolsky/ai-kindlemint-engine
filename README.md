@@ -1,4 +1,4 @@
-# 🚀 AI-KindleMint-Engine - Revolutionary AI-Powered Book Publishing Platform
+# 🚀 AI-Senior-Puzzle-Studio-Engine - Revolutionary AI-Powered Puzzle Publishing Platform
 
 **Transform expertise into profitable books at 10x speed using AI orchestration, voice-to-book technology, and automated publishing workflows.**
 
@@ -32,7 +32,7 @@
 
 ## 🎯 What This Project Does
 
-AI-KindleMint-Engine is a comprehensive platform that:
+AI-Senior-Puzzle-Studio-Engine is a comprehensive platform that:
 1. **Generates** high-quality book content using AI agents
 2. **Validates** content with enterprise-grade QA systems
 3. **Prepares** publication-ready content for KDP and social media (manual publishing required)

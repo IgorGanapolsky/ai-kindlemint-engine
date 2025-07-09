@@ -37,7 +37,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
           name: firstName,
           subject: '🧩 New Sudoku Lead from Landing Page!',
           message: `New lead magnet signup: ${firstName} (${email}) wants the 5 FREE Brain-Boosting Puzzles`,
-          from_name: 'AI KindleMint Engine',
+          from_name: 'Senior Puzzle Studio',
           redirect: ''
         })
       });
@@ -64,7 +64,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
       }
     } catch (error) {
       console.error('❌ Form submission failed:', error);
-      alert('Something went wrong. Please try again or email us directly at support@ai-kindlemint-engine.com');
+      alert('Something went wrong. Please try again or email us directly at support@seniorpuzzlestudio.com');
     } finally {
       setIsSubmitting(false);
     }  };
