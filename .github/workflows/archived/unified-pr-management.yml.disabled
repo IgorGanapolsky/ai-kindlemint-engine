@@ -1,0 +1,122 @@
+name: Unified PR Management
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  pr-management:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Validate PR Syntax
+      if: github.event_name == 'pull_request'
+      run: |
+        python -m py_compile $(find . -name "*.py" -not -path "./.*")
+        echo "✅ Python syntax validation passed"
+    
+    - name: Categorize Bot PRs
+      if: github.actor == 'github-actions[bot]' || contains(github.actor, 'bot')
+      run: |
+        echo "🤖 Processing bot PR from ${{ github.actor }}"
+        
+        # High trust bots - auto-approve
+        if [[ "${{ github.actor }}" =~ ^(dependabot|renovate|github-actions).*$ ]]; then
+          echo "trust_level=high" >> $GITHUB_ENV
+        # Medium trust - requires basic checks
+        elif [[ "${{ github.actor }}" =~ ^(ai-assistant|claude).*$ ]]; then
+          echo "trust_level=medium" >> $GITHUB_ENV
+        else
+          echo "trust_level=low" >> $GITHUB_ENV
+        fi
+    
+    - name: Auto-approve High Trust PRs
+      if: env.trust_level == 'high' && github.event_name == 'pull_request'
+      run: |
+        gh pr review ${{ github.event.pull_request.number }} --approve --body "✅ Auto-approved: High trust bot"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Process All PRs
+      if: github.event_name == 'schedule'
+      run: |
+        echo "📋 Processing all open PRs..."
+        
+        # Close stale bot PRs older than 7 days
+        gh pr list --state open --author github-actions[bot] --json number,createdAt,title | \
+          jq -r '.[] | select((.createdAt | fromdateiso8601) < (now - 604800)) | "\(.number) \(.title)"' | \
+          while read pr_num title; do
+            echo "🗑️ Closing stale bot PR #$pr_num: $title"
+            gh pr close $pr_num --comment "Auto-closed: Stale bot PR (>7 days old)"
+          done
+        
+        # Handle PRs with merge conflicts
+        gh pr list --state open --json number,mergeable,title,author | \
+          jq -r '.[] | select(.mergeable == "CONFLICTING") | "\(.number) \(.title) \(.author.login)"' | \
+          while read pr_num title author; do
+            echo "⚠️ PR #$pr_num has merge conflicts"
+            
+            # Add comment if not already commented
+            EXISTING_COMMENT=$(gh pr view $pr_num --json comments | jq -r '.comments[-1].body' | grep -c "merge conflict" || true)
+            if [ "$EXISTING_COMMENT" -eq 0 ]; then
+              gh pr comment $pr_num --body "⚠️ **Merge Conflict Detected**
+              
+              This PR has merge conflicts that need to be resolved. 
+              
+              @$author Please:
+              1. Pull the latest changes from main
+              2. Resolve the conflicts locally
+              3. Push the resolved changes
+              
+              The orchestration system will automatically merge once conflicts are resolved and checks pass."
+            fi
+          done
+        
+        # Process human PRs older than 24h
+        gh pr list --state open --json number,author,createdAt,title,isDraft,mergeable | \
+          jq -r '.[] | select(.isDraft == false and (.author.is_bot | not) and (.createdAt | fromdateiso8601) < (now - 86400)) | "\(.number) \(.title) \(.author.login) \(.mergeable)"' | \
+          while read pr_num title author mergeable; do
+            echo "👤 Human PR #$pr_num from $author (>24h old)"
+            
+            if [ "$mergeable" = "MERGEABLE" ]; then
+              gh pr comment $pr_num --body "🤖 **Orchestration Notice**
+              
+              This PR has been open for >24 hours. The orchestration system has detected:
+              - ✅ No merge conflicts
+              - ⏳ Awaiting review/approval
+              
+              @$author Please request a review or ping a maintainer to expedite merging."
+            fi
+          done
+        
+        # Auto-merge ALL approved PRs with passing checks (bot or human)
+        gh pr list --state open --json number,reviewDecision,statusCheckRollup,title | \
+          jq -r '.[] | select(.reviewDecision == "APPROVED" and .statusCheckRollup == "SUCCESS") | "\(.number) \(.title)"' | \
+          while read pr_num title; do
+            echo "🚀 Auto-merging approved PR #$pr_num: $title"
+            gh pr merge $pr_num --auto --squash
+          done
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

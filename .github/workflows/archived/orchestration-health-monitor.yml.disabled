@@ -1,0 +1,191 @@
+name: Orchestration Health Monitor
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # Every 10 minutes
+  workflow_dispatch:
+
+jobs:
+  monitor-orchestration:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      actions: read
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Check workflow health
+        id: workflow_health
+        run: |
+          # Check for failed workflows in last hour
+          FAILED_WORKFLOWS=$(gh run list --limit 50 --json status,name,conclusion,createdAt | \
+            jq '[.[] | select(.conclusion == "failure" and (.createdAt | fromdateiso8601) > (now - 3600))] | length')
+          
+          echo "failed_workflows=$FAILED_WORKFLOWS" >> $GITHUB_OUTPUT
+          
+          if [ "$FAILED_WORKFLOWS" -gt 3 ]; then
+            echo "⚠️ High failure rate detected: $FAILED_WORKFLOWS failed workflows in last hour"
+            echo "health_status=critical" >> $GITHUB_OUTPUT
+          elif [ "$FAILED_WORKFLOWS" -gt 0 ]; then
+            echo "⚠️ Some failures detected: $FAILED_WORKFLOWS failed workflows in last hour"
+            echo "health_status=warning" >> $GITHUB_OUTPUT
+          else
+            echo "✅ All workflows healthy"
+            echo "health_status=healthy" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Check for stuck PRs
+        id: stuck_prs
+        run: |
+          # Find PRs open > 2 hours with passing checks
+          STUCK_PRS=$(gh pr list --json number,createdAt,isDraft,checksState | \
+            jq '[.[] | select(.isDraft == false and .checksState == "success" and (.createdAt | fromdateiso8601) < (now - 7200))] | length')
+          
+          echo "stuck_prs=$STUCK_PRS" >> $GITHUB_OUTPUT
+          
+          if [ "$STUCK_PRS" -gt 0 ]; then
+            echo "Found $STUCK_PRS stuck PRs"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Check for untracked files
+        id: untracked
+        run: |
+          UNTRACKED=$(git status --porcelain | grep '^??' | wc -l)
+          echo "untracked_files=$UNTRACKED" >> $GITHUB_OUTPUT
+      
+      - name: Check for uncommitted changes
+        id: uncommitted
+        run: |
+          MODIFIED=$(git status --porcelain | grep '^ M' | wc -l)
+          echo "modified_files=$MODIFIED" >> $GITHUB_OUTPUT
+      
+      - name: Create health report
+        if: |
+          steps.workflow_health.outputs.health_status != 'healthy' ||
+          steps.stuck_prs.outputs.stuck_prs != '0' ||
+          steps.untracked.outputs.untracked_files != '0' ||
+          steps.uncommitted.outputs.modified_files != '0'
+        run: |
+          # Set defaults for empty values to prevent integer comparison errors
+          UNTRACKED_COUNT="${{ steps.untracked.outputs.untracked_files }}"
+          STUCK_PRS_COUNT="${{ steps.stuck_prs.outputs.stuck_prs }}"
+          
+          # Create or update health report issue  
+          # Search for existing health reports from today
+          TODAY=$(date -u '+%Y-%m-%d')
+          EXISTING_ISSUE=$(gh issue list --label "orchestration-health" --state open --json number,title | \
+            jq -r ".[] | select(.title | contains(\"$TODAY\")) | .number" | head -1)
+          
+          REPORT="# 🤖 Orchestration Health Report
+          
+          **Generated:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          
+          ## Overall Status: ${{ steps.workflow_health.outputs.health_status == 'critical' && '🔴 CRITICAL' || steps.workflow_health.outputs.health_status == 'warning' && '🟡 WARNING' || '🟢 HEALTHY' }}
+          
+          ### Workflow Health
+          - Failed workflows (last hour): **${{ steps.workflow_health.outputs.failed_workflows }}**
+          - Status: ${{ steps.workflow_health.outputs.health_status }}
+          
+          ### PR Status
+          - Stuck PRs (>2 hours): **${{ steps.stuck_prs.outputs.stuck_prs }}**
+          
+          ### Repository Status
+          - Untracked files: **${{ steps.untracked.outputs.untracked_files }}**
+          - Modified files: **${{ steps.uncommitted.outputs.modified_files }}**
+          
+          ## Automated Actions
+          "
+          
+          if [ "${UNTRACKED_COUNT:-0}" -gt 0 ]; then
+            REPORT="$REPORT
+          - 🚨 **Triggering emergency fix handler for untracked files**"
+            gh workflow run emergency-fix-handler.yml
+          fi
+          
+          if [ "${STUCK_PRS_COUNT:-0}" -gt 0 ]; then
+            REPORT="$REPORT
+          - 🔄 **Triggering autonomous PR handler for stuck PRs**"
+            gh workflow run autonomous-pr-handler.yml
+          fi
+          
+          REPORT="$REPORT
+          
+          ## Recommendations
+          "
+          
+          if [ "${{ steps.workflow_health.outputs.health_status }}" = "critical" ]; then
+            REPORT="$REPORT
+          - 🔴 **CRITICAL**: Multiple workflow failures detected. Immediate investigation required."
+          fi
+          
+          if [ "${UNTRACKED_COUNT:-0}" -gt 0 ]; then
+            REPORT="$REPORT
+          - ⚠️ **Untracked files detected**: This indicates the orchestration failed to properly commit changes."
+          fi
+          
+          if [ "${STUCK_PRS_COUNT:-0}" -gt 0 ]; then
+            REPORT="$REPORT
+          - ⚠️ **Stuck PRs detected**: The auto-merge system may be failing."
+          fi
+          
+          REPORT="$REPORT
+          
+          ---
+          🤖 AI KindleMint Orchestration Health Monitor"
+          
+          if [ -z "$EXISTING_ISSUE" ]; then
+            gh issue create \
+              --title "🤖 Orchestration Health Report - $(date -u '+%Y-%m-%d')" \
+              --body "$REPORT" \
+              --label "orchestration-health" \
+              --label "automated"
+          else
+            gh issue edit $EXISTING_ISSUE --body "$REPORT"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Trigger recovery actions
+        if: steps.workflow_health.outputs.health_status == 'critical'
+        run: |
+          echo "🚨 Critical orchestration failures detected - triggering recovery"
+          
+          # Restart stuck workflows
+          gh workflow run autonomous-pr-handler.yml
+          gh workflow run continuous-pr-resolver.yml
+          gh workflow run feature-branch-fixer.yml
+          
+          # Create high-priority alert
+          gh issue create \
+            --title "🚨 CRITICAL: Orchestration System Failure" \
+            --body "## Critical Alert
+          
+          The orchestration system has detected critical failures:
+          - **${{ steps.workflow_health.outputs.failed_workflows }}** workflow failures in the last hour
+          - **${{ steps.stuck_prs.outputs.stuck_prs }}** stuck PRs
+          - **${{ steps.untracked.outputs.untracked_files }}** untracked files
+          
+          ### Immediate Actions Required:
+          1. Check GitHub Actions tab for failed workflows
+          2. Review stuck PRs and force-merge if necessary
+          3. Investigate root cause of failures
+          
+          The system has attempted automatic recovery.
+          
+          ---
+          🤖 AI KindleMint Critical Alert System" \
+            --label "critical" \
+            --label "orchestration-failure" \
+            --assignee "@me"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
