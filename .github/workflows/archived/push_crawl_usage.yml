@@ -1,0 +1,38 @@
+name: Push Crawl Usage to Stripe
+
+on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+  schedule:
+    # Run hourly to push crawl usage records
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  push_crawl_usage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+
+      - name: Push crawl usage to Stripe
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_SUBSCRIPTION_ITEM_ID: ${{ secrets.STRIPE_SUBSCRIPTION_ITEM_ID }}
+          PRICE_PER_CRAWL: ${{ secrets.PRICE_PER_CRAWL }}
+          MAX_CRAWL_BUDGET: ${{ secrets.MAX_CRAWL_BUDGET }}
+        run: python scripts/push_crawl_usage.py

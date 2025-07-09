@@ -1,0 +1,210 @@
+name: Bot PR Orchestrator
+
+on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+  pull_request:
+    types: [opened, synchronize]
+  schedule:
+    - cron: '*/30 * * * *'  # Every 30 minutes
+
+jobs:
+  manage-bot-prs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: github.event_name == 'pull_request' && endsWith(github.event.pull_request.user.login, '[bot]')
+    
+    steps:
+      - name: Identify bot
+        id: bot_info
+        run: |
+          BOT_NAME="${{ github.event.pull_request.user.login }}"
+          echo "bot_name=$BOT_NAME" >> $GITHUB_OUTPUT
+          
+          # Categorize bots
+          case "$BOT_NAME" in
+            *"dependabot"*)
+              echo "bot_type=dependency" >> $GITHUB_OUTPUT
+              echo "trust_level=high" >> $GITHUB_OUTPUT
+              ;;
+            *"renovate"*)
+              echo "bot_type=dependency" >> $GITHUB_OUTPUT
+              echo "trust_level=high" >> $GITHUB_OUTPUT
+              ;;
+            *"pixeebot"*)
+              echo "bot_type=security" >> $GITHUB_OUTPUT
+              echo "trust_level=medium" >> $GITHUB_OUTPUT
+              ;;
+            *"sonarcloud"*)
+              echo "bot_type=code_quality" >> $GITHUB_OUTPUT
+              echo "trust_level=medium" >> $GITHUB_OUTPUT
+              ;;
+            *"gitguardian"*)
+              echo "bot_type=security" >> $GITHUB_OUTPUT
+              echo "trust_level=high" >> $GITHUB_OUTPUT
+              ;;
+            *)
+              echo "bot_type=unknown" >> $GITHUB_OUTPUT
+              echo "trust_level=low" >> $GITHUB_OUTPUT
+              ;;
+          esac
+      
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      
+      - name: Validate changes
+        id: validate
+        run: |
+          echo "🔍 Validating bot PR from ${{ steps.bot_info.outputs.bot_name }}"
+          
+          # Check file count
+          CHANGED_FILES=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files | length')
+          echo "Changed files: $CHANGED_FILES"
+          
+          if [ "$CHANGED_FILES" -gt 100 ]; then
+            echo "validation=failed" >> $GITHUB_OUTPUT
+            echo "reason=Too many files changed ($CHANGED_FILES)" >> $GITHUB_OUTPUT
+          elif [ "${{ steps.bot_info.outputs.trust_level }}" == "low" ]; then
+            echo "validation=failed" >> $GITHUB_OUTPUT
+            echo "reason=Low trust bot" >> $GITHUB_OUTPUT
+          else
+            echo "validation=passed" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Handle low-trust bots
+        if: steps.bot_info.outputs.trust_level == 'low'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Add warning label
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['bot-pr', 'needs-human-review', 'low-trust']
+            });
+            
+            // Comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## ⚠️ Low Trust Bot PR - Manual Review Required
+            
+            **Bot:** ${{ steps.bot_info.outputs.bot_name }}
+            **Type:** ${{ steps.bot_info.outputs.bot_type }}
+            **Trust Level:** ${{ steps.bot_info.outputs.trust_level }}
+            
+            ### Why Low Trust?
+            - This bot has previously created PRs with syntax errors
+            - Or this is an unknown bot
+            
+            ### Required Actions:
+            1. Manually review all changes
+            2. Run tests locally before approving
+            3. Consider disabling this bot if issues persist
+            
+            ---
+            🤖 Bot PR Orchestrator`
+            });
+
+  cleanup-stale-bot-prs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: github.event_name == 'schedule'
+    
+    steps:
+      - name: Find stale bot PRs
+        run: |
+          echo "🧹 Cleaning up stale bot PRs..."
+          
+          # Find bot PRs older than 7 days
+          STALE_PRS=$(gh pr list \
+            --repo ${{ github.repository }} \
+            --json number,author,createdAt,title \
+            --jq '.[] | select(.author.is_bot == true) | select((.createdAt | fromdateiso8601) < (now - 604800)) | .number')
+          
+          for pr in $STALE_PRS; do
+            echo "Closing stale bot PR #$pr"
+            gh pr close $pr --comment "Auto-closed: Stale bot PR (>7 days old)"
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  pixeebot-handler:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: |
+      github.event_name == 'pull_request' && 
+      contains(github.event.pull_request.user.login, 'pixeebot')
+    
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      
+      - name: Analyze Pixeebot suggestions
+        id: analyze
+        run: |
+          echo "🤖 Analyzing Pixeebot security suggestions..."
+          
+          # Check if it's a security fix
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_BODY="${{ github.event.pull_request.body }}"
+          
+          if [[ "$PR_TITLE" == *"security"* ]] || [[ "$PR_TITLE" == *"vulnerability"* ]]; then
+            echo "priority=high" >> $GITHUB_OUTPUT
+            echo "category=security" >> $GITHUB_OUTPUT
+          else
+            echo "priority=medium" >> $GITHUB_OUTPUT
+            echo "category=improvement" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Validate changes don't break code
+        id: test
+        run: |
+          # Run basic syntax check
+          python -m py_compile $(find . -name "*.py" | grep -v __pycache__)
+          
+          # Run basic tests if available
+          if [ -f "pytest.ini" ] || [ -d "tests" ]; then
+            pip install pytest
+            pytest tests/test_basic.py -v || echo "test_result=failed" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Auto-approve if safe
+        if: |
+          steps.analyze.outputs.priority == 'high' && 
+          steps.test.outputs.test_result != 'failed'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Approve high-priority security fixes
+            await github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              event: 'APPROVE',
+              body: '✅ Auto-approved: High-priority security fix from Pixeebot'
+            });
+            
+            // Add label
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['security', 'auto-approved']
+            });

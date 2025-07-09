@@ -1,0 +1,121 @@
+name: Block Broken Bot PRs
+
+on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  block-syntax-errors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: endsWith(github.event.pull_request.user.login, '[bot]')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Validate Python Syntax
+        id: syntax_check
+        run: |
+          echo "🔍 Validating Python syntax in bot PR..."
+          
+          # Find all Python files
+          PYTHON_FILES=$(find . -name "*.py" -type f | grep -v __pycache__)
+          ERRORS=0
+          
+          for file in $PYTHON_FILES; do
+            if ! python3 -m py_compile "$file" 2>/dev/null; then
+              echo "❌ Syntax error in $file"
+              python3 -m py_compile "$file" 2>&1 | head -20
+              ERRORS=$((ERRORS + 1))
+            fi
+          done
+          
+          if [ "$ERRORS" -gt 0 ]; then
+            echo "syntax_valid=false" >> $GITHUB_OUTPUT
+            echo "::error::Found $ERRORS files with syntax errors"
+          else
+            echo "syntax_valid=true" >> $GITHUB_OUTPUT
+            echo "✅ All Python files have valid syntax"
+          fi
+      
+      - name: Close PR if syntax errors
+        if: steps.syntax_check.outputs.syntax_valid == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Close the PR
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              state: 'closed'
+            });
+            
+            // Add comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## ❌ PR Automatically Closed - Syntax Errors Detected
+            
+            This bot PR has been automatically closed because it contains Python syntax errors.
+            
+            **Bot:** ${context.payload.pull_request.user.login}
+            **Errors found:** Multiple files with IndentationError and SyntaxError
+            
+            ### Why this happened:
+            - The bot's auto-formatting broke the code structure
+            - Our code contains edge cases the formatter can't handle
+            
+            ### Action Required:
+            - This bot needs to be configured to validate syntax before creating PRs
+            - Consider disabling this bot until it's properly configured
+            
+            ---
+            🤖 Blocked by AI KindleMint Orchestrator`
+            });
+      
+      - name: Report to monitoring
+        if: always()
+        run: |
+          if [ "${{ steps.syntax_check.outputs.syntax_valid }}" == "false" ]; then
+            echo "🚨 ALERT: Bot PR with syntax errors blocked"
+            echo "Bot: ${{ github.event.pull_request.user.login }}"
+            echo "PR: #${{ github.event.pull_request.number }}"
+            
+            # Create issue to track
+            gh issue create \
+              --title "🚨 Bot Creating PRs with Syntax Errors: ${{ github.event.pull_request.user.login }}" \
+              --body "## Bot PR Quality Issue
+              
+              **Bot:** ${{ github.event.pull_request.user.login }}
+              **PR:** #${{ github.event.pull_request.number }}
+              **Title:** ${{ github.event.pull_request.title }}
+              
+              This bot is creating PRs that break the codebase with syntax errors.
+              
+              ### Recommendation:
+              1. Disable this bot integration
+              2. Or configure it to validate before creating PRs
+              3. Add this bot to the untrusted bot list
+              
+              ---
+              🤖 Reported by Syntax Validation System" \
+              --label "bot-issue" \
+              --label "critical"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

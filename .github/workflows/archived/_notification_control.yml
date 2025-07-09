@@ -1,0 +1,40 @@
+name: Notification Control
+# Controls GitHub Actions email notifications
+
+on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+  workflow_call:
+    inputs:
+      notify_on_failure:
+        description: 'Send email notification on failure'
+        required: false
+        default: false
+        type: boolean
+      notify_on_success:
+        description: 'Send email notification on success'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  control-notifications:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Control Notification Settings
+        run: |
+          echo "::notice::Notification settings - Failure: ${{ inputs.notify_on_failure }}, Success: ${{ inputs.notify_on_success }}"
+          
+          # Note: GitHub doesn't allow runtime notification control
+          # This is a placeholder for documentation purposes
+          # Users should configure notifications at:
+          # https://github.com/settings/notifications
+          
+          # Recommended settings to reduce email spam:
+          # 1. Go to GitHub Settings > Notifications
+          # 2. Under "Actions", uncheck "Failed workflows only" 
+          # 3. Consider using GitHub mobile app for critical alerts only

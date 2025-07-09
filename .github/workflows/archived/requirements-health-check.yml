@@ -1,0 +1,61 @@
+name: Requirements Health Check
+
+on:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+  pull_request:
+    paths:
+      - 'requirements*.txt'
+      - 'setup.py'
+  push:
+    paths:
+      - 'requirements*.txt'
+      - 'setup.py'
+
+jobs:
+  validate-requirements:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Check for circular dependencies
+      run: |
+        # Check requirements.txt for self-references
+        if grep -q "\-r requirements\.txt" requirements.txt; then
+          echo "❌ CRITICAL: requirements.txt references itself!"
+          echo "This creates a circular dependency that breaks pip install"
+          exit 1
+        fi
+        
+        # Check for double references to requirements-locked.txt
+        count=$(grep -c "\-r requirements-locked\.txt" requirements.txt || true)
+        if [ "$count" -gt 1 ]; then
+          echo "❌ WARNING: Multiple references to requirements-locked.txt found"
+          echo "This may cause installation issues"
+          exit 1
+        fi
+        
+        echo "✅ No circular dependencies detected"
+    
+    - name: Validate requirements installation
+      run: |
+        # Test dry-run installation
+        python -m pip install --upgrade pip
+        pip install -e . --dry-run
+        
+        echo "✅ Requirements validation passed"
+    
+    - name: Run requirements fixer
+      if: failure()
+      run: |
+        python scripts/fix_requirements.py
+        echo "🔧 Attempted automatic fix"
