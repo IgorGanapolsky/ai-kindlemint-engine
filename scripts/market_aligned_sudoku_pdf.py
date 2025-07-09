@@ -137,7 +137,7 @@ class MarketAlignedSudokuPDF:
             ParagraphStyle(
                 name="PuzzleNumber",
                 parent=self.styles["Heading1"],
-                fontSize=28,
+                fontSize=32,  # Increased from 28 for better visibility
                 leading=32,
                 textColor=colors.black,
                 alignment=TA_LEFT,
@@ -446,12 +446,12 @@ class MarketAlignedSudokuPDF:
         table.setStyle(
             TableStyle(
                 [
-                    # Grid lines
-                    ("GRID", (0, 0), (-1, -1), 2, colors.black),
-                    ("LINEABOVE", (0, 0), (-1, -1), 2, colors.black),
-                    ("LINEBELOW", (0, 0), (-1, -1), 2, colors.black),
-                    ("LINEBEFORE", (0, 0), (-1, -1), 2, colors.black),
-                    ("LINEAFTER", (0, 0), (-1, -1), 2, colors.black),
+                    # Grid lines - increased from 2pt to 2.5pt for better visibility
+                    ("GRID", (0, 0), (-1, -1), 2.5, colors.black),
+                    ("LINEABOVE", (0, 0), (-1, -1), 2.5, colors.black),
+                    ("LINEBELOW", (0, 0), (-1, -1), 2.5, colors.black),
+                    ("LINEBEFORE", (0, 0), (-1, -1), 2.5, colors.black),
+                    ("LINEAFTER", (0, 0), (-1, -1), 2.5, colors.black),
                     # Thick lines for 3x3 boxes
                     ("LINEABOVE", (0, 3), (-1, 3), 4, colors.black),
                     ("LINEABOVE", (0, 6), (-1, 6), 4, colors.black),
@@ -459,7 +459,7 @@ class MarketAlignedSudokuPDF:
                     ("LINEBEFORE", (6, 0), (6, -1), 4, colors.black),
                     # Text formatting - large bold font for clues
                     ("FONTNAME", (0, 0), (-1, -1), BOLD_FONT),
-                    ("FONTSIZE", (0, 0), (-1, -1), 24),
+                    ("FONTSIZE", (0, 0), (-1, -1), 32),  # Increased from 24 for better visibility
                     ("ALIGN", (0, 0), (-1, -1), "CENTER"),
                     ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
                 ]

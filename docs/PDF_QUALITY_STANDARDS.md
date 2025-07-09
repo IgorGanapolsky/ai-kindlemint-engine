@@ -154,6 +154,29 @@ Target metrics for all PDFs:
 4. **Get user feedback** on readability
 5. **Maintain variety** in all content elements
 
+## 📐 PDF Rendering Standards (CRITICAL)
+
+### Font Requirements
+- **Font Family**: Use Helvetica (built-in) - avoid DejaVu fonts
+- **Puzzle Numbers**: 32pt minimum (was 28pt)
+- **Instructions**: 18pt minimum
+- **Body Text**: 16pt minimum
+
+### Grid Line Standards
+- **Regular Grid Lines**: 2.5pt (was 2pt)
+- **3x3 Box Boundaries**: 4pt minimum
+- **Color**: Pure black for maximum contrast
+
+### Page Layout
+- **Solution Pages**: Start grids at height - 4.5 inches (not 3.5)
+- **Spacing**: Add proper Spacer elements between components
+- **Margins**: Minimum 0.5 inch on all sides
+
+### Lead Magnet Specific
+- **Auto-download**: Implement 1.5 second delay after form submission
+- **Grid Size**: 6.5 inches for extra clarity
+- **Cell Size**: grid_size / 9 for proportional spacing
+
 ---
 
 Remember: Quality PDFs = Happy Customers = Better Reviews = More Sales! 🚀
