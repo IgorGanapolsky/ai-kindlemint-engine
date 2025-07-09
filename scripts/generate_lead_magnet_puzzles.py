@@ -202,7 +202,21 @@ class LeadMagnetGenerator:
         c.drawCentredString(width/2, text_y, "📘 Want 100 more puzzles after these 5?")
         text_y -= 0.3*inch
         self._set_font(c, 'Helvetica', 12)
-        c.drawCentredString(width/2, text_y, "Get our complete book at: iganapolsky.gumroad.com/l/hjybj")
+        link_text = "Get our complete book at: "
+        url_text = "iganapolsky.gumroad.com/l/hjybj"
+        
+        # Draw text parts
+        text_width = c.stringWidth(link_text, 'Helvetica', 12)
+        url_width = c.stringWidth(url_text, 'Helvetica', 12)
+        total_width = text_width + url_width
+        
+        start_x = (width - total_width) / 2
+        c.drawString(start_x, text_y, link_text)
+        c.drawString(start_x + text_width, text_y, url_text)
+        
+        # Make URL clickable
+        c.linkURL('https://iganapolsky.gumroad.com/l/hjybj',
+                  (start_x + text_width, text_y - 2, start_x + text_width + url_width, text_y + 10))
     
     def _draw_puzzle_page(self, c, width, height, puzzle_data):
         """Draw a single puzzle page"""
@@ -273,7 +287,19 @@ class LeadMagnetGenerator:
         
         # Add Gumroad link footer
         self._set_font(c, 'Helvetica', 10)
-        c.drawCentredString(width/2, 0.6*inch, "Love these puzzles? Get 100 more at: iganapolsky.gumroad.com/l/hjybj")
+        link_text = "Love these puzzles? Get 100 more at: "
+        url_text = "iganapolsky.gumroad.com/l/hjybj"
+        full_text = link_text + url_text
+        
+        # Draw text
+        c.drawCentredString(width/2, 0.6*inch, full_text)
+        
+        # Make URL clickable
+        text_width = c.stringWidth(full_text, 'Helvetica', 10)
+        link_width = c.stringWidth(url_text, 'Helvetica', 10)
+        link_start_x = (width/2) + (text_width/2) - link_width
+        c.linkURL('https://iganapolsky.gumroad.com/l/hjybj', 
+                  (link_start_x, 0.5*inch, link_start_x + link_width, 0.7*inch))
     
     def _draw_solutions_page(self, c, width, height, puzzles):
         """Draw all solutions on one page"""
@@ -367,9 +393,15 @@ class LeadMagnetGenerator:
         # Add text in box
         c.setFillColorRGB(1, 1, 1)  # White
         self._set_font(c, 'Helvetica-Bold', 24)
-        c.drawCentredString(width/2, text_y - 0.5*inch, "GET IT NOW - ONLY $9.99")
+        c.drawCentredString(width/2, text_y - 0.5*inch, "GET IT NOW - ONLY $4.99")
         self._set_font(c, 'Helvetica', 14)
-        c.drawCentredString(width/2, text_y - 0.8*inch, "iganapolsky.gumroad.com/l/hjybj")
+        # Make the URL in the button clickable
+        url_text = "iganapolsky.gumroad.com/l/hjybj"
+        c.drawCentredString(width/2, text_y - 0.8*inch, url_text)
+        
+        # Create clickable area for the entire button
+        c.linkURL('https://iganapolsky.gumroad.com/l/hjybj',
+                  (box_x, text_y - box_height, box_x + box_width, text_y))
         
         # Reset color
         c.setFillColorRGB(0, 0, 0)  # Black

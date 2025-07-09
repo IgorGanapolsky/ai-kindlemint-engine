@@ -133,7 +133,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 font-bold text-lg"
                   >
-                    🛒 Get the Complete Book - Only $9.99
+                    🛒 Get the Complete Book - Only $4.99
                   </a>
                   <p className="text-sm text-gray-600 mt-3">
                     ⭐ Join 4,000+ happy puzzle solvers!
