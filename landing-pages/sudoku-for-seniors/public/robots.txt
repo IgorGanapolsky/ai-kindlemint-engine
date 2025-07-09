@@ -31,4 +31,4 @@ Allow: /
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://sudoku-for-seniors.vercel.app/sitemap.xml
+Sitemap: https://dvdyff0b2oove.cloudfront.net/sitemap.xml

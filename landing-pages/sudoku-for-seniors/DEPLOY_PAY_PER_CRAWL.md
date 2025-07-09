@@ -1,10 +1,10 @@
-# 🚀 Deploy Your Pay-Per-Crawl System
+# 🚀 Deploy Your Pay-Per-Crawl System to AWS
 
-## Quick Deploy to Vercel (Recommended)
+## Quick Deploy to AWS S3 + CloudFront
 
 ```bash
 # Deploy to production
-vercel --prod
+./deploy-aws.sh
 ```
 
 ## What Gets Deployed
@@ -41,11 +41,11 @@ vercel --prod
    ```
 
 2. **Monitor Analytics**
-   Visit: https://your-app.vercel.app/api/crawler-analytics
+   Visit: https://your-cloudfront-domain.cloudfront.net/api/crawler-analytics
 
 3. **Update Your Domain**
-   - Add CNAME record pointing to Vercel
-   - Enable HTTPS
+   - Add CNAME record pointing to CloudFront
+   - Enable HTTPS via CloudFront
    - Update robots.txt with your domain
 
 4. **Notify AI Companies**
@@ -73,8 +73,8 @@ As traffic grows:
 ## Support
 
 For issues or customization:
-- Check logs in Vercel dashboard
-- Review middleware.ts for crawler detection
+- Check CloudWatch logs for Lambda functions
+- Review pay-per-crawl-handler.py for crawler detection
 - Update PayPerCrawlContent for new features
 
 Happy monetizing! 💰🤖

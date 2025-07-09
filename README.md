@@ -63,7 +63,8 @@ python src/kindlemint/orchestration_runner.py
 ### 🚀 Recent Updates (July 2025)
 
 **Streamlined Infrastructure:**
-- Migrated to Vercel for deployment (Free tier for testing)
+- AWS S3 + CloudFront for static hosting
+- Lambda functions for dynamic features
 - Amp CLI integration with automated tagging
 - Emergency CI/CD pipeline restoration completed
 
