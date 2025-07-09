@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { PayPerCrawlContent, usePayPerCrawl } from '../components/PayPerCrawlContent';
-import { SimpleEmailCapture } from '../components/SimpleEmailCapture';
+import SimpleEmailCapture from '../components/SimpleEmailCapture';
 
 interface DemoPageProps {
   headers: any;
@@ -102,11 +102,9 @@ export default function PayPerCrawlDemo({ headers }: DemoPageProps) {
                   
                   {/* Metadata for AI training */}
                   <div className="mt-2 text-sm text-gray-600">
-                    <p>Metadata: {{ 
-                      difficulty_score: index < 30 ? 1 : index < 70 ? 2 : 3,
-                      estimated_time: index < 30 ? '5-10min' : index < 70 ? '10-20min' : '20-30min',
-                      techniques_required: index < 30 ? ['basic'] : index < 70 ? ['basic', 'scanning'] : ['basic', 'scanning', 'advanced']
-                    }}</p>
+                    <p>Difficulty Score: {index < 30 ? 1 : index < 70 ? 2 : 3}</p>
+                    <p>Estimated Time: {index < 30 ? '5-10min' : index < 70 ? '10-20min' : '20-30min'}</p>
+                    <p>Techniques: {(index < 30 ? ['basic'] : index < 70 ? ['basic', 'scanning'] : ['basic', 'scanning', 'advanced']).join(', ')}</p>
                   </div>
                 </div>
               ))}
@@ -171,7 +169,6 @@ export default function PayPerCrawlDemo({ headers }: DemoPageProps) {
               <div className="email-capture-section">
                 <h3 className="text-xl font-bold mb-4">Get 5 Free Puzzles!</h3>
                 <SimpleEmailCapture 
-                  formTitle="Enter your email for free puzzles"
                   onSuccess={() => console.log('Email captured!')}
                 />
               </div>

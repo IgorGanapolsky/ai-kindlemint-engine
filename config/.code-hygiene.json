@@ -38,71 +38,10 @@
     "organize_scripts": {
       "enabled": true,
       "root_allowed": ["setup.py", "manage.py", "wsgi.py", "claude-code", "claude-flow*"]
-    },
-    "consolidate_docs": {
-      "enabled": true,
-      "categories": {
-        "reports": ["analysis", "report", "status", "gap"],
-        "planning": ["plan", "strategy", "roadmap", "architecture"],
-        "guides": ["guide", "manual", "howto", "tutorial"],
-        "qa": ["qa_", "validation", "test_report"]
-      }
-    },
-    "remove_duplicates": {
-      "enabled": true,
-      "similarity_threshold": 0.95,
-      "exclude_patterns": ["*.pyc", "__pycache__/*"]
-    },
-    "clean_temp_files": {
-      "enabled": true,
-      "patterns": [
-        "*.tmp",
-        "*.temp",
-        "*.bak",
-        "*.swp",
-        "*.swo",
-        "*~",
-        ".DS_Store",
-        "Thumbs.db"
-      ]
-    },
-    "fix_naming_conventions": {
-      "enabled": true,
-      "python_style": "snake_case",
-      "check_imports": true
     }
   },
-  "ignored_directories": [
-    ".git",
-    "__pycache__",
-    "node_modules",
-    ".pytest_cache",
-    ".venv",
-    "venv",
-    ".env",
-    ".tox",
-    ".mypy_cache",
-    ".coverage",
-    "htmlcov",
-    "dist",
-    "build",
-    "*.egg-info"
-  ],
-  "archive_settings": {
-    "base_dir": ".archive",
-    "compress": true,
-    "keep_structure": true,
-    "index_format": "json"
-  },
-  "reporting": {
-    "include_metrics": true,
-    "include_recommendations": true,
-    "output_format": "markdown",
-    "save_history": true,
-    "history_dir": ".hygiene_history"
-  },
   "automation": {
-    "pre_commit_hook": false,
+    "pre_commit_hook": true,
     "ci_integration": true,
     "scheduled_cleanup": "weekly",
     "auto_fix_threshold": 0.8

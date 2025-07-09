@@ -1,0 +1,346 @@
+{
+  "book_id": "991a905e430a",
+  "timestamp": "2025-07-08T16:05:48.551570",
+  "overall_score": 57.2,
+  "passed": false,
+  "criteria": {
+    "duplicate_content": {
+      "score": 2.290448343079922,
+      "threshold": 10,
+      "passed": true,
+      "details": [
+        {
+          "type": "duplicate_text",
+          "text": "Difficulty: Easy",
+          "occurrences": 100,
+          "lines": [
+            79,
+            89,
+            99,
+            109,
+            119
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "INSTRUCTIONS: Fill in the empty squares so that",
+          "occurrences": 100,
+          "lines": [
+            80,
+            90,
+            100,
+            110,
+            120
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "each row, each column, and each 3\u00d73 box contains a...",
+          "occurrences": 100,
+          "lines": [
+            81,
+            91,
+            101,
+            111,
+            121
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "numbers from 1 to 9. Each number can appear only",
+          "occurrences": 100,
+          "lines": [
+            82,
+            92,
+            102,
+            112,
+            122
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "once in each row, column, and 3\u00d73 box.",
+          "occurrences": 100,
+          "lines": [
+            83,
+            93,
+            103,
+            113,
+            123
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "\u25a0 TIP: Start with rows, columns, or boxes that hav...",
+          "occurrences": 100,
+          "lines": [
+            84,
+            94,
+            104,
+            114,
+            124
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "numbers already filled in!",
+          "occurrences": 100,
+          "lines": [
+            85,
+            95,
+            105,
+            115,
+            125
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "Solving Strategy: This easy puzzle can be solved u...",
+          "occurrences": 13,
+          "lines": [
+            181,
+            254,
+            431,
+            608,
+            785
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "basic techniques. Start by looking for cells where...",
+          "occurrences": 13,
+          "lines": [
+            182,
+            255,
+            432,
+            609,
+            786
+          ]
+        },
+        {
+          "type": "duplicate_text",
+          "text": "number can fit. Scan each row, column, and 3\u00d73 box...",
+          "occurrences": 13,
+          "lines": [
+            183,
+            256,
+            433,
+            610,
+            787
+          ]
+        }
+      ]
+    },
+    "text_cutoff": {
+      "score": 0,
+      "threshold": 0,
+      "passed": true,
+      "details": []
+    },
+    "white_space_ratio": {
+      "score": 0,
+      "threshold": 92,
+      "passed": true,
+      "details": []
+    },
+    "puzzle_integrity": {
+      "score": 35.0,
+      "threshold": 100,
+      "passed": false,
+      "details": [
+        {
+          "type": "repeated_instructions",
+          "message": "99.0% of puzzle instructions are identical - creates poor user experience",
+          "severity": "critical"
+        },
+        {
+          "type": "repeated_tips",
+          "message": "99.0% of puzzle tips are identical - reduces educational value",
+          "severity": "moderate"
+        },
+        {
+          "type": "low_variety",
+          "message": "Only 1.0% puzzle variety detected",
+          "severity": "moderate"
+        }
+      ]
+    },
+    "font_embedding": {
+      "score": 0.0,
+      "threshold": 100,
+      "passed": false,
+      "details": [
+        {
+          "type": "font_not_embedded",
+          "font": "Helvetica"
+        },
+        {
+          "type": "font_not_embedded",
+          "font": "Helvetica-Bold"
+        },
+        {
+          "type": "font_not_embedded",
+          "font": "ZapfDingbats"
+        }
+      ]
+    }
+  },
+  "validation_model": "qa_pipeline_v1",
+  "issues_found": [
+    {
+      "type": "duplicate_text",
+      "text": "Difficulty: Easy",
+      "occurrences": 100,
+      "lines": [
+        79,
+        89,
+        99,
+        109,
+        119
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "INSTRUCTIONS: Fill in the empty squares so that",
+      "occurrences": 100,
+      "lines": [
+        80,
+        90,
+        100,
+        110,
+        120
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "each row, each column, and each 3\u00d73 box contains a...",
+      "occurrences": 100,
+      "lines": [
+        81,
+        91,
+        101,
+        111,
+        121
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "numbers from 1 to 9. Each number can appear only",
+      "occurrences": 100,
+      "lines": [
+        82,
+        92,
+        102,
+        112,
+        122
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "once in each row, column, and 3\u00d73 box.",
+      "occurrences": 100,
+      "lines": [
+        83,
+        93,
+        103,
+        113,
+        123
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "\u25a0 TIP: Start with rows, columns, or boxes that hav...",
+      "occurrences": 100,
+      "lines": [
+        84,
+        94,
+        104,
+        114,
+        124
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "numbers already filled in!",
+      "occurrences": 100,
+      "lines": [
+        85,
+        95,
+        105,
+        115,
+        125
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "Solving Strategy: This easy puzzle can be solved u...",
+      "occurrences": 13,
+      "lines": [
+        181,
+        254,
+        431,
+        608,
+        785
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "basic techniques. Start by looking for cells where...",
+      "occurrences": 13,
+      "lines": [
+        182,
+        255,
+        432,
+        609,
+        786
+      ]
+    },
+    {
+      "type": "duplicate_text",
+      "text": "number can fit. Scan each row, column, and 3\u00d73 box...",
+      "occurrences": 13,
+      "lines": [
+        183,
+        256,
+        433,
+        610,
+        787
+      ]
+    },
+    {
+      "type": "repeated_instructions",
+      "message": "99.0% of puzzle instructions are identical - creates poor user experience",
+      "severity": "critical"
+    },
+    {
+      "type": "repeated_tips",
+      "message": "99.0% of puzzle tips are identical - reduces educational value",
+      "severity": "moderate"
+    },
+    {
+      "type": "low_variety",
+      "message": "Only 1.0% puzzle variety detected",
+      "severity": "moderate"
+    },
+    {
+      "type": "font_not_embedded",
+      "font": "Helvetica"
+    },
+    {
+      "type": "font_not_embedded",
+      "font": "Helvetica-Bold"
+    },
+    {
+      "type": "font_not_embedded",
+      "font": "ZapfDingbats"
+    }
+  ],
+  "recommendations": [
+    "Verify all puzzle clues have corresponding answers",
+    "Ensure puzzle instructions are varied across different puzzles",
+    "Add variety to puzzle tips to enhance user experience",
+    "Consider rotating instruction styles (INSTRUCTIONS, HOW TO SOLVE, PUZZLE RULES, etc.)",
+    "Implement different tip formats (TIP, HINT, STRATEGY, APPROACH, etc.)",
+    "Embed all fonts in PDF for consistent rendering"
+  ]
+}
