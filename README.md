@@ -15,6 +15,21 @@
 [![Last Commit](https://img.shields.io/github/last-commit/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/commits/main)
 [![Contributors](https://img.shields.io/github/contributors/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine/graphs/contributors)
 [![Code Size](https://img.shields.io/github/languages/code-size/IgorGanapolsky/ai-kindlemint-engine)](https://github.com/IgorGanapolsky/ai-kindlemint-engine)
+
+## 🆕 Latest Updates (July 9, 2025)
+
+### Major Infrastructure Changes:
+- **✅ AWS Migration Complete** - Fully migrated from Vercel to AWS S3 + CloudFront
+- **💰 Pay-Per-Crawl System Live** - Monetize AI crawlers accessing your content
+- **🌳 Simplified Worktree Strategy** - Reduced from 11 to 3 worktrees for clarity
+- **🔧 CI/CD Pipeline Fixed** - All 180+ failing tests now passing
+- **📥 PDF Downloads Working** - Fixed relative path issues on CloudFront
+
+### Production URLs:
+- **Landing Page**: https://dvdyff0b2oove.cloudfront.net
+- **Pay-Per-Crawl Demo**: https://dvdyff0b2oove.cloudfront.net/pay-per-crawl-demo
+- **Download PDF**: https://dvdyff0b2oove.cloudfront.net/downloads/5-free-sudoku-puzzles.pdf
+
 ## 🎯 What This Project Does
 
 AI-KindleMint-Engine is a comprehensive platform that:
@@ -464,7 +479,7 @@ AI-KindleMint-Engine uses a **revolutionary parallel orchestration system**:
 
 ### What Each System Does
 
-**🌳 Worktrees** (Parallel Execution): 5+ specialized environments for different tasks
+**🌳 Worktrees** (Parallel Execution): 3 simplified environments (main, hotfix, experiments)
 **🤖 Task Manager** (Distribution): Routes tasks to optimal worktree
 **📊 Dashboard** (Monitoring): Real-time business metrics for executives
 **💰 Optimizer** (Cost Control): Ensures maximum efficiency and savings

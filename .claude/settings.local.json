@@ -359,7 +359,8 @@
       "Bash(npm install:*)",
       "Bash(ssh:*)",
       "Bash(nc:*)",
-      "Bash(./deploy-aws.sh)"
+      "Bash(./deploy-aws.sh)",
+      "Bash(npm run deploy:*)"
     ],
     "deny": []
   }

@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import SimpleEmailCapture from '../components/SimpleEmailCapture';
 import Analytics from '../components/Analytics';
 
 export default function Home() {
+  const router = useRouter();
   const [showThankYou, setShowThankYou] = useState(false);
+  
+  useEffect(() => {
+    // Check if we're on a success URL
+    if (router.query.success === 'true' || window.location.pathname.includes('success')) {
+      setShowThankYou(true);
+    }
+  }, [router.query]);
 
   return (
     <>
@@ -70,6 +79,24 @@ export default function Home() {
                     (If the download didn't start, you'll see a download button below)
                   </span>
                 </p>
+                <div className="mt-6">
+                  <a 
+                    href="/downloads/5-free-sudoku-puzzles.pdf" 
+                    download="5-free-sudoku-puzzles.pdf"
+                    className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 mr-4"
+                  >
+                    📥 Download Puzzles
+                  </a>
+                  <button 
+                    onClick={() => {
+                      setShowThankYou(false);
+                      router.push('/');
+                    }}
+                    className="inline-block bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700"
+                  >
+                    ← Start Over
+                  </button>
+                </div>
               </div>
             )}
           </div>

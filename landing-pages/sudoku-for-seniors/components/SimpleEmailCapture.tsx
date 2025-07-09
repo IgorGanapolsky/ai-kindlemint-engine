@@ -117,7 +117,7 @@ const SimpleEmailCapture: React.FC<EmailCaptureProps> = ({ onSuccess }) => {
             ⏰ This 70% discount expires when you leave this page!
           </p>
           <a
-            href="https://igorganapolsky.gumroad.com/l/sudoku-seniors-100"
+            href="https://iganapolsky.gumroad.com/l/hjybj"
             className="inline-block bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 font-bold text-xl"
             target="_blank"
             rel="noopener noreferrer"
