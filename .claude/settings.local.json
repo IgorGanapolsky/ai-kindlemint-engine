@@ -363,7 +363,9 @@
       "Bash(npm run deploy:*)",
       "Bash(./deploy-aws.sh)",
       "Bash(npm run export:*)",
-      "Bash(npm run export:*)"
+      "Bash(npm run export:*)",
+      "Bash(git config:*)",
+      "Bash(bash:*)"
     ],
     "deny": []
   }
