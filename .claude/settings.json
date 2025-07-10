@@ -41,7 +41,13 @@
     "parallelExecution": true,
     "batchOperations": true,
     "autoSaveMemory": true,
-    "autoCommit": false
+    "autoCommit": false,
+    "sessionStartupProtocol": {
+      "readStatusFile": true,
+      "verifyWorktrees": true,
+      "statusFile": "docs/WORKTREE_STATUS.md",
+      "mandatory": true
+    }
   },
   "claudeFlow": {
     "version": "1.0.72",
