@@ -12,6 +12,7 @@ import argparse
 from datetime import datetime
 import subprocess
 import time
+from security import safe_requests
 
 # MCP Server Configuration
 MCP_SERVER_IP = "44.201.249.255"
@@ -29,7 +30,7 @@ class MCPServerTools:
         print(f"Checking MCP server status at {self.server_url}...")
         
         try:
-            response = requests.get(f"{self.server_url}/health", timeout=5)
+            response = safe_requests.get(f"{self.server_url}/health", timeout=5)
             if response.status_code == 200:
                 print(f"✅ MCP server is running and healthy")
                 return True

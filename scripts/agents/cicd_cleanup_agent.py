@@ -9,6 +9,7 @@ import json
 import requests
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
+from security import safe_requests
 
 class CICDCleanupAgent:
     def __init__(self, github_token: str, repo_owner: str, repo_name: str):
@@ -29,7 +30,7 @@ class CICDCleanupAgent:
             "per_page": per_page
         }
         
-        response = requests.get(url, headers=self.headers, params=params, timeout=60)
+        response = safe_requests.get(url, headers=self.headers, params=params, timeout=60)
         if response.status_code == 200:
             return response.json()["workflow_runs"]
         else:
@@ -96,7 +97,7 @@ class CICDCleanupAgent:
             "per_page": 100
         }
         
-        response = requests.get(url, headers=self.headers, params=params, timeout=60)
+        response = safe_requests.get(url, headers=self.headers, params=params, timeout=60)
         if response.status_code == 200:
             return response.json()
         else:
@@ -107,7 +108,7 @@ class CICDCleanupAgent:
         """Get check runs for a specific ref"""
         url = f"{self.base_url}/repos/{self.repo_owner}/{self.repo_name}/commits/{ref}/check-runs"
         
-        response = requests.get(url, headers=self.headers, timeout=60)
+        response = safe_requests.get(url, headers=self.headers, timeout=60)
         if response.status_code == 200:
             return response.json()["check_runs"]
         else:

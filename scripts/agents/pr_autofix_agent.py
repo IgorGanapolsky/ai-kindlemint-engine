@@ -13,7 +13,7 @@ from typing import List, Dict, Any, Optional, Tuple
 import subprocess
 import tempfile
 import shutil
-from security import safe_command
+from security import safe_requests, safe_command
 
 class PRAutoFixAgent:
     def __init__(self, github_token: str, repo_owner: str, repo_name: str):
@@ -30,7 +30,7 @@ class PRAutoFixAgent:
         """Get pull request details"""
         url = f"{self.base_url}/repos/{self.repo_owner}/{self.repo_name}/pulls/{pr_number}"
         
-        response = requests.get(url, headers=self.headers, timeout=60)
+        response = safe_requests.get(url, headers=self.headers, timeout=60)
         if response.status_code == 200:
             return response.json()
         return None
@@ -39,7 +39,7 @@ class PRAutoFixAgent:
         """Get files changed in a pull request"""
         url = f"{self.base_url}/repos/{self.repo_owner}/{self.repo_name}/pulls/{pr_number}/files"
         
-        response = requests.get(url, headers=self.headers, timeout=60)
+        response = safe_requests.get(url, headers=self.headers, timeout=60)
         if response.status_code == 200:
             return response.json()
         return []
@@ -48,7 +48,7 @@ class PRAutoFixAgent:
         """Get check runs for a specific ref"""
         url = f"{self.base_url}/repos/{self.repo_owner}/{self.repo_name}/commits/{ref}/check-runs"
         
-        response = requests.get(url, headers=self.headers, timeout=60)
+        response = safe_requests.get(url, headers=self.headers, timeout=60)
         if response.status_code == 200:
             return response.json()["check_runs"]
         return []
@@ -98,7 +98,7 @@ class PRAutoFixAgent:
                 # Check file extensions for formatting
                 if file_path.endswith(('.py', '.js', '.ts', '.tsx', '.jsx')):
                     # Get file content
-                    content_response = requests.get(file["contents_url"], headers=self.headers, timeout=60)
+                    content_response = safe_requests.get(file["contents_url"], headers=self.headers, timeout=60)
                     if content_response.status_code == 200:
                         file_data = content_response.json()
                         import base64
