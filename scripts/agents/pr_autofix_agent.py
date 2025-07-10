@@ -29,7 +29,7 @@ class PRAutoFixAgent:
         """Get pull request details"""
         url = f"{self.base_url}/repos/{self.repo_owner}/{self.repo_name}/pulls/{pr_number}"
         
-        response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=self.headers, timeout=60)
         if response.status_code == 200:
             return response.json()
         return None
@@ -38,7 +38,7 @@ class PRAutoFixAgent:
         """Get files changed in a pull request"""
         url = f"{self.base_url}/repos/{self.repo_owner}/{self.repo_name}/pulls/{pr_number}/files"
         
-        response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=self.headers, timeout=60)
         if response.status_code == 200:
             return response.json()
         return []
@@ -47,7 +47,7 @@ class PRAutoFixAgent:
         """Get check runs for a specific ref"""
         url = f"{self.base_url}/repos/{self.repo_owner}/{self.repo_name}/commits/{ref}/check-runs"
         
-        response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=self.headers, timeout=60)
         if response.status_code == 200:
             return response.json()["check_runs"]
         return []
@@ -57,7 +57,7 @@ class PRAutoFixAgent:
         url = f"{self.base_url}/repos/{self.repo_owner}/{self.repo_name}/issues/{pr_number}/comments"
         
         data = {"body": body}
-        response = requests.post(url, headers=self.headers, json=data)
+        response = requests.post(url, headers=self.headers, json=data, timeout=60)
         return response.status_code == 201
         
     def update_file(self, file_path: str, content: str, message: str, branch: str, sha: str) -> bool:
@@ -75,7 +75,7 @@ class PRAutoFixAgent:
             "branch": branch
         }
         
-        response = requests.put(url, headers=self.headers, json=data)
+        response = requests.put(url, headers=self.headers, json=data, timeout=60)
         return response.status_code == 200
         
     def fix_formatting_issues(self, pr_number: int) -> Dict[str, Any]:
@@ -97,7 +97,7 @@ class PRAutoFixAgent:
                 # Check file extensions for formatting
                 if file_path.endswith(('.py', '.js', '.ts', '.tsx', '.jsx')):
                     # Get file content
-                    content_response = requests.get(file["contents_url"], headers=self.headers)
+                    content_response = requests.get(file["contents_url"], headers=self.headers, timeout=60)
                     if content_response.status_code == 200:
                         file_data = content_response.json()
                         import base64

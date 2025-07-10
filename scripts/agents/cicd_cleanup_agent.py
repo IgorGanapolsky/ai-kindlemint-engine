@@ -29,7 +29,7 @@ class CICDCleanupAgent:
             "per_page": per_page
         }
         
-        response = requests.get(url, headers=self.headers, params=params)
+        response = requests.get(url, headers=self.headers, params=params, timeout=60)
         if response.status_code == 200:
             return response.json()["workflow_runs"]
         else:
@@ -40,14 +40,14 @@ class CICDCleanupAgent:
         """Cancel a specific workflow run"""
         url = f"{self.base_url}/repos/{self.repo_owner}/{self.repo_name}/actions/runs/{run_id}/cancel"
         
-        response = requests.post(url, headers=self.headers)
+        response = requests.post(url, headers=self.headers, timeout=60)
         return response.status_code == 202
         
     def delete_workflow_run(self, run_id: int) -> bool:
         """Delete a specific workflow run"""
         url = f"{self.base_url}/repos/{self.repo_owner}/{self.repo_name}/actions/runs/{run_id}"
         
-        response = requests.delete(url, headers=self.headers)
+        response = requests.delete(url, headers=self.headers, timeout=60)
         return response.status_code == 204
         
     def cleanup_failed_runs(self, older_than_hours: int = 24) -> Dict[str, int]:
@@ -96,7 +96,7 @@ class CICDCleanupAgent:
             "per_page": 100
         }
         
-        response = requests.get(url, headers=self.headers, params=params)
+        response = requests.get(url, headers=self.headers, params=params, timeout=60)
         if response.status_code == 200:
             return response.json()
         else:
@@ -107,7 +107,7 @@ class CICDCleanupAgent:
         """Get check runs for a specific ref"""
         url = f"{self.base_url}/repos/{self.repo_owner}/{self.repo_name}/commits/{ref}/check-runs"
         
-        response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=self.headers, timeout=60)
         if response.status_code == 200:
             return response.json()["check_runs"]
         else:
@@ -152,7 +152,7 @@ class CICDCleanupAgent:
             "completed_at": datetime.utcnow().isoformat() + "Z"
         }
         
-        response = requests.patch(url, headers=self.headers, json=data)
+        response = requests.patch(url, headers=self.headers, json=data, timeout=60)
         return response.status_code == 200
         
     def cleanup_all(self) -> Dict[str, Any]:
