@@ -18,6 +18,12 @@ AI-powered book publishing platform with automated publishing workflows and agen
 - See `docs/WORKTREE_STATUS.md` for the latest orchestration and deployment state.
 - All keys, secrets, and configuration steps are documented there for seamless handoff.
 
+## For AI Assistants
+- **ALWAYS START HERE**: Read `docs/WORKTREE_STATUS.md` first to understand current state
+- **Follow Workflow**: See `docs/AI_ASSISTANT_WORKFLOW.md` for handoff process
+- **Update Status**: Use `scripts/utilities/update_worktree_status.sh` to maintain state
+- **Key Principle**: Never start work without reading the status file first
+
 ## Quickstart
 1. Launch EC2 instance and ensure Docker is installed.
 2. Upload your GitHub App private key to `/home/ec2-user/github-app-private-key.pem`.
