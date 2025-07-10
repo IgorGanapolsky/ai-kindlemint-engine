@@ -37,6 +37,7 @@ setuptools.setup(
         "sentry-sdk>=1.40.0",
         "security==1.3.1",
         "stripe>=6.0.0",
+        "security==1.3.1",
     ],
     extras_require={
         "dev": [

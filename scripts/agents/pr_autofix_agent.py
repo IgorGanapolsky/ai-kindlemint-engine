@@ -13,6 +13,7 @@ from typing import List, Dict, Any, Optional, Tuple
 import subprocess
 import tempfile
 import shutil
+from security import safe_command
 
 class PRAutoFixAgent:
     def __init__(self, github_token: str, repo_owner: str, repo_name: str):
@@ -186,7 +187,7 @@ class PRAutoFixAgent:
         with tempfile.TemporaryDirectory() as temp_dir:
             # Clone the repository
             clone_cmd = f"git clone https://{self.github_token}@github.com/{self.repo_owner}/{self.repo_name}.git {temp_dir}"
-            subprocess.run(clone_cmd.split(), capture_output=True)
+            safe_command.run(subprocess.run, clone_cmd.split(), capture_output=True)
             
             os.chdir(temp_dir)
             
