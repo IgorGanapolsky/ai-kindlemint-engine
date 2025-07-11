@@ -376,7 +376,8 @@
       "Bash(git config:*)",
       "Bash(bash:*)",
       "Bash(for f in *.json.template)",
-      "Bash(do cp \"$f\" \"$f%.template\")"
+      "Bash(do cp \"$f\" \"$f%.template\")",
+      "WebFetch(domain:aws.amazon.com)"
     ],
     "deny": []
   }

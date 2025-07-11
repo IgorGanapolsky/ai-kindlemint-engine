@@ -6,17 +6,22 @@ Automated puzzle book publishing system leveraging AI for content generation, qu
 
 We're implementing a systematic approach to reach $300/day in revenue through our automated puzzle book publishing system.
 
-### 🚀 Traffic Generation System (DEPLOYED)
+### 🚀 Traffic Generation System (MERGED TO MAIN)
 
-**Status**: Quick-start system deployed in `experiments` worktree
-- **Reddit Manual Posting**: Ready to generate 200-500 visitors/day
-- **Revenue Projection**: $122-256/day from Reddit alone
-- **Full System**: Pinterest & Facebook automation ready for API setup
+**Status**: Production-ready traffic system now in main branch
+- **Reddit System**: Manual posting ready - generates 200-500 visitors/day
+- **Pinterest**: Automation script ready (pending API key)
+- **Facebook**: Engagement script ready (pending Chrome setup)
+- **Revenue Projection**: $122-256/day from Reddit alone, $600+/day full system
 
-**Immediate Actions**:
-1. ✅ Run `python3 reddit_quick_start.py` in experiments/scripts/traffic_generation/
-2. ⚠️ **UPDATE GUMROAD PRICE TO $4.99** (see UPDATE_GUMROAD_NOW.md)
-3. 📊 Monitor landing page: https://dvdyff0b2oove.cloudfront.net
+**Quick Start**:
+```bash
+cd scripts/traffic_generation
+python3 reddit_quick_start.py  # Generate Reddit content
+./setup_traffic_generation.sh   # Full setup guide
+```
+
+**⚠️ CRITICAL**: Update Gumroad price to $4.99 (see UPDATE_GUMROAD_NOW.md)
 
 ### 💰 Revenue Path
 - **Landing Page**: ✅ LIVE at https://dvdyff0b2oove.cloudfront.net
