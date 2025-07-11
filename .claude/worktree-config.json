@@ -1,31 +1,45 @@
 {
+  "workflow_version": "1.0",
+  "status_file": "docs/WORKTREE_STATUS.md",
+  "startup_protocol": {
+    "mandatory_read_status": true,
+    "verify_worktrees": true,
+    "check_mcp_server": true
+  },
   "parallel_development": true,
   "main_branch_accessible": true,
   "worktrees": {
-    "main-dev": {
+    "main": {
+      "path": "worktrees/main",
       "branch": "main",
-      "purpose": "Main development and releases",
-      "quick_access": "main-work/"
+      "purpose": "Stable main branch for emergency hotfixes",
+      "status": "clean"
     },
-    "puzzle-gen": {
-      "branch": "worktree/puzzle-generation", 
-      "purpose": "Puzzle generation features",
-      "quick_access": "puzzle-work/"
+    "experiments": {
+      "path": "worktrees/experiments",
+      "branch": "experiments",
+      "purpose": "Testing risky changes and AI experiments",
+      "status": "clean"
     },
-    "parallel-pdf": {
-      "branch": "feature/parallel-pdf-generation",
-      "purpose": "PDF generation optimization"
-    },
-    "parallel-puzzles": {
-      "branch": "feature/parallel-puzzle-generation", 
-      "purpose": "Puzzle generation parallelization"
-    },
-    "parallel-qa": {
-      "branch": "feature/parallel-qa-validation",
-      "purpose": "QA validation automation"
+    "hotfix": {
+      "path": "worktrees/hotfix",
+      "branch": "hotfix",
+      "purpose": "Emergency hotfix isolation",
+      "status": "clean"
     }
+  },
+  "main_directory": {
+    "branch": "feat/mcp-server-orchestration",
+    "purpose": "Active MCP server development and orchestration tools",
+    "focus": "MCP server implementation, GitHub App integration"
+  },
+  "automation_tools": {
+    "status_update_script": "scripts/utilities/update_worktree_status.sh",
+    "pre_commit_hook": "active",
+    "mcp_server_local": "scripts/utilities/mcp_server.py"
   },
   "claude_code_optimized": true,
   "quick_switch_enabled": true,
-  "parallel_safe": true
+  "parallel_safe": true,
+  "memory_enabled": true
 }
