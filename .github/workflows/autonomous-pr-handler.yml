@@ -1,0 +1,95 @@
+name: Autonomous PR Handler
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: '0 */2 * * *'  # Every 2 hours
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze-and-merge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install PyGithub anthropic
+      
+      - name: Analyze PRs with Claude
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+        run: |
+          python3 << 'PYTHON_EOF'
+          import os
+          import json
+          from github import Github
+          
+          # Initialize GitHub client
+          g = Github(os.environ['GITHUB_TOKEN'])
+          repo = g.get_repo("${{ github.repository }}")
+          
+          # Get open PRs
+          open_prs = repo.get_pulls(state='open')
+          
+          for pr in open_prs:
+              print(f"📋 Analyzing PR #{pr.number}: {pr.title}")
+              
+              # Check if PR is from a trusted bot
+              trusted_bots = ['dependabot[bot]', 'deepsource-autofix[bot]', 'pixeebot[bot]']
+              
+              if pr.user.login in trusted_bots:
+                  # Check if PR has passing checks
+                  commits = pr.get_commits()
+                  latest_commit = commits[commits.totalCount - 1]
+                  
+                  # Get check runs for latest commit
+                  check_runs = latest_commit.get_check_runs()
+                  
+                  all_passed = True
+                  for check in check_runs:
+                      if check.conclusion != 'success':
+                          all_passed = False
+                          break
+                  
+                  if all_passed and not pr.draft:
+                      print(f"✅ Auto-merging trusted bot PR #{pr.number}")
+                      try:
+                          pr.merge(merge_method='squash')
+                          print(f"🎉 Successfully merged PR #{pr.number}")
+                      except Exception as e:
+                          print(f"❌ Failed to merge PR #{pr.number}: {e}")
+                  else:
+                      print(f"⏳ PR #{pr.number} not ready for merge (checks: {all_passed}, draft: {pr.draft})")
+              else:
+                  print(f"👤 PR #{pr.number} from human user, skipping auto-merge")
+          
+          print("✅ PR analysis complete")
+          PYTHON_EOF
+
+      - name: Clean up stale branches
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Delete merged branches
+          git branch -r --merged | grep -v main | grep -v HEAD | sed 's/origin\///' | xargs -r git push origin --delete

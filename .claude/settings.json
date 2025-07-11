@@ -65,5 +65,26 @@
       "indexingEnabled": true,
       "persistenceEnabled": true
     }
+  },
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ENV_VAR_PLACEHOLDER"
+      }
+    },
+    "kindlemint": {
+      "command": "python",
+      "args": [
+        "scripts/utilities/mcp_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/workspace"
+      }
+    }
   }
 }
