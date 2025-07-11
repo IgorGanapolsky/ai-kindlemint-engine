@@ -372,7 +372,9 @@
       "Bash([ -n \"$GITHUB_TOKEN\" ])",
       "Bash(pip show:*)",
       "Bash(libreoffice:*)",
-      "Bash(scripts/utilities/update_worktree_status.sh:*)"
+      "Bash(scripts/utilities/update_worktree_status.sh:*)",
+      "Bash(git config:*)",
+      "Bash(bash:*)"
     ],
     "deny": []
   }
