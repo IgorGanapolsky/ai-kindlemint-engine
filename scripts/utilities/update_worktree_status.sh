@@ -1,9 +1,31 @@
+#!/bin/bash
+
+# Update Worktree Status Script
+# This script updates the worktree status documentation after work is completed
+
+set -e
+
+WORKTREE_STATUS_FILE="docs/WORKTREE_STATUS.md"
+CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')
+CURRENT_BRANCH=$(git branch --show-current)
+CURRENT_WORKTREE=$(pwd)
+LAST_COMMIT=$(git log -1 --format="%h - %s")
+
+echo "🔄 Updating worktree status..."
+
+# Create backup
+if [ -f "$WORKTREE_STATUS_FILE" ]; then
+    cp "$WORKTREE_STATUS_FILE" "${WORKTREE_STATUS_FILE}.backup"
+fi
+
+# Update the status file
+cat > "$WORKTREE_STATUS_FILE" << EOF
 # Worktree Status: GitHub MCP Integration & Autonomous PR Automation
 
-**Last Updated:** 2025-07-11 21:15:57
-**Current Branch:** cursor/set-up-github-mcp-and-claude-actions-729f
-**Current Worktree:** /workspace
-**Last Commit:** c23e770 - docs: Add comprehensive setup completion summary
+**Last Updated:** ${CURRENT_DATE}
+**Current Branch:** ${CURRENT_BRANCH}
+**Current Worktree:** ${CURRENT_WORKTREE}
+**Last Commit:** ${LAST_COMMIT}
 
 ## Current State
 
@@ -14,9 +36,9 @@
 - **Pull Request**: Created PR #188 with comprehensive GitHub MCP integration
 
 ### 🚀 GitHub MCP Integration Status
-- **MCP Server**: Configured with `@modelcontextprotocol/server-github`
-- **Claude Desktop Integration**: Added to `.claude/settings.json` with secure configuration
-- **Autonomous Workflow**: `.github/workflows/autonomous-pr-handler.yml` created
+- **MCP Server**: Configured with \`@modelcontextprotocol/server-github\`
+- **Claude Desktop Integration**: Added to \`.claude/settings.json\` with secure configuration
+- **Autonomous Workflow**: \`.github/workflows/autonomous-pr-handler.yml\` created
 - **Security**: Environment variable-based token management implemented
 - **Documentation**: Comprehensive setup guide created
 
@@ -53,15 +75,15 @@
 4. **Documentation Updates**: Update all docs to reflect new MCP setup
 
 ## Worktree Management
-- **Current Setup**: Single worktree on branch `cursor/set-up-github-mcp-and-claude-actions-729f`
+- **Current Setup**: Single worktree on branch \`cursor/set-up-github-mcp-and-claude-actions-729f\`
 - **Missing Worktrees**: The previous worktree structure (main-dev, parallel-pdf, puzzle-gen) not found
 - **Recommendation**: Restore worktree structure after PR merge for parallel development
 
 ## Key Files Modified
-- `.claude/settings.json` - Added GitHub MCP server configuration
-- `.github/workflows/autonomous-pr-handler.yml` - New autonomous PR workflow
-- `.env.example` - Environment variable template
-- `MCP_GITHUB_SETUP_COMPLETE.md` - Comprehensive setup documentation
+- \`.claude/settings.json\` - Added GitHub MCP server configuration
+- \`.github/workflows/autonomous-pr-handler.yml\` - New autonomous PR workflow
+- \`.env.example\` - Environment variable template
+- \`MCP_GITHUB_SETUP_COMPLETE.md\` - Comprehensive setup documentation
 
 ## Success Metrics
 Once PR #188 is merged and configured:
@@ -73,3 +95,10 @@ Once PR #188 is merged and configured:
 ---
 *This file is auto-updated to preserve orchestration state for seamless handoff across machines and sessions.*
 *Last updated by: update_worktree_status.sh*
+EOF
+
+echo "✅ Worktree status updated in $WORKTREE_STATUS_FILE"
+echo "📊 Current status:"
+echo "   - Branch: $CURRENT_BRANCH"
+echo "   - Last commit: $LAST_COMMIT"
+echo "   - Worktree: $CURRENT_WORKTREE"
