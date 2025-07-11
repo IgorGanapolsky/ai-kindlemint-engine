@@ -371,7 +371,8 @@
       "Bash(docker:*)",
       "Bash([ -n \"$GITHUB_TOKEN\" ])",
       "Bash(pip show:*)",
-      "Bash(libreoffice:*)"
+      "Bash(libreoffice:*)",
+      "Bash(scripts/utilities/update_worktree_status.sh:*)"
     ],
     "deny": []
   }
