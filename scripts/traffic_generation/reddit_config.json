@@ -1,0 +1,11 @@
+{
+  "mode": "read_only",
+  "subreddits": [
+    "sudoku",
+    "puzzles",
+    "braintraining"
+  ],
+  "landing_page_url": "https://dvdyff0b2oove.cloudfront.net",
+  "daily_limit": 5,
+  "value_first": true
+}
