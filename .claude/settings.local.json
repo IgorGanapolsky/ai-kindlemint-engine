@@ -363,7 +363,11 @@
       "Bash(npm run deploy:*)",
       "Bash(./deploy-aws.sh)",
       "Bash(npm run export:*)",
-      "Bash(npm run export:*)"
+      "Bash(npm run export:*)",
+      "Bash(pip3 install:*)",
+      "Bash(./scripts/utilities/update_worktree_status.sh:*)",
+      "Bash(./scripts/deploy_mcp_server.sh:*)",
+      "Bash(./scripts/local_mcp_deployment.sh:*)"
     ],
     "deny": []
   }

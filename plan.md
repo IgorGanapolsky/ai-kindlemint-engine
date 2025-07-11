@@ -1,14 +1,20 @@
 # Project Plan
 
 ## Current Focus
-- MCP server orchestration for automated CI/CD and PR cleanup
-- GitHub App integration and secure deployment on AWS EC2
-- Minimal permissions and event subscriptions for security
+- GitHub workflow orchestration via direct API integration (GitHub PAT)
+- Automated CI/CD and PR management without server infrastructure
+- Testing and implementing custom automation workflows
+
+## Recent Pivot
+- Moved from MCP server approach to direct GitHub API due to infrastructure limitations
+- Implemented `scripts/github_workflow_orchestrator.py` for full workflow automation
+- GitHub App (ID: 1554609) configured for future webhook-based automation
 
 ## Next Steps
-- Confirm webhook delivery and agent actions in MCP server logs
-- Develop/modify agents for custom automation (CI/CD cleanup, PR auto-fix, etc.)
-- Harden deployment (HTTPS, domain, scaling, monitoring)
+- Test and enhance GitHub workflow orchestration capabilities
+- Implement custom automation agents using the orchestrator
+- Handle existing PRs (#185, #186, #187) with new automation
+- When Docker/AWS available: Resume MCP server deployment
 - Keep `docs/WORKTREE_STATUS.md` up to date for seamless handoff
 
 ## Reference

@@ -3,16 +3,17 @@
 ## Overview
 AI-powered book publishing platform with automated publishing workflows and agentic orchestration.
 
-## MCP Server Orchestration (Current Status)
-- **MCP Server**: Deployed on AWS EC2 (Amazon Linux 2023) at `44.201.249.255:8080`
-- **GitHub App**: MCP Orchestrator (App ID: 1554609)
-- **Webhook**: Configured to `http://44.201.249.255:8080/webhook`
-- **Private Key**: `/home/ec2-user/github-app-private-key.pem` (on EC2)
-- **PAT**: Set as env var in Docker container
-- **Docker Image**: `ghcr.io/github/github-mcp-server:latest`
-- **Container Command**: `server http`
-- **Permissions**: Minimal required for CI/CD and PR automation
-- **Events Subscribed**: push, pull_request, check_suite, check_run, status (others optional)
+## GitHub Workflow Orchestration (Current Approach)
+- **Strategy**: Direct GitHub API integration using Personal Access Token (PAT)
+- **Orchestrator Script**: `scripts/github_workflow_orchestrator.py` - Full workflow automation
+- **GitHub App**: MCP Orchestrator (App ID: 1554609) - Configured for future use
+- **Previous MCP Server**: EC2 at `44.201.249.255:8080` (currently offline due to AWS creds)
+- **Current Method**: GitHub PAT with workflow dispatch and API automation
+- **Capabilities**: 
+  - Trigger any workflow on demand
+  - Monitor workflow runs in real-time
+  - Automate PR labeling, reviews, and merging
+  - Direct API access without webhook dependencies
 
 ## How to Resume Work
 - See `docs/WORKTREE_STATUS.md` for the latest orchestration and deployment state.
@@ -25,10 +26,11 @@ AI-powered book publishing platform with automated publishing workflows and agen
 - **Key Principle**: Never start work without reading the status file first
 
 ## Quickstart
-1. Launch EC2 instance and ensure Docker is installed.
-2. Upload your GitHub App private key to `/home/ec2-user/github-app-private-key.pem`.
-3. Run the MCP server Docker container with the documented environment variables.
-4. Confirm webhook delivery and agent actions in logs.
+1. Set your GitHub PAT: `export GITHUB_TOKEN='your-pat-here'`
+2. List workflows: `python3 scripts/github_workflow_orchestrator.py list`
+3. Trigger a workflow: `python3 scripts/github_workflow_orchestrator.py trigger <workflow_id>`
+4. Monitor runs: `python3 scripts/github_workflow_orchestrator.py runs`
+5. For MCP server setup (when Docker available), see `docs/WORKTREE_STATUS.md`
 
 ## Plan
 See `plan.md` for the current project roadmap and next steps.
