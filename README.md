@@ -1,64 +1,116 @@
-# AI-Kindlemint-Engine
+# AI-KindleMint-Engine 🚀
 
-## Overview
-AI-powered book publishing platform with automated publishing workflows and agentic orchestration.
+Automated puzzle book publishing system leveraging AI for content generation, quality assurance, and marketing.
 
-## GitHub Workflow Orchestration
+## 🎯 Current Focus: $300/Day Revenue Goal
 
-### Current Implementation (July 2025)
-- **Primary**: Official GitHub MCP Server (github/github-mcp-server) with Docker
-- **GitHub App**: MCP Orchestrator (App ID: 1554609) with webhook integration
-- **Claude Code Integration**: GitHub Actions for AI-powered PR assistance
-- **Fallback**: Direct API via `scripts/github_workflow_orchestrator.py` when Docker unavailable
+We're implementing a systematic approach to reach $300/day in revenue through our automated puzzle book publishing system.
 
-### Key Components
-1. **GitHub MCP Server** (Port 8080)
-   - Continuous PR monitoring
-   - Automatic CI failure detection and fixing
-   - GitHub App webhook handling
-   - Real-time PR status updates
+### 🚀 Traffic Generation System (DEPLOYED)
 
-2. **Claude Code GitHub Actions**
-   - Responds to @claude mentions in issues/PRs
-   - Automated code implementation
-   - Follows CLAUDE.md guidelines
+**Status**: Quick-start system deployed in `experiments` worktree
+- **Reddit Manual Posting**: Ready to generate 200-500 visitors/day
+- **Revenue Projection**: $122-256/day from Reddit alone
+- **Full System**: Pinterest & Facebook automation ready for API setup
 
-3. **Automated Capabilities**
-   - Fix linting errors automatically
-   - Resolve test failures
-   - Handle dependency issues
-   - Auto-merge when all checks pass (configurable)
+**Immediate Actions**:
+1. ✅ Run `python3 reddit_quick_start.py` in experiments/scripts/traffic_generation/
+2. ⚠️ **UPDATE GUMROAD PRICE TO $4.99** (see UPDATE_GUMROAD_NOW.md)
+3. 📊 Monitor landing page: https://dvdyff0b2oove.cloudfront.net
 
-## How to Resume Work
-- See `docs/WORKTREE_STATUS.md` for the latest orchestration and deployment state.
-- All keys, secrets, and configuration steps are documented there for seamless handoff.
+### 💰 Revenue Path
+- **Landing Page**: ✅ LIVE at https://dvdyff0b2oove.cloudfront.net
+- **Email Capture**: ✅ Working (Web3Forms)
+- **Frontend Product**: $4.99 puzzle books (UPDATE PRICE!)
+- **Backend Product**: $97 "Create Your Own Puzzle Book" course
+- **Projected**: $600+/day with full traffic system
 
-## For AI Assistants
-- **ALWAYS START HERE**: Read `docs/WORKTREE_STATUS.md` first to understand current state
-- **Follow Workflow**: See `docs/AI_ASSISTANT_WORKFLOW.md` for handoff process
-- **Update Status**: Use `scripts/utilities/update_worktree_status.sh` to maintain state
-- **Key Principle**: Never start work without reading the status file first
+## 🛠️ Automated Systems
 
-## Quickstart
+### Code Hygiene (NEW!)
+- **GitHub Action**: Enforces hygiene on every PR
+- **Pre-commit Hooks**: Catches issues before commit
+- **Weekly Cleanup**: Automated maintenance
+- **Setup**: `./scripts/setup_hygiene_automation.sh`
 
-### Docker + MCP Server Setup (Recommended)
-1. Install Docker: `./install_docker.sh`
-2. Set up MCP server: `./setup_github_mcp_server.sh`
-3. Set environment variables:
-   ```bash
-   export GITHUB_TOKEN='your-github-pat'
-   export ANTHROPIC_API_KEY='your-anthropic-key'
-   ```
-4. Start monitoring: `docker compose -f docker-compose.mcp.yml up -d`
+### MCP Server Orchestration
+- **Branch**: `feat/mcp-server-orchestration`
+- **Tools**: GitHub workflow automation, PR management
+- **Status**: Infrastructure ready, AWS deployment pending
 
-### Direct API Setup (No Docker)
-1. Set GitHub PAT: `export GITHUB_TOKEN='your-pat-here'`
-2. Start monitoring: `./start_pr_monitor.sh`
+### Worktree Strategy
+- **Main**: Feature development
+- **Experiments**: Traffic generation system ✅
+- **Hotfix**: Emergency fixes
 
-### Claude Code GitHub Actions
-- Already configured in `.github/workflows/claude-code.yml`
-- Add `ANTHROPIC_API_KEY` to repository secrets
-- Mention @claude in any issue or PR comment
+## 🏗️ Architecture
 
-## Plan
-See `plan.md` for the current project roadmap and next steps.
+```
+ai-kindlemint-engine/
+├── src/kindlemint/        # Core engine
+├── scripts/               # Automation scripts
+├── agents/               # AI orchestration agents
+├── worktrees/           # Git worktrees for parallel development
+│   ├── experiments/     # Traffic generation system
+│   ├── hotfix/         # Emergency fixes
+│   └── main/           # Stable main branch
+└── docs/               # Documentation
+```
+
+## 🚀 Quick Start
+
+### Install & Setup
+```bash
+pip install -e .
+./scripts/setup_hygiene_automation.sh
+```
+
+### Generate Traffic NOW
+```bash
+cd worktrees/experiments/scripts/traffic_generation
+python3 reddit_quick_start.py
+```
+
+### Run Tests
+```bash
+python -m pytest tests/ -v
+```
+
+### Check Code Hygiene
+```bash
+git hygiene  # Alias for hygiene check
+```
+
+## 📊 Key Metrics
+- **Goal**: $300/day revenue
+- **Traffic Target**: 1000+ visitors/day
+- **Conversion Path**: Traffic → Email (25%) → Sale (10%) → Backend (20%)
+- **Current Status**: Traffic system deployed, awaiting activation
+
+## 🔧 Development
+
+### Commit Standards
+- ✅ Automated hygiene checks on every PR
+- ✅ Pre-commit hooks for code quality
+- ✅ Conventional commits enforced
+
+### Testing
+- Unit tests: `pytest tests/unit/`
+- Integration tests: `pytest tests/integration/`
+- Coverage target: 80%+
+
+## 📚 Documentation
+- [Automated Hygiene](docs/AUTOMATED_HYGIENE.md) - Code quality enforcement
+- [Worktree Status](docs/WORKTREE_STATUS.md) - Current development state
+- [Revenue Roadmap](docs/REVENUE_ROADMAP_300_DAY.md) - Path to $300/day
+- [Claude Integration](docs/CLAUDE.md) - AI assistant configuration
+
+## 🤝 Contributing
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
+
+## 📄 License
+MIT License - see [LICENSE](LICENSE) file.
+
+---
+
+**Remember**: Every commit should move us closer to $300/day! 💰

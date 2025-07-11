@@ -374,7 +374,9 @@
       "Bash(libreoffice:*)",
       "Bash(scripts/utilities/update_worktree_status.sh:*)",
       "Bash(git config:*)",
-      "Bash(bash:*)"
+      "Bash(bash:*)",
+      "Bash(for f in *.json.template)",
+      "Bash(do cp \"$f\" \"$f%.template\")"
     ],
     "deny": []
   }
