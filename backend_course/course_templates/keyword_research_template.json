@@ -1,0 +1,31 @@
+{
+  "primary_keywords": {
+    "sudoku puzzles": {
+      "search_volume": "40,500/month",
+      "competition": "Medium",
+      "suggested_books": []
+    },
+    "large print sudoku": {
+      "search_volume": "8,100/month",
+      "competition": "Low",
+      "suggested_books": []
+    }
+  },
+  "long_tail_keywords": [
+    "sudoku puzzles for adults large print",
+    "easy sudoku puzzles for beginners",
+    "sudoku puzzle books for seniors with dementia"
+  ],
+  "title_formulas": [
+    "{Puzzle Type} Puzzles for {Audience}: {Number} {Difficulty} Puzzles",
+    "Large Print {Puzzle Type}: {Special Feature} Edition",
+    "{Number} {Puzzle Type} Puzzles: {Difficulty} Level with Solutions"
+  ],
+  "profitable_niches": [
+    "Seniors/Large Print",
+    "Kids/Educational",
+    "Travel/Portable",
+    "Themed (Holidays, Seasons)",
+    "Difficulty-Specific (Expert Only)"
+  ]
+}
