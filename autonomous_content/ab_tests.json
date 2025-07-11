@@ -1,0 +1,22 @@
+{
+  "week_1_tests": [
+    {
+      "test": "Book price",
+      "variant_a": "$4.99",
+      "variant_b": "$3.99",
+      "hypothesis": "Lower price increases volume enough to offset margin"
+    },
+    {
+      "test": "Email subject",
+      "variant_a": "Quick question...",
+      "variant_b": "You'll love this...",
+      "hypothesis": "Curiosity outperforms enthusiasm"
+    },
+    {
+      "test": "Reddit CTA",
+      "variant_a": "Soft mention in P.S.",
+      "variant_b": "Link in comment after engagement",
+      "hypothesis": "Building trust first increases clicks"
+    }
+  ]
+}

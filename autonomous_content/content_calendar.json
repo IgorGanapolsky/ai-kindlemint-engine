@@ -1,0 +1,96 @@
+{
+  "week_starting": "2025-07-11",
+  "daily_tasks": [
+    {
+      "date": "2025-07-11",
+      "day": "Friday",
+      "tasks": [
+        "Post Reddit content #1",
+        "Send email #1",
+        "Check Gumroad sales",
+        "Respond to comments",
+        "Schedule 3 Pinterest pins",
+        "Monitor landing page conversions"
+      ],
+      "revenue_goal": 50
+    },
+    {
+      "date": "2025-07-12",
+      "day": "Saturday",
+      "tasks": [
+        "Post Reddit content #2",
+        "Send email #2",
+        "Check Gumroad sales",
+        "Respond to comments",
+        "Schedule 3 Pinterest pins",
+        "Monitor landing page conversions"
+      ],
+      "revenue_goal": 75
+    },
+    {
+      "date": "2025-07-13",
+      "day": "Sunday",
+      "tasks": [
+        "Post Reddit content #3",
+        "Send email #3",
+        "Check Gumroad sales",
+        "Respond to comments",
+        "Schedule 3 Pinterest pins",
+        "Monitor landing page conversions"
+      ],
+      "revenue_goal": 100
+    },
+    {
+      "date": "2025-07-14",
+      "day": "Monday",
+      "tasks": [
+        "Post Reddit content #4",
+        "Send email #4",
+        "Check Gumroad sales",
+        "Respond to comments",
+        "Schedule 3 Pinterest pins",
+        "Monitor landing page conversions"
+      ],
+      "revenue_goal": 125
+    },
+    {
+      "date": "2025-07-15",
+      "day": "Tuesday",
+      "tasks": [
+        "Post Reddit content #5",
+        "Send email #5",
+        "Check Gumroad sales",
+        "Respond to comments",
+        "Schedule 3 Pinterest pins",
+        "Monitor landing page conversions"
+      ],
+      "revenue_goal": 150
+    },
+    {
+      "date": "2025-07-16",
+      "day": "Wednesday",
+      "tasks": [
+        "Post Reddit content #6",
+        "Send email #6",
+        "Check Gumroad sales",
+        "Respond to comments",
+        "Schedule 3 Pinterest pins",
+        "Monitor landing page conversions"
+      ],
+      "revenue_goal": 175
+    },
+    {
+      "date": "2025-07-17",
+      "day": "Thursday",
+      "tasks": [
+        "Post Reddit content #7",
+        "Send email #7",
+        "Check Gumroad sales",
+        "Respond to comments",
+        "Schedule 3 Pinterest pins",
+        "Monitor landing page conversions"
+      ],
+      "revenue_goal": 200
+    }
+  ]
+}

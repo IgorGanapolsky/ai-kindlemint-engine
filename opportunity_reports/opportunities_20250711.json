@@ -1,0 +1,129 @@
+{
+  "timestamp": "2025-07-11T18:23:10.351153",
+  "immediate": [
+    {
+      "type": "Format Opportunity",
+      "title": "Spiral-Bound Puzzles",
+      "revenue_boost": "+$3-5 per book",
+      "effort": "Same content, different binding",
+      "action": "Convert existing books to Spiral-Bound Puzzles"
+    },
+    {
+      "type": "Format Opportunity",
+      "title": "Hardcover Gift Editions",
+      "revenue_boost": "+$5-10 per book",
+      "effort": "Add gift messaging, premium cover",
+      "action": "Convert existing books to Hardcover Gift Editions"
+    },
+    {
+      "type": "Format Opportunity",
+      "title": "Digital Bundle Downloads",
+      "revenue_boost": "100% profit margin",
+      "effort": "Convert to PDF, sell on Gumroad",
+      "action": "Convert existing books to Digital Bundle Downloads"
+    },
+    {
+      "type": "Bundle Strategy",
+      "title": "Complete Beginner Set",
+      "price": "$19.99",
+      "extra_profit": "$3.21 per bundle",
+      "action": "Create 'Complete Beginner Set' bundle on Gumroad"
+    },
+    {
+      "type": "Bundle Strategy",
+      "title": "Brain Training Year",
+      "price": "$69.99",
+      "extra_profit": "$12.46 per bundle",
+      "action": "Create 'Brain Training Year' bundle on Gumroad"
+    },
+    {
+      "type": "Bundle Strategy",
+      "title": "Gift Collection",
+      "price": "$34.99",
+      "extra_profit": "$11.02 per bundle",
+      "action": "Create 'Gift Collection' bundle on Gumroad"
+    },
+    {
+      "type": "Marketing Campaign",
+      "description": "Run a 48-hour flash sale (20% off)",
+      "effort": "1-2 hours",
+      "potential_impact": "$100-500 this week"
+    },
+    {
+      "type": "Marketing Campaign",
+      "description": "Create 'Puzzle of the Day' email series",
+      "effort": "1-2 hours",
+      "potential_impact": "$100-500 this week"
+    },
+    {
+      "type": "Marketing Campaign",
+      "description": "Launch affiliate program (30% commission)",
+      "effort": "1-2 hours",
+      "potential_impact": "$100-500 this week"
+    },
+    {
+      "type": "Marketing Campaign",
+      "description": "Partner with senior centers",
+      "effort": "1-2 hours",
+      "potential_impact": "$100-500 this week"
+    },
+    {
+      "type": "Marketing Campaign",
+      "description": "Create YouTube solving tutorials",
+      "effort": "1-2 hours",
+      "potential_impact": "$100-500 this week"
+    }
+  ],
+  "this_week": [
+    {
+      "type": "Trending Niche",
+      "title": "AI/ChatGPT Puzzles",
+      "description": "Puzzles about AI terms, tech concepts",
+      "revenue_potential": "$1000-3000/month",
+      "competition": "LOW",
+      "action": "Research and create AI/ChatGPT Puzzles book"
+    },
+    {
+      "type": "Trending Niche",
+      "title": "Mindfulness Puzzles",
+      "description": "Calming puzzles with meditation themes",
+      "revenue_potential": "$800-2000/month",
+      "competition": "MEDIUM",
+      "action": "Research and create Mindfulness Puzzles book"
+    },
+    {
+      "type": "Trending Niche",
+      "title": "Nostalgia Series (80s, 90s)",
+      "description": "Puzzles with retro themes",
+      "revenue_potential": "$1200-2500/month",
+      "competition": "LOW",
+      "action": "Research and create Nostalgia Series (80s, 90s) book"
+    }
+  ],
+  "this_month": [
+    {
+      "type": "Seasonal Book",
+      "title": "Summer Vacation Puzzles",
+      "urgency": "HIGH",
+      "revenue_potential": "$500-2000",
+      "effort": "1 day",
+      "action": "Create Summer Vacation Puzzles themed puzzle book"
+    },
+    {
+      "type": "Seasonal Book",
+      "title": "Beach Brain Teasers",
+      "urgency": "HIGH",
+      "revenue_potential": "$500-2000",
+      "effort": "1 day",
+      "action": "Create Beach Brain Teasers themed puzzle book"
+    },
+    {
+      "type": "Seasonal Book",
+      "title": "Road Trip Activity Books",
+      "urgency": "HIGH",
+      "revenue_potential": "$500-2000",
+      "effort": "1 day",
+      "action": "Create Road Trip Activity Books themed puzzle book"
+    }
+  ]
+}

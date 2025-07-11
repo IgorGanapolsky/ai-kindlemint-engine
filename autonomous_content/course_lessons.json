@@ -1,0 +1,158 @@
+[
+  {
+    "module": 1,
+    "lesson": 1,
+    "title": "Foundation - Lesson 1",
+    "duration": "16 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  },
+  {
+    "module": 1,
+    "lesson": 2,
+    "title": "Foundation - Lesson 2",
+    "duration": "12 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  },
+  {
+    "module": 1,
+    "lesson": 3,
+    "title": "Foundation - Lesson 3",
+    "duration": "15 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  },
+  {
+    "module": 2,
+    "lesson": 1,
+    "title": "Creation - Lesson 1",
+    "duration": "24 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  },
+  {
+    "module": 2,
+    "lesson": 2,
+    "title": "Creation - Lesson 2",
+    "duration": "15 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  },
+  {
+    "module": 2,
+    "lesson": 3,
+    "title": "Creation - Lesson 3",
+    "duration": "11 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  },
+  {
+    "module": 3,
+    "lesson": 1,
+    "title": "Publishing - Lesson 1",
+    "duration": "14 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  },
+  {
+    "module": 3,
+    "lesson": 2,
+    "title": "Publishing - Lesson 2",
+    "duration": "25 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  },
+  {
+    "module": 3,
+    "lesson": 3,
+    "title": "Publishing - Lesson 3",
+    "duration": "14 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  },
+  {
+    "module": 4,
+    "lesson": 1,
+    "title": "Scaling - Lesson 1",
+    "duration": "22 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  },
+  {
+    "module": 4,
+    "lesson": 2,
+    "title": "Scaling - Lesson 2",
+    "duration": "17 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  },
+  {
+    "module": 4,
+    "lesson": 3,
+    "title": "Scaling - Lesson 3",
+    "duration": "11 minutes",
+    "outline": [
+      "Introduction and objectives",
+      "Main content point 1",
+      "Main content point 2",
+      "Practical exercise",
+      "Key takeaways"
+    ]
+  }
+]
