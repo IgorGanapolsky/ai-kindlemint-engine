@@ -367,7 +367,11 @@
       "Bash(pip3 install:*)",
       "Bash(./scripts/utilities/update_worktree_status.sh:*)",
       "Bash(./scripts/deploy_mcp_server.sh:*)",
-      "Bash(./scripts/local_mcp_deployment.sh:*)"
+      "Bash(./scripts/local_mcp_deployment.sh:*)",
+      "Bash(docker:*)",
+      "Bash([ -n \"$GITHUB_TOKEN\" ])",
+      "Bash(pip show:*)",
+      "Bash(libreoffice:*)"
     ],
     "deny": []
   }
