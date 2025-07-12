@@ -377,7 +377,8 @@
       "Bash(bash:*)",
       "Bash(for f in *.json.template)",
       "Bash(do cp \"$f\" \"$f%.template\")",
-      "WebFetch(domain:aws.amazon.com)"
+      "WebFetch(domain:aws.amazon.com)",
+      "Bash(AWS_PROFILE=kindlemint-keys ./deploy-simple.sh)"
     ],
     "deny": []
   }
