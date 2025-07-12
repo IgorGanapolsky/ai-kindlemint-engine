@@ -1,7 +1,7 @@
 {
-  "client_id": "OX37oY5MNhf0iOdKRwhUSA",
-  "client_secret": "mk-XEasANmHS9CnScSgNyuulH1xNDw",
+  "client_id": "${REDDIT_CLIENT_ID}",
+  "client_secret": "${REDDIT_CLIENT_SECRET}",
   "user_agent": "SudokuHelper/1.0 by Virtual_Exit5690",
-  "username": "Virtual_Exit5690",
-  "password": "Rockland25&*"
+  "username": "${REDDIT_USERNAME}",
+  "password": "${REDDIT_PASSWORD}"
 }

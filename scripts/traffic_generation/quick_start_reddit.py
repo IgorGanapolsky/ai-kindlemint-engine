@@ -8,14 +8,51 @@ import praw
 import json
 import time
 import random
+import os
 from datetime import datetime
 
 print("🚀 Starting Reddit Traffic Generator...")
 print("=" * 50)
 
-# Load your saved credentials
-with open('reddit_config.json', 'r') as f:
-    config = json.load(f)
+# Load credentials from environment variables or config file
+def load_reddit_config():
+    # Try environment variables first (secure method)
+    if all(key in os.environ for key in ['REDDIT_CLIENT_ID', 'REDDIT_CLIENT_SECRET', 'REDDIT_USERNAME', 'REDDIT_PASSWORD']):
+        print("🔐 Loading credentials from environment variables (secure)")
+        return {
+            "client_id": os.environ['REDDIT_CLIENT_ID'],
+            "client_secret": os.environ['REDDIT_CLIENT_SECRET'],
+            "user_agent": "SudokuHelper/1.0 by Virtual_Exit5690",
+            "username": os.environ['REDDIT_USERNAME'],
+            "password": os.environ['REDDIT_PASSWORD']
+        }
+    
+    # Fallback to config file (less secure)
+    try:
+        with open('reddit_config.json', 'r') as f:
+            config = json.load(f)
+        
+        # Replace environment variable placeholders if they exist
+        for key, value in config.items():
+            if isinstance(value, str) and value.startswith('${') and value.endswith('}'):
+                env_var = value[2:-1]  # Remove ${ and }
+                if env_var in os.environ:
+                    config[key] = os.environ[env_var]
+                else:
+                    print(f"⚠️  Environment variable {env_var} not found")
+                    print("Run: source .env")
+                    print("Or: ./setup_reddit_credentials.sh")
+                    exit(1)
+        
+        print("📄 Loading credentials from config file")
+        return config
+    
+    except FileNotFoundError:
+        print("❌ reddit_config.json not found and no environment variables set")
+        print("Please run: ./setup_reddit_credentials.sh")
+        exit(1)
+
+config = load_reddit_config()
 
 # Initialize Reddit
 reddit = praw.Reddit(

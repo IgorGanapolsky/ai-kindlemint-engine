@@ -36,25 +36,31 @@ This traffic generation system is designed to drive 1000+ daily visitors to our 
 
 ## Quick Start
 
-### 1. Reddit Setup
+### 1. Reddit Setup (Secure)
 
 ```bash
-# Get Reddit API credentials
-# Visit: https://www.reddit.com/prefs/apps
+# SECURE METHOD: Use environment variables
+# Get Reddit API credentials at: https://www.reddit.com/prefs/apps
 # Create app (script type)
 
-# Edit reddit_config.json with your credentials
-{
-  "client_id": "YOUR_CLIENT_ID",
-  "client_secret": "YOUR_CLIENT_SECRET",
-  "user_agent": "SudokuHelper/1.0 by YourUsername",
-  "username": "YOUR_REDDIT_USERNAME",
-  "password": "YOUR_REDDIT_PASSWORD"
-}
+# Option A: Run secure setup script (RECOMMENDED)
+cd scripts/traffic_generation
+./setup_reddit_credentials.sh
+
+# Option B: Manual environment variables
+export REDDIT_CLIENT_ID="your_client_id"
+export REDDIT_CLIENT_SECRET="your_client_secret"
+export REDDIT_USERNAME="your_username"
+export REDDIT_PASSWORD="your_password"
 
 # Test Reddit bot
-python3 reddit_organic_poster.py
+python3 quick_start_reddit.py
 ```
+
+**🔐 Security Notes:**
+- Credentials are stored in `.env` file (never committed to git)
+- Scripts automatically load from environment variables
+- Fallback to config file with environment variable placeholders
 
 ### 2. Pinterest Setup
 
