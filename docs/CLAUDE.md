@@ -1,5 +1,8 @@
 # Claude Code Configuration
 
+## CRITICAL WORKFLOW RULES
+**ALWAYS CREATE A PR WHEN PUSHING A BRANCH** - Every time you push a new branch, immediately create a Pull Request. No exceptions. This ensures visibility and proper review workflow.
+
 ## Build Commands
 - `npm run build`: Build the project
 - `npm run test`: Run the full test suite
