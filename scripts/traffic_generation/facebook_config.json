@@ -1,5 +1,5 @@
 {
-  "chrome_profile_path": "/path/to/chrome/profile",
+  "chrome_profile_path": "/home/igorganapolsky/.config/google-chrome-canary/Default",
   "safety_mode": true,
   "max_daily_posts": 1,
   "max_daily_comments": 10,
