@@ -1,0 +1,105 @@
+{
+  "version": "1.0",
+  "description": "Code hygiene rules and thresholds for ai-kindlemint-engine",
+  
+  "severity_levels": {
+    "error": {
+      "description": "Must be fixed before merging",
+      "block_merge": true
+    },
+    "warning": {
+      "description": "Should be addressed but not blocking",
+      "block_merge": false
+    },
+    "info": {
+      "description": "Informational only",
+      "block_merge": false
+    }
+  },
+  
+  "rules": {
+    "duplicate_files": {
+      "enabled": true,
+      "severity": "error",
+      "threshold": 3,
+      "description": "No more than 3 files with identical content"
+    },
+    
+    "large_files": {
+      "enabled": true,
+      "severity": "error",
+      "max_size_mb": 10,
+      "exceptions": ["*.pdf", "*.png", "*.jpg"],
+      "description": "Files larger than 10MB should be in Git LFS"
+    },
+    
+    "script_duplication": {
+      "enabled": true,
+      "severity": "warning",
+      "max_similar_scripts": 5,
+      "description": "Limit similar scripts per category (cleanup, fix, etc.)"
+    },
+    
+    "unused_files": {
+      "enabled": true,
+      "severity": "warning",
+      "days_threshold": 90,
+      "description": "Files not modified in 90+ days should be archived"
+    },
+    
+    "naming_conventions": {
+      "enabled": true,
+      "severity": "warning",
+      "python_style": "snake_case",
+      "description": "Enforce consistent naming conventions"
+    },
+    
+    "empty_directories": {
+      "enabled": true,
+      "severity": "info",
+      "description": "Remove empty directories"
+    },
+    
+    "temporary_files": {
+      "enabled": true,
+      "severity": "error",
+      "patterns": ["*.tmp", "*.temp", "*.debug", "*.log", ".DS_Store"],
+      "description": "Temporary files should not be committed"
+    },
+    
+    "broken_symlinks": {
+      "enabled": true,
+      "severity": "error",
+      "description": "Broken symbolic links must be fixed or removed"
+    },
+    
+    "one_off_scripts": {
+      "enabled": true,
+      "severity": "warning",
+      "patterns": ["emergency_*", "fix_*", "hotfix_*", "quick_*"],
+      "max_count": 10,
+      "description": "Limit one-off fix scripts"
+    }
+  },
+  
+  "ignored_paths": [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "node_modules",
+    ".pytest_cache",
+    ".mypy_cache",
+    "build",
+    "dist",
+    "*.egg-info"
+  ],
+  
+  "ci_settings": {
+    "fail_on_error": true,
+    "fail_on_warning": false,
+    "create_pr_comment": true,
+    "auto_fix_on_schedule": true,
+    "schedule": "weekly"
+  }
+}

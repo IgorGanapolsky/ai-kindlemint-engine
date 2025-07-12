@@ -47,6 +47,9 @@ class CodeHygieneOrchestrator:
         self.issues = defaultdict(list)
         self.stats = defaultdict(int)
 
+        # Load configuration from rules file if exists
+        self._load_hygiene_rules()
+        
         # Configuration
         self.config = {
             "archive_dir": self.repo_path / ".archive",
@@ -68,6 +71,20 @@ class CodeHygieneOrchestrator:
                 "ci_*_results.json",
             ],
         }
+        
+    def _load_hygiene_rules(self):
+        """Load hygiene rules from config file."""
+        rules_file = self.repo_path / "config" / "hygiene_rules.json"
+        if rules_file.exists():
+            try:
+                with open(rules_file, 'r') as f:
+                    self.rules = json.load(f)
+                logger.info(f"Loaded hygiene rules from {rules_file}")
+            except Exception as e:
+                logger.warning(f"Failed to load hygiene rules: {e}")
+                self.rules = None
+        else:
+            self.rules = None
 
         # Hygiene rules
         self.hygiene_rules = {
@@ -669,13 +686,37 @@ class CodeHygieneOrchestrator:
 @click.option(
     "--repo-path", default=".", help="Path to repository (default: current directory)"
 )
-def main(command, dry_run, interactive, output, repo_path):
+@click.option(
+    "--json", "output_json", is_flag=True, help="Output results as JSON"
+)
+def main(command, dry_run, interactive, output, repo_path, output_json):
     """Code Hygiene Orchestrator - Keep your codebase clean and organized."""
     orchestrator = CodeHygieneOrchestrator(repo_path)
 
     if command == "analyze":
         result = orchestrator.analyze()
-        print("\n" + result["summary"])
+        
+        if output_json:
+            # Convert issues to JSON-friendly format
+            json_output = {
+                "status": "success",
+                "issues": [],
+                "statistics": orchestrator.stats,
+                "summary": result["summary"]
+            }
+            
+            # Convert issues to list format for JSON
+            for category, issues in orchestrator.issues.items():
+                for issue in issues:
+                    json_output["issues"].append({
+                        "type": category,
+                        "severity": "error" if category in ["duplicates", "large_files", "ci_artifacts"] else "warning",
+                        "description": issue
+                    })
+            
+            print(json.dumps(json_output, indent=2))
+        else:
+            print("\n" + result["summary"])
 
     elif command == "clean":
         if not dry_run:

@@ -372,3 +372,47 @@ NEVER proactively create documentation files (*.md) or README files. Only create
 - Page margin violations
 - Font rendering problems
 - ALWAYS manually preview PDFs before marking as complete
+
+## MULTI-AGENT WORKTREE WORKFLOW (MANDATORY)
+**Every time the user asks to do something, you MUST:**
+1. **Spawn an agent** using `scripts/multi_agent_orchestrator.py`
+2. **Create a worktree** for that agent (e.g., `worktrees/agent_12345678`)
+3. **Work in isolation** - Each agent works in its own branch and worktree
+4. **Track progress** - Update plan.md and docs/ in the worktree
+5. **Create PR** - When done, push branch and create GitHub PR
+6. **Multiple agents** - Can work in parallel without conflicts
+
+### Example Workflow:
+```python
+from scripts.multi_agent_orchestrator import MultiAgentOrchestrator
+
+orchestrator = MultiAgentOrchestrator()
+
+# Spawn agent for task
+agent_id = orchestrator.spawn_agent("Implement new revenue optimization feature")
+
+# Multiple agents in parallel
+tasks = [
+    "Research market opportunities",
+    "Create content templates", 
+    "Build automation scripts"
+]
+agent_ids = orchestrator.spawn_parallel_agents(tasks)
+
+# Wait for completion
+orchestrator.wait_for_agents(agent_ids)
+```
+
+### Agent Responsibilities:
+- Each agent updates its own plan.md section
+- Creates documentation in docs/AGENT_[ID]_*.md
+- Commits with message: "feat: [task] - Agent [ID]"
+- Creates PR with full progress log
+- Cleans up worktree after PR creation
+
+### Benefits:
+- True parallel development
+- No merge conflicts
+- Complete audit trail
+- Automatic PR creation
+- Progress tracking per agent

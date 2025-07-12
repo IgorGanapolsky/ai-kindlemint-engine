@@ -1,0 +1,14 @@
+{
+  "enabled_sources": {
+    "reddit": true,
+    "pinterest": false,
+    "facebook": false
+  },
+  "schedule": {
+    "run_every_hours": 4,
+    "start_hour": 8,
+    "end_hour": 20
+  },
+  "landing_page": "https://dvdyff0b2oove.cloudfront.net",
+  "metrics_tracking": true
+}
