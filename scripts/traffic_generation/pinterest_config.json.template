@@ -1,0 +1,11 @@
+{
+  "access_token": "YOUR_PINTEREST_ACCESS_TOKEN",
+  "board_ids": {
+    "brain-games": "YOUR_BOARD_ID",
+    "senior-wellness": "YOUR_BOARD_ID",
+    "puzzles": "YOUR_BOARD_ID",
+    "mental-health": "YOUR_BOARD_ID",
+    "default": "YOUR_DEFAULT_BOARD_ID"
+  },
+  "_instructions": "Get access token at https://developers.pinterest.com/ - Create app and generate token"
+}

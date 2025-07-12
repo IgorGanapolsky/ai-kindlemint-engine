@@ -1,0 +1,8 @@
+{
+  "client_id": "YOUR_CLIENT_ID",
+  "client_secret": "YOUR_CLIENT_SECRET",
+  "user_agent": "SudokuHelper/1.0 by YourUsername",
+  "username": "YOUR_REDDIT_USERNAME",
+  "password": "YOUR_REDDIT_PASSWORD",
+  "_instructions": "Get credentials at https://www.reddit.com/prefs/apps - Create app (script type)"
+}

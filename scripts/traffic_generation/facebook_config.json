@@ -1,0 +1,13 @@
+{
+  "chrome_profile_path": "/home/igorganapolsky/.config/google-chrome-canary/Default",
+  "safety_mode": true,
+  "max_daily_posts": 1,
+  "max_daily_comments": 10,
+  "target_groups": [
+    "Sudoku Lovers",
+    "Brain Games for Seniors",
+    "Puzzle Addicts",
+    "Mental Health and Wellness"
+  ],
+  "_instructions": "Login to Facebook in Chrome, then find profile path: chrome://version/ -> Profile Path"
+}
