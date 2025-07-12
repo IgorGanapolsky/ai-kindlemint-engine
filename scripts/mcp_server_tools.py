@@ -17,7 +17,7 @@ import time
 MCP_SERVER_IP = "44.201.249.255"
 MCP_SERVER_PORT = "8080"
 MCP_SERVER_URL = f"http://{MCP_SERVER_IP}:{MCP_SERVER_PORT}"
-GITHUB_APP_ID = "1554609"
+GITHUB_APP_ID = os.environ.get('GITHUB_APP_ID', 'YOUR_APP_ID')
 
 class MCPServerTools:
     def __init__(self):

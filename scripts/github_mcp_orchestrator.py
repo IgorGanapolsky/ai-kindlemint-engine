@@ -17,8 +17,8 @@ from pathlib import Path
 class GitHubMCPOrchestrator:
     def __init__(self):
         self.github_token = os.getenv('GITHUB_TOKEN')
-        self.app_id = "1554609"
-        self.client_id = "Iv23limbdVHqB1FKtnxK"
+        self.app_id = os.environ.get('GITHUB_APP_ID', 'YOUR_APP_ID')
+        self.client_id = os.environ.get('GITHUB_CLIENT_ID', 'YOUR_CLIENT_ID')
         self.mcp_server_url = "http://localhost:8080"
         self.repo_owner = "IgorGanapolsky"
         self.repo_name = "ai-kindlemint-engine"

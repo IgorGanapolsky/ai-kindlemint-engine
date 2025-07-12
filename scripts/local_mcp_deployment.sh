@@ -6,7 +6,7 @@ echo "🚀 MCP Server Local Testing & EC2 Recovery Guide"
 echo "==============================================="
 
 # Configuration
-GITHUB_APP_ID="1554609"
+GITHUB_APP_ID="${GITHUB_APP_ID:-1554609}"
 GITHUB_APP_PRIVATE_KEY_PATH="$HOME/.ssh/github-mcp-orchestrator.private-key.pem"
 EC2_IP="44.201.249.255"
 
@@ -40,7 +40,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - GITHUB_APP_ID=1554609
+      - GITHUB_APP_ID=${GITHUB_APP_ID}
       - GITHUB_APP_PRIVATE_KEY_PATH=/app/github-app-private-key.pem
       - GITHUB_TOKEN=${GITHUB_TOKEN}
     volumes:
@@ -157,7 +157,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - GITHUB_APP_ID=1554609
+      - GITHUB_APP_ID=${GITHUB_APP_ID}
       - GITHUB_APP_PRIVATE_KEY_PATH=/app/github-app-private-key.pem
       - GITHUB_TOKEN=${GITHUB_TOKEN}
     volumes:

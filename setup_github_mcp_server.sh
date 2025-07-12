@@ -28,8 +28,8 @@ echo "📝 Creating MCP server configuration..."
 cat > github-mcp-server-config.json << EOF
 {
   "github": {
-    "app_id": 1554609,
-    "client_id": "Iv23limbdVHqB1FKtnxK",
+    "app_id": ${GITHUB_APP_ID:-"YOUR_APP_ID"},
+    "client_id": "${GITHUB_CLIENT_ID:-YOUR_CLIENT_ID}",
     "webhook_secret": "your-webhook-secret",
     "private_key_path": "/app/github-app-private-key.pem"
   },
@@ -61,8 +61,8 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - GITHUB_APP_ID=1554609
-      - GITHUB_CLIENT_ID=Iv23limbdVHqB1FKtnxK
+      - GITHUB_APP_ID=${GITHUB_APP_ID}
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
       - GITHUB_TOKEN=${GITHUB_TOKEN}
       - CONFIG_PATH=/app/config.json
     volumes:
