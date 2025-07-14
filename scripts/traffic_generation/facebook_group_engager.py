@@ -12,13 +12,13 @@ Strategy:
 
 import json
 import time
-import random
 from datetime import datetime, timedelta
 from typing import List, Dict
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import secrets
 
 class FacebookGroupEngager:
     def __init__(self, config_file: str = "facebook_config.json"):
@@ -139,11 +139,11 @@ Happy puzzling everyone! 🧩""",
         
         # Navigate to group
         driver.get(group['url'])
-        time.sleep(random.randint(5, 10))
+        time.sleep(secrets.SystemRandom().randint(5, 10))
         
         # Scroll to load posts
         driver.execute_script("window.scrollTo(0, 1000)")
-        time.sleep(random.randint(3, 7))
+        time.sleep(secrets.SystemRandom().randint(3, 7))
         
         # Look for posts to engage with
         engaged = 0
@@ -163,7 +163,7 @@ Happy puzzling everyone! 🧩""",
                 
                 if any(keyword in post_text for keyword in relevant_keywords):
                     # Randomly decide action: like, comment, or both
-                    action = random.choice(["like", "comment", "both"])
+                    action = secrets.choice(["like", "comment", "both"])
                     
                     if action in ["like", "both"]:
                         # Find and click like button
@@ -171,18 +171,18 @@ Happy puzzling everyone! 🧩""",
                             like_button = post.find_element(By.CSS_SELECTOR, '[aria-label*="Like"]')
                             like_button.click()
                             print("   👍 Liked a post")
-                            time.sleep(random.randint(2, 5))
+                            time.sleep(secrets.SystemRandom().randint(2, 5))
                         except:
                             pass
                     
-                    if action in ["comment", "both"] and random.random() < 0.5:  # 50% chance to comment
+                    if action in ["comment", "both"] and secrets.SystemRandom().random() < 0.5:  # 50% chance to comment
                         # Add helpful comment
                         try:
                             comment_box = post.find_element(By.CSS_SELECTOR, '[aria-label*="Write a comment"]')
                             comment_box.click()
                             time.sleep(2)
                             
-                            comment = random.choice(self.helpful_comments)
+                            comment = secrets.choice(self.helpful_comments)
                             comment_box.send_keys(comment)
                             time.sleep(2)
                             
@@ -192,7 +192,7 @@ Happy puzzling everyone! 🧩""",
                             engaged += 1
                             
                             # Don't spam - wait between actions
-                            time.sleep(random.randint(30, 60))
+                            time.sleep(secrets.SystemRandom().randint(30, 60))
                         except:
                             pass
         
@@ -208,7 +208,7 @@ Happy puzzling everyone! 🧩""",
         try:
             # Navigate to group
             driver.get(group['url'])
-            time.sleep(random.randint(5, 10))
+            time.sleep(secrets.SystemRandom().randint(5, 10))
             
             # Find create post button
             create_post = WebDriverWait(driver, 10).until(
@@ -218,7 +218,7 @@ Happy puzzling everyone! 🧩""",
             time.sleep(3)
             
             # Select post template
-            post = random.choice(self.post_templates)
+            post = secrets.choice(self.post_templates)
             
             # Type post content
             post_box = driver.find_element(By.CSS_SELECTOR, '[aria-label*="What\'s on your mind"]')
@@ -253,12 +253,12 @@ Happy puzzling everyone! 🧩""",
                 total_engagements += engagements
                 
                 # Occasionally create a value post (once per day max)
-                if posts_created == 0 and random.random() < 0.3:  # 30% chance
+                if posts_created == 0 and secrets.SystemRandom().random() < 0.3:  # 30% chance
                     if self.create_value_post(driver, group):
                         posts_created += 1
                 
                 # Don't rush - space out activity
-                wait_time = random.randint(300, 600)  # 5-10 minutes
+                wait_time = secrets.SystemRandom().randint(300, 600)  # 5-10 minutes
                 print(f"   ⏰ Waiting {wait_time//60} minutes before next group...")
                 time.sleep(wait_time)
             

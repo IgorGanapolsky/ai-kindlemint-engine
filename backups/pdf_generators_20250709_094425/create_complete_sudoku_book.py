@@ -2,13 +2,12 @@
 """
 Create a complete Large Print Sudoku book with introduction and proper formatting
 """
-
-import random
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+import secrets
 
 def create_sudoku_grid(difficulty_level="medium"):
     """Generate a valid 9x9 Sudoku puzzle with clues based on difficulty"""
@@ -28,7 +27,7 @@ def create_sudoku_grid(difficulty_level="medium"):
     # Shuffle rows within groups
     for group in range(3):
         rows = list(range(group*3, (group+1)*3))
-        random.shuffle(rows)
+        secrets.SystemRandom().shuffle(rows)
         for i, row in enumerate(rows):
             if i != row % 3:
                 base[group*3 + i], base[row] = base[row], base[group*3 + i]
@@ -36,7 +35,7 @@ def create_sudoku_grid(difficulty_level="medium"):
     # Shuffle columns within groups  
     for group in range(3):
         cols = list(range(group*3, (group+1)*3))
-        random.shuffle(cols)
+        secrets.SystemRandom().shuffle(cols)
         for i, col in enumerate(cols):
             if i != col % 3:
                 for row in range(9):
@@ -54,7 +53,7 @@ def create_sudoku_grid(difficulty_level="medium"):
         cells_to_remove = 50  # 31 clues (harder)
     
     cells = [(r, c) for r in range(9) for c in range(9)]
-    random.shuffle(cells)
+    secrets.SystemRandom().shuffle(cells)
     
     for i in range(cells_to_remove):
         row, col = cells[i]

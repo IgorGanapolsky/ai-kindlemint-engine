@@ -16,6 +16,7 @@ from reportlab.lib import colors
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.fonts import addMapping
+import secrets
 
 # Use built-in fonts for compatibility
 BASE_FONT = "Helvetica"
@@ -507,9 +508,8 @@ class EnhancedSudokuPDFLayout:
         }
 
         difficulty = puzzle_data.get("difficulty", "medium")
-        import random
 
-        return random.choice(insights.get(difficulty, insights["medium"]))
+        return secrets.choice(insights.get(difficulty, insights["medium"]))
 
     def add_solutions_page(self, story, puzzle_solutions):
         """Add a page with multiple solutions."""
