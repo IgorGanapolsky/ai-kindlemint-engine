@@ -2,6 +2,7 @@
 
 ## CRITICAL WORKFLOW RULES
 **ALWAYS CREATE A PR WHEN PUSHING A BRANCH** - Every time you push a new branch, immediately create a Pull Request. No exceptions. This ensures visibility and proper review workflow.
+**NEVER MENTION PINTEREST** - The CEO has explicitly banned any mention of Pinterest. Focus on Reddit, Facebook, and other traffic sources only.
 
 ## Build Commands
 - `npm run build`: Build the project

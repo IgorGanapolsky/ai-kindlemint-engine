@@ -379,7 +379,9 @@
       "Bash(do cp \"$f\" \"$f%.template\")",
       "WebFetch(domain:aws.amazon.com)",
       "Bash(AWS_PROFILE=kindlemint-keys ./deploy-simple.sh)",
-      "Bash(gh repo set-default:*)"
+      "Bash(gh repo set-default:*)",
+      "Bash(gh gist create:*)",
+      "Bash(gh gist list:*)"
     ],
     "deny": []
   }
