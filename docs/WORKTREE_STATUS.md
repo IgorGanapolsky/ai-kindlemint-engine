@@ -44,7 +44,7 @@
 ## GitHub Workflow Orchestration Status
 
 ### Current Strategy: Direct GitHub API Integration
-**Pivot**: Using GitHub PAT with direct API calls instead of MCP server (due to Docker/AWS limitations)
+**Current**: Using GitHub CLI with GitHub Actions for full automation
 
 ### Infrastructure State
 - **GitHub PAT Orchestrator**: ✅ IMPLEMENTED (`scripts/github_workflow_orchestrator.py`)
@@ -53,7 +53,7 @@
   - No server infrastructure required
 - **Local Docker**: ❌ BLOCKED (Docker not installed on system)
 - **AWS EC2**: `44.201.249.255:8080` - ❌ OFFLINE (AWS creds expired)
-- **GitHub App**: MCP Orchestrator (App ID: 1554609) - ✅ CONFIGURED (for future use)
+- **GitHub CLI**: Configured for autonomous PR/issue management - ✅ ACTIVE
 
 ### Why Direct API Approach?
 1. **Immediate availability** - Works with just a GitHub PAT
@@ -70,9 +70,10 @@
    python3 scripts/github_workflow_orchestrator.py trigger <workflow_id>
    python3 scripts/github_workflow_orchestrator.py runs
    ```
-3. **Future MCP Setup** (when Docker available):
-   - Use `docker-compose.yml` for local development
-   - Or fix EC2 instance with new AWS credentials
+3. **GitHub Actions Automation** (currently active):
+   - Autonomous PR management via GitHub CLI
+   - Bot issue resolution and auto-merge
+   - Emergency merge capabilities
 
 ## Development Priorities
 
@@ -89,7 +90,7 @@
 - Create puzzle book bundles ($29.99 for 3 volumes)
 
 ### 🔧 Infrastructure (Lower Priority)
-- Fix MCP server connectivity (not critical for revenue)
+- Monitor GitHub Actions automation (currently active)
 - Complete GitHub App automation
 - Scale deployment infrastructure
 
@@ -137,16 +138,16 @@
    - Create backend course content ($97 product)
    - Build email automation sequences
    - Package book bundles on Gumroad
-4. **Infrastructure**: MCP server at `44.201.249.255:8080` (currently offline)
+4. **Infrastructure**: GitHub Actions automation active and monitoring
 
 ### Tools Available:
-- Local MCP server: `python3 scripts/utilities/mcp_server.py`
-- Setup script: `scripts/utilities/setup_mcp_monetization.sh`
+- GitHub CLI automation: Active in GitHub Actions
+- Bot handling workflows: Autonomous PR/issue management
 - Worktree management: Standard git worktree commands
 
 ### Configuration Files:
 - `config/.worktree_orchestration_config.json` - Orchestration settings
-- `docs/requirements_mcp.txt` - MCP dependencies
+- `.github/workflows/` - GitHub Actions automation
 - `docs/CLAUDE_CODE_WORKTREE_STRATEGY.md` - Worktree strategy guide
 
 ## Revenue Tracking
