@@ -381,7 +381,8 @@
       "Bash(AWS_PROFILE=kindlemint-keys ./deploy-simple.sh)",
       "Bash(gh repo set-default:*)",
       "Bash(gh gist create:*)",
-      "Bash(gh gist list:*)"
+      "Bash(gh gist list:*)",
+      "Bash(./RUN_THIS_FOR_MONEY.sh:*)"
     ],
     "deny": []
   }

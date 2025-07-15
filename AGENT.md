@@ -12,7 +12,7 @@
 - **API**: `api/` - Webhook handlers, subscription management, landing pages
 - **Scripts**: `scripts/` - 200+ automation scripts for book generation, CI/CD, market research
 - **Tests**: `tests/` - Unit tests in `unit/`, integration tests in `integration/`
-- **MCP Server**: Orchestrates GitHub workflows via EC2 deployment at `44.201.249.255:8080`
+- **GitHub CLI Automation**: Orchestrates GitHub workflows via GitHub Actions with comprehensive bot handling
 
 ## Key Technologies
 - **AI APIs**: OpenAI (GPT-4, DALL-E), Claude (Anthropic), configurable API manager

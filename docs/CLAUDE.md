@@ -115,10 +115,11 @@ Available SPARC modes: orchestrator, coder, researcher, tdd, architect, reviewer
 - `--monitor`: Real-time monitoring
 - `--output <format>`: json, sqlite, csv, html
 
-### MCP Server Integration
-- `./claude-flow mcp start [--port 3000] [--host localhost]`: Start MCP server
-- `./claude-flow mcp status`: Show MCP server status
-- `./claude-flow mcp tools`: List available MCP tools
+### GitHub CLI Automation
+- `gh pr list --state open`: List open PRs
+- `gh pr merge <number> --merge --squash`: Merge PRs
+- `gh issue list --state open`: List open issues
+- `gh issue close <number> --reason completed`: Close issues
 
 ### Claude Integration
 - `./claude-flow claude auth`: Authenticate with Claude API
