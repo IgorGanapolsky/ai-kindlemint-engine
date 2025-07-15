@@ -1,0 +1,32 @@
+{
+  "book_title": "Your Puzzle Book Title",
+  "subtitle": "Engaging subtitle that sells",
+  "target_audience": "Adults/Seniors/Kids",
+  "puzzle_types": [
+    "Sudoku",
+    "Word Search",
+    "Crossword"
+  ],
+  "difficulty_levels": [
+    "Easy",
+    "Medium",
+    "Hard"
+  ],
+  "page_count": 120,
+  "trim_size": "8.5 x 11 inches",
+  "price_point": "$7.99",
+  "keywords": [
+    "primary keyword 1",
+    "primary keyword 2",
+    "long tail keyword 1",
+    "long tail keyword 2"
+  ],
+  "competition_analysis": {
+    "top_competitor_1": {
+      "title": "",
+      "price": "",
+      "reviews": "",
+      "weak_points": ""
+    }
+  }
+}

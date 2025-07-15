@@ -1,5 +1,9 @@
 # Claude Code Configuration
 
+## CRITICAL WORKFLOW RULES
+**ALWAYS CREATE A PR WHEN PUSHING A BRANCH** - Every time you push a new branch, immediately create a Pull Request. No exceptions. This ensures visibility and proper review workflow.
+**NEVER MENTION PINTEREST** - The CEO has explicitly banned any mention of Pinterest. Focus on Reddit, Facebook, and other traffic sources only.
+
 ## Build Commands
 - `npm run build`: Build the project
 - `npm run test`: Run the full test suite
@@ -111,10 +115,11 @@ Available SPARC modes: orchestrator, coder, researcher, tdd, architect, reviewer
 - `--monitor`: Real-time monitoring
 - `--output <format>`: json, sqlite, csv, html
 
-### MCP Server Integration
-- `./claude-flow mcp start [--port 3000] [--host localhost]`: Start MCP server
-- `./claude-flow mcp status`: Show MCP server status
-- `./claude-flow mcp tools`: List available MCP tools
+### GitHub CLI Automation
+- `gh pr list --state open`: List open PRs
+- `gh pr merge <number> --merge --squash`: Merge PRs
+- `gh issue list --state open`: List open issues
+- `gh issue close <number> --reason completed`: Close issues
 
 ### Claude Integration
 - `./claude-flow claude auth`: Authenticate with Claude API
@@ -372,3 +377,47 @@ NEVER proactively create documentation files (*.md) or README files. Only create
 - Page margin violations
 - Font rendering problems
 - ALWAYS manually preview PDFs before marking as complete
+
+## MULTI-AGENT WORKTREE WORKFLOW (MANDATORY)
+**Every time the user asks to do something, you MUST:**
+1. **Spawn an agent** using `scripts/multi_agent_orchestrator.py`
+2. **Create a worktree** for that agent (e.g., `worktrees/agent_12345678`)
+3. **Work in isolation** - Each agent works in its own branch and worktree
+4. **Track progress** - Update plan.md and docs/ in the worktree
+5. **Create PR** - When done, push branch and create GitHub PR
+6. **Multiple agents** - Can work in parallel without conflicts
+
+### Example Workflow:
+```python
+from scripts.multi_agent_orchestrator import MultiAgentOrchestrator
+
+orchestrator = MultiAgentOrchestrator()
+
+# Spawn agent for task
+agent_id = orchestrator.spawn_agent("Implement new revenue optimization feature")
+
+# Multiple agents in parallel
+tasks = [
+    "Research market opportunities",
+    "Create content templates", 
+    "Build automation scripts"
+]
+agent_ids = orchestrator.spawn_parallel_agents(tasks)
+
+# Wait for completion
+orchestrator.wait_for_agents(agent_ids)
+```
+
+### Agent Responsibilities:
+- Each agent updates its own plan.md section
+- Creates documentation in docs/AGENT_[ID]_*.md
+- Commits with message: "feat: [task] - Agent [ID]"
+- Creates PR with full progress log
+- Cleans up worktree after PR creation
+
+### Benefits:
+- True parallel development
+- No merge conflicts
+- Complete audit trail
+- Automatic PR creation
+- Progress tracking per agent

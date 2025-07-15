@@ -1,0 +1,170 @@
+name: Automated Hygiene Enforcement
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  checks: write
+
+jobs:
+  hygiene-enforcement:
+    name: Enforce Code Hygiene Standards
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install PyGithub tabulate gitpython click
+          
+      - name: Run Hygiene Analysis
+        id: hygiene
+        run: |
+          echo "🔍 Analyzing code hygiene..."
+          python agents/code_hygiene_orchestrator.py analyze --json > hygiene_report.json
+          
+          # Extract summary for PR comment
+          python << 'EOF'
+          import json
+          import sys
+          
+          with open('hygiene_report.json', 'r') as f:
+              report = json.load(f)
+          
+          # Count issues by severity
+          errors = sum(1 for issue in report.get('issues', []) if issue.get('severity') == 'error')
+          warnings = sum(1 for issue in report.get('issues', []) if issue.get('severity') == 'warning')
+          
+          # Set outputs for GitHub Actions
+          print(f"::set-output name=errors::{errors}")
+          print(f"::set-output name=warnings::{warnings}")
+          print(f"::set-output name=passed::{'true' if errors == 0 else 'false'}")
+          
+          # Generate summary
+          summary = []
+          summary.append("## 🧹 Code Hygiene Report\n")
+          
+          if errors == 0 and warnings == 0:
+              summary.append("✅ **All hygiene checks passed!**\n")
+          else:
+              if errors > 0:
+                  summary.append(f"❌ **{errors} error(s) found** - must be fixed before merging\n")
+              if warnings > 0:
+                  summary.append(f"⚠️ **{warnings} warning(s) found** - should be addressed\n")
+          
+          # Add issue details
+          if report.get('issues'):
+              summary.append("\n### Issues Found:\n")
+              for issue in report['issues'][:10]:  # Show first 10 issues
+                  icon = "❌" if issue['severity'] == 'error' else "⚠️"
+                  summary.append(f"- {icon} **{issue['type']}**: {issue['description']}")
+                  if 'file' in issue:
+                      summary.append(f"  - File: `{issue['file']}`")
+                  summary.append("")
+          
+          # Add statistics
+          stats = report.get('statistics', {})
+          if stats:
+              summary.append("\n### Statistics:\n")
+              summary.append(f"- Total files analyzed: {stats.get('total_files', 0)}")
+              summary.append(f"- Duplicate files found: {stats.get('duplicate_files', 0)}")
+              summary.append(f"- Unused files detected: {stats.get('unused_files', 0)}")
+              summary.append(f"- Files needing archival: {stats.get('archive_candidates', 0)}")
+          
+          with open('hygiene_summary.md', 'w') as f:
+              f.write('\n'.join(summary))
+          EOF
+          
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = fs.readFileSync('hygiene_summary.md', 'utf8');
+            
+            // Find existing comment
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const botComment = comments.data.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('Code Hygiene Report')
+            );
+            
+            // Update or create comment
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: summary
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: summary
+              });
+            }
+            
+      - name: Set Check Status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const errors = '${{ steps.hygiene.outputs.errors }}';
+            const warnings = '${{ steps.hygiene.outputs.warnings }}';
+            const passed = '${{ steps.hygiene.outputs.passed }}' === 'true';
+            
+            let conclusion = 'success';
+            let title = '✅ Code hygiene checks passed';
+            let summary = 'All code hygiene standards are met.';
+            
+            if (!passed) {
+              conclusion = 'failure';
+              title = `❌ Code hygiene issues found: ${errors} error(s), ${warnings} warning(s)`;
+              summary = 'Code hygiene standards are not met. Please review the issues above.';
+            } else if (warnings > 0) {
+              conclusion = 'neutral';
+              title = `⚠️ Code hygiene warnings: ${warnings} warning(s)`;
+              summary = 'Code passes hygiene checks but has warnings that should be addressed.';
+            }
+            
+            await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Code Hygiene',
+              head_sha: context.sha,
+              status: 'completed',
+              conclusion: conclusion,
+              output: {
+                title: title,
+                summary: summary
+              }
+            });
+            
+      - name: Fail if errors found
+        if: steps.hygiene.outputs.passed != 'true'
+        run: |
+          echo "❌ Code hygiene check failed with errors"
+          exit 1

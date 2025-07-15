@@ -374,7 +374,15 @@
       "Bash(libreoffice:*)",
       "Bash(scripts/utilities/update_worktree_status.sh:*)",
       "Bash(git config:*)",
-      "Bash(bash:*)"
+      "Bash(bash:*)",
+      "Bash(for f in *.json.template)",
+      "Bash(do cp \"$f\" \"$f%.template\")",
+      "WebFetch(domain:aws.amazon.com)",
+      "Bash(AWS_PROFILE=kindlemint-keys ./deploy-simple.sh)",
+      "Bash(gh repo set-default:*)",
+      "Bash(gh gist create:*)",
+      "Bash(gh gist list:*)",
+      "Bash(./RUN_THIS_FOR_MONEY.sh:*)"
     ],
     "deny": []
   }

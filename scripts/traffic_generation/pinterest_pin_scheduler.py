@@ -13,11 +13,11 @@ Strategy:
 import os
 import json
 import time
+import random
 from datetime import datetime, timedelta
 from typing import List, Dict
 from PIL import Image, ImageDraw, ImageFont
 import requests
-import secrets
 
 class PinterestPinScheduler:
     def __init__(self, config_file: str = "pinterest_config.json"):
@@ -253,7 +253,7 @@ Download 5 FREE large print puzzles for easy morning solving.
         
         for i, pin_time in enumerate(pin_times):
             # Select pin template
-            template = secrets.choice(self.pin_templates)
+            template = random.choice(self.pin_templates)
             
             # Create unique image for this pin
             image_path = f"pin_image_{datetime.now().strftime('%Y%m%d')}_{i}.png"
@@ -276,7 +276,7 @@ Download 5 FREE large print puzzles for easy morning solving.
             
             # Wait between pins (don't spam)
             if i < len(pin_times) - 1:
-                wait_time = secrets.SystemRandom().randint(1800, 3600)  # 30-60 minutes
+                wait_time = random.randint(1800, 3600)  # 30-60 minutes
                 print(f"⏰ Waiting {wait_time//60} minutes until next pin...")
                 time.sleep(wait_time)
         

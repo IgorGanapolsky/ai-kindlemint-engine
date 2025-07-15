@@ -1,0 +1,47 @@
+{
+  "sudoku_formula": {
+    "easy": {
+      "clues": -7,
+      "solving_time": "5-10 minutes",
+      "techniques": [
+        "Single candidates",
+        "Naked singles"
+      ]
+    },
+    "medium": {
+      "clues": -7,
+      "solving_time": "10-20 minutes",
+      "techniques": [
+        "Hidden singles",
+        "Naked pairs"
+      ]
+    },
+    "hard": {
+      "clues": -4,
+      "solving_time": "20-40 minutes",
+      "techniques": [
+        "Pointing pairs",
+        "Box/line reduction"
+      ]
+    }
+  },
+  "word_search_formula": {
+    "grid_size": "15x15 for standard, 20x20 for large print",
+    "word_count": "15-20 words per puzzle",
+    "word_length": "4-10 letters",
+    "directions": "8 directions for adults, 4 for kids",
+    "themes": [
+      "Seasonal",
+      "Educational",
+      "Pop culture",
+      "Hobbies"
+    ]
+  },
+  "series_formula": {
+    "volume_1": "Easy - Build audience",
+    "volume_2": "Medium - Retain readers",
+    "volume_3": "Hard - Premium pricing",
+    "volume_4": "Mixed - Best seller",
+    "volume_5": "Special edition - Higher price"
+  }
+}

@@ -1,7 +1,11 @@
 {
-  "client_id": "${REDDIT_CLIENT_ID}",
-  "client_secret": "${REDDIT_CLIENT_SECRET}",
-  "user_agent": "SudokuHelper/1.0 by Virtual_Exit5690",
-  "username": "${REDDIT_USERNAME}",
-  "password": "${REDDIT_PASSWORD}"
+  "mode": "read_only",
+  "subreddits": [
+    "sudoku",
+    "puzzles",
+    "braintraining"
+  ],
+  "landing_page_url": "https://dvdyff0b2oove.cloudfront.net",
+  "daily_limit": 5,
+  "value_first": true
 }
