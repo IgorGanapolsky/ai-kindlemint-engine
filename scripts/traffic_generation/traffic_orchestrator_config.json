@@ -5,9 +5,9 @@
     "facebook": false
   },
   "schedule": {
-    "run_every_hours": 4,
-    "start_hour": 8,
-    "end_hour": 20
+    "reddit": ["09:00", "14:00", "19:00"],
+    "pinterest": ["08:00", "11:00", "14:00", "17:00", "20:00"],
+    "facebook": ["10:00", "16:00"]
   },
   "landing_page": "https://dvdyff0b2oove.cloudfront.net",
   "metrics_tracking": true

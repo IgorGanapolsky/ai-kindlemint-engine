@@ -117,10 +117,23 @@ Has anyone else made the switch? Or am I just getting old? 😅"""
         tip = random.choice(self.tip_posts)
         
         try:
-            submission = subreddit.submit(
-                title=tip["title"],
-                selftext=tip["content"]
-            )
+            flair_id = None
+            # Only check for flair if posting to r/sudoku (or other subreddits that require flair)
+            if subreddit_name == "sudoku":
+                flairs = list(subreddit.flair.link_templates)
+                if flairs:
+                    flair_id = flairs[0]["id"]
+            if flair_id:
+                submission = subreddit.submit(
+                    title=tip["title"],
+                    selftext=tip["content"],
+                    flair_id=flair_id
+                )
+            else:
+                submission = subreddit.submit(
+                    title=tip["title"],
+                    selftext=tip["content"]
+                )
             print(f"✅ Posted to r/{subreddit_name}: {tip['title']}")
             print(f"   URL: {submission.url}")
             return submission
