@@ -5,9 +5,9 @@ Generate sellable puzzle books FAST - No BS, just revenue
 """
 
 import json
-import random
 from datetime import datetime
 from pathlib import Path
+import secrets
 
 def generate_sudoku_puzzle():
     """Generate a simple valid sudoku puzzle"""
@@ -27,11 +27,11 @@ def generate_sudoku_puzzle():
     # Shuffle rows and columns within bands
     def shuffle_band(grid):
         bands = [0, 3, 6]
-        random.shuffle(bands)
+        secrets.SystemRandom().shuffle(bands)
         new_grid = []
         for band in bands:
             rows = list(range(band, band + 3))
-            random.shuffle(rows)
+            secrets.SystemRandom().shuffle(rows)
             for row in rows:
                 new_grid.append(grid[row])
         return new_grid
@@ -41,9 +41,9 @@ def generate_sudoku_puzzle():
     solution = [row[:] for row in puzzle]
     
     # Remove numbers to create puzzle (40-50 clues for medium)
-    cells_to_remove = random.randint(31, 41)
+    cells_to_remove = secrets.SystemRandom().randint(31, 41)
     positions = [(i, j) for i in range(9) for j in range(9)]
-    random.shuffle(positions)
+    secrets.SystemRandom().shuffle(positions)
     
     for i in range(cells_to_remove):
         row, col = positions[i]
@@ -59,7 +59,7 @@ def generate_book_json(num_puzzles=50):
         puzzle, solution = generate_sudoku_puzzle()
         puzzles.append({
             "id": f"puzzle_{i+1}",
-            "difficulty": random.choice(["easy", "medium", "hard"]),
+            "difficulty": secrets.choice(["easy", "medium", "hard"]),
             "puzzle": puzzle,
             "solution": solution
         })

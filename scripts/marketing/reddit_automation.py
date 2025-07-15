@@ -4,11 +4,11 @@ Reddit Marketing Automation - Post to relevant subreddits
 """
 
 import praw
-import random
 import time
 import argparse
 import os
 from datetime import datetime
+import secrets
 
 # Reddit post templates
 TEMPLATES = {
@@ -123,7 +123,7 @@ def post_to_subreddit(reddit, subreddit_name, template_key='sudoku'):
         template = TEMPLATES.get(template_key, TEMPLATES['sudoku'])
         
         # Select random title
-        title = random.choice(template['title_options'])
+        title = secrets.choice(template['title_options'])
         
         # Format body
         body = template['body_template'].format(subreddit=subreddit_name)
@@ -201,7 +201,7 @@ def main():
             
             # Add random delay to avoid looking like spam
             if subreddit != schedule[-1][0]:  # Not the last one
-                wait = random.randint(5, 10)
+                wait = secrets.SystemRandom().randint(5, 10)
                 print(f"   Waiting {wait} minutes before next post...")
                 time.sleep(wait * 60)
 

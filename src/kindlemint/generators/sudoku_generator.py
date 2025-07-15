@@ -3,9 +3,8 @@ Simple Sudoku Generator for Lead Magnets
 
 Generates easy-to-solve Sudoku puzzles perfect for seniors
 """
-
-import random
 import copy
+import secrets
 
 
 class SudokuGenerator:
@@ -64,7 +63,7 @@ class SudokuGenerator:
         # Randomly swap rows within boxes
         for box_row in range(3):
             rows = list(range(box_row * 3, (box_row + 1) * 3))
-            random.shuffle(rows)
+            secrets.SystemRandom().shuffle(rows)
             original_rows = [grid[i][:] for i in range(box_row * 3, (box_row + 1) * 3)]
             for i, row_idx in enumerate(rows):
                 grid[box_row * 3 + i] = original_rows[row_idx - box_row * 3]
@@ -72,7 +71,7 @@ class SudokuGenerator:
         # Randomly swap columns within boxes
         for box_col in range(3):
             cols = list(range(box_col * 3, (box_col + 1) * 3))
-            random.shuffle(cols)
+            secrets.SystemRandom().shuffle(cols)
             original_cols = [[grid[i][j] for i in range(9)] for j in range(box_col * 3, (box_col + 1) * 3)]
             for i, col_idx in enumerate(cols):
                 for row in range(9):
@@ -93,7 +92,7 @@ class SudokuGenerator:
         
         # Remove numbers randomly
         positions = [(i, j) for i in range(9) for j in range(9)]
-        random.shuffle(positions)
+        secrets.SystemRandom().shuffle(positions)
         
         removed = 0
         for row, col in positions:

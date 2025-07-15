@@ -5,6 +5,7 @@ import webbrowser
 import time
 import json
 from datetime import datetime
+import secrets
 
 def generate_value_post():
     """Generate a value-first post for Reddit"""
@@ -34,9 +35,7 @@ Started doing this with my mom (82) and the results are real!
 What's your daily puzzle routine?"""
         }
     ]
-    
-    import random
-    return random.choice(templates)
+    return secrets.choice(templates)
 
 def main():
     print("🎯 Reddit Traffic Generation (Manual Mode)")

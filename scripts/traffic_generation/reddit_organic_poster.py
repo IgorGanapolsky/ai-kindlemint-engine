@@ -12,10 +12,10 @@ Strategy:
 
 import praw
 import time
-import random
 import json
 from datetime import datetime, timedelta
 from typing import List, Dict
+import secrets
 
 class RedditOrganicPoster:
     def __init__(self, config_file: str = "reddit_config.json"):
@@ -114,7 +114,7 @@ Has anyone else made the switch? Or am I just getting old? 😅"""
         rules = subreddit.rules
         
         # Select random tip
-        tip = random.choice(self.tip_posts)
+        tip = secrets.choice(self.tip_posts)
         
         try:
             submission = subreddit.submit(
@@ -153,10 +153,10 @@ Has anyone else made the switch? Or am I just getting old? 😅"""
             text_to_check = (submission.title + " " + (submission.selftext or "")).lower()
             if any(keyword in text_to_check for keyword in help_keywords):
                 # Post helpful comment
-                comment = random.choice(self.helpful_comments)
+                comment = secrets.choice(self.helpful_comments)
                 
                 # Occasionally add soft mention of resources
-                if random.random() < 0.2:  # 20% of the time
+                if secrets.SystemRandom().random() < 0.2:  # 20% of the time
                     comment += "\n\nBy the way, I recently found some free large print puzzles online that are really well-made. Great for reducing eye strain!"
                 
                 try:
@@ -165,7 +165,7 @@ Has anyone else made the switch? Or am I just getting old? 😅"""
                     replied_count += 1
                     
                     # Don't spam - wait between comments
-                    time.sleep(random.randint(60, 180))  # 1-3 minutes
+                    time.sleep(secrets.SystemRandom().randint(60, 180))  # 1-3 minutes
                     
                 except Exception as e:
                     print(f"❌ Failed to reply: {e}")
@@ -183,11 +183,11 @@ Has anyone else made the switch? Or am I just getting old? 😅"""
         print(f"🚀 Starting Reddit organic traffic routine - {datetime.now()}")
         
         # Post one helpful tip per day to different subreddits
-        subreddit = random.choice(self.subreddits[:3])  # Focus on top 3
+        subreddit = secrets.choice(self.subreddits[:3])  # Focus on top 3
         self.post_helpful_tip(subreddit)
         
         # Wait a bit
-        time.sleep(random.randint(300, 600))  # 5-10 minutes
+        time.sleep(secrets.SystemRandom().randint(300, 600))  # 5-10 minutes
         
         # Reply to questions
         for subreddit in self.subreddits[:3]:
@@ -196,7 +196,7 @@ Has anyone else made the switch? Or am I just getting old? 😅"""
             print(f"   Posted {replies} helpful replies")
             
             # Don't overwhelm - space out activity
-            time.sleep(random.randint(600, 900))  # 10-15 minutes
+            time.sleep(secrets.SystemRandom().randint(600, 900))  # 10-15 minutes
         
         print(f"\n✅ Daily routine complete!")
         

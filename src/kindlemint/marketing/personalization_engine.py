@@ -9,10 +9,10 @@ and generates customized content variations for maximum engagement.
 import asyncio
 import json
 import logging
-import random
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any
 from pathlib import Path
+import secrets
 
 logger = logging.getLogger(__name__)
 
@@ -458,7 +458,7 @@ class PersonalizationEngine:
         elif "educational" in segment_name.lower():
             return ["Educational Adventure", "Learning Made Fun"]
         else:
-            return random.sample(base_titles, 2)
+            return secrets.SystemRandom().sample(base_titles, 2)
     
     def generate_content_variations(self, characteristics: Dict) -> List[str]:
         """Generate content type variations."""
@@ -480,7 +480,7 @@ class PersonalizationEngine:
             elif "educational" in preferred_type:
                 return ["educational_book", "activity_book"]
         
-        return random.sample(content_types, 2)
+        return secrets.SystemRandom().sample(content_types, 2)
     
     def generate_format_variations(self, characteristics: Dict) -> List[str]:
         """Generate format variations."""
@@ -496,7 +496,7 @@ class PersonalizationEngine:
             elif device == "mobile":
                 return ["ebook", "interactive"]
         
-        return random.sample(formats, 2)
+        return secrets.SystemRandom().sample(formats, 2)
     
     async def run_ab_tests(self) -> Dict:
         """Run A/B tests for content variations."""
@@ -510,13 +510,13 @@ class PersonalizationEngine:
                 test_result = {
                     "variation_id": variation.get("id"),
                     "segment_id": variation.get("segment_id"),
-                    "impressions": random.randint(100, 1000),
-                    "clicks": random.randint(10, 100),
-                    "conversions": random.randint(1, 20),
+                    "impressions": secrets.SystemRandom().randint(100, 1000),
+                    "clicks": secrets.SystemRandom().randint(10, 100),
+                    "conversions": secrets.SystemRandom().randint(1, 20),
                     "click_through_rate": 0.0,
                     "conversion_rate": 0.0,
                     "test_duration_days": 7,
-                    "confidence_level": random.uniform(0.8, 0.95)
+                    "confidence_level": secrets.SystemRandom().uniform(0.8, 0.95)
                 }
                 
                 # Calculate rates

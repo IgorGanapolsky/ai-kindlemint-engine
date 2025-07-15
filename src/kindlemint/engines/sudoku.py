@@ -7,13 +7,13 @@ Generates valid Sudoku puzzles with guaranteed unique solutions for KindleMint E
 import argparse
 import copy
 import json
-import random
 import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
 from PIL import Image, ImageDraw, ImageFont
+import secrets
 
 
 class SudokuGenerator:
@@ -76,7 +76,7 @@ class SudokuGenerator:
 
         # Fill first row with shuffled numbers 1-9 for randomization
         first_row = list(range(1, 10))
-        random.shuffle(first_row)
+        secrets.SystemRandom().shuffle(first_row)
         grid[0] = first_row
 
         # Fill the rest using backtracking
@@ -102,7 +102,7 @@ class SudokuGenerator:
 
         # Try numbers in random order (Las Vegas element)
         numbers = list(range(1, 10))
-        random.shuffle(numbers)
+        secrets.SystemRandom().shuffle(numbers)
 
         for num in numbers:
             if self._is_valid(grid, row, col, num):
@@ -206,7 +206,7 @@ class SudokuGenerator:
 
         # Create list of all cell positions
         cells = [(r, c) for r in range(9) for c in range(9)]
-        random.shuffle(cells)
+        secrets.SystemRandom().shuffle(cells)
 
         # Remove cells while maintaining unique solution
         cells_removed = 0

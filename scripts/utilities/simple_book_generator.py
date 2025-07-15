@@ -3,11 +3,10 @@
 SIMPLE BOOK GENERATOR - Replace 17 scripts with 1
 Generate a complete puzzle book in 30 seconds
 """
-
-import random
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from datetime import datetime
+import secrets
 
 def generate_sudoku_book(title="Sudoku Puzzles", count=50):
     """Generate a complete Sudoku book - SIMPLE"""
@@ -63,7 +62,7 @@ def generate_sudoku_book(title="Sudoku Puzzles", count=50):
             for col in range(9):
                 if easy_template[row][col] != 0:
                     # Randomly hide some numbers for variation
-                    if random.random() > 0.3:
+                    if secrets.SystemRandom().random() > 0.3:
                         x = start_x + col*grid_size + grid_size/2 - 10
                         y = start_y - row*grid_size - grid_size/2 - 10
                         c.drawString(x, y, str(easy_template[row][col]))
@@ -117,7 +116,7 @@ def generate_wordsearch_book(title="Word Search Puzzles", count=50):
         for row in range(15):
             for col in range(15):
                 c.setFont('Helvetica', 20)
-                letter = random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+                letter = secrets.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
                 x = start_x + col*grid_size + 10
                 y = start_y - row*grid_size - 20
                 c.drawString(x, y, letter)
