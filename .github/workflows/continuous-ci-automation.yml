@@ -1,0 +1,357 @@
+name: Continuous CI Automation
+
+on:
+  # Trigger on workflow failures
+  workflow_run:
+    workflows: ["*"]
+    types: [completed]
+    branches: [main, develop, staging]
+  
+  # Trigger on CI status changes
+  status:
+  
+  # Scheduled monitoring (every 15 minutes)
+  schedule:
+    - cron: '*/15 * * * *'
+  
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      force_fix:
+        description: 'Force apply fixes even if risky'
+        required: false
+        default: false
+        type: boolean
+      target_branch:
+        description: 'Target branch to fix'
+        required: false
+        default: 'main'
+        type: string
+
+concurrency:
+  group: ci-automation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci-monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      actions: read
+      checks: write
+      statuses: write
+    
+    steps:
+      - name: 🔄 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyGithub requests pyyaml jinja2
+          pip install autopep8 black isort flake8 mypy
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: 🔧 Install GitHub CLI
+        run: |
+          type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+          && sudo apt update \
+          && sudo apt install gh -y
+
+      - name: 🔍 Analyze CI Status
+        id: analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔍 Analyzing CI status..."
+          
+          # Get recent workflow runs
+          gh run list --limit 20 --json status,conclusion,workflowName,headBranch,createdAt,url > recent_runs.json
+          
+          # Analyze failures
+          python3 << 'PYTHON_EOF'
+          import json
+          import os
+          from datetime import datetime, timedelta
+          from github import Github
+          
+          # Initialize GitHub client
+          g = Github(os.environ['GITHUB_TOKEN'])
+          repo = g.get_repo("${{ github.repository }}")
+          
+          # Load recent runs
+          with open('recent_runs.json', 'r') as f:
+              runs = json.load(f)
+          
+          # Analyze failures
+          failures = []
+          current_branch = "${{ github.event.inputs.target_branch || 'main' }}"
+          
+          for run in runs:
+              if run['conclusion'] == 'failure':
+                  # Check if it's recent (last 2 hours)
+                  created_at = datetime.fromisoformat(run['createdAt'].replace('Z', '+00:00'))
+                  if datetime.now(created_at.tzinfo) - created_at < timedelta(hours=2):
+                      failures.append({
+                          'workflow': run['workflowName'],
+                          'branch': run['headBranch'],
+                          'url': run['url'],
+                          'created_at': run['createdAt']
+                      })
+          
+          # Get branch protection status
+          try:
+              branch = repo.get_branch(current_branch)
+              protection_enabled = branch.protected
+          except:
+              protection_enabled = False
+          
+          # Create analysis report
+          analysis = {
+              'failures_count': len(failures),
+              'failures': failures,
+              'current_branch': current_branch,
+              'protection_enabled': protection_enabled,
+              'needs_attention': len(failures) > 0
+          }
+          
+          # Save analysis
+          with open('ci_analysis.json', 'w') as f:
+              json.dump(analysis, f, indent=2)
+          
+          # Set outputs
+          print(f"failures_count={len(failures)}")
+          print(f"needs_attention={'true' if len(failures) > 0 else 'false'}")
+          
+          if len(failures) > 0:
+              print(f"🚨 Found {len(failures)} recent CI failures")
+              for failure in failures:
+                  print(f"  - {failure['workflow']} on {failure['branch']}")
+          else:
+              print("✅ No recent CI failures detected")
+          PYTHON_EOF
+
+      - name: 🔧 Auto-Fix Common Issues
+        if: steps.analyze.outputs.needs_attention == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔧 Applying auto-fixes..."
+          
+          # Load analysis
+          python3 << 'PYTHON_EOF'
+          import json
+          import subprocess
+          import os
+          
+          with open('ci_analysis.json', 'r') as f:
+              analysis = json.load(f)
+          
+          fixes_applied = []
+          
+          # Fix 1: Syntax errors
+          print("🔍 Checking for syntax errors...")
+          try:
+              result = subprocess.run(['python', '-m', 'py_compile', 'scripts/ci_orchestration/ci_orchestrator.py'], 
+                                    capture_output=True, text=True)
+              if result.returncode != 0:
+                  print("🔧 Fixing syntax errors...")
+                  # Apply autopep8
+                  subprocess.run(['autopep8', '--in-place', '--aggressive', '--aggressive', 
+                                'scripts/ci_orchestration/ci_orchestrator.py'])
+                  fixes_applied.append("syntax_errors")
+          except Exception as e:
+              print(f"⚠️  Could not check syntax: {e}")
+          
+          # Fix 2: Import errors
+          print("🔍 Checking for import errors...")
+          try:
+              result = subprocess.run(['python', '-c', 'import scripts.ci_orchestration.ci_orchestrator'], 
+                                    capture_output=True, text=True)
+              if result.returncode != 0:
+                  print("🔧 Fixing import errors...")
+                  # Create __init__.py if missing
+                  init_file = 'scripts/ci_orchestration/__init__.py'
+                  if not os.path.exists(init_file):
+                      with open(init_file, 'w') as f:
+                          f.write('# CI Orchestration Package\n')
+                  fixes_applied.append("import_errors")
+          except Exception as e:
+              print(f"⚠️  Could not check imports: {e}")
+          
+          # Fix 3: Requirements issues
+          print("🔍 Checking requirements...")
+          if not os.path.exists('requirements.txt'):
+              print("🔧 Creating requirements.txt...")
+              with open('requirements.txt', 'w') as f:
+                  f.write('PyGithub\nrequests\npyyaml\njinja2\nautopep8\nblack\nisort\nflake8\nmypy\n')
+              fixes_applied.append("requirements")
+          
+          # Fix 4: Workflow syntax
+          print("🔍 Checking workflow syntax...")
+          workflow_files = [
+              '.github/workflows/autonomous-pr-handler.yml',
+              '.github/workflows/bot-handler.yml',
+              '.github/workflows/issue-resolver.yml'
+          ]
+          
+          for workflow in workflow_files:
+              if os.path.exists(workflow):
+                  try:
+                      with open(workflow, 'r') as f:
+                          content = f.read()
+                      # Basic YAML validation
+                      import yaml
+                      yaml.safe_load(content)
+                  except Exception as e:
+                      print(f"🔧 Fixing workflow syntax in {workflow}...")
+                      # Try to fix common YAML issues
+                      content = content.replace('\t', '  ')  # Replace tabs with spaces
+                      with open(workflow, 'w') as f:
+                          f.write(content)
+                      fixes_applied.append(f"workflow_syntax_{workflow}")
+          
+          # Save fixes report
+          with open('fixes_applied.json', 'w') as f:
+              json.dump({'fixes': fixes_applied, 'count': len(fixes_applied)}, f, indent=2)
+          
+          print(f"✅ Applied {len(fixes_applied)} fixes: {fixes_applied}")
+          PYTHON_EOF
+
+      - name: 🧪 Validate Fixes
+        if: steps.analyze.outputs.needs_attention == 'true'
+        run: |
+          echo "🧪 Validating fixes..."
+          
+          # Load fixes report
+          if [ -f fixes_applied.json ]; then
+              FIXES_COUNT=$(python3 -c "import json; print(json.load(open('fixes_applied.json'))['count'])")
+              echo "fixes_count=$FIXES_COUNT" >> $GITHUB_OUTPUT
+          else
+              echo "fixes_count=0" >> $GITHUB_OUTPUT
+          fi
+          
+          # Run basic validation
+          echo "🔍 Running validation tests..."
+          
+          # Test 1: Python syntax
+          python3 -m py_compile scripts/ci_orchestration/*.py || {
+              echo "❌ Python syntax validation failed"
+              exit 1
+          }
+          
+          # Test 2: Import test
+          python3 -c "import scripts.ci_orchestration.ci_orchestrator" || {
+              echo "❌ Import validation failed"
+              exit 1
+          }
+          
+          # Test 3: YAML syntax
+          python3 -c "import yaml; import os; [yaml.safe_load(open(w, 'r').read()) for w in ['.github/workflows/autonomous-pr-handler.yml', '.github/workflows/bot-handler.yml', '.github/workflows/issue-resolver.yml'] if os.path.exists(w)]" || {
+              echo "❌ YAML syntax validation failed"
+              exit 1
+          }
+          
+          echo "✅ All validation tests passed"
+
+      - name: 📝 Create Fix PR
+        if: steps.analyze.outputs.needs_attention == 'true' && steps.validate.outputs.fixes_count != '0'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "📝 Creating fix PR..."
+          
+          # Configure git
+          git config --global user.name "GitHub Actions CI Auto-Fixer"
+          git config --global user.email "actions@github.com"
+          
+          # Create fix branch
+          FIX_BRANCH="fix/ci-automation-$(date +%s)"
+          git checkout -b "$FIX_BRANCH"
+          
+          # Add all changes
+          git add .
+          
+          # Commit if there are changes
+          if ! git diff --cached --quiet; then
+              git commit -m "🔧 Auto-fix CI issues - Applied automated fixes for CI failures"
+              
+              # Push branch
+              git push origin "$FIX_BRANCH"
+              
+              # Create PR
+              gh pr create \
+                --title "🔧 Auto-fix CI Issues" \
+                --body "🤖 Automated CI Fix PR - This PR contains automated fixes for CI failures detected by the continuous CI automation system." \
+                --base main \
+                --head "$FIX_BRANCH" \
+                --label "ci-fix" \
+                --label "automated"
+              
+              echo "✅ Fix PR created successfully"
+          else
+              echo "ℹ️  No changes to commit"
+          fi
+
+      - name: 🚨 Create Issue for Persistent Failures
+        if: steps.analyze.outputs.needs_attention == 'true' && steps.validate.outputs.fixes_count == '0'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🚨 Creating issue for persistent failures..."
+          
+          # Load analysis
+          python3 << 'PYTHON_EOF'
+          import json
+          import subprocess
+          
+          with open('ci_analysis.json', 'r') as f:
+              analysis = json.load(f)
+          
+          # Create issue
+          issue_body = f"🚨 CI Automation Alert - The CI automation system detected {analysis['failures_count']} recent failures that could not be automatically fixed."
+          
+          # Create issue
+          subprocess.run([
+              'gh', 'issue', 'create',
+              '--title', '🚨 CI Failures Require Manual Intervention',
+              '--body', issue_body,
+              '--label', 'ci-failure',
+              '--label', 'needs-attention'
+          ])
+          
+          print("✅ Issue created for persistent failures")
+          PYTHON_EOF
+
+      - name: 📊 Report Results
+        if: always()
+        run: |
+          echo "📊 CI Automation Report"
+          echo "======================"
+          
+          if [ -f ci_analysis.json ]; then
+              FAILURES=$(python3 -c "import json; print(json.load(open('ci_analysis.json'))['failures_count'])")
+              echo "Recent failures: $FAILURES"
+          fi
+          
+          if [ -f fixes_applied.json ]; then
+              FIXES=$(python3 -c "import json; print(json.load(open('fixes_applied.json'))['count'])")
+              echo "Fixes applied: $FIXES"
+          fi
+          
+          echo "======================"
+          echo "CI automation cycle complete" 
