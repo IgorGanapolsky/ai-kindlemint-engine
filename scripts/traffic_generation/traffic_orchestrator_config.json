@@ -1,8 +1,8 @@
 {
   "enabled_sources": {
     "reddit": true,
-    "pinterest": false,
-    "facebook": false
+    "pinterest": true,
+    "facebook": true
   },
   "schedule": {
     "run_every_hours": 4,

@@ -1,0 +1,11 @@
+{
+  "access_token": "YOUR_PINTEREST_ACCESS_TOKEN",
+  "board_ids": {
+    "brain-games": "YOUR_BRAIN_GAMES_BOARD_ID",
+    "senior-wellness": "YOUR_SENIOR_WELLNESS_BOARD_ID",
+    "accessibility": "YOUR_ACCESSIBILITY_BOARD_ID",
+    "puzzle-tips": "YOUR_PUZZLE_TIPS_BOARD_ID",
+    "healthy-habits": "YOUR_HEALTHY_HABITS_BOARD_ID",
+    "default": "YOUR_DEFAULT_BOARD_ID"
+  }
+}
