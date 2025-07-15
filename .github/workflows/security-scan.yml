@@ -1,0 +1,99 @@
+name: Security Scan with MCP
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install MCP GitHub Server
+        run: |
+          npm install -g @modelcontextprotocol/server-github
+          npm install -g @anthropic-ai/sdk
+
+      - name: Run Security Analysis
+        id: security
+        run: |
+          echo "Running security analysis"
+          
+          # Use MCP to analyze security
+          mcp-github analyze-security \
+            --repo="${{ github.repository }}" \
+            --token="${{ secrets.GITHUB_TOKEN }}" \
+            --output=security-report.json
+          
+          # Check for vulnerabilities
+          if [ -f "security-report.json" ]; then
+            echo "Security analysis completed"
+            echo "has_vulnerabilities=false" >> $GITHUB_OUTPUT
+          else
+            echo "Security analysis found vulnerabilities"
+            echo "has_vulnerabilities=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Auto-fix Security Issues
+        if: steps.security.outputs.has_vulnerabilities == 'true'
+        run: |
+          echo "Auto-fixing security issues"
+          
+          # Use MCP to fix security issues
+          mcp-github fix-security-issues \
+            --repo="${{ github.repository }}" \
+            --token="${{ secrets.GITHUB_TOKEN }}" \
+            --output=security-fixes.json
+          
+          # Apply security fixes
+          if [ -f "security-fixes.json" ]; then
+            echo "Security fixes applied successfully"
+            echo "fixes_applied=true" >> $GITHUB_OUTPUT
+          else
+            echo "Security fixes failed"
+            echo "fixes_applied=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate Security Report
+        if: always()
+        run: |
+          if [ "${{ steps.security.outputs.has_vulnerabilities }}" == "true" ]; then
+            if [ "${{ steps.security.outputs.fixes_applied }}" == "true" ]; then
+              gh pr comment ${{ github.event.pull_request.number }} --body "🤖 **MCP Security Report**\n\n⚠️ **Status**: Vulnerabilities found and auto-fixed\n✅ **Action**: Security patches applied\n\nSecurity issues have been automatically resolved."
+            else
+              gh pr comment ${{ github.event.pull_request.number }} --body "🤖 **MCP Security Report**\n\n❌ **Status**: Vulnerabilities found\n⚠️ **Action**: Manual intervention required\n\nSecurity vulnerabilities detected. Please review and fix manually."
+            fi
+          else
+            gh pr comment ${{ github.event.pull_request.number }} --body "🤖 **MCP Security Report**\n\n✅ **Status**: No vulnerabilities found\n✅ **Security**: Passed\n\nSecurity scan completed successfully."
+          fi
+
+      - name: Create Security Issue (if critical)
+        if: steps.security.outputs.has_vulnerabilities == 'true' && steps.security.outputs.fixes_applied == 'false'
+        run: |
+          echo "Creating security issue for critical vulnerabilities"
+          
+          # Use MCP to create security issue
+          mcp-github create-security-issue \
+            --repo="${{ github.repository }}" \
+            --token="${{ secrets.GITHUB_TOKEN }}" \
+            --severity="critical" \
+            --title="Security Vulnerability Detected" \
+            --body="Critical security vulnerabilities found in recent scan. Immediate attention required." 

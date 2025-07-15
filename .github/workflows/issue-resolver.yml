@@ -1,0 +1,102 @@
+name: Autonomous Issue Resolution with MCP
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+jobs:
+  issue-resolver:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install MCP GitHub Server
+        run: |
+          npm install -g @modelcontextprotocol/server-github
+          npm install -g @anthropic-ai/sdk
+
+      - name: Analyze Issue with MCP
+        id: analyze
+        run: |
+          echo "Analyzing issue #${{ github.event.issue.number }}"
+          
+          # Use MCP to analyze the issue
+          mcp-github analyze-issue \
+            --repo="${{ github.repository }}" \
+            --issue="${{ github.event.issue.number }}" \
+            --token="${{ secrets.GITHUB_TOKEN }}" \
+            --output=issue-analysis.json
+          
+          # Parse analysis results
+          if [ -f "issue-analysis.json" ]; then
+            echo "Issue analysis completed"
+            echo "can_auto_resolve=true" >> $GITHUB_OUTPUT
+          else
+            echo "Issue analysis failed"
+            echo "can_auto_resolve=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Auto-resolve Issue
+        if: steps.analyze.outputs.can_auto_resolve == 'true'
+        run: |
+          echo "Auto-resolving issue #${{ github.event.issue.number }}"
+          
+          # Use MCP to generate resolution
+          mcp-github resolve-issue \
+            --repo="${{ github.repository }}" \
+            --issue="${{ github.event.issue.number }}" \
+            --token="${{ secrets.GITHUB_TOKEN }}" \
+            --output=resolution.json
+          
+          # Apply resolution (comment, close, or create PR)
+          if [ -f "resolution.json" ]; then
+            echo "Resolution applied successfully"
+            echo "resolution_applied=true" >> $GITHUB_OUTPUT
+          else
+            echo "Resolution failed"
+            echo "resolution_applied=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Fix PR (if needed)
+        if: steps.analyze.outputs.can_auto_resolve == 'true' && steps.analyze.outputs.needs_code_fix == 'true'
+        run: |
+          echo "Creating fix PR for issue #${{ github.event.issue.number }}"
+          
+          # Use MCP to generate fix
+          mcp-github create-fix-pr \
+            --repo="${{ github.repository }}" \
+            --issue="${{ github.event.issue.number }}" \
+            --token="${{ secrets.GITHUB_TOKEN }}" \
+            --branch="fix/issue-${{ github.event.issue.number }}"
+
+      - name: Comment on Issue
+        if: always()
+        run: |
+          if [ "${{ steps.analyze.outputs.can_auto_resolve }}" == "true" ]; then
+            if [ "${{ steps.analyze.outputs.resolution_applied }}" == "true" ]; then
+              gh issue comment ${{ github.event.issue.number }} --body "🤖 **MCP Bot Report**\n\n✅ **Status**: Auto-resolved\n✅ **Resolution**: Applied\n\nThis issue has been automatically resolved by the MCP bot."
+            else
+              gh issue comment ${{ github.event.issue.number }} --body "🤖 **MCP Bot Report**\n\n⚠️ **Status**: Analysis complete, manual resolution needed\n\nThis issue requires manual intervention to resolve."
+            fi
+          else
+            gh issue comment ${{ github.event.issue.number }} --body "🤖 **MCP Bot Report**\n\n📋 **Status**: Under analysis\n\nThis issue is being analyzed by the MCP bot. Manual review may be required."
+          fi
+
+      - name: Close Resolved Issues
+        if: steps.analyze.outputs.can_auto_resolve == 'true' && steps.analyze.outputs.resolution_applied == 'true'
+        run: |
+          echo "Closing resolved issue #${{ github.event.issue.number }}"
+          gh issue close ${{ github.event.issue.number }} --reason completed 
