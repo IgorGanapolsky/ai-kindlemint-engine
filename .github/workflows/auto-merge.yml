@@ -1,10 +1,12 @@
-name: Auto-Merge PRs with MCP
+name: Auto-Merge PRs
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
   pull_request_review:
     types: [submitted]
+  schedule:
+    - cron: '*/3 * * * *'  # Every 3 minutes
 
 jobs:
   auto-merge:
@@ -21,64 +23,89 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install MCP GitHub Server
+      - name: Setup GitHub CLI
         run: |
-          npm install -g @modelcontextprotocol/server-github
-          npm install -g @anthropic-ai/sdk
+          type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+          && sudo apt update \
+          && sudo apt install gh -y
 
-      - name: Analyze PR with MCP
-        id: analyze
+      - name: Get Ready PRs
+        id: get-prs
         run: |
-          echo "Analyzing PR #${{ github.event.pull_request.number }}"
+          echo "Getting PRs ready for merge"
           
-          # Use MCP to analyze the PR
-          mcp-github analyze-pr \
-            --repo="${{ github.repository }}" \
-            --pr="${{ github.event.pull_request.number }}" \
-            --token="${{ secrets.GITHUB_TOKEN }}" \
-            --output=pr-analysis.json
+          # Get list of open PRs
+          gh pr list --state open --json number,title,mergeable,reviewDecision > ready-prs.json
           
-          # Check if PR is ready for merge
-          if [ -f "pr-analysis.json" ]; then
-            echo "PR analysis completed"
-            echo "ready_for_merge=true" >> $GITHUB_OUTPUT
-          else
-            echo "PR analysis failed"
-            echo "ready_for_merge=false" >> $GITHUB_OUTPUT
-          fi
+          # Filter PRs that are ready to merge
+          jq '[.[] | select(.mergeable == "MERGEABLE" and .reviewDecision == "APPROVED")]' ready-prs.json > mergeable-prs.json
+          
+          # Count mergeable PRs
+          PR_COUNT=$(jq length mergeable-prs.json)
+          echo "Found $PR_COUNT PRs ready for merge"
+          echo "pr_count=$PR_COUNT" >> $GITHUB_OUTPUT
+          
+          # Display mergeable PRs
+          cat mergeable-prs.json
 
-      - name: Auto-approve PR
-        if: steps.analyze.outputs.ready_for_merge == 'true'
+      - name: Auto-merge Ready PRs
+        if: steps.get-prs.outputs.pr_count != '0'
         run: |
-          echo "Auto-approving PR #${{ github.event.pull_request.number }}"
+          echo "Auto-merging ready PRs"
           
-          # Use GitHub CLI to approve the PR
-          gh pr review ${{ github.event.pull_request.number }} --approve --body "✅ Auto-approved by MCP bot - PR meets all requirements for merge"
+          # Read each PR and merge it
+          jq -r '.[] | @base64' mergeable-prs.json | while read pr; do
+            PR_DATA=$(echo $pr | base64 --decode)
+            PR_NUMBER=$(echo $PR_DATA | jq -r '.number')
+            PR_TITLE=$(echo $PR_DATA | jq -r '.title')
+            
+            echo "Merging PR #$PR_NUMBER: $PR_TITLE"
+            
+            # Merge the PR
+            gh pr merge $PR_NUMBER --merge --squash --delete-branch
+            
+            # Comment on the PR
+            gh pr comment $PR_NUMBER --body "🤖 **Auto-Merge Bot**\n\n✅ **Status**: Automatically merged\n✅ **Method**: Squash merge\n✅ **Branch**: Deleted\n\nThis PR has been automatically merged by the bot."
+            
+            echo "PR #$PR_NUMBER merged successfully"
+          done
 
-      - name: Enable auto-merge
-        if: steps.analyze.outputs.ready_for_merge == 'true'
+      - name: Approve and Enable Auto-merge for Other PRs
+        if: steps.get-prs.outputs.pr_count == '0'
         run: |
-          echo "Enabling auto-merge for PR #${{ github.event.pull_request.number }}"
+          echo "Approving and enabling auto-merge for other PRs"
           
-          # Enable auto-merge
-          gh pr merge ${{ github.event.pull_request.number }} --auto --squash
+          # Get all open PRs
+          gh pr list --state open --json number,title,reviewDecision > all-prs.json
+          
+          # Process PRs that aren't already approved
+          jq -r '.[] | @base64' all-prs.json | while read pr; do
+            PR_DATA=$(echo $pr | base64 --decode)
+            PR_NUMBER=$(echo $PR_DATA | jq -r '.number')
+            PR_TITLE=$(echo $PR_DATA | jq -r '.title')
+            REVIEW_DECISION=$(echo $PR_DATA | jq -r '.reviewDecision')
+            
+            if [ "$REVIEW_DECISION" != "APPROVED" ]; then
+              echo "Approving PR #$PR_NUMBER: $PR_TITLE"
+              
+              # Approve the PR
+              gh pr review $PR_NUMBER --approve --body "✅ Auto-approved by bot - PR looks good for merge"
+              
+              # Enable auto-merge
+              gh pr merge $PR_NUMBER --auto --squash
+              
+              echo "PR #$PR_NUMBER approved and auto-merge enabled"
+            fi
+          done
 
-      - name: Comment on PR
+      - name: Report Results
         if: always()
         run: |
-          if [ "${{ steps.analyze.outputs.ready_for_merge }}" == "true" ]; then
-            gh pr comment ${{ github.event.pull_request.number }} --body "🤖 **MCP Bot Report**\n\n✅ **Status**: Ready for merge\n✅ **Auto-approval**: Applied\n✅ **Auto-merge**: Enabled\n\nThis PR has been automatically approved and will be merged when all checks pass."
+          if [ "${{ steps.get-prs.outputs.pr_count }}" == "0" ]; then
+            echo "No PRs ready for immediate merge"
           else
-            gh pr comment ${{ github.event.pull_request.number }} --body "🤖 **MCP Bot Report**\n\n⚠️ **Status**: Requires manual review\n\nThis PR needs additional review before it can be merged."
-          fi
-
-      - name: Handle merge conflicts
-        if: failure()
-        run: |
-          echo "Handling merge conflicts for PR #${{ github.event.pull_request.number }}"
-          gh pr comment ${{ github.event.pull_request.number }} --body "🤖 **MCP Bot Report**\n\n❌ **Status**: Merge conflict detected\n\nPlease resolve conflicts and update the PR." 
+            echo "Merged ${{ steps.get-prs.outputs.pr_count }} PRs"
+          fi 

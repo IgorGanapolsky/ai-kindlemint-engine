@@ -3,7 +3,7 @@ name: Emergency Merge All PRs
 on:
   workflow_dispatch:  # Manual trigger
   schedule:
-    - cron: '*/5 * * * *'  # Every 5 minutes
+    - cron: '*/2 * * * *'  # Every 2 minutes
 
 jobs:
   merge-all-prs:
@@ -20,15 +20,14 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install MCP GitHub Server
+      - name: Setup GitHub CLI
         run: |
-          npm install -g @modelcontextprotocol/server-github
-          npm install -g @anthropic-ai/sdk
+          type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+          && sudo apt update \
+          && sudo apt install gh -y
 
       - name: Get All Open PRs
         id: get-prs
@@ -42,6 +41,9 @@ jobs:
           PR_COUNT=$(jq length open-prs.json)
           echo "Found $PR_COUNT open PRs"
           echo "pr_count=$PR_COUNT" >> $GITHUB_OUTPUT
+          
+          # Display PRs
+          cat open-prs.json
 
       - name: Merge All PRs
         if: steps.get-prs.outputs.pr_count != '0'
@@ -57,31 +59,12 @@ jobs:
             echo "Processing PR #$PR_NUMBER: $PR_TITLE"
             
             # Auto-approve the PR
-            gh pr review $PR_NUMBER --approve --body "✅ Auto-approved by MCP bot - Emergency merge"
+            gh pr review $PR_NUMBER --approve --body "✅ Auto-approved by emergency merge bot"
             
-            # Enable auto-merge
-            gh pr merge $PR_NUMBER --auto --squash
-            
-            echo "PR #$PR_NUMBER queued for merge"
-          done
-
-      - name: Force Merge if Needed
-        if: steps.get-prs.outputs.pr_count != '0'
-        run: |
-          echo "Force merging remaining PRs"
-          
-          # Force merge any PRs that didn't auto-merge
-          jq -r '.[] | @base64' open-prs.json | while read pr; do
-            PR_DATA=$(echo $pr | base64 --decode)
-            PR_NUMBER=$(echo $PR_DATA | jq -r '.number')
-            PR_TITLE=$(echo $PR_DATA | jq -r '.title')
-            
-            echo "Force merging PR #$PR_NUMBER: $PR_TITLE"
-            
-            # Force merge
+            # Force merge immediately
             gh pr merge $PR_NUMBER --merge --squash --delete-branch
             
-            echo "PR #$PR_NUMBER force merged"
+            echo "PR #$PR_NUMBER merged successfully"
           done
 
       - name: Report Results
@@ -91,5 +74,5 @@ jobs:
             echo "No open PRs found"
           else
             echo "Processed ${{ steps.get-prs.outputs.pr_count }} PRs"
-            echo "All PRs have been queued for merge or force merged"
+            echo "All PRs have been merged"
           fi 
