@@ -4,8 +4,8 @@ Skool Social Media Promoter
 Generate viral content to promote your Skool community
 """
 import json
-import random
 from datetime import datetime
+import secrets
 
 class SkoolSocialPromoter:
     def __init__(self, community_name="AI Automation Academy", community_url="skool.com/your-community"):
@@ -38,7 +38,7 @@ class SkoolSocialPromoter:
             }
         ]
         
-        thread = random.choice(threads)
+        thread = secrets.choice(threads)
         return {
             "platform": "Twitter/X",
             "content": thread,
@@ -104,7 +104,7 @@ DM me "START" if you're ready to join the 1%.
         
         return {
             "platform": "LinkedIn",
-            "content": random.choice(templates),
+            "content": secrets.choice(templates),
             "best_time": "Tuesday-Thursday, 7-9 AM or 5-6 PM"
         }
     
@@ -155,10 +155,10 @@ Edit: Since many are asking, the community is {self.community_name}. Feel free t
             }
         ]
         
-        post = random.choice(posts)
+        post = secrets.choice(posts)
         return {
             "platform": "Reddit",
-            "subreddit": random.choice(subreddits),
+            "subreddit": secrets.choice(subreddits),
             "title": post["title"],
             "content": post["content"]
         }
@@ -213,7 +213,7 @@ Want in? Drop a "🚀" below!"""
         
         return {
             "platform": "Facebook",
-            "content": random.choice(posts),
+            "content": secrets.choice(posts),
             "groups": [
                 "Entrepreneur Mindset",
                 "Online Business Owners",
@@ -239,7 +239,7 @@ Want in? Drop a "🚀" below!"""
             }
         ]
         
-        carousel = random.choice(carousels)
+        carousel = secrets.choice(carousels)
         return {
             "platform": "Instagram",
             "type": "carousel",
