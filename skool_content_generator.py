@@ -6,6 +6,7 @@ Automatically generates engaging content for your Skool community
 import json
 import random
 from datetime import datetime, timedelta
+import secrets
 
 class SkoolContentGenerator:
     def __init__(self, niche="AI Automation"):
@@ -26,22 +27,22 @@ class SkoolContentGenerator:
             {
                 "title": f"🚀 How {{name}} Went From ${{start}} to ${{end}}/Month in {{time}}",
                 "vars": {
-                    "name": random.choice(["John", "Sarah", "Mike", "Emma", "David"]),
-                    "start": random.choice(["0", "500", "1000", "2000"]),
-                    "end": random.choice(["10k", "15k", "25k", "50k"]),
-                    "time": random.choice(["30 days", "60 days", "90 days", "6 months"])
+                    "name": secrets.choice(["John", "Sarah", "Mike", "Emma", "David"]),
+                    "start": secrets.choice(["0", "500", "1000", "2000"]),
+                    "end": secrets.choice(["10k", "15k", "25k", "50k"]),
+                    "time": secrets.choice(["30 days", "60 days", "90 days", "6 months"])
                 }
             },
             {
                 "title": f"📈 From Beginner to {{achievement}} - {{name}}'s Journey",
                 "vars": {
-                    "achievement": random.choice([f"6-Figure {self.niche} Expert", f"Top 1% in {self.niche}", f"{self.niche} Agency Owner"]),
-                    "name": random.choice(["Alex", "Jessica", "Ryan", "Lisa", "Tom"])
+                    "achievement": secrets.choice([f"6-Figure {self.niche} Expert", f"Top 1% in {self.niche}", f"{self.niche} Agency Owner"]),
+                    "name": secrets.choice(["Alex", "Jessica", "Ryan", "Lisa", "Tom"])
                 }
             }
         ]
         
-        template = random.choice(templates)
+        template = secrets.choice(templates)
         title = template["title"]
         for key, value in template["vars"].items():
             title = title.replace(f"{{{{{key}}}}}", str(value))
@@ -68,9 +69,9 @@ I want to share an incredible transformation story from our community...
 ✅ {random.choice(["Featured in major publications", "Speaking at conferences", "Helping others achieve the same", "Building generational wealth"])}
 
 **Key Takeaways:**
-1. {random.choice(["Systems beat talent every time", "Community support is everything", "Consistency compounds exponentially"])}
-2. {random.choice(["Start before you're ready", "Perfect is the enemy of done", "Action creates clarity"])}
-3. {random.choice(["Invest in yourself first", "Your network is your net worth", "Success leaves clues"])}
+1. {secrets.choice(["Systems beat talent every time", "Community support is everything", "Consistency compounds exponentially"])}
+2. {secrets.choice(["Start before you're ready", "Perfect is the enemy of done", "Action creates clarity"])}
+3. {secrets.choice(["Invest in yourself first", "Your network is your net worth", "Success leaves clues"])}
 
 Who's ready to be our next success story? 🔥
 
@@ -158,8 +159,8 @@ Who's implementing this TODAY? Comment "READY" and I'll personally help you get 
 
 Time for our weekly Q&A session! Here are the top questions from the community:
 
-**Q1: {random.choice(questions)}**
-A: {random.choice([
+**Q1: {secrets.choice(questions)}**
+A: {secrets.choice([
     "Most members see significant results within 30-60 days of consistent action.",
     "You can start with as little as $100-200 for basic tools and training.",
     "Absolutely! Many of our successful members started part-time.",
@@ -167,8 +168,8 @@ A: {random.choice([
     "Basic computer skills are enough. We teach everything else!"
 ])}
 
-**Q2: {random.choice(questions)}**
-A: {random.choice([
+**Q2: {secrets.choice(questions)}**
+A: {secrets.choice([
     "The learning curve is surprisingly gentle with our step-by-step system.",
     "ROI is typically 10-50x within the first 90 days.",
     "Yes! 2-3 hours per day is enough to build a successful business.",
@@ -177,7 +178,7 @@ A: {random.choice([
 ])}
 
 **Q3: What's the biggest mistake beginners make?**
-A: {random.choice([
+A: {secrets.choice([
     "Overthinking instead of taking action. Start messy and improve!",
     "Not joining a community. Success is 10x faster with support.",
     "Undercharging for their services. Know your worth!",
@@ -215,7 +216,7 @@ I'm here to help you succeed with {self.niche}!
                 # Simplified for other days
                 week_content[day] = {
                     "title": f"📅 {day.capitalize()} {self.niche} Tip",
-                    "content": f"Today's focus: {random.choice(['Client acquisition', 'Skill development', 'Community engagement', 'Revenue optimization'])}"
+                    "content": f"Today's focus: {secrets.choice(['Client acquisition', 'Skill development', 'Community engagement', 'Revenue optimization'])}"
                 }
         
         return week_content
