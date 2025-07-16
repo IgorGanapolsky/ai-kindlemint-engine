@@ -1,0 +1,14 @@
+{
+  "welcome": {
+    "subject": "Your free puzzles are here!",
+    "body": "Thanks for joining! Here are your 5 free puzzles. Reply and let me know your favorite!"
+  },
+  "day2": {
+    "subject": "Quick question about puzzles",
+    "body": "Which puzzle did you try first? I'm curious because most people start with sudoku but the word searches are secretly more addictive..."
+  },
+  "day3": {
+    "subject": "This shocked me about puzzles",
+    "body": "Harvard study: 15 minutes of puzzles = 30 minutes of meditation for stress relief. Wild, right?"
+  }
+}

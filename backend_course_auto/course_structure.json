@@ -1,0 +1,44 @@
+{
+  "title": "Create Your Own Puzzle Book Empire",
+  "price": 97,
+  "modules": [
+    {
+      "title": "Foundation: Understanding the Market",
+      "lessons": [
+        "Why puzzle books are a $2B market",
+        "The senior demographic goldmine",
+        "Choosing your profitable niche"
+      ]
+    },
+    {
+      "title": "Creation: Building Your First Book",
+      "lessons": [
+        "Free tools for puzzle generation",
+        "Professional formatting secrets",
+        "Cover design that sells"
+      ]
+    },
+    {
+      "title": "Publishing: Getting to Market Fast",
+      "lessons": [
+        "KDP setup in 15 minutes",
+        "Pricing for maximum profit",
+        "Launch strategy for first sales"
+      ]
+    },
+    {
+      "title": "Scaling: Building Your Empire",
+      "lessons": [
+        "Automation systems",
+        "Building a catalog",
+        "Passive income strategies"
+      ]
+    }
+  ],
+  "bonuses": [
+    "100 Puzzle Templates (Value: $47)",
+    "Cover Design Templates (Value: $27)",
+    "Marketing Swipe Copy (Value: $37)"
+  ],
+  "guarantee": "30-day money back guarantee"
+}
