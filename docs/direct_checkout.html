@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Large Print Sudoku Puzzles - Brain Training for Seniors</title>
+      <script src="https://js.stripe.com/v3/"></script>
+      <style>
+            body {
+                  font-family: Arial, sans-serif;
+                  max-width: 800px;
+                  margin: 0 auto;
+                  padding: 20px;
+                  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                  color: white;
+                  min-height: 100vh;
+            }
+
+            .container {
+                  background: rgba(255, 255, 255, 0.1);
+                  padding: 30px;
+                  border-radius: 15px;
+                  backdrop-filter: blur(10px);
+                  margin: 20px 0;
+            }
+
+            .cta-button {
+                  background: #28a745;
+                  color: white;
+                  padding: 15px 30px;
+                  border: none;
+                  border-radius: 8px;
+                  font-size: 18px;
+                  cursor: pointer;
+                  margin: 20px 0;
+                  transition: all 0.3s ease;
+                  display: block;
+                  width: 100%;
+                  max-width: 300px;
+                  margin: 20px auto;
+            }
+
+            .cta-button:hover {
+                  background: #218838;
+                  transform: translateY(-2px);
+            }
+
+            .benefits {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                  gap: 20px;
+                  margin: 30px 0;
+            }
+
+            .benefit {
+                  background: rgba(255, 255, 255, 0.1);
+                  padding: 20px;
+                  border-radius: 10px;
+                  text-align: center;
+            }
+
+            .price {
+                  font-size: 2em;
+                  font-weight: bold;
+                  color: #28a745;
+                  text-align: center;
+                  margin: 20px 0;
+            }
+
+            .guarantee {
+                  background: rgba(40, 167, 69, 0.2);
+                  padding: 15px;
+                  border-radius: 8px;
+                  margin: 20px 0;
+                  text-align: center;
+            }
+
+            .testimonial {
+                  background: rgba(255, 255, 255, 0.05);
+                  padding: 20px;
+                  border-radius: 10px;
+                  margin: 20px 0;
+                  font-style: italic;
+            }
+      </style>
+</head>
+
+<body>
+      <div class="container">
+            <h1>🧩 Large Print Sudoku Puzzles</h1>
+            <h2>Brain Training Specifically Designed for Seniors</h2>
+
+            <div class="price">$2.99</div>
+
+            <div class="benefits">
+                  <div class="benefit">
+                        <h3>👁️ Large Print</h3>
+                        <p>Easy-to-read numbers and clear grids designed for aging eyes</p>
+                  </div>
+                  <div class="benefit">
+                        <h3>🧠 Brain Health</h3>
+                        <p>Improve memory, focus, and cognitive function with daily puzzles</p>
+                  </div>
+                  <div class="benefit">
+                        <h3>🎯 Perfect Difficulty</h3>
+                        <p>Challenging but not frustrating - designed for senior skill levels</p>
+                  </div>
+            </div>
+
+            <div class="testimonial">
+                  "My mother loves these puzzles! The large print makes all the difference. She's been doing one puzzle
+                  every morning and I can see her memory improving." - Sarah M.
+            </div>
+
+            <p><strong>What You Get:</strong></p>
+            <ul>
+                  <li>✅ 100 Large Print Sudoku Puzzles</li>
+                  <li>✅ Solutions for every puzzle</li>
+                  <li>✅ Printable PDF format</li>
+                  <li>✅ Instant download</li>
+                  <li>✅ Designed specifically for seniors</li>
+            </ul>
+
+            <div class="guarantee">
+                  <strong>30-Day Money-Back Guarantee</strong><br>
+                  If you're not completely satisfied, we'll refund your purchase - no questions asked!
+            </div>
+
+            <button class="cta-button" onclick="redirectToStripe()">
+                  🚀 Get My Puzzles Now - $2.99
+            </button>
+
+            <p style="text-align: center; font-size: 0.9em; margin-top: 20px;">
+                  <small>✅ Secure payment via Stripe • ✅ Instant download • ✅ 30-day guarantee</small>
+            </p>
+      </div>
+
+      <script>
+            function redirectToStripe() {
+                  // Direct link to Stripe checkout
+                  const checkoutUrl = 'https://checkout.stripe.com/c/pay/cs_live_a1IH5vCC4STNf0hMJgNScGyw37thqsNLqgdHSAdxfP4VkE2jIlQQBb6kuW#fidkdWxOYHwnPyd1blppbHNgWjA0V0tmTzRCQkd1YTA3NVRcMEwwZ2dCcVNdS09BVklzTmxycERMYW9Mbn1JX2IyQmpXMGdQcH1gPUNLM3FPNW5rU0JLPUg2SkRWZHZnNkF8RHxfaTNhQVRcNTV%2FPGpzf25ofScpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl';
+                  window.location.href = checkoutUrl;
+            }
+
+            // Add some urgency
+            setTimeout(function () {
+                  const button = document.querySelector('.cta-button');
+                  button.innerHTML = '🚀 Get My Puzzles Now - $2.99 (Limited Time!)';
+                  button.style.background = '#dc3545';
+            }, 10000);
+      </script>
+</body>
+
+</html>

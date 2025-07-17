@@ -1,0 +1,7 @@
+Add urgency: 'Limited Time Offer'
+Add social proof: 'Join 500+ satisfied customers'
+Add scarcity: 'Only 50 copies left at this price'
+Add risk reversal: '30-day money-back guarantee'
+Add multiple CTAs throughout the page
+Add FAQ section
+Add customer testimonials
