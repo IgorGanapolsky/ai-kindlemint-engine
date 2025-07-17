@@ -6,7 +6,6 @@ Checks that puzzles have the correct number of empty cells
 
 import sys
 from pathlib import Path
-import PyPDF2
 from PIL import Image
 import numpy as np
 import fitz  # PyMuPDF for better image extraction

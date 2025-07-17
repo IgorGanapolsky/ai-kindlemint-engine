@@ -12,9 +12,6 @@ from pathlib import Path
 from reportlab.lib import colors
 
 # Font embedding fix - use embedded fonts instead of system fonts
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.fonts import addMapping
 
 # Use built-in fonts for compatibility
 BASE_FONT = "Helvetica"

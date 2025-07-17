@@ -13,8 +13,8 @@ Strategy:
 import json
 import time
 import random
-from datetime import datetime, timedelta
-from typing import List, Dict
+from datetime import datetime
+from typing import Dict
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -262,7 +262,7 @@ Happy puzzling everyone! 🧩""",
                 print(f"   ⏰ Waiting {wait_time//60} minutes before next group...")
                 time.sleep(wait_time)
             
-            print(f"\n✅ Daily Facebook routine complete!")
+            print("\n✅ Daily Facebook routine complete!")
             print(f"   Total engagements: {total_engagements}")
             print(f"   Posts created: {posts_created}")
             

@@ -100,7 +100,7 @@ def generate_all_payment_links():
                 'price_id': result['price_id']
             }
             
-            print(f"✅ Success!")
+            print("✅ Success!")
             print(f"   Payment Link: {result['payment_link']}")
             print(f"   Price: ${product['price'] / 100:.2f}")
             
@@ -177,10 +177,10 @@ def generate_test_checkout_session():
     
     if result['success']:
         print("✅ Test session created!")
-        print(f"\n🔗 Open this URL to test the checkout flow:")
+        print("\n🔗 Open this URL to test the checkout flow:")
         print(f"   {result['checkout_url']}")
-        print(f"\n💡 Use test card: 4242 4242 4242 4242")
-        print(f"   Any future expiry, any CVC")
+        print("\n💡 Use test card: 4242 4242 4242 4242")
+        print("   Any future expiry, any CVC")
     else:
         print(f"❌ Failed: {result['error']}")
 

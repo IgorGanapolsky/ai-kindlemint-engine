@@ -7,7 +7,6 @@ you'll need to add the ASINs from Amazon KDP to enable performance monitoring.
 """
 
 import json
-import sys
 from pathlib import Path
 
 
@@ -89,7 +88,7 @@ def add_asins():
                     print(f"✅ Added ASIN: {asin}")
                 else:
                     print(
-                        f"⚠️  Invalid ASIN format. ASINs should be 10 characters starting with 'B'"
+                        "⚠️  Invalid ASIN format. ASINs should be 10 characters starting with 'B'"
                     )
 
     # Save updates

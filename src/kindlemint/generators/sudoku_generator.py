@@ -100,7 +100,7 @@ class SudokuGenerator:
                 break
             
             # Try removing this number
-            original = puzzle[row][col]
+            puzzle[row][col]
             puzzle[row][col] = 0
             
             # For simplicity, we'll assume the puzzle is still solvable

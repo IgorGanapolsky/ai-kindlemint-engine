@@ -4,7 +4,6 @@ Disable noisy workflows to reduce CEO notification spam
 """
 
 import os
-import glob
 
 # Workflows to disable (non-critical ones)
 NOISY_WORKFLOWS = [

@@ -9,7 +9,7 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 import uuid
 
 from parallel_book_processor import ParallelBookProcessor, BookJob
@@ -45,10 +45,10 @@ class EnhancedProductionPipeline:
         jobs = self._create_jobs_from_batch(batch_config, batch_id)
         
         # Add all jobs to processor
-        job_ids = self.processor.add_batch_jobs(jobs)
+        self.processor.add_batch_jobs(jobs)
         
         # Start processing
-        processing_task = asyncio.create_task(self.processor.start_processing())
+        asyncio.create_task(self.processor.start_processing())
         
         # Monitor progress
         start_time = datetime.now()
@@ -235,14 +235,14 @@ async def main():
     # Run daily catalog production
     report = await pipeline.produce_daily_catalog()
     
-    print(f"\nDaily Production Report:")
+    print("\nDaily Production Report:")
     print(f"Date: {report['date']}")
     print(f"Total Books: {report['total_books_produced']}")
     print(f"Average Rate: {report['average_books_per_hour']:.1f} books/hour")
     
     # Get overall metrics
     metrics = pipeline.get_production_metrics()
-    print(f"\nProduction Metrics:")
+    print("\nProduction Metrics:")
     print(f"Total Batches: {metrics['total_batches']}")
     print(f"Success Rate: {metrics['success_rate']:.1f}%")
     print(f"Most Used Template: {metrics['most_used_template']}")

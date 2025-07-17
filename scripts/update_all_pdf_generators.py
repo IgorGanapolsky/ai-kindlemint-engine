@@ -4,7 +4,6 @@ Update all PDF generators to use varied content approach
 Ensures quality standards are met across all generators
 """
 
-import os
 import sys
 from pathlib import Path
 import shutil
@@ -225,13 +224,13 @@ class PDFGeneratorUpdater:
             if self.add_varied_content_methods(generator):
                 updated_count += 1
                 
-        print(f"\n✅ Summary:")
+        print("\n✅ Summary:")
         print(f"  • Total generators found: {len(generators)}")
         print(f"  • Successfully updated: {updated_count}")
         print(f"  • Already had varied content: {len(generators) - updated_count}")
         
         if self.updated_files:
-            print(f"\n📝 Updated files:")
+            print("\n📝 Updated files:")
             for file in self.updated_files:
                 print(f"  • {file.relative_to(self.project_root)}")
                 

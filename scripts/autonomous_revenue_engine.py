@@ -7,12 +7,9 @@ Inspired by Gemini memory patterns
 
 import json
 import os
-import time
 import random
-import subprocess
 from datetime import datetime, timedelta
 from pathlib import Path
-import hashlib
 
 class AutonomousRevenueEngine:
     def __init__(self):
@@ -129,7 +126,7 @@ print("✅ Price update recorded in memory!")
             print("\n🚀 STARTING AUTONOMOUS TRAFFIC GENERATION")
             
             # Use learned best times or defaults
-            best_times = self.memory["learning"].get("best_posting_times", {
+            self.memory["learning"].get("best_posting_times", {
                 "reddit": ["9:00 AM", "5:00 PM"],
                 "pinterest": ["11:00 AM", "3:00 PM", "7:00 PM"]
             })
@@ -442,7 +439,7 @@ print("✅ Price update recorded in memory!")
         with open("tomorrow_schedule.json", "w") as f:
             json.dump(schedule, f, indent=2)
         
-        print(f"\n📅 Tomorrow's schedule created: tomorrow_schedule.json")
+        print("\n📅 Tomorrow's schedule created: tomorrow_schedule.json")
 
 def main():
     engine = AutonomousRevenueEngine()

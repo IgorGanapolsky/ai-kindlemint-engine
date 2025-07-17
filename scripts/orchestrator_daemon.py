@@ -17,10 +17,8 @@ import os
 import signal
 import subprocess
 import sys
-import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 from src.kindlemint.orchestration_runner import OrchestrationSystem
 
@@ -108,7 +106,7 @@ class OrchestrationDaemon:
                     self._process_pr_backlog())
 
                 # Start health monitoring
-                health_task = asyncio.create_task(self._monitor_health())
+                asyncio.create_task(self._monitor_health())
 
                 # Run the orchestration
                 await self.orchestration.run()

@@ -223,7 +223,7 @@ def main():
     args = parser.parse_args()
     
     if args.type in ['daily', 'both']:
-        result = generate_daily_report()
+        generate_daily_report()
         
     if args.type in ['weekly', 'both']:
         generate_weekly_summary()

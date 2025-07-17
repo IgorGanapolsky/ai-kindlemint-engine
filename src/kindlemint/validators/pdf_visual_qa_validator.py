@@ -4,13 +4,10 @@ PDF Visual QA Validator
 Validates PDFs for visual issues: text overlap, margin violations, layout problems
 """
 
-import os
 import json
-import tempfile
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List
 import numpy as np
-from PIL import Image
 import cv2
 import pytesseract
 from pdf2image import convert_from_path

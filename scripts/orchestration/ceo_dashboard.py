@@ -7,7 +7,7 @@ No technical details, just business metrics
 import asyncio
 import json
 import subprocess
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List
 import psutil

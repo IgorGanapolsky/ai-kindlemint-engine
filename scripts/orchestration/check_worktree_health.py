@@ -5,7 +5,7 @@ Check health and usage of Git worktrees
 
 import subprocess
 import json
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List
 
@@ -53,7 +53,7 @@ def check_worktree_status(worktree: Dict) -> Dict:
     
     # Get last modified file
     cmd = f"find {path} -type f -name '*.py' -printf '%T@ %p\n' 2>/dev/null | sort -nr | head -1"
-    last_modified = run_command(cmd)
+    run_command(cmd)
     
     return {
         **worktree,

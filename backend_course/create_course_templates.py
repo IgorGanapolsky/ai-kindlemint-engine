@@ -5,8 +5,6 @@ Gives students a head start with professional templates
 """
 
 import json
-import os
-from datetime import datetime
 from pathlib import Path
 
 def create_course_templates():

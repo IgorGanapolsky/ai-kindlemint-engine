@@ -6,7 +6,7 @@ import logging
 from datetime import datetime
 from pathlib import Path
 from textwrap import dedent
-from typing import Any, Dict, List, Optional
+from typing import Dict, List
 
 
 class AgentGenerator:

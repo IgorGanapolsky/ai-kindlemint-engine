@@ -8,7 +8,7 @@ import os
 import json
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Union, Any
+from typing import Dict, List, Optional, Any
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from datetime import datetime
@@ -110,7 +110,7 @@ class LocalStorage(DataStorageInterface):
         """List available keys in local storage, recursively, returning keys relative to base_path (no .json)"""
         try:
             keys = []
-            prefix_path = self.base_path / prefix if prefix else self.base_path
+            self.base_path / prefix if prefix else self.base_path
             if prefix and not prefix.endswith("/"):
                 prefix += "/"
             for file_path in self.base_path.rglob("*.json"):

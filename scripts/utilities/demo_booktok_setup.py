@@ -3,7 +3,6 @@
 BookTok Setup Demo - Demonstrate the complete BookTok automation system
 """
 
-import os
 import json
 from datetime import datetime, timedelta
 from pathlib import Path

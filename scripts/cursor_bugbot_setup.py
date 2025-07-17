@@ -7,11 +7,9 @@ Since Cursor doesn't provide APIs, this script checks local configuration
 and provides setup instructions.
 """
 
-import os
 import sys
-import json
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 
 class CursorBugbotValidator:

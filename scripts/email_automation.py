@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-import json
 import time
-from datetime import datetime
 
 def send_welcome_email(email, name):
     """Send welcome email to new subscribers"""

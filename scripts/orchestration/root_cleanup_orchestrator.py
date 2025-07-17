@@ -208,19 +208,19 @@ class RootCleanupOrchestrator:
                 unmatched_dirs.append(dir_path)
                 
         if not self.quiet:
-            print(f"\n📋 Organization Plan:")
+            print("\n📋 Organization Plan:")
             print(f"  - Files to organize: {len(file_moves)}")
             print(f"  - Directories to organize: {len(dir_moves)}")
             print(f"  - Unmatched files: {len(unmatched_files)}")
             print(f"  - Unmatched directories: {len(unmatched_dirs)}")
             
             if unmatched_files:
-                print(f"\n⚠️  Unmatched files (need manual review):")
+                print("\n⚠️  Unmatched files (need manual review):")
                 for f in unmatched_files[:10]:  # Show first 10
                     print(f"    - {f.name}")
                     
             if unmatched_dirs:
-                print(f"\n⚠️  Unmatched directories (need manual review):")
+                print("\n⚠️  Unmatched directories (need manual review):")
                 for d in unmatched_dirs[:10]:  # Show first 10
                     print(f"    - {d.name}/")
                 
@@ -229,7 +229,7 @@ class RootCleanupOrchestrator:
     def execute_moves(self, file_moves, dir_moves):
         """Execute the file and directory moves"""
         if not self.quiet:
-            print(f"\n🚀 Executing organization...")
+            print("\n🚀 Executing organization...")
         
         total_moves = 0
         
@@ -271,7 +271,7 @@ class RootCleanupOrchestrator:
         # Execute directory moves
         if dir_moves:
             if not self.quiet:
-                print(f"\n📁 Moving directories...")
+                print("\n📁 Moving directories...")
             
             for move in dir_moves:
                 src_dir = move["dir"]

@@ -5,11 +5,8 @@ Launches all revenue-generating systems autonomously
 """
 
 import os
-import sys
 import json
-import time
 import subprocess
-import threading
 from datetime import datetime
 from pathlib import Path
 
@@ -278,7 +275,7 @@ while True:
         self.revenue_data["total_systems"] = len(systems)
         
         print("\n" + "=" * 50)
-        print(f"🎉 REVENUE AUTOMATION LAUNCHED!")
+        print("🎉 REVENUE AUTOMATION LAUNCHED!")
         print(f"✅ {successful_launches}/{len(systems)} systems active")
         print(f"💰 Revenue generation started at {datetime.now().strftime('%H:%M:%S')}")
         print("\n📊 Expected Revenue Path:")

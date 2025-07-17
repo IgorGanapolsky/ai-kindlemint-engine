@@ -3,7 +3,6 @@
 
 import json
 import webbrowser
-import time
 
 with open("reddit_posts_week.json") as f:
     posts = json.load(f)

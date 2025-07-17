@@ -11,8 +11,7 @@ Handles all email operations including:
 import os
 import base64
 import logging
-from typing import Dict, List, Optional, Any
-from pathlib import Path
+from typing import Dict, Optional, Any
 
 try:
     from sendgrid import SendGridAPIClient

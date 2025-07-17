@@ -9,7 +9,6 @@ import sys
 import json
 import requests
 import argparse
-from datetime import datetime
 import time
 from typing import Dict, List, Optional, Any
 
@@ -50,7 +49,7 @@ class GitHubWorkflowOrchestrator:
         response = requests.post(url, headers=self.headers, json=payload)
         
         if response.status_code == 204:
-            print(f"✅ Workflow triggered successfully")
+            print("✅ Workflow triggered successfully")
             return True
         else:
             print(f"❌ Failed to trigger workflow: {response.status_code}")
@@ -93,7 +92,7 @@ class GitHubWorkflowOrchestrator:
         response = requests.post(url, headers=self.headers)
         
         if response.status_code == 202:
-            print(f"✅ Workflow run cancelled")
+            print("✅ Workflow run cancelled")
             return True
         else:
             print(f"❌ Failed to cancel workflow run: {response.status_code}")
@@ -250,7 +249,7 @@ def main():
         
     elif args.command == "runs":
         runs = orchestrator.get_workflow_runs(args.workflow, args.limit)
-        print(f"Recent workflow runs:")
+        print("Recent workflow runs:")
         for run in runs:
             print(f"  - {run['name']} #{run['run_number']} - {run['status']} ({run['conclusion'] or 'in progress'})")
             

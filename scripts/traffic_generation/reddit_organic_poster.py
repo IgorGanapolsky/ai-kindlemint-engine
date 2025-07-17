@@ -14,8 +14,7 @@ import praw
 import time
 import random
 import json
-from datetime import datetime, timedelta
-from typing import List, Dict
+from datetime import datetime
 
 class RedditOrganicPoster:
     def __init__(self, config_file: str = "reddit_config.json"):
@@ -111,7 +110,6 @@ Has anyone else made the switch? Or am I just getting old? 😅"""
         subreddit = self.reddit.subreddit(subreddit_name)
         
         # Check subreddit rules first
-        rules = subreddit.rules
         
         # Select random tip
         tip = random.choice(self.tip_posts)
@@ -198,7 +196,7 @@ Has anyone else made the switch? Or am I just getting old? 😅"""
             # Don't overwhelm - space out activity
             time.sleep(random.randint(600, 900))  # 10-15 minutes
         
-        print(f"\n✅ Daily routine complete!")
+        print("\n✅ Daily routine complete!")
         
         # Track metrics
         self.save_metrics()

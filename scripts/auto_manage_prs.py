@@ -74,7 +74,7 @@ async def auto_manage_pr(agent: GitHubIssuesAgent, pr_number: int) -> dict:
 
 async def process_pr_backlog(pr_numbers: list):
     """Process a backlog of PRs"""
-    print(f"🤖 KindleMint PR Automation Starting...")
+    print("🤖 KindleMint PR Automation Starting...")
     print(f"📊 Processing {len(pr_numbers)} PRs: {pr_numbers}")
 
     # Initialize GitHub agent

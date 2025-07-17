@@ -106,7 +106,7 @@ def generate_lead_magnet():
     pdf_gen.generate_lead_magnet_pdf(lead_magnet, str(pdf_file))
     
     print(f"✅ PDF generated: {pdf_file}")
-    print(f"\n📧 Ready for email delivery!")
+    print("\n📧 Ready for email delivery!")
     print(f"   File size: {pdf_file.stat().st_size / 1024 / 1024:.1f} MB")
     
     return {

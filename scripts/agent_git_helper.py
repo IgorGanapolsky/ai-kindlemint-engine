@@ -5,8 +5,6 @@ Git Helper for AI Agents - Automated PR Creation and Management
 
 import subprocess
 import sys
-import json
-import os
 from typing import Dict, List, Optional
 from pathlib import Path
 

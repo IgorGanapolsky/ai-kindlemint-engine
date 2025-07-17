@@ -4,17 +4,12 @@ BookTok Integration - Connect Social Media Automation with AI-KindleMint-Engine
 Leverages existing autonomous worktree system for parallel social content generation
 """
 
-import os
 import json
 import subprocess
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 import argparse
-from typing import Dict, List, Any, Optional
-import sys
-import asyncio
-import time
-from dataclasses import dataclass
+from typing import Dict, Any
 import logging
 
 # Import existing worktree orchestration
@@ -153,7 +148,7 @@ class BookTokWorktreeIntegration:
                     results["failed_generations"] += 1
                     print(f"❌ Error processing {book_dir.name}: {e}")
         
-        print(f"📊 Content generation complete:")
+        print("📊 Content generation complete:")
         print(f"  - Successful: {results['successful_generations']}")
         print(f"  - Failed: {results['failed_generations']}")
         

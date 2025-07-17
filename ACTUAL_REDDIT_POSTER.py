@@ -72,7 +72,6 @@ print("\n⚡ The scripts are already configured with your credentials!")
 print("Just run them to start making REAL money!")
 
 # Show the actual command to run
-import subprocess
 import os
 
 if os.path.exists('scripts/traffic_generation/reddit_config.json'):

@@ -11,11 +11,9 @@ import logging
 import re
 import subprocess
 import sys
-from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Set
+from typing import Dict, List
 
-from src.kindlemint.agents.github_issues_agent import GitHubIssuesAgent
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -147,7 +145,7 @@ class BranchCleanupAgent:
             merged_branches = [
                 b.strip().replace("* ", "")
                 for b in result.stdout.split("\n")
-                if b.strip() and not b.strip() in ["main", "develop", "staging"]
+                if b.strip() and b.strip() not in ["main", "develop", "staging"]
             ]
 
             deleted_count = 0

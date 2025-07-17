@@ -94,7 +94,7 @@ Generate one caption for: {theme}"""
             caption = response.choices[0].message.content.strip()
             
             # Add link in bio CTA
-            caption += f"\n\n🔗 Free large-print puzzles in bio!"
+            caption += "\n\n🔗 Free large-print puzzles in bio!"
             
             return caption
             

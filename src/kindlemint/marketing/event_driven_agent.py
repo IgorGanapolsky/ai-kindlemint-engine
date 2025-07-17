@@ -7,21 +7,16 @@ neural dynamics into actionable marketing insights.
 """
 
 import numpy as np
-from typing import Dict, List, Tuple, Optional, Any, Callable
+from typing import Dict, List, Tuple, Optional, Any
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 import asyncio
-import json
 import logging
 from collections import deque, defaultdict
 from enum import Enum
 import pandas as pd
-from scipy import signal
 import networkx as nx
-import heapq
-import threading
-from concurrent.futures import ThreadPoolExecutor, Future
-import time
+from concurrent.futures import ThreadPoolExecutor
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -501,7 +496,7 @@ class EventDrivenMarketingAgent:
     
     async def _process_neural_activity(self):
         """Process ongoing neural activity and decay"""
-        current_time = datetime.now()
+        datetime.now()
         
         for neuron in self.neurons.values():
             # Decay membrane potential

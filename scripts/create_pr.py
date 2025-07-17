@@ -6,9 +6,7 @@ Creates PRs automatically without manual intervention
 
 import os
 import sys
-import json
 import requests
-from datetime import datetime
 
 def create_pr():
     """Create a PR for the current branch"""
@@ -100,7 +98,7 @@ This cleanup eliminates the excessive workflow failures and resource usage while
         pr_data = response.json()
         pr_url = pr_data['html_url']
         pr_number = pr_data['number']
-        print(f"✅ PR Created Successfully!")
+        print("✅ PR Created Successfully!")
         print(f"   PR #{pr_number}: {pr_url}")
         return pr_url
     else:

@@ -9,7 +9,6 @@ import os
 import subprocess
 from typing import List, Dict, Any
 import requests
-from pathlib import Path
 
 class AICommentProcessor:
     """Processes AI code review comments and applies suggestions automatically"""

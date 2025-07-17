@@ -6,8 +6,6 @@ No manual work required!
 
 import time
 import random
-import subprocess
-import os
 
 print("🚀 CEO AUTOMATIC MONEY MAKER ACTIVATED!")
 print("=" * 50)

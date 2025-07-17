@@ -1,6 +1,4 @@
 import json
-import time
-import sys
 
 print("💸 REAL MONEY MAKER ACTIVATED!")
 print("This ACTUALLY posts to Reddit - not a simulation!")
@@ -41,4 +39,4 @@ submission = reddit.subreddit(post['subreddit']).submit(
 )
 
 print(f"✅ POSTED! Link: https://reddit.com{submission.permalink}")
-print(f"\n💰 Now change subreddit to 'sudoku' and run again for REAL traffic!")
+print("\n💰 Now change subreddit to 'sudoku' and run again for REAL traffic!")

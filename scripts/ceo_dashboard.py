@@ -20,10 +20,10 @@ def main():
     print("=" * 35)
     
     # Initialize analytics
-    analytics = CausalInference()
+    CausalInference()
     
     # Initialize portfolio manager
-    portfolio = PortfolioManager()
+    PortfolioManager()
     
     print("✅ Analytics system: OPERATIONAL")
     print("✅ Portfolio manager: OPERATIONAL")

@@ -7,10 +7,9 @@ of marketing actions and content changes on book performance metrics.
 Based on principles from the NVIDIA AI Podcast featuring Alembic CEO Tomás Puig.
 """
 
-from typing import Dict, List, Optional, Tuple, Any
-from datetime import datetime, timedelta
+from typing import Dict, Optional, Tuple, Any
+from datetime import timedelta
 import pandas as pd
-import numpy as np
 from dataclasses import dataclass
 from enum import Enum
 import logging

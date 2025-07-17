@@ -18,7 +18,6 @@ except ImportError:
     print("❌ FastMCP not installed. Install with: pip install fastmcp")
     sys.exit(1)
 
-from kindlemint.agents.puzzle_generator_agent import PuzzleGeneratorAgent
 from scripts.large_print_sudoku_generator import LargePrintSudokuGenerator
 from add_qr_cta_to_books import enhance_book_with_lead_capture
 
@@ -251,6 +250,6 @@ if __name__ == "__main__":
     print("  - generate_crossword_book: Create crossword puzzle books") 
     print("  - create_lead_magnet: Generate free puzzle samplers")
     print("  - get_book_stats: View generated book statistics")
-    print(f"🌐 Server running on http://localhost:8011")
+    print("🌐 Server running on http://localhost:8011")
     
     mcp.run()

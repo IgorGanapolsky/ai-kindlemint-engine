@@ -9,8 +9,7 @@ import json
 import asyncio
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
-import aiohttp
+from typing import Dict, List
 
 class GrokEnhancedRevenueEngine:
     def __init__(self):
@@ -237,20 +236,7 @@ class GrokEnhancedRevenueEngine:
         """Make API call to Grok 4"""
         
         # Simulated Grok API call structure
-        headers = {
-            "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json"
-        }
         
-        payload = {
-            "model": self.model,
-            "messages": [
-                {"role": "system", "content": "You are Grok 4, an advanced AI focused on revenue optimization and market analysis."},
-                {"role": "user", "content": prompt}
-            ],
-            "temperature": temperature,
-            "response_format": {"type": "json_object"}
-        }
         
         # In production, this would make actual API call
         # For now, return structured example response

@@ -6,7 +6,6 @@ CEO doesn't need to think about this - it just works
 
 import asyncio
 import json
-import os
 import shutil
 import subprocess
 from datetime import datetime

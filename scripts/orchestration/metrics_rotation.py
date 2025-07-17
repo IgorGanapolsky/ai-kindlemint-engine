@@ -3,12 +3,10 @@
 Metrics Rotation System for Worktree Orchestration
 Automatically rotates commit metrics files monthly
 """
-import os
 import json
 import shutil
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List
 
 class MetricsRotation:
     def __init__(self):
@@ -122,9 +120,9 @@ class MetricsRotation:
         
         # Create summary
         summary = self.create_rotation_summary(archived, cleaned)
-        print(f"\n✅ Rotation complete!")
+        print("\n✅ Rotation complete!")
         print(f"   Previous month's files: {self.archive_dir / self.get_previous_month()}")
-        print(f"   Archives are kept for 3 months")
+        print("   Archives are kept for 3 months")
         
         return summary
 

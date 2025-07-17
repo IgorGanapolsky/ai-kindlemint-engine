@@ -5,7 +5,7 @@ Embeds email capture mechanisms directly into generated PDFs
 """
 
 import qrcode
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
@@ -99,7 +99,6 @@ class BookLeadMagnetGenerator:
     def add_inline_cta_to_book(self, original_pdf_path: str, book_title: str) -> str:
         """Add CTA elements throughout an existing puzzle book"""
         from PyPDF2 import PdfReader, PdfWriter
-        import tempfile
         
         # Read original PDF
         reader = PdfReader(original_pdf_path)

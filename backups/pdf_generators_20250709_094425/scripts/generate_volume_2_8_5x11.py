@@ -4,12 +4,9 @@ Generate Volume 2 PDF in proper 8.5x11 format for paperback
 This is the CORRECT format for Large Print puzzle books
 """
 
-import json
-import sys
 from datetime import datetime
 from pathlib import Path
 
-from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter  # 8.5x11
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
@@ -72,9 +69,9 @@ class Volume2_8_5x11_Generator:
         # Save PDF
         c.save()
         
-        print(f"\n✅ PDF generated successfully!")
+        print("\n✅ PDF generated successfully!")
         print(f"📄 Output: {output_file}")
-        print(f"📏 Format: 8.5 × 11 inches")
+        print("📏 Format: 8.5 × 11 inches")
         print(f"📏 Size: {output_file.stat().st_size / 1024 / 1024:.1f} MB")
         
         return output_file
@@ -219,7 +216,7 @@ class Volume2_8_5x11_Generator:
         else:
             # Error message
             c.setFont(BASE_FONT, 14)
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT / 2, f"ERROR: Puzzle image not found!")
+            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT / 2, "ERROR: Puzzle image not found!")
             print(f"  ⚠️  Missing puzzle image: {puzzle_image}")
         
         c.showPage()
@@ -323,7 +320,7 @@ def main():
         return
     
     # Generate the PDF
-    pdf_file = generator.generate_pdf()
+    generator.generate_pdf()
     
     print("\n✅ Volume 2 is now properly formatted for 8.5×11!")
     print("📏 This is the CORRECT format for Large Print puzzle books")

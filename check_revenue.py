@@ -12,7 +12,7 @@ try:
     
     print(f"Today: ${today_revenue:.2f}")
     print(f"Total: ${total:.2f}")
-    print(f"Goal: $300/day")
+    print("Goal: $300/day")
     print(f"Status: {today_revenue/300*100:.0f}%")
 except:
     print("No revenue data yet. Run LAUNCH_REVENUE_ENGINE.py first!")

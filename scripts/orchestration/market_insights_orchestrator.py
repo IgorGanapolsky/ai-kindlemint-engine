@@ -7,13 +7,10 @@ Combines multiple data sources for comprehensive KDP market analysis
 import asyncio
 import json
 import logging
-import os
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
-import aiohttp
-import pandas as pd
 from pytrends.request import TrendReq
 
 # Configure logging
@@ -196,7 +193,6 @@ class MarketInsightsOrchestrator:
     def analyze_seasonal_trends(self) -> Dict:
         """Analyze seasonal patterns for publishing timing"""
         current_date = datetime.now()
-        days_to_holidays = {}
         
         # Major selling seasons
         holidays = {
@@ -413,7 +409,7 @@ async def main():
         insights = await orchestrator.collect_all_insights()
         
         # Save and generate reports
-        filepath = orchestrator.save_insights(insights)
+        orchestrator.save_insights(insights)
         
         # Print summary for CI/CD
         print("\n✅ Market Insights Collection Complete!")

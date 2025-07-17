@@ -6,12 +6,9 @@ AI-driven consumer trend prediction and analysis system that monitors
 multiple data sources to identify emerging opportunities.
 """
 
-import asyncio
-import json
 import logging
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any
-from pathlib import Path
+from datetime import datetime
+from typing import Dict, List
 
 logger = logging.getLogger(__name__)
 

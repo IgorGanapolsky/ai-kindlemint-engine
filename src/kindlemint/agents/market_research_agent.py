@@ -11,11 +11,10 @@ This agent conducts comprehensive market research and competitive analysis inclu
 
 import asyncio
 import json
-import logging
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 from urllib.parse import quote_plus
 
 import aiohttp
@@ -104,7 +103,7 @@ class MarketResearchAgent(BaseAgent):
         """Analyze competitors in a specific niche"""
         niche = task.parameters.get("niche")
         keywords = task.parameters.get("keywords", [])
-        depth = task.parameters.get("depth", "standard")  # standard, deep
+        task.parameters.get("depth", "standard")  # standard, deep
 
         if not niche:
             return TaskResult(
@@ -168,14 +167,11 @@ class MarketResearchAgent(BaseAgent):
         search_terms = [niche] + keywords
         competitor_books = []
 
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
-        }
 
         for search_term in search_terms[:5]:  # Limit searches
             try:
                 # Amazon search URL
-                search_url = (
+                (
                     f"https://www.amazon.com/s?k={quote_plus(search_term)}&i=stripbooks"
                 )
 
@@ -241,10 +237,9 @@ class MarketResearchAgent(BaseAgent):
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
         }
 
-        url = f"https://www.amazon.com/dp/{asin}"
 
         try:
-            async with aiohttp.ClientSession(headers=headers) as session:
+            async with aiohttp.ClientSession(headers=headers):
                 # Placeholder - should use official Amazon API
                 self.logger.warning(
                     f"Product detail fetch disabled for {asin} - implement official API integration"
@@ -361,7 +356,7 @@ class MarketResearchAgent(BaseAgent):
     async def _research_niche(self, task: Task) -> TaskResult:
         """Research a specific niche for opportunities"""
         niche = task.parameters.get("niche")
-        depth = task.parameters.get("depth", "standard")
+        task.parameters.get("depth", "standard")
 
         if not niche:
             return TaskResult(

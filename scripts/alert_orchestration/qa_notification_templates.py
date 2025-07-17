@@ -21,13 +21,10 @@ def qa_validation_failure_blocks(data: Dict[str, Any]) -> List[Dict]:
     # Determine severity
     if failure_count > 5:
         severity_emoji = "🚨"
-        severity_color = "#FF0000"
     elif failure_count > 2:
         severity_emoji = "⚠️"
-        severity_color = "#FF6600"
     else:
         severity_emoji = "⚡"
-        severity_color = "#FFB347"
 
     blocks = [
         {

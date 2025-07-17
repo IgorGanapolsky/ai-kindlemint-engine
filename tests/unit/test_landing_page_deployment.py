@@ -2,7 +2,6 @@
 """
 Test landing page deployment functionality
 """
-import pytest
 
 
 def test_landing_page_deployment_placeholder():

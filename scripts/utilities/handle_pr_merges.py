@@ -4,8 +4,6 @@ Handle PR merges using orchestration
 """
 
 import subprocess
-import sys
-from pathlib import Path
 
 def run_cmd(cmd, check=True):
     """Run command and return output"""

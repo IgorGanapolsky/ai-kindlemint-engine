@@ -43,14 +43,14 @@ def test_sudoku_generator_comprehensive():
     assert all(len(row) == 9 for row in grid)
 
     # Test validation
-    assert gen1._is_valid(grid, 0, 0, 1) == True
-    assert gen1._is_valid(grid, 0, 0, 0) == False  # 0 is not valid
+    assert gen1._is_valid(grid, 0, 0, 1)
+    assert not gen1._is_valid(grid, 0, 0, 0)  # 0 is not valid
 
     # Place a number and test validation
     grid[0][0] = 1
-    assert gen1._is_valid(grid, 0, 1, 1) == False  # Same row
-    assert gen1._is_valid(grid, 1, 0, 1) == False  # Same column
-    assert gen1._is_valid(grid, 0, 1, 2) == True  # Different number OK
+    assert not gen1._is_valid(grid, 0, 1, 1)  # Same row
+    assert not gen1._is_valid(grid, 1, 0, 1)  # Same column
+    assert gen1._is_valid(grid, 0, 1, 2)  # Different number OK
 
     # Test difficulty selection
     assert gen3._get_difficulty_for_puzzle(
@@ -102,7 +102,7 @@ def test_base_validator_structures():
     )
 
     # Test report methods
-    assert report.is_valid() == False  # Has errors
+    assert not report.is_valid()  # Has errors
     assert len(report.issues) == 2
     summary = report.summary()
     assert "sudoku" in summary

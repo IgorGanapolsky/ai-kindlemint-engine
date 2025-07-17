@@ -5,14 +5,11 @@ Automatically processes and applies suggestions from security/quality bots
 """
 
 import argparse
-import json
 import os
 import re
-import subprocess
 import sys
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
-import requests
 from github import Github
 
 

@@ -5,7 +5,6 @@ Installs enhanced git hooks that support worktree orchestration
 """
 
 import shutil
-import subprocess
 from datetime import datetime
 from pathlib import Path
 

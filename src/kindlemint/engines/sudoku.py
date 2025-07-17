@@ -546,7 +546,7 @@ def main():
 
         puzzles = generator.generate_puzzles()
 
-        print(f"\n🎯 SUDOKU GENERATOR - SUCCESS")
+        print("\n🎯 SUDOKU GENERATOR - SUCCESS")
         print(f"📊 Generated {len(puzzles)} valid puzzles with unique solutions")
         print(f"📁 Output directory: {args.output}")
 

@@ -397,7 +397,7 @@ if __name__ == "__main__":
 
             if summary["most_expensive_commit"]:
                 c = summary["most_expensive_commit"]
-                print(f"\nMost expensive commit:")
+                print("\nMost expensive commit:")
                 print(f"  {c['hash']} - ${c['cost']:.4f}")
                 print(f"  {c['message'][:50]}...")
 

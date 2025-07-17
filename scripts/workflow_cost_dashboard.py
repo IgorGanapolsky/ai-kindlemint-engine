@@ -130,7 +130,7 @@ Period: Last {days} days
             report += f"| {workflow_name} | {stats['runs']} | {stats['total_minutes']:.0f} | {stats['avg_duration']:.1f} min | ${stats['total_cost']:.2f} |\n"
         
         # Optimization recommendations
-        report += f"""
+        report += """
 
 ## 💡 Optimization Recommendations
 
@@ -154,7 +154,7 @@ Period: Last {days} days
         # Check for schedule optimization
         scheduled_count = sum(1 for r in runs if r.get('event') == 'schedule')
         if scheduled_count > 0:
-            report += f"\n### Schedule Optimization\n\n"
+            report += "\n### Schedule Optimization\n\n"
             report += f"- {scheduled_count} runs triggered by schedule ({scheduled_count/len(runs)*100:.0f}% of total)\n"
             report += "- Consider reducing schedule frequency or consolidating scheduled workflows\n"
         

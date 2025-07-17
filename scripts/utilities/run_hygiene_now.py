@@ -2,9 +2,7 @@
 """
 Quick script to run the code hygiene orchestrator
 """
-import os
 import subprocess
-import sys
 
 def main():
     print("🧹 Running Code Hygiene Orchestrator")

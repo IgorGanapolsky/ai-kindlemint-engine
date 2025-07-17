@@ -10,14 +10,11 @@ This agent acts as a security specialist teammate, providing:
 """
 
 import hashlib
-import json
 import logging
 import re
-import subprocess
 from dataclasses import dataclass
 from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional
 
 import anthropic
 from github import Github
@@ -931,19 +928,19 @@ class AISecurityReviewerAgent:
             comment += f"- {surface.replace('_', ' ').title()}: {status}\n"
 
         if assessment.blocking_issues:
-            comment += f"""
+            comment += """
 ### 🚨 BLOCKING SECURITY ISSUES
 """
             for issue in assessment.blocking_issues:
                 comment += f"- {issue}\n"
 
-        comment += f"""
+        comment += """
 ### 💡 Security Recommendations
 """
         for rec in assessment.recommendations[:5]:
             comment += f"- {rec}\n"
 
-        comment += f"""
+        comment += """
 ### 🔍 Next Steps
 """
 
@@ -1004,13 +1001,13 @@ async def main():
     # Perform security review
     assessment = await agent.perform_security_review(args.repo, args.pr)
 
-    print(f"\n✅ Security review completed!")
+    print("\n✅ Security review completed!")
     print(f"🛡️ Risk Level: {assessment.overall_risk.upper()}")
     print(f"📊 Security Score: {assessment.security_score:.1f}/100")
     print(f"🚨 Vulnerabilities: {len(assessment.vulnerabilities)}")
 
     if assessment.blocking_issues:
-        print(f"🚫 BLOCKING ISSUES:")
+        print("🚫 BLOCKING ISSUES:")
         for issue in assessment.blocking_issues:
             print(f"   - {issue}")
 

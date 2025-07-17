@@ -14,8 +14,8 @@ import os
 import json
 import time
 import random
-from datetime import datetime, timedelta
-from typing import List, Dict
+from datetime import datetime
+from typing import Dict
 from PIL import Image, ImageDraw, ImageFont
 import requests
 

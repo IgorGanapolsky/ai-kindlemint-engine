@@ -5,7 +5,6 @@ This module defines the task structure, status, and results for inter-agent
 communication and coordination within the KindleMint publishing automation system.
 """
 
-import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum

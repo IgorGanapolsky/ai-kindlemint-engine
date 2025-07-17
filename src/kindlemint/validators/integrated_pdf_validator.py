@@ -6,7 +6,7 @@ Combines all PDF validation: content, metadata, and visual QA
 
 import sys
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict
 import json
 from datetime import datetime
 

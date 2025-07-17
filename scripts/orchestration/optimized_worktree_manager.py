@@ -4,7 +4,6 @@ Optimized Worktree Manager - Parallel execution with cost tracking
 """
 
 import asyncio
-import os
 import json
 import subprocess
 from pathlib import Path
@@ -60,7 +59,7 @@ class OptimizedWorktreeManager:
         """Execute tasks in parallel with intelligent batching"""
         
         # Group tasks by type for better cache utilization
-        grouped = self.group_tasks_by_type(tasks)
+        self.group_tasks_by_type(tasks)
         results = []
         
         # Use semaphore to limit concurrent operations
@@ -307,7 +306,7 @@ async def main():
     # Cleanup
     await manager.cleanup_worktrees()
     
-    print(f"\n✅ All tasks completed!")
+    print("\n✅ All tasks completed!")
     print(f"Total cost: ${results['summary']['total_cost']:.2f}")
 
 if __name__ == "__main__":

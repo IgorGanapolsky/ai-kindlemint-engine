@@ -4,7 +4,6 @@ Generate Claude Cost Badges with Clear Time Period Labels
 Creates multiple badges showing different cost metrics
 """
 
-import json
 import re
 import sys
 from pathlib import Path

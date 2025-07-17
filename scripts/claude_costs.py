@@ -43,10 +43,10 @@ Examples:
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
     # Init command
-    init_parser = subparsers.add_parser("init", help="Initialize cost tracking")
+    subparsers.add_parser("init", help="Initialize cost tracking")
 
     # Status command
-    status_parser = subparsers.add_parser("status", help="Show current cost status")
+    subparsers.add_parser("status", help="Show current cost status")
 
     # Track command
     track_parser = subparsers.add_parser("track", help="Track current commit costs")
@@ -75,7 +75,7 @@ Examples:
     export_parser.add_argument("output", help="Output file (csv or json)")
 
     # Badge command
-    badge_parser = subparsers.add_parser("badge", help="Update cost badge in README")
+    subparsers.add_parser("badge", help="Update cost badge in README")
 
     args = parser.parse_args()
 
@@ -89,8 +89,8 @@ Examples:
         # Initialize tracking files
         result = tracker.track_commit("Initial Claude cost tracking setup")
         print("✅ Claude cost tracking initialized!")
-        print(f"   Created: commit_costs.json")
-        print(f"   Created: last_commit_cost.json")
+        print("   Created: commit_costs.json")
+        print("   Created: last_commit_cost.json")
 
     elif args.command == "status":
         # Show current status
@@ -108,7 +108,7 @@ Examples:
 
             # Show last commit
             last_commit = commit_costs["commits"][-1]
-            print(f"\nLast commit:")
+            print("\nLast commit:")
             print(f"  Hash: {last_commit['hash']}")
             print(f"  Cost: {format_currency(last_commit['cost'])}")
             print(f"  Files: {last_commit['files_changed']}")
@@ -117,7 +117,7 @@ Examples:
             print("No commits tracked yet. Run 'claude_costs init' to start.")
 
         # Repository analysis
-        print(f"\nRepository Analysis:")
+        print("\nRepository Analysis:")
         print(
             f"  Full repo cost estimate: {format_currency(last_cost['full_repo_cost'])}"
         )
@@ -156,7 +156,7 @@ Examples:
 
             if summary["most_expensive_commit"]:
                 c = summary["most_expensive_commit"]
-                print(f"\nMost expensive commit:")
+                print("\nMost expensive commit:")
                 print(f"  {c['hash']} - {format_currency(c['cost'])}")
                 print(f"  Files: {c['files_changed']}, Tokens: {c['tokens']:,}")
                 print(f"  {c['message'][:60]}...")
@@ -241,7 +241,7 @@ Examples:
             print(f"✅ Exported cost data to {output_path}")
 
         else:
-            print(f"❌ Unsupported export format. Use .csv or .json")
+            print("❌ Unsupported export format. Use .csv or .json")
     
     elif args.command == "badge":
         # Update cost badges in README with comprehensive analytics

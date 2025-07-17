@@ -5,7 +5,7 @@ Tracks revenue and suggests optimizations
 """
 
 import json
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 
 def monitor_revenue():
@@ -18,7 +18,7 @@ def monitor_revenue():
     # Create revenue log if doesn't exist
     revenue_log = Path("revenue_log.json")
     if not revenue_log.exists():
-        log_data = {
+        {
             "launches": [],
             "daily_revenue": [],
             "total_earned": 0,
@@ -26,7 +26,7 @@ def monitor_revenue():
         }
     else:
         with open(revenue_log, "r") as f:
-            log_data = json.load(f)
+            json.load(f)
     
     # Simulated check (in real implementation, would check APIs)
     print("📊 REVENUE STREAMS:")

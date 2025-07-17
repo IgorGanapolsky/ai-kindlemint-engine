@@ -6,8 +6,8 @@ Aggregates worktree orchestration metrics and calculates real cost savings
 
 import json
 from pathlib import Path
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional
+from datetime import datetime
+from typing import Dict
 
 class OrchestrationMetricsAggregator:
     def __init__(self):
@@ -184,11 +184,11 @@ def main():
     print(f"  Total Commits: {current['commits']['total']}")
     print(f"  Orchestrated: {current['commits']['orchestrated']} ({current['commits']['orchestration_rate']:.1f}%)")
     print(f"  Traditional: {current['commits']['traditional']}")
-    print(f"\n💰 Cost Analysis:")
+    print("\n💰 Cost Analysis:")
     print(f"  Baseline Cost: ${current['costs']['baseline_usd']:.2f}")
     print(f"  Actual Cost: ${current['costs']['actual_usd']:.2f}")
     print(f"  Saved: ${current['costs']['saved_usd']:.2f} ({current['costs']['savings_percentage']:.1f}%)")
-    print(f"\n🎯 All-Time Savings:")
+    print("\n🎯 All-Time Savings:")
     print(f"  Total Saved: ${metrics['all_time_savings']['cost_saved_usd']:.2f}")
     print(f"  Tokens Saved: {metrics['all_time_savings']['tokens_saved']:,}")
 

@@ -5,7 +5,6 @@ No complex setup. Just revenue.
 """
 
 import webbrowser
-import os
 
 def setup_gumroad():
     """Setup Gumroad in 5 minutes"""

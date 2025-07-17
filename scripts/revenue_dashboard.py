@@ -5,7 +5,6 @@ Real-time monitoring of all revenue-generating systems
 """
 
 import json
-import time
 import subprocess
 from datetime import datetime
 from pathlib import Path

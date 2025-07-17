@@ -7,9 +7,8 @@ Adds PDF, DOCX, and other document processing tools to MCP
 import os
 import sys
 from pathlib import Path
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any
 import base64
-from io import BytesIO
 
 # Add the project root to Python path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
@@ -424,6 +423,6 @@ if __name__ == "__main__":
     print("  - generate_crossword_book: Create crossword puzzle books")
     print("  - create_lead_magnet: Generate free puzzle samplers")
     print("  - get_book_stats: View generated book statistics")
-    print(f"\n🌐 Server running on http://localhost:8012")
+    print("\n🌐 Server running on http://localhost:8012")
     
     mcp.run()

@@ -4,15 +4,13 @@ Social Media Analytics - Track BookTok ROI and Performance
 Measures social media impact on book sales and engagement
 """
 
-import os
 import json
 import csv
 from datetime import datetime, timedelta
 from pathlib import Path
 import argparse
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any
 import sys
-import requests
 from dataclasses import dataclass, asdict
 
 # Add src to path for imports

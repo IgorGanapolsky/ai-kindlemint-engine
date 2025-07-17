@@ -11,7 +11,6 @@ This script integrates security validation into the development workflow:
 import os
 import shutil
 import subprocess
-import json
 from pathlib import Path
 
 

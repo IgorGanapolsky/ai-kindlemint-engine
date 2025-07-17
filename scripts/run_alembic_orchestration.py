@@ -66,7 +66,7 @@ async def run_alembic_with_worktrees():
     
     # Wait for all tasks
     print("\n⏳ Running Alembic systems...")
-    results = await asyncio.gather(*tasks, return_exceptions=True)
+    await asyncio.gather(*tasks, return_exceptions=True)
     
     # Report results
     print("\n📊 Alembic Execution Summary:")

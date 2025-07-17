@@ -9,16 +9,15 @@ import sys
 import json
 import time
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import List, Dict
 import secrets
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import openai
-import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -207,7 +206,7 @@ class RedditEngagement:
         # For now, we save content for manual review/posting
         self._save_engagement_content(opportunity, content)
         
-        logger.info(f"✅ Engagement content generated and saved for review")
+        logger.info("✅ Engagement content generated and saved for review")
     
     def _generate_engagement_content(self, opportunity: Dict) -> str:
         """Generate high-value engagement content using AI"""

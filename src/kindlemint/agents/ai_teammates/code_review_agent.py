@@ -8,13 +8,11 @@ This agent acts as a senior developer teammate, analyzing PRs with full context 
 - Integration with existing orchestrators
 """
 
-import json
 import logging
 import re
 from dataclasses import dataclass
 from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional
 
 import anthropic
 from github import Github
@@ -912,7 +910,7 @@ class AICodeReviewAgent:
 """
 
         if review_result["architectural_analysis"]["pattern_violations"]:
-            comment += f"\n**⚠️ Pattern Violations:**\n"
+            comment += "\n**⚠️ Pattern Violations:**\n"
             for violation in review_result["architectural_analysis"][
                 "pattern_violations"
             ]:
@@ -959,7 +957,7 @@ class AICodeReviewAgent:
         for reason in review_result["merge_decision"]["reasoning"]:
             comment += f"- {reason}\n"
 
-        comment += f"""
+        comment += """
 ### 🚀 Next Steps
 """
 
@@ -1028,10 +1026,10 @@ async def main():
         print(f"❌ Review failed: {result['error']}")
         return
 
-    print(f"\n✅ Review completed!")
+    print("\n✅ Review completed!")
     print(f"📊 Confidence: {result['merge_decision']['confidence']:.1%}")
     print(f"🎯 Decision: {result['merge_decision']['action'].upper()}")
-    print(f"\n💡 Key factors:")
+    print("\n💡 Key factors:")
     for name, score in result["merge_decision"]["decision_factors"].items():
         print(f"   {name}: {score:.2f}")
 

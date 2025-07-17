@@ -6,11 +6,9 @@ Manages automated email sequences, triggers, and subscriber lifecycle
 
 import json
 import logging
-import os
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Any
-import csv
 
 from .sendgrid_client import SendGridClient
 from ..analytics import ConversionTracker

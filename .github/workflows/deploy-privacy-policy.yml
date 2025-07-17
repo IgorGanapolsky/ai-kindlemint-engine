@@ -9,6 +9,8 @@ on:
 
 jobs:
   deploy:
+    timeout-minutes: 30
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

@@ -200,7 +200,7 @@ class CrosswordValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Clue number must be an integer",
+                            description="Clue number must be an integer",
                             puzzle_id=puzzle_id,
                             location=f"{direction}[{i}]",
                         )
@@ -224,7 +224,7 @@ class CrosswordValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"Empty or invalid clue text",
+                            description="Empty or invalid clue text",
                             puzzle_id=puzzle_id,
                             location=f"{direction}[{i}]",
                         )
@@ -259,7 +259,7 @@ class CrosswordValidator(PuzzleValidator):
                         issues.append(
                             self.create_issue(
                                 severity=IssueSeverity.ERROR,
-                                description=f"Answer must be a string",
+                                description="Answer must be a string",
                                 puzzle_id=puzzle_id,
                                 location=f"{direction}[{i}]",
                             )

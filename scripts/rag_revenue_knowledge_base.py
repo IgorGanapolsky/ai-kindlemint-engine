@@ -9,7 +9,7 @@ import json
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 import numpy as np
 from dataclasses import dataclass
 import hashlib
@@ -141,7 +141,7 @@ class RAGRevenueKnowledgeBase:
         print(f"\n🔍 Querying: {query}")
         
         # Generate query embedding
-        query_embedding = self.generate_embedding(query)
+        self.generate_embedding(query)
         
         # In production: results = self.vector_store.similarity_search(query, k=5)
         

@@ -6,7 +6,6 @@ Integrates Consumer Trends Integration with existing content generation workflow
 automatically triggering book generation based on trend insights.
 """
 
-import os
 import sys
 import json
 import asyncio
@@ -171,7 +170,7 @@ class ConsumerTrendsOrchestrator:
     def generate_book_title(self, trend: Dict) -> str:
         """Generate a compelling book title based on the trend."""
         trend_name = trend.get("name", "")
-        category = trend.get("category", "")
+        trend.get("category", "")
         
         # Template-based title generation
         templates = [

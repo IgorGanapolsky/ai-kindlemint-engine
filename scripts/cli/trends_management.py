@@ -5,15 +5,14 @@ Consumer Trends Management CLI
 Command-line interface for managing Consumer Trends Integration in production.
 """
 
-import os
 import sys
 import json
 import asyncio
 import argparse
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional
-from datetime import datetime, timedelta
+from typing import Dict, List
+from datetime import datetime
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
