@@ -43,12 +43,12 @@ def process_daily_emails():
     print("🔄 Processing sequences...")
     results = email_automation.process_sequences()
     
-    print(f"\n✅ Processing Complete:")
+    print("\n✅ Processing Complete:")
     print(f"   Subscribers processed: {results['processed']}")
     print(f"   Emails sent: {results['emails_sent']}")
     
     if results['errors']:
-        print(f"\n⚠️  Errors encountered:")
+        print("\n⚠️  Errors encountered:")
         for error in results['errors']:
             print(f"   - {error}")
     
@@ -60,7 +60,7 @@ def process_daily_emails():
     new_conversions = stats_after.get('conversions', 0) - stats_before.get('conversions', 0)
     new_revenue = stats_after.get('total_conversions_value', 0) - stats_before.get('total_conversions_value', 0)
     
-    print(f"\n📈 Today's Performance:")
+    print("\n📈 Today's Performance:")
     print(f"   New emails sent: {new_emails}")
     print(f"   New conversions: {new_conversions}")
     print(f"   New revenue: ${new_revenue:.2f}")
@@ -72,7 +72,7 @@ def process_daily_emails():
     report_file = report_dir / f"daily_report_{datetime.now().strftime('%Y%m%d')}.txt"
     
     with open(report_file, 'w') as f:
-        f.write(f"Email Automation Daily Report\n")
+        f.write("Email Automation Daily Report\n")
         f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         f.write("=" * 60 + "\n\n")
         

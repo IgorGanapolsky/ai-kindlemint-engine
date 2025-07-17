@@ -7,7 +7,7 @@ Provides comprehensive cost tracking with multiple time periods and clear metric
 import json
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Optional
 from urllib.parse import quote
 
 

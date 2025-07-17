@@ -12,11 +12,10 @@ The coordinator schedules tasks, manages workflows, and ensures data flows betwe
 
 import asyncio
 import json
-import logging
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional
 
 from .agent_types import AgentCapability
 from .base_agent import BaseAgent

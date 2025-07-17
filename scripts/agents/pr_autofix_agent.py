@@ -12,7 +12,6 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional, Tuple
 import subprocess
 import tempfile
-import shutil
 
 class PRAutoFixAgent:
     def __init__(self, github_token: str, repo_owner: str, repo_name: str):

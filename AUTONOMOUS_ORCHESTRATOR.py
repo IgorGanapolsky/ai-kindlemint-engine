@@ -5,16 +5,13 @@ Zero human intervention required after initial setup
 Self-learning, self-improving, self-executing
 """
 
-import os
 import sys
 import json
 import time
 import subprocess
-import threading
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 import schedule
-import random
 
 class AutonomousOrchestrator:
     def __init__(self):
@@ -165,7 +162,7 @@ class AutonomousOrchestrator:
                 print(f"🤖 Using AI-optimized content: {content['content']['title']}")
         
         # Simulate posting (in production, would use actual APIs)
-        print(f"✅ Content posted to all platforms")
+        print("✅ Content posted to all platforms")
         
         # Log action
         self.log_action("content_posted", {"time_slot": time_slot, "timestamp": datetime.now().isoformat()})
@@ -326,7 +323,7 @@ class AutonomousOrchestrator:
         for learning in summary["learnings"]:
             readable += f"- {learning}\n"
         
-        readable += f"""
+        readable += """
 ## 🚀 Tomorrow's Plan
 """
         
@@ -533,7 +530,7 @@ def main():
             create_systemd_service()
         elif choice == "4":
             revenue = orchestrator.check_revenue()
-            print(f"\nCurrent Status:")
+            print("\nCurrent Status:")
             print(f"Revenue Today: ${revenue:.2f}")
             print(f"Days Active: {orchestrator.status.get('days_active', 0)}")
             print(f"Total Revenue: ${orchestrator.status.get('total_revenue', 0):.2f}")

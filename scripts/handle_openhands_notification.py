@@ -53,7 +53,7 @@ async def handle_openhands_notification(
 
         if result and result.status == TaskStatus.COMPLETED:
             output = result.output
-            print(f"✅ OpenHands notification processed successfully!")
+            print("✅ OpenHands notification processed successfully!")
             print(f"   Failed Checks: {output.get('failed_checks', 0)}")
             print(
                 f"   Critical Failures: {output.get('critical_failures', 0)}")

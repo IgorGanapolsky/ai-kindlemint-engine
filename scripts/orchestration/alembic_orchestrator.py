@@ -9,9 +9,9 @@ for continuous market monitoring and intelligent decision-making.
 import asyncio
 import json
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Any, Optional
+from typing import Dict, List
 
 # Add project root to path
 import sys
@@ -19,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from kindlemint.analytics.causal_inference import CausalAnalyticsEngine
 from kindlemint.marketing.event_driven_agent import EventDrivenMarketingAgent, EventType, MarketEvent
-from kindlemint.data.private_data_pipeline import PrivateDataPipeline, DataSource, ConsentLevel
+from kindlemint.data.private_data_pipeline import PrivateDataPipeline
 from kindlemint.orchestration.human_creativity_checkpoints import HumanCreativityCheckpoints, CheckpointType
 from scripts.orchestration.autonomous_worktree_manager import AutonomousWorktreeManager
 from scripts.orchestration.security_orchestrator import SecurityOrchestrator

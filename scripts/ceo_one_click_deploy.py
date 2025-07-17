@@ -15,7 +15,6 @@ Run: python scripts/ceo_one_click_deploy.py
 import os
 import sys
 import subprocess
-import time
 from pathlib import Path
 from datetime import datetime
 

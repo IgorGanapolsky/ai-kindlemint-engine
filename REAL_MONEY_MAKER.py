@@ -4,7 +4,6 @@ REAL Reddit Poster - Actually makes money!
 """
 import json
 import requests
-import time
 
 print("💰 REAL MONEY MAKER - NOT SIMULATION!")
 print("=" * 50)

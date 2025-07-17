@@ -7,7 +7,7 @@ Determines which worktree should be used for a given task
 import json
 import sys
 from pathlib import Path
-from typing import Dict, Optional, Tuple
+from typing import Dict, Tuple
 
 class WorktreeAssignmentChecker:
     def __init__(self):
@@ -70,14 +70,14 @@ class WorktreeAssignmentChecker:
         print(f"📝 Reason: {reason}")
         
         if worktree != 'main':
-            print(f"\n💻 To use this worktree:")
+            print("\n💻 To use this worktree:")
             print(f"cd worktrees/{worktree}")
-            print(f"# Make your changes")
-            print(f"git add .")
+            print("# Make your changes")
+            print("git add .")
             print(f"git commit -m \"{task}\"")
-            print(f"git push")
+            print("git push")
             
-        print(f"\n💰 Token Savings: Using worktrees reduces token usage by ~60%")
+        print("\n💰 Token Savings: Using worktrees reduces token usage by ~60%")
         
 
 if __name__ == "__main__":

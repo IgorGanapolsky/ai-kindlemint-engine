@@ -6,7 +6,7 @@ ensuring AI-generated content aligns with brand and quality standards.
 Based on the principle that human creativity is the indispensable final layer.
 """
 
-from typing import Dict, List, Optional, Any, Callable, Union
+from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
 from enum import Enum
@@ -14,7 +14,6 @@ import json
 import logging
 from abc import ABC, abstractmethod
 import asyncio
-from pathlib import Path
 
 
 logger = logging.getLogger(__name__)

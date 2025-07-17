@@ -88,7 +88,7 @@ if __name__ == "__main__":
     if original.exists():
         append_teaser_to_pdf(original, teaser, final)
         print(f"✅ Created final PDF with teaser: {final}")
-        print(f"📏 Total pages: 209 (was 208)")
+        print("📏 Total pages: 209 (was 208)")
     else:
         print(f"❌ Original PDF not found: {original}")
     

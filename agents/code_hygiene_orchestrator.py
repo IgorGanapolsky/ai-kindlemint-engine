@@ -606,7 +606,7 @@ class CodeHygieneOrchestrator:
             return "✅ Your codebase is clean! No hygiene issues found."
 
         summary_lines = [
-            f"🔍 Code Hygiene Analysis Summary",
+            "🔍 Code Hygiene Analysis Summary",
             f"Found {total_issues} issues across {len(self.issues)} categories:",
             "",
         ]
@@ -634,7 +634,7 @@ class CodeHygieneOrchestrator:
     def generate_report(self, output_file: Optional[str] = None) -> str:
         """Generate a detailed hygiene report."""
         report_lines = [
-            f"# Code Hygiene Report",
+            "# Code Hygiene Report",
             f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
             f"Repository: {self.repo_path}",
             "",

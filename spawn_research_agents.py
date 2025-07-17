@@ -115,7 +115,7 @@ def main():
         elif status['status'] in ['failed', 'pr_failed']:
             failed += 1
     
-    print(f"\n✅ Summary:")
+    print("\n✅ Summary:")
     print(f"  - Total agents: {len(agent_ids)}")
     print(f"  - Completed: {completed}")
     print(f"  - PRs created: {pr_created}")

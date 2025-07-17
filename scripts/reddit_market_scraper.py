@@ -6,10 +6,9 @@ Part of the daily market insights orchestration system
 
 import json
 import logging
-import os
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import requests
 from dotenv import load_dotenv
@@ -259,7 +258,7 @@ def main():
     filepath = scraper.save_insights(insights)
     
     # Print summary for CI/CD logs
-    print(f"\n✅ Market insights collected successfully!")
+    print("\n✅ Market insights collected successfully!")
     print(f"📊 Analyzed {insights['summary']['total_posts_analyzed']} posts")
     print(f"🔥 Top keyword: {list(insights['top_keywords'].keys())[0] if insights['top_keywords'] else 'N/A'}")
     print(f"💾 Saved to: {filepath}")

@@ -22,7 +22,7 @@ try:
     from kindlemint.generators.book_layout import BookLayoutEngine
 except ModuleNotFoundError:  # pragma: no cover
     # Legacy fallback (should be removed after migration completes)
-    from scripts.book_layout_bot import BookLayoutEngine  # type: ignore
+    pass  # type: ignore
 
 
 # Use the modern Sudoku engine implementation

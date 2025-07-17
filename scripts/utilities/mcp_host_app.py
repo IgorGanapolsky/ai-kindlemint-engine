@@ -9,7 +9,7 @@ import json
 import os
 import sys
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Dict, Any
 import httpx
 import openai
 
@@ -184,7 +184,7 @@ For titles, suggest professional book names that would sell well on Amazon KDP."
                             response_parts.append(
                                 f"📊 **Book Statistics**\n"
                                 f"📚 Total Books: {r['result']['total_books']}\n"
-                                + (f"\n📖 Recent Books:\n" + "\n".join([
+                                + ("\n📖 Recent Books:\n" + "\n".join([
                                     f"  • {book['title']} ({book['size_mb']} MB)"
                                     for book in books[:5]
                                 ]) if books else "")

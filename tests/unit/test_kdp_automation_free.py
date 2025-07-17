@@ -6,7 +6,6 @@ Tests for FREE KDP Automation Engine
 import asyncio
 import sys
 from pathlib import Path
-from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -204,7 +203,7 @@ class TestIntegration:
 
     def test_cost_calculation(self):
         """Test that the system maintains zero cost"""
-        engine = FreeKDPAutomationEngine()
+        FreeKDPAutomationEngine()
 
         # The system should always return $0 cost
         # This is a business requirement test

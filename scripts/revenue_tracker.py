@@ -5,9 +5,7 @@ Revenue Tracker - Monitor and report revenue generation
 
 import json
 import urllib.request
-import time
 from datetime import datetime, timedelta
-from pathlib import Path
 
 class RevenueTracker:
     def __init__(self):
@@ -84,7 +82,7 @@ class RevenueTracker:
     def generate_report(self):
         """Generate current revenue report"""
         today = datetime.now().strftime('%Y-%m-%d')
-        yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+        (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
         
         # Landing page status
         landing_status = "✅ LIVE" if self.check_landing_page_status() else "❌ DOWN"
@@ -133,7 +131,7 @@ Traffic Generation: {'✅ ACTIVE' if recent_posts else '❌ INACTIVE'}
         if not recent_posts:
             report += "\n- No posts in last 24 hours"
 
-        report += f"""
+        report += """
 
 🎯 NEXT ACTIONS
 ==============="""

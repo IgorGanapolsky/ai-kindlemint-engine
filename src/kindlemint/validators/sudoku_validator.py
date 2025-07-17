@@ -421,9 +421,9 @@ class SudokuValidator(PuzzleValidator):
                     issues.append(
                         self.create_issue(
                             severity=IssueSeverity.ERROR,
-                            description=f"No clues found in puzzle",
+                            description="No clues found in puzzle",
                             puzzle_id=puzzle_id,
-                            recommendation=f"Ensure puzzle has at least 17 clues.",
+                            recommendation="Ensure puzzle has at least 17 clues.",
                         )
                     )
                 elif clue_count < expected_range["min"]:
@@ -432,7 +432,7 @@ class SudokuValidator(PuzzleValidator):
                             severity=IssueSeverity.ERROR,
                             description=f"Too few clues for {difficulty} difficulty: {clue_count} (min: {expected_range['min']})",
                             puzzle_id=puzzle_id,
-                            recommendation=f"Add more clues or change difficulty level",
+                            recommendation="Add more clues or change difficulty level",
                         )
                     )
                 elif clue_count > expected_range["max"]:
@@ -441,7 +441,7 @@ class SudokuValidator(PuzzleValidator):
                             severity=IssueSeverity.WARNING,
                             description=f"Too many clues for {difficulty} difficulty: {clue_count} (max: {expected_range['max']})",
                             puzzle_id=puzzle_id,
-                            recommendation=f"Remove some clues or change difficulty level",
+                            recommendation="Remove some clues or change difficulty level",
                         )
                     )
 

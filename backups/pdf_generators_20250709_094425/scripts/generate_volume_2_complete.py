@@ -5,7 +5,6 @@ Creates puzzles, metadata, and PDF for Large Print Sudoku Masters Volume 2
 """
 
 import json
-import os
 import subprocess
 import sys
 from pathlib import Path
@@ -102,8 +101,6 @@ def generate_volume_2_puzzles(base_dir):
 def generate_puzzle_images(puzzle_data, puzzle_id, puzzles_dir):
     """Generate PNG images for puzzle and solution"""
     
-    from PIL import Image, ImageDraw, ImageFont
-    import numpy as np
     
     # Create puzzle image
     create_sudoku_image(

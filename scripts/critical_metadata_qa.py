@@ -230,7 +230,7 @@ class CriticalMetadataQA:
                     "fix": "Add 'low_content_book': true for puzzle books",
                 }
             )
-        elif kdp_types.get("low_content_book") != True:
+        elif not kdp_types.get("low_content_book"):
             self.critical_errors.append(
                 {
                     "file": file_path,

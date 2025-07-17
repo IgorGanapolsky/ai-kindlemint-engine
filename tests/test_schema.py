@@ -172,7 +172,7 @@ class TestMarketResearchSchema:
             max(sales_range) <= 100000
         ), "Sales estimates seem unrealistic (>100k/month)"
 
-        print(f"✅ Data quality checks passed:")
+        print("✅ Data quality checks passed:")
         print(f"   - Unique keywords: {len(keywords)}")
         print(
             f"   - Price range: ${min(price_range):.2f} - ${max(price_range):.2f}")

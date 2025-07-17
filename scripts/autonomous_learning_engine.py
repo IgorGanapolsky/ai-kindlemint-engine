@@ -5,13 +5,11 @@ Self-improves to reach $300/day faster with each iteration
 """
 
 import json
-import numpy as np
 import random
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 import hashlib
 from collections import defaultdict
-import math
 
 class ReinforcementLearningRevenueEngine:
     def __init__(self):
@@ -167,7 +165,7 @@ class ReinforcementLearningRevenueEngine:
     def execute_action(self, action):
         """Execute chosen action and observe reward"""
         
-        print(f"\n🚀 Executing strategy:")
+        print("\n🚀 Executing strategy:")
         print(f"   Content: {action['content_type']}")
         print(f"   Time: {action['posting_time']}")
         print(f"   Platform: {action['platform_focus']}")
@@ -374,7 +372,7 @@ class ReinforcementLearningRevenueEngine:
         print(f"\n💰 Revenue generated: ${revenue:.2f}")
         
         # Generate content for this strategy
-        content = self.generate_autonomous_content(action)
+        self.generate_autonomous_content(action)
         
         # Get next state
         next_state = self.get_current_state()
@@ -549,7 +547,7 @@ Current exploration rate: {self.exploration_rate:.1%}
         """Run continuous learning loop"""
         
         print("🤖 AUTONOMOUS LEARNING ENGINE ACTIVATED")
-        print(f"Target: Learn to consistently earn $300/day")
+        print("Target: Learn to consistently earn $300/day")
         print(f"Method: Reinforcement Learning with {episodes} episodes")
         print()
         

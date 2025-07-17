@@ -11,7 +11,7 @@ import time
 import requests
 import subprocess
 from datetime import datetime
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Any
 from pathlib import Path
 
 class GitHubMCPOrchestrator:

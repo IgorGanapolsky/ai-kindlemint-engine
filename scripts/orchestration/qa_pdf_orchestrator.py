@@ -4,13 +4,12 @@ QA PDF Orchestrator - Ensures all PDFs are generated with quality
 Enforces varied content, proper formatting, and quality standards
 """
 
-import os
 import sys
 import json
 import subprocess
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Optional
 
 # Add project root to path
 project_root = Path(__file__).parent.parent.parent
@@ -65,7 +64,7 @@ class QAPDFOrchestrator:
                 continue
             
             # Run comprehensive QA validation
-            print(f"\n🔍 Running QA Validation...")
+            print("\n🔍 Running QA Validation...")
             qa_result = self.qa_pipeline.validate_pdf(Path(pdf_path))
             
             # Check if QA passed
@@ -88,7 +87,7 @@ class QAPDFOrchestrator:
                 print(f"\n🔧 Attempting automatic fixes for {len(critical_issues)} issues...")
                 self._attempt_automatic_fixes(pdf_path, critical_issues)
             else:
-                print(f"\n❌ Maximum attempts reached. Manual intervention required.")
+                print("\n❌ Maximum attempts reached. Manual intervention required.")
                 self._save_generation_report(pdf_path, qa_result, attempt, failed=True)
                 return {
                     "success": False,
@@ -319,7 +318,7 @@ def main():
         print(f"\n✅ SUCCESS! Quality PDF generated: {result['pdf_path']}")
         print(f"   QA Score: {result['qa_score']}/100")
     else:
-        print(f"\n❌ FAILED to generate quality PDF")
+        print("\n❌ FAILED to generate quality PDF")
         print(f"   Issues: {result['issues']}")
 
 

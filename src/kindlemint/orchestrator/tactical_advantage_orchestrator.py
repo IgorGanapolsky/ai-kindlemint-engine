@@ -8,9 +8,9 @@ import asyncio
 import json
 import logging
 from dataclasses import asdict, dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 from anthropic import Anthropic
 
@@ -555,7 +555,7 @@ class TacticalAdvantageOrchestrator:
     ) -> TacticalAdvantage:
         """Score strategic advantage comprehensively"""
         # AI-powered strategic scoring
-        strategic_analysis = await self._get_strategic_advantage_analysis(
+        await self._get_strategic_advantage_analysis(
             advantage, book_project
         )
 

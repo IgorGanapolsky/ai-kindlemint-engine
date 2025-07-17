@@ -7,13 +7,12 @@ issues like hardcoded secrets, vulnerable dependencies, and security misconfigur
 before they reach production.
 """
 
-import os
 import re
 import json
 import subprocess
 import logging
 from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
 import asyncio
@@ -551,7 +550,7 @@ async def main():
     orchestrator = SecurityOrchestrator()
     
     # Scan for issues
-    issues = await orchestrator.scan_for_security_issues()
+    await orchestrator.scan_for_security_issues()
     
     # Generate report
     report = orchestrator.generate_security_report()
@@ -564,7 +563,7 @@ async def main():
         json.dump(report, f, indent=2)
     
     # Print summary
-    print(f"🔍 Security scan complete:")
+    print("🔍 Security scan complete:")
     print(f"  Total issues: {report['total_issues']}")
     print(f"  Critical: {report['issues_by_severity'].get('critical', 0)}")
     print(f"  High: {report['issues_by_severity'].get('high', 0)}")

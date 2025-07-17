@@ -7,7 +7,7 @@ Ensures PRs don't get stuck and business continues
 import logging
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import yaml
 from github import Github
@@ -190,7 +190,7 @@ class CTOOverrideSystem:
             branch = self.repo.get_branch("main")
 
             # Get current protection
-            protection = branch.get_protection()
+            branch.get_protection()
 
             # Reduce requirements temporarily
             branch.edit_protection(

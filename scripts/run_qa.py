@@ -33,7 +33,7 @@ def main():
         issues=[test_issue]
     )
     
-    print(f"✅ QA Report generated")
+    print("✅ QA Report generated")
     print(f"   Total puzzles: {report.total_puzzles}")
     print(f"   Valid puzzles: {report.valid_puzzles}")
     print(f"   Issues found: {len(report.issues)}")

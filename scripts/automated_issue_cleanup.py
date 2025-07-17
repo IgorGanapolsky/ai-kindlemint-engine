@@ -14,7 +14,7 @@ import subprocess
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Set
+from typing import Dict, List
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -216,8 +216,8 @@ class IssueCleanupAgent:
         ]
         results["remaining_automation_issues"] = len(automation_issues)
 
-        print(f"✅ Issue cleanup complete!")
-        print(f"📊 Summary:")
+        print("✅ Issue cleanup complete!")
+        print("📊 Summary:")
         print(
             f"   • Duplicate reports closed: {results.get('issues_closed', 0)}")
         print(

@@ -4,9 +4,6 @@ Quick Revenue Setup - Get your book selling TODAY
 """
 
 import json
-import os
-from datetime import datetime
-from pathlib import Path
 
 
 def setup_gumroad_product():
@@ -39,7 +36,7 @@ Start your brain training journey today!""",
         json.dump(product_config, f, indent=2)
     
     print("✅ Gumroad product configuration created!")
-    print(f"📁 Upload file: Large_Print_Sudoku_Complete.pdf")
+    print("📁 Upload file: Large_Print_Sudoku_Complete.pdf")
     print(f"💰 Price: ${product_config['price']}")
     
 

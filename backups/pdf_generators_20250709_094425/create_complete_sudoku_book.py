@@ -5,8 +5,6 @@ Create a complete Large Print Sudoku book with introduction and proper formattin
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
 import secrets
 
 def create_sudoku_grid(difficulty_level="medium"):
@@ -70,7 +68,7 @@ def draw_introduction_page(c, width, height):
     y = height - 2.5*inch
     left_margin = 1*inch
     right_margin = 1*inch
-    max_width = width - left_margin - right_margin
+    width - left_margin - right_margin
     
     instructions = [
         "Sudoku is a logic-based number puzzle that's perfect for",

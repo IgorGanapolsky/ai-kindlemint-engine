@@ -5,12 +5,11 @@ Ensures all future commits use worktree orchestration for token cost optimizatio
 """
 
 import json
-import os
 import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict
 
 class WorktreeOrchestrationActivator:
     def __init__(self):

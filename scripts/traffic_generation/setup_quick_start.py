@@ -6,9 +6,6 @@ CEO/CMO/CFO Executive Decision: Deploy traffic NOW
 
 import json
 import os
-import subprocess
-import sys
-from pathlib import Path
 
 def setup_traffic_system():
     """Set up traffic generation with minimal configuration"""

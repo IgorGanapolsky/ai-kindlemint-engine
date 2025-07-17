@@ -6,7 +6,6 @@ Runs independently to find profitable niches and populate portfolio
 import json
 import logging
 import os
-import sys
 from datetime import datetime
 from typing import Any, Dict
 

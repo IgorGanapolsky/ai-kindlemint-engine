@@ -3,7 +3,7 @@
 Crossword Engine - Generates crossword puzzles for KindleMint
 """
 
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Optional
 from dataclasses import dataclass
 
 

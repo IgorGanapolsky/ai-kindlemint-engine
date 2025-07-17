@@ -7,12 +7,10 @@ and market shifts across multiple data sources.
 """
 
 import asyncio
-import json
 import logging
 import time
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any, Callable
-from pathlib import Path
+from typing import Dict, List, Optional, Callable
 
 logger = logging.getLogger(__name__)
 
@@ -272,7 +270,7 @@ class SignalListener:
     def determine_alert_type(self, signal: Dict) -> str:
         """Determine the type of alert based on signal characteristics."""
         signal_type = signal.get("type", "")
-        source = signal.get("source", "")
+        signal.get("source", "")
         
         if "viral" in signal_type.lower():
             return "viral_trend"

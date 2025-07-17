@@ -5,12 +5,9 @@ Tools for managing, testing, and monitoring the MCP server deployment
 """
 
 import os
-import sys
-import json
 import requests
 import argparse
 from datetime import datetime
-import subprocess
 import time
 
 # MCP Server Configuration
@@ -31,7 +28,7 @@ class MCPServerTools:
         try:
             response = requests.get(f"{self.server_url}/health", timeout=5)
             if response.status_code == 200:
-                print(f"✅ MCP server is running and healthy")
+                print("✅ MCP server is running and healthy")
                 return True
             else:
                 print(f"⚠️ MCP server responded with status code: {response.status_code}")
@@ -40,7 +37,7 @@ class MCPServerTools:
             print(f"❌ Cannot connect to MCP server at {self.server_url}")
             return False
         except requests.exceptions.Timeout:
-            print(f"❌ Connection timeout to MCP server")
+            print("❌ Connection timeout to MCP server")
             return False
             
     def test_webhook_endpoint(self):
@@ -83,7 +80,7 @@ class MCPServerTools:
             )
             
             if response.status_code == 200:
-                print(f"✅ Webhook endpoint responded successfully")
+                print("✅ Webhook endpoint responded successfully")
                 print(f"Response: {response.text}")
                 return True
             else:
@@ -97,7 +94,7 @@ class MCPServerTools:
             
     def create_test_pr_event(self):
         """Create a test PR event to trigger automation"""
-        print(f"\nCreating test PR event...")
+        print("\nCreating test PR event...")
         
         # Sample PR opened event
         pr_payload = {
@@ -156,7 +153,7 @@ class MCPServerTools:
             )
             
             if response.status_code == 200:
-                print(f"✅ Test PR event sent successfully")
+                print("✅ Test PR event sent successfully")
                 print(f"Response: {response.text}")
                 return True
             else:
@@ -170,9 +167,9 @@ class MCPServerTools:
             
     def ssh_to_server(self):
         """Provide SSH command to connect to the EC2 instance"""
-        print(f"\nTo SSH into the MCP server EC2 instance:")
+        print("\nTo SSH into the MCP server EC2 instance:")
         print(f"ssh -i /path/to/your-key.pem ec2-user@{MCP_SERVER_IP}")
-        print(f"\nOnce connected, you can check Docker logs with:")
+        print("\nOnce connected, you can check Docker logs with:")
         print("docker logs $(docker ps -q)")
         print("\nOr follow logs in real-time:")
         print("docker logs -f $(docker ps -q)")

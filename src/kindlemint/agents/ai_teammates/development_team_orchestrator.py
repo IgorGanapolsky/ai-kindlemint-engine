@@ -14,7 +14,7 @@ import json
 import logging
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List
 
 import anthropic
 from github import Github
@@ -561,11 +561,11 @@ class AIDevelopmentTeamOrchestrator:
         if decision == "merge":
             return f"Team consensus for merge based on {top_contributor[0]} analysis with strong technical confidence and {business_context.get('strategic_alignment', 'unknown')} business alignment"
         elif decision == "reject":
-            return f"Team consensus to reject based on critical issues identified by multiple teammates"
+            return "Team consensus to reject based on critical issues identified by multiple teammates"
         elif decision == "escalate":
-            return f"Team escalation due to complexity requiring human oversight"
+            return "Team escalation due to complexity requiring human oversight"
         else:
-            return f"Team decision to wait for additional information or fixes"
+            return "Team decision to wait for additional information or fixes"
 
     async def _create_execution_plan(
         self, team_decision: TeamDecision, pr
@@ -703,20 +703,20 @@ class AIDevelopmentTeamOrchestrator:
             comment += f"- **{risk_type.title()}:** {level.upper()}\n"
 
         if decision.dissenting_opinions:
-            comment += f"""
+            comment += """
 ### 🗣️ Dissenting Opinions
 """
             for opinion in decision.dissenting_opinions:
                 comment += f"- {opinion}\n"
 
         if decision.escalation_triggers:
-            comment += f"""
+            comment += """
 ### 🚨 Escalation Triggers
 """
             for trigger in decision.escalation_triggers:
                 comment += f"- {trigger.replace('_', ' ').title()}\n"
 
-        comment += f"""
+        comment += """
 ### 📋 Execution Plan
 """
         for step in decision.execution_plan:
@@ -832,13 +832,13 @@ async def main():
     print(
         f"🚀 Starting AI Development Team review of {args.repo} PR #{args.pr}")
     print(
-        f"👥 Team: Code Reviewer, Technical Lead, Security Reviewer, Architecture Guardian"
+        "👥 Team: Code Reviewer, Technical Lead, Security Reviewer, Architecture Guardian"
     )
 
     # Orchestrate team review
     team_analysis = await orchestrator.orchestrate_team_review(args.repo, args.pr)
 
-    print(f"\n✅ Team review completed!")
+    print("\n✅ Team review completed!")
     print(
         f"🎯 Final Decision: {team_analysis.team_decision.final_decision.upper()}")
     print(f"👥 Team Confidence: {team_analysis.team_decision.confidence:.1%}")
@@ -851,7 +851,7 @@ async def main():
             f"🚨 Escalation Required: {', '.join(team_analysis.team_decision.escalation_triggers)}"
         )
 
-    print(f"\n📊 Coordination Metrics:")
+    print("\n📊 Coordination Metrics:")
     print(
         f"   Quality: {team_analysis.coordination_metrics.get('coordination_quality', 'Unknown')}"
     )

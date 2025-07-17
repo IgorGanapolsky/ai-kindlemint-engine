@@ -10,7 +10,6 @@ Handles payment processing for puzzle book sales:
 
 import os
 import logging
-from datetime import datetime
 from typing import Dict, Optional, Any
 import stripe
 from pathlib import Path
@@ -394,10 +393,10 @@ def main():
     )
     
     if result['success']:
-        print(f"✅ Checkout session created!")
+        print("✅ Checkout session created!")
         print(f"   Session ID: {result['session_id']}")
         print(f"   Checkout URL: {result['checkout_url']}")
-        print(f"\n🔗 Open this URL to test checkout:")
+        print("\n🔗 Open this URL to test checkout:")
         print(f"   {result['checkout_url']}")
     else:
         print(f"❌ Failed: {result['error']}")

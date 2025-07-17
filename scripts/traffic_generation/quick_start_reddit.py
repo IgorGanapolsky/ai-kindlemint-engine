@@ -7,9 +7,7 @@ Ready to use with your configured credentials!
 import praw
 import json
 import time
-import random
 import os
-from datetime import datetime
 
 print("🚀 Starting Reddit Traffic Generator...")
 print("=" * 50)
@@ -141,7 +139,7 @@ elif choice == "2":
     print("\n🚀 Posting all messages with delays...")
     for i, post in enumerate(posts):
         if i > 0:
-            print(f"\n⏰ Waiting 30 minutes before next post...")
+            print("\n⏰ Waiting 30 minutes before next post...")
             time.sleep(1800)  # 30 minutes
         safe_post(post)
     print("\n✅ All posts completed!")

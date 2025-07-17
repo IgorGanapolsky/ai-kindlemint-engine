@@ -12,14 +12,11 @@ KindleMint publishing system including:
 
 import asyncio
 import json
-import logging
 import statistics
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List
 
-import numpy as np
-import pandas as pd
 
 from .agent_types import AgentCapability
 from .base_agent import BaseAgent
@@ -656,7 +653,7 @@ class BusinessAnalyticsAgent(BaseAgent):
     async def _calculate_roi(self, task: Task) -> TaskResult:
         """Calculate ROI for specific books or periods"""
         try:
-            calculation_type = task.parameters.get(
+            task.parameters.get(
                 "calculation_type", "portfolio")
             time_period = task.parameters.get("time_period", "30d")
 

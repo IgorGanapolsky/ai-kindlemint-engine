@@ -4,11 +4,9 @@ Monetization Setup for Kindlemint MCP Agent
 Integrates payment processing and usage tracking
 """
 
-import os
 import json
-import time
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 from dataclasses import dataclass, asdict
 from datetime import datetime, timedelta
 

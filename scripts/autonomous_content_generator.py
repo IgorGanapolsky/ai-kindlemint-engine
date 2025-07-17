@@ -111,7 +111,7 @@ def generate_week_of_content():
                 f"Send email #{day+1}",
                 "Check Gumroad sales",
                 "Respond to comments",
-                f"Schedule 3 Pinterest pins",
+                "Schedule 3 Pinterest pins",
                 "Monitor landing page conversions"
             ],
             "revenue_goal": 50 + (day * 25)  # Scaling revenue
@@ -209,12 +209,12 @@ for post in posts:
         print(f"   • {file}")
     
     print("\n📊 CONTENT SUMMARY:")
-    print(f"   • 7 Reddit posts (week's worth)")
-    print(f"   • 7 Email campaigns")
-    print(f"   • 21 Pinterest pins (3/day)")
-    print(f"   • 12 Course lesson outlines")
-    print(f"   • Complete content calendar")
-    print(f"   • A/B testing plan")
+    print("   • 7 Reddit posts (week's worth)")
+    print("   • 7 Email campaigns")
+    print("   • 21 Pinterest pins (3/day)")
+    print("   • 12 Course lesson outlines")
+    print("   • Complete content calendar")
+    print("   • A/B testing plan")
     
     print("\n🚗 WHEN YOU'RE BACK:")
     print("1. Run: python3 autonomous_content/reddit_assistant.py")

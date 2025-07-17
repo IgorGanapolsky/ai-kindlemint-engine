@@ -111,7 +111,7 @@ def batch_generate(
     if parallel:
         try:
             from scripts.orchestration.autonomous_worktree_manager import AutonomousWorktreeManager
-            manager = AutonomousWorktreeManager()
+            AutonomousWorktreeManager()
             click.echo("📊 Using parallel worktree orchestration...")
             # TODO: Call manager.generate_books(book_type, count, volume_start)
         except ImportError:
@@ -280,7 +280,7 @@ def compare_pdfs(pdf1, pdf2, threshold):
     """Compare two PDFs visually for regression testing"""
     from kindlemint.validators.pdf_visual_qa_validator import compare_pdf_screenshots
     
-    click.echo(f"🔄 Comparing PDFs visually...")
+    click.echo("🔄 Comparing PDFs visually...")
     click.echo(f"  • PDF 1: {pdf1}")
     click.echo(f"  • PDF 2: {pdf2}")
     click.echo(f"  • Threshold: {threshold}")

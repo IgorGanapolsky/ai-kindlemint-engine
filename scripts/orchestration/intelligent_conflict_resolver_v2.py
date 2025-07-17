@@ -7,15 +7,13 @@ This system automatically resolves ANY merge conflict without manual interventio
 Designed for enterprise-grade autonomous operation.
 """
 
-import os
 import re
 import sys
-import json
 import logging
 import subprocess
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
@@ -431,7 +429,7 @@ class IntelligentConflictResolverV2:
     def _auto_commit_resolution(self):
         """Automatically commit resolved conflicts"""
         try:
-            commit_message = f"""fix: Auto-resolve merge conflicts via AI orchestration
+            commit_message = """fix: Auto-resolve merge conflicts via AI orchestration
 
 All conflicts resolved automatically by Intelligent Conflict Resolver V2.
 Zero manual intervention required - full AI orchestration.

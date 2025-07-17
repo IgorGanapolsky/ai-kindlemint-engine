@@ -11,7 +11,6 @@ Tracks user journey from landing page to purchase:
 """
 
 import json
-import os
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Any

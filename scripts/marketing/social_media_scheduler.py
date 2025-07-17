@@ -6,11 +6,10 @@ Integrates with existing AI infrastructure for consistent social media presence
 
 import os
 import json
-import csv
 from datetime import datetime, timedelta
 from pathlib import Path
 import argparse
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any
 import sys
 import schedule
 import time
@@ -404,7 +403,7 @@ class SocialMediaScheduler:
         for platform, count in platforms.items():
             report += f"- **{platform.title()}:** {count} posts\n"
         
-        report += f"""
+        report += """
 ## 📈 Recent Activity
 """
         

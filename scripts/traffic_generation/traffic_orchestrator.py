@@ -12,8 +12,8 @@ import json
 import time
 import schedule
 import logging
-from datetime import datetime, timedelta
-from typing import Dict, List
+from datetime import datetime
+from typing import Dict
 
 # Import our traffic modules
 from reddit_organic_poster import RedditOrganicPoster
@@ -261,7 +261,7 @@ Date: {datetime.now().strftime('%Y-%m-%d')}
         """Run the traffic orchestrator"""
         logger.info("🚀 Traffic Orchestrator started!")
         logger.info(f"🎯 Target: {self.landing_page_url}")
-        logger.info(f"💰 Goal: $300/day revenue")
+        logger.info("💰 Goal: $300/day revenue")
         
         # Setup schedules
         self.setup_schedule()

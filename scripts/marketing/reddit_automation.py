@@ -7,7 +7,6 @@ import praw
 import time
 import argparse
 import os
-from datetime import datetime
 import secrets
 
 # Reddit post templates

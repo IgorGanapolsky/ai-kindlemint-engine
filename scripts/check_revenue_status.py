@@ -5,8 +5,7 @@ Checks all revenue sources and provides current financial status
 """
 
 import json
-import subprocess
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 
 def check_revenue_status():
@@ -26,38 +25,38 @@ def check_revenue_status():
     
     # 1. Check Landing Page Status
     print("🌐 Landing Page Status:")
-    print(f"   URL: https://dvdyff0b2oove.cloudfront.net")
-    print(f"   Status: ✅ LIVE")
-    print(f"   Email Capture: Web3Forms (250 free/month)")
+    print("   URL: https://dvdyff0b2oove.cloudfront.net")
+    print("   Status: ✅ LIVE")
+    print("   Email Capture: Web3Forms (250 free/month)")
     
     # Check for email captures (would need browser access)
-    print(f"   Subscribers: [Need browser access to check localStorage]")
+    print("   Subscribers: [Need browser access to check localStorage]")
     revenue_data["issues"].append("Cannot check email subscribers without browser access")
     
     # 2. Check Gumroad Products
     print("\n💳 Gumroad Products:")
-    print(f"   Puzzle Books: $14.99 ❌ (Should be $4.99)")
-    print(f"   Backend Course: $97 ⏳ (Not yet uploaded)")
+    print("   Puzzle Books: $14.99 ❌ (Should be $4.99)")
+    print("   Backend Course: $97 ⏳ (Not yet uploaded)")
     
     revenue_data["issues"].append("Gumroad price still at $14.99 - losing 80% of potential sales!")
     revenue_data["issues"].append("Backend course created but not uploaded to Gumroad")
     
     # 3. Check Traffic Generation
     print("\n🚦 Traffic Generation:")
-    print(f"   Reddit System: ✅ Deployed (manual posting ready)")
-    print(f"   Pinterest: ⏳ Pending API setup")
-    print(f"   Facebook: ⏳ Pending Chrome setup")
-    print(f"   Expected Traffic: 0 visitors/day (not started)")
+    print("   Reddit System: ✅ Deployed (manual posting ready)")
+    print("   Pinterest: ⏳ Pending API setup")
+    print("   Facebook: ⏳ Pending Chrome setup")
+    print("   Expected Traffic: 0 visitors/day (not started)")
     
     revenue_data["issues"].append("Traffic generation deployed but not activated")
     
     # 4. Calculate Current Revenue
     print("\n💵 CURRENT REVENUE:")
-    print(f"   Books (Gumroad): $0/day")
-    print(f"   Course Sales: $0/day")
-    print(f"   Email List Value: $0")
-    print(f"   ----------------------")
-    print(f"   TOTAL: $0/day")
+    print("   Books (Gumroad): $0/day")
+    print("   Course Sales: $0/day")
+    print("   Email List Value: $0")
+    print("   ----------------------")
+    print("   TOTAL: $0/day")
     
     revenue_data["current_daily"] = 0
     
@@ -74,7 +73,7 @@ def check_revenue_status():
     
     # If traffic was running
     total_projected = gumroad_fixed + course_revenue
-    print(f"   ----------------------")
+    print("   ----------------------")
     print(f"   PROJECTED: ${total_projected:.2f}/day")
     
     # 6. Action Items

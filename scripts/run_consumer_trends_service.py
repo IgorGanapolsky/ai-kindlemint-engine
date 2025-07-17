@@ -6,7 +6,6 @@ This script runs the Consumer Trends Integration as a production service,
 continuously monitoring trends and generating insights.
 """
 
-import os
 import sys
 import json
 import asyncio
@@ -14,8 +13,8 @@ import logging
 import signal
 import time
 from pathlib import Path
-from typing import Dict, List, Optional
-from datetime import datetime, timedelta
+from typing import Dict, List
+from datetime import datetime
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))

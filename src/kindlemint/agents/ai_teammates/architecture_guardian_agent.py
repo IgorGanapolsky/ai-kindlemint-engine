@@ -9,13 +9,10 @@ This agent acts as a senior architect teammate, ensuring:
 - Long-term maintainability and scalability
 """
 
-import ast
-import json
 import logging
 from dataclasses import dataclass
 from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional
 
 import anthropic
 from github import Github
@@ -607,7 +604,7 @@ class AIArchitectureGuardianAgent:
                         ArchitecturalViolation(
                             violation_type="kiss_violation",
                             severity="medium",
-                            description=f"Method is too complex (> 30 lines)",
+                            description="Method is too complex (> 30 lines)",
                             file_path=file.filename,
                             architectural_principle="Keep It Simple, Stupid",
                             suggested_fix="Break method into smaller, focused functions",
@@ -1057,7 +1054,7 @@ class AIArchitectureGuardianAgent:
         for rec in assessment.recommendations[:6]:
             comment += f"- {rec}\n"
 
-        comment += f"""
+        comment += """
 ### 🎯 Next Steps
 """
 
@@ -1117,14 +1114,14 @@ async def main():
     # Perform architectural review
     assessment = await agent.perform_architectural_review(args.repo, args.pr)
 
-    print(f"\n✅ Architectural review completed!")
+    print("\n✅ Architectural review completed!")
     print(f"🏗️ Health: {assessment.overall_health.upper()}")
     print(
         f"📐 Pattern Consistency: {assessment.pattern_consistency_score:.1f}/100")
     print(f"⚠️ Violations: {len(assessment.violations)}")
 
     if assessment.violations:
-        print(f"🚨 Key Issues:")
+        print("🚨 Key Issues:")
         for violation in assessment.violations[:3]:
             print(f"   - {violation.description}")
 

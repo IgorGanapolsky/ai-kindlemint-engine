@@ -5,19 +5,14 @@ Automated quality assurance that matches established publishing platforms
 """
 
 import asyncio
-import hashlib
 import json
 import logging
-import time
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
-import cv2
-import numpy as np
 from anthropic import Anthropic
-from PIL import Image, ImageDraw, ImageFont
 
 
 @dataclass

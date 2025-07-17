@@ -12,8 +12,7 @@ import json
 import asyncio
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional
-import subprocess
+from typing import Dict
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -185,7 +184,7 @@ class ConsumerTrendsDeployer:
             trends = await services["trend_analyzer"].analyze_all_trends()
             
             # Generate initial personalization data
-            personalization_data = await services["personalization_engine"].generate_user_segments()
+            await services["personalization_engine"].generate_user_segments()
             
             # Start signal monitoring
             await services["signal_listener"].start_monitoring()
@@ -225,7 +224,7 @@ WantedBy=multi-user.target
     
     def create_docker_compose(self) -> None:
         """Create Docker Compose configuration for containerized deployment."""
-        compose_content = f"""version: '3.8'
+        compose_content = """version: '3.8'
 
 services:
   kindlemint-trends:
@@ -233,16 +232,16 @@ services:
       context: .
       dockerfile: Dockerfile.trends
     environment:
-      - REDDIT_CLIENT_ID=${{REDDIT_CLIENT_ID}}
-      - REDDIT_CLIENT_SECRET=${{REDDIT_CLIENT_SECRET}}
-      - TIKTOK_ACCESS_TOKEN=${{TIKTOK_ACCESS_TOKEN}}
-      - GOOGLE_TRENDS_API_KEY=${{GOOGLE_TRENDS_API_KEY}}
-      - AMAZON_PRODUCT_API_KEY=${{AMAZON_PRODUCT_API_KEY}}
-      - AMAZON_PRODUCT_SECRET=${{AMAZON_PRODUCT_SECRET}}
-      - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
-      - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
-      - AWS_REGION=${{AWS_REGION}}
-      - S3_BUCKET=${{S3_BUCKET}}
+      - REDDIT_CLIENT_ID=${REDDIT_CLIENT_ID}
+      - REDDIT_CLIENT_SECRET=${REDDIT_CLIENT_SECRET}
+      - TIKTOK_ACCESS_TOKEN=${TIKTOK_ACCESS_TOKEN}
+      - GOOGLE_TRENDS_API_KEY=${GOOGLE_TRENDS_API_KEY}
+      - AMAZON_PRODUCT_API_KEY=${AMAZON_PRODUCT_API_KEY}
+      - AMAZON_PRODUCT_SECRET=${AMAZON_PRODUCT_SECRET}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION}
+      - S3_BUCKET=${S3_BUCKET}
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs

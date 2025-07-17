@@ -7,14 +7,11 @@ Advanced automation for real-time competitive advantage in publishing
 import asyncio
 import json
 import logging
-import time
 from dataclasses import asdict, dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
-import aiohttp
-import pandas as pd
 from anthropic import Anthropic
 
 
@@ -390,7 +387,7 @@ class CompetitiveIntelligenceOrchestrator:
     ) -> MarketOpportunity:
         """Score market opportunity based on strategic factors"""
         # Enhanced opportunity scoring with AI
-        strategic_analysis = await self._get_strategic_analysis(gap)
+        await self._get_strategic_analysis(gap)
 
         # Update strategic fit based on analysis
         gap.strategic_fit = min(

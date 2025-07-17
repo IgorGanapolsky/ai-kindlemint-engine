@@ -8,11 +8,10 @@ This agent acts as a senior technical lead teammate, making high-level decisions
 - Making autonomous merge decisions with full business context
 """
 
-import json
 import logging
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List
 
 import anthropic
 from github import Github
@@ -873,27 +872,27 @@ class AITechnicalLeadAgent:
         for area in ["competitive", "tactical", "quality", "seo"]:
             comment += f"- **{area.title()}:** Consulting business orchestrator...\n"
 
-        comment += f"""
+        comment += """
 ### ⚡ Strategic Factors
 **Risk Assessment:**
 """
         for risk_type, level in decision.risk_assessment.items():
             comment += f"- {risk_type.replace('_', ' ').title()}: {level.upper()}\n"
 
-        comment += f"""
+        comment += """
 ### 🚀 Technical Lead Reasoning
 """
         for reason in decision.technical_reasoning:
             comment += f"- {reason}\n"
 
         if decision.escalation_required:
-            comment += f"""
+            comment += """
 ### 🚨 ESCALATION REQUIRED
 This decision requires executive review due to strategic significance.
 Please involve business stakeholders before proceeding.
 """
 
-        comment += f"""
+        comment += """
 ### 📋 Next Steps
 """
         if decision.decision == "merge":
@@ -961,13 +960,13 @@ async def main():
     # Make strategic decision
     decision = await agent.make_strategic_decision(args.repo, args.pr)
 
-    print(f"\n✅ Strategic decision completed!")
+    print("\n✅ Strategic decision completed!")
     print(f"🎯 Decision: {decision.decision.upper()}")
     print(f"📊 Confidence: {decision.confidence:.1%}")
     print(f"💼 Business Justification: {decision.business_justification}")
 
     if decision.escalation_required:
-        print(f"🚨 ESCALATION REQUIRED: Executive review needed")
+        print("🚨 ESCALATION REQUIRED: Executive review needed")
 
 
 if __name__ == "__main__":

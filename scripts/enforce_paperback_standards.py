@@ -29,7 +29,7 @@ def check_all_paperback_dimensions():
                 violations.append(str(metadata_file))
                 print(f"❌ VIOLATION: {metadata_file}")
                 print(f"   Found: {dimensions}")
-                print(f"   Required: 8.5 x 11 inches")
+                print("   Required: 8.5 x 11 inches")
                 
                 # Auto-fix
                 data['dimensions'] = '8.5 x 11 inches'
@@ -59,7 +59,7 @@ def check_all_paperback_dimensions():
                 print(f"\n❌ SCRIPT VIOLATION: {py_file}")
                 print("   Contains 6x9 page setup - needs update to 8.5x11")
                 
-        except Exception as e:
+        except Exception:
             pass
     
     print("\n" + "=" * 70)

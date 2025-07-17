@@ -7,9 +7,9 @@ Extends existing WorktreeOrchestrator for BookTok marketing automation
 import asyncio
 import json
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 import logging
 
 from worktree_orchestrator import WorktreeOrchestrator, WorktreeTask
@@ -294,13 +294,13 @@ async def main():
     print("=" * 50)
     print(json.dumps(results["pipeline_summary"], indent=2))
     
-    print(f"\n🎯 SUCCESS METRICS:")
+    print("\n🎯 SUCCESS METRICS:")
     print(f"  - Books processed: {results['pipeline_summary']['books_processed']}")
     print(f"  - Worktrees used: {results['pipeline_summary']['worktrees_utilized']}")
     print(f"  - Execution time: {results['pipeline_summary']['total_execution_time']}")
     print(f"  - Parallel efficiency: {results['pipeline_summary']['parallel_efficiency']}")
     
-    print(f"\n🚀 NEXT STEPS:")
+    print("\n🚀 NEXT STEPS:")
     for step in results["next_steps"]:
         print(f"  - {step}")
     

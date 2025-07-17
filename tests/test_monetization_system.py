@@ -12,9 +12,7 @@ Tests all components:
 import pytest
 import json
 import os
-from datetime import datetime, timedelta
-from pathlib import Path
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 import sys
 
 # Add project root to path
@@ -46,7 +44,7 @@ class TestEmailAutomation:
             tags=["test"]
         )
         
-        assert result['success'] == True
+        assert result['success']
         assert result['subscriber']['email'] == "test@example.com"
         assert result['subscriber']['first_name'] == "Test"
         assert result['subscriber']['status'] == "active"
@@ -65,7 +63,7 @@ class TestEmailAutomation:
             first_name="Test"
         )
         
-        assert result['success'] == False
+        assert not result['success']
         assert result['error'] == "Already subscribed"
     
     def test_process_sequences(self, email_automation):
@@ -126,7 +124,7 @@ class TestConversionTracker:
             source="landing_page"
         )
         
-        assert result['success'] == True
+        assert result['success']
         assert result['event']['event_type'] == "signup"
     
     def test_track_purchase(self, tracker):
@@ -137,7 +135,7 @@ class TestConversionTracker:
             amount=9.99
         )
         
-        assert result['success'] == True
+        assert result['success']
         assert result['event']['event_type'] == "purchase"
     
     def test_funnel_metrics(self, tracker):
@@ -211,7 +209,7 @@ class TestStripeCheckout:
             customer_email="test@example.com"
         )
         
-        assert result['success'] == True
+        assert result['success']
         assert result['session_id'] == "cs_test_123"
         assert result['checkout_url'] == "https://checkout.stripe.com/pay/cs_test_123"
         assert result['amount'] == 9.99
@@ -231,7 +229,7 @@ class TestStripeCheckout:
             price_cents=999
         )
         
-        assert result['success'] == True
+        assert result['success']
         assert result['payment_link'] == "https://buy.stripe.com/test_link"
         assert result['product_id'] == "prod_123"
         assert result['price_id'] == "price_123"
@@ -261,7 +259,7 @@ class TestStripeCheckout:
                     signature="test_signature"
                 )
                 
-                assert result['success'] == True
+                assert result['success']
                 mock_handle.assert_called_once()
 
 
@@ -283,7 +281,7 @@ class TestAPIEndpoints:
         
         # Mock dependencies
         with patch('api.subscribe.EmailAutomation') as mock_automation:
-            with patch('api.subscribe.ConversionTracker') as mock_tracker:
+            with patch('api.subscribe.ConversionTracker'):
                 mock_instance = Mock()
                 mock_instance.add_subscriber.return_value = {
                     'success': True,
@@ -296,7 +294,7 @@ class TestAPIEndpoints:
                 
                 assert response['statusCode'] == 200
                 body = json.loads(response['body'])
-                assert body['success'] == True
+                assert body['success']
     
     def test_subscribe_missing_email(self):
         """Test subscribe endpoint with missing email"""
@@ -335,7 +333,7 @@ class TestLeadMagnetGeneration:
         # Run generation
         result = generate_lead_magnet()
         
-        assert result['success'] == True
+        assert result['success']
         assert 'pdf_file' in result
         assert 'json_file' in result
         assert result['puzzle_count'] == 5
@@ -436,7 +434,7 @@ def test_analytics_report_generation():
         # Run report generation
         result = generate_daily_report()
         
-        assert result['success'] == True
+        assert result['success']
         assert 'dashboard_file' in result
         assert 'text_report_file' in result
 

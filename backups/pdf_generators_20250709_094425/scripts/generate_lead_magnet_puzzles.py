@@ -7,13 +7,12 @@ Specifically designed for seniors 75+ with extra-large print
 import os
 import sys
 import json
-from datetime import datetime
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.colors import black, gray
+from reportlab.lib.colors import gray
 
 # Add project root to path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -292,7 +291,7 @@ class LeadMagnetGenerator:
         with open(json_path, 'w') as f:
             json.dump(puzzles, f, indent=2)
         
-        print(f"Lead magnet generation complete!")
+        print("Lead magnet generation complete!")
         print(f"PDF: {self.pdf_path}")
         print(f"Data: {json_path}")
 

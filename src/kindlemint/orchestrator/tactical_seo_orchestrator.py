@@ -7,14 +7,11 @@ Advanced competitive SEO automation that adapts to algorithm changes in real-tim
 import asyncio
 import json
 import logging
-import time
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
-import aiohttp
-import openai
 from anthropic import Anthropic
 
 

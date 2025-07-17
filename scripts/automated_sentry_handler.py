@@ -8,9 +8,8 @@ resolve runtime errors and maintain system health.
 
 import asyncio
 import sys
-import json
 import subprocess
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any
 import logging
@@ -279,7 +278,7 @@ class SentryErrorHandler:
         # Process current Sentry errors
         results = await self.process_sentry_errors()
         
-        print(f"📊 Sentry Error Processing Results:")
+        print("📊 Sentry Error Processing Results:")
         print(f"   • Total errors processed: {results['processed_errors']}")
         print(f"   • Critical errors found: {results['critical_errors']}")
         print(f"   • Errors auto-fixed: {results['fixed_errors']}")

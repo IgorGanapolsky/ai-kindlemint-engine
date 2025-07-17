@@ -12,8 +12,6 @@ This agent monitors individual book performance metrics including:
 import asyncio
 from kindlemint.billing.crawl_billing import crawl_billing_manager
 import json
-import logging
-import time
 import uuid
 from datetime import datetime, timedelta
 from pathlib import Path

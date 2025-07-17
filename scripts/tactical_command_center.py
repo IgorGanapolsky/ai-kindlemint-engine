@@ -10,7 +10,7 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
 from kindlemint.orchestrator.competitive_intelligence_orchestrator import (
     CompetitiveIntelligenceOrchestrator,
@@ -151,7 +151,7 @@ class TacticalCommandCenter:
         implementation = tactical_report.get("implementation_plan", {})
         phases = implementation.get("implementation_phases", {})
 
-        print(f"\n⏱️ IMPLEMENTATION TIMELINE:")
+        print("\n⏱️ IMPLEMENTATION TIMELINE:")
         print(f"  Immediate Actions: {len(phases.get('immediate', []))}")
         print(f"  Short-term (1-4 weeks): {len(phases.get('short_term', []))}")
         print(
@@ -161,7 +161,7 @@ class TacticalCommandCenter:
         # ROI projections
         roi = implementation.get("roi_projections", {})
         if roi:
-            print(f"\n💰 ROI PROJECTIONS:")
+            print("\n💰 ROI PROJECTIONS:")
             print(f"  6-month ROI: {roi.get('6_month_roi', 'TBD')}%")
             print(f"  12-month ROI: {roi.get('12_month_roi', 'TBD')}%")
             print(f"  Break-even: {roi.get('break_even', 'TBD')}")
@@ -304,15 +304,15 @@ async def main():
     # Execute command
     try:
         if args.command == "full-analysis":
-            result = await command_center.run_full_tactical_analysis(
+            await command_center.run_full_tactical_analysis(
                 metadata, output_file
             )
         elif args.command == "seo":
-            result = await command_center.run_seo_dominance(metadata, output_file)
+            await command_center.run_seo_dominance(metadata, output_file)
         elif args.command == "competitive":
-            result = await command_center.run_competitive_intelligence(output_file)
+            await command_center.run_competitive_intelligence(output_file)
         elif args.command == "quality":
-            result = await command_center.run_quality_assessment(metadata, output_file)
+            await command_center.run_quality_assessment(metadata, output_file)
 
         print(f"\n✅ Analysis complete! Results saved to: {output_file}")
 

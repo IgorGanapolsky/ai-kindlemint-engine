@@ -87,7 +87,7 @@ class HealthStatus:
 
         # Critical conditions
         if (
-            self.health_checks.get("responsive", True) == False
+            not self.health_checks.get("responsive", True)
             or self.metrics.error_rate > 50
             or self.metrics.cpu_usage > 95
             or self.metrics.memory_usage > 95

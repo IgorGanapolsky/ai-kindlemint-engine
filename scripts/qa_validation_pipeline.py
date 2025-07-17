@@ -204,7 +204,7 @@ class QAValidationPipeline:
 
         try:
             # Use pdfinfo to get page dimensions
-            result = subprocess.run(
+            subprocess.run(
                 ["pdfinfo", str(pdf_path)], capture_output=True, text=True
             )
 

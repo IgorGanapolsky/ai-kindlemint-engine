@@ -22,7 +22,6 @@ import logging
 import signal
 import sys
 import uuid
-from pathlib import Path
 from typing import List, Optional
 
 from .agents.automation_coordinator import AutomationCoordinator

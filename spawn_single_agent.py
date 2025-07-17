@@ -7,7 +7,6 @@ import sys
 sys.path.append('.')
 
 from scripts.multi_agent_orchestrator import MultiAgentOrchestrator
-import time
 
 def spawn_single_agent(url, task_description):
     """Spawn a single agent for a specific task"""
@@ -21,13 +20,13 @@ def spawn_single_agent(url, task_description):
     full_task = f"{task_description} (URL: {url})"
     
     # Spawn the agent
-    print(f"\n🚀 Creating agent...")
+    print("\n🚀 Creating agent...")
     agent_id = orchestrator.spawn_agent(full_task)
     print(f"✓ Agent {agent_id} spawned")
     
     print(f"\n⏳ Agent {agent_id} is working on:")
     print(f"   {task_description}")
-    print(f"\nThe agent will:")
+    print("\nThe agent will:")
     print("   • Create its own worktree")
     print("   • Research the resource")
     print("   • Implement findings")
@@ -35,13 +34,13 @@ def spawn_single_agent(url, task_description):
     print("   • Create a pull request")
     
     # Wait for completion
-    print(f"\n⌛ Waiting for agent to complete (timeout: 5 minutes)...")
+    print("\n⌛ Waiting for agent to complete (timeout: 5 minutes)...")
     orchestrator.wait_for_agents([agent_id], timeout=300)
     
     # Get final status
     status = orchestrator.get_agent_status(agent_id)
     
-    print(f"\n📊 Agent Status:")
+    print("\n📊 Agent Status:")
     print(f"   ID: {agent_id}")
     print(f"   Status: {status['status']}")
     print(f"   Branch: {status['branch']}")

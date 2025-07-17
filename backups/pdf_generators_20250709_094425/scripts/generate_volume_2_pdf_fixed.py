@@ -4,32 +4,13 @@ FIXED: Generate Volume 2 PDF with proper puzzle images (not solutions!)
 Ensures puzzles are playable with empty cells
 """
 
-import json
 import sys
 from datetime import datetime
 from pathlib import Path
 
-from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY
 from reportlab.lib.pagesizes import inch
-from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
-from reportlab.platypus import (
-    BaseDocTemplate,
-    Frame,
-    Image,
-    NextPageTemplate,
-    PageBreak,
-    PageTemplate,
-    Paragraph,
-    SimpleDocTemplate,
-    Spacer,
-    Table,
-    TableStyle,
-)
 
 # Page setup - 6x9 inch book
 PAGE_WIDTH = 6 * inch
@@ -78,7 +59,7 @@ class Volume2PDFGenerator:
         # Save PDF
         c.save()
         
-        print(f"\n✅ PDF generated successfully!")
+        print("\n✅ PDF generated successfully!")
         print(f"📄 Output: {output_file}")
         print(f"📏 Size: {output_file.stat().st_size / 1024 / 1024:.1f} MB")
         
@@ -219,7 +200,7 @@ class Volume2PDFGenerator:
         else:
             # Fallback error message
             c.setFont(BASE_FONT, 14)
-            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT / 2, f"ERROR: Puzzle image not found!")
+            c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT / 2, "ERROR: Puzzle image not found!")
             c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT / 2 - 20, f"Looking for: {puzzle_image.name}")
             print(f"  ⚠️  Missing puzzle image: {puzzle_image}")
         

@@ -5,7 +5,6 @@ Creates a complete puzzle book while you're away
 """
 
 import json
-import os
 from datetime import datetime
 from pathlib import Path
 import sys
@@ -96,7 +95,7 @@ def create_puzzle_book():
     
     # Create marketing copy
     marketing = {
-        "amazon_description": f"""
+        "amazon_description": """
 LARGE PRINT SUDOKU - Perfect for Travel!
 
 ★ 200 hand-crafted puzzles
@@ -173,7 +172,7 @@ python3 ../../scripts/generate_book.py --input puzzles.json --output {book_id}.p
     
     print("📋 BOOK CREATION SUMMARY:")
     print(f"   Title: {book_data['title']}")
-    print(f"   Puzzles: 200 (50 each difficulty)")
+    print("   Puzzles: 200 (50 each difficulty)")
     print(f"   Price: ${book_data['price']}")
     print(f"   Location: {book_dir}/")
     

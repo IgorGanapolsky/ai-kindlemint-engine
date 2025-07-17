@@ -301,7 +301,7 @@ class BookTokContentGenerator:
         # Generate summary report
         self.create_summary_report(scripts)
         
-        print(f"\n🎉 BookTok content generation complete!")
+        print("\n🎉 BookTok content generation complete!")
         print(f"📁 All files saved to: {self.output_dir}")
     
     def create_summary_report(self, scripts: List[Dict]) -> None:

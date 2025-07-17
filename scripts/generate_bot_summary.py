@@ -4,9 +4,7 @@ Generate summary reports for bot suggestion processing
 """
 
 import argparse
-import json
 from datetime import datetime
-from pathlib import Path
 
 
 def generate_summary_report(output_file: str):
