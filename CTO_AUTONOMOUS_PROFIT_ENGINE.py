@@ -7,11 +7,11 @@ Generates revenue through automated content, SEO, and email marketing
 import os
 import json
 import time
-import random
 import hashlib
 import subprocess
 from datetime import datetime, timedelta
 from pathlib import Path
+import secrets
 
 class AutonomousProfitEngine:
     def __init__(self):
@@ -196,7 +196,7 @@ If you enjoy our free sample, check out our complete collection:
     def simulate_traffic_generation(self):
         """Simulate organic traffic growth"""
         # This would integrate with actual traffic sources
-        daily_visitors = random.randint(50, 150)
+        daily_visitors = secrets.SystemRandom().randint(50, 150)
         conversion_rate = 0.25  # 25% email signup
         sales_conversion = 0.10  # 10% buy
         
