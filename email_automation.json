@@ -1,0 +1,48 @@
+{
+  "welcome_series": [
+    {
+      "day": 0,
+      "subject": "Your free puzzles are here! \ud83e\udde9",
+      "preview": "Plus a special surprise inside...",
+      "cta": "Download Your Puzzles"
+    },
+    {
+      "day": 1,
+      "subject": "Did you try the puzzles yet?",
+      "preview": "Here's a solving tip that will help...",
+      "cta": "Get More Free Puzzles"
+    },
+    {
+      "day": 3,
+      "subject": "The #1 mistake puzzle solvers make",
+      "preview": "And how to avoid it...",
+      "cta": "Learn the Secret"
+    },
+    {
+      "day": 5,
+      "subject": "Special offer: 50% off this week only",
+      "preview": "100+ puzzles for the price of coffee...",
+      "cta": "Claim Your Discount"
+    },
+    {
+      "day": 7,
+      "subject": "Last chance for 50% off",
+      "preview": "Offer expires tonight...",
+      "cta": "Get It Now"
+    }
+  ],
+  "buyer_series": [
+    {
+      "day": 0,
+      "subject": "Welcome to the puzzle family!",
+      "preview": "Your bonuses are inside...",
+      "cta": "Access Your Bonuses"
+    },
+    {
+      "day": 14,
+      "subject": "Create your own puzzle book?",
+      "preview": "New course just launched...",
+      "cta": "Learn More ($97)"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "target_organizations": [
+    "Senior Living Communities",
+    "Memory Care Centers",
+    "Adult Day Programs",
+    "Libraries with Senior Programs",
+    "Community Recreation Centers",
+    "Retirement Communities",
+    "Assisted Living Facilities",
+    "VA Medical Centers",
+    "Senior Activity Directors Association",
+    "Alzheimer's Support Groups"
+  ],
+  "pricing_tiers": {
+    "starter": {
+      "price": 197,
+      "description": "50 puzzles/month for up to 25 residents",
+      "features": [
+        "Monthly delivery",
+        "Large print",
+        "Answer keys"
+      ]
+    },
+    "professional": {
+      "price": 497,
+      "description": "200 puzzles/month for up to 100 residents",
+      "features": [
+        "Weekly delivery",
+        "Custom branding",
+        "Activity guides",
+        "Staff training"
+      ]
+    },
+    "enterprise": {
+      "price": 997,
+      "description": "Unlimited puzzles for multiple facilities",
+      "features": [
+        "Daily delivery",
+        "White label",
+        "API access",
+        "Dedicated support"
+      ]
+    }
+  },
+  "email_template": "\nSubject: Improve Resident Engagement with Large-Print Brain Training Puzzles\n\nDear [Activity Director Name],\n\nI hope this email finds you well. I'm reaching out because we've developed a puzzle program specifically designed for senior care facilities that has shown remarkable results in improving resident engagement and cognitive stimulation.\n\nOur large-print puzzle collections have helped facilities like yours:\n\u2022 Increase daily activity participation by 40%\n\u2022 Reduce resident anxiety and restlessness\n\u2022 Provide meaningful cognitive stimulation\n\u2022 Create opportunities for social interaction\n\nWhat makes our program different:\n\u2713 Extra-large print (no magnifying glass needed)\n\u2713 Progressive difficulty levels for all abilities\n\u2713 Themed puzzles that resonate with seniors\n\u2713 Complete activity guides for staff\n\u2713 Monthly fresh content delivery\n\nWe're currently offering a FREE 2-week trial for qualified facilities. This includes:\n- 20 assorted large-print puzzles\n- Activity implementation guide\n- Staff training materials\n- Engagement tracking tools\n\nWould you be interested in trying this with your residents? I'd be happy to send you our free trial package.\n\nBest regards,\n[Your name]\nP.S. We also offer white-label options if you'd like puzzles branded with your facility's logo.\n",
+  "roi_calculator": {
+    "resident_satisfaction": "+40%",
+    "staff_time_saved": "5 hours/week",
+    "activity_participation": "+35%",
+    "family_satisfaction": "+25%"
+  }
+}

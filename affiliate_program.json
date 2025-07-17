@@ -1,0 +1,11 @@
+{
+  "commission_rate": 0.3,
+  "cookie_duration": 30,
+  "minimum_payout": 50,
+  "promotional_materials": [
+    "email_swipes.txt",
+    "banner_ads.zip",
+    "social_media_posts.txt"
+  ],
+  "landing_page": "https://dvdyff0b2oove.cloudfront.net?ref=affiliate"
+}

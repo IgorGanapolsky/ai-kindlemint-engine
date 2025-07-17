@@ -1,0 +1,42 @@
+
+SUBJECT LINES:
+- Warning: Don't make this puzzle mistake
+- Free large-print puzzles (no squinting!)
+- My 82-year-old mom's brain training secret
+
+EMAIL 1:
+Subject: Warning: Don't make this puzzle mistake
+
+Hey [Name],
+
+Quick question - do you do puzzles?
+
+If yes, you might be making the same mistake I was...
+
+Using puzzles with TINY print that strain your eyes.
+
+My friend just shared these free large-print puzzles that are SO much better:
+{self.landing_page}?ref=YOUR_ID
+
+The difference is night and day. No more headaches!
+
+Talk soon,
+[Your name]
+
+EMAIL 2:
+Subject: My 82-year-old mom's secret
+
+Hey [Name],
+
+My mom just scored 150 on her cognitive test.
+
+The doctor was shocked - she's sharper than people half her age.
+
+Her secret? Daily large-print puzzles.
+
+She uses these free ones:
+{self.landing_page}?ref=YOUR_ID
+
+Just thought you might want to know!
+
+[Your name]
