@@ -5,8 +5,8 @@ Automated Profit Generator - Posts to Reddit and tracks revenue
 import os
 import json
 import time
-import random
 from datetime import datetime
+import secrets
 
 def post_to_reddit_simulator():
     """Simulates posting to Reddit (replace with actual Reddit API calls)"""
@@ -26,7 +26,7 @@ def post_to_reddit_simulator():
     
     print("\n🚀 Posting to Reddit...")
     for post in posts:
-        subreddit = random.choice(subreddits)
+        subreddit = secrets.choice(subreddits)
         print(f"✅ Posted {post} to {subreddit}")
         time.sleep(2)  # Simulate posting delay
     
