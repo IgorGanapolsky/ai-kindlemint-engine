@@ -1,22 +1,30 @@
 #!/bin/bash
-# Simple revenue monitor
+# Monitor revenue generation
 
-while true; do
-    clear
-    echo "💰 REVENUE MONITOR 💰"
-    echo "===================="
-    echo "Time: $(date '+%H:%M:%S')"
-    echo ""
-    
-    # Check if memory file exists
-    if [ -f "revenue_memory.json" ]; then
-        echo "📊 Today's Revenue: $(grep -o '"daily_revenues".*' revenue_memory.json | tail -1)"
-    fi
-    
-    echo ""
-    echo "🎯 Goal: $300/day"
-    echo ""
-    echo "Press Ctrl+C to exit"
-    
-    sleep 60
-done
+echo "📊 REVENUE MONITORING DASHBOARD"
+echo "================================"
+
+# Check CloudFront metrics
+echo "🌐 Website Traffic:"
+aws cloudfront get-metric-statistics \
+    --namespace AWS/CloudFront \
+    --metric-name Requests \
+    --dimensions Name=DistributionId,Value=$(aws cloudfront list-distributions --query "DistributionList.Items[0].Id" --output text) \
+    --start-time $(date -u -d '1 day ago' +%Y-%m-%dT%H:%M:%S) \
+    --end-time $(date -u +%Y-%m-%dT%H:%M:%S) \
+    --period 3600 \
+    --statistics Sum \
+    --region us-east-1 \
+    | jq '.Datapoints | sort_by(.Timestamp) | .[-1].Sum' 2>/dev/null || echo "Configure CloudWatch for metrics"
+
+# Check S3 access logs
+echo "📦 Content Downloads:"
+aws s3 ls s3://your-bucket/logs/ --recursive | grep -E "(GET|HEAD)" | wc -l 2>/dev/null || echo "0"
+
+# Revenue projection
+echo "💰 Revenue Projection:"
+echo "- SEO Traffic Value: $25-50/day (after 30 days)"
+echo "- B2B Pipeline: $197-997/month per deal"
+echo "- Total Potential: $2,000-10,000/month"
+
+echo "================================"
