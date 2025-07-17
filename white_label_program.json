@@ -1,0 +1,43 @@
+{
+  "service_tiers": {
+    "basic": {
+      "setup_fee": 497,
+      "monthly_fee": 197,
+      "features": [
+        "Your logo on all puzzles",
+        "Custom color scheme",
+        "50 puzzles/month"
+      ]
+    },
+    "premium": {
+      "setup_fee": 997,
+      "monthly_fee": 497,
+      "features": [
+        "Complete brand customization",
+        "Custom puzzle themes",
+        "200 puzzles/month",
+        "Marketing materials"
+      ]
+    },
+    "enterprise": {
+      "setup_fee": 2997,
+      "monthly_fee": 997,
+      "features": [
+        "Full white label solution",
+        "API integration",
+        "Unlimited puzzles",
+        "Priority support",
+        "Custom development"
+      ]
+    }
+  },
+  "target_partners": [
+    "Healthcare companies",
+    "Insurance providers",
+    "Pharmaceutical companies",
+    "Senior care franchises",
+    "Wellness coaches",
+    "Memory care specialists"
+  ],
+  "marketing_pitch": "\nAdd a proven brain training product to your offerings - without the development cost!\n\nOur white-label puzzle platform lets you:\n\u2022 Launch your own branded puzzle product in 48 hours\n\u2022 Tap into the $2.7B brain training market\n\u2022 Provide value to your customers/patients\n\u2022 Generate recurring revenue\n\u2022 Zero technical knowledge required\n\nEverything is done-for-you:\n\u2713 Puzzle generation\n\u2713 Branding/customization\n\u2713 Distribution system\n\u2713 Customer support\n\u2713 Regular content updates\n\nROI Example:\n- Investment: $497 setup + $197/month\n- Sell to 50 customers at $9.99/month = $499.50/month\n- Net profit: $302.50/month (153% ROI)\n- Scale to 500 customers = $4,798/month profit\n"
+}

@@ -1,0 +1,35 @@
+{
+  "free_traffic_sources": [
+    {
+      "source": "GitHub Pages",
+      "method": "Host SEO content on github.io subdomain",
+      "cost": "$0",
+      "traffic": "50-200 visitors/day after 30 days"
+    },
+    {
+      "source": "DEV.to / Medium / HashNode",
+      "method": "Publish 'How puzzles help seniors' articles",
+      "cost": "$0",
+      "traffic": "100-500 visitors per article"
+    },
+    {
+      "source": "LinkedIn Articles",
+      "method": "Target activity directors and healthcare",
+      "cost": "$0",
+      "traffic": "B2B leads worth $197-997/month each"
+    },
+    {
+      "source": "YouTube Shorts",
+      "method": "Record solving puzzles with phone",
+      "cost": "$0",
+      "traffic": "Viral potential - 1000+ views"
+    },
+    {
+      "source": "Email Signatures",
+      "method": "Add 'Free puzzles for seniors' link",
+      "cost": "$0",
+      "traffic": "Every email = potential customer"
+    }
+  ],
+  "automation_strategy": "\n# Daily Automated Actions (via AWS Lambda + CloudWatch Events)\n\n1. Generate 1 SEO article with Claude API\n2. Deploy to S3/CloudFront \n3. Submit URL to Google (free indexing API)\n4. Post excerpt to free platforms\n5. Track results in DynamoDB\n\nAll using services you're ALREADY paying for!\n"
+}

@@ -1,0 +1,41 @@
+{
+  "program_name": "MindFit Corporate",
+  "target_companies": [
+    "Companies with 50+ employees",
+    "Remote-first organizations",
+    "Companies with aging workforce",
+    "Healthcare organizations",
+    "Insurance companies"
+  ],
+  "pricing": {
+    "small": {
+      "employees": "50-200",
+      "price_per_employee_per_month": 2.99,
+      "minimum_monthly": 149
+    },
+    "medium": {
+      "employees": "201-1000",
+      "price_per_employee_per_month": 1.99,
+      "minimum_monthly": 398
+    },
+    "enterprise": {
+      "employees": "1000+",
+      "price_per_employee_per_month": 0.99,
+      "minimum_monthly": 990
+    }
+  },
+  "benefits_to_pitch": [
+    "Reduce healthcare costs",
+    "Improve employee cognitive performance",
+    "Boost workplace productivity",
+    "Support aging workforce",
+    "Enhance employee wellness benefits",
+    "Measurable brain health improvements"
+  ],
+  "implementation": {
+    "week_1": "Employee onboarding and puzzle access",
+    "week_2": "First brain health challenge",
+    "month_1": "Engagement report and optimization",
+    "ongoing": "Monthly themes and competitions"
+  }
+}

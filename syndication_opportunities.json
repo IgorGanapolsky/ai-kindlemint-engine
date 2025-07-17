@@ -1,0 +1,39 @@
+{
+  "puzzle_apps": [
+    {
+      "name": "Daily Brain Games App",
+      "terms": "$0.10 per puzzle download",
+      "potential_monthly": "$500-2000"
+    },
+    {
+      "name": "Senior Wellness Platform",
+      "terms": "$500/month flat fee",
+      "potential_monthly": "$500"
+    }
+  ],
+  "print_publishers": [
+    {
+      "name": "Local Newspapers",
+      "terms": "$50/week per newspaper",
+      "potential_monthly": "$200-1000"
+    },
+    {
+      "name": "Senior Living Magazines",
+      "terms": "$200/month per magazine",
+      "potential_monthly": "$400-1200"
+    }
+  ],
+  "online_platforms": [
+    {
+      "name": "Health & Wellness Websites",
+      "terms": "Revenue share 50/50",
+      "potential_monthly": "$300-1500"
+    },
+    {
+      "name": "Educational Platforms",
+      "terms": "$0.05 per view",
+      "potential_monthly": "$200-800"
+    }
+  ],
+  "licensing_agreement_template": "\nCONTENT LICENSING AGREEMENT\n\nThis agreement is between AI-KindleMint-Engine (\"Licensor\") and [Partner Name] (\"Licensee\").\n\n1. GRANT OF LICENSE\nLicensor grants Licensee a non-exclusive license to use, reproduce, and distribute the licensed puzzle content.\n\n2. COMPENSATION\nLicensee agrees to pay Licensor [payment terms] for the use of the content.\n\n3. CONTENT DELIVERY\nLicensor will provide [X] new puzzles per [time period] in the agreed format.\n\n4. ATTRIBUTION\nLicensee agrees to include attribution: \"Puzzles provided by AI-KindleMint-Engine\"\n\n5. TERM\nThis agreement is effective for 12 months and auto-renews unless terminated.\n"
+}
