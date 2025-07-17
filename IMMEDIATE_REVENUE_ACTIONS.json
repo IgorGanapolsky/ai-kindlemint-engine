@@ -1,0 +1,49 @@
+{
+  "action_plan": {
+    "hour_1": {
+      "action": "Submit to free directories",
+      "sites": [
+        "ProductHunt.com - 'Free Puzzle Friday'",
+        "Reddit r/freebies - Post free sample pack",
+        "Facebook Groups - Share in 5 senior groups",
+        "IndieHackers - Launch post"
+      ],
+      "expected_result": "50-100 visitors, 5-10 email signups"
+    },
+    "hour_2": {
+      "action": "Direct B2B outreach",
+      "tasks": [
+        "Email 10 local senior centers",
+        "Call 3 activity directors",
+        "LinkedIn message to 5 facility managers"
+      ],
+      "expected_result": "1-2 meetings scheduled"
+    },
+    "day_1": {
+      "action": "Launch flash sale",
+      "tasks": [
+        "Email any existing contacts",
+        "Post in relevant forums",
+        "Update landing page with urgency"
+      ],
+      "expected_result": "$50-200 in sales"
+    },
+    "week_1": {
+      "action": "Close B2B deals",
+      "tasks": [
+        "Follow up all leads",
+        "Offer 30-day free trial",
+        "Provide white label samples"
+      ],
+      "expected_result": "2-3 deals at $197-497/month"
+    }
+  },
+  "projections": {
+    "day_1": 50,
+    "day_3": 250,
+    "week_1": 1000,
+    "month_1": 5000,
+    "month_3": 15000,
+    "month_6": 50000
+  }
+}

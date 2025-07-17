@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Sunrise Senior Living",
+    "email_format": "activities@sunriseseniorliving.com",
+    "size": "Large chain",
+    "potential_value": "$997/month"
+  },
+  {
+    "name": "Local Community Centers",
+    "email_format": "info@[cityname]communitycenter.org",
+    "size": "Individual centers",
+    "potential_value": "$197/month"
+  },
+  {
+    "name": "YMCA Senior Programs",
+    "email_format": "seniors@ymca.org",
+    "size": "National organization",
+    "potential_value": "$497/month"
+  },
+  {
+    "name": "Libraries with Senior Programs",
+    "email_format": "programs@[cityname]library.org",
+    "size": "Local libraries",
+    "potential_value": "$197/month"
+  },
+  {
+    "name": "VA Medical Centers",
+    "email_format": "recreation@va.gov",
+    "size": "Government facilities",
+    "potential_value": "$497/month"
+  }
+]

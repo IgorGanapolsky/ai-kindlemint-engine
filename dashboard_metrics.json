@@ -1,0 +1,21 @@
+{
+  "revenue_chart": {
+    "current": 0,
+    "week_1": 350,
+    "month_1": 3000,
+    "month_3": 10000,
+    "month_6": 25000
+  },
+  "traffic_sources": {
+    "SEO": "Building (40% of traffic in 3 months)",
+    "Direct": "Active (landing page live)",
+    "Referral": "Growing (affiliate program)",
+    "Social": "Limited (no API access needed)"
+  },
+  "conversion_funnel": {
+    "visitors": 1000,
+    "email_signups": 250,
+    "purchases": 25,
+    "backend_sales": 5
+  }
+}
