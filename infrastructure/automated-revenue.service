@@ -1,0 +1,15 @@
+[Unit]
+Description=Automated Revenue Generator
+After=network.target
+
+[Service]
+Type=simple
+User=igorganapolsky
+WorkingDirectory=/home/igorganapolsky/workspace/git/ai-kindlemint-engine
+Environment=PATH=/home/igorganapolsky/workspace/git/ai-kindlemint-engine/venv/bin
+ExecStart=/home/igorganapolsky/workspace/git/ai-kindlemint-engine/venv/bin/python3 /home/igorganapolsky/workspace/git/ai-kindlemint-engine/scripts/automated_business_orchestrator.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
