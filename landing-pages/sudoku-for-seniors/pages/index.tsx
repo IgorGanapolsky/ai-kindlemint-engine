@@ -31,28 +31,31 @@ export default function Home() {
         <header className="container mx-auto px-6 py-12">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Large Print Sudoku
-              <span className="block text-blue-600 mt-2">For Seniors</span>
+              AI KindleMint Engine
+              <span className="block text-blue-600 mt-2">Automated Book Publishing</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
-              Finally, Sudoku puzzles you can actually see! 
-              <span className="block mt-2">No more squinting. No more eye strain.</span>
+              Create & Publish Kindle Books with AI • Generate 7-Chapter Books • Perfect for Seniors
+              <span className="block mt-2 text-green-600 font-semibold">✓ No writing or coding needed</span>
             </p>
 
             {/* Trust Indicators */}
             <div className="flex flex-wrap justify-center gap-8 mb-12">
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600">20pt+</div>
+                <div className="text-red-600 font-semibold">🔥 LIMITED TIME: One-Time Payment (No Subscriptions!)</div>
                 <div className="text-gray-600">Font Size</div>
+              </div>
+              <div className="text-center mb-6">
+                <div className="text-sm text-gray-600 mb-2">Other AI Tools: $97+/month</div>
+                <div className="text-lg text-gray-600 line-through mb-2">Regular Price: $97</div>
+                <div className="text-4xl font-bold text-green-600 mb-2">Launch Price: $49</div>
+                <div className="text-red-600 font-semibold">🔥 LIMITED TIME: One-Time Payment (No Subscriptions!)</div>
+                <div className="text-sm text-orange-600 mt-2">⏰ Start earning from publishing fast!</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-blue-600">4,000+</div>
                 <div className="text-gray-600">Happy Solvers</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600">4.8★</div>
-                <div className="text-gray-600">Average Rating</div>
               </div>
             </div>
 
@@ -60,12 +63,45 @@ export default function Home() {
             {!showThankYou ? (
               <div className="bg-white rounded-lg shadow-xl p-8 max-w-2xl mx-auto">
                 <h2 className="text-3xl font-semibold mb-4 text-gray-900">
-                  Get 5 FREE Brain-Boosting Puzzles
+                 🚀 Get AI KindleMint Engine - $49 One-Time
                 </h2>
                 <p className="text-lg text-gray-700 mb-6">
-                  Join thousands of seniors who start their day with mental exercise!
+                  Start earning from publishing with AI automation!
                 </p>
-                <SimpleEmailCapture onSuccess={() => setShowThankYou(true)} />
+                
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-center">
+                    <span className="text-green-600 mr-3">✓</span>
+                    <span>Generate 7-chapter books (puzzle or story formats)</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-green-600 mr-3">✓</span>
+                    <span>Export .kpf and .docx files for Kindle Create</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-green-600 mr-3">✓</span>
+                    <span>Includes full Replit code and setup scripts</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-green-600 mr-3">✓</span>
+                    <span>One-click automation using AI agents</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-green-600 mr-3">✓</span>
+                    <span>30-day email support included</span>
+                  </div>
+                </div>
+              
+                <button 
+                  onClick={() => window.location.href = 'https://iganapolsky.gumroad.com/l/pyjutw'}
+                  className="w-full bg-green-600 text-white text-xl font-bold py-4 px-8 rounded-lg hover:bg-green-700 transition-colors mb-4"
+                >
+                  🚀 Get AI KindleMint Engine - $49 One-Time
+                </button>
+                
+                <div className="text-center text-sm text-gray-600">
+                  ✅ Instant Download • ✅ 30-Day Support • ✅ No Subscriptions
+                </div>
               </div>
             ) : (
               <div className="bg-green-50 rounded-lg shadow-xl p-8 max-w-2xl mx-auto">

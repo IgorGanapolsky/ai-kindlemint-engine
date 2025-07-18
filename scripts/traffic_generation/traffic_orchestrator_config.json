@@ -7,8 +7,11 @@
   "schedule": {
     "run_every_hours": 4,
     "start_hour": 8,
-    "end_hour": 20
+    "end_hour": 20,
+    "reddit": ["09:00", "13:00", "17:00", "21:00"],
+    "pinterest": ["10:00", "14:00", "18:00", "22:00"],
+    "facebook": ["11:00", "15:00", "19:00", "23:00"]
   },
-  "landing_page": "https://dvdyff0b2oove.cloudfront.net",
+  "landing_page": "https://dvdyff0b2oove.cloudfront.net/buy-now.html",
   "metrics_tracking": true
 }

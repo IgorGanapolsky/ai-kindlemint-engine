@@ -1,4 +1,18 @@
 {
+  "total_revenue": 0,
+  "sales_count": 311,
+  "real_traffic": 72742,
+  "channels": {
+    "social_media": 3,
+    "email": 311,
+    "landing_page": 3,
+    "stripe": 311,
+    "reddit": 308,
+    "facebook": 308,
+    "google_ads": 308,
+    "facebook_ads": 308
+  },
+  "last_sale": "2025-07-18T14:40:05.089138",
   "launch_time": "2025-07-15T01:20:57.286397",
   "systems_launched": [
     "reddit_traffic",
